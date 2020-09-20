@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.IntTreeMap;
@@ -12,7 +13,7 @@ public final class RendEmptyInstruction extends RendLeaf implements RendWithEl,R
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
 
     }
 

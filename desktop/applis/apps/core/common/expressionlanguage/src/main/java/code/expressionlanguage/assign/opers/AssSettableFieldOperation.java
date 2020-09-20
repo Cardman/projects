@@ -1,7 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
@@ -24,7 +23,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         Argument arg_ = getArgument();
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(this);
@@ -34,11 +33,10 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
             AssUtil.setAssignments(this,_ass,_a);
             return;
         }
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(page_);
+        isBool_ = getResultClass().isBoolType(_page);
         StringMap<Assignment> ass_ =AssignmentsUtil.assignAfter(isBool_,assB_);
-        boolean procField_ = isFromCurrentClass(_conf);
+        boolean procField_ = isFromCurrentClass(_page);
         ClassField cl_ = fieldMetaInfo.getClassField();
         AssMethodOperation par_ = getParent();
         if (par_ instanceof AssAffectationOperation && isFirstChildInParent()) {
@@ -61,12 +59,12 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
                 }
             }
         }
-        if (_conf.getAnalyzing().isAssignedStaticFields()) {
+        if (_page.isAssignedStaticFields()) {
             if (fieldMetaInfo.isStaticField()) {
                 procField_ = false;
             }
         }
-        if (_conf.getAnalyzing().isAssignedFields()) {
+        if (_page.isAssignedFields()) {
             procField_ = false;
         }
         if (procField_) {
@@ -74,13 +72,13 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
                     if (fieldMetaInfo.isFinalField() && !declare) {
                         //error if final field
-                        setRelativeOffsetPossibleAnalyzable(_conf);
+                        setRelativeOffsetPossibleAnalyzable(_page);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(page_.getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                        un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
-                        _conf.getAnalyzing().addLocError(un_);
+                        _page.addLocError(un_);
                     }
                 }
             }
@@ -92,8 +90,8 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         vars_.getVariables().put(this, ass_);
         vars_.getFields().put(this, assA_);
     }
-    public final boolean isFromCurrentClass(ContextEl _an) {
-        if (notMatchCurrentType(_an)) {
+    public final boolean isFromCurrentClass(AnalyzedPageEl _page) {
+        if (notMatchCurrentType(_page)) {
             return false;
         }
         if (isFirstChild()) {
@@ -113,9 +111,9 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         return false;
     }
 
-    private boolean notMatchCurrentType(ContextEl _an) {
+    private boolean notMatchCurrentType(AnalyzedPageEl _page) {
         ClassField clField_ = fieldMetaInfo.getClassField();
-        String gl_ = _an.getAnalyzing().getGlobalClass();
+        String gl_ = _page.getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
         return !StringList.quickEq(clField_.getClassName(), id_);
     }

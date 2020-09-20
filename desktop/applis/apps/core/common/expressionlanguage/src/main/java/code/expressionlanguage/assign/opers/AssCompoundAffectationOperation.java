@@ -1,6 +1,5 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -24,20 +23,19 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
         settable = AssAffectationOperation.tryGetSettable(this);
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf,_ass,_a,_nextSibling,_previous);
+    public void analyzeAssignmentBeforeNextSibling(AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
+        analyzeStdAssignmentBeforeNextSibling(_ass,_a,_nextSibling,_previous);
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         AssOperationNode firstChild_ = settable;
         AssOperationNode lastChild_ = getChildrenNodes().last();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         StringMap<Assignment> variablesAfter_ = new StringMap<Assignment>();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(page_);
+        isBool_ = getResultClass().isBoolType(_page);
         if (firstChild_ instanceof AssStdVariableOperation) {
             StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             String str_ = ((AssStdVariableOperation)firstChild_).getVariableName();
@@ -46,13 +44,13 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
                     if (!e.getValue().isUnassignedAfter()) {
                         if (_a.isFinalLocalVar(str_)) {
                             //error
-                            firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
+                            firstChild_.setRelativeOffsetPossibleAnalyzable(_page);
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-                            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     str_);
-                            _conf.getAnalyzing().addLocError(un_);
+                            _page.addLocError(un_);
                         }
                     }
                 }
@@ -66,19 +64,19 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
         boolean fromCurClass_ = false;
         if (firstChild_ instanceof AssSettableFieldOperation) {
             AssSettableFieldOperation cst_ = (AssSettableFieldOperation)firstChild_;
-            fromCurClass_ = cst_.isFromCurrentClass(_conf);
+            fromCurClass_ = cst_.isFromCurrentClass(_page);
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            if (AssUtil.checkFinalField(_conf, _ass,cst_, fieldsAfterLast_)) {
+            if (AssUtil.checkFinalField(_ass,cst_, fieldsAfterLast_, _page)) {
                 ClassField cl_ = cst_.getFieldId();
                 if (cst_.getFieldMetaInfo().isFinalField()) {
                     //error if final field
-                    firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
+                    firstChild_.setRelativeOffsetPossibleAnalyzable(_page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
-                    un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
-                    _conf.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                 }
             }
         }

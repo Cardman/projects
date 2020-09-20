@@ -39,25 +39,24 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(variableNameOffset);
-        page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(variableNameOffset);
+        _page.setOffset(0);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _page);
             return;
         }
-        page_.setGlobalOffset(classNameOffset);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
+        _page.setGlobalOffset(classNameOffset);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setConstType(ConstType.FIX_VAR);
-        _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lv_);
+        _page.getInfosVars().put(variableName, lv_);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendAbstractCatchEval)) {
             if (!(pBlock_ instanceof RendTryEval)) {
@@ -65,29 +64,29 @@ public final class RendCatchEval extends RendAbstractCatchEval {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _page.getKeyWords().getKeyWordCatch(),
                             StringList.join(
                                     new StringList(
-                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
-                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
+                                            _page.getKeyWords().getKeyWordCatch(),
+                                            _page.getKeyWords().getKeyWordTry()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _anaDoc, _page);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _page.getKeyWords().getKeyWordCatch(),
                                 StringList.join(
                                         new StringList(
-                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
-                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
+                                                _page.getKeyWords().getKeyWordCatch(),
+                                                _page.getKeyWords().getKeyWordTry()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _page);
                     }
                 }
             }

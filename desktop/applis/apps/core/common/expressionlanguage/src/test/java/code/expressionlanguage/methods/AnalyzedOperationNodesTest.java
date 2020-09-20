@@ -5147,7 +5147,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static void buildAllBracesBodies(StringMap<String> files_, AnalyzedTestContext cont_) {
-        ClassesUtil.buildAllBracesBodies(files_, cont_.getContext());
+        ClassesUtil.buildAllBracesBodies(files_, cont_.getAnalyzing());
     }
 
 }

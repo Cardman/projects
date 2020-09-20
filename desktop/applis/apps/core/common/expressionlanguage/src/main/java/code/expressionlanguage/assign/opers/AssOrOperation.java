@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
@@ -16,12 +16,12 @@ public final class AssOrOperation extends AssMultMethodOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
-        analyzeFalseAssignmentBeforeNextSibling(_conf,_ass,_a, _nextSibling, _previous);
+    public void analyzeAssignmentBeforeNextSibling(AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
+        analyzeFalseAssignmentBeforeNextSibling(_ass,_a, _nextSibling, _previous);
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         CustList<AssOperationNode> children_ = getChildrenNodes();
         AssOperationNode last_ = children_.last();

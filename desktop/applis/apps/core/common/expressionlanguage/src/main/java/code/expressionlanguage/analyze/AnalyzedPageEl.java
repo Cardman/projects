@@ -28,6 +28,7 @@ import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -148,6 +149,21 @@ public final class AnalyzedPageEl {
     private KeyWords keyWords;
     private boolean gettingErrors;
     private Options options;
+
+    public static AnalyzedPageEl setInnerAnalyzing() {
+        AnalyzedPageEl page_ = new AnalyzedPageEl();
+        page_.setProcessKeyWord(new DefaultProcessKeyWord());
+        page_.setHiddenTypes(new DefaultHiddenTypes(page_));
+        page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
+        page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
+        page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
+        page_.setLoopDeclaring(new DefaultLoopDeclaring(page_));
+        page_.setLocalDeclaring(new DefaultLocalDeclaring(page_));
+        page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
+        page_.setLocalizer(new DefaultLocalizer(page_));
+        page_.setTokenValidation(new DefaultTokenValidation(page_));
+        return page_;
+    }
 
     public Classes getClasses() {
         return classes;

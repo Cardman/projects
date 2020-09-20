@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -35,18 +34,17 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
+    public void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int index_ = page_.getLocalizer().getCurrentLocationIndex();
+            badEl_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int index_ = _page.getLocalizer().getCurrentLocationIndex();
             badEl_.setIndexFile(index_);
             //oper len
-            badEl_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadOperatorRef(),
+            badEl_.buildError(_page.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
-            page_.getLocalizer().addError(badEl_);
+            _page.getLocalizer().addError(badEl_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badEl_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+1));
@@ -56,18 +54,18 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         OperationNode r_ = chidren_.last();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _conf);
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _page);
         if (cl_.getSymbol() != null) {
             classMethodId = cl_.getSymbol();
             rootNumber = cl_.getRootNumber();
             memberNumber = cl_.getMemberNumber();
             return;
         }
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(AnalyzedPageEl _page) {
         if (classMethodId != null) {
             return;
         }
@@ -84,7 +82,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             b_ = !b_;
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));
-        setSimpleArgumentAna(arg_, _conf.getAnalyzing());
+        setSimpleArgumentAna(arg_, _page);
     }
     @Override
     void calculateChildren() {

@@ -1,11 +1,9 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
-import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.*;
 
@@ -17,15 +15,15 @@ public final class AssSwitchPartBlock extends AssBracedStack {
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _a) {
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         AssBlock nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _a));
-        assBl_.getVariablesRootBefore().putAllMap(buildVariablesSwitchPart(_an, _a));
+        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_a));
+        assBl_.getVariablesRootBefore().putAllMap(buildVariablesSwitchPart(_a));
         id_.put(nextSibling_, assBl_);
     }
-    protected StringMap<AssignmentBefore> buildVariablesSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
+    protected StringMap<AssignmentBefore> buildVariablesSwitchPart(AssignedVariablesBlock _anEl){
         AssBracedBlock br_ = getParent();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);
@@ -42,7 +40,7 @@ public final class AssSwitchPartBlock extends AssBracedStack {
         return buildSwitchPart(assSwitch_, current_);
     }
 
-    protected StringMap<AssignmentBefore> buildFieldsSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
+    protected StringMap<AssignmentBefore> buildFieldsSwitchPart(AssignedVariablesBlock _anEl){
         AssBracedBlock br_ = getParent();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);

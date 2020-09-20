@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -69,41 +70,41 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         RendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
-                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
+                    _page.getKeyWords().getKeyWordDo(),
+                    _page.getKeyWords().getKeyWordWhile());
+            Configuration.addError(un_, _anaDoc, _page);
         } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
             if (!(pBlock_ instanceof RendPossibleEmpty)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
+                        _page.getKeyWords().getKeyWordDo(),
+                        _page.getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _anaDoc, _page);
             } else if (pBlock_.getNextSibling() == null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
+                        _page.getKeyWords().getKeyWordDo(),
+                        _page.getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _anaDoc, _page);
             } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
+                        _page.getKeyWords().getKeyWordDo(),
+                        _page.getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _anaDoc, _page);
             }
         }
     }

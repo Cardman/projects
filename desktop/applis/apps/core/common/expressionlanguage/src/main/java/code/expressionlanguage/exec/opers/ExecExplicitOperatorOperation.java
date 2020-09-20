@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -24,10 +25,10 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
     private ExecRootBlock rootBlock;
     private int offsetOper;
 
-    public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
+    public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct, AnalyzedPageEl _page) {
         super(_fct);
-        named = fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = fetchType(_fct.getRootNumber(), _context.getAnalyzing());
+        named = fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _page);
+        rootBlock = fetchType(_fct.getRootNumber(), _page);
         kind = getKind(_fct.getClassMethodId());
         className = getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();

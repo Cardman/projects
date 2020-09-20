@@ -19,7 +19,7 @@ public final class RendField extends RendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof RendClass)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
@@ -27,16 +27,15 @@ public final class RendField extends RendParentBlock {
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordField(),
                     _cont.getRendKeyWords().getKeyWordClass());
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _page);
         } else {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
             _anaDoc.setInternGlobalClass(intern_);
-            AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-            page_.setGlobalOffset(prepareOffset);
-            page_.setOffset(0);
+            _page.setGlobalOffset(prepareOffset);
+            _page.setOffset(0);
             _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());
-            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
+            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc, _page);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }

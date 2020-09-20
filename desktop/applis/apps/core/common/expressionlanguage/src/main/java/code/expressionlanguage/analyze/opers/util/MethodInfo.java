@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.*;
@@ -135,10 +135,10 @@ public final class MethodInfo implements Parametrable {
         varArgWrap = _v;
     }
 
-    public void format(boolean _keepParams,ContextEl _an) {
+    public void format(boolean _keepParams, AnalyzedPageEl _page) {
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaTemplates.wildCardFormatParam(className,p,_an));
+            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
         }
         formattedParams = params_;
         formatted = new MethodId(MethodId.getKind(_keepParams), constraints.getName(), params_, isVararg());

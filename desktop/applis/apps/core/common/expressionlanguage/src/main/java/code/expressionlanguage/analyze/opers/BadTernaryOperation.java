@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -18,27 +17,26 @@ public final class BadTernaryOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String fct_ = getOperations().getFctName();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringList.getFirstPrintableCharIndex(fct_), _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringList.getFirstPrintableCharIndex(fct_), _page);
+        LgNames stds_ = _page.getStandards();
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-        badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
-        badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+        badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //=> move to BadTernaryOperation (underline key word)
-        badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
+        badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                 Integer.toString(BOOLEAN_ARGS),
                 Integer.toString(chidren_.size()),
-                _conf.getAnalyzing().getKeyWords().getKeyWordBool()
+                _page.getKeyWords().getKeyWordBool()
         );
-        page_.getLocalizer().addError(badNb_);
+        _page.getLocalizer().addError(badNb_);
         getErrs().add(badNb_.getBuiltError());
         StringList deep_ = getErrs();
-        int i_ = page_.getLocalizer().getCurrentLocationIndex();
+        int i_ = _page.getLocalizer().getCurrentLocationIndex();
         getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-        getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordBool().length()));
+        getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
 

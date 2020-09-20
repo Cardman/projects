@@ -36,23 +36,22 @@ public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
         }
-        page_.setMerged(true);
-        page_.setAcceptCommaInstr(true);
-        page_.setFinalVariable(false);
-        page_.setCurrentVarSetting(importedClassName);
-        page_.getVariablesNames().clear();
-        page_.getVariablesNamesToInfer().clear();
+        _page.setMerged(true);
+        _page.setAcceptCommaInstr(true);
+        _page.setFinalVariable(false);
+        _page.setCurrentVarSetting(importedClassName);
+        _page.getVariablesNames().clear();
+        _page.getVariablesNamesToInfer().clear();
     }
 
     @Override

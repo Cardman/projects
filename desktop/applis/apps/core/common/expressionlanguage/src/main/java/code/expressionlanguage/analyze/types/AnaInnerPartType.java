@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -12,17 +12,17 @@ final class AnaInnerPartType extends AnaBinaryType {
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
+    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
+    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
+    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
@@ -41,8 +41,8 @@ final class AnaInnerPartType extends AnaBinaryType {
     }
 
     @Override
-    void buildErrorInexist(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().lastKey();
+    void buildErrorInexist(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().lastKey();
         int len_ = getOperators().lastValue().length();
         buildOffsetPart(begin_,len_);
     }

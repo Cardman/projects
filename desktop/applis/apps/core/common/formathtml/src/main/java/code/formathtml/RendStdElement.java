@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
@@ -12,7 +13,7 @@ public final class RendStdElement extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (StringList.quickEq(_read.getTagName(),StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordParam()))) {
             _list.clear();
         }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -19,21 +18,20 @@ public final class StaticInitOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         setResultClass(new AnaClassArgumentMatching(EMPTY_STRING));
     }
 
-    void setInit(ContextEl _conf, String _base, boolean _staticType) {
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
+    void setInit(String _base, boolean _staticType, AnalyzedPageEl _page) {
         if (!_staticType) {
             possibleInitClass = false;
-            String argClName_ = page_.getStandards().getAliasObject();
+            String argClName_ = _page.getStandards().getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        if (page_.getAnaClassBody(_base) != null) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        if (_page.getAnaClassBody(_base) != null) {
             possibleInitClass = true;
         } else {
             setSimpleArgument(new Argument());

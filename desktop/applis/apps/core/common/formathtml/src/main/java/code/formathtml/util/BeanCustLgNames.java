@@ -865,7 +865,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         buildIterables(_page);
         AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
-        _conf.setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_, options_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));

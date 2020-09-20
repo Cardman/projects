@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -17,10 +17,10 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
     private int argOffset;
     private ExecRootBlock rootBlock;
 
-    public RendValuesOperation(ValuesOperation _v, ContextEl _cont) {
+    public RendValuesOperation(ValuesOperation _v, AnalyzedPageEl _page) {
         super(_v);
         argOffset = _v.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_v.getNumberEnum(), _cont.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_v.getNumberEnum(), _page);
     }
 
     @Override

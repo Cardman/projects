@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBreakBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -31,16 +30,15 @@ public final class BreakBlock extends AbruptBlock {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        checkBreakable(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        checkBreakable(_page);
         ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkBreakable(ContextEl _cont) {
+    private void checkBreakable(AnalyzedPageEl _page) {
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {
@@ -61,7 +59,7 @@ public final class BreakBlock extends AbruptBlock {
             b_ = b_.getParent();
         }
         if (!childOfBreakable_) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            AnalyzedPageEl page_ = _page;
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -69,41 +67,41 @@ public final class BreakBlock extends AbruptBlock {
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 //key word len
-                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getAnalyzing().getKeyWords().getKeyWordBreak(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
+                        _page.getKeyWords().getKeyWordBreak(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordSwitch(),
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordIter(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             } else {
                 //key word len
-                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getAnalyzing().getKeyWords().getKeyWordBreak(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _page.getKeyWords().getKeyWordBreak(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordTry(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordCatch(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordFinally(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordIf(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordElseif(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordElse(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordSwitch(),
+                                        _page.getKeyWords().getKeyWordTry(),
+                                        _page.getKeyWords().getKeyWordCatch(),
+                                        _page.getKeyWords().getKeyWordFinally(),
+                                        _page.getKeyWords().getKeyWordIf(),
+                                        _page.getKeyWords().getKeyWordElseif(),
+                                        _page.getKeyWords().getKeyWordElse(),
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordIter(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             }
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             if (label.isEmpty()) {
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
@@ -114,8 +112,8 @@ public final class BreakBlock extends AbruptBlock {
     }
 
     @Override
-    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
-        super.abrupt(_an, _anEl);
+    public void abrupt(AnalyzingEl _anEl) {
+        super.abrupt(_anEl);
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {

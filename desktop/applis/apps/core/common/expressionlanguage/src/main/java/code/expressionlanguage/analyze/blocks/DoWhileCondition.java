@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.exec.blocks.ExecDoWhileCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -60,16 +60,16 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
+    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         if (getFirstChild() != null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getDoWhileNotEmpty(),
-                    _an.getAnalyzing().getKeyWords().getKeyWordWhile(),
-                    _an.getAnalyzing().getKeyWords().getKeyWordDo());
-            _an.getAnalyzing().addLocError(un_);
+            un_.buildError(_page.getAnalysisMessages().getDoWhileNotEmpty(),
+                    _page.getKeyWords().getKeyWordWhile(),
+                    _page.getKeyWords().getKeyWordDo());
+            _page.addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         }

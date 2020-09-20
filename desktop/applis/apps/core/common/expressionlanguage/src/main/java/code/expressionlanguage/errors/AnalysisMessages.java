@@ -1,6 +1,6 @@
 package code.expressionlanguage.errors;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.util.EntryCust;
 import code.util.StringMap;
 
@@ -459,12 +459,12 @@ public final class AnalysisMessages {
     private String unexpectedLeaf="The key word {0} is unexpected here.";
     private String emptyPart="There must be an expression.";
 
-    public static void validateMessageContents(ContextEl _cont, StringMap<String> _list) {
+    public static void validateMessageContents(StringMap<String> _list, AnalyzedPageEl _page) {
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
-                _cont.getAnalyzing().addMessageError(key_);
+                _page.addMessageError(key_);
             }
         }
     }

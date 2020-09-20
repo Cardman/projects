@@ -125,13 +125,13 @@ public final class Configuration {
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
     }
 
-    public void init() {
+    public void init(AnalyzedPageEl _page) {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
         prefix = StringList.concat(prefix,SEP);
         standards.build();
-        ValidatorStandard.setupOverrides(context);
+        ValidatorStandard.setupOverrides(_page);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
     }
@@ -189,9 +189,7 @@ public final class Configuration {
         formsNames = new StringList();
         currentForm = 0;
     }
-    public void setNullAnalyzing() {
-        context.setNullAnalyzing();
-    }
+
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.hasException()) {

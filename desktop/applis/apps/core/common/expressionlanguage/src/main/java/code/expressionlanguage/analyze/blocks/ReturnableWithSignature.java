@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 
 public interface ReturnableWithSignature {
-    String getSignature(ContextEl _ana);
+    String getSignature(AnalyzedPageEl _page);
 }

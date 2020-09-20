@@ -1,11 +1,10 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
@@ -46,10 +45,10 @@ public abstract class AssMethodOperation extends AssOperationNode {
         return list_;
     }
 
-    public final void tryAnalyzeAssignmentBefore(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _firstChild) {
-        analyzeAssignmentBefore(_conf, _ass,_a,_firstChild);
+    public final void tryAnalyzeAssignmentBefore(AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _firstChild) {
+        analyzeAssignmentBefore(_ass,_a,_firstChild);
     }
-    public void analyzeAssignmentBefore(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _firstChild) {
+    public void analyzeAssignmentBefore(AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _firstChild) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         StringMap<AssignmentBefore> fields_;
         StringMap<AssignmentBefore> variables_;
@@ -59,13 +58,13 @@ public abstract class AssMethodOperation extends AssOperationNode {
         vars_.getVariablesBefore().put(_firstChild, variables_);
     }
 
-    public void analyzeStdAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeStdAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         CustList<AssOperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         StringMap<Assignment> variablesAfter_ = new StringMap<Assignment>();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf.getAnalyzing());
+        isBool_ = getResultClass().isBoolType(_page);
         if (children_.isEmpty()) {
             fieldsAfter_.putAllMap(AssignmentsUtil.assignAfter(isBool_,vars_.getFieldsBefore().getVal(this)));
             variablesAfter_.putAllMap(AssignmentsUtil.assignAfter(isBool_,vars_.getVariablesBefore().getVal(this)));

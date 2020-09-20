@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 
@@ -12,8 +12,8 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
-        String clCurName_ = _conf.getAnalyzing().getGlobalClass();
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
+        String clCurName_ = _page.getGlobalClass();
         return new AnaClassArgumentMatching(clCurName_);
     }
 

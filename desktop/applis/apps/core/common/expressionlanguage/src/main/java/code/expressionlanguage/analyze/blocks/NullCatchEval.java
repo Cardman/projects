@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNullCatchEval;
 import code.expressionlanguage.files.OffsetsBlock;
 
@@ -12,7 +11,7 @@ public final class NullCatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block p_ = getPreviousSibling();
         boolean reachCatch_ = true;
         while (!(p_ instanceof TryEval)) {
@@ -33,14 +32,13 @@ public final class NullCatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.getCoverage().putCatches(this);
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        _page.getCoverage().putCatches(this);
         ExecNullCatchEval exec_ = new ExecNullCatchEval(getOffset());
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
 }

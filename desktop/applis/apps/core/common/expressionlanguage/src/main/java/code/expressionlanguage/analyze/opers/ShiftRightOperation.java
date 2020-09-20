@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
@@ -23,30 +22,29 @@ public final class ShiftRightOperation extends NumericOperation {
 
     @Override
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op,
-                              AnaClassArgumentMatching _b, ContextEl _cont) {
+                              AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         ResultOperand res_ = new ResultOperand();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
-            AnaClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
-            _a.setUnwrapObject(out_,page_.getStandards());
-            _b.setUnwrapObject(out_,page_.getStandards());
+        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
+            AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
+            _a.setUnwrapObject(out_, _page.getStandards());
+            _b.setUnwrapObject(out_, _page.getStandards());
             res_.setResult(out_);
             return res_;
         }
-        page_.setOkNumOp(false);
-        String exp_ = page_.getStandards().getAliasNumber();
+        _page.setOkNumOp(false);
+        String exp_ = _page.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = page_.getLocalizer().getCurrentLocationIndex();
+        int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(page_.getLocalizer().getCurrentFileName());
+        un_.setFileName(_page.getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(_a.getNames(),"&"),
                         StringList.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
-        page_.getLocalizer().addError(un_);
+        _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+getOp().length()));

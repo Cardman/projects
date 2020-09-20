@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.util.CustList;
@@ -12,9 +12,9 @@ public abstract class AbstractDotOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setResultClass(AnaClassArgumentMatching.copy(chidren_.last().getResultClass(),_conf.getAnalyzing().getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(chidren_.last().getResultClass(),_page.getStandards()));
     }
     @Override
     void calculateChildren() {

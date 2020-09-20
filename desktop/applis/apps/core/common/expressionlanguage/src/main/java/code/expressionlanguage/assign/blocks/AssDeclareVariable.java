@@ -1,7 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 
 public final class AssDeclareVariable extends AssLeaf implements AssBuildableElMethod {
@@ -11,7 +11,7 @@ public final class AssDeclareVariable extends AssLeaf implements AssBuildableElM
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
-        buildEmptyEl(_cont,_a);
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        buildEmptyEl(_a);
     }
 }

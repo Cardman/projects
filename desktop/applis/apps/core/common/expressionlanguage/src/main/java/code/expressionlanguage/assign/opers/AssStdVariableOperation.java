@@ -1,6 +1,5 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperation;
@@ -31,16 +30,15 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         StringMap<Assignment> ass_ = new StringMap<Assignment>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (declare) {
             boolean isBool_;
-            isBool_ = getResultClass().isBoolType(page_);
+            isBool_ = getResultClass().isBoolType(_page);
             ass_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assB_));
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
@@ -53,7 +51,7 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
         }
 
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(page_);
+        isBool_ = getResultClass().isBoolType(_page);
         String varName_ = variableName;
         if (getParent() instanceof AssAffectationOperation && getParent().getFirstChild() == this) {
             varName_ = "";
@@ -63,13 +61,13 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
             if (StringList.quickEq(e.getKey(), varName_)) {
                 if (!e.getValue().isAssignedBefore()) {
                     //errors
-                    setRelativeOffsetPossibleAnalyzable(_conf);
+                    setRelativeOffsetPossibleAnalyzable(_page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
-                    un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             varName_);
-                    _conf.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                 }
             }
         }

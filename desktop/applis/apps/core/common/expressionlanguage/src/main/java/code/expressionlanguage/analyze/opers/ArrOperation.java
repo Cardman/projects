@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
@@ -54,7 +53,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         ForwardOperation fwd_ = tryGetForward(this);
         boolean accessSuperTypes_ = true;
         boolean accessFromSuper_ = false;
@@ -76,10 +75,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            bounds_.addAllElts(getBounds(c, _an));
+            bounds_.addAllElts(getBounds(c, _page));
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, false,null);
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, false,null, _page);
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -101,15 +100,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (apply_ && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
+            typeAff_ = tryGetRetType(_page);
         }
-        filterByReturnType(_an,typeAff_,methodInfos);
+        filterByReturnType(typeAff_,methodInfos, _page);
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         MethodOperation.processEmptyError(getFirstChild(),getErrs());
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
@@ -150,38 +149,37 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            bounds_.addAllElts(getBounds(c, _conf));
+            bounds_.addAllElts(getBounds(c, _page));
         }
-        NameParametersFilter name_ = buildFilter(_conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
-                varargParam_, name_);
-        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
+                varargParam_, name_, _page);
+        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
                 bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
-                varargParam_, name_);
+                varargParam_, name_, _page);
         Argument arg_ = getPreviousArgument();
-        checkNull(arg_,_conf);
+        checkNull(arg_, _page);
         if (clMeth_.isFoundMethod()) {
             rootNumber = clMeth_.getRootNumber();
             memberNumber = clMeth_.getMemberNumber();
             memberNumberSet = clMethSet_.getMemberNumber();
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
                     FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                    abs_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                    abs_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    abs_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //method name len
                     abs_.buildError(
-                            _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
+                            _page.getAnalysisMessages().getAbstractMethodRef(),
                             clMeth_.getRealClass(),
-                            clMeth_.getRealId().getSignature(page_));
-                    page_.getLocalizer().addError(abs_);
+                            clMeth_.getRealId().getSignature(_page));
+                    _page.getLocalizer().addError(abs_);
                     getErrs().add(abs_.getBuiltError());
                 }
             }
@@ -199,36 +197,36 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 naturalVararg = paramtTypes_.size() - 1;
                 lastType = paramtTypes_.last();
             }
-            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
-            setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()));
+            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
+            setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()));
             return;
         }
         if (chidren_.size() != 1) {
             getPartOffsetsChildren().add(new CustList<PartOffset>());
             IntTreeMap<String> operators_ =  getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            int i_ = page_.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+            int i_ = _page.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
-            badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //second separator char
-            badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
+            badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(1),
                     Integer.toString(chidren_.size()),
                     "[]"
             );
-            page_.getLocalizer().addError(badNb_);
+            _page.getLocalizer().addError(badNb_);
             CustList<PartOffset> list_ = new CustList<PartOffset>();
             list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+ 1));
             getPartOffsetsChildren().add(list_);
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
         OperationNode right_ = chidren_.last();
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _conf);
-        LgNames stds_ = page_.getStandards();
+        setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _page);
+        LgNames stds_ = _page.getStandards();
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
         if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
@@ -238,8 +236,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 convertNumber_ = true;
             }
         }
-        if (!indexClass_.isNumericInt(_conf)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimInteger(), indexClass_);
+        if (!indexClass_.isNumericInt(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
@@ -247,31 +245,31 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 indexClass_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //first separator char
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(indexClass_.getNames(),"&"));
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 nbErr = un_.getBuiltError();
             }
         }
-        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
         if (!class_.isArray()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(class_.getNames(),"&"));
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            class_ = new AnaClassArgumentMatching(page_.getStandards().getAliasObject());
+            class_ = new AnaClassArgumentMatching(_page.getStandards().getAliasObject());
             setResultClass(class_);
             return;
         }
         if (!convertNumber_) {
-            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_,  page_),page_.getStandards());
+            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getStandards());
             right_.quickCancel();
         }
         class_ = StringExpUtil.getQuickComponentType(class_);

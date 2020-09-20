@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
@@ -20,18 +20,18 @@ public final class StaticCallAccessOperation extends LeafOperation {
         super(_indexInEl, _indexChild, _m, _op);
     }
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        String glClass_ = _page.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = ResolvingImportTypes.resolveCorrectType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
-            partOffsets = new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts());
+            classStr_ = ResolvingImportTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+            partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         } else {
             implicit = true;
             classStr_ = glClass_;
@@ -39,22 +39,22 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (classStr_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            _page.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
         if (classStr_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            _page.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
         boolean ok_ = true;
@@ -68,15 +68,15 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (!ok_) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            _page.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
-        checkClassAccess(this,_conf, glClass_, classStr_);
+        checkClassAccess(this, glClass_, classStr_, _page);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(classStr_));

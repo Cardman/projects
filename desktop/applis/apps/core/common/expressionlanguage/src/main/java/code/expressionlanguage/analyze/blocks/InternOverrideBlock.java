@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
@@ -33,23 +32,22 @@ public final class InternOverrideBlock extends Leaf {
         definitionOffset = _definitionOffset;
     }
 
-    public void buildTypes(RootBlock _root, ContextEl _context) {
+    public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
         for (int i:getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(i);
             //underline index char
-            b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
-            _context.getAnalyzing().addLocError(b_);
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
             setReachableError(true);
             getErrorsBlock().add(b_.getBuiltError());
         }
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
-        analyzing_.setGlobalOffset(definitionOffset);
+        _page.setGlobalOffset(definitionOffset);
         StringList overrideList_ = StringList.splitChar(definition, ';');
         int sum_ = 0;
         for (String o: overrideList_) {
-            analyzing_.setOffset(sum_);
+            _page.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringList.splitInTwo(o, indexDef_);
             StringList superMethods_ = new StringList();
@@ -69,7 +67,7 @@ public final class InternOverrideBlock extends Leaf {
             }
             String idCurrent_ = _root.getFullName();
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            MethodId methodId_ = IdFctOperation.resolveArguments(0, _context, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_);
+            MethodId methodId_ = IdFctOperation.resolveArguments(0, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_, _page);
             if (methodId_ == null) {
                 allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,new CustList<PartOffsetsClassMethodId>()));
                 sum_ += o.length()+1;
@@ -86,37 +84,37 @@ public final class InternOverrideBlock extends Leaf {
                     localSum_ += s.length()+1;
                     continue;
                 }
-                analyzing_.setOffset(sum_+localSum_);
+                _page.setOffset(sum_+localSum_);
                 StringList args_ = StringExpUtil.getAllSepCommaTypes(extValue_.getSecond());
                 String firstFull_ = args_.first();
                 int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
                 String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();
-                String cl_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
-                superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
-                String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _context);
-                RootBlock formattedType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
+                String cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
+                superPartOffsets_.addAllElts(_page.getCurrentParts());
+                String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _page);
+                RootBlock formattedType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
                 if (formattedType_ == null) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
-                MethodId superMethodId_ = IdFctOperation.resolveArguments(1,_context,cl_,nameLoc_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_);
+                MethodId superMethodId_ = IdFctOperation.resolveArguments(1, cl_,nameLoc_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_, _page);
                 if (superMethodId_ == null) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
-                if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formattedType_,formatted_,_context))) {
+                if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formattedType_,formatted_))) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
-                RootBlock root_ = analyzing_.getAnaClassBody(cl_);
+                RootBlock root_ = _page.getAnaClassBody(cl_);
                 CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(root_);
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
-                int rc_ = _context.getAnalyzing().getTraceIndex();
+                int rc_ = _page.getTraceIndex();
                 ClassMethodId id_ = null;
                 for (OverridableBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {

@@ -104,23 +104,23 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        buildEl(_cont,_doc, _anaDoc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildEl(_cont,_doc, _anaDoc, _page);
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
-            static_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNullValue(),
+            static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
-            Configuration.addError(static_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(static_, _anaDoc, _page);
         } else {
             StringList names_ = el_.getResultClass().getNames();
-            StringList out_ = getCustomType(names_, _cont);
-            checkIterableCandidates(out_, _cont, _anaDoc);
+            StringList out_ = getCustomType(names_, _cont, _page);
+            checkIterableCandidates(out_, _cont, _anaDoc, _page);
         }
-        putVariable(_cont, _anaDoc);
+        putVariable(_cont, _anaDoc, _page);
     }
 
     @Override
@@ -129,24 +129,24 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         opList = RenderExpUtil.getReducedNodes(r_);
     }
 
-    private StringList getCustomType(StringList _names, Configuration _context) {
+    private StringList getCustomType(StringList _names, Configuration _context, AnalyzedPageEl _page) {
         BeanLgNames stds_ = _context.getAdvStandards();
-        return stds_.getCustomTableType(_names,_context.getContext(),importedClassNameFirst,importedClassNameSecond).getClassName();
+        return stds_.getCustomTableType(_names, importedClassNameFirst,importedClassNameSecond, _page).getClassName();
     }
 
-    public void buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+    public void buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _page);
         }
         TokenErrorMessage resOne_ = ManageTokens.partVar(page_).checkTokenVar(variableNameFirst, page_);
         if (resOne_.isError()) {
@@ -154,7 +154,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setBuiltError(resOne_.getMessage());
-            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _page);
             okVarFirst = false;
         }
         TokenErrorMessage resTwo_ = ManageTokens.partVar(page_).checkTokenVar(variableNameSecond, page_);
@@ -163,30 +163,30 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setBuiltError(resTwo_.getMessage());
-            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _page);
             okVarSecond = false;
         }
         page_.setGlobalOffset(classNameOffsetFirst);
         page_.setOffset(0);
-        if (!toInferFirst(_cont)) {
-            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classNameFirst);
+        if (!toInferFirst(_page)) {
+            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(classNameFirst, _page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
         page_.setGlobalOffset(classNameOffsetSecond);
         page_.setOffset(0);
-        if (!toInferSecond(_cont)) {
-            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classNameSecond);
+        if (!toInferSecond(_page)) {
+            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(classNameSecond, _page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrMap());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont, _anaDoc, _page);
     }
 
-    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc) {
+    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
@@ -198,21 +198,21 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            if (toInferFirst(_cont)) {
+            if (toInferFirst(_page)) {
                 importedClassNameFirst = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassNameFirst);
-                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameFirst);
-                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _page);
                 }
             }
             mapping_ = new Mapping();
@@ -224,21 +224,21 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            if (toInferSecond(_cont)) {
+            if (toInferSecond(_page)) {
                 importedClassNameSecond = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassNameSecond);
-                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameSecond);
-                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _page);
                 }
             }
         } else {
@@ -248,29 +248,29 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterableTable());
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _page);
         }
     }
 
-    public void putVariable(Configuration _cont, AnalyzingDoc _anaDoc) {
+    public void putVariable(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (okVarFirst && okVarSecond) {
             if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(_anaDoc.getFileName());
                 d_.setIndexFile(variableNameOffsetSecond);
-                d_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadVariableName(),
+                d_.buildError(_page.getAnalysisMessages().getBadVariableName(),
                         variableNameFirst);
-                Configuration.addError(d_, _anaDoc, _cont.getContext().getAnalyzing());
+                Configuration.addError(d_, _anaDoc, _page);
                 return;
             }
         }
         if (okVarFirst) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getContext().getAnalyzing().getLoopsVars().put(variableNameFirst, lv_);
+            _page.getLoopsVars().put(variableNameFirst, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
@@ -278,7 +278,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getContext().getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
+            _page.getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
@@ -290,18 +290,18 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getContext().getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
+            _page.getInfosVars().put(variableNameSecond, lInfo_);
         }
     }
 
-    private boolean toInferFirst(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
+    private boolean toInferFirst(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
     }
 
-    private boolean toInferSecond(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
+    private boolean toInferSecond(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();
     }

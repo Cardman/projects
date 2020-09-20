@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -12,8 +13,8 @@ import code.util.IdMap;
 
 public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    public ExecSuperInvokingConstructor(SuperInvokingConstructor _super, ContextEl _context) {
-        super(_super,_context);
+    public ExecSuperInvokingConstructor(SuperInvokingConstructor _super, AnalyzedPageEl _page) {
+        super(_super, _page);
     }
 
     @Override

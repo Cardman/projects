@@ -1667,39 +1667,39 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     private static void validateEscapingsContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> escapings_) {
-        kw_.validateEscapingsContents(s_.getContext(), escapings_);
+        kw_.validateEscapingsContents(escapings_, s_.getAnalyzing());
     }
 
     private static void validateBinarySeparators(KeyWords kw_, AnalyzedTestContext s_) {
-        kw_.validateBinarySeparators(s_.getContext());
+        kw_.validateBinarySeparators(s_.getAnalyzing());
     }
 
     private static void validateMethodsContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> methods_) {
-        ValidatorStandard.validateMethodsContents(s_.getContext(), methods_, prims_);
+        ValidatorStandard.validateMethodsContents(methods_, prims_, s_.getAnalyzing());
     }
 
     private static void validateFieldsContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> fields_) {
-        ValidatorStandard.validateFieldsContents(s_.getContext(), fields_, prims_);
+        ValidatorStandard.validateFieldsContents(fields_, prims_, s_.getAnalyzing());
     }
 
     private static void validateKeyWordDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> keyWords_) {
-        kw_.validateKeyWordDuplicates(s_.getContext(), keyWords_);
+        kw_.validateKeyWordDuplicates(keyWords_, s_.getAnalyzing());
     }
 
     private static void validateNbWordDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> nbWordsBin_) {
-        kw_.validateNbWordDuplicates(s_.getContext(), nbWordsBin_);
+        kw_.validateNbWordDuplicates(nbWordsBin_, s_.getAnalyzing());
     }
 
     private static void validatePrimitiveDuplicates(AnalyzedTestContext s_, StringMap<String> prims_) {
-        ValidatorStandard.validatePrimitiveDuplicates(s_.getContext(), prims_);
+        ValidatorStandard.validatePrimitiveDuplicates(prims_, s_.getAnalyzing());
     }
 
     private static void validateMethodsDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> methods_) {
-        ValidatorStandard.validateMethodsDuplicates(s_.getContext(), methods_);
+        ValidatorStandard.validateMethodsDuplicates(methods_, s_.getAnalyzing());
     }
 
     private static void validateVarTypesDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> varTypes_) {
-        ValidatorStandard.validateVarTypesDuplicates(s_.getContext(), varTypes_);
+        ValidatorStandard.validateVarTypesDuplicates(varTypes_, s_.getAnalyzing());
     }
 
     @Test
@@ -2207,51 +2207,51 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     private static void validateParamtersDuplicates(AnalyzedTestContext s_, CustList<CustList<KeyValueMemberName>> params_) {
-        ValidatorStandard.validateParamtersDuplicates(s_.getContext(), params_);
+        ValidatorStandard.validateParamtersDuplicates(params_, s_.getAnalyzing());
     }
 
     private static void validateKeyWordContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> keyWords_) {
-        kw_.validateKeyWordContents(s_.getContext(), keyWords_);
+        kw_.validateKeyWordContents(keyWords_, s_.getAnalyzing());
     }
 
     private static void validateNbWordContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> nbWords_) {
-        kw_.validateNbWordContents(s_.getContext(), nbWords_);
+        kw_.validateNbWordContents(nbWords_, s_.getAnalyzing());
     }
 
     private static void validatePrimitiveContents(AnalyzedTestContext s_, StringMap<String> prims_) {
-        ValidatorStandard.validatePrimitiveContents(s_.getContext(), prims_);
+        ValidatorStandard.validatePrimitiveContents(prims_, s_.getAnalyzing());
     }
 
     private static void validateRefTypeContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<String> refTypes_) {
-        ValidatorStandard.validateRefTypeContents(s_.getContext(), refTypes_, prims_);
+        ValidatorStandard.validateRefTypeContents(refTypes_, prims_, s_.getAnalyzing());
     }
 
     private static void validateParamtersContents(AnalyzedTestContext s_, StringMap<String> prims_, CustList<CustList<KeyValueMemberName>> params_) {
-        ValidatorStandard.validateParamtersContents(s_.getContext(), params_, prims_);
+        ValidatorStandard.validateParamtersContents(params_, prims_, s_.getAnalyzing());
     }
 
     private static void validateVarTypesContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> varTypes_) {
-        ValidatorStandard.validateVarTypesContents(s_.getContext(), varTypes_, prims_);
+        ValidatorStandard.validateVarTypesContents(varTypes_, prims_, s_.getAnalyzing());
     }
 
     private static void validateEscapingsDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> escapings_) {
-        kw_.validateEscapingsDuplicates(s_.getContext(), escapings_);
+        kw_.validateEscapingsDuplicates(escapings_, s_.getAnalyzing());
     }
 
     private static void validateStartsPrefixesDuplicates(KeyWords kw_, AnalyzedTestContext s_) {
-        kw_.validateStartsPrefixesDuplicates(s_.getContext());
+        kw_.validateStartsPrefixesDuplicates(s_.getAnalyzing());
     }
 
     private static void validateRefTypeDuplicates(AnalyzedTestContext s_, StringMap<String> refTypes_) {
-        ValidatorStandard.validateRefTypeDuplicates(s_.getContext(), refTypes_);
+        ValidatorStandard.validateRefTypeDuplicates(refTypes_, s_.getAnalyzing());
     }
 
     private static void validateFieldsDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> fields_) {
-        ValidatorStandard.validateFieldsDuplicates(s_.getContext(), fields_);
+        ValidatorStandard.validateFieldsDuplicates(fields_, s_.getAnalyzing());
     }
 
     private static void validateMergedDuplicates(AnalyzedTestContext s_, CustList<CustList<KeyValueMemberName>> merge_) {
-        ValidatorStandard.validateMergedDuplicates(s_.getContext(), merge_);
+        ValidatorStandard.validateMergedDuplicates(merge_, s_.getAnalyzing());
     }
     @Test
     public void success1Test() {
@@ -2325,11 +2325,11 @@ public class LgNamesTest extends ProcessMethodCommon {
     private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options) {
         AnalysisMessages mess_ = new AnalysisMessages();
         SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = ctx_.setAnalyzing();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
         page_.setStandards(lgName_);
-        AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         return new AnalyzedTestContext(ctx_,page_);
     }

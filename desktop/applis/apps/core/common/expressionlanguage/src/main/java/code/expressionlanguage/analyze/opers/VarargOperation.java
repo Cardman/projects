@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -31,39 +30,38 @@ public final class VarargOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    public void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
+        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int i_ = page_.getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getAnalyzing().getKeyWords().getKeyWordVararg());
-            page_.getLocalizer().addError(varg_);
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordVararg());
+            _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
         if (!isFirstChildInParent()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int i_ = page_.getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getAnalyzing().getKeyWords().getKeyWordVararg());
-            page_.getLocalizer().addError(varg_);
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordVararg());
+            _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -71,8 +69,8 @@ public final class VarargOperation extends LeafOperation {
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringList.getFirstPrintableCharIndex(str_);
-        str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,afterLeftPar_+off_,str_);
-        partOffsets.addAllElts(page_.getCurrentParts());
+        str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;
         if (m_ instanceof RetrieveMethod) {

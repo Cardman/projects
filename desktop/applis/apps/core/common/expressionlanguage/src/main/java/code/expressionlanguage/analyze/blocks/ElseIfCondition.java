@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.exec.blocks.ExecElseIfCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -75,25 +75,25 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
 
     @Override
-    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
+    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordElseif(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _page.getKeyWords().getKeyWordElseif(),
                         StringList.join(
                                 new StringList(
-                                        _an.getAnalyzing().getKeyWords().getKeyWordIf(),
-                                        _an.getAnalyzing().getKeyWords().getKeyWordElseif()
+                                        _page.getKeyWords().getKeyWordIf(),
+                                        _page.getKeyWords().getKeyWordElseif()
                                 ),
                                 "|"));
                 //key word len
                 getErrorsBlock().add(un_.getBuiltError());
                 setReachableError(true);
-                _an.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
             }
         }
     }
@@ -110,7 +110,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
 
     @Override
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

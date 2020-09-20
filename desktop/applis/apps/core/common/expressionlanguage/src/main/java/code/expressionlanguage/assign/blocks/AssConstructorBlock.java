@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -18,18 +18,18 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
     }
 
     @Override
-    public void setAssignmentAfterCall(ContextEl _an, AssignedVariablesBlock _anEl) {
-        setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfterCall(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        setAssignmentAfter(_anEl, _page);
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         for (EntryCust<AssReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
-                checkAssignments(_an, f,false);
+                checkAssignments(f,false, _page);
             }
         }
         if (isCompleteNormally()) {
             AssignedVariables assTar_ = id_.getVal(this);
             for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                checkAssignments(_an, f,true);
+                checkAssignments(f,true, _page);
             }
         } else {
             AssignedVariables assTar_ = id_.getVal(this);
@@ -37,30 +37,30 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
                 String name_ = f.getKey();
                 SimpleAssignment a_ = f.getValue();
                 if (a_.isAssignedAfter()) {
-                    _an.getAnalyzing().getInitFieldsCtors().add(name_);
+                    _page.getInitFieldsCtors().add(name_);
                 }
             }
         }
     }
 
-    private void checkAssignments(ContextEl _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
-        String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
+    private void checkAssignments(EntryCust<String, SimpleAssignment> _pair, boolean _add, AnalyzedPageEl _page) {
+        String cl_ = StringExpUtil.getIdFromAllTypes(_page.getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
-        if (!ContextUtil.isFinalField(_an,key_)) {
+        if (!ContextUtil.isFinalField(key_, _page)) {
             return;
         }
         SimpleAssignment a_ = _pair.getValue();
         if (!a_.isAssignedAfter()) {
             //error
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_an.getAnalyzing().getCurrentBlock().getFile().getFileName());
-            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
-            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
+            un_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+            un_.setIndexFile(_page.getTraceIndex());
+            un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);
-            _an.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
         } else if (_add){
-            _an.getAnalyzing().getInitFieldsCtors().add(name_);
+            _page.getInitFieldsCtors().add(name_);
         }
     }
 }

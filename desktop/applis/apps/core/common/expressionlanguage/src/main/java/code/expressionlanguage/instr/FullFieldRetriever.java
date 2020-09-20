@@ -26,9 +26,9 @@ public final class FullFieldRetriever implements FieldRetriever {
 
     private final Delimiters delimiters;
     private final String string;
-    private final ContextEl context;
+    private final AnalyzedPageEl context;
 
-    public FullFieldRetriever(Delimiters delimiters, String string, ContextEl context) {
+    public FullFieldRetriever(Delimiters delimiters, String string, AnalyzedPageEl context) {
         this.delimiters = delimiters;
         this.string = string;
         this.context = context;
@@ -36,7 +36,7 @@ public final class FullFieldRetriever implements FieldRetriever {
 
     @Override
     public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
-        AnalyzedPageEl ana_ = context.getAnalyzing();
+        AnalyzedPageEl ana_ = context;
         AnaLocalVariable val_ = ana_.getInfosVars().getVal(_word);
         if (val_ == null) {
             String sh_ = StringExpUtil.skipPrefix(_word);
@@ -71,7 +71,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             return _to;
         }
         if (StringExpUtil.nextPrintCharIs(_to, string.length(), string, DOT_VAR) > -1) {
-            return processFieldsStaticAccess(context, _ctorCall, string, _begin, _word, _to, delimiters);
+            return processFieldsStaticAccess(_ctorCall, string, _begin, _word, _to, delimiters, context);
         }
         VariableInfo info_ = new VariableInfo();
         ConstType type_;
@@ -83,11 +83,10 @@ public final class FullFieldRetriever implements FieldRetriever {
         delimiters.getVariables().add(info_);
         return _to;
     }
-    private static int processFieldsStaticAccess(ContextEl _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
+    private static int processFieldsStaticAccess(boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d, AnalyzedPageEl _page) {
         int len_ = _string.length();
-        AnalyzedPageEl ana_ = _conf.getAnalyzing();
-        String glClass_ = ana_.getGlobalClass();
-        boolean field_ = isField(_conf, glClass_, _ctor, _word);
+        String glClass_ = _page.getGlobalClass();
+        boolean field_ = isField(glClass_, _ctor, _word, _page);
         if (field_) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
@@ -162,23 +161,23 @@ public final class FullFieldRetriever implements FieldRetriever {
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String join_ = StringList.join(partsFieldsBisFields_, "");
-        StringList inns_ = AnaTemplates.getAllInnerTypes(join_, _conf);
+        StringList inns_ = AnaTemplates.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
         int nb_ = 0;
         String start_;
-        if (_conf.getAnalyzing().getAnaGeneType(trim_) != null) {
+        if (_page.getAnaGeneType(trim_) != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
                     nb_++;
                 }
             }
             start_ = trim_;
-            ContextUtil.appendParts(_conf,_from, _from +inns_.first().length(),trim_,partOffsets_);
+            ContextUtil.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_, _page);
             nextOff_ += inns_.first().length() + 1;
         } else {
-            CustList<PartOffset> currentParts_ = _conf.getAnalyzing().getCurrentParts();
-            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false, currentParts_);
+            CustList<PartOffset> currentParts_ = _page.getCurrentParts();
+            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_from,inns_.first(), false, currentParts_, _page);
             if (start_.isEmpty()) {
                 currentParts_.clear();
             }
@@ -194,27 +193,27 @@ public final class FullFieldRetriever implements FieldRetriever {
             String p_ = fullPart_.trim();
             if (StringList.quickEq("..",inns_.get(iPart_-1))) {
                 StringList res_;
-                res_ = AnaTypeUtil.getEnumOwners(start_, p_, _conf);
+                res_ = AnaTypeUtil.getEnumOwners(start_, p_, _page);
                 if (!res_.onlyOneElt()) {
                     break;
                 }
                 start_ = StringList.concat(res_.first(),"-",p_);
-                ContextUtil.appendParts(_conf,nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
+                ContextUtil.appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_, _page);
                 nextOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
                 continue;
             }
-            boolean fieldLoc_ = isField(_conf, start_,_ctor, p_);
+            boolean fieldLoc_ = isField(start_,_ctor, p_, _page);
             if (fieldLoc_) {
                 break;
             }
-            StringList res_ = AnaTypeUtil.getInners(start_, p_, _conf);
+            StringList res_ = AnaTypeUtil.getInners(start_, p_, _page);
             if (!res_.onlyOneElt()) {
                 break;
             }
             start_ = res_.first();
-            ContextUtil.appendParts(_conf,nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+            ContextUtil.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_, _page);
             nextOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;
@@ -225,7 +224,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         } else {
             n_ = k_;
         }
-        if (_conf.getAnalyzing().getAnaGeneType(start_) == null) {
+        if (_page.getAnaGeneType(start_) == null) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -245,12 +244,12 @@ public final class FullFieldRetriever implements FieldRetriever {
         return n_;
     }
 
-    private static boolean isField(ContextEl _conf, String _fromClass, boolean _ctor, String _word) {
+    private static boolean isField(String _fromClass, boolean _ctor, String _word, AnalyzedPageEl _page) {
         boolean field_;
-        boolean stCtx_ = _conf.getAnalyzing().isStaticContext() || _ctor;
+        boolean stCtx_ = _page.isStaticContext() || _ctor;
         field_ = true;
         AnaClassArgumentMatching clArg_ = new AnaClassArgumentMatching(_fromClass);
-        FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, true, false);
+        FieldResult fr_ = OperationNode.resolveDeclaredCustField(stCtx_, clArg_, true, true, _word, true, false, _page);
         if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
             field_ = false;
         }

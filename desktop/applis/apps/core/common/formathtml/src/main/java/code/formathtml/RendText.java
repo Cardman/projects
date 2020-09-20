@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
@@ -29,10 +30,10 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        _conf.getContext().getAnalyzing().setOffset(expressionOffset);
+    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setOffset(expressionOffset);
         ResultText res_ = new ResultText();
-        res_.build(expression,_conf,expressionOffset,_doc, _anaDoc);
+        res_.build(expression,_conf,expressionOffset,_doc, _anaDoc, _page);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

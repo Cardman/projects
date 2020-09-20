@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.VariableOperation;
@@ -8,10 +8,6 @@ import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.assign.blocks.AssSimForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.*;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
 
 public final class AssSimStdVariableOperation extends AssLeafOperation implements AssSettableElResult {
 
@@ -39,7 +35,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation implement
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssBlock pr_ = _ass.getPreviousSibling();
         if (pr_ instanceof AssSimDeclareVariable) {
             ((AssSimDeclareVariable)pr_).getAssignedVariables().add(variableName);

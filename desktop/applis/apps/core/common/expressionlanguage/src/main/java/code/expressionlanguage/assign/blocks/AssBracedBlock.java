@@ -1,12 +1,11 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -35,7 +34,7 @@ public abstract class AssBracedBlock extends AssBlock {
             child_ = sibling_;
         }
     }
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
         AssBlock firstChild_ = getFirstChild();
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
@@ -48,7 +47,7 @@ public abstract class AssBracedBlock extends AssBlock {
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
         AssBlock ch_ = getFirstChild();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         if (ch_ == null) {

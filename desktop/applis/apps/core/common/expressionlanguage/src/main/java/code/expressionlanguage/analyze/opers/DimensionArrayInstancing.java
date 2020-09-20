@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
@@ -39,8 +38,8 @@ public final class DimensionArrayInstancing extends
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
+    public void preAnalyze(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String methodName_ = getMethodName();
         String className_ = methodName_.trim().substring(newKeyWord_.length());
@@ -51,9 +50,9 @@ public final class DimensionArrayInstancing extends
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        Block cur_ = _an.getAnalyzing().getCurrentBlock();
+        Block cur_ = _page.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
+            typeAff_ = tryGetRetType(_page);
         } else {
             typeAff_ = tryGetTypeAff(m_);
         }
@@ -77,10 +76,10 @@ public final class DimensionArrayInstancing extends
         String type_;
         String mName_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(mName_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
-        partOffsets_.addAllElts(_an.getAnalyzing().getCurrentParts());
+        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
+        partOffsets_.addAllElts(_page.getCurrentParts());
         if (type_.isEmpty()) {
             return;
         }
@@ -100,7 +99,7 @@ public final class DimensionArrayInstancing extends
                     CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _an);
+                        String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
@@ -114,7 +113,7 @@ public final class DimensionArrayInstancing extends
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -127,7 +126,7 @@ public final class DimensionArrayInstancing extends
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _an);
+                    String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -141,7 +140,7 @@ public final class DimensionArrayInstancing extends
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -160,7 +159,7 @@ public final class DimensionArrayInstancing extends
                 CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _an);
+                    String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -174,7 +173,7 @@ public final class DimensionArrayInstancing extends
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -190,7 +189,7 @@ public final class DimensionArrayInstancing extends
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _an);
+                String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
@@ -204,7 +203,7 @@ public final class DimensionArrayInstancing extends
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -217,32 +216,31 @@ public final class DimensionArrayInstancing extends
         if (isNotCorrectDim(cp_)) {
             return;
         }
-        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _page);
         if (infer_ == null) {
             return;
         }
         partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+        ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
         typeInfer = infer_;
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        setClassName(_page.getStandards().getAliasObject());
+        KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+local_,className_);
-            partOffsets.addAllElts(page_.getCurrentParts());
+            className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+local_,className_, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;
         }
@@ -250,10 +248,10 @@ public final class DimensionArrayInstancing extends
             int index_ = getPartOffsetsChildren().size();
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _page);
             AnaClassArgumentMatching resCh_ = o.getResultClass();
-            if (!resCh_.isNumericInt(_conf)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimInteger(), resCh_);
+            if (!resCh_.isNumericInt(_page)) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimInteger(), resCh_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     resCh_.getImplicits().add(cl_);
@@ -261,13 +259,13 @@ public final class DimensionArrayInstancing extends
                     resCh_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int i_ = page_.getLocalizer().getCurrentLocationIndex();
+                    int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     un_.setIndexFile(i_);
-                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //first part child bracket
-                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(resCh_.getNames(),"&"));
-                    page_.getLocalizer().addError(un_);
+                    _page.getLocalizer().addError(un_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                 }

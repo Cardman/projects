@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
@@ -38,21 +38,21 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     }
 
     @Override
-    public void preAnalyze(ContextEl _conf) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(annotationClass_);
+        RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {
             annotation = annotationClass_;
         }
     }
     @Override
-    public void analyzeUnary(ContextEl _conf) {
+    public void analyzeUnary(AnalyzedPageEl _page) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(annotationClass_);
+        RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {
             boolean ok_ = false;
             for (Block b: ClassesUtil.getDirectChildren(type_)) {
@@ -67,13 +67,13 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             }
             if (!ok_) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fieldName len
-                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedAccessibleField(),
+                cast_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                         fieldName,
                         annotationClass_);
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                _page.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
             }
         }
@@ -81,9 +81,9 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(AnalyzedPageEl _page) {
         Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgumentAna(arg_, _conf.getAnalyzing());
+        setSimpleArgumentAna(arg_, _page);
     }
     public String getFieldName() {
         return fieldName;

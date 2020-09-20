@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecTryEval;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -38,17 +37,16 @@ public final class TryEval extends BracedBlock implements Eval {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         ExecTryEval exec_ = new ExecTryEval(getOffset(),label);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
-    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
+    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
@@ -56,15 +54,15 @@ public final class TryEval extends BracedBlock implements Eval {
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
-                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordTry(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
+                        _page.getKeyWords().getKeyWordTry(),
                         StringList.join(
                                 new StringList(
-                                        _an.getAnalyzing().getKeyWords().getKeyWordCatch(),
-                                        _an.getAnalyzing().getKeyWords().getKeyWordFinally()
+                                        _page.getKeyWords().getKeyWordCatch(),
+                                        _page.getKeyWords().getKeyWordFinally()
                                 ),
                                 "|"));
-                _an.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }

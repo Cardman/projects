@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -93,8 +93,8 @@ public final class AnalyzingEl {
     public void setArgMapping(String _arg) {
         mapping.setArg(_arg);
     }
-    public boolean isCorrectMapping(ContextEl _an) {
-        return AnaTemplates.isCorrectOrNumbers(mapping, _an);
+    public boolean isCorrectMapping(AnalyzedPageEl _page) {
+        return AnaTemplates.isCorrectOrNumbers(mapping, _page);
     }
 
     public IdMap<BreakBlock, BreakableBlock> getBreakables() {

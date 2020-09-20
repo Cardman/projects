@@ -1,6 +1,6 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
 
@@ -43,7 +43,7 @@ public final class Templates {
      Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
      Sample 5: "List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;" => ["List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;"]<br/>
      */
-    static StringList getAllInnerTypesSingleDotted(String _type, ContextEl _an) {
+    static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedPageEl _page) {
         StringList types_ = new StringList();
         int len_ = _type.length();
         //
@@ -78,7 +78,7 @@ public final class Templates {
                 String foundId_ = builtId_.toString();
                 if (!inner_) {
                     boolean foundPkg_ = false;
-                    for (String p: _an.getAnalyzing().getPackagesFound()) {
+                    for (String p: _page.getPackagesFound()) {
                         if (StringList.quickEq(p, StringExpUtil.removeDottedSpaces(foundId_))) {
                             foundPkg_ = true;
                             break;

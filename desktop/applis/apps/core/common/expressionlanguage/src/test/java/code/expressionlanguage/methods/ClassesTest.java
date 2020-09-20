@@ -5501,7 +5501,50 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(0, countStaticFields(ctx_));
     }
-
+    @Test
+    public void calculateStaticField191Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short myf=($short)2i;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, countStaticFields(ctx_));
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq(2, ((NumberStruct)str_).intStruct());
+    }
+    @Test
+    public void calculateStaticField192Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $Class myf=($Class)$class(ExTwo);\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, countStaticFields(ctx_));
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq("pkg.ExTwo", ((ClassMetaInfo)str_).getName());
+    }
+    @Test
+    public void calculateStaticField193Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("code.util.Replacement;\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Replacement myf=(Replacement)$new Replacement(\"a\",\"b\");\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, countStaticFields(ctx_));
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq("b", ((ReplacementStruct)str_).getInstance().getNewString());
+        assertEq("a", ((ReplacementStruct)str_).getInstance().getOldString());
+    }
     private static int countStaticFields(ContextEl _ctx) {
         int sum_ = 0;
         for (EntryCust<String, StringMap<Struct>> c: _ctx.getClasses().getStaticFields().entryList()) {

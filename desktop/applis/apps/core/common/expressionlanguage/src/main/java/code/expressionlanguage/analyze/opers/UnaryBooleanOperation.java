@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -29,26 +28,25 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
+    public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching clMatch_;
         clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
             classMethodId = clId_.getSymbol();
             rootNumber = clId_.getRootNumber();
             memberNumber = clId_.getMemberNumber();
             return;
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (!clMatch_.isBoolType(page_)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimBoolean(), clMatch_);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        if (!clMatch_.isBoolType(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), clMatch_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
@@ -56,16 +54,16 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 clMatch_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //operator
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                         StringList.join(clMatch_.getNames(),"&"),
                         oper_);
                 if (!MethodOperation.isEmptyError(getFirstChild())){
                     getErrs().add(un_.getBuiltError());
                 }
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
             }
         }
         clMatch_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
@@ -74,8 +72,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this, _conf.getAnalyzing());
+    public void quickCalculate(AnalyzedPageEl _page) {
+        tryGetArg(this, _page);
     }
 
     private static void tryGetArg(MethodOperation _par, AnalyzedPageEl _page) {

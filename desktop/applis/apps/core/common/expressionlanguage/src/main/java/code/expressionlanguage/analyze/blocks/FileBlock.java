@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
@@ -39,7 +39,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         super(_offset);
         predefined = _predefined;
     }
-    public boolean processLinesTabsWithError(ContextEl _context, String _file) {
+    public boolean processLinesTabsWithError(String _file, AnalyzedPageEl _page) {
         content = _file;
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
@@ -77,9 +77,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 badCharsStr_.add(Integer.toString(i));
             }
             //first bad character
-            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getIllegalCharacter(),
+            d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),
                     StringList.join(badCharsStr_,","));
-            _context.getAnalyzing().addLocError(d_);
+            _page.addLocError(d_);
             for (int i: getBinChars()) {
                 d_.setIndexFile(i);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);

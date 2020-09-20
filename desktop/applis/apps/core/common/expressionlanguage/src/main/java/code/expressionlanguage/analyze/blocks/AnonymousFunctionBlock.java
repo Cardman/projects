@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -21,18 +21,17 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     private int numberLambda;
     private final AnaCache cache = new AnaCache();
 
-    public AnonymousFunctionBlock(ContextEl _importingPage,
-                            int _fctName,
-                            OffsetsBlock _offset) {
-        super(_importingPage,_fctName, _offset);
-        MethodAccessKind stCtx_ = _importingPage.getAnalyzing().getStaticContext();
+    public AnonymousFunctionBlock(int _fctName,
+                                  OffsetsBlock _offset, AnalyzedPageEl _page) {
+        super(_fctName, _offset, _page);
+        MethodAccessKind stCtx_ = _page.getStaticContext();
         staticMethod = stCtx_ == MethodAccessKind.STATIC;
         staticCallMethod = stCtx_ == MethodAccessKind.STATIC_CALL;
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
 
     public MethodModifier getModifier() {
@@ -79,12 +78,12 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
-        checkReturnFctOverridable(_an, _anEl);
+    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        checkReturnFctOverridable(_anEl, _page);
     }
 
-    private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getAnalyzing().getStandards();
+    private void checkReturnFctOverridable(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
                 //error
@@ -92,11 +91,11 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_an));
-                _an.getAnalyzing().addLocError(miss_);
+                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
+                        _page.getKeyWords().getKeyWordThrow(),
+                        _page.getKeyWords().getKeyWordReturn(),
+                        getPseudoSignature(_page));
+                _page.addLocError(miss_);
                 addNameErrors(miss_);
             }
         }

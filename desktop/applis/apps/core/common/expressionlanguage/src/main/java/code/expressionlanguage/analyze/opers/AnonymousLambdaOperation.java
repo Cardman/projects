@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -39,37 +38,36 @@ public final class AnonymousLambdaOperation extends
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
-        for (EntryCust<String,AnaLocalVariable> e: _conf.getAnalyzing().getInfosVars().entryList()) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
+        for (EntryCust<String,AnaLocalVariable> e: _page.getInfosVars().entryList()) {
             block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
         }
-        for (AnaNamedLocalVariable e: _conf.getAnalyzing().getCache().getLocalVariables()) {
+        for (AnaNamedLocalVariable e: _page.getCache().getLocalVariables()) {
             block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getName(),e.getLocalVariable()));
         }
-        for (EntryCust<String,AnaLoopVariable> e: _conf.getAnalyzing().getLoopsVars().entryList()) {
+        for (EntryCust<String,AnaLoopVariable> e: _page.getLoopsVars().entryList()) {
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
         }
-        for (AnaNamedLoopVariable e: _conf.getAnalyzing().getCache().getLoopVariables()) {
+        for (AnaNamedLoopVariable e: _page.getCache().getLoopVariables()) {
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getName(),e.getLocalVariable()));
         }
-        analyzeCtor(_conf);
+        analyzeCtor(_page);
     }
-    private void analyzeCtor(ContextEl _conf) {
+    private void analyzeCtor(AnalyzedPageEl _page) {
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        AnalyzedBlock cur_ = page_.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            typeAff_ = InvokingOperation.tryGetRetType(_conf);
+            typeAff_ = InvokingOperation.tryGetRetType(_page);
         } else {
             typeAff_ = InvokingOperation.tryGetTypeAff(m_);
         }
-        String keyWordVar_ = _conf.getAnalyzing().getKeyWords().getKeyWordVar();
+        String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
         String foundType_ = EMPTY_STRING;
         if (!InvokingOperation.isUndefined(typeAff_, keyWordVar_)) {
             String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
@@ -77,7 +75,7 @@ public final class AnonymousLambdaOperation extends
                 foundType_ = cp_;
             }
         }
-        String type_ = page_.getStandards().getAliasFct();
+        String type_ = _page.getStandards().getAliasFct();
         StringMap<String> vars_ = new StringMap<String>();
         int nbParams_ = parse.getParametersType().size()+1;
         StringBuilder pattern_ = new StringBuilder(type_);
@@ -89,10 +87,10 @@ public final class AnonymousLambdaOperation extends
         StringList candidates_ = new StringList();
         if (!foundType_.isEmpty()) {
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             mapping_.setArg(foundType_);
-            if (AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+            if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                 candidates_.add(foundType_);
             }
         }
@@ -103,7 +101,7 @@ public final class AnonymousLambdaOperation extends
             if (call_ instanceof RetrieveMethod) {
                 RetrieveMethod f_ = (RetrieveMethod) call_;
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
+                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
                 NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
                 CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
@@ -116,12 +114,12 @@ public final class AnonymousLambdaOperation extends
                         if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                             newList_.add(methodInfo_);
                         }
-                        String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
+                        String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
                         mapping_.setArg(format_);
-                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                             continue;
                         }
                         candidates_.add(format_);
@@ -132,7 +130,7 @@ public final class AnonymousLambdaOperation extends
             if (call_ instanceof RetrieveConstructor) {
                 RetrieveConstructor f_ = (RetrieveConstructor) call_;
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
+                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
                 NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
                 CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
@@ -143,12 +141,12 @@ public final class AnonymousLambdaOperation extends
                     if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                         newList_.add(methodInfo_);
                     }
-                    String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
+                    String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
                     mapping_.setArg(format_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                         continue;
                     }
                     candidates_.add(format_);
@@ -160,7 +158,7 @@ public final class AnonymousLambdaOperation extends
         if (m_ instanceof RetrieveMethod){
             RetrieveMethod f_ = (RetrieveMethod) m_;
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
             int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
@@ -171,12 +169,12 @@ public final class AnonymousLambdaOperation extends
                 int gr_ = methodInfos_.get(i).size();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _conf);
+                    String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
                     mapping_.setArg(format_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                         continue;
                     }
                     candidates_.add(format_);
@@ -186,7 +184,7 @@ public final class AnonymousLambdaOperation extends
         if (m_ instanceof RetrieveConstructor){
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
             int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
@@ -195,30 +193,30 @@ public final class AnonymousLambdaOperation extends
             int len_ = methodInfos_.size();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _conf);
+                String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
                 mapping_.setArg(format_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     continue;
                 }
                 candidates_.add(format_);
             }
         }
-        foundClass = page_.getGlobalClass();
-        fileName = page_.getLocalizer().getCurrentFileName();
-        RootBlock globalType_ = page_.getGlobalType();
+        foundClass = _page.getGlobalClass();
+        fileName = _page.getLocalizer().getCurrentFileName();
+        RootBlock globalType_ = _page.getGlobalType();
         rootNumber = globalType_.getNumberAll();
         block.setParentType(globalType_);
-        block.getAllReservedInners().addAllElts(page_.getGlobalDirType().getAllReservedInners());
-        MemberCallingsBlock currentFct_ = page_.getCurrentFct();
+        block.getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
+        MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(page_.getGlobalDirType().getMappings());
+            block.getMappings().putAllMap(_page.getGlobalDirType().getMappings());
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
@@ -238,7 +236,7 @@ public final class AnonymousLambdaOperation extends
                 if (argCandidates_.onlyOneElt()) {
                     modifiedArgCandidates_.add(argCandidates_.first());
                 } else {
-                    modifiedArgCandidates_.add(page_.getStandards().getAliasObject());
+                    modifiedArgCandidates_.add(_page.getStandards().getAliasObject());
                 }
             }
             StringList feed_ = new StringList();
@@ -250,12 +248,12 @@ public final class AnonymousLambdaOperation extends
                     feed_.add(modifiedArgCandidates_.get(i));
                     block.getPartOffsetsParams().add(new CustList<PartOffset>());
                 } else {
-                    feed_.add(block.buildInternParam(_conf,offestsTypes_.get(i),before_));
+                    feed_.add(block.buildInternParam(offestsTypes_.get(i),before_, _page));
                 }
             }
             String retType_;
             if (!parse.getReturnType().isEmpty()) {
-                retType_ = block.buildInternRet(_conf,parse.getReturnOffest(),parse.getReturnType());
+                retType_ = block.buildInternRet(parse.getReturnOffest(),parse.getReturnType(), _page);
             } else {
                 retType_ = modifiedArgCandidates_.last();
             }
@@ -271,10 +269,10 @@ public final class AnonymousLambdaOperation extends
             block.setVarargs(parse.getParametersType(), parse.getOffestsTypes(),
                     parse.getParametersName(), parse.getOffestsParams(),
                     parse.getReturnType(), parse.getReturnOffest());
-            block.buildInternImportedTypes(_conf);
+            block.buildInternImportedTypes(_page);
         }
-        globalType_.validateParameters(_conf,block);
-        Block currentBlock_ = page_.getCurrentBlock();
+        globalType_.validateParameters(block, _page);
+        Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
@@ -292,7 +290,7 @@ public final class AnonymousLambdaOperation extends
         mloc_.setConstraints(idC_);
         mloc_.setParameters(p_);
         mloc_.setReturnType(importedReturnType_);
-        mloc_.format(idC_.getKind() == MethodAccessKind.STATIC,_conf);
+        mloc_.format(idC_.getKind() == MethodAccessKind.STATIC, _page);
         MethodId constraints_ = mloc_.getConstraints();
         String baseClassName_ = mloc_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
@@ -313,7 +311,7 @@ public final class AnonymousLambdaOperation extends
         }
         foundClass = res_.getId().getClassName();
         method = new ClassMethodId(foundClass_, idCt_);
-        String fct_ = LambdaOperation.formatReturn(foundClass, _conf, res_, false);
+        String fct_ = LambdaOperation.formatReturn(foundClass, res_, false, _page);
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 

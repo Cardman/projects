@@ -1,7 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.util.StringList;
 
@@ -12,7 +12,7 @@ public final class AssSimDeclareVariable extends AssLeaf implements AssBuildable
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         //simple assignment
     }
 

@@ -1,8 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.Ints;
 import code.util.StringList;
@@ -878,7 +876,7 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     }
 
     private static Ints getIndexes(AnalyzedTestContext cont_, String s) {
-        return ParserType.getIndexes(s, cont_.getContext());
+        return ParserType.getIndexes(s, cont_.getAnalyzing());
     }
 
     private AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {

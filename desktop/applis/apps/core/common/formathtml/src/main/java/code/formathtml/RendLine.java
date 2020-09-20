@@ -23,23 +23,22 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
-        if (page_.isMerged()) {
-            StringList vars_ = page_.getVariablesNames();
+        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont, _anaDoc, _page);
+        if (_page.isMerged()) {
+            StringList vars_ = _page.getVariablesNames();
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();
             String import_ = declaring_.getImportedClassName();
-            String t_ = inferOrObject(_cont,import_);
-            AffectationOperation.processInfer(_cont.getContext(), t_);
+            String t_ = inferOrObject(import_, _page);
+            AffectationOperation.processInfer(t_, _page);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-        page_.setMerged(false);
-        page_.setAcceptCommaInstr(false);
-        page_.setFinalVariable(false);
+        _page.setMerged(false);
+        _page.setAcceptCommaInstr(false);
+        _page.setFinalVariable(false);
     }
 
     @Override

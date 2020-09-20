@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -34,25 +33,24 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    public void analyzeUnary(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
+        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
-            varg_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
+            varg_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name);
-            page_.getLocalizer().addError(varg_);
+            _page.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         OperationNode child_ = getFirstChild();
-        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(),page_.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getStandards()));
     }
 
     public int getOffset() {

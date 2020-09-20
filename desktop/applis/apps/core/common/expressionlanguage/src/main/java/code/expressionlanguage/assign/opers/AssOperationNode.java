@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -141,13 +142,13 @@ public abstract class AssOperationNode {
         }
         return new AssSimStdUnaryMethodOperation(_anaNode);
     }
-    public final void setRelativeOffsetPossibleAnalyzable(ContextEl _cont) {
-        _cont.getAnalyzing().setOffset(indexBegin+indexInEl);
+    public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {
+        _page.setOffset(indexBegin+indexInEl);
     }
-    public final void tryAnalyzeAssignmentAfter(ContextEl _conf,AssBlock _ass, AssignedVariablesBlock _a) {
-        analyzeAssignmentAfter(_conf,_ass,_a);
+    public final void tryAnalyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        analyzeAssignmentAfter(_ass,_a, _page);
     }
-    public abstract void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a);
+    public abstract void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page);
     final boolean isFirstChild() {
         AssMethodOperation par_ = getParent();
         if (par_ == null) {

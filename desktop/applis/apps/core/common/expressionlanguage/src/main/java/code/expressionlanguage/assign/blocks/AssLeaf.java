@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 
 public abstract class AssLeaf extends AssBlock {
@@ -14,6 +14,6 @@ public abstract class AssLeaf extends AssBlock {
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
     }
 }

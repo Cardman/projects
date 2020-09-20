@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -19,15 +19,15 @@ public final class ChoiceFieldOperation extends
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         return new AnaClassArgumentMatching(className_);
     }
 

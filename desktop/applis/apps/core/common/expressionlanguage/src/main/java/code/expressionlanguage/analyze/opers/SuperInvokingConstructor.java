@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -17,22 +17,22 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
-        String clCurName_ = _conf.getAnalyzing().getGlobalClass();
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
+        String clCurName_ = _page.getGlobalClass();
         String base_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        RootBlock clBody_ = _conf.getAnalyzing().getAnaClassBody(base_);
+        RootBlock clBody_ = _page.getAnaClassBody(base_);
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
-        String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
+        String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass());
         return new AnaClassArgumentMatching(superClass_);
     }
 

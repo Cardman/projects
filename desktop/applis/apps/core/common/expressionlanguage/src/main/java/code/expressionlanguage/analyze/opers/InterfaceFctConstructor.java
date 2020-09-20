@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -21,7 +21,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         int index_ = getIndexChild();
         if (index_ <= 0) {
             return null;
@@ -29,15 +29,15 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         String cl_ = getMethodName();
         int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf, leftPar_,cl_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-        if (!(_conf.getAnalyzing().getAnaClassBody(cl_) instanceof InterfaceBlock)) {
+        cl_ = ResolvingImportTypes.resolveAccessibleIdType(leftPar_,cl_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
+        if (!(_page.getAnaClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
@@ -49,34 +49,34 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         className = className_;
         if (!ExplicitOperation.customCast(className_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
         String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
-        RootBlock sub_ = _conf.getAnalyzing().getAnaClassBody(idCl_);
+        RootBlock sub_ = _page.getAnaClassBody(idCl_);
         if (!(sub_ instanceof InterfaceBlock)|| !sub_.isStaticType()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
-        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(sub_,className_, cl_, _conf);
+        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(sub_,className_, cl_, _page);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
@@ -84,15 +84,15 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     }
 
     @Override
-    void checkPositionBasis(ContextEl _conf) {
+    void checkPositionBasis(AnalyzedPageEl _page) {
         int index_ = getIndexChild();
         if (index_ <= 0) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorEnd());
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
+            _page.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
         }
     }

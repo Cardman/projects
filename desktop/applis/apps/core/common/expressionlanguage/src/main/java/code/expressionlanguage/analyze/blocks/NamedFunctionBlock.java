@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -85,11 +84,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersNamesOffset = _paramNamesOffset;
     }
 
-    public NamedFunctionBlock(ContextEl _importingPage,int _fctName,
-                              OffsetsBlock _offset) {
+    public NamedFunctionBlock(int _fctName,
+                              OffsetsBlock _offset, AnalyzedPageEl _page) {
         super(_offset);
         importedParametersTypes = new StringList();
-        name = _importingPage.getAnalyzing().getKeyWords().getKeyWordLambda();
+        name = _page.getKeyWords().getKeyWordLambda();
         nameOffset = _fctName;
         parametersTypes = new StringList();
         access = AccessEnum.PUBLIC;
@@ -122,12 +121,12 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         return varargs_;
     }
-    public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
-        buildAnnotationsBasic(_context,_ex);
+    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
+        buildAnnotationsBasic(_ex, _page);
     }
 
     @Override
-    public void buildAnnotationsParameters(ContextEl _context, ExecAnnotableParametersBlock _ann) {
+    public void buildAnnotationsParameters(ExecAnnotableParametersBlock _ann, AnalyzedPageEl _page) {
         CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
         int j_ = 0;
         rootsList = new CustList<CustList<OperationNode>>();
@@ -136,14 +135,14 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             annotation_ = new CustList<CustList<ExecOperationNode>>();
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
             int len_ = l.size();
-            AnalyzedPageEl page_ = _context.getAnalyzing();
+            AnalyzedPageEl page_ = _page;
             StringList list_ = annotationsParams.get(j_);
             for (int i = 0; i < len_; i++) {
                 int begin_ = l.get(i);
                 page_.setGlobalOffset(begin_);
                 page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
+                annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), c_, _page));
                 rootList_.add(page_.getCurrentRoot());
             }
             rootsList.add(rootList_);
@@ -154,12 +153,12 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
-        checkReturnFct(_an, _anEl);
+    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        checkReturnFct(_anEl, _page);
     }
 
-    private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getAnalyzing().getStandards();
+    private void checkReturnFct(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
                 //error
@@ -167,11 +166,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_an));
-                _an.getAnalyzing().addLocError(miss_);
+                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
+                        _page.getKeyWords().getKeyWordThrow(),
+                        _page.getKeyWords().getKeyWordReturn(),
+                        getPseudoSignature(_page));
+                _page.addLocError(miss_);
                 addNameErrors(miss_);
             }
         }
@@ -219,51 +218,49 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         returnTypeOffset = _retTypeOffset;
     }
 
-    public final void buildImportedTypes(ContextEl _stds) {
-        AnalyzedPageEl page_ = _stds.getAnalyzing();
+    public final void buildImportedTypes(AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         page_.setCurrentBlock(this);
         page_.setCurrentAnaBlock(this);
         page_.setCurrentFct(this);
-        buildInternImportedTypes(_stds);
+        buildInternImportedTypes(_page);
     }
 
-    public final void buildInternImportedTypes(ContextEl _stds) {
+    public final void buildInternImportedTypes(AnalyzedPageEl _page) {
         StringList params_ = new StringList();
         int i_ = 0;
         for (String p: parametersTypes) {
-            String res_ = buildInternParam(_stds, parametersTypesOffset.get(i_), p);
+            String res_ = buildInternParam(parametersTypesOffset.get(i_), p, _page);
             params_.add(res_);
             i_++;
         }
         importedParametersTypes.clear();
         importedParametersTypes.addAllElts(params_);
-        buildImportedReturnTypes(_stds);
+        buildImportedReturnTypes(_page);
     }
-    public final String buildInternParam(ContextEl _stds,int _offset, String _param) {
-        AnalyzedPageEl page_ = _stds.getAnalyzing();
+    public final String buildInternParam(int _offset, String _param, AnalyzedPageEl _page) {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        page_.setGlobalOffset(_offset);
-        page_.setOffset(0);
-        String res_ = ResolvingImportTypes.resolveCorrectType(_stds, _param);
-        partOffsets_.addAllElts(_stds.getAnalyzing().getCurrentParts());
+        _page.setGlobalOffset(_offset);
+        _page.setOffset(0);
+        String res_ = ResolvingImportTypes.resolveCorrectType(_param, _page);
+        partOffsets_.addAllElts(_page.getCurrentParts());
         partOffsetsParams.add(partOffsets_);
         return res_;
     }
 
-    public void buildImportedReturnTypes(ContextEl _stds) {
-        String void_ = _stds.getAnalyzing().getStandards().getAliasVoid();
+    public void buildImportedReturnTypes(AnalyzedPageEl _page) {
+        String void_ = _page.getStandards().getAliasVoid();
         if (StringList.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
             return;
         }
-        importedReturnType = buildInternRet(_stds,returnTypeOffset,returnType);
+        importedReturnType = buildInternRet(returnTypeOffset,returnType, _page);
     }
-    public final String buildInternRet(ContextEl _stds,int _offset, String _param) {
-        AnalyzedPageEl page_ = _stds.getAnalyzing();
-        page_.setGlobalOffset(_offset);
-        page_.setOffset(0);
-        String res_ = ResolvingImportTypes.resolveCorrectType(_stds, _param);
-        partOffsetsReturn.addAllElts(_stds.getAnalyzing().getCurrentParts());
+    public final String buildInternRet(int _offset, String _param, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(_offset);
+        _page.setOffset(0);
+        String res_ = ResolvingImportTypes.resolveCorrectType(_param, _page);
+        partOffsetsReturn.addAllElts(_page.getCurrentParts());
         return res_;
     }
     public String getReturnType() {
@@ -290,18 +287,17 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return importedReturnType;
     }
 
-    public void buildAnnotationsBasic(ContextEl _context, ExecAnnotableBlock _ex) {
+    public void buildAnnotationsBasic(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         roots = new CustList<OperationNode>();
         int len_ = annotationsIndexes.size();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
-            page_.setGlobalOffset(begin_);
-            page_.setOffset(0);
+            _page.setGlobalOffset(begin_);
+            _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(page_.getCurrentRoot());
+            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
+            roots.add(_page.getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

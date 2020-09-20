@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
@@ -19,8 +18,8 @@ public final class ContextUtil {
     private ContextUtil() {
     }
 
-    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
-        CodeAccess code_ = processBegin(_className, _block, _context.getAnalyzing());
+    public static boolean canAccess(String _className, AccessibleBlock _block, AnalyzedPageEl _page) {
+        CodeAccess code_ = processBegin(_className, _block, _page);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
@@ -28,7 +27,7 @@ public final class ContextUtil {
         String belongPkg_ = _block.getPackageName();
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _context.getAnalyzing());
+            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _page);
         }
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
     }
@@ -110,22 +109,22 @@ public final class ContextUtil {
         return methods_;
     }
 
-    public static int getCurrentChildTypeIndex(ContextEl _an, OperationNode _op, AnaGeneType _type, String _fieldName, String _realClassName) {
+    public static int getCurrentChildTypeIndex(OperationNode _op, AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                String file_ = _an.getAnalyzing().getLocalizer().getCurrentFileName();
-                int fileIndex_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                String file_ = _page.getLocalizer().getCurrentFileName();
+                int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
                 call_.setFileName(file_);
                 call_.setIndexFile(fileIndex_);
                 //type len
-                call_.buildError(_an.getAnalyzing().getAnalysisMessages().getIllegalCtorEnum());
-                _an.getAnalyzing().getLocalizer().addError(call_);
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());
+                _page.getLocalizer().addError(call_);
                 _op.setResultClass(new AnaClassArgumentMatching(_realClassName));
                 _op.getErrs().add(call_.getBuiltError());
                 return -2;
             }
-            return _an.getAnalyzing().getIndexChildType();
+            return _page.getIndexChildType();
         }
         return -1;
     }
@@ -224,17 +223,17 @@ public final class ContextUtil {
         return vars_;
     }
 
-    public static void appendParts(ContextEl _cont,int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.getAnalyzing().isGettingParts()) {
+    public static void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
             return;
         }
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _page;
         AnaGeneType g_ = page_.getAnaGeneType(_in);
         if (!isFromCustFile(g_)) {
             return;
         }
         AccessedBlock r_ = page_.getImporting();
-        int rc_ = _cont.getAnalyzing().getTraceIndex();
+        int rc_ = _page.getTraceIndex();
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
         String rel_ = LinkageUtil.relativize(curr_,ref_);
@@ -243,11 +242,11 @@ public final class ContextUtil {
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
-    public static void appendTitleParts(ContextEl _cont, int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.getAnalyzing().isGettingParts()) {
+    public static void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
             return;
         }
-        int rc_ = _cont.getAnalyzing().getTraceIndex();
+        int rc_ = _page.getTraceIndex();
         _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
@@ -258,10 +257,10 @@ public final class ContextUtil {
         }
         return !((RootBlock)_g).getFile().isPredefined();
     }
-    public static boolean isFinalField(ContextEl _cont, ClassField _classField) {
+    public static boolean isFinalField(ClassField _classField, AnalyzedPageEl _page) {
         String fullName_ = _classField.getClassName();
         String search_ = _classField.getFieldName();
-        RootBlock cust_ = _cont.getAnalyzing().getAnaClassBody(fullName_);
+        RootBlock cust_ = _page.getAnaClassBody(fullName_);
         boolean finalField_ = false;
         for (Block b: ClassesUtil.getDirectChildren(cust_)) {
             if (!(b instanceof InfoBlock)) {
@@ -276,10 +275,10 @@ public final class ContextUtil {
         }
         return finalField_;
     }
-    public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
+    public static FieldInfo getFieldInfo(ClassField _classField, AnalyzedPageEl _page) {
         String fullName_ = _classField.getClassName();
         String search_ = _classField.getFieldName();
-        AnaGeneType cust_ = _cont.getAnalyzing().getAnaGeneType(fullName_);
+        AnaGeneType cust_ = _page.getAnaGeneType(fullName_);
         if (cust_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) cust_;
             for (Block b: ClassesUtil.getDirectChildren(r_)) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -29,16 +30,16 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     private ExecNamedFunctionBlock function;
     private ExecRootBlock declaring;
 
-    public ExecMethodLambdaOperation(LambdaOperation _l, ContextEl _cont) {
+    public ExecMethodLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
         super(_l);
         method = _l.getMethod();
         polymorph = _l.isPolymorph();
         abstractMethod = _l.isAbstractMethod();
         directCast = _l.isDirectCast();
         expCast = _l.isExpCast();
-        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
-        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
-        declaring = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
+        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+        declaring = fetchType(_l.getRootNumber(), _page);
     }
 
     @Override

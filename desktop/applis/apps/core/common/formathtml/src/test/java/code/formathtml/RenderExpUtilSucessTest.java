@@ -2861,7 +2861,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Delimiters checkDel(String s, int i, AnalyzedTestConfiguration context_) {
-        return ElResolver.checkSyntaxDelimiters(s, context_.getContext(), i, context_.getAnalyzing());
+        return ElResolver.checkSyntaxDelimiters(s, i, context_.getAnalyzing());
     }
 
     private static Argument processDelimiters(String s, int i) {

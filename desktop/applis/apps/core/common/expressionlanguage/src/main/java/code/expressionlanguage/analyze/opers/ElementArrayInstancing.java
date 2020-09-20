@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -38,13 +37,12 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        setClassName(_page.getStandards().getAliasObject());
+        KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = me_.trim().substring(new_.length());
         int local_ = StringList.getFirstPrintableCharIndex(className_);
@@ -53,9 +51,9 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        AnalyzedBlock cur_ = page_.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
+            typeAff_ = tryGetRetType(_page);
         } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             typeAff_ = i_.getImportedClassName();
@@ -70,7 +68,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
-            String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,new_.length()+loc_,className_,true,partOffsets_);
+            String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
             if (res_.startsWith(ARR)) {
                 partOffsets.addAllElts(partOffsets_);
                 typeInfer = res_;
@@ -78,8 +76,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             }
             return;
         }
-        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,new_.length()+local_,inferForm_);
-        partOffsets_.addAllElts(page_.getCurrentParts());
+        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(new_.length()+local_,inferForm_, _page);
+        partOffsets_.addAllElts(_page.getCurrentParts());
         if (type_.isEmpty()) {
             return;
         }
@@ -103,7 +101,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
@@ -117,7 +115,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                     setClassName(StringExpUtil.getQuickComponentType(infer_));
                 }
@@ -131,7 +129,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -145,7 +143,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                     setClassName(StringExpUtil.getQuickComponentType(infer_));
                 }
@@ -165,7 +163,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -179,7 +177,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
                 setClassName(StringExpUtil.getQuickComponentType(infer_));
             }
@@ -196,7 +194,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
@@ -210,7 +208,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
                 setClassName(StringExpUtil.getQuickComponentType(infer_));
             }
@@ -224,7 +222,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (isNotCorrectDim(cp_)) {
             return;
         }
-        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _page);
         if (infer_ == null) {
             return;
         }
@@ -232,50 +230,49 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         partOffsets.addAllElts(partOffsets_);
         int begin_ = new_.length()+local_+className_.indexOf('<');
         int end_ = new_.length()+local_+className_.indexOf('>')+1;
-        ContextUtil.appendTitleParts(_an,begin_,end_, arr_,partOffsets);
+        ContextUtil.appendTitleParts(begin_,end_, arr_,partOffsets, _page);
         typeInfer = arr_;
         setClassName(StringExpUtil.getQuickComponentType(arr_));
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        setClassName(_page.getStandards().getAliasObject());
+        KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
-            partOffsets.addAllElts(page_.getCurrentParts());
+            className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+loc_,className_, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;
         }
         if (!className_.startsWith(ARR)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //key word len
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             IntTreeMap<String> operators_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _conf);
-            int i_ = page_.getLocalizer().getCurrentLocationIndex();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
+            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            String obj_ = page_.getStandards().getAliasObject();
+            String obj_ = _page.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
             setResultClass(class_);
             return;
         }
         StringMap<StringList> map_;
-        map_ = page_.getCurrentConstraints().getCurrentConstraints();
+        map_ = _page.getCurrentConstraints().getCurrentConstraints();
         String eltType_ = StringExpUtil.getQuickComponentType(className_);
         Mapping mapping_ = new Mapping();
         mapping_.setParam(eltType_);
@@ -283,12 +280,12 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             int index_ = getPartOffsetsChildren().size();
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
-            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, eltType_, argType_);
+            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(eltType_, argType_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     argType_.getImplicits().add(cl_);
@@ -296,20 +293,20 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     argType_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
-                    int i_ = page_.getLocalizer().getCurrentLocationIndex();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child
-                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
-                    page_.getLocalizer().addError(cast_);
+                    _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
             }
-            if (AnaTypeUtil.isPrimitive(eltType_, page_)) {
-                o.getResultClass().setUnwrapObject(eltType_,page_.getStandards());
+            if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
+                o.getResultClass().setUnwrapObject(eltType_, _page.getStandards());
                 o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);

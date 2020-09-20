@@ -133,13 +133,13 @@ public final class MethodId implements Identifiable {
         return new MethodId(kind, name, pTypes_, isVararg());
     }
 
-    public MethodId quickFormat(AnaGeneType _root, String _genericClass, ContextEl _context) {
-        StringList pTypes_ = getFormattedTypes(_root,_genericClass, _context);
+    public MethodId quickFormat(AnaGeneType _root, String _genericClass) {
+        StringList pTypes_ = getFormattedTypes(_root,_genericClass);
         return new MethodId(kind, name, pTypes_, isVararg());
     }
 
-    public FormattedMethodId quickOverrideFormat(AnaGeneType _root, String _genericClass, ContextEl _context) {
-        StringList pTypes_ = getFormattedTypes(_root,_genericClass, _context);
+    public FormattedMethodId quickOverrideFormat(AnaGeneType _root, String _genericClass) {
+        StringList pTypes_ = getFormattedTypes(_root,_genericClass);
         return new FormattedMethodId(name, pTypes_, isVararg());
     }
 
@@ -154,12 +154,12 @@ public final class MethodId implements Identifiable {
         return pTypes_;
     }
 
-    private StringList getFormattedTypes(AnaGeneType _root, String _genericClass, ContextEl _context) {
+    private StringList getFormattedTypes(AnaGeneType _root, String _genericClass) {
         int len_ = classNames.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
-            String formatted_ = AnaTemplates.quickFormat(_root,_genericClass, n_, _context);
+            String formatted_ = AnaTemplates.quickFormat(_root,_genericClass, n_);
             pTypes_.add(formatted_);
         }
         return pTypes_;

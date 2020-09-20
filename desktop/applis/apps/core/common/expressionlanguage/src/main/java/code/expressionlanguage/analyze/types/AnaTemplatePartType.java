@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
@@ -38,17 +38,17 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return Templates.TEMPLATE_END;
     }
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
-        analyzeLine(_an,null,_dels,_local,_rooted);
+    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        analyzeLine(null,_dels,_local,_rooted, null);
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
+    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
+    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 
@@ -72,12 +72,12 @@ final class AnaTemplatePartType extends AnaBinaryType {
         setAnalyzedType(t_);
     }
 
-    boolean okTmp(ContextEl _an, StringMap<StringList> _inherit) {
+    boolean okTmp(StringMap<StringList> _inherit, AnalyzedPageEl _page) {
         AnaPartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
-        AnaGeneType type_ = _an.getAnalyzing().getAnaGeneType(tempCl_);
+        AnaGeneType type_ = _page.getAnaGeneType(tempCl_);
         CustList<StringList> boundsAll_ = AnaTemplates.getBoundAll(type_);
         int i_ = 0;
         for (StringList t: boundsAll_) {
@@ -113,13 +113,13 @@ final class AnaTemplatePartType extends AnaBinaryType {
             }
             for (String e: t) {
                 Mapping m_ = new Mapping();
-                String param_ = AnaTemplates.format(type_,tempClFull_, e, _an);
+                String param_ = AnaTemplates.format(type_,tempClFull_, e);
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (AnaTemplates.isCorrect(m_, _an)) {
+                    if (AnaTemplates.isCorrect(m_, _page)) {
                         ok_ = true;
                         break;
                     }
@@ -133,16 +133,16 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return indexesChildConstraints.isEmpty();
     }
 
-    void buildBadConstraintsOffsetList(ContextEl _an) {
-        if (!_an.getAnalyzing().isGettingParts()) {
+    void buildBadConstraintsOffsetList(AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
             return;
         }
         for (int i: indexesChildConstraints) {
-            String err_ = FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getBadParamerizedType(), getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), getAnalyzedType());
             getErrsList().get(i).add(err_);
         }
         for (int i: indexesChildConstraints) {
-            int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().getKey(i);
+            int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().getKey(i);
             int len_ = getOperators().getValue(i).length();
             String err_ = LinkageUtil.transform(StringList.join(getErrsList().get(i),"\n\n"));
             getBeginOps().set(i,new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
@@ -150,8 +150,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
         }
     }
 
-    void processBadLen(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().lastKey();
+    void processBadLen(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().lastKey();
         int len_ = getOperators().lastValue().length();
         StringList errLen_ = getErrs();
         if (errLen_.isEmpty()) {
@@ -178,8 +178,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
     }
 
     @Override
-    void buildErrorInexist(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().firstKey();
+    void buildErrorInexist(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().firstKey();
         int len_ = getOperators().firstValue().length();
         buildOffsetPart(begin_,len_);
     }

@@ -3,9 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -1008,7 +1006,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedTestContext _an) {
-        return Templates.getAllInnerTypesSingleDotted(_type,_an.getContext());
+        return Templates.getAllInnerTypesSingleDotted(_type, _an.getAnalyzing());
     }
 
     private static boolean correctNbParameters(AnalyzedTestContext cont_, String pkg) {

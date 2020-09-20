@@ -5450,18 +5450,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static OperationsSequence getOperationsSequence(AnalyzedTestContext conf_, String el_, Delimiters d_, int _offset) {
-        return ElResolver.getOperationsSequence(_offset, el_, conf_.getContext(), d_, conf_.getAnalyzing());
+        return ElResolver.getOperationsSequence(_offset, el_, d_, conf_.getAnalyzing());
     }
     private AnalyzedTestContext contextEl() {
         return ctxAna();
     }
 
     private static Delimiters checkSyntax(AnalyzedTestContext conf_, String el_) {
-        return ElResolver.checkSyntax(el_, conf_.getContext(), 0, conf_.getAnalyzing());
+        return ElResolver.checkSyntax(el_, 0, conf_.getAnalyzing());
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext conf_, String el_, int _minIndex) {
-        return ElResolver.checkSyntaxDelimiters(el_, conf_.getContext(), _minIndex, conf_.getAnalyzing());
+        return ElResolver.checkSyntaxDelimiters(el_, _minIndex, conf_.getAnalyzing());
     }
 
     private static RootBlock getAnaClassBody(AnalyzedTestContext classes_, String _className) {

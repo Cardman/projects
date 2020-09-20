@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
@@ -46,30 +45,29 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-        from = getFrom(_an);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        from = getFrom(_page);
         if (from == null) {
             return;
         }
         String clCurName_ = from.getName();
-        tryGetCtors(_an,clCurName_,ctors);
+        tryGetCtors(clCurName_,ctors, _page);
     }
 
     @Override
-    public final void analyze(ContextEl _conf) {
+    public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         String varargParam_ = getVarargParam(chidren_);
         if (from == null) {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
-            checkPositionBasis(_conf);
+            checkPositionBasis(_page);
             return;
         }
         ConstructorId feed_ = null;
@@ -83,47 +81,47 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         String clCurName_ = from.getName();
         classFromName = clCurName_;
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        RootBlock type_ = page_.getAnaClassBody(id_);
-        NameParametersFilter name_ = buildFilter(_conf);
+        RootBlock type_ = _page.getAnaClassBody(id_);
+        NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,id_,type_, feed_, varargParam_, name_);
+        ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, from,id_,type_, feed_, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
-            checkPositionBasis(_conf);
+            checkPositionBasis(_page);
             return;
         }
         rootNumber = ctorRes_.getRootNumber();
         memberNumber = ctorRes_.getMemberNumber();
         constId = ctorRes_.getRealId();
-        checkPositionBasis(_conf);
-        postAnalysis(_conf, ctorRes_, name_);
+        checkPositionBasis(_page);
+        postAnalysis(ctorRes_, name_, _page);
     }
 
-    abstract AnaClassArgumentMatching getFrom(ContextEl _conf);
-    private void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, NameParametersFilter _args) {
+    abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
+    private void postAnalysis(ConstrustorIdVarArg _res, NameParametersFilter _args, AnalyzedPageEl _page) {
         if (_res.isVarArgToCall()) {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        unwrapArgsFct(constId, naturalVararg, lastType, _args.getAll(), _conf);
-        LgNames stds_ = _conf.getAnalyzing().getStandards();
+        unwrapArgsFct(constId, naturalVararg, lastType, _args.getAll(), _page);
+        LgNames stds_ = _page.getStandards();
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
 
-    void checkPositionBasis(ContextEl _conf) {
-        Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
+    void checkPositionBasis(AnalyzedPageEl _page) {
+        Block curBlock_ = _page.getCurrentBlock();
         if (getParent() != null) {
             //error
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorEnd());
-            _conf.getAnalyzing().addLocError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
+            _page.addLocError(call_);
             getErrs().add(call_.getBuiltError());
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
@@ -132,8 +130,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtor());
-                _conf.getAnalyzing().addLocError(call_);
+                call_.buildError(_page.getAnalysisMessages().getCallCtor());
+                _page.addLocError(call_);
                 getErrs().add(call_.getBuiltError());
             } else if (!(curBlock_ instanceof Line)) {
                 //error
@@ -141,23 +139,23 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorBeforeBlock());
-                _conf.getAnalyzing().addLocError(call_);
+                call_.buildError(_page.getAnalysisMessages().getCallCtorBeforeBlock());
+                _page.addLocError(call_);
                 getErrs().add(call_.getBuiltError());
             } else {
-                checkPosition(_conf);
+                checkPosition(_page);
             }
         }
     }
-    void checkPosition(ContextEl _conf) {
-        Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
+    void checkPosition(AnalyzedPageEl _page) {
+        Block curBlock_ = _page.getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorFirstLine());
-            _conf.getAnalyzing().addLocError(call_);
+            call_.buildError(_page.getAnalysisMessages().getCallCtorFirstLine());
+            _page.addLocError(call_);
             getErrs().add(call_.getBuiltError());
         }
     }

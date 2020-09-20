@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -36,27 +35,26 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         okNum = true;
         if (chidren_.size() != 2) {
             okNum = false;
-            page_.setOkNumOp(false);
+            _page.setOkNumOp(false);
             int in_ = Math.min(getOperations().getOperators().size()-1,1);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int index_ = page_.getLocalizer().getCurrentLocationIndex();
+            badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int index_ = _page.getLocalizer().getCurrentLocationIndex();
             badNb_.setIndexFile(index_);
             //first oper
-            badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
+            badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(2),
                     Integer.toString(chidren_.size()),
                     op
             );
-            page_.getLocalizer().addError(badNb_);
+            _page.getLocalizer().addError(badNb_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
@@ -70,9 +68,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching second_ = r_.getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _conf);
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _page);
         if (cl_.getSymbol() != null) {
-            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
+            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
                 rootNumber = cl_.getRootNumber();
                 memberNumber = cl_.getMemberNumber();
@@ -84,76 +82,76 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             stringCompare = true;
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             Argument arg_ = l_.getArgument();
-            checkNull(arg_,_conf);
+            checkNull(arg_, _page);
             arg_ = r_.getArgument();
-            checkNull(arg_,_conf);
+            checkNull(arg_, _page);
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
             return;
         }
-        if (AnaTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
-            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
-            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
-            l_.getResultClass().setUnwrapObject(classFirst_,page_.getStandards());
-            r_.getResultClass().setUnwrapObject(classSecond_,page_.getStandards());
+        if (AnaTypeUtil.isFloatOrderClass(first_,second_, _page)) {
+            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
+            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
+            l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
+            r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
             l_.quickCancel();
             r_.quickCancel();
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        if (AnaTypeUtil.isIntOrderClass(first_,second_, _conf)) {
-            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
-            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
-            l_.getResultClass().setUnwrapObject(classFirst_,page_.getStandards());
-            r_.getResultClass().setUnwrapObject(classSecond_,page_.getStandards());
+        if (AnaTypeUtil.isIntOrderClass(first_,second_, _page)) {
+            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
+            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
+            l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
+            r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
             l_.quickCancel();
             r_.quickCancel();
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         okNum = false;
-        page_.setOkNumOp(false);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+        _page.setOkNumOp(false);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
         StringList expectedTypes_ = new StringList();
         expectedTypes_.add(stds_.getAliasPrimDouble());
         expectedTypes_.add(stds_.getAliasString());
-        String res_ = page_.getStandards().getAliasPrimBoolean();
+        String res_ = _page.getStandards().getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = page_.getLocalizer().getCurrentLocationIndex();
+        int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(page_.getLocalizer().getCurrentFileName());
+        un_.setFileName(_page.getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(first_.getNames(),"&"),
                         StringList.join(second_.getNames(),"&")
                 ),";"),
                 getOp());
-        page_.getLocalizer().addError(un_);
+        _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+op.length()));
         getPartOffsetsChildren().add(err_);
-        setResultClass(new AnaClassArgumentMatching(res_,page_.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(res_, _page.getStandards()));
     }
     @Override
-    void checkNull(Argument _arg, ContextEl _an) {
+    void checkNull(Argument _arg, AnalyzedPageEl _page) {
         if (Argument.isNullValue(_arg)) {
             okNum = false;
-            _an.getAnalyzing().setOkNumOp(false);
+            _page.setOkNumOp(false);
         }
-        super.checkNull(_arg,_an);
+        super.checkNull(_arg, _page);
     }
     public boolean isStringCompare() {
         return stringCompare;
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(AnalyzedPageEl _page) {
         if (!okNum) {
             return;
         }
-        tryGetResult(op, classMethodId, stringCompare, this, _conf.getAnalyzing());
+        tryGetResult(op, classMethodId, stringCompare, this, _page);
     }
     private static void tryGetResult(String _op, ClassMethodId _cl, boolean _str, MethodOperation _to, AnalyzedPageEl _page) {
         if (_cl != null) {

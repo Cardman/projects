@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -22,7 +22,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
         settable = AssSimAffectationOperation.tryGetSettable(this);
     }
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssOperationNode firstChild_ = settable;
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<Boolean> variables_ = _a.getVariables();
@@ -34,26 +34,26 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (_a.isFinalLocalVar(str_)) {
                             //error
-                            analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _conf);
+                            analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _page);
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     str_);
-                            _conf.getAnalyzing().addLocError(un_);
+                            _page.addLocError(un_);
                             analyzed.getErrs().add(un_.getBuiltError());
                         }
                     }
                 }
             } else if (localVar_.isFinalVariable()){
                 //error
-                analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _conf);
+                analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         str_);
-                _conf.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
                 analyzed.getErrs().add(un_.getBuiltError());
             }
         }

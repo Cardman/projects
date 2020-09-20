@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -68,17 +67,16 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        err = page_.getCurrentEmptyPartErr();
-        result = page_.getCurrentRoot().getResultClass();
-        processAfterEl(_cont);
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        err = _page.getCurrentEmptyPartErr();
+        result = _page.getCurrentRoot().getResultClass();
+        processAfterEl(_page);
         ExecBracedBlock exec_;
-        root = page_.getCurrentRoot();
+        root = _page.getCurrentRoot();
         if (!instanceTest.isEmpty()) {
             exec_ = new ExecInstanceSwitchBlock(getOffset(), label, valueOffset, op_);
         } else if (enumTest) {
@@ -86,23 +84,23 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         } else {
             exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
         }
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void processAfterEl(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    private void processAfterEl(AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         String type_ = result.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             //one char => change to first left par
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnknownType(),
+            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         } else {
@@ -114,7 +112,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             } else if (type_.startsWith("#")||type_.startsWith("[")) {
                 final_ = false;
             }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
                 if (!StringList.quickEq(id_, page_.getStandards().getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
@@ -124,9 +122,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             un_.setFileName(getFile().getFileName());
                             un_.setIndexFile(valueOffset);
                             //one char => change to first left par
-                            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            _cont.getAnalyzing().addLocError(un_);
+                            _page.addLocError(un_);
                             setReachableError(true);
                             getErrorsBlock().add(un_.getBuiltError());
                         }
@@ -155,15 +153,15 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
-                    _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
+                    _page.getKeyWords().getKeyWordSwitch(),
                     StringList.join(
                             new StringList(
-                                    _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
-                                    _cont.getAnalyzing().getKeyWords().getKeyWordDefault()
+                                    _page.getKeyWords().getKeyWordCase(),
+                                    _page.getKeyWords().getKeyWordDefault()
                             ),
                             "|"));
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             first_.getErrorsBlock().add(un_.getBuiltError());
             first_.setReachableError(true);
             first_ = first_.getNextSibling();
@@ -172,7 +170,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     }
 
     @Override
-    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
+    public void abrupt(AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
         if (ch_ == null) {
             return;

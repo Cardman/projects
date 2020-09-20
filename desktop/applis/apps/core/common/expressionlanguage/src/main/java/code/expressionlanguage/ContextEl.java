@@ -7,19 +7,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.DefaultAnnotationAnalysis;
-import code.expressionlanguage.types.DefaultBuildingConstraints;
-import code.expressionlanguage.types.DefaultCurrentConstraints;
-import code.expressionlanguage.types.DefaultCurrentGlobalBlock;
-import code.expressionlanguage.types.DefaultHiddenTypes;
-import code.expressionlanguage.types.DefaultLocalDeclaring;
-import code.expressionlanguage.types.DefaultLocalizer;
-import code.expressionlanguage.types.DefaultLoopDeclaring;
-import code.expressionlanguage.types.DefaultTokenValidation;
 import code.util.*;
 
 public abstract class ContextEl {
@@ -27,8 +17,6 @@ public abstract class ContextEl {
     private final CommonExecutionInfos executionInfos;
 
     private CallingState callingState;
-
-    private AnalyzedPageEl analyzing;
 
     private final CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
@@ -102,28 +90,6 @@ public abstract class ContextEl {
         importing.add(_page);
     }
 
-    public AnalyzedPageEl getAnalyzing() {
-        return analyzing;
-    }
-
-    public AnalyzedPageEl setAnalyzing() {
-        analyzing = setInnerAnalyzing();
-        return analyzing;
-    }
-    public static AnalyzedPageEl setInnerAnalyzing() {
-        AnalyzedPageEl page_ = new AnalyzedPageEl();
-        page_.setProcessKeyWord(new DefaultProcessKeyWord());
-        page_.setHiddenTypes(new DefaultHiddenTypes(page_));
-        page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
-        page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
-        page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
-        page_.setLoopDeclaring(new DefaultLoopDeclaring(page_));
-        page_.setLocalDeclaring(new DefaultLocalDeclaring(page_));
-        page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
-        page_.setLocalizer(new DefaultLocalizer(page_));
-        page_.setTokenValidation(new DefaultTokenValidation(page_));
-        return page_;
-    }
     public void forwardAndClear(AnalyzedPageEl _ana) {
         for (ClassMetaInfo c: _ana.getClassMetaInfos()) {
             _ana.getClasses().getClassMetaInfos().add(c);
@@ -131,9 +97,6 @@ public abstract class ContextEl {
         _ana.getClassMetaInfos().clear();
         _ana.getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
         ValidatorStandard.buildIterable(_ana);
-    }
-    public void setNullAnalyzing() {
-        analyzing = null;
     }
 
     public AbstractPageEl getLastPage() {

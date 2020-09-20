@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -22,32 +22,32 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
         int offLoc_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + offLoc_, realCl_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        classStr_ = ResolvingImportTypes.resolveCorrectType(afterLeftPar_ + offLoc_, realCl_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         className = classStr_;
-        setResultClass(new AnaClassArgumentMatching(className,_conf.getAnalyzing().getStandards()));
+        setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        setArg(this, _conf, className);
+    public void tryCalculateNode(AnalyzedPageEl _page) {
+        setArg(this, className, _page);
     }
-    private static void setArg(OperationNode _current, ContextEl _conf, String _className) {
+    private static void setArg(OperationNode _current, String _className, AnalyzedPageEl _page) {
         if (_className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
             return;
         }
-        Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(_className,_conf.getAnalyzing().getStandards()));
-        _current.setSimpleArgumentAna(a_, _conf.getAnalyzing());
+        Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(_className, _page.getStandards()));
+        _current.setSimpleArgumentAna(a_, _page);
     }
 
     public String getClassName() {

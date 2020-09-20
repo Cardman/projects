@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
@@ -16,17 +16,17 @@ public final class AssTernaryOperation extends AssMultMethodOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
+    public void analyzeAssignmentBeforeNextSibling(AssBlock _ass, AssignedVariablesBlock _a, AssOperationNode _nextSibling, AssOperationNode _previous) {
         AssOperationNode firstChild_ = getFirstChild();
         if (firstChild_ == _previous) {
-            analyzeTrueAssignmentBeforeNextSibling(_conf,_ass,_a, _nextSibling, firstChild_);
+            analyzeTrueAssignmentBeforeNextSibling(_ass,_a, _nextSibling, firstChild_);
         } else {
-            analyzeFalseAssignmentBeforeNextSibling(_conf,_ass,_a, _nextSibling, firstChild_);
+            analyzeFalseAssignmentBeforeNextSibling(_ass,_a, _nextSibling, firstChild_);
         }
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         CustList<AssOperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
@@ -38,7 +38,7 @@ public final class AssTernaryOperation extends AssMultMethodOperation {
         AssOperationNode befLast_ = children_.get(children_.size() - 2);
         StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
         StringMap<Assignment> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
-        boolean toBoolean_ = getResultClass().isBoolType(_conf.getAnalyzing());
+        boolean toBoolean_ = getResultClass().isBoolType(_page);
         for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());

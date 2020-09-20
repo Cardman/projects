@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;
@@ -21,11 +22,11 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(_cont.getRendKeyWords().getAttrMessage());
         String value_ = _read.getAttribute(_cont.getRendKeyWords().getAttrMessage());
         int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrMessage());
-        preformatted = getPre(_cont,value_,offMessage_, _anaDoc);
+        preformatted = getPre(_cont,value_,offMessage_, _anaDoc, _page);
         if (preformatted.isEmpty()) {
             removeUseLess(_cont,_read, _list);
             return;
@@ -40,7 +41,7 @@ public final class RendSubmit extends RendElement {
             String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
-            r_.build(attribute_,_cont,rowsGrId_,_doc, _anaDoc);
+            r_.build(attribute_,_cont,rowsGrId_,_doc, _anaDoc, _page);
             opExp.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }

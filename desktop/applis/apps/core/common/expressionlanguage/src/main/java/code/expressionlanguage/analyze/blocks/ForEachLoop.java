@@ -61,9 +61,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     private final StringList sepErrors = new StringList();
     private boolean okVar = true;
 
-    public ForEachLoop(ContextEl _importingPage,
-                       OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset) {
+    public ForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
+                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -73,7 +72,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getAnalyzing().getStandards().getAliasPrimInteger();
+            classIndex_ = _page.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -138,11 +137,11 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         return importedClassName;
     }
 
-    private MethodAccessKind processVarTypes(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont)) {
+    private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        AnalyzedPageEl page_ = _page;
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(page_.getStandards().getAliasLong());
@@ -150,9 +149,9 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.getAnalyzing().addLocError(cast_);
+            _page.addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
@@ -163,17 +162,17 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());
-            _cont.getAnalyzing().addLocError(b_);
+            _page.addLocError(b_);
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
+            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             importedClassName = "";
         }
@@ -184,9 +183,9 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         return static_;
     }
 
-    public void inferArrayClass(ContextEl _cont, AnaClassArgumentMatching _elt) {
+    public void inferArrayClass(AnaClassArgumentMatching _elt, AnalyzedPageEl _page) {
         AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_elt);
-        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
@@ -199,24 +198,24 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //separator char
-                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnknownType(),
+                cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         className.trim());
-                _cont.getAnalyzing().addLocError(cast_);
+                _page.addLocError(cast_);
                 sepErrors.add(cast_.getBuiltError());
             } else {
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),"&"),
                             importedClassName);
-                    _cont.getAnalyzing().addLocError(cast_);
+                    _page.addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -224,82 +223,80 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MethodAccessKind static_ = processVarTypes(_cont);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        root = page_.getCurrentRoot();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MethodAccessKind static_ = processVarTypes(_page);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+        root = _page.getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
-        checkMatchs(_cont, root.getResultClass());
+        checkMatchs(root.getResultClass(), _page);
         if (okVar) {
-            processVariable(_cont);
+            processVariable(_page);
         }
         ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkMatchs(ContextEl _cont, AnaClassArgumentMatching _elt) {
+    private void checkMatchs(AnaClassArgumentMatching _elt, AnalyzedPageEl _page) {
         if (Argument.isNullValue(argument)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_cont.getAnalyzing().getCurrentBlock().getFile().getFileName());
-            static_.setIndexFile(_cont.getAnalyzing().getTraceIndex());
+            static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+            static_.setIndexFile(_page.getTraceIndex());
             //separator char
-            static_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNullValue(),
-                    _cont.getAnalyzing().getStandards().getAliasNullPe());
-            _cont.getAnalyzing().addLocError(static_);
+            static_.buildError(_page.getAnalysisMessages().getNullValue(),
+                    _page.getStandards().getAliasNullPe());
+            _page.addLocError(static_);
             sepErrors.add(static_.getBuiltError());
         } else {
             if (_elt.isArray()) {
-                inferArrayClass(_cont, _elt);
+                inferArrayClass(_elt, _page);
             } else {
                 StringList names_ = _elt.getNames();
-                StringList out_ = getInferredIterable(names_, _cont);
-                checkIterableCandidates(out_, _cont);
+                StringList out_ = getInferredIterable(names_, _page);
+                checkIterableCandidates(out_, _page);
             }
         }
     }
 
-    public StringList getInferredIterable(StringList _types, ContextEl _cont) {
-        IterableAnalysisResult it_ = _cont.getAnalyzing().getStandards().getCustomType(_types,"", _cont);
+    public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
+        IterableAnalysisResult it_ = _page.getStandards().getCustomType(_types,"", _page);
         return it_.getClassName();
     }
 
-    public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = page_.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
-                paramArg_ = page_.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             }
-            KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
+            KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    _cont.getAnalyzing().addLocError(cast_);
+                    _page.addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -308,29 +305,28 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //separator char
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                    page_.getStandards().getAliasObject(),
-                    page_.getStandards().getAliasIterable());
-            _cont.getAnalyzing().addLocError(cast_);
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    _page.getStandards().getAliasObject(),
+                    _page.getStandards().getAliasIterable());
+            _page.addLocError(cast_);
             sepErrors.add(cast_.getBuiltError());
         }
     }
 
-    private void processVariable(ContextEl _cont) {
+    private void processVariable(AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setRef(variableNameOffset);
         lv_.setIndexClassName(importedClassIndexName);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.getLoopsVars().put(variableName, lv_);
+        _page.getLoopsVars().put(variableName, lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(page_.getStandards().getAliasObject());
+            lInfo_.setClassName(_page.getStandards().getAliasObject());
         }
         lInfo_.setRef(variableNameOffset);
         lInfo_.setConstType(ConstType.FIX_VAR);
-        page_.getInfosVars().put(variableName, lInfo_);
+        _page.getInfosVars().put(variableName, lInfo_);
     }
 
     @Override

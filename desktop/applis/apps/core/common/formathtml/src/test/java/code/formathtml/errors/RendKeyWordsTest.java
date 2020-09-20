@@ -363,12 +363,12 @@ public final class RendKeyWordsTest {
     }
 
     private static void validateMess(RendAnalysisMessages def_, AnalyzedTestContext s_) {
-        AnalysisMessages.validateMessageContents(s_.getContext(),def_.allMessages());
+        AnalysisMessages.validateMessageContents(def_.allMessages(), s_.getAnalyzing());
     }
 
     private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
         SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = s_.setAnalyzing();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);
         return new AnalyzedTestContext(s_,page_);
@@ -379,11 +379,11 @@ public final class RendKeyWordsTest {
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateAttrContents(conf_.getConfiguration(),tags_);
+        r_.validateAttrContents(tags_, conf_.getAnalyzing());
     }
 
     private static void validateDuplicates(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateDuplicates(conf_.getConfiguration(),tags_);
+        r_.validateDuplicates(tags_, conf_.getAnalyzing());
     }
 
 }

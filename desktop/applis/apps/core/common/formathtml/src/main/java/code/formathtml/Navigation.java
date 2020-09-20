@@ -74,7 +74,7 @@ public final class Navigation {
             error = true;
             return page_;
         }
-        session.init();
+        session.init(page_);
         return page_;
     }
     public boolean isError() {

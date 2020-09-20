@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -25,37 +24,36 @@ public final class SuperFromFieldOperation extends
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(page_.getCurrentParts());
+        className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         AnaClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
-            clCur_ = new AnaClassArgumentMatching(page_.getGlobalClass());
+            clCur_ = new AnaClassArgumentMatching(_page.getGlobalClass());
         } else {
             clCur_ = getPreviousResultClass();
         }
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
-        StringMap<StringList> mapping_ = page_.getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
         map_.setMapping(mapping_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _conf)) {
+        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
-            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
-            page_.getLocalizer().addError(cast_);
+            _page.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return null;

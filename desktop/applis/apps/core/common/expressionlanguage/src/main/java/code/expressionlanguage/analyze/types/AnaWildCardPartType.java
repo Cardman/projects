@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.CustList;
@@ -19,21 +19,21 @@ final class AnaWildCardPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
-        analyzeLine(_an,null,_dels,_local,_rooted);
+    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        analyzeLine(null,_dels,_local,_rooted, _page);
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
-        anaWild(_an);
+    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        anaWild(_page);
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
-        anaWild(_an);
+    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        anaWild(_page);
     }
 
-    private void anaWild(ContextEl _an) {
+    private void anaWild(AnalyzedPageEl _page) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
             setAlreadyError();
@@ -45,7 +45,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
         AnaPartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
         base_ = StringExpUtil.getIdFromAllTypes(base_);
-        if (StringList.quickEq(base_.trim(), _an.getAnalyzing().getStandards().getAliasFct())) {
+        if (StringList.quickEq(base_.trim(), _page.getStandards().getAliasFct())) {
             return;
         }
         ch_ = StringList.concat(getBegin(),ch_);
@@ -53,8 +53,8 @@ final class AnaWildCardPartType extends AnaParentPartType {
     }
 
     @Override
-    void buildErrorInexist(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().firstKey();
+    void buildErrorInexist(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().firstKey();
         int len_ = getOperators().firstValue().length();
         buildOffsetPart(begin_,len_);
     }

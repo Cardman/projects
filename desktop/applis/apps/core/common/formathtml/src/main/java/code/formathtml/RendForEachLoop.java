@@ -99,101 +99,100 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     public String getImportedClassName() {
         return importedClassName;
     }
-    public OperationNode buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+    public OperationNode buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _page);
         }
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _page);
         }
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        if (!toInfer(_cont)) {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        if (!toInfer(_page)) {
+            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
         } else {
             importedClassName = EMPTY_STRING;
         }
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
-        return page_.getCurrentRoot();
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _page);
+        return _page.getCurrentRoot();
     }
-    public void inferArrayClass(Configuration _cont, AnalyzingDoc _anaDoc, OperationNode _root) {
+    public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_root.getResultClass());
-        if (toInfer(_cont) && compo_.getNames().onlyOneElt()) {
+        if (toInfer(_page) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
             if (importedClassName.isEmpty()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_anaDoc.getFileName());
                 cast_.setIndexFile(expressionOffset);
-                cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
+                cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         className.trim());
-                Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+                Configuration.addError(cast_, _anaDoc, _page);
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),AND_ERR),
                             importedClassName);
-                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _page);
                 }
             }
         }
     }
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        OperationNode root_ = buildEl(_cont, _doc, _anaDoc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        OperationNode root_ = buildEl(_cont, _doc, _anaDoc, _page);
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
-            static_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNullValue(),
+            static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
-            Configuration.addError(static_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(static_, _anaDoc, _page);
         } else if (root_.getResultClass().isArray()) {
-            inferArrayClass(_cont, _anaDoc, root_);
+            inferArrayClass(_anaDoc, root_, _page);
         } else {
             StringList names_ = el_.getResultClass().getNames();
-            StringList out_ = getInferredIterable(names_, _cont);
-            checkIterableCandidates(out_, _cont, _anaDoc);
+            StringList out_ = getInferredIterable(names_, _cont, _page);
+            checkIterableCandidates(out_, _cont, _anaDoc, _page);
         }
         if (!okVar) {
             return;
         }
-        putVariable(_cont);
+        putVariable(_cont, _page);
     }
-    public StringList getInferredIterable(StringList _types, Configuration _cont) {
-        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,importedClassName, _cont.getContext());
+    public StringList getInferredIterable(StringList _types, Configuration _cont, AnalyzedPageEl _page) {
+        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,importedClassName, _page);
         return it_.getClassName();
     }
-    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc) {
+    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
@@ -205,21 +204,21 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            if (toInfer(_cont)) {
+            if (toInfer(_page)) {
                 importedClassName = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _page);
                 }
             }
         } else {
@@ -229,21 +228,21 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _page);
         }
     }
-    private boolean toInfer(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
+    private boolean toInfer(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }
-    public void putVariable(Configuration _cont) {
+    public void putVariable(Configuration _cont, AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        _cont.getContext().getAnalyzing().getLoopsVars().put(variableName, lv_);
+        _page.getLoopsVars().put(variableName, lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
@@ -251,7 +250,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             lInfo_.setClassName(_cont.getStandards().getAliasObject());
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
-        _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lInfo_);
+        _page.getInfosVars().put(variableName, lInfo_);
     }
 
     @Override

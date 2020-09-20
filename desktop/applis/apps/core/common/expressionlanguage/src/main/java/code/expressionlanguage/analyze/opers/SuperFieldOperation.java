@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -16,12 +16,12 @@ public final class SuperFieldOperation extends
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         AnaClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            cl_ = new AnaClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
+            cl_ = new AnaClassArgumentMatching(_page.getGlobalClass());
         }
         return cl_;
     }

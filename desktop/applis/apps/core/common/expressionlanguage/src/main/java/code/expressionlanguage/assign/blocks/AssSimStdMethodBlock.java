@@ -1,14 +1,14 @@
 package code.expressionlanguage.assign.blocks;
 
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 
 public final class AssSimStdMethodBlock extends AssBracedBlock {
     AssSimStdMethodBlock(boolean _completeNormally, boolean _completeNormallyGroup) {
         super(_completeNormally,_completeNormallyGroup);
     }
-    public final void buildFctInstructions(ContextEl _cont, AssignedVariablesBlock _a) {
+    public final void buildFctInstructions(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssBlock firstChild_ = getFirstChild();
         AssBlock en_ = this;
         if (firstChild_ == null) {
@@ -16,7 +16,7 @@ public final class AssSimStdMethodBlock extends AssBracedBlock {
         }
         while (true) {
             AssBlock n_ = en_.getFirstChild();
-            tryBuildExpressionLanguage(en_, _cont, _a);
+            tryBuildExpressionLanguage(en_, _a, _page);
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -33,16 +33,16 @@ public final class AssSimStdMethodBlock extends AssBracedBlock {
                     return;
                 }
                 if (par_ instanceof AssSimForMutableIterativeLoop) {
-                    ((AssSimForMutableIterativeLoop)par_).buildIncrementPart(_cont,_a);
+                    ((AssSimForMutableIterativeLoop)par_).buildIncrementPart(_a, _page);
                 }
                 en_ = par_;
             }
         }
     }
 
-    private void tryBuildExpressionLanguage(AssBlock en_, ContextEl cont, AssignedVariablesBlock a) {
+    private void tryBuildExpressionLanguage(AssBlock en_, AssignedVariablesBlock a, AnalyzedPageEl _page) {
         if (en_ instanceof AssBuildableElMethod) {
-            ((AssBuildableElMethod)en_).buildExpressionLanguage(cont,a);
+            ((AssBuildableElMethod)en_).buildExpressionLanguage(a, _page);
         }
     }
 }

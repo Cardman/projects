@@ -1,9 +1,8 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -18,17 +17,17 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
+    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
+    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
+    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 
@@ -43,8 +42,8 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     @Override
-    void buildErrorInexist(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().firstKey();
+    void buildErrorInexist(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().firstKey();
         int len_ = getOperators().firstValue().length();
         buildOffsetPart(begin_,len_);
     }

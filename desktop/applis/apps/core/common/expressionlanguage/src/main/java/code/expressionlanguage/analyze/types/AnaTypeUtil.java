@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
@@ -34,14 +33,13 @@ public final class AnaTypeUtil {
     private AnaTypeUtil() {
     }
 
-    public static void buildOverrides(RootBlock _type, ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    public static void buildOverrides(RootBlock _type, AnalyzedPageEl _page) {
         String fileName_ = _type.getFile().getFileName();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (OverridingMethodDto e: getAllInstanceSignatures(_type, _context)) {
+        for (OverridingMethodDto e: getAllInstanceSignatures(_type)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
             if (!StringList.quickEq(key_.getName(),"[]")
                     &&!StringList.quickEq(key_.getName(),"[]=")) {
@@ -88,10 +86,10 @@ public final class AnaTypeUtil {
                 ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
                 ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
                 if (cSup_.eq(cSub_)) {
-                    if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _context)) {
+                    if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _page)) {
                         relations_.add(l);
                     }
-                } else if (ContextUtil.canAccess(subId_.getGeneString(), supAcc_, _context)) {
+                } else if (ContextUtil.canAccess(subId_.getGeneString(), supAcc_, _page)) {
                     relations_.add(l);
                 }
             }
@@ -105,19 +103,19 @@ public final class AnaTypeUtil {
                 } else {
                     String retBase_ = supId_.getBlock().getImportedReturnType();
                     String retDerive_ = subId_.getBlock().getImportedReturnType();
-                    String formattedRetDer_ = AnaTemplates.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_, _context);
-                    String formattedRetBase_ = AnaTemplates.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_, _context);
+                    String formattedRetDer_ = AnaTemplates.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_);
+                    String formattedRetBase_ = AnaTemplates.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_);
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getNameOffset());
                         //sub method name len
-                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedFinal(),
-                                supId_.getBlock().getId().getSignature(page_),
+                        err_.buildError(_page.getAnalysisMessages().getDuplicatedFinal(),
+                                supId_.getBlock().getId().getSignature(_page),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
-                        _context.getAnalyzing().addLocError(err_);
+                        _page.addLocError(err_);
                         continue;
                     }
                     if (supId_.getBlock().getAccess().isStrictMoreAccessibleThan(subId_.getBlock().getAccess())) {
@@ -126,13 +124,13 @@ public final class AnaTypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getAccessOffset());
                         //key word access or method name
-                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getMethodsAccesses(),
+                        err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
                                 supId_.getGeneString(),
-                                supId_.getBlock().getId().getSignature(page_),
+                                supId_.getBlock().getId().getSignature(_page),
                                 subId_.getGeneString(),
-                                subId_.getBlock().getId().getSignature(page_));
+                                subId_.getBlock().getId().getSignature(_page));
                         subId_.getBlock().addNameErrors(err_);
-                        _context.getAnalyzing().addLocError(err_);
+                        _page.addLocError(err_);
                         continue;
                     }
                     if (supId_.getBlock().getKind() != MethodKind.STD_METHOD) {
@@ -142,36 +140,36 @@ public final class AnaTypeUtil {
                             err_.setFileName(fileName_);
                             err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                             //sub return type len
-                            err_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadReturnTypeIndexer(),
+                            err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    supId_.getBlock().getId().getSignature(page_),
+                                    supId_.getBlock().getId().getSignature(_page),
                                     supId_.getGeneString(),
                                     formattedRetDer_,
-                                    subId_.getBlock().getId().getSignature(page_),
+                                    subId_.getBlock().getId().getSignature(_page),
                                     subId_.getGeneString());
                             subId_.getBlock().addNameErrors(err_);
-                            _context.getAnalyzing().addLocError(err_);
+                            _page.addLocError(err_);
                             continue;
                         }
                         addClass(_type.getAllOverridingMethods(), key_, subId_);
                         addClass(_type.getAllOverridingMethods(), key_, supId_);
                         continue;
                     }
-                    if (!AnaTemplates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
+                    if (!AnaTemplates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                         //sub return type len
-                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadReturnTypeInherit(),
+                        err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                subId_.getBlock().getId().getSignature(page_),
+                                subId_.getBlock().getId().getSignature(_page),
                                 subId_.getGeneString(),
                                 formattedRetBase_,
-                                supId_.getBlock().getId().getSignature(page_),
+                                supId_.getBlock().getId().getSignature(_page),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
-                        _context.getAnalyzing().addLocError(err_);
+                        _page.addLocError(err_);
                         continue;
                     }
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
@@ -181,7 +179,7 @@ public final class AnaTypeUtil {
         }
     }
 
-    private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r, ContextEl _classes) {
+    private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r) {
         CustList<OverridingMethodDto> map_;
         map_ = new CustList<OverridingMethodDto>();
         for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(_r)) {
@@ -199,7 +197,7 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(b_,s.getFormatted(), _classes),b_, b,s.getFormatted());
+                addDtoClass(map_, b.getId().quickOverrideFormat(b_,s.getFormatted()),b_, b,s.getFormatted());
             }
         }
         return map_;
@@ -238,18 +236,17 @@ public final class AnaTypeUtil {
         }
     }
 
-    public static void checkInterfaces(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.setCurrentBlock(c);
-            page_.setCurrentAnaBlock(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setGlobalType(c);
-            page_.setGlobalDirType(null);
+    public static void checkInterfaces(AnalyzedPageEl _page) {
+        for (RootBlock c: _page.getFoundTypes()) {
+            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.setCurrentBlock(c);
+            _page.setCurrentAnaBlock(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setGlobalDirType(null);
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
@@ -257,34 +254,34 @@ public final class AnaTypeUtil {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);
-                enum_.setIndexFile(_context.getAnalyzing().getTraceIndex());
+                enum_.setIndexFile(_page.getTraceIndex());
                 //original id len
-                enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNoNeed(),
+                enum_.buildError(_page.getAnalysisMessages().getCallIntNoNeed(),
                         c.getFullName());
-                _context.getAnalyzing().addLocError(enum_);
+                _page.addLocError(enum_);
                 c.addNameErrors(enum_);
             }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
-                page_.setCurrentBlock(c);
-                page_.setCurrentAnaBlock(c);
-                page_.setGlobalOffset(offset_);
-                page_.setOffset(0);
-                page_.getMappingLocal().clear();
-                page_.getMappingLocal().putAllMap(c.getMappings());
-                base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
-                c.getPartsStaticInitInterfacesOffset().addAllElts(page_.getCurrentParts());
-                RootBlock r_ = page_.getAnaClassBody(base_);
+                _page.setCurrentBlock(c);
+                _page.setCurrentAnaBlock(c);
+                _page.setGlobalOffset(offset_);
+                _page.setOffset(0);
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(c.getMappings());
+                base_ = ResolvingImportTypes.resolveAccessibleIdType(0,base_, _page);
+                c.getPartsStaticInitInterfacesOffset().addAllElts(_page.getCurrentParts());
+                RootBlock r_ = _page.getAnaClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
-                    enum_.setIndexFile(_context.getAnalyzing().getTraceIndex());
+                    enum_.setIndexFile(_page.getTraceIndex());
                     //interface len
-                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntOnly(),
+                    enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
                             base_);
-                    _context.getAnalyzing().addLocError(enum_);
+                    _page.addLocError(enum_);
                     if (!base_.isEmpty()) {
                         c.addNameErrors(enum_);
                     }
@@ -296,15 +293,15 @@ public final class AnaTypeUtil {
             for (int i = 0; i < len_; i++) {
                 String sup_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
-                page_.setCurrentBlock(c);
-                page_.setCurrentAnaBlock(c);
-                page_.setGlobalClass(c.getGenericString());
-                page_.setGlobalType(c);
-                page_.setGlobalDirType(null);
-                page_.setGlobalOffset(offsetSup_);
-                page_.setOffset(0);
-                sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
-                RootBlock rs_ = page_.getAnaClassBody(sup_);
+                _page.setCurrentBlock(c);
+                _page.setCurrentAnaBlock(c);
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(null);
+                _page.setGlobalOffset(offsetSup_);
+                _page.setOffset(0);
+                sup_ = ResolvingImportTypes.resolveAccessibleIdType(0,sup_, _page);
+                RootBlock rs_ = _page.getAnaClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
@@ -312,35 +309,35 @@ public final class AnaTypeUtil {
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
-                    page_.setCurrentBlock(c);
-                    page_.setCurrentAnaBlock(c);
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(null);
-                    page_.setGlobalOffset(offsetSub_);
-                    page_.setOffset(0);
-                    sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
-                    rs_ = page_.getAnaClassBody(sub_);
+                    _page.setCurrentBlock(c);
+                    _page.setCurrentAnaBlock(c);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(null);
+                    _page.setGlobalOffset(offsetSub_);
+                    _page.setOffset(0);
+                    sub_ = ResolvingImportTypes.resolveAccessibleIdType(0,sub_, _page);
+                    rs_ = _page.getAnaClassBody(sub_);
                     if (rs_ == null) {
                         continue;
                     }
-                    if (rsSup_.isSubTypeOf(sub_,page_)) {
+                    if (rsSup_.isSubTypeOf(sub_, _page)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(d_);
                         int offset_ = c.getStaticInitInterfacesOffset().get(j);
                         undef_.setIndexFile(offset_);
                         //interface j len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntInherits(),
+                        undef_.buildError(_page.getAnalysisMessages().getCallIntInherits(),
                                 sup_,
                                 sub_);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }
             }
         }
-        for (RootBlock c: page_.getFoundTypes()) {
+        for (RootBlock c: _page.getFoundTypes()) {
             if (!(c instanceof UniqueRootedBlock)) {
                 continue;
             }
@@ -352,16 +349,16 @@ public final class AnaTypeUtil {
             }
             StringList all_ = c.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            StringList.removeAllElements(allCopy_, page_.getStandards().getPredefinedInterfacesInitOrder());
+            StringList.removeAllElements(allCopy_, _page.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = StringExpUtil.getIdFromAllTypes(clName_);
-            RootBlock superType_ = page_.getAnaClassBody(id_);
+            RootBlock superType_ = _page.getAnaClassBody(id_);
             if (superType_ instanceof UniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
-                RootBlock int_ = page_.getAnaClassBody(i);
+                RootBlock int_ = _page.getAnaClassBody(i);
                 if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
@@ -376,7 +373,7 @@ public final class AnaTypeUtil {
                         }
                         boolean allCst_ = true;
                         for (String n: a_.getFieldName()) {
-                            if (page_.getClasses().getStaticField(new ClassField(i, n)) == null) {
+                            if (_page.getClasses().getStaticField(new ClassField(i, n)) == null) {
                                 allCst_ = false;
                                 break;
                             }
@@ -398,9 +395,9 @@ public final class AnaTypeUtil {
                         undef_.setFileName(un_.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //last parenthese
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNeedType(),
+                        undef_.buildError(_page.getAnalysisMessages().getCallIntNeedType(),
                                 s);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }
@@ -411,9 +408,9 @@ public final class AnaTypeUtil {
                         undef_.setFileName(un_.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //type len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNoNeedType(),
+                        undef_.buildError(_page.getAnalysisMessages().getCallIntNoNeedType(),
                                 s);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }
@@ -421,37 +418,37 @@ public final class AnaTypeUtil {
         }
     }
 
-    public static StringList getInners(String _root, String _innerName, ContextEl _an) {
+    public static StringList getInners(String _root, String _innerName, AnalyzedPageEl _page) {
         StringList inners_ = new StringList();
-        for (String o: getOwners(_root, _innerName, _an)) {
+        for (String o: getOwners(_root, _innerName, _page)) {
             inners_.add(StringList.concat(o,"..",_innerName));
         }
         return inners_;
     }
-    public static StringList getOwners(String _root, String _innerName, ContextEl _an) {
-        return getOwners(_root,_innerName,false,_an);
+    public static StringList getOwners(String _root, String _innerName, AnalyzedPageEl _page) {
+        return getOwners(_root,_innerName,false, _page);
     }
-    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, ContextEl _an) {
+    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
         StringList inners_ = new StringList();
         if (StringList.quickEq(_sep,".")) {
-            for (String o: getOwners(_root, _innerName,_staticOnly, _an)) {
+            for (String o: getOwners(_root, _innerName,_staticOnly, _page)) {
                 inners_.add(StringList.concat(o,"..",_innerName));
             }
         } else {
-            for (String o: getEnumOwners(_root, _innerName, _an)) {
+            for (String o: getEnumOwners(_root, _innerName, _page)) {
                 inners_.add(StringList.concat(o,"-",_innerName));
             }
         }
         return inners_;
     }
-    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, ContextEl _an) {
+    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
-                RootBlock g_ = _an.getAnalyzing().getAnaClassBody(s);
+                RootBlock g_ = _page.getAnaClassBody(s);
                 if (g_ == null) {
                     continue;
                 }
@@ -465,9 +462,9 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return getSubclasses(owners_,_an);
+        return getSubclasses(owners_, _page);
     }
-    public static StringList getGenericOwners(String _root, String _innerName, ContextEl _an) {
+    public static StringList getGenericOwners(String _root, String _innerName, AnalyzedPageEl _page) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -475,12 +472,12 @@ public final class AnaTypeUtil {
             StringList new_ = new StringList();
             for (String s: ids_) {
                 String id_ = StringExpUtil.getIdFromAllTypes(s);
-                RootBlock g_ = _an.getAnalyzing().getAnaClassBody(id_);
+                RootBlock g_ = _page.getAnaClassBody(id_);
                 if (g_ == null) {
                     continue;
                 }
                 added(_innerName, false, owners_, s, g_);
-                if (!AnaTemplates.correctNbParameters(g_,s,_an)) {
+                if (!AnaTemplates.correctNbParameters(g_,s, _page)) {
                     for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
                         String format_ = StringExpUtil.getIdFromAllTypes(t.getFormatted());
                         addIfNotFound(visited_, new_, format_);
@@ -488,7 +485,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
-                    String format_ = AnaTemplates.quickFormat(g_,s, t.getFormatted(), _an);
+                    String format_ = AnaTemplates.quickFormat(g_,s, t.getFormatted());
                     addIfNotFound(visited_, new_, format_);
                 }
             }
@@ -497,7 +494,7 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return getSubclasses(owners_,_an);
+        return getSubclasses(owners_, _page);
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
@@ -521,10 +518,10 @@ public final class AnaTypeUtil {
             }
         }
     }
-    public static StringList getEnumOwners(String _root, String _innerName, ContextEl _an) {
+    public static StringList getEnumOwners(String _root, String _innerName, AnalyzedPageEl _page) {
         StringList owners_ = new StringList();
         String id_ = StringExpUtil.getIdFromAllTypes(_root);
-        RootBlock g_ = _an.getAnalyzing().getAnaClassBody(id_);
+        RootBlock g_ = _page.getAnaClassBody(id_);
         if (g_ != null) {
             addedInnerElement(_innerName, owners_, _root, g_);
         }
@@ -540,7 +537,7 @@ public final class AnaTypeUtil {
     }
 
     /** Only "object" classes are used as arguments */
-    public static StringList getSubclasses(StringList _classNames, ContextEl _context) {
+    public static StringList getSubclasses(StringList _classNames, AnalyzedPageEl _page) {
         StringList types_ = new StringList();
         for (String i: _classNames) {
             boolean sub_ = true;
@@ -550,9 +547,8 @@ public final class AnaTypeUtil {
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
-                AnalyzedPageEl page_ = _context.getAnalyzing();
-                AnaGeneType subType_ = page_.getAnaGeneType(baseSub_);
-                if (subType_.isSubTypeOf(baseSup_,page_)) {
+                AnaGeneType subType_ = _page.getAnaGeneType(baseSub_);
+                if (subType_.isSubTypeOf(baseSup_, _page)) {
                     sub_ = false;
                     break;
                 }
@@ -565,33 +561,32 @@ public final class AnaTypeUtil {
         return types_;
     }
 
-    public static int cmpTypes(String _one, String _two, ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        AnaInheritedType one_ = page_.getAnaGeneType(_one);
-        AnaInheritedType two_ = page_.getAnaGeneType(_two);
-        if (two_.isSubTypeOf(_one,page_)) {
+    public static int cmpTypes(String _one, String _two, AnalyzedPageEl _page) {
+        AnaInheritedType one_ = _page.getAnaGeneType(_one);
+        AnaInheritedType two_ = _page.getAnaGeneType(_two);
+        if (two_.isSubTypeOf(_one, _page)) {
             return CustList.SWAP_SORT;
         }
-        if (one_.isSubTypeOf(_two,page_)) {
+        if (one_.isSubTypeOf(_two, _page)) {
             return CustList.NO_SWAP_SORT;
         }
         return CustList.EQ_CMP;
     }
 
-    public static boolean isFloatOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, ContextEl _context) {
-        return isFloatOrderClass(_class, _context) && isFloatOrderClass(_classTwo, _context);
+    public static boolean isFloatOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, AnalyzedPageEl _page) {
+        return isFloatOrderClass(_class, _page) && isFloatOrderClass(_classTwo, _page);
     }
 
-    private static boolean isFloatOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
-        return isFloatOrderClass(_class,_context.getAnalyzing().getStandards());
+    private static boolean isFloatOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
+        return isFloatOrderClass(_class, _page.getStandards());
     }
 
     private static boolean isFloatOrderClass(AnaClassArgumentMatching _class, LgNames _context) {
         return getFloatOrderClass(_class,_context) > 0;
     }
 
-    public static int getFloatOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
-        return getFloatOrderClass(_class, _context.getAnalyzing().getStandards());
+    public static int getFloatOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
+        return getFloatOrderClass(_class, _page.getStandards());
     }
 
     private static int getFloatOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
@@ -605,24 +600,24 @@ public final class AnaTypeUtil {
         return 0;
     }
 
-    public static int getIntOrderClass(String _class, ContextEl _context) {
-        return getIntOrderClass(_class, _context.getAnalyzing().getStandards());
+    public static int getIntOrderClass(String _class, AnalyzedPageEl _page) {
+        return getIntOrderClass(_class, _page.getStandards());
     }
 
     private static int getIntOrderClass(String _class, LgNames _stds) {
         return getIntOrderClass(new AnaClassArgumentMatching(_class), _stds);
     }
 
-    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, ContextEl _context) {
-        return isIntOrderClass(_class, _context) && isIntOrderClass(_classTwo, _context);
+    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, AnalyzedPageEl _page) {
+        return isIntOrderClass(_class, _page) && isIntOrderClass(_classTwo, _page);
     }
 
-    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
-        return getIntOrderClass(_class,_context) > 0;
+    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
+        return getIntOrderClass(_class, _page) > 0;
     }
 
-    public static int getIntOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
-        return getIntOrderClass(_class, _context.getAnalyzing().getStandards());
+    public static int getIntOrderClass(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
+        return getIntOrderClass(_class, _page.getStandards());
     }
 
     private static int getIntOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
@@ -654,8 +649,8 @@ public final class AnaTypeUtil {
         return _class;
     }
 
-    public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
-        return isPrimitiveOrWrapper(_className, _context.getAnalyzing().getStandards());
+    public static boolean isPrimitiveOrWrapper(String _className, AnalyzedPageEl _page) {
+        return isPrimitiveOrWrapper(_className, _page.getStandards());
     }
 
     public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
@@ -665,17 +660,17 @@ public final class AnaTypeUtil {
         return isWrapper(_className, _stds);
     }
 
-    public static boolean isPrimitiveOrWrapper(AnaClassArgumentMatching _className, ContextEl _context) {
+    public static boolean isPrimitiveOrWrapper(AnaClassArgumentMatching _className, AnalyzedPageEl _page) {
         for (String c: _className.getNames()) {
-            if (isPrimitiveOrWrapper(c, _context.getAnalyzing().getStandards())) {
+            if (isPrimitiveOrWrapper(c, _page)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean isWrapper(String _className, ContextEl _context) {
-        return isWrapper(_className, _context.getAnalyzing().getStandards());
+    public static boolean isWrapper(String _className, AnalyzedPageEl _page) {
+        return isWrapper(_className, _page.getStandards());
     }
 
     public static boolean isWrapper(String _className, LgNames _stds) {

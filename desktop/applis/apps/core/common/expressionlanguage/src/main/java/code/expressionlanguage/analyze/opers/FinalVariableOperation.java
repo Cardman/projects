@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -42,48 +41,47 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _page);
+        LgNames stds_ = _page.getStandards();
         if (!className.isEmpty()) {
             variableName = StringExpUtil.skipPrefix(str_);
             realVariableName = str_;
-            setResultClass(new AnaClassArgumentMatching(className,page_.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
             return;
         }
         int deep_ = -1;
         String shortStr_ = str_;
-        AnaLoopVariable val_ = page_.getLoopsVars().getVal(str_);
+        AnaLoopVariable val_ = _page.getLoopsVars().getVal(str_);
         if (val_ == null) {
             deep_ = StringExpUtil.countPrefix(str_);
             shortStr_ = StringExpUtil.skipPrefix(str_);
-            AnaLoopVariable loc_ = page_.getLoopsVars().getVal(shortStr_);
+            AnaLoopVariable loc_ = _page.getLoopsVars().getVal(shortStr_);
             if (loc_ != null) {
                 deep_--;
             }
-            val_ = page_.getCache().getLoopVar(shortStr_,deep_);
+            val_ = _page.getCache().getLoopVar(shortStr_,deep_);
         }
         if (val_ != null) {
             deep = deep_;
             ref = val_.getRef();
             variableName = shortStr_;
             realVariableName = str_;
-            setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(),page_.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(), _page.getStandards()));
             return;
         }
         variableName = str_;
         realVariableName = str_;
         FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(page_.getLocalizer().getCurrentFileName());
-        und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+        und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //variable name len
-        und_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedVariable(),
+        und_.buildError(_page.getAnalysisMessages().getUndefinedVariable(),
                 variableName);
-        page_.getLocalizer().addError(und_);
+        _page.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }

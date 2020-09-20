@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -29,36 +28,35 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
+    public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
-            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),page_)) {
+            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
                 classMethodId = clId_.getSymbol();
                 rootNumber = clId_.getRootNumber();
                 memberNumber = clId_.getMemberNumber();
             }
             return;
         }
-        int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _conf);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         if (order_ == 0) {
-            page_.setOkNumOp(false);
-            String exp_ = page_.getStandards().getAliasNumber();
+            _page.setOkNumOp(false);
+            String exp_ = _page.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){
                 getErrs().add(un_.getBuiltError());
             }
@@ -66,19 +64,19 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             setResultClass(arg_);
             return;
         }
-        AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, page_);
-        int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
+        AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
+        int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _page);
         if (order_ < intOrder_) {
             cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
-        clMatch_.setUnwrapObject(cl_,page_.getStandards());
+        clMatch_.setUnwrapObject(cl_, _page.getStandards());
         child_.quickCancel();
-        setResultClass(AnaClassArgumentMatching.copy(cl_,page_.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this,classMethodId, _conf.getAnalyzing());
+    public void quickCalculate(AnalyzedPageEl _page) {
+        tryGetArg(this,classMethodId, _page);
     }
 
     private static void tryGetArg(MethodOperation _par, ClassMethodId _m, AnalyzedPageEl _page) {

@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecEmptyInstruction;
 import code.expressionlanguage.files.OffsetsBlock;
 
@@ -12,12 +11,11 @@ public final class EmptyInstruction extends Leaf implements BuildableElMethod {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
 

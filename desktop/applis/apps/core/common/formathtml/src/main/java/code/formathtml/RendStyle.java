@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.*;
@@ -13,7 +14,7 @@ public final class RendStyle extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
     }
 
     @Override

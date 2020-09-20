@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -35,7 +34,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         MethodOperation par_ = getParent();
         if (!(par_ instanceof NamedArgumentOperation)) {
             return;
@@ -94,21 +93,20 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        setClassName(page_.getStandards().getAliasObject());
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        setClassName(_page.getStandards().getAliasObject());
 
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String type_;
-        AnalyzedBlock cur_ = page_.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (!typeInfer.isEmpty()) {
             type_ = typeInfer;
         } else if (m_ == null && cur_ instanceof ReturnMethod) {
-            type_ = tryGetRetType(_conf);
+            type_ = tryGetRetType(_page);
         } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             type_ = i_.getImportedClassName();
@@ -118,22 +116,22 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         } else {
             type_ = tryGetTypeAff(m_);
         }
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(type_,keyWordVar_)) {
             IntTreeMap<String> operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = page_.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
+            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
@@ -143,16 +141,16 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             IntTreeMap<String> operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = page_.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
+            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
@@ -161,34 +159,34 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             IntTreeMap<String> operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = page_.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
+            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
         setClassName(classNameFinal_);
         StringMap<StringList> map_;
-        map_ = page_.getCurrentConstraints().getCurrentConstraints();
+        map_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setParam(classNameFinal_);
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
-            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, classNameFinal_, argType_);
+            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(classNameFinal_, argType_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     argType_.getImplicits().add(cl_);
@@ -196,20 +194,20 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     argType_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
-                    int i_ = page_.getLocalizer().getCurrentLocationIndex();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child
-                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             classNameFinal_);
-                    page_.getLocalizer().addError(cast_);
+                    _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
             }
-            if (AnaTypeUtil.isPrimitive(classNameFinal_, page_)) {
-                o.getResultClass().setUnwrapObject(classNameFinal_,page_.getStandards());
+            if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {
+                o.getResultClass().setUnwrapObject(classNameFinal_, _page.getStandards());
                 o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);

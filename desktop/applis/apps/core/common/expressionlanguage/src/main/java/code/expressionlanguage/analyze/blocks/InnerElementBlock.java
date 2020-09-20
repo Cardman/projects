@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -62,8 +61,8 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     }
 
     @Override
-    public void setupBasicOverrides(ContextEl _context) {
-        checkAccess(_context);
+    public void setupBasicOverrides(AnalyzedPageEl _page) {
+        checkAccess(_page);
     }
 
     public String getValue() {
@@ -89,10 +88,10 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     }
 
     @Override
-    public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
+    public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, new StringList()));
-        FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
+        FieldBlock.checkFieldsNames(this,_fieldNames,fields_, _page);
         for (PartOffsetAffect n: fields_) {
             getNameErrors().addAllElts(n.getErrs());
         }
@@ -115,24 +114,23 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         return valueOffest;
     }
 
-    public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecInnerTypeOrElement _exec) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(fieldNameOffest);
-        page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
+    public void buildExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(fieldNameOffest);
+        _page.setOffset(0);
+        KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
         int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 1 - newKeyWord_.length();
         trOffset = trOffset_;
         _exec.setTrOffset(trOffset_);
-        page_.setTranslatedOffset(trOffset_);
+        _page.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
-        page_.setIndexChildType(index_);
-        page_.getCoverage().putBlockOperations((ExecBlock) _exec,this);
-        page_.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
-        root = page_.getCurrentRoot();
-        page_.setTranslatedOffset(0);
+        _page.setIndexChildType(index_);
+        _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
+        _page.getCoverage().putBlockOperations(this);
+        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page));
+        root = _page.getCurrentRoot();
+        _page.setTranslatedOffset(0);
     }
 
 
@@ -162,24 +160,23 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     }
 
     @Override
-    public void buildImportedType(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(tempClassOffset);
-        page_.setOffset(0);
-        page_.setCurrentBlock(this);
-        page_.setCurrentAnaBlock(this);
+    public void buildImportedType(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(tempClassOffset);
+        _page.setOffset(0);
+        _page.setCurrentBlock(this);
+        _page.setCurrentAnaBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
         String fullName_ = parentEnum.getFullName();
         for (String p: StringExpUtil.getAllTypes(StringList.concat(fullName_, tempClass)).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(p);
-            j_.add(ResolvingImportTypes.resolveCorrectType(_cont,i_+loc_,p));
-            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
+            j_.add(ResolvingImportTypes.resolveCorrectType(i_+loc_,p, _page));
+            partOffsets.addAllElts(_page.getCurrentParts());
             i_ += p.length() + 1;
         }
-        StringMap<StringList> varsCt_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaTemplates.check(errs_,fullName_,j_,varsCt_,_cont);
+        importedClassName = AnaTemplates.check(errs_,fullName_,j_,varsCt_, _page);
         for (String e: errs_) {
             addNameErrors(e);
         }

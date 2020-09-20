@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
@@ -16,20 +17,20 @@ public final class RendSpan extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
         String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         int off_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         result = new ResultText();
-        result.buildId(id_,_cont,off_,_doc, _anaDoc);
+        result.buildId(id_,_cont,off_,_doc, _anaDoc, _page);
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }
         String valueMessage_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
         if (!valueMessage_.isEmpty()) {
             int offMessage_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
-            formatted = getPre(_cont, valueMessage_,offMessage_, _anaDoc);
+            formatted = getPre(_cont, valueMessage_,offMessage_, _anaDoc, _page);
         }
     }
 

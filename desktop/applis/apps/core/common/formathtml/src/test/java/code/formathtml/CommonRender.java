@@ -232,11 +232,11 @@ public abstract class CommonRender {
     }
 
     protected static OperationNode rendOp3(int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationsSequence opTwo_) {
-        return RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf.getConfiguration(), _analyzingDoc, _conf.getAnalyzing());
+        return RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _analyzingDoc, _conf.getAnalyzing());
     }
 
     protected static OperationNode rendOp2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_.getConfiguration(), analyzingDoc_, conf_.getAnalyzing());
+        return RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, analyzingDoc_, conf_.getAnalyzing());
     }
 
     protected static OperationsSequence rendOpSeq2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
@@ -244,7 +244,7 @@ public abstract class CommonRender {
     }
 
     private static OperationsSequence rendOpSeq3(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
-        return RenderExpUtil.getOperationsSequence(i, el_, conf_.getConfiguration(), d_, analyzingDoc_, conf_.getAnalyzing());
+        return RenderExpUtil.getOperationsSequence(i, el_, d_, analyzingDoc_, conf_.getAnalyzing());
     }
 
     protected static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationNode op_) {
@@ -252,19 +252,19 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
-        return RenderExpUtil.getExecutableNodes(_ops,_an.getContext(), _an.getAnalyzing());
+        return RenderExpUtil.getExecutableNodes(_ops, _an.getAnalyzing());
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String el_, AnalyzedTestConfiguration ctx_, Delimiters d_) {
-        return ElResolver.getOperationsSequence(_offset, el_, ctx_.getContext(), d_, ctx_.getAnalyzing());
+        return ElResolver.getOperationsSequence(_offset, el_, d_, ctx_.getAnalyzing());
     }
 
     protected static Delimiters checkSyntax(AnalyzedTestConfiguration ctx_, String elr_, int _off) {
-        return ElResolver.checkSyntax(elr_, ctx_.getContext(), _off, ctx_.getAnalyzing());
+        return ElResolver.checkSyntax(elr_, _off, ctx_.getAnalyzing());
     }
 
     protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence opTwo_, AnalyzedTestConfiguration ctx_) {
-        return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getContext(), ctx_.getAnalyzing());
+        return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getAnalyzing());
     }
 
     protected static void setup(String folder_, String relative_, Configuration conf_) {

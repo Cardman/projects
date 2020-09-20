@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -30,11 +31,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         String value_ = elt.getAttribute(_cont.getRendKeyWords().getAttrValue());
         int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
-        preformatted = getPre(_cont,value_,offMessage_, _anaDoc);
+        preformatted = getPre(_cont,value_,offMessage_, _anaDoc, _page);
         if (preformatted.isEmpty()) {
             return;
         }
@@ -59,7 +60,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 escaped.add(false);
             }
-            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc, _cont.getContext().getAnalyzing()));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc, _page));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -69,14 +70,14 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
             for (int i = 0; i< l_; i++) {
-                String varLoc_ = lookForVar(_cont, varNames_);
+                String varLoc_ = lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
             }
             varNames = varNames_;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
-                _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
+                _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
@@ -93,7 +94,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringList.concat(href_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
                             }
-                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc, _page);
                             callExpsLoc_.add(expsCall_);
                         } else {
                             callExpsLoc_.add(new CustList<RendDynOperationNode>());
@@ -108,13 +109,13 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                     badEl_.setIndexFile(offMessage_);
                     badEl_.buildError(_cont.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
-                    Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _page);
                 }
                 callsExps.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);
             }
             for (String v:varNames_) {
-                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
+                _page.getInfosVars().removeKey(v);
             }
 
         }

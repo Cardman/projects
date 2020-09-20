@@ -1,8 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 
 public interface PreAnalyzableOperation {
 
-    void preAnalyze(ContextEl _an);
+    void preAnalyze(AnalyzedPageEl _page);
 }

@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
@@ -12,8 +13,8 @@ public final class RendStdInput extends RendInput {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
-        processAnaInput(_cont,_doc,_read, _anaDoc);
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        processAnaInput(_cont,_doc,_read, _anaDoc, _page);
         _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
         _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
         _list.removeAllString(_cont.getRendKeyWords().getAttrName());

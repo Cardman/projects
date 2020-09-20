@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -15,10 +16,10 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
     private int argOffset;
     private ExecRootBlock rootBlock;
 
-    public ExecValuesOperation(ValuesOperation _v, ContextEl _cont) {
+    public ExecValuesOperation(ValuesOperation _v, AnalyzedPageEl _page) {
         super(_v);
         argOffset = _v.getArgOffset();
-        rootBlock = fetchType(_v.getNumberEnum(), _cont.getAnalyzing());
+        rootBlock = fetchType(_v.getNumberEnum(), _page);
     }
 
 

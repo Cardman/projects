@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.ClassField;
@@ -32,15 +32,15 @@ public final class FieldInfo {
         valOffset = _valOffset;
     }
     public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
-                                         boolean _staticField, boolean _finalField, ContextEl _cont, boolean _aff, Accessed _accessed, int _valOffset) {
+                                         boolean _staticField, boolean _finalField, boolean _aff, Accessed _accessed, int _valOffset, AnalyzedPageEl _page) {
         String formattedType_ = _type;
         if (_staticField) {
             return new FieldInfo(_name, _declaringClass, formattedType_, _type, true, _finalField, _accessed, _valOffset);
         }
         if (_aff) {
-            formattedType_ = AnaTemplates.wildCardFormatParam(_declaringClass, formattedType_, _cont);
+            formattedType_ = AnaTemplates.wildCardFormatParam(_declaringClass, formattedType_, _page);
         } else {
-            formattedType_ = AnaTemplates.wildCardFormatReturn(_declaringClass, formattedType_, _cont);
+            formattedType_ = AnaTemplates.wildCardFormatReturn(_declaringClass, formattedType_, _page);
         }
         if (formattedType_.isEmpty()) {
             return null;

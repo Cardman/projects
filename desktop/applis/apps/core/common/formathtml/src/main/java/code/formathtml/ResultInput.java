@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -26,11 +27,11 @@ public final class ResultInput {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read, String _varValue, AnalyzingDoc _anaDoc) {
+    public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
-            opsReadRoot = _cont.getContext().getAnalyzing().getCurrentRoot();
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc, _page);
+            opsReadRoot = _page.getCurrentRoot();
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -44,7 +45,7 @@ public final class ResultInput {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
             } else {
                 className = NumParsers.getSingleNameOrEmpty(((RendDynOperationNode) settable_).getResultClass().getNames());
                 if (settable_ instanceof RendSettableFieldOperation) {
@@ -56,15 +57,15 @@ public final class ResultInput {
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                        Configuration.addError(badEl_, _anaDoc, _page);
                     }
                     if (infoField_.isFinalField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                         badEl_.setFileName(_anaDoc.getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                        badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getFinalField(),
+                        badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                        Configuration.addError(badEl_, _anaDoc, _page);
                     }
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
@@ -74,12 +75,12 @@ public final class ResultInput {
                     if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                         pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
                     } else {
-                        pr_ = new ExecClassArgumentMatching(_cont.getContext().getAnalyzing().getGlobalClass());
+                        pr_ = new ExecClassArgumentMatching(_page.getGlobalClass());
                     }
                     StringList varNames_ = new StringList();
-                    String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                    String varPrevLoc_ = RendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varPrevLoc_);
-                    String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                    String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varLoc_);
                     varName = StringList.concat(varPrevLoc_,RendBlock.COMMA,varLoc_);
 
@@ -106,7 +107,7 @@ public final class ResultInput {
                         String cl_ = NumParsers.getSingleNameOrEmpty(((RendArrOperation) settable_).getResultClass().getNames());
                         CustList<RendDynOperationNode> childrenNodes_ = ((RendArrOperation) settable_).getChildrenNodes();
                         StringList varNames_ = new StringList();
-                        String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        String varPrevLoc_ = RendBlock.lookForVar(varNames_, _page);
                         varNames_.add(varPrevLoc_);
                         ExecClassArgumentMatching pr_ = ((RendArrOperation) settable_).getPrevious();
                         idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
@@ -120,7 +121,7 @@ public final class ResultInput {
                         StringList varParamNames_ = new StringList();
                         StringList typeNames_ = new StringList();
                         for (RendDynOperationNode o: childrenNodes_) {
-                            String varParam_ = RendBlock.lookForVar(_cont, varNames_);
+                            String varParam_ = RendBlock.lookForVar(varNames_, _page);
                             RendStdVariableOperation rendVar_ = new RendStdVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
                             arr_.appendChild(rendVar_);
                             list_.add(rendVar_);
@@ -131,7 +132,7 @@ public final class ResultInput {
                         }
                         idName = StringList.concat("[](", StringList.join(typeNames_,","),")");
                         id = StringList.concat(idClass,".",idName);
-                        String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                         varNames_.add(varLoc_);
                         varName = StringList.concat(varPrevLoc_,RendBlock.COMMA, StringList.join(varParamNames_,RendBlock.COMMA),RendBlock.COMMA,varLoc_);
                         rendPrevVar_.setSiblingSet(arr_);
@@ -151,7 +152,7 @@ public final class ResultInput {
                         String cl_ = NumParsers.getSingleNameOrEmpty(((RendCustArrOperation) settable_).getResultClass().getNames());
                         CustList<RendDynOperationNode> childrenNodes_ = ((RendCustArrOperation) settable_).getChildrenNodes();
                         StringList varNames_ = new StringList();
-                        String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        String varPrevLoc_ = RendBlock.lookForVar(varNames_, _page);
                         varNames_.add(varPrevLoc_);
                         ExecClassArgumentMatching pr_ = ((RendCustArrOperation) settable_).getPrevious();
                         idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
@@ -164,7 +165,7 @@ public final class ResultInput {
                         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
                         StringList varParamNames_ = new StringList();
                         for (RendDynOperationNode o: childrenNodes_) {
-                            String varParam_ = RendBlock.lookForVar(_cont, varNames_);
+                            String varParam_ = RendBlock.lookForVar(varNames_, _page);
                             RendStdVariableOperation rendVar_ = new RendStdVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
                             arr_.appendChild(rendVar_);
                             list_.add(rendVar_);
@@ -172,10 +173,10 @@ public final class ResultInput {
                             varParamNames_.add(varParam_);
                             i_++;
                         }
-                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont.getContext().getAnalyzing());
+                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_page);
                         idName = StringList.concat("[]", sgn_);
                         id = StringList.concat(idClass,".",idName);
-                        String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                         varNames_.add(varLoc_);
                         varName = StringList.concat(varPrevLoc_,RendBlock.COMMA, StringList.join(varParamNames_,RendBlock.COMMA),RendBlock.COMMA,varLoc_);
                         rendPrevVar_.setSiblingSet(arr_);
@@ -201,13 +202,13 @@ public final class ResultInput {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
-            opsValueRoot = _cont.getContext().getAnalyzing().getCurrentRoot();
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc, _page);
+            opsValueRoot = _page.getCurrentRoot();
         }
     }
 

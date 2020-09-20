@@ -1,6 +1,5 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.util.IdMap;
@@ -13,12 +12,12 @@ public final class AssDoBlock extends AssBracedStack implements AssLoop {
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _a) {
         AssBlock nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
-        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _a));
-        assBl_.getVariablesRootBefore().putAllMap(buildAssListLocVarBeforeIncrPart(_an, _a));
+        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_a));
+        assBl_.getVariablesRootBefore().putAllMap(buildAssListLocVarBeforeIncrPart(_a));
         id_.put(nextSibling_, assBl_);
     }
 

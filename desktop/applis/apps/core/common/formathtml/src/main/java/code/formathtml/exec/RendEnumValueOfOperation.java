@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -19,11 +19,11 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
     private int argOffset;
     private ExecRootBlock rootBlock;
 
-    public RendEnumValueOfOperation(EnumValueOfOperation _e, ContextEl _cont) {
+    public RendEnumValueOfOperation(EnumValueOfOperation _e, AnalyzedPageEl _page) {
         super(_e);
         className = _e.getClassName();
         argOffset = _e.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_e.getNumberEnum(), _cont.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_e.getNumberEnum(), _page);
     }
 
 

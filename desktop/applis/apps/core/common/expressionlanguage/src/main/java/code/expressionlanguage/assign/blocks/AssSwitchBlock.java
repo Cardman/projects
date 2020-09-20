@@ -1,14 +1,11 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.SwitchBlock;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.ExecAbstractSwitchBlock;
-import code.expressionlanguage.exec.blocks.ExecEnumValueSwitchBlock;
-import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
@@ -25,7 +22,7 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
     }
 
     @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
         AssBlock firstChild_ = getFirstChild();
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
@@ -36,10 +33,10 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
         AssBlock ch_ = getFirstChild();
         if (ch_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
+            super.setAssignmentAfter(_anEl, _page);
             return;
         }
         boolean def_ = hasDefaultCase();
@@ -50,9 +47,9 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ =buildAssFieldsAfterSwitch(def_, ch_, _an, _anEl);
+        after_ =buildAssFieldsAfterSwitch(def_, ch_, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _an, _anEl);
+        afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
@@ -81,7 +78,7 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
-        AssUtil.getSortedDescNodes(_a,opList.last(),this,_cont);
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        AssUtil.getSortedDescNodes(_a,opList.last(),this, _page);
     }
 }

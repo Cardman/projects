@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -36,39 +35,38 @@ public final class IdFctOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         partOffsets = new CustList<PartOffset>();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
+        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int i_ = page_.getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getAnalyzing().getKeyWords().getKeyWordId());
-            page_.getLocalizer().addError(varg_);
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordId());
+            _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (!isFirstChildInParent()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
-            int i_ = page_.getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getAnalyzing().getKeyWords().getKeyWordId());
-            page_.getLocalizer().addError(varg_);
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordId());
+            _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -82,14 +80,14 @@ public final class IdFctOperation extends LeafOperation {
             String firstFull_ = args_.first();
             int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
-            cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+className.indexOf('(')+1,fromType_);
-            partOffsets.addAllElts(page_.getCurrentParts());
+            cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
             if (cl_.isEmpty()) {
                 setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
-            String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
+            String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _page.getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);
             idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
             static_ = idUpdate_.getKind();
@@ -98,8 +96,8 @@ public final class IdFctOperation extends LeafOperation {
         } else {
             cl_ = ((ExplicitOperatorOperation)m_).getFrom();
             if (!cl_.isEmpty()) {
-                String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
-                String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
+                String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
+                String keyWordStaticCall_ = _page.getKeyWords().getKeyWordStaticCall();
                 MethodAccessId idUpdate_ = new MethodAccessId(0);
                 idUpdate_.setupInfos(0,args_,keyWordStatic_,keyWordStaticCall_);
                 static_ = idUpdate_.getKind();
@@ -107,7 +105,7 @@ public final class IdFctOperation extends LeafOperation {
                 anc_ = idUpdate_.getAncestor();
             }
         }
-        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_, className, partOffsets);
+        MethodId argsRes_ = resolveArguments(i_, cl_, EMPTY_STRING, static_, args_, className, partOffsets, _page);
         if (argsRes_ == null) {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -163,7 +161,7 @@ public final class IdFctOperation extends LeafOperation {
         setSimpleArgument(new Argument());
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
-    public static MethodId resolveArguments(int _from, ContextEl _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets){
+    public static MethodId resolveArguments(int _from, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
         StringList out_ = new StringList();
         int len_ = _params.size();
         int vararg_ = -1;
@@ -180,12 +178,12 @@ public final class IdFctOperation extends LeafOperation {
                 if (i + 1 != len_) {
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
-                    varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    int i_ = off_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
+                    varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    int i_ = off_ + _page.getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
                     varg_.setIndexFile(i_);
                     //three dots
-                    varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedVararg());
-                    _conf.getAnalyzing().getLocalizer().addError(varg_);
+                    varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
+                    _page.getLocalizer().addError(varg_);
                     _partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
                     _partOffsets.add(new PartOffset("</a>",i_+3));
                     return null;
@@ -195,8 +193,8 @@ public final class IdFctOperation extends LeafOperation {
             } else {
                 type_ = arg_;
             }
-            arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
-            _partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType, _page);
+            _partOffsets.addAllElts(_page.getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }

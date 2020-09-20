@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -28,7 +29,7 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _list.removeAllString(_cont.getRendKeyWords().getAttrAction());
         opExp = new CustList<CustList<RendDynOperationNode>>();
@@ -37,7 +38,7 @@ public final class RendForm extends RendElement {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-            r_.build(lk_,_cont,rowsGrId_,_doc, _anaDoc);
+            r_.build(lk_,_cont,rowsGrId_,_doc, _anaDoc, _page);
             texts = r_.getTexts();
             opExp = r_.getOpExp();
             opExpRoot = r_.getOpExpRoot();
@@ -45,21 +46,21 @@ public final class RendForm extends RendElement {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
                 m_.setParam(_cont.getStandards().getAliasLong());
-                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(rowsGrId_);
-                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),AND_ERR),
                             _cont.getStandards().getAliasLong());
-                    Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _page);
                 }
             }
             int l_ = opExp.size();
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
             for (int i = 0; i< l_; i++) {
-                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
             }
             varNames = varNames_;
@@ -67,7 +68,7 @@ public final class RendForm extends RendElement {
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(opExpRoot.get(i_).getResultClass().getSingleNameOrEmpty());
-                _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
+                _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
             }
@@ -75,9 +76,9 @@ public final class RendForm extends RendElement {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont, _anaDoc, _page);
             for (String v:varNames_) {
-                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
+                _page.getInfosVars().removeKey(v);
             }
         }
     }

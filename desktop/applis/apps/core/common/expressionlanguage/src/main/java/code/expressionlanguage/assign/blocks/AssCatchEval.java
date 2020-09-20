@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -16,9 +16,9 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _anEl) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _anEl) {
         if (!canBeIncrementedCurGroup()) {
-            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            super.setAssignmentBeforeNextSibling(_anEl);
             return;
         }
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
@@ -31,24 +31,24 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
             try_ = try_.getPreviousSibling();
         }
         if (!(try_ instanceof AssTryEval)) {
-            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            super.setAssignmentBeforeNextSibling(_anEl);
             return;
         }
         AssTryEval tryBl_ = (AssTryEval)try_;
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         if (finClause_) {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
+            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_, _anEl, catch_));
+            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_, _anEl, catch_));
         } else {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
-            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
+            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_, _anEl, new CustList<AssCatchEval>()));
+            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_, _anEl, new CustList<AssCatchEval>()));
         }
         id_.put(nextSibling_, assBl_);
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        super.setAssignmentAfter(_anEl, _page);
         AssBlock pBlock_ = getPreviousSibling();
         if (canBeIncrementedCurGroup()) {
             return;
@@ -69,9 +69,9 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ =buildAssFieldsAfterTry(prev_, _an, _anEl);
+        after_ =buildAssFieldsAfterTry(prev_, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterTry(prev_, _an, _anEl);
+        afterVars_ = buildAssVariablesAfterTry(prev_, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }

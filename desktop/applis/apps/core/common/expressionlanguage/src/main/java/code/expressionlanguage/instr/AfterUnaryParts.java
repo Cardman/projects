@@ -1,6 +1,6 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.Delimiters;
@@ -126,10 +126,10 @@ final class AfterUnaryParts {
         }
         index = firstPrintChar_;
     }
-    void setInstance(String _string, ContextEl _conf) {
-        anonymousResults = _conf.getAnalyzing().getAnonymousResults();
+    void setInstance(String _string, AnalyzedPageEl _page) {
+        anonymousResults = _page.getAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             instance = true;

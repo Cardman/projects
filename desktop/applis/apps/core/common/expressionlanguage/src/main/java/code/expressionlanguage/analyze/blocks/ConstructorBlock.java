@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
@@ -32,8 +31,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
 
     @Override
@@ -50,8 +49,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    public void setupInstancingStep(ContextEl _cont, ExecConstructorBlock _exec) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void setupInstancingStep(ExecConstructorBlock _exec, AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block first_ = getFirstChild();
@@ -89,8 +88,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return MethodAccessKind.INSTANCE;
     }
     @Override
-    public void buildImportedReturnTypes(ContextEl _stds) {
-        String void_ = _stds.getAnalyzing().getStandards().getAliasVoid();
+    public void buildImportedReturnTypes(AnalyzedPageEl _page) {
+        String void_ = _page.getStandards().getAliasVoid();
         setImportedReturnType(void_);
     }
 
@@ -101,14 +100,14 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
 
     @Override
-    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
-        checkInterfaces(_an);
+    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        checkInterfaces(_page);
     }
 
-    private void checkInterfaces(ContextEl _an) {
+    private void checkInterfaces(AnalyzedPageEl _page) {
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
-        StringList filteredCtor_ = _an.getAnalyzing().getNeedInterfaces();
+        StringList filteredCtor_ = _page.getNeedInterfaces();
         boolean checkThis_ = false;
         while (firstChild_ != null) {
             if (!(firstChild_ instanceof Line)) {
@@ -136,9 +135,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //left par of ctor
-                        undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustCallIntCtorNeed(),
+                        undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNeed(),
                                 n);
-                        _an.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         addNameErrors(undef_);
                     }
                 }
@@ -149,9 +148,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //constructor ref header len
-                        undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustCallIntCtorNotNeed(),
+                        undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNotNeed(),
                                 n);
-                        _an.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         addNameErrors(undef_);
                     }
                 }
@@ -163,8 +162,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
                 //first constructor ref header len
-                undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustNotCallIntCtorAfterThis());
-                _an.getAnalyzing().addLocError(undef_);
+                undef_.buildError(_page.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
+                _page.addLocError(undef_);
                 addNameErrors(undef_);
             }
         }

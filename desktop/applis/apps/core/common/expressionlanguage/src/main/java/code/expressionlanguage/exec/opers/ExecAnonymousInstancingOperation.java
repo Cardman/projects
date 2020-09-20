@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -37,10 +38,10 @@ public final class ExecAnonymousInstancingOperation extends
         naturalVararg = _s.getNaturalVararg();
         lastType = _s.getLastType();
     }
-    public void setExecAnonymousInstancingOperation(AnonymousInstancingOperation _s,ContextEl _context) {
+    public void setExecAnonymousInstancingOperation(AnonymousInstancingOperation _s, AnalyzedPageEl _page) {
         setExecAnonymousInstancingOperation(_s);
-        rootBlock = _context.getAnalyzing().getMapTypes().getValue(_s.getBlock().getNumberAll());
-        ctor = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = _page.getMapTypes().getValue(_s.getBlock().getNumberAll());
+        ctor = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {

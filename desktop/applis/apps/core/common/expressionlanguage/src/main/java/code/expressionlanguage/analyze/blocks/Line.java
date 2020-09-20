@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.exec.blocks.ExecLine;
@@ -43,19 +42,18 @@ public final class Line extends Leaf implements BuildableElMethod {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
         MethodAccessKind st_ = f_.getStaticContext();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        String import_ = page_.getStandards().getAliasObject();
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
-        if (!page_.getCurrentEmptyPartErr().isEmpty()) {
-            getErrorsBlock().add(page_.getCurrentEmptyPartErr());
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
+        String import_ = _page.getStandards().getAliasObject();
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(st_), _page);
+        if (!_page.getCurrentEmptyPartErr().isEmpty()) {
+            getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        root = page_.getCurrentRoot();
+        root = _page.getCurrentRoot();
         if (op_.last() instanceof ExecCurrentInvokingConstructor) {
             callFromCtorToCtor = true;
             callThis = true;
@@ -71,26 +69,26 @@ public final class Line extends Leaf implements BuildableElMethod {
         if (root instanceof AbstractInvokingConstructor) {
             constId =((AbstractInvokingConstructor)root).getConstId();
         }
-        if (page_.isMerged()) {
-            StringList vars_ = page_.getVariablesNames();
+        if (_page.isMerged()) {
+            StringList vars_ = _page.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             import_ = declaring_.getImportedClassName();
-            String err_ = AffectationOperation.processInfer(_cont, import_);
+            String err_ = AffectationOperation.processInfer(import_, _page);
             declaring_.setErrInf(err_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-        ExecDeclareVariable ex_ = page_.getExecDeclareVariable();
+        ExecDeclareVariable ex_ = _page.getExecDeclareVariable();
         if (ex_ != null) {
             ex_.setImportedClassName(import_);
         }
-        page_.setExecDeclareVariable(null);
-        page_.setMerged(false);
-        page_.setAcceptCommaInstr(false);
-        page_.setFinalVariable(false);
+        _page.setExecDeclareVariable(null);
+        _page.setMerged(false);
+        _page.setAcceptCommaInstr(false);
+        _page.setFinalVariable(false);
         ExecLine exec_ = new ExecLine(getOffset(), expressionOffset,op_);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
 

@@ -29,14 +29,13 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultText res_ = new ResultText();
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(pageOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(pageOffset);
+        _page.setOffset(0);
         String pageName_ = elt.getAttribute(_cont.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrPage());
-        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc);
+        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc, _page);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

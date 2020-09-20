@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
@@ -22,14 +23,14 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     private ExecRootBlock rootBlock;
     private ExecAnnotableBlock infoBlock;
 
-    public ExecFieldLambdaOperation(LambdaOperation _l, ContextEl _cont) {
+    public ExecFieldLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
         super(_l);
         fieldId = _l.getFieldId();
         staticField = _l.isStaticField();
         finalField = _l.isFinalField();
         affField = _l.isAffField();
-        rootBlock = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
-        infoBlock = fetchField(_l, _cont.getAnalyzing());
+        rootBlock = fetchType(_l.getRootNumber(), _page);
+        infoBlock = fetchField(_l, _page);
     }
 
     @Override

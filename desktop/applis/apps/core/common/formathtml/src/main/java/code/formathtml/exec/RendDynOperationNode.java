@@ -135,7 +135,7 @@ public abstract class RendDynOperationNode {
         return indexBegin;
     }
 
-    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont, AnalyzedPageEl _page) {
+    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, AnalyzedPageEl _page) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(m_);
@@ -212,7 +212,7 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
-            return new RendInterfaceFctConstructor(s_,_cont);
+            return new RendInterfaceFctConstructor(s_, _page);
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
@@ -237,11 +237,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new RendEnumValueOfOperation(d_,_cont);
+            return new RendEnumValueOfOperation(d_, _page);
         }
         if (_anaNode instanceof ValuesOperation) {
             ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new RendValuesOperation(d_,_cont);
+            return new RendValuesOperation(d_, _page);
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
@@ -297,7 +297,7 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
-            return new RendLambdaOperation(f_,_cont);
+            return new RendLambdaOperation(f_, _page);
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
@@ -352,11 +352,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(m_,_cont);
+            return new RendExplicitOperatorOperation(m_, _page);
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new RendSemiAffectationOperation(m_,_cont);
+            return new RendSemiAffectationOperation(m_, _page);
         }
         if (_anaNode instanceof UnaryBooleanOperation) {
             UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
@@ -465,15 +465,15 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
-            return new RendAndOperation(c_,_cont);
+            return new RendAndOperation(c_, _page);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
-            return new RendOrOperation(c_,_cont);
+            return new RendOrOperation(c_, _page);
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new RendCompoundAffectationOperation(c_,_cont);
+            return new RendCompoundAffectationOperation(c_, _page);
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;

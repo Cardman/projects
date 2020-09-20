@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecElseCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -36,42 +35,41 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
 
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         ExecElseCondition exec_ = new ExecElseCondition(getOffset());
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
-    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
+    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordElse(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _page.getKeyWords().getKeyWordElse(),
                         StringList.join(
                                 new StringList(
-                                        _an.getAnalyzing().getKeyWords().getKeyWordIf(),
-                                        _an.getAnalyzing().getKeyWords().getKeyWordElseif()
+                                        _page.getKeyWords().getKeyWordIf(),
+                                        _page.getKeyWords().getKeyWordElseif()
                                 ),
                                 "|"));
                 //key word len
                 getErrorsBlock().add(un_.getBuiltError());
                 setReachableError(true);
-                _an.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
             }
         }
     }
 
 
     @Override
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

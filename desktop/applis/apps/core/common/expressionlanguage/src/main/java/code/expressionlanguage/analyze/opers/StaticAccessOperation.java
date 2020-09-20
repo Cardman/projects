@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -17,7 +17,7 @@ public final class StaticAccessOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String ext_ = op_.getExtractType();
         ext_ = StringExpUtil.removeDottedSpaces(ext_);
@@ -31,19 +31,19 @@ public final class StaticAccessOperation extends LeafOperation {
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        String glClass_ = _page.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
-            partOffsets = new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts());
+            classStr_ = ResolvingImportTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+            partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         } else {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        classStr_ = emptyToObject(classStr_,_conf);
-        checkClassAccess(this,_conf, glClass_, classStr_);
+        classStr_ = emptyToObject(classStr_, _page);
+        checkClassAccess(this, glClass_, classStr_, _page);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(classStr_));

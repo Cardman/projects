@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -29,17 +30,17 @@ public abstract class AssBlock {
     protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedVariables();
     }
-    protected void buildEmptyEl(ContextEl _cont, AssignedVariablesBlock _a) {
+    protected void buildEmptyEl(AssignedVariablesBlock _a) {
         AssignedVariables ass_ = _a.getFinalVariables().getVal(this);
         ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
         ass_.getVariablesRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getVariablesRootBefore()));
     }
-    public void defaultAssignmentBefore(ContextEl _an, AssignedVariablesBlock _a, AssOperationNode _root) {
+    public void defaultAssignmentBefore(AssignedVariablesBlock _a, AssOperationNode _root, AnalyzedPageEl _page) {
         AssignedVariables vars_ =_a.getFinalVariables().getVal(this);
         vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
         vars_.getVariablesBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
     }
-    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, boolean _callingThis) {
+    public void defaultAssignmentAfter(AssignedVariablesBlock _a, boolean _callingThis, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
@@ -54,7 +55,7 @@ public abstract class AssBlock {
         varsRes_ = vars_.getLastVariablesOrEmpty();
         vars_.getVariablesRoot().putAllMap(AssignmentsUtil.assignClassic(varsRes_));
     }
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _a) {
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         AssBlock nextSibling_ = getNextSibling();
@@ -63,21 +64,21 @@ public abstract class AssBlock {
         assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(prevAss_.getVariablesRoot()));
         id_.put(nextSibling_, assBl_);
     }
-    public void setAssignmentBefore(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBefore(AssignedVariablesBlock _a) {
         AssBracedBlock br_ = getParent();
         AssBlock prev_ = getPreviousSibling();
         if (prev_ == null) {
-            br_.setAssignmentBeforeChild(_an,_a);
+            br_.setAssignmentBeforeChild(_a);
         } else {
-            prev_.setAssignmentBeforeNextSibling(_an,_a);
+            prev_.setAssignmentBeforeNextSibling(_a);
         }
     }
-    public abstract void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl);
-    protected StringMap<AssignmentBefore> makeHypothesisFields(ContextEl _an, AssignedVariablesBlock _a) {
+    public abstract void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page);
+    protected StringMap<AssignmentBefore> makeHypothesisFields(AssignedVariablesBlock _a) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         return AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());
     }
-    protected StringMap<AssignmentBefore> makeHypothesisVars(ContextEl _an, AssignedVariablesBlock _a) {
+    protected StringMap<AssignmentBefore> makeHypothesisVars(AssignedVariablesBlock _a) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         return AssignmentsUtil.getHypoAssignmentBefore(vars_.getVariablesRootBefore());
     }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
@@ -41,10 +40,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     }
 
     @Override
-    public void preAnalyze(ContextEl _conf) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         String cl_ = methodName;
-        setStaticAccess(_conf.getAnalyzing().getStaticContext());
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        setStaticAccess(_page.getStaticContext());
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(cl_);
         from = "";
@@ -52,16 +51,16 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (args_.size() > 1) {
             int off_ = StringList.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
-            from = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,off_+methodName.indexOf(',')+1,fromType_);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            from = ResolvingImportTypes.resolveCorrectTypeAccessible(off_+methodName.indexOf(',')+1,fromType_, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         }
         if (from.isEmpty()) {
             methodFound = op_;
-            CustList<MethodInfo> ops_ = getOperators(_conf, null);
+            CustList<MethodInfo> ops_ = getOperators(null, _page);
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(_conf,MethodAccessKind.STATIC_CALL, false,false,new StringList(from), op_, false,null);
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, false,false,new StringList(from), op_, false,null, _page);
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -82,17 +81,17 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             apply_ = true;
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _conf.getAnalyzing().getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (apply_ && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_conf);
+            typeAff_ = tryGetRetType(_page);
         }
-        filterByReturnType(_conf,typeAff_,methodInfos);
+        filterByReturnType(typeAff_,methodInfos, _page);
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         String cl_ = methodName;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(cl_);
         String op_ = args_.first();
@@ -100,19 +99,18 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (args_.size() > 2) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
-            badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
+            badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(2),
                     Integer.toString(args_.size())
             );
-            page_.getLocalizer().addError(badCall_);
+            _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
         ClassMethodId id_ = null;
@@ -122,36 +120,36 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), s_.getKind());
             id_ = new ClassMethodId(from,new MethodId(static_,op_,s_.getParametersTypes(),s_.isVararg()));
         }
-        NameParametersFilter name_ = buildFilter(_conf);
+        NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_, name_);
+            cust_ = getOperator(id_,varargOnly_,false,op_, varargParam_, name_, _page);
         } else {
-            cust_ = tryGetDeclaredCustMethod(_conf, -1, MethodAccessKind.STATIC_CALL,
+            cust_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC_CALL,
                     false, new StringList(from), op_, false, false, false, null,
-                    varargParam_, name_);
+                    varargParam_, name_, _page);
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
             for (OperationNode c: name_.getAll()) {
                 classesNames_.add(StringList.join(c.getResultClass().getNames(), "&"));
             }
-            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
-                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(page_));
-            page_.getLocalizer().addError(undefined_);
+            undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
+                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));
+            _page.getLocalizer().addError(undefined_);
             getErrs().add(undefined_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(),page_.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getStandards()));
         String foundClass_ = cust_.getRealClass();
         MethodId realId_ = cust_.getRealId();
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
@@ -165,7 +163,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
+        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
     }
 
 

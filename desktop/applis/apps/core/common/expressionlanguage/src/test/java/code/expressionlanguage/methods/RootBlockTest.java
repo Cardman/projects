@@ -1,12 +1,11 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
@@ -103,7 +102,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     public StringList getAllGenericSuperTypes(AnalyzedTestContext cont_, String className) {
-        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).getAllGenericSuperTypes(cont_.getContext());
+        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).fetchAllGenericSuperTypes();
         StringList l_ = new StringList();
         for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
             l_.add(a.getFormatted());
@@ -1180,7 +1179,8 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedTestContext cont_, MethodId id_, RootBlock r_) {
-        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(cont_.getAnalyzing().getAnaClassBody(r_.getFullName()), id_, cont_.getContext());
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(page_.getAnaClassBody(r_.getFullName()), id_, page_);
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
         for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
             GeneStringOverridable value_ = e.getValue();

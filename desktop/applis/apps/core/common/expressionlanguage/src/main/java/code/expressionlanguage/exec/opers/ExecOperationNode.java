@@ -77,16 +77,16 @@ public abstract class ExecOperationNode {
         order = _order;
     }
 
-    public static ImplicitMethods fetchImplicits(ContextEl _context,ClassMethodId _clMet,int _root, int _member) {
+    public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, int _root, int _member, AnalyzedPageEl _page) {
         ExecNamedFunctionBlock conv_ = null;
         String converterClass = "";
         if (_clMet != null) {
             converterClass = _clMet.getClassName();
-            conv_ = fetchFunction(_root,_member, _context.getAnalyzing());
+            conv_ = fetchFunction(_root,_member, _page);
         }
         if (conv_ != null) {
             ImplicitMethods converter = new ImplicitMethods();
-            ExecRootBlock classBody_ = fetchType(_root, _context.getAnalyzing());
+            ExecRootBlock classBody_ = fetchType(_root, _page);
             converter.getConverter().add(conv_);
             converter.setOwnerClass(converterClass);
             converter.setRootBlock(classBody_);
@@ -169,7 +169,7 @@ public abstract class ExecOperationNode {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont, AnalyzedPageEl _page) {
+    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, AnalyzedPageEl _page) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -213,19 +213,19 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
-            return new ExecInterfaceFctConstructor(n_,_cont);
+            return new ExecInterfaceFctConstructor(n_, _page);
         }
         if (_anaNode instanceof InterfaceInvokingConstructor) {
             InterfaceInvokingConstructor n_ = (InterfaceInvokingConstructor) _anaNode;
-            return new ExecInterfaceInvokingConstructor(n_,_cont);
+            return new ExecInterfaceInvokingConstructor(n_, _page);
         }
         if (_anaNode instanceof CurrentInvokingConstructor) {
             CurrentInvokingConstructor n_ = (CurrentInvokingConstructor) _anaNode;
-            return new ExecCurrentInvokingConstructor(n_,_cont);
+            return new ExecCurrentInvokingConstructor(n_, _page);
         }
         if (_anaNode instanceof SuperInvokingConstructor) {
             SuperInvokingConstructor n_ = (SuperInvokingConstructor) _anaNode;
-            return new ExecSuperInvokingConstructor(n_,_cont);
+            return new ExecSuperInvokingConstructor(n_, _page);
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
@@ -281,11 +281,11 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new ExecEnumValueOfOperation(d_,_cont);
+            return new ExecEnumValueOfOperation(d_, _page);
         }
         if (_anaNode instanceof ValuesOperation) {
             ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new ExecValuesOperation(d_,_cont);
+            return new ExecValuesOperation(d_, _page);
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
@@ -359,12 +359,12 @@ public abstract class ExecOperationNode {
                 return new ExecStdMethodLambdaOperation(f_);
             }
             if (f_.getMethod() == null && f_.getRealId() == null) {
-                return new ExecFieldLambdaOperation(f_,_cont);
+                return new ExecFieldLambdaOperation(f_, _page);
             }
             if (f_.getMethod() == null) {
-                return new ExecConstructorLambdaOperation(f_,_cont);
+                return new ExecConstructorLambdaOperation(f_, _page);
             }
-            return new ExecMethodLambdaOperation(f_,_cont);
+            return new ExecMethodLambdaOperation(f_, _page);
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
@@ -415,11 +415,11 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new ExecExplicitOperatorOperation(m_,_cont);
+            return new ExecExplicitOperatorOperation(m_, _page);
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new ExecSemiAffectationOperation(m_,_cont);
+            return new ExecSemiAffectationOperation(m_, _page);
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
@@ -528,11 +528,11 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
-            return new ExecAndOperation(c_,_cont);
+            return new ExecAndOperation(c_, _page);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
-            return new ExecOrOperation(c_,_cont);
+            return new ExecOrOperation(c_, _page);
         }
         if (_anaNode instanceof NullSafeOperation) {
             NullSafeOperation c_ = (NullSafeOperation) _anaNode;
@@ -544,7 +544,7 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new ExecCompoundAffectationOperation(c_,_cont);
+            return new ExecCompoundAffectationOperation(c_, _page);
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;

@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.util.IdMap;
@@ -11,12 +11,12 @@ public abstract class AssNamedFunctionBlock extends AssMemberCallingsBlock {
     }
 
     @Override
-    public void setAssignmentAfterCall(ContextEl _an, AssignedVariablesBlock _anEl) {
-        setAssignmentAfter(_an,_anEl);
+    public void setAssignmentAfterCall(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        setAssignmentAfter(_anEl,  _page);
     }
 
     @Override
-    public void setAssignmentBeforeCall(ContextEl _an, AssBlock _prev,AssignedVariablesBlock _anEl) {
+    public void setAssignmentBeforeCall(AssBlock _prev, AssignedVariablesBlock _anEl) {
         AssignedVariables ass_;
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         ass_ = _anEl.getFinalVariablesGlobal();

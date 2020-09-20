@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -65,66 +64,65 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
         BracedBlock par_ = getParent();
         MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)) {
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
+            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseDef(),
-                    _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
+                    _page.getKeyWords().getKeyWordCase(),
                     value,
-                    _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
+                    _page.getKeyWords().getKeyWordSwitch());
             //key word len
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
-            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
             ExecOperationNode last_ = op_.last();
-            root = page_.getCurrentRoot();
+            root = _page.getCurrentRoot();
             argument = last_.getArgument();
             ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(exec_,this);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _page.getCoverage().putBlockOperations(exec_,this);
             return;
         }
-        page_.getCoverage().putBlockOperationsSwitchs(par_,this);
+        _page.getCoverage().putBlockOperationsSwitchs(par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!sw_.getInstanceTest().isEmpty()) {
-            page_.setGlobalOffset(variableOffset);
-            page_.setOffset(0);
+            _page.setGlobalOffset(variableOffset);
+            _page.setOffset(0);
             if (importedType.isEmpty()) {
                 ExecNullInstanceCaseCondition exec_ = new ExecNullInstanceCaseCondition(getOffset(),valueOffset);
-                exec_.setFile(page_.getBlockToWrite().getFile());
-                page_.getBlockToWrite().appendChild(exec_);
-                page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-                page_.getCoverage().putBlockOperations(exec_,this);
+                exec_.setFile(_page.getBlockToWrite().getFile());
+                _page.getBlockToWrite().appendChild(exec_);
+                _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+                _page.getCoverage().putBlockOperations(exec_,this);
                 return;
             }
             ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(),variableName, importedType,valueOffset);
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(exec_,this);
-            TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _page.getCoverage().putBlockOperations(exec_,this);
+            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(getFile().getFileName());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                _cont.getAnalyzing().addLocError(d_);
+                _page.addLocError(d_);
                 nameErrors.add(d_.getBuiltError());
                 if (!emptyType&&variableName.trim().isEmpty()) {
                     setReachableError(true);
@@ -136,74 +134,74 @@ public final class CaseCondition extends SwitchPartBlock {
             lv_.setClassName(importedType);
             lv_.setRef(variableOffset);
             lv_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
+            _page.getInfosVars().put(variableName, lv_);
             return;
         }
-        EnumBlock e_ = getEnumType(_cont, type_);
+        EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             for (InfoBlock f: ContextUtil.getFieldBlocks(e_)) {
                 if (!match(f)) {
                     continue;
                 }
-                page_.setLookLocalClass(id_);
-                page_.setAccessStaticContext(MethodAccessKind.STATIC);
-                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX, page_);
-                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_, page_);
-                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont, page_);
-                ElUtil.retrieveErrorsAnalyze(_cont,op_);
-                page_.setLookLocalClass(EMPTY_STRING);
+                _page.setLookLocalClass(id_);
+                _page.setAccessStaticContext(MethodAccessKind.STATIC);
+                Delimiters d_ = ElResolver.checkSyntax(value, CustList.FIRST_INDEX, _page);
+                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, d_, _page);
+                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _page);
+                ElUtil.retrieveErrorsAnalyze(op_, _page);
+                _page.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
                 root = op_;
                 builtEnum = true;
                 fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-                ops_.add(ExecOperationNode.createExecOperationNode(op_,_cont, page_));
-                checkDuplicateEnumCase(_cont);
+                ops_.add(ExecOperationNode.createExecOperationNode(op_, _page));
+                checkDuplicateEnumCase(_page);
                 ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
-                exec_.setFile(page_.getBlockToWrite().getFile());
-                page_.getBlockToWrite().appendChild(exec_);
-                page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-                page_.getCoverage().putBlockOperations(exec_,this);
+                exec_.setFile(_page.getBlockToWrite().getFile());
+                _page.getBlockToWrite().appendChild(exec_);
+                _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+                _page.getCoverage().putBlockOperations(exec_,this);
                 return;
             }
-            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
-            String emp_ = page_.getCurrentEmptyPartErr();
+            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
+            String emp_ = _page.getCurrentEmptyPartErr();
             if (!emp_.isEmpty()) {
                 setReachableError(true);
                 getErrorsBlock().add(emp_);
             }
-            root = page_.getCurrentRoot();
+            root = _page.getCurrentRoot();
             ExecOperationNode last_ = op_.last();
             argument = last_.getArgument();
             if (!Argument.isNullValue(argument)) {
                 builtEnum = true;
             }
-            processNullValue(_cont);
+            processNullValue(_page);
             ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(exec_,this);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _page.getCoverage().putBlockOperations(exec_,this);
             return;
         }
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
-        String emp_ = page_.getCurrentEmptyPartErr();
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
+        String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
             setReachableError(true);
             getErrorsBlock().add(emp_);
         }
         ExecOperationNode last_ = op_.last();
-        root = page_.getCurrentRoot();
+        root = _page.getCurrentRoot();
         argument = last_.getArgument();
-        processNumValues(_cont, resSwitch_, root.getResultClass());
+        processNumValues(resSwitch_, root.getResultClass(), _page);
         if (argument == null) {
             ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(exec_,this);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _page.getCoverage().putBlockOperations(exec_,this);
             return;
         }
         ExecBracedBlock exec_;
@@ -212,18 +210,18 @@ public final class CaseCondition extends SwitchPartBlock {
         } else {
             exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
         }
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private EnumBlock getEnumType(ContextEl _cont,String _type) {
+    private EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
         if (_type.isEmpty()) {
             return null;
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(id_);
+        AnaGeneType g_ = _page.getAnaGeneType(id_);
         if (g_ instanceof EnumBlock) {
             return (EnumBlock) g_;
         }
@@ -237,56 +235,56 @@ public final class CaseCondition extends SwitchPartBlock {
         InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
         return StringList.contains(e_.getFieldName(), value.trim());
     }
-    private void processNullValue(ContextEl _cont) {
+    private void processNullValue(AnalyzedPageEl _page) {
         if (Argument.isNullValue(argument)) {
-            checkDuplicateCase(_cont, argument);
+            checkDuplicateCase(argument, _page);
             return;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(getFile().getFileName());
         un_.setIndexFile(valueOffset);
         //key word len
-        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseVar(),
-                _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                _page.getKeyWords().getKeyWordCase(),
                 value);
-        _cont.getAnalyzing().addLocError(un_);
+        _page.addLocError(un_);
         emptErrs.add(un_.getBuiltError());
     }
 
-    private void processNumValues(ContextEl _cont, AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase) {
+    private void processNumValues(AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page) {
         if (argument == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             //key word len
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseVar(),
-                    _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                    _page.getKeyWords().getKeyWordCase(),
                     value);
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         } else {
-            checkDuplicateCase(_cont, argument);
+            checkDuplicateCase(argument, _page);
             Mapping m_ = new Mapping();
             m_.setArg(_resCase);
             m_.setParam(_resSwitch);
-            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont)) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(valueOffset);
                 //key word len
-                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseValue(),
-                        _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(argument, _cont.getAnalyzing()),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        AnaApplyCoreMethodUtil.getString(argument, _page),
                         StringList.join(_resSwitch.getNames(),"&"));
-                _cont.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }
         }
     }
 
-    private void checkDuplicateCase(ContextEl _cont, Argument _arg) {
+    private void checkDuplicateCase(Argument _arg, AnalyzedPageEl _page) {
         BracedBlock par_ = getParent();
         Block first_ = par_.getFirstChild();
         while (first_ != this) {
@@ -299,11 +297,11 @@ public final class CaseCondition extends SwitchPartBlock {
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                         //key word len
-                        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseDup(),
-                                _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
-                                AnaApplyCoreMethodUtil.getString(_arg, _cont.getAnalyzing()),
-                                _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
-                        _cont.getAnalyzing().addLocError(un_);
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                                _page.getKeyWords().getKeyWordCase(),
+                                AnaApplyCoreMethodUtil.getString(_arg, _page),
+                                _page.getKeyWords().getKeyWordSwitch());
+                        _page.addLocError(un_);
                         setReachableError(true);
                         getErrorsBlock().add(un_.getBuiltError());
                         break;
@@ -313,7 +311,7 @@ public final class CaseCondition extends SwitchPartBlock {
             first_ = first_.getNextSibling();
         }
     }
-    private void checkDuplicateEnumCase(ContextEl _cont) {
+    private void checkDuplicateEnumCase(AnalyzedPageEl _page) {
         BracedBlock par_ = getParent();
         Block first_ = par_.getFirstChild();
         while (first_ != this) {
@@ -325,11 +323,11 @@ public final class CaseCondition extends SwitchPartBlock {
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                     //key word len
-                    un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseDup(),
-                            _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                            _page.getKeyWords().getKeyWordCase(),
                             value.trim(),
-                            _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
-                    _cont.getAnalyzing().addLocError(un_);
+                            _page.getKeyWords().getKeyWordSwitch());
+                    _page.addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());
                     break;
@@ -341,21 +339,21 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     @Override
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         BracedBlock par_ = getParent();
         if (!(par_ instanceof SwitchBlock)) {
-            super.reach(_an, _anEl);
+            super.reach(_anEl, _page);
             return;
         }
         SwitchBlock s_ = (SwitchBlock) par_;
         if (s_.getInstanceTest().isEmpty()) {
-            super.reach(_an, _anEl);
+            super.reach(_anEl, _page);
             return;
         }
         ParsedType p_ = new ParsedType();
         p_.parse(value);
         String declaringType_ = p_.getInstruction().toString();
-        if (StringList.quickEq(declaringType_, _an.getAnalyzing().getKeyWords().getKeyWordNull())) {
+        if (StringList.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
             StringList classes_ = new StringList();
             Block b_ = getPreviousSibling();
             while (b_ != null) {
@@ -371,14 +369,13 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             return;
         }
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
         if (declaringType_.trim().isEmpty()) {
             emptyType = true;
         }
-        importedType = ResolvingImportTypes.resolveCorrectType(_an,declaringType_);
-        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
+        importedType = ResolvingImportTypes.resolveCorrectType(declaringType_, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         variableOffset = valueOffset + declaringType_.length();
         String info_ = value.substring(declaringType_.length());
         variableOffset += StringList.getFirstPrintableCharIndex(info_);
@@ -395,7 +392,7 @@ public final class CaseCondition extends SwitchPartBlock {
         boolean reachCatch_ = true;
         for (String c: classes_) {
             _anEl.setParamMapping(c);
-            if (_anEl.isCorrectMapping(_an)) {
+            if (_anEl.isCorrectMapping(_page)) {
                 reachCatch_ = false;
                 break;
             }

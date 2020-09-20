@@ -1,13 +1,11 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.InnerTypeOrElement;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -26,7 +24,7 @@ public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
     }
 
     @Override
-    public void setAssignmentBeforeAsLeaf(ContextEl _an, AssignedVariablesBlock _a, AssBlock _b) {
+    public void setAssignmentBeforeAsLeaf(AssignedVariablesBlock _a, AssBlock _b) {
         AssignedVariables ass_;
         if (_b == null) {
             ass_ = _a.getFinalVariablesGlobal();
@@ -43,17 +41,16 @@ public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
     }
 
     @Override
-    public void setAssignmentAfterAsLeaf(ContextEl _an, AssignedVariablesBlock _a, AssBlock _b) {
+    public void setAssignmentAfterAsLeaf(AssignedVariablesBlock _a, AssBlock _b, AnalyzedPageEl _page) {
         AssignedVariables varsAss_ = _a.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
         as_.put(fieldName, Assignment.assignClassic(true, false));
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        page_.getInitFields().add(fieldName);
+        _page.getInitFields().add(fieldName);
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
-        AssUtil.getSortedDescNodes(_a,opList.last(),this,_cont);
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        AssUtil.getSortedDescNodes(_a,opList.last(),this, _page);
     }
 }

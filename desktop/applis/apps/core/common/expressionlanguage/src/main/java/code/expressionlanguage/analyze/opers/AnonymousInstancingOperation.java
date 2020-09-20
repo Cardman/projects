@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
@@ -36,8 +35,8 @@ public final class AnonymousInstancingOperation extends
 
 
     @Override
-    public void preAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
+    public void preAnalyze(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
@@ -47,13 +46,12 @@ public final class AnonymousInstancingOperation extends
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
-        tryAnalyze(_conf);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        index = page_.getLocalizer().getCurrentLocationIndex();
+    public void analyze(AnalyzedPageEl _page) {
+        tryAnalyze(_page);
+        index = _page.getLocalizer().getCurrentLocationIndex();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
-        setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        setClassName(_page.getStandards().getAliasObject());
+        KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = realClassName_.indexOf("}");
@@ -63,52 +61,51 @@ public final class AnonymousInstancingOperation extends
         }
         if (getTypeInfer().contains("#")) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(page_.getLocalizer().getCurrentFileName());
-            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //original type len
-            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
+            static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
-            page_.getLocalizer().addError(static_);
+            _page.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (!isIntermediateDottedOperation()) {
-            setStaticAccess(page_.getStaticContext());
+            setStaticAccess(_page.getStaticContext());
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
                 int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,newKeyWord_.length()+local_,realClassName_);
-                getPartOffsets().addAllElts(page_.getCurrentParts());
+                realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                getPartOffsets().addAllElts(_page.getCurrentParts());
             }
-            checkInstancingType(_conf, realClassName_, isStaticAccess(), getErrs());
-            analyzeCtor(_conf, realClassName_);
+            checkInstancingType(realClassName_, isStaticAccess(), getErrs(), _page);
+            analyzeCtor(realClassName_, _page);
             return;
         }
         FoundErrorInterpret static_ = new FoundErrorInterpret();
-        static_.setFileName(page_.getLocalizer().getCurrentFileName());
-        static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        static_.setFileName(_page.getLocalizer().getCurrentFileName());
+        static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //key word len
-        static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
+        static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                 realClassName_);
-        page_.getLocalizer().addError(static_);
+        _page.getLocalizer().addError(static_);
         getErrs().add(static_.getBuiltError());
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
-    private void analyzeCtor(ContextEl _conf, String _realClassName) {
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    private void analyzeCtor(String _realClassName, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = page_.getAnaGeneType(base_);
+        AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (!(g_ instanceof ImmutableNameRootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(page_.getLocalizer().getCurrentFileName());
-            call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
+            call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
-            page_.getLocalizer().addError(call_);
+            _page.getLocalizer().addError(call_);
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             getErrs().add(call_.getBuiltError());
             return;
@@ -117,29 +114,29 @@ public final class AnonymousInstancingOperation extends
         if (possibleInit_ instanceof StaticInitOperation) {
             StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
             boolean staticType_ = g_.isStaticType();
-            st_.setInit(_conf,base_,staticType_);
+            st_.setInit(base_,staticType_, _page);
         }
         for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(page_.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
-                page_.getLocalizer().addError(call_);
+                _page.getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(page_.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
-                page_.getLocalizer().addError(call_);
+                _page.getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
             }
         }
@@ -147,18 +144,18 @@ public final class AnonymousInstancingOperation extends
         block.getExplicitDirectSuperTypes().put(-1, false);
         block.getRowColDirectSuperTypes().put(-1, _realClassName);
         block.setName(((ImmutableNameRootBlock)g_).getName());
-        block.setParentType(page_.getGlobalType());
+        block.setParentType(_page.getGlobalType());
         base = base_;
-        block.getAllReservedInners().addAllElts(page_.getGlobalDirType().getAllReservedInners());
-        MemberCallingsBlock currentFct_ = page_.getCurrentFct();
+        block.getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
+        MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(page_.getGlobalDirType().getMappings());
+            block.getMappings().putAllMap(_page.getGlobalDirType().getMappings());
         }
-        Block currentBlock_ = page_.getCurrentBlock();
+        Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymous().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
@@ -169,21 +166,21 @@ public final class AnonymousInstancingOperation extends
         block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
         setResultClass(new AnaClassArgumentMatching(_realClassName));
-        glClass = page_.getGlobalClass();
+        glClass = _page.getGlobalClass();
     }
 
-    public void postAnalyze(ContextEl _conf) {
+    public void postAnalyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
         AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(block.getGenericString());
-        NameParametersFilter name_ = buildFilter(_conf);
+        NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_);
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
             return;
         }
@@ -195,7 +192,7 @@ public final class AnonymousInstancingOperation extends
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
         }
-        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
+        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
     }
 
     public AnonymousTypeBlock getBlock() {

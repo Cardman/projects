@@ -1,12 +1,10 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.*;
-import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
@@ -34,16 +32,16 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
         return new AssignedBooleanLoopVariables();
     }
     @Override
-    public void defaultAssignmentBefore(ContextEl _an, AssignedVariablesBlock _a, AssOperationNode _root) {
+    public void defaultAssignmentBefore(AssignedVariablesBlock _a, AssOperationNode _root, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         StringMap<AssignmentBefore> variables_;
         fields_ = new StringMap<AssignmentBefore>();
         variables_ = new StringMap<AssignmentBefore>();
-        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
+        if (_page.getForLoopPartState() == ForLoopPart.INIT) {
             fields_.putAllMap(AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
             variables_.putAllMap(AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
-        } else if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.CONDITION) {
+        } else if (_page.getForLoopPartState() == ForLoopPart.CONDITION) {
             if (opInit.isEmpty()) {
                 fields_.putAllMap(AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
                 variables_.putAllMap(AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
@@ -52,20 +50,20 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
                 variables_.putAllMap(AssignmentsUtil.assignSimpleBefore(vars_.getVariablesRoot()));
             }
         } else {
-            fields_ = buildAssListFieldBeforeIncrPart(_an, _a);
-            variables_ = buildAssListLocVarBeforeIncrPart(_an, _a);
+            fields_ = buildAssListFieldBeforeIncrPart(_a);
+            variables_ = buildAssListLocVarBeforeIncrPart(_a);
         }
         vars_.getFieldsBefore().put(_root, fields_);
         vars_.getVariablesBefore().put(_root, variables_);
     }
 
     @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
-        assignWhenTrue(_an,_a);
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
+        assignWhenTrue(_a);
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _a) {
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         AssBlock nextSibling_ = getNextSibling();
@@ -76,9 +74,9 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, boolean _root) {
+    public void defaultAssignmentAfter(AssignedVariablesBlock _a, boolean _root, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
-        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
+        if (_page.getForLoopPartState() == ForLoopPart.INIT) {
             AssignedBooleanLoopVariables loop_ = (AssignedBooleanLoopVariables) vars_;
             StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
             loop_.getFieldsRootAfterInit().putAllMap(res_);
@@ -95,28 +93,28 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this,_anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(this,_anEl);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<AssBlock, AssignedVariables> allDesc_ = ass_.getAllDesc();
         StringMap<AssignmentBefore> fieldsHypot_;
         StringMap<AssignmentBefore> varsHypot_;
-        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
+        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_anEl);
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
-        varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
+        varsHypot_ = buildAssListLocVarInvalHypot(_anEl);
         varsWhile_.getVariablesRootBefore().clear();
         varsWhile_.getVariablesRootBefore().putAllMap(varsHypot_);
-        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl,allDesc_, varsWhile_, varsHypot_);
+        processFinalFields(allDesc_, varsWhile_, fieldsHypot_, _page);
+        processFinalVars(_anEl,allDesc_, varsWhile_, varsHypot_, _page);
         StringMap<SimpleAssignment> fieldsAfter_;
-        fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
+        fieldsAfter_= buildAssListFieldAfterLoop(_anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         StringMap<SimpleAssignment> varsAfter_;
-        varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
+        varsAfter_ = buildAssListLocVarAfterLoop(_anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
     }
-    private StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
+    private StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -125,7 +123,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> list_;
-        list_ = makeHypothesisFields(_an,_anEl);
+        list_ = makeHypothesisFields(_anEl);
         int contLen_ = continues_.size();
         CustList<StringMap<AssignmentBefore>> breakAss_;
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
@@ -142,7 +140,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    private StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
+    private StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -152,7 +150,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
         id_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> varsList_;
         StringMap<AssignmentBefore> list_;
-        list_ = makeHypothesisVars(_an,_anEl);
+        list_ = makeHypothesisVars(_anEl);
         int contLen_ = continues_.size();
         CustList<StringMap<AssignmentBefore>> breakAss_;
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
@@ -174,7 +172,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    protected StringMap<AssignmentBefore> makeHypothesisFields(ContextEl _an, AssignedVariablesBlock _a) {
+    protected StringMap<AssignmentBefore> makeHypothesisFields(AssignedVariablesBlock _a) {
         AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _a.getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         if (opInit.isEmpty()) {
@@ -186,7 +184,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    protected StringMap<AssignmentBefore> makeHypothesisVars(ContextEl _an, AssignedVariablesBlock _a) {
+    protected StringMap<AssignmentBefore> makeHypothesisVars(AssignedVariablesBlock _a) {
         AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _a.getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> variables_;
         if (opInit.isEmpty()) {
@@ -224,18 +222,17 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setForLoopPartState(ForLoopPart.INIT);
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        _page.setForLoopPartState(ForLoopPart.INIT);
         if (!opInit.isEmpty()) {
-            AssUtil.getSortedDescNodes(_a,opInit.last(),this,_cont);
+            AssUtil.getSortedDescNodes(_a,opInit.last(),this, _page);
         }
-        page_.setForLoopPartState(ForLoopPart.CONDITION);
+        _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (!opExp.isEmpty()) {
-            AssUtil.getSortedDescNodes(_a,opExp.last(),this,_cont);
+            AssUtil.getSortedDescNodes(_a,opExp.last(),this, _page);
         }
         if (!opExp.isEmpty()) {
-            buildConditions(_cont,_a);
+            buildConditions(_a);
         } else {
             AssignedBooleanVariables res_ = (AssignedBooleanVariables) _a.getFinalVariables().getVal(this);
             if (opInit.isEmpty()) {
@@ -247,11 +244,10 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
             }
         }
     }
-    public void buildIncrementPart(ContextEl _an, AssignedVariablesBlock _a) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        page_.setForLoopPartState(ForLoopPart.STEP);
+    public void buildIncrementPart(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        _page.setForLoopPartState(ForLoopPart.STEP);
         if (!opStep.isEmpty()) {
-            AssUtil.getSortedDescNodes(_a,opStep.last(),this,_an);
+            AssUtil.getSortedDescNodes(_a,opStep.last(),this, _page);
         }
     }
 

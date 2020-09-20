@@ -1,12 +1,11 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.ExecReturnMethod;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -24,11 +23,11 @@ public final class AssReturnMethod extends AssAbruptBlock implements AssBuildabl
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
+    public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         if (!opNode.isEmpty()) {
-            AssUtil.getSortedDescNodes(_a,opNode.last(),this,_cont);
+            AssUtil.getSortedDescNodes(_a,opNode.last(),this, _page);
         } else {
-            buildEmptyEl(_cont,_a);
+            buildEmptyEl(_a);
         }
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> ass_;

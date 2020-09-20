@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -23,8 +23,8 @@ public final class ParsedFctHeader {
     private int paramOffest;
     private int returnOffest;
     private int offsetLast;
-    public void parse(int _paramOffest, String _info, int _offset, ContextEl _context) {
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public void parse(int _paramOffest, String _info, int _offset, AnalyzedPageEl _parse) {
+        KeyWords keyWords_ = _parse.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         parse(_paramOffest, _info, _offset, keyWordIntern_);
     }

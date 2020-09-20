@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
@@ -21,7 +22,7 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (getNextSibling() instanceof RendElseIfCondition) {
             add = false;
         } else if (getNextSibling() instanceof RendElseCondition) {

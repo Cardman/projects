@@ -293,7 +293,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public IterableAnalysisResult getCustomType(StringList _names, String _first, ContextEl _context) {
+    public IterableAnalysisResult getCustomType(StringList _names, String _first, AnalyzedPageEl _page) {
         StringList out_ = new StringList();
         for (String f: _names) {
             String type_ = getIterableFullTypeByStds(f,_first);
@@ -303,7 +303,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context, String _first, String _second) {
+    public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second, AnalyzedPageEl _page) {
         String type_ = StringList.concat(getAliasIterableTable(), "<", _first, "," + _second + ">");
         return new IterableAnalysisResult(new StringList(type_));
     }
@@ -415,9 +415,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {
         _nav.initInstancesPattern(_page);
         _nav.setupRenders(_page);
-        ReportedMessages messages_ = _page.getMessages();
-        _conf.setNullAnalyzing();
-        return messages_;
+        return _page.getMessages();
     }
     public abstract Struct wrapStd(Object _element);
 

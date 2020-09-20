@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
@@ -23,263 +22,256 @@ public final class ResolvingImportTypes {
     private ResolvingImportTypes() {
 
     }
-    public static String resolveAccessibleIdTypeWithoutError(ContextEl _analyzable, int _loc, String _in) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        String void_ = page_.getStandards().getAliasVoid();
+    public static String resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
+        String void_ = _page.getStandards().getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
         }
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex()+_loc;
-        AccessedBlock a_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        CustList<PartOffset> offs_ = page_.getCurrentParts();
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, _analyzable,a_,r_, rc_, offs_).getResult();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
+        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        CustList<PartOffset> offs_ = _page.getCurrentParts();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, a_,r_, rc_, offs_, _page).getResult();
     }
-    public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex()+_loc;
+    public static String resolveCorrectAccessibleType(int _loc, String _in, String _fromType, AnalyzedPageEl _page) {
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            un_.buildError(_page.getAnalysisMessages().getEmptyType());
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+1));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
-        String void_ = page_.getStandards().getAliasVoid();
+        String void_ = _page.getStandards().getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
+            un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
-        AnaGeneType from_ = page_.getAnaGeneType(idFromType_);
+        AnaGeneType from_ = _page.getAnaGeneType(idFromType_);
         String ref_ = "";
         if (ContextUtil.isFromCustFile(from_)) {
             ref_ = ((Block)from_).getFile().getRenderFileName();
         }
-        page_.getAvailableVariables().clear();
+        _page.getAvailableVariables().clear();
         if (from_ instanceof RootBlock) {
             for (TypeVar t: ((RootBlock)from_).getParamTypesMapValues()) {
-                page_.getAvailableVariables().addEntry(t.getName(),t.getOffset());
+                _page.getAvailableVariables().addEntry(t.getName(),t.getOffset());
                 vars_.addEntry(t.getName(), t.getConstraints());
             }
         }
-        CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
         partOffsets_.clear();
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeAccessibleId(_in, _analyzable, r_, ref_,rc_,partOffsets_);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeAccessibleId(_in, r_, ref_,rc_,partOffsets_, _page);
         if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
+            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
-            page_.getLocalizer().addError(un_);
-            return page_.getStandards().getAliasObject();
+            _page.getLocalizer().addError(un_);
+            return _page.getStandards().getAliasObject();
         }
-        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, vars_, _analyzable, true,partOffsets_)) {
+        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, vars_, true,partOffsets_, _page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
+            un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                     _in);
-            page_.getLocalizer().addError(un_);
-            return page_.getStandards().getAliasObject();
+            _page.getLocalizer().addError(un_);
+            return _page.getStandards().getAliasObject();
         }
         return resType_.getResult();
     }
-    public static String resolveCorrectTypeWithoutErrors(ContextEl _analyzable, int _loc, String _in, boolean _exact, CustList<PartOffset> _partOffsets) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        String void_ = page_.getStandards().getAliasVoid();
+    public static String resolveCorrectTypeWithoutErrors(int _loc, String _in, boolean _exact, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
+        String void_ = _page.getStandards().getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
         }
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringMap<StringList> varsCt_ = page_.getCurrentConstraints().getCurrentConstraints();
-        page_.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        String gl_ = page_.getGlobalClass();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex() + _loc;
-        page_.getCurrentBadIndexes().clear();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
+        _page.getBuildingConstraints().buildCurrentConstraintsFull();
+        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        String gl_ = _page.getGlobalClass();
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
+        _page.getCurrentBadIndexes().clear();
         AnaResultPartType resType_;
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _analyzable, a_,r_, rc_, _partOffsets);
+            resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, a_,r_, rc_, _partOffsets, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_in, false, gl_, _analyzable, a_,r_, rc_, _partOffsets);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_in, false, gl_, a_,r_, rc_, _partOffsets, _page);
         }
         if (resType_.getResult().trim().isEmpty()) {
             return "";
         }
-        if (!page_.getCurrentBadIndexes().isEmpty()) {
+        if (!_page.getCurrentBadIndexes().isEmpty()) {
             return "";
         }
-        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, varsCt_, _analyzable, _exact, _partOffsets)) {
+        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, varsCt_, _exact, _partOffsets, _page)) {
             return "";
         }
         return resType_.getResult();
     }
-    public static String resolveCorrectType(ContextEl _analyzable,int _loc,String _in, boolean _exact) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex() + _loc;
+    public static String resolveCorrectType(int _loc, String _in, boolean _exact, AnalyzedPageEl _page) {
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            un_.buildError(_page.getAnalysisMessages().getEmptyType());
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+1));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
-        String void_ = page_.getStandards().getAliasVoid();
+        String void_ = _page.getStandards().getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
+            un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringMap<StringList> varsCt_ = page_.getCurrentConstraints().getCurrentConstraints();
-        page_.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
-        String gl_ = page_.getGlobalClass();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
+        _page.getBuildingConstraints().buildCurrentConstraintsFull();
+        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
+        String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
-        page_.getCurrentBadIndexes().clear();
+        _page.getCurrentBadIndexes().clear();
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, a_,r_, rc_,partOffsets_, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_,false, gl_, _analyzable,a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_,false, gl_, a_,r_, rc_,partOffsets_, _page);
         }
-        for (InaccessibleType i: page_.getCurrentBadIndexes()) {
+        for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_+i.getIndex());
             //part len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
+            un_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
                     i.getType(),gl_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
         }
-        return checkResType(_analyzable, _in, _exact, rc_, varsCt_, resType_,partOffsets_);
+        return checkResType(_in, _exact, rc_, varsCt_, resType_,partOffsets_, _page);
     }
-    public static String resolveCorrectTypeAccessible(ContextEl _analyzable,int _loc,String _in) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex() + _loc;
-        String void_ = page_.getStandards().getAliasVoid();
+    public static String resolveCorrectTypeAccessible(int _loc, String _in, AnalyzedPageEl _page) {
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
+        String void_ = _page.getStandards().getAliasVoid();
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            un_.buildError(_page.getAnalysisMessages().getEmptyType());
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+1));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
+            un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
-            page_.getLocalizer().addError(un_);
-            CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+            _page.getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
             partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
-            return page_.getStandards().getAliasObject();
+            return _page.getStandards().getAliasObject();
         }
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringMap<StringList> varsCt_ = page_.getCurrentConstraints().getCurrentConstraints();
-        page_.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
-        String gl_ = page_.getGlobalClass();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
+        _page.getBuildingConstraints().buildCurrentConstraintsFull();
+        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
+        String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
-        page_.getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
-        return checkResType(_analyzable, _in, true, rc_, varsCt_, resType_,partOffsets_);
+        _page.getCurrentBadIndexes().clear();
+        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, false,gl_, a_,r_, rc_,partOffsets_, _page);
+        return checkResType(_in, true, rc_, varsCt_, resType_,partOffsets_, _page);
     }
-    private static String checkResType(ContextEl _analyzable, String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, AnaResultPartType resType_, CustList<PartOffset> _parts) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
+    private static String checkResType(String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, AnaResultPartType resType_, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
         if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
+            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
-            page_.getLocalizer().addError(un_);
-            return page_.getStandards().getAliasObject();
+            _page.getLocalizer().addError(un_);
+            return _page.getStandards().getAliasObject();
         }
-        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, varsCt_, _analyzable, _exact,_parts)) {
+        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, varsCt_, _exact,_parts, _page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
+            un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                     _in);
-            page_.getLocalizer().addError(un_);
-            return page_.getStandards().getAliasObject();
+            _page.getLocalizer().addError(un_);
+            return _page.getStandards().getAliasObject();
         }
         return resType_.getResult();
     }
 
-    public static String resolveAccessibleIdType(ContextEl _analyzable,int _loc,String _in) {
-        AnalyzedPageEl page_ = _analyzable.getAnalyzing();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex();
+    public static String resolveAccessibleIdType(int _loc, String _in, AnalyzedPageEl _page) {
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         String tr_ = _in.trim();
-        String void_ = page_.getStandards().getAliasVoid();
-        AccessedBlock r_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringList inners_ = getParts(_analyzable,_in);
+        String void_ = _page.getStandards().getAliasVoid();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringList inners_ = getParts(_in, _page);
         String firstFull_ = inners_.first();
         int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
         String base_ = firstFull_.trim();
@@ -287,19 +279,19 @@ public final class ResolvingImportTypes {
             firstOff_ = 0;
         }
         String res_ = StringExpUtil.removeDottedSpaces(base_);
-        if (page_.getStandards().getStandards().contains(res_)) {
+        if (_page.getStandards().getStandards().contains(res_)) {
             return res_;
         }
-        CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
         partOffsets_.clear();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
+            un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
@@ -309,45 +301,45 @@ public final class ResolvingImportTypes {
         }
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
-            page_.getLocalizer().addError(un_);
+            un_.buildError(_page.getAnalysisMessages().getEmptyType());
+            _page.getLocalizer().addError(un_);
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
             partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
             return "";
         }
-        RootBlock b_ = page_.getAnaClassBody(res_);
+        RootBlock b_ = _page.getAnaClassBody(res_);
         if (b_ == null) {
-            MappingLocalType resolved_ = page_.getMappingLocal().getVal(base_);
+            MappingLocalType resolved_ = _page.getMappingLocal().getVal(base_);
             if (resolved_ != null) {
-                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_.getFullName(),partOffsets_);
+                ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_.getFullName(),partOffsets_, _page);
                 res_ = resolved_.getFullName();
             } else {
-                String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
+                String id_ = lookupImportType(base_,r_, new AlwaysReadyTypes(), _page);
                 if (id_.isEmpty()) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    undef_.setFileName(_page.getLocalizer().getCurrentFileName());
                     undef_.setIndexFile(rc_);
                     //_in len
-                    undef_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
+                    undef_.buildError(_page.getAnalysisMessages().getUnknownType(),
                             _in);
-                    page_.getLocalizer().addError(undef_);
+                    _page.getLocalizer().addError(undef_);
                     String err_ = undef_.getBuiltError();
                     String pref_ = "<a title=\""+err_+"\" class=\"e\">";
                     partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
                     partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc + base_.length()));
                     return "";
                 }
-                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
+                ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_, _page);
                 res_ = id_;
             }
         } else {
-            ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_);
+            ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_, _page);
         }
         int offset_ = _loc;
         offset_ += inners_.first().length();
@@ -362,47 +354,46 @@ public final class ResolvingImportTypes {
                 delta_ = 2;
                 resId_ = StringList.concat(res_,"-",i_.trim());
             }
-            RootBlock inner_ = page_.getAnaClassBody(resId_);
+            RootBlock inner_ = _page.getAnaClassBody(resId_);
             if (inner_ == null) {
                 //ERROR
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undef_.setFileName(_page.getLocalizer().getCurrentFileName());
                 undef_.setIndexFile(rc_);
                 //_in len
-                undef_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
+                undef_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         _in);
-                page_.getLocalizer().addError(undef_);
+                _page.getLocalizer().addError(undef_);
                 String err_ = undef_.getBuiltError();
                 String pref_ = "<a title=\""+err_+"\" class=\"e\">";
                 partOffsets_.add(new PartOffset(pref_,rc_+offset_+delta_));
                 partOffsets_.add(new PartOffset("</a>",rc_+offset_+delta_ + i_.trim().length()));
                 return "";
             }
-            ContextUtil.appendParts(_analyzable,offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_);
+            ContextUtil.appendParts(offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_, _page);
             res_ = resId_;
             offset_ += i_.length() + delta_;
         }
         return res_;
     }
-    public static String resolveCorrectType(ContextEl _an,String _in) {
-        return resolveCorrectType(_an, 0, _in, true);
+    public static String resolveCorrectType(String _in, AnalyzedPageEl _page) {
+        return resolveCorrectType(0, _in, _page);
     }
-    public static String resolveCorrectType(ContextEl _an,int _loc, String _in) {
-        return resolveCorrectType(_an, _loc, _in, true);
+    public static String resolveCorrectType(int _loc, String _in, AnalyzedPageEl _page) {
+        return resolveCorrectType(_loc, _in, true, _page);
     }
 
-    public static String lookupImportType(ContextEl _an,String _type, AccessedBlock _rooted, ReadyTypes _ready) {
+    public static String lookupImportType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_an,_type, _rooted,_ready);
+        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,_ready, _page);
         return prefixedType_;
     }
-    private static String getRealSinglePrefixedMemberType(ContextEl _an,String _type, AccessedBlock _rooted, ReadyTypes _ready) {
+    private static String getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        AccessedBlock typeImp_ = page_.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
+        AccessedBlock typeImp_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         fetchImports(typeImp_, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
@@ -414,7 +405,7 @@ public final class ResolvingImportTypes {
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
-                if (stopLookup(_an,types_,tr_,look_,_ready)) {
+                if (stopLookup(types_,tr_,look_,_ready, _page)) {
                     return "";
                 }
             }
@@ -428,7 +419,7 @@ public final class ResolvingImportTypes {
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
-            if (page_.getAnaClassBody(type_) != null) {
+            if (_page.getAnaClassBody(type_) != null) {
                 return type_;
             }
         }
@@ -442,7 +433,7 @@ public final class ResolvingImportTypes {
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                if (stopLookup(_an,types_,tr_,look_,_ready)) {
+                if (stopLookup(types_,tr_,look_,_ready, _page)) {
                     return "";
                 }
             }
@@ -453,26 +444,26 @@ public final class ResolvingImportTypes {
         if (!types_.isEmpty()) {
             return "";
         }
-        String defPkg_ = page_.getStandards().getDefaultPkg();
+        String defPkg_ = _page.getStandards().getDefaultPkg();
         String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        if (page_.getAnaGeneType(type_) != null) {
+        if (_page.getAnaGeneType(type_) != null) {
             return type_;
         }
         return "";
     }
 
-    private static boolean stopLookup(ContextEl _an,StringList _types, String _import, String _look, ReadyTypes _ready) {
+    private static boolean stopLookup(StringList _types, String _import, String _look, ReadyTypes _ready, AnalyzedPageEl _page) {
         String beginImp_ = StringExpUtil.removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
-        String keyWordStatic_ = _an.getAnalyzing().getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         boolean stQualifier_ = false;
         if (StringExpUtil.startsWithKeyWord(beginImp_, keyWordStatic_)) {
             beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
             stQualifier_ = true;
         }
         String typeInner_ = StringList.concat(beginImp_, _look);
-        StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _an);
+        StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _page);
         String owner_ = allInnerTypes_.first();
-        AnaGeneType cl_ = _an.getAnalyzing().getAnaGeneType(owner_);
+        AnaGeneType cl_ = _page.getAnaGeneType(owner_);
         String res_ = owner_;
         boolean addImport_ = true;
         if (cl_ != null) {
@@ -482,7 +473,7 @@ public final class ResolvingImportTypes {
                 if (!_ready.isReady(res_)) {
                     return true;
                 }
-                StringList builtInners_ = AnaTypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _an);
+                StringList builtInners_ = AnaTypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _page);
                 if (builtInners_.onlyOneElt()) {
                     res_ = builtInners_.first();
                     continue;
@@ -502,12 +493,12 @@ public final class ResolvingImportTypes {
         return false;
     }
 
-    public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(ContextEl _analyzable, String _glClass, String _method) {
+    public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(String _glClass, String _method, AnalyzedPageEl _page) {
         CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
-        AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
+        AccessedBlock type_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
-        String keyWordStatic_ = _analyzable.getAnalyzing().getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
             for (String i: t) {
@@ -520,8 +511,8 @@ public final class ResolvingImportTypes {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(foundCandidate_);
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -531,7 +522,7 @@ public final class ResolvingImportTypes {
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page);
             }
             methods_.add(m_);
         }
@@ -551,23 +542,23 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(foundCandidate_);
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page);
             }
             methods_.add(m_);
         }
         return methods_;
     }
 
-    private static void fetchImportStaticMethods(ContextEl _analyzable, String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc) {
+    private static void fetchImportStaticMethods(String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
         for (String s: _typesLoc) {
-            AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(s);
+            AnaGeneType super_ = _page.getAnaGeneType(s);
             String outer_ = "";
             if (super_ instanceof RootBlock) {
                 outer_ = ((RootBlock)super_).getOuterFullName();
@@ -583,10 +574,10 @@ public final class ResolvingImportTypes {
                     OverridableBlock c = (OverridableBlock) e;
                     String pkg_ = super_.getPackageName();
                     Accessed a_ = new Accessed(c.getAccess(), pkg_, s, outer_);
-                    if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
+                    if (!ContextUtil.canAccess(_typeLoc, a_, _page)) {
                         continue;
                     }
-                    if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
+                    if (!ContextUtil.canAccess(_glClass, a_, _page)) {
                         continue;
                     }
                 }
@@ -619,13 +610,13 @@ public final class ResolvingImportTypes {
         _methods.add(_value);
     }
 
-    public static StringMap<ImportedField> lookupImportStaticFields(ContextEl _analyzable, String _glClass, String _method) {
+    public static StringMap<ImportedField> lookupImportStaticFields(String _glClass, String _method, AnalyzedPageEl _page) {
         StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
         int import_ = 1;
-        AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
+        AccessedBlock type_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
-        String keyWordStatic_ = _analyzable.getAnalyzing().getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
                 String tr_ = i.trim();
@@ -637,8 +628,8 @@ public final class ResolvingImportTypes {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(foundCandidate_);
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -648,7 +639,7 @@ public final class ResolvingImportTypes {
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFieldsTmp(_analyzable,_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
+                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_, _page);
             }
             import_++;
         }
@@ -667,31 +658,31 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(foundCandidate_);
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFieldsTmp(_analyzable,_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
+                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_, _page);
             }
             import_++;
         }
         return methods_;
     }
 
-    public static String resolveCandidate(ContextEl _analyzable,String _c) {
-        StringList allInnerTypes_ = getParts(_analyzable,_c);
+    public static String resolveCandidate(String _c, AnalyzedPageEl _page) {
+        StringList allInnerTypes_ = getParts(_c, _page);
         String owner_ = allInnerTypes_.first();
-        AnaGeneType cl_ = _analyzable.getAnalyzing().getAnaGeneType(owner_);
+        AnaGeneType cl_ = _page.getAnaGeneType(owner_);
         String res_ = owner_;
         if (cl_ != null) {
             int size_ = allInnerTypes_.size();
             for (int i = 2; i < size_; i+=2) {
                 String i_ = allInnerTypes_.get(i).trim();
                 String part_ = allInnerTypes_.get(i-1);
-                StringList builtInners_ = AnaTypeUtil.getInners(res_,part_,i_,false,_analyzable);
+                StringList builtInners_ = AnaTypeUtil.getInners(res_,part_,i_,false, _page);
                 if (builtInners_.onlyOneElt()) {
                     res_ = builtInners_.first();
                     continue;
@@ -702,19 +693,19 @@ public final class ResolvingImportTypes {
         return res_;
     }
 
-    public static StringList getParts(ContextEl _analyzable,String _c) {
+    public static StringList getParts(String _c, AnalyzedPageEl _page) {
         StringList allInnerTypes_;
-        allInnerTypes_ = AnaTemplates.getAllInnerTypes(_c, _analyzable);
+        allInnerTypes_ = AnaTemplates.getAllInnerTypes(_c, _page);
         return allInnerTypes_;
     }
 
-    private static void fetchImportStaticFieldsTmp(ContextEl _analyzable,String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
-        fetchImportStaticFields(_analyzable,_glClass,_method,_methods,_import,_typeLoc,_typesLoc);
+    private static void fetchImportStaticFieldsTmp(String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
+        fetchImportStaticFields(_glClass,_method,_methods,_import,_typeLoc,_typesLoc, _page);
     }
 
-    public static void fetchImportStaticFields(ContextEl _analyzable,String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    public static void fetchImportStaticFields(String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
         for (String s: _typesLoc) {
-            AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(s);
+            AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof StandardType) {
                 for (StandardField m: ((StandardType)super_).getFields()) {
                     int ind_ = notMatch(_method, m);
@@ -742,10 +733,10 @@ public final class ResolvingImportTypes {
                         v_ = e.getFieldNameOffset();
                     }
                     Accessed a_ = new Accessed(e.getAccess(),pkg_,s,outerFullName_);
-                    if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
+                    if (!ContextUtil.canAccess(_typeLoc, a_, _page)) {
                         continue;
                     }
-                    if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
+                    if (!ContextUtil.canAccess(_glClass, a_, _page)) {
                         continue;
                     }
                     ImportedField value_ = new ImportedField(_import, a_, e.getImportedClassName(), e.isFinalField(), v_);

@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
@@ -25,15 +25,15 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     private String classFromName;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public RendInterfaceFctConstructor(InterfaceFctConstructor _abs, ContextEl _context) {
+    public RendInterfaceFctConstructor(InterfaceFctConstructor _abs, AnalyzedPageEl _page) {
         super(_abs);
         className = _abs.getClassName();
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
         classFromName = _abs.getClassFromName();
-        rootBlock = ExecOperationNode.fetchType(_abs.getRootNumber(), _context.getAnalyzing());
-        ctor = ExecOperationNode.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_abs.getRootNumber(), _page);
+        ctor = ExecOperationNode.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
 
     }
 

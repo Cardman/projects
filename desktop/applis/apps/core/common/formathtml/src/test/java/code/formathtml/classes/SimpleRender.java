@@ -1,5 +1,6 @@
 package code.formathtml.classes;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.Configuration;
 import code.formathtml.RendDocumentBlock;
@@ -12,7 +13,7 @@ public final class SimpleRender extends RendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
 
     }
 }

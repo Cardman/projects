@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -16,13 +16,13 @@ public final class AssElseCondition extends AssBracedStack implements AssBreakab
     }
 
     @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
-        assignWhenFalse(true, _an, _a);
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
+        assignWhenFalse(true, _a);
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        super.setAssignmentAfter(_anEl, _page);
         AssBlock pBlock_ = getPreviousSibling();
         CustList<AssBlock> prev_ = new CustList<AssBlock>();
         prev_.add(this);
@@ -42,9 +42,9 @@ public final class AssElseCondition extends AssBracedStack implements AssBreakab
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ = buildAssFieldsAfterIf(false, prev_, _an, _anEl);
+        after_ = buildAssFieldsAfterIf(false, prev_, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterIf(false, prev_, _an, _anEl);
+        afterVars_ = buildAssVariablesAfterIf(false, prev_, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }

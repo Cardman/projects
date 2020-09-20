@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -15,14 +15,14 @@ public final class StandardFieldOperation extends SettableAbstractFieldOperation
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         AnaClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            String look_ = _conf.getAnalyzing().getLookLocalClass();
+            String look_ = _page.getLookLocalClass();
             if (look_.isEmpty()) {
-                cl_ = new AnaClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
+                cl_ = new AnaClassArgumentMatching(_page.getGlobalClass());
             } else {
                 cl_ = new AnaClassArgumentMatching(look_);
             }

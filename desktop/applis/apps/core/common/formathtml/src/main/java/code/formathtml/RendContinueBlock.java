@@ -23,7 +23,7 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         boolean childOfLoop_ = false;
         RendParentBlock b_ = getParent();
         while (b_ != null) {
@@ -40,37 +40,36 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
             b_ = b_.getParent();
         }
         if (!childOfLoop_) {
-            AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
+            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
-                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordContinue(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
+                        _page.getKeyWords().getKeyWordContinue(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             } else {
-                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordContinue(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _page.getKeyWords().getKeyWordContinue(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             }
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _page);
         }
     }
 

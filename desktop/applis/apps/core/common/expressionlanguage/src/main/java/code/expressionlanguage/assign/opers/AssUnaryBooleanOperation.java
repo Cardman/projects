@@ -1,14 +1,12 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
-import code.util.CustList;
 import code.util.StringMap;
 
 public final class AssUnaryBooleanOperation extends AssMethodOperation {
@@ -17,7 +15,7 @@ public final class AssUnaryBooleanOperation extends AssMethodOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         AssOperationNode last_ = getFirstChild();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);

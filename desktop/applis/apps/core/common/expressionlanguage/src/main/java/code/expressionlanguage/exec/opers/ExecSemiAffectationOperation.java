@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -29,16 +30,16 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private ImplicitMethods converterTo;
 
     private int opOffset;
-    public ExecSemiAffectationOperation(SemiAffectationOperation _s, ContextEl _context) {
+    public ExecSemiAffectationOperation(SemiAffectationOperation _s, AnalyzedPageEl _page) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         kind = getKind(_s.getClassMethodId());
         className = getType(_s.getClassMethodId());
-        named = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = fetchType(_s.getRootNumber(), _context.getAnalyzing());
-        converterFrom = fetchImplicits(_context,_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom());
-        converterTo = fetchImplicits(_context,_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo());
+        named = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
+        rootBlock = fetchType(_s.getRootNumber(), _page);
+        converterFrom = fetchImplicits(_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom(), _page);
+        converterTo = fetchImplicits(_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo(), _page);
         opOffset = _s.getOpOffset();
     }
 

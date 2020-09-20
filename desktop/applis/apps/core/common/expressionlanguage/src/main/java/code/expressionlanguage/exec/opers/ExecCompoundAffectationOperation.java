@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -28,14 +29,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
 
     private int opOffset;
 
-    public ExecCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
+    public ExecCompoundAffectationOperation(CompoundAffectationOperation _c, AnalyzedPageEl _page) {
         super(_c);
         oper = _c.getOper();
         kind = getKind(_c.getClassMethodId());
         className = getType(_c.getClassMethodId());
-        named = fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = fetchType(_c.getRootNumber(), _context.getAnalyzing());
-        converter = fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
+        named = fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
+        rootBlock = fetchType(_c.getRootNumber(), _page);
+        converter = fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
         opOffset = _c.getOpOffset();
     }
 

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -15,11 +16,11 @@ public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
     private int argOffset;
     private ExecRootBlock rootBlock;
 
-    public ExecEnumValueOfOperation(EnumValueOfOperation _e, ContextEl _cont) {
+    public ExecEnumValueOfOperation(EnumValueOfOperation _e, AnalyzedPageEl _page) {
         super(_e);
         className = _e.getClassName();
         argOffset = _e.getArgOffset();
-        rootBlock = fetchType(_e.getNumberEnum(), _cont.getAnalyzing());
+        rootBlock = fetchType(_e.getNumberEnum(), _page);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -24,8 +25,8 @@ public final class RendRadio extends RendInput {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
-        processAnaInput(_cont,_doc,_read, _anaDoc);
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        processAnaInput(_cont,_doc,_read, _anaDoc, _page);
         _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
         _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
         _list.removeAllString(_cont.getRendKeyWords().getAttrName());
@@ -41,29 +42,29 @@ public final class RendRadio extends RendInput {
         if (!converterFieldValue_.trim().isEmpty()) {
             String object_ = _cont.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
-            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
             varNameConverterFieldValue = varLoc_;
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
-            _cont.getContext().getAnalyzing().getInfosVars().addEntry(varLoc_,lv_);
+            _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
-            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
             for (String v:varNames_) {
-                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
+                _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
+            m_.setArg(_page.getCurrentRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
-                badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
                         _cont.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
     }

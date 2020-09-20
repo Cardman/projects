@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -26,14 +26,14 @@ public final class NullSafeOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
@@ -62,16 +62,16 @@ public final class NullSafeOperation extends MethodOperation {
         }
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _conf);
+        ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _page);
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        tryGetResult(_conf, this);
+    public void tryCalculateNode(AnalyzedPageEl _page) {
+        tryGetResult(this, _page);
     }
 
-    public static void tryGetResult(ContextEl _conf, MethodOperation _to) {
+    public static void tryGetResult(MethodOperation _to, AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = _to.getChildrenNodes();
         Argument f_ = children_.first().getArgument();
         Argument s_ = children_.last().getArgument();
@@ -80,12 +80,12 @@ public final class NullSafeOperation extends MethodOperation {
         }
         Struct v_ = f_.getStruct();
         if (v_ != NullStruct.NULL_VALUE) {
-            _to.setSimpleArgumentAna(f_, _conf.getAnalyzing());
+            _to.setSimpleArgumentAna(f_, _page);
             return;
         }
         Struct value_ = Argument.getNull(Argument.getNullable(s_));
         if (value_ != NullStruct.NULL_VALUE) {
-            _to.setSimpleArgumentAna(s_, _conf.getAnalyzing());
+            _to.setSimpleArgumentAna(s_, _page);
         }
     }
 }

@@ -1,13 +1,11 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.WhileCondition;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
-import code.expressionlanguage.exec.blocks.ExecWhileCondition;
 import code.expressionlanguage.assign.util.AssignmentBefore;
-import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.*;
 
@@ -19,34 +17,34 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
     }
 
     @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
-        assignWhenTrue(_an, _a);
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
+        assignWhenTrue(_a);
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this,_anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(this,_anEl);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<AssBlock, AssignedVariables> allDesc_ = ass_.getAllDesc();
         StringMap<AssignmentBefore> fieldsHypot_;
         StringMap<AssignmentBefore> varsHypot_;
-        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
+        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_anEl);
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
-        varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
+        varsHypot_ = buildAssListLocVarInvalHypot(_anEl);
         varsWhile_.getVariablesRootBefore().clear();
         varsWhile_.getVariablesRootBefore().putAllMap(varsHypot_);
-        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl,allDesc_, varsWhile_, varsHypot_);
+        processFinalFields(allDesc_, varsWhile_, fieldsHypot_, _page);
+        processFinalVars(_anEl,allDesc_, varsWhile_, varsHypot_, _page);
         StringMap<SimpleAssignment> fieldsAfter_;
-        fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
+        fieldsAfter_= buildAssListFieldAfterLoop(_anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         StringMap<SimpleAssignment> varsAfter_;
-        varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
+        varsAfter_ = buildAssListLocVarAfterLoop(_anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -55,7 +53,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> list_;
-        list_ = makeHypothesisFields(_an,_anEl);
+        list_ = makeHypothesisFields(_anEl);
         int contLen_ = continues_.size();
         CustList<StringMap<AssignmentBefore>> breakAss_;
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
@@ -72,7 +70,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -82,7 +80,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
         id_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> varsList_;
         StringMap<AssignmentBefore> list_;
-        list_ = makeHypothesisVars(_an,_anEl);
+        list_ = makeHypothesisVars(_anEl);
         int contLen_ = continues_.size();
         CustList<StringMap<AssignmentBefore>> breakAss_;
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();

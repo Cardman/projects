@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -27,8 +27,8 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
 
     @Override

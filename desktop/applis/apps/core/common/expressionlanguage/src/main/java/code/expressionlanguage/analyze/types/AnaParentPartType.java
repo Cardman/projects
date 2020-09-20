@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -28,7 +28,7 @@ abstract class AnaParentPartType extends AnaPartType {
         p_.setNextSibling(_child);
     }
 
-    abstract void buildErrorInexist(ContextEl _an);
+    abstract void buildErrorInexist(AnalyzedPageEl _page);
 
     CustList<PartOffset> getBeginOps() {
         return beginOps;

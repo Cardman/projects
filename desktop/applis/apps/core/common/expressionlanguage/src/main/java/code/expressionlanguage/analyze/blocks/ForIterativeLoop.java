@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -58,10 +57,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
     private OperationNode rootStep;
 
     private final StringList nameErrors = new StringList();
-    public ForIterativeLoop(ContextEl _importingPage,
-                            OffsetStringInfo _className, OffsetStringInfo _variable,
+    public ForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
                             OffsetStringInfo _from,
-                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, AnalyzedPageEl _page) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -77,7 +75,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getAnalyzing().getStandards().getAliasPrimInteger();
+            classIndex_ = _page.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -159,58 +157,57 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        boolean res_ = processVariableNames(_cont);
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        boolean res_ = processVariableNames(_page);
+        MemberCallingsBlock f_ = _page.getCurrentFct();
         String cl_ = importedClassName;
-        page_.setGlobalOffset(initOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(initOffset);
+        _page.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
-        rootInit = page_.getCurrentRoot();
+        CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
+        rootInit = _page.getCurrentRoot();
         ExecOperationNode initEl_ = init_.last();
-        checkType(_cont, cl_, initEl_, initOffset, rootInit);
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        rootExp = page_.getCurrentRoot();
+        checkType(cl_, initEl_, initOffset, rootInit, _page);
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
+        CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+        rootExp = _page.getCurrentRoot();
         ExecOperationNode expressionEl_ = exp_.last();
-        checkType(_cont, cl_, expressionEl_, expressionOffset, rootExp);
-        page_.setGlobalOffset(stepOffset);
-        page_.setOffset(0);
-        CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
-        rootStep = page_.getCurrentRoot();
+        checkType(cl_, expressionEl_, expressionOffset, rootExp, _page);
+        _page.setGlobalOffset(stepOffset);
+        _page.setOffset(0);
+        CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
+        rootStep = _page.getCurrentRoot();
         ExecOperationNode stepEl_ = step_.last();
-        checkType(_cont, cl_, stepEl_, stepOffset, rootStep);
+        checkType(cl_, stepEl_, stepOffset, rootStep, _page);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffset);
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+            _page.getLoopsVars().put(variableName, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
             lInfo_.setRef(variableNameOffset);
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
+            _page.getInfosVars().put(variableName, lInfo_);
         }
-        page_.getCoverage().putBlockOperationsLoops(this);
+        _page.getCoverage().putBlockOperationsLoops(this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, initOffset,
                 expressionOffset, stepOffset,eq,init_,exp_,step_);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset, OperationNode _root) {
+    private void checkType(String _elementClass, ExecOperationNode _stepEl, int _offset, OperationNode _root, AnalyzedPageEl _page) {
         Mapping m_ = new Mapping();
         AnaClassArgumentMatching arg_ = _root.getResultClass();
         m_.setArg(arg_);
         m_.setParam(_elementClass);
-        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _elementClass, arg_);
+        if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_elementClass, arg_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 arg_.getImplicits().add(cl_);
@@ -221,59 +218,58 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(_offset);
                 //char before expression
-                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(arg_.getNames(),"&"),
                         _elementClass);
-                _cont.getAnalyzing().addLocError(cast_);
+                _page.addLocError(cast_);
                 setReachableError(true);
                 getErrorsBlock().add(cast_.getBuiltError());
             }
         }
-        ElUtil.setImplicits(_stepEl, _cont.getAnalyzing(), _root);
+        ElUtil.setImplicits(_stepEl, _page, _root);
     }
 
-    private boolean processVariableNames(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(classIndexNameOffset);
-        page_.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont)) {
+    private boolean processVariableNames(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setOffset(0);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.getAnalyzing().addLocError(cast_);
+            _page.addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
-        if (!AnaTypeUtil.isIntOrderClass(elementClass_, _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classNameOffset);
             //className len
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
-            _cont.getAnalyzing().addLocError(cast_);
+            _page.addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        page_.setGlobalOffset(variableNameOffset);
-        page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+        _page.setGlobalOffset(variableNameOffset);
+        _page.setOffset(0);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());
-            _cont.getAnalyzing().addLocError(b_);
+            _page.addLocError(b_);
             nameErrors.add(b_.getBuiltError());
             return false;
         }

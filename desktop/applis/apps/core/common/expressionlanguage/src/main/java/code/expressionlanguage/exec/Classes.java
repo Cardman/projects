@@ -75,7 +75,6 @@ public final class Classes {
         forwardAndClear(_context, _page);
         AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
-        _context.setNullAnalyzing();
         tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
         return messages_;
     }
@@ -89,8 +88,8 @@ public final class Classes {
             //all standards errors are logged here
             return;
         }
-        ClassesUtil.buildAllBracesBodies(_files,_context);
-        ClassesUtil.postValidation(_context);
+        ClassesUtil.buildAllBracesBodies(_files, _page);
+        ClassesUtil.postValidation(_page);
         if (_page.isGettingErrors()) {
             ReportedMessages messages_ = _page.getMessages();
             messages_.setErrors(ExecFileBlock.errors(_page));

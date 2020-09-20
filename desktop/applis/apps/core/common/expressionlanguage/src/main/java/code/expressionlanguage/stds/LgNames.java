@@ -1272,15 +1272,18 @@ public abstract class LgNames {
         return ValidatorStandard.getSimpleResultBase( _classField,this);
     }
 
-    /**@param _first le premier*/
-    public IterableAnalysisResult getCustomType(StringList _names, String _first, ContextEl _context) {
-        return ValidatorStandard.getCustomTypeBase(_names, _context);
+    /**
+     * @param _first le premier
+     * */
+    public IterableAnalysisResult getCustomType(StringList _names, String _first, AnalyzedPageEl _page) {
+        return ValidatorStandard.getCustomTypeBase(_names, _page);
     }
 
     /**@param _first le premier
-    @param _second le second*/
-    public IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context, String _first, String _second) {
-        return ValidatorStandard.getCustomTableType(_names, _context);
+    @param _second le second
+     * @param _page*/
+    public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second, AnalyzedPageEl _page) {
+        return ValidatorStandard.getCustomTableType(_names, _page);
     }
 
     public StringMap<String> buildFiles(AnalyzedPageEl _page) {

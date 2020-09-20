@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
@@ -30,16 +30,16 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private ImplicitMethods converterFrom;
     private ImplicitMethods converterTo;
 
-    public RendSemiAffectationOperation(SemiAffectationOperation _s, ContextEl _context) {
+    public RendSemiAffectationOperation(SemiAffectationOperation _s, AnalyzedPageEl _page) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         kind = ExecOperationNode.getKind(_s.getClassMethodId());
         className = ExecOperationNode.getType(_s.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = ExecOperationNode.fetchType(_s.getRootNumber(), _context.getAnalyzing());
-        converterFrom = ExecOperationNode.fetchImplicits(_context,_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom());
-        converterTo = ExecOperationNode.fetchImplicits(_context,_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo());
+        named = ExecOperationNode.fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
+        rootBlock = ExecOperationNode.fetchType(_s.getRootNumber(), _page);
+        converterFrom = ExecOperationNode.fetchImplicits(_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom(), _page);
+        converterTo = ExecOperationNode.fetchImplicits(_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo(), _page);
     }
 
     public void setup() {

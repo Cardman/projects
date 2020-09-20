@@ -21,18 +21,17 @@ public final class OverridesTypeUtil {
     private OverridesTypeUtil() {
     }
 
-    public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, ContextEl _conf) {
+    public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
         String baseClassFound_ = _type.getFullName();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        for (EntryCust<RootBlock, Members> e: page_.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _page.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             String name_ = c.getFullName();
-            String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _conf);
+            String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _page);
             if (baseCond_.isEmpty()) {
                 continue;
             }
-            GeneStringOverridable f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _conf);
+            GeneStringOverridable f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _page);
             if (f_ != null) {
                 eq_.put(name_, f_);
                 continue;
@@ -43,16 +42,16 @@ public final class OverridesTypeUtil {
             all_.add(name_);
             all_.addAllElts(c.getAllSuperTypes());
             for (String s: all_) {
-                RootBlock r_ = page_.getAnaClassBody(s);
+                RootBlock r_ = _page.getAnaClassBody(s);
                 if (!(r_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, baseClassFound_, _conf);
+                String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, baseClassFound_, _page);
                 if (v_.isEmpty()) {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
-                FormattedMethodId l_ = _realId.quickOverrideFormat(_type,v_, _conf);
+                FormattedMethodId l_ = _realId.quickOverrideFormat(_type,v_);
                 CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -65,7 +64,7 @@ public final class OverridesTypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!t.getType().isSubTypeOf(baseClassFound_,page_)) {
+                    if (!t.getType().isSubTypeOf(baseClassFound_, _page)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);
@@ -75,14 +74,14 @@ public final class OverridesTypeUtil {
                 }
                 feedMehodsLists(finalMethods_, methods_, foundSuperClasses_);
             }
-            GeneStringOverridable id_ = filterUniqId(_conf, finalMethods_, methods_);
+            GeneStringOverridable id_ = filterUniqId(finalMethods_, methods_, _page);
             if (id_ != null) {
                 eq_.put(name_, id_);
                 continue;
             }
             finalMethods_ = new CustList<GeneStringOverridable>();
             methods_ = new CustList<GeneStringOverridable>();
-            FormattedMethodId l_ = _realId.quickOverrideFormat(_type,baseCond_, _conf);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(_type,baseCond_);
             CustList<OverridingMethodDto> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
             CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -101,7 +100,7 @@ public final class OverridesTypeUtil {
                 continue;
             }
             feedMehodsLists(finalMethods_, methods_, foundSuperClasses_);
-            id_ = filterUniqId(_conf, finalMethods_, methods_);
+            id_ = filterUniqId(finalMethods_, methods_, _page);
             if (id_ != null) {
                 eq_.put(name_, id_);
             }
@@ -121,14 +120,14 @@ public final class OverridesTypeUtil {
             methods_.add(t);
         }
     }
-    private static GeneStringOverridable filterUniqId(ContextEl _conf, CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_) {
+    private static GeneStringOverridable filterUniqId(CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> defs_ = new StringMap<GeneStringOverridable>();
         StringList list_ = new StringList();
         for (GeneStringOverridable v: finalMethods_) {
             defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }
-        list_ = AnaTypeUtil.getSubclasses(list_, _conf);
+        list_ = AnaTypeUtil.getSubclasses(list_, _page);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
             return defs_.getVal(class_);
@@ -139,7 +138,7 @@ public final class OverridesTypeUtil {
             defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }
-        list_ = AnaTypeUtil.getSubclasses(list_, _conf);
+        list_ = AnaTypeUtil.getSubclasses(list_, _page);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
             return defs_.getVal(class_);
@@ -147,16 +146,16 @@ public final class OverridesTypeUtil {
         return null;
     }
 
-    private static GeneStringOverridable tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, ContextEl _conf) {
+    private static GeneStringOverridable tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, AnalyzedPageEl _page) {
         //c is a concrete sub type of type input
         for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
             RootBlock r_ = s.getRootBlock();
-            String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, _subTypeName, _conf);
+            String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, _subTypeName, _page);
             if (v_.isEmpty()) {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
-            FormattedMethodId l_ = _realId.quickOverrideFormat(_toFind,v_, _conf);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(_toFind,v_);
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;

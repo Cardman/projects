@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -25,10 +25,10 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private int offsetOper;
-    public RendExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
+    public RendExplicitOperatorOperation(ExplicitOperatorOperation _fct, AnalyzedPageEl _page) {
         super(_fct);
-        named = ExecOperationNode.fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = ExecOperationNode.fetchType(_fct.getRootNumber(), _context.getAnalyzing());
+        named = ExecOperationNode.fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _page);
+        rootBlock = ExecOperationNode.fetchType(_fct.getRootNumber(), _page);
         kind = ExecOperationNode.getKind(_fct.getClassMethodId());
         className = ExecOperationNode.getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();

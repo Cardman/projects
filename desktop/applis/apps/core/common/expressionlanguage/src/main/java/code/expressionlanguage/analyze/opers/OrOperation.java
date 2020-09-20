@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.instr.OperationsSequence;
 
 public final class OrOperation extends QuickOperation {
@@ -10,8 +10,8 @@ public final class OrOperation extends QuickOperation {
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        tryGetResult(this, true, isOkNum(), _conf.getAnalyzing());
+    public void tryCalculateNode(AnalyzedPageEl _page) {
+        tryGetResult(this, true, isOkNum(), _page);
     }
 
 

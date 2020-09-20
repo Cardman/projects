@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -15,8 +15,8 @@ public final class AssFinallyEval extends AssBracedStack implements AssEval,AssB
         label = _f;
     }
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        super.setAssignmentAfter(_anEl, _page);
         AssBlock pBlock_ = getPreviousSibling();
         CustList<AssBlock> prev_ = new CustList<AssBlock>();
         while (!(pBlock_ instanceof AssTryEval)) {
@@ -33,9 +33,9 @@ public final class AssFinallyEval extends AssBracedStack implements AssEval,AssB
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
+        after_ = buildAssFieldsAfterFinally(prev_, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterFinally(prev_, _an, _anEl);
+        afterVars_ = buildAssVariablesAfterFinally(prev_, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }

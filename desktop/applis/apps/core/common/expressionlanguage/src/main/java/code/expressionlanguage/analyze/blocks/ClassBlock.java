@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
@@ -26,8 +26,8 @@ public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRo
         return staticType;
     }
     @Override
-    public void setupBasicOverrides(ContextEl _context) {
-        checkAccess(_context);
+    public void setupBasicOverrides(AnalyzedPageEl _page) {
+        checkAccess(_page);
     }
 
     public boolean isFinalType() {

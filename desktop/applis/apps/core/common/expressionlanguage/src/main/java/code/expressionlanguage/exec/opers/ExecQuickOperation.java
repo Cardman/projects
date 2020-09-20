@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -20,13 +21,13 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
-    public ExecQuickOperation(QuickOperation _q, ContextEl _context) {
+    public ExecQuickOperation(QuickOperation _q, AnalyzedPageEl _page) {
         super(_q);
         kind = getKind(_q.getClassMethodId());
         className = getType(_q.getClassMethodId());
-        named = fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = fetchType(_q.getRootNumber(), _context.getAnalyzing());
-        converter = fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
+        named = fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _page);
+        rootBlock = fetchType(_q.getRootNumber(), _page);
+        converter = fetchImplicits(_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv(), _page);
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

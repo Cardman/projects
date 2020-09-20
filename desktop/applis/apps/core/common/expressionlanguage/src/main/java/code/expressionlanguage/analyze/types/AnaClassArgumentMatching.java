@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -52,14 +51,13 @@ public final class AnaClassArgumentMatching {
         return cl_;
     }
 
-    public boolean isNumericInt(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    public boolean isNumericInt(AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
         String charPr_ = stds_.getAliasPrimChar();
         String bytePr_ = stds_.getAliasPrimByte();
-        AnaClassArgumentMatching prim_ = AnaTypeUtil.toPrimitive(this, page_);
+        AnaClassArgumentMatching prim_ = AnaTypeUtil.toPrimitive(this, _page);
         if (prim_.matchClass(intPr_)) {
             return true;
         }
@@ -80,8 +78,8 @@ public final class AnaClassArgumentMatching {
         }
         return false;
     }
-    public boolean matchVoid(ContextEl _classes) {
-        LgNames stds_ = _classes.getAnalyzing().getStandards();
+    public boolean matchVoid(AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         StringList l_ = new StringList(stds_.getAliasVoid());
         return StringList.equalsSet(className, l_);
     }
@@ -95,27 +93,27 @@ public final class AnaClassArgumentMatching {
         return StringList.contains(className, "");
     }
 
-    public boolean isPrimitive(ContextEl _context) {
+    public boolean isPrimitive(AnalyzedPageEl _page) {
         for (String b: className) {
-            if (AnaTypeUtil.isPrimitive(b, _context.getAnalyzing())) {
+            if (AnaTypeUtil.isPrimitive(b, _page)) {
                 return true;
             }
         }
         return false;
     }
 
-    public byte getPrimitiveCast(ContextEl _context) {
-        return getPrimitiveCast(_context, className);
+    public byte getPrimitiveCast(AnalyzedPageEl _page) {
+        return getPrimitiveCast(className, _page);
     }
 
-    public static byte getPrimitiveCast(ContextEl _context, StringList _className) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+    public static byte getPrimitiveCast(StringList _className, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         return ClassArgumentMatching.getPrimitiveCast(_className, stds_);
     }
 
-    public boolean isWrapper(ContextEl _context) {
+    public boolean isWrapper(AnalyzedPageEl _page) {
         for (String b: className) {
-            if (AnaTypeUtil.isWrapper(b, _context)) {
+            if (AnaTypeUtil.isWrapper(b, _page)) {
                 return true;
             }
         }

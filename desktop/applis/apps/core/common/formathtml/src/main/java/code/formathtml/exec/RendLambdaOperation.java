@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.opers.*;
@@ -40,7 +41,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private StandardMethod standardMethod;
     private ExecRootBlock declaring;
 
-    public RendLambdaOperation(LambdaOperation _l,ContextEl _cont) {
+    public RendLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
         super(_l);
         standardMethod = _l.getStandardMethod();
         intermediate = _l.isIntermediate();
@@ -61,12 +62,12 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         expCast = _l.isExpCast();
         fileName = _l.getFileName();
         if (method == null && realId == null) {
-            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l, _cont.getAnalyzing());
+            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l, _page);
         } else {
-            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
-            function = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+            function = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
         }
-        declaring = ExecAbstractLambdaOperation.fetchType(_l.getRootNumber(), _cont.getAnalyzing());
+        declaring = ExecAbstractLambdaOperation.fetchType(_l.getRootNumber(), _page);
     }
 
     @Override

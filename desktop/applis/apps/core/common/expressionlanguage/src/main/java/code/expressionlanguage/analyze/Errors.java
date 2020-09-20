@@ -1,14 +1,13 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.util.CustList;
 
 public final class Errors {
     private CustList<FileBlock> files = new CustList<FileBlock>();
 
-    public void putFile(ContextEl _context, FileBlock _file) {
-        if (!_context.getAnalyzing().isGettingErrors()) {
+    public void putFile(FileBlock _file, AnalyzedPageEl _page) {
+        if (!_page.isGettingErrors()) {
             return;
         }
         files.add(_file);

@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -29,7 +30,7 @@ public final class ResultText {
     private StringList varNames = new StringList();
     private Ints expOffsets = new Ints();
     private Ints expEnds = new Ints();
-    public void build(String _expression, Configuration _conf, int _off, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void build(String _expression, Configuration _conf, int _off, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
@@ -77,17 +78,17 @@ public final class ResultText {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(_off);
-                    badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
+                    badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                             Character.toString(RIGHT_EL),
                             Integer.toString(i_),
                             _expression);
-                    Configuration.addError(badEl_, _anaDoc, _conf.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _page);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, _anaDoc);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
-                opExpRoot.add(_conf.getContext().getAnalyzing().getCurrentRoot());
+                opExpRoot.add(_page.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;
@@ -97,11 +98,11 @@ public final class ResultText {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_off);
-                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         Character.toString(RIGHT_EL),
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _conf.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
                 return;
             }
             str_.append(cur_);
@@ -109,7 +110,7 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public void buildId(String _expression, Configuration _conf, int _begin, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildId(String _expression, Configuration _conf, int _begin, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
@@ -140,11 +141,11 @@ public final class ResultText {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_begin);
-                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         Character.toString(cur_),
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _conf.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
                 return;
             }
             if (cur_ == ESCAPED) {
@@ -161,17 +162,17 @@ public final class ResultText {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(_begin);
-                    badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
+                    badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                             " ",
                             Integer.toString(i_),
                             _expression);
-                    Configuration.addError(badEl_, _anaDoc, _conf.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _page);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, _anaDoc);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
-                opExpRoot.add(_conf.getContext().getAnalyzing().getCurrentRoot());
+                opExpRoot.add(_page.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;
@@ -181,11 +182,11 @@ public final class ResultText {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_begin);
-                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _conf.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _page);
                 return;
             }
             str_.append(cur_);
@@ -193,7 +194,7 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public static ResultText buildAnchor(Configuration _cont, RendBlock _r, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    public static ResultText buildAnchor(Configuration _cont, RendBlock _r, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(_cont.getRendKeyWords().getAttrHref());
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
@@ -205,28 +206,28 @@ public final class ResultText {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-            r_.build(lk_,_cont,colsGrId_,_doc, _anaDoc);
+            r_.build(lk_,_cont,colsGrId_,_doc, _anaDoc, _page);
             CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
             CustList<CustList<RendDynOperationNode>> opExp_ = r_.getOpExp();
             for (OperationNode e: opExpRoot_) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
                 m_.setParam(_cont.getStandards().getAliasLong());
-                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(colsGrId_);
-                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),RendBlock.AND_ERR),
                             _cont.getStandards().getAliasLong());
-                    Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _page);
                 }
             }
             int l_ = opExp_.size();
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
             for (int i = 0; i< l_; i++) {
-                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
             }
             r_.varNames = varNames_;
@@ -234,7 +235,7 @@ public final class ResultText {
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(opExpRoot_.get(i_).getResultClass().getSingleNameOrEmpty());
-                _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
+                _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
             }
@@ -242,9 +243,9 @@ public final class ResultText {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont, _anaDoc, _page);
             for (String v:varNames_) {
-                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
+                _page.getInfosVars().removeKey(v);
             }
         }
         return r_;

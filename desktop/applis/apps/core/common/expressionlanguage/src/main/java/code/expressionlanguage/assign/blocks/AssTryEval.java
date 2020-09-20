@@ -1,6 +1,5 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.util.CustList;
@@ -14,13 +13,13 @@ public final class AssTryEval extends AssBracedStack implements AssEval,AssBreak
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _anEl) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssBlock nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         CustList<AssCatchEval> catchs_ = new CustList<AssCatchEval>();
-        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(this,_an, _anEl,catchs_));
-        assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(this,_an, _anEl,catchs_));
+        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(this, _anEl,catchs_));
+        assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(this, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
 

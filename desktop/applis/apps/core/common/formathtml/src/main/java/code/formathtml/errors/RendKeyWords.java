@@ -5,7 +5,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
-import code.formathtml.Configuration;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -351,8 +350,8 @@ public final class RendKeyWords {
             }
         }
     }
-    public void validateDuplicates(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
+    public void validateDuplicates(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
         if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
@@ -360,12 +359,12 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
-                _cont.getContext().getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
-    public void validateAttrContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
+    public void validateAttrContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -373,7 +372,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.getContext().getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
             if (!StringList.quickEq(key_,ATTR_PARAM)
@@ -382,14 +381,14 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
-                _cont.getContext().getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                    _cont.getContext().getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     break;
                 }
             }

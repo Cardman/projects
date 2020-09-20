@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -51,54 +50,53 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     }
 
     @Override
-    public void preAnalyze(ContextEl _an) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String trimMeth_;
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            setStaticAccess(_an.getAnalyzing().getStaticContext());
+            setStaticAccess(_page.getStaticContext());
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,lenPref_+loc_,className_,true,partOffsets_);
+        className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
         if (!className_.isEmpty()) {
             partOffsets.addAllElts(partOffsets_);
             typeInfer = className_;
         }
         String clCurName_ = className_;
-        StringList bounds_ = getBounds(clCurName_, _an);
+        StringList bounds_ = getBounds(clCurName_, _page);
         int delta_ = methodName.lastIndexOf(PAR_RIGHT)+1;
         String mName_ = methodName.substring(delta_);
         trimMeth_ = mName_.trim();
-        if (isTrueFalseKeyWord(_an, trimMeth_)) {
+        if (isTrueFalseKeyWord(trimMeth_, _page)) {
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), false,true,bounds_, trimMeth_, import_,null);
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), false,true,bounds_, trimMeth_, import_,null, _page);
         boolean apply_ = applyMatching();
-        filterByNameReturnType(_an, trimMeth_, apply_, methodInfos);
+        filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         boolean import_ = false;
         AnaClassArgumentMatching clCur_;
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!isIntermediateDottedOperation()) {
-            clCur_ = new AnaClassArgumentMatching(page_.getGlobalClass());
+            clCur_ = new AnaClassArgumentMatching(_page.getGlobalClass());
             import_ = true;
-            setStaticAccess(page_.getStaticContext());
+            setStaticAccess(_page.getStaticContext());
         } else {
             clCur_ = getPreviousResultClass();
         }
@@ -107,31 +105,31 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
-            className_ = ResolvingImportTypes.resolveCorrectType(_conf, lenPref_ + loc_, className_);
-            partOffsets.addAllElts(page_.getCurrentParts());
+            className_ = ResolvingImportTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;
         }
         String clCurName_ = className_;
-        StringList bounds_ = getBounds(clCurName_, _conf);
+        StringList bounds_ = getBounds(clCurName_, _page);
         String varargParam_ = getVarargParam(chidren_);
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
-        StringMap<StringList> mapping_ = page_.getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
         map_.setMapping(mapping_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _conf)) {
+        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
-            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
-            page_.getLocalizer().addError(cast_);
+            _page.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
 
         lengthMethod = methodName.length();
         int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
@@ -153,19 +151,19 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             feedBase_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
             feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
         }
-        NameParametersFilter name_ = buildFilter(_conf);
+        NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        if (isTrueFalseKeyWord(_conf, trimMeth_)) {
-            ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
+        if (isTrueFalseKeyWord(trimMeth_, _page)) {
+            ClassMethodId f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
             AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getPositional());
-            clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
+            clMeth_ = getDeclaredCustTrueFalse(this, staticAccess_,bounds_,trimMeth_,f_, _page, argsClass_);
             if (!clMeth_.isFoundMethod()) {
-                setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()),_conf));
+                setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
                 return;
             }
             rootNumber = clMeth_.getRootNumber();
@@ -176,30 +174,30 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             classMethodId = new ClassMethodId(foundClass_, id_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getPositional(), _conf);
-            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()),_conf));
+            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getPositional(), _page);
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_,name_);
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_,name_, _page);
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
-            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()),_conf));
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
             return;
         }
         standardMethod = clMeth_.getStandardMethod();
         rootNumber = clMeth_.getRootNumber();
         memberNumber = clMeth_.getMemberNumber();
         if (clMeth_.isAbstractMethod()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
-            abs_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            abs_.setFileName(page_.getLocalizer().getCurrentFileName());
+            abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            abs_.setFileName(_page.getLocalizer().getCurrentFileName());
             //method name len
             abs_.buildError(
-                    _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
+                    _page.getAnalysisMessages().getAbstractMethodRef(),
                     clMeth_.getRealClass(),
-                    clMeth_.getRealId().getSignature(page_));
-            page_.getLocalizer().addError(abs_);
+                    clMeth_.getRealId().getSignature(_page));
+            _page.getLocalizer().addError(abs_);
             getErrs().add(abs_.getBuiltError());
         }
         String foundClass_ = clMeth_.getRealClass();
@@ -215,11 +213,11 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             lastType = paramtTypes_.last();
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
-        setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()),_conf));
+        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
+        setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
-            checkNull(arg_,_conf);
+            checkNull(arg_, _page);
         }
     }
 

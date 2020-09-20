@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecContinueBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -31,16 +30,15 @@ public final class ContinueBlock extends AbruptBlock {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        checkLoop(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        checkLoop(_page);
         ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkLoop(ContextEl _cont) {
+    private void checkLoop(AnalyzedPageEl _page) {
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {
@@ -58,41 +56,40 @@ public final class ContinueBlock extends AbruptBlock {
             b_ = b_.getParent();
         }
         if (!childOfLoop_) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
+            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 //key word len
-                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getAnalyzing().getKeyWords().getKeyWordContinue(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
+                        _page.getKeyWords().getKeyWordContinue(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordIter(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             } else {
                 //key word len
-                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getAnalyzing().getKeyWords().getKeyWordContinue(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _page.getKeyWords().getKeyWordContinue(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
-                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
+                                        _page.getKeyWords().getKeyWordFor(),
+                                        _page.getKeyWords().getKeyWordForeach(),
+                                        _page.getKeyWords().getKeyWordDo(),
+                                        _page.getKeyWords().getKeyWordIter(),
+                                        _page.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             }
-            _cont.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
             if (label.isEmpty()) {
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
@@ -103,8 +100,8 @@ public final class ContinueBlock extends AbruptBlock {
     }
 
     @Override
-    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
-        super.abrupt(_an, _anEl);
+    public void abrupt(AnalyzingEl _anEl) {
+        super.abrupt(_anEl);
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {

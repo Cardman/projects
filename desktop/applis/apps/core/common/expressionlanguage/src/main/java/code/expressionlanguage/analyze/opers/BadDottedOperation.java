@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -12,21 +11,20 @@ public class BadDottedOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_;
         FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        emptyPart_.setFileName(page_.getLocalizer().getCurrentFileName());
-        emptyPart_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        emptyPart_.setFileName(_page.getLocalizer().getCurrentFileName());
+        emptyPart_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //if parent is null => all text
         //if parent is not null => use parent header
-        emptyPart_.buildError(_conf.getAnalyzing().getAnalysisMessages().getEmptyExpressionPart());
-        page_.getLocalizer().addError(emptyPart_);
+        emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());
+        _page.getLocalizer().addError(emptyPart_);
         getErrs().add(emptyPart_.getBuiltError());
-        argClName_ = page_.getStandards().getAliasObject();
+        argClName_ = _page.getStandards().getAliasObject();
         setResultClass(new AnaClassArgumentMatching(argClName_));
     }
 

@@ -58,23 +58,22 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    public final void buildFctInstructionsReadOnly(ContextEl _cont, ExecMemberCallingsBlock _mem) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        page_.setBlockToWrite(_mem);
-        page_.setVariableIssue(false);
+    public final void buildFctInstructionsReadOnly(ExecMemberCallingsBlock _mem, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setOffset(0);
+        _page.setBlockToWrite(_mem);
+        _page.setVariableIssue(false);
         Block firstChild_ = getFirstChild();
-        page_.setExecDeclareVariable(null);
-        page_.setCurrentBlock(this);
-        _cont.getAnalyzing().setCurrentFct(this);
-        StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(page_);
+        _page.setExecDeclareVariable(null);
+        _page.setCurrentBlock(this);
+        _page.setCurrentFct(this);
+        StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_page);
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
         anEl_.getMappingBracedMembers().put(this,_mem);
-        page_.getCoverage().putBlockOperations(_mem,this);
-        _cont.getAnalyzing().setAnalysisAss(anEl_);
+        _page.getCoverage().putBlockOperations(_mem,this);
+        _page.setAnalysisAss(anEl_);
         anEl_.setRoot(this);
         Block en_ = this;
         CustList<BracedBlock> parents_ = anEl_.getParents();
@@ -83,45 +82,45 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
-            checkIndexes(_cont, en_);
+            checkIndexes(en_, _page);
             anEl_.reach(this);
-            abrupt(_cont, anEl_);
-            setAssignmentAfterCallReadOnly(_cont, anEl_);
-            page_.getInfosVars().clear();
+            abrupt(anEl_);
+            setAssignmentAfterCallReadOnly(anEl_, _page);
+            _page.getInfosVars().clear();
             return;
         }
         while (true) {
-            page_.setCurrentBlock(en_);
-            page_.setCurrentAnaBlock(en_);
+            _page.setCurrentBlock(en_);
+            _page.setCurrentAnaBlock(en_);
             anEl_.putLabel(this);
             addPossibleEmpty(en_);
-            page_.getCoverage().putBlockOperations(en_);
+            _page.getCoverage().putBlockOperations(en_);
             if (en_ == this) {
                 anEl_.reach(this);
             } else {
-                en_.checkLabelReference(_cont, anEl_);
-                en_.reach(_cont, anEl_);
+                en_.checkLabelReference(anEl_, _page);
+                en_.reach(anEl_, _page);
             }
-            processUnreachable(_cont, anEl_, en_);
-            checkIndexes(_cont, en_);
+            processUnreachable(anEl_, en_, _page);
+            checkIndexes(en_, _page);
             Block n_ = en_.getFirstChild();
-            addParent(_cont,anEl_, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
+            addParent(anEl_, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
             boolean visit_ = true;
             if (en_ != anEl_.getRoot()) {
-                visit_ = tryBuildExpressionLanguageReadOnly(en_, _cont);
+                visit_ = tryBuildExpressionLanguageReadOnly(en_, _page);
             }
             if (visit_ && en_ instanceof BracedBlock&& n_ != null) {
-                page_.setBlockToWrite(anEl_.getMappingBracedMembers().getVal((BracedBlock) en_));
+                _page.setBlockToWrite(anEl_.getMappingBracedMembers().getVal((BracedBlock) en_));
             }
             if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
             }
             if (visit_) {
-                en_.abrupt(_cont, anEl_);
+                en_.abrupt(anEl_);
                 abrupGroup(anEl_, en_);
             }
-            en_.checkTree(_cont, anEl_);
+            en_.checkTree(anEl_, _page);
             removeLabel(en_, labels_);
             while (true) {
                 n_ = en_.getNextSibling();
@@ -131,43 +130,43 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 }
                 BracedBlock par_;
                 par_ = en_.getParent();
-                page_.setCurrentBlock(par_);
-                page_.setCurrentAnaBlock(par_);
-                par_.abrupt(_cont, anEl_);
+                _page.setCurrentBlock(par_);
+                _page.setCurrentAnaBlock(par_);
+                par_.abrupt(anEl_);
                 par_.abruptGroup(anEl_);
                 if (par_ == this) {
-                    setAssignmentAfterCallReadOnly(_cont, anEl_);
-                    par_.removeAllVars(page_);
-                    page_.getInfosVars().clear();
+                    setAssignmentAfterCallReadOnly(anEl_, _page);
+                    par_.removeAllVars(_page);
+                    _page.getInfosVars().clear();
                     return;
                 }
-                par_.checkTree(_cont, anEl_);
+                par_.checkTree(anEl_, _page);
                 parents_.removeLast();
                 removeBreakablePar(parentsBreakables_, par_);
                 removeContinuablePar(parentsContinuable_, par_);
                 removeReturnablePar(parentsReturnable_, par_);
-                par_.removeAllVars(page_);
+                par_.removeAllVars(_page);
                 removeLabel(par_, labels_);
-                page_.setBlockToWrite(page_.getBlockToWrite().getParent());
+                _page.setBlockToWrite(_page.getBlockToWrite().getParent());
                 en_ = par_;
             }
         }
     }
 
-    private void checkIndexes(ContextEl _cont, Block en_) {
+    private void checkIndexes(Block en_, AnalyzedPageEl _page) {
         for (int i:en_.getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(i);
             //underline index char
-            b_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
-            _cont.getAnalyzing().addLocError(b_);
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
             en_.setReachableError(true);
             en_.getErrorsBlock().add(b_.getBuiltError());
         }
     }
 
-    private static void addParent(ContextEl _cont, AnalyzingEl _anEl,Block _en, CustList<BracedBlock> _parents,
+    private static void addParent(AnalyzingEl _anEl, Block _en, CustList<BracedBlock> _parents,
                                   CustList<BreakableBlock> _parentsBreakables, CustList<Loop> _parentsContinuable,
                                   CustList<Eval> _parentsReturnable, Block _n) {
         if (_en instanceof BracedBlock && _n != null) {
@@ -181,16 +180,16 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private void processUnreachable(ContextEl _cont, AnalyzingEl _anEl, Block _en) {
+    private void processUnreachable(AnalyzingEl _anEl, Block _en, AnalyzedPageEl _page) {
         if (!(_en instanceof RootBlock)&&!_anEl.isReachable(_en)) {
             //error
             FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
             deadCode_.setFileName(getFile().getFileName());
             deadCode_.setIndexFile(_en.getOffset().getOffsetTrim());
             //all header expression
-            deadCode_.buildError(_cont.getAnalyzing().getAnalysisMessages().getDeadCode(),
-                    getPseudoSignature(_cont));
-            _cont.getAnalyzing().addLocError(deadCode_);
+            deadCode_.buildError(_page.getAnalysisMessages().getDeadCode(),
+                    getPseudoSignature(_page));
+            _page.addLocError(deadCode_);
             _en.getErrorsBlock().add(deadCode_.getBuiltError());
             _en.setReachableError(true);
         }
@@ -242,11 +241,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    public String getPseudoSignature(ContextEl _an) {
-        return getSignature(_an);
+    public String getPseudoSignature(AnalyzedPageEl _page) {
+        return getSignature(_page);
     }
 
-    public abstract void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
     public abstract  MethodAccessKind getStaticContext();
 

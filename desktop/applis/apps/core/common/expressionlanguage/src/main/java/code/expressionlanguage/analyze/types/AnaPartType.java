@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -34,7 +34,7 @@ abstract class AnaPartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static AnaPartType createPartType(ContextEl _an, boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
+    static AnaPartType createPartType(boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, AnalyzedPageEl _page) {
         if (_analyze.isError()) {
             return new AnaEmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
         }
@@ -55,7 +55,7 @@ abstract class AnaPartType {
             } else if (_parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null) {
                 okVarType_ = true;
             }
-            Integer val_ = _an.getAnalyzing().getAvailableVariables().getVal(type_);
+            Integer val_ = _page.getAvailableVariables().getVal(type_);
             if (val_ != null && okVarType_) {
                 return new AnaVariablePartType(_parent, _index, _indexInType, type_,str_,val_);
             }
@@ -100,10 +100,10 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
 
-    abstract void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted);
-    abstract void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap< String>> _dels, AccessedBlock _local, AccessedBlock _rooted);
+    abstract void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
 
-    abstract void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap< String>>_dels, AccessedBlock _rooted);
+    abstract void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page);
 
     int getIndex() {
         return index;
@@ -134,18 +134,18 @@ abstract class AnaPartType {
         analyzedType = _analyzedType;
     }
 
-    void processBadFormedOffsets(ContextEl _an) {
-        if (!_an.getAnalyzing().isGettingParts()) {
+    void processBadFormedOffsets(AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
             return;
         }
-        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+        getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
     }
 
-    void processInexistType(ContextEl _an, String _in) {
-        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(),_in));
+    void processInexistType(String _in, AnalyzedPageEl _page) {
+        getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(),_in));
     }
-    void buildOffsetPartDefault(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType();
+    void buildOffsetPartDefault(AnalyzedPageEl _page) {
+        int begin_ = _page.getLocalInType() + getIndexInType();
         buildOffsetPart(begin_,Math.max(1, length));
     }
     void buildOffsetPart(int _offset,int _len) {

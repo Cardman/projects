@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecUnclassedBracedBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -53,7 +52,7 @@ public abstract class Block implements AnalyzedBlock {
         return offset;
     }
 
-    public void checkLabelReference(ContextEl _an, AnalyzingEl _anEl) {
+    public void checkLabelReference(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         if (this instanceof BreakableBlock) {
             String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
@@ -69,8 +68,8 @@ public abstract class Block implements AnalyzedBlock {
                 bad_.setFileName(getFile().getFileName());
                 bad_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                 //label_ len
-                bad_.buildError(_an.getAnalyzing().getAnalysisMessages().getBadLabel());
-                _an.getAnalyzing().addLocError(bad_);
+                bad_.buildError(_page.getAnalysisMessages().getBadLabel());
+                _page.addLocError(bad_);
                 errorsLabels.add(bad_.getBuiltError());
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_anEl.getLabels(), label_)) {
@@ -78,8 +77,8 @@ public abstract class Block implements AnalyzedBlock {
                     dup_.setFileName(getFile().getFileName());
                     dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                     //label_ len
-                    dup_.buildError(_an.getAnalyzing().getAnalysisMessages().getDuplicatedLabel());
-                    _an.getAnalyzing().addLocError(dup_);
+                    dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
+                    _page.addLocError(dup_);
                     errorsLabels.add(dup_.getBuiltError());
                 } else {
                     _anEl.getLabels().add(label_);
@@ -88,7 +87,7 @@ public abstract class Block implements AnalyzedBlock {
         }
     }
 
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block prev_ = getPreviousSibling();
         if (_anEl.canCompleteNormallyGroup(prev_)) {
             _anEl.reach(this);
@@ -105,25 +104,24 @@ public abstract class Block implements AnalyzedBlock {
         return true;
     }
 
-    public abstract void abrupt(ContextEl _an, AnalyzingEl _anEl);
-   public abstract void checkTree(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void abrupt(AnalyzingEl _anEl);
+   public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
-    protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
+    protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, AnalyzedPageEl _page) {
         if (_block instanceof BuildableElMethod) {
-            ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_cont);
+            ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
             return true;
         }
-        return processOther(_block, _cont);
+        return processOther(_block, _page);
     }
 
-    private static boolean processOther(Block _block, ContextEl _cont) {
+    private static boolean processOther(Block _block, AnalyzedPageEl _page) {
         if (_block instanceof UnclassedBracedBlock) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
             ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_block.getOffset());
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
-            page_.getCoverage().putBlockOperations(exec_,_block);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
+            _page.getCoverage().putBlockOperations(exec_,_block);
             return true;
         }
         if (_block instanceof RootBlock) {
@@ -133,8 +131,8 @@ public abstract class Block implements AnalyzedBlock {
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
         //defined len first key words
-        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedBlockExp());
-        _cont.getAnalyzing().addLocError(un_);
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
+        _page.addLocError(un_);
         _block.setReachableError(true);
         _block.getErrorsBlock().add(un_.getBuiltError());
         return false;

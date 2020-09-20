@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
@@ -45,16 +44,15 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     private StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
     private int nameOverrideNumber;
     private String returnTypeGet = "";
-    public OverridableBlock(ContextEl _importingPage,
-                            OffsetAccessInfo _access,
+    public OverridableBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset,
-                            OffsetStringInfo _modifier, OffsetsBlock _offset) {
+                            OffsetStringInfo _modifier, OffsetsBlock _offset, AnalyzedPageEl _page) {
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
-        KeyWords keyWords_ = _importingPage.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
@@ -76,8 +74,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
 
     public int getModifierOffset() {
@@ -153,12 +151,12 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
-        checkReturnFctOverridable(_an, _anEl);
+    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        checkReturnFctOverridable(_anEl, _page);
     }
 
-    private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getAnalyzing().getStandards();
+    private void checkReturnFctOverridable(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
@@ -166,24 +164,23 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
-                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_an));
-                _an.getAnalyzing().addLocError(miss_);
+                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
+                        _page.getKeyWords().getKeyWordThrow(),
+                        _page.getKeyWords().getKeyWordReturn(),
+                        getPseudoSignature(_page));
+                _page.addLocError(miss_);
                 addNameErrors(miss_);
             }
         }
     }
-    public void buildTypes(RootBlock _root, ContextEl _context) {
+    public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
         int indexDefOv_ = definition.indexOf('(');
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
-        analyzing_.setGlobalOffset(definitionOffset+indexDefOv_+1);
+        _page.setGlobalOffset(definitionOffset+indexDefOv_+1);
         ExtractedParts extractedParts_ = StringExpUtil.tryToExtract(definition, '(', ')');
         StringList overrideList_ = StringList.splitChar(extractedParts_.getSecond(), ';');
         int sum_ = 0;
         for (String o: overrideList_) {
-            analyzing_.setOffset(sum_);
+            _page.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringList.splitInTwo(o, indexDef_);
             if (parts_.size() <= 1) {
@@ -192,17 +189,17 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             }
             String key_ = parts_.first();
             int off_ = StringList.getFirstPrintableCharIndex(key_);
-            String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_,key_);
+            String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(off_,key_, _page);
             CustList<PartOffset> allPartTypes_ = new CustList<PartOffset>();
             CustList<PartOffset> allPartSuperTypes_ = new CustList<PartOffset>();
-             allPartTypes_.addAllElts(analyzing_.getCurrentParts());
-            RootBlock root_ = analyzing_.getAnaClassBody(clKey_);
+             allPartTypes_.addAllElts(_page.getCurrentParts());
+            RootBlock root_ = _page.getAnaClassBody(clKey_);
             if (root_ == null) {
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
-            if (!root_.isSubTypeOf(_root.getFullName(),analyzing_)) {
+            if (!root_.isSubTypeOf(_root.getFullName(), _page)) {
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
@@ -215,24 +212,24 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
-            analyzing_.setOffset(sum_+indexDef_+1);
+            _page.setOffset(sum_+indexDef_+1);
             StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_.getSecond());
             String firstFull_ = args_.first();
             off_ = StringList.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             int firstPar_ = extr_.getFirst().length();
-            String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
+            String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
-            superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
-            String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _context);
-            RootBlock formattedDestType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formattedDest_));
+            superPartOffsets_.addAllElts(_page.getCurrentParts());
+            String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _page);
+            RootBlock formattedDestType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formattedDest_));
             if (formattedDestType_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
-            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1,_context,clDest_,nameLoc_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_);
+            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1, clDest_,nameLoc_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_, _page);
             if (methodIdDest_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
@@ -240,15 +237,15 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 continue;
             }
             CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(formattedDestType_);
-            String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
-            if (!getId().quickOverrideFormat(_root,formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_,_context)))) {
+            String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _page);
+            if (!getId().quickOverrideFormat(_root,formattedDeclaring_).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_)))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
             ClassMethodId id_ = null;
-            int rc_ = _context.getAnalyzing().getTraceIndex() +off_;
+            int rc_ = _page.getTraceIndex() +off_;
             for (OverridableBlock m: methods_) {
                 if (m.isAbstractMethod()) {
                     continue;

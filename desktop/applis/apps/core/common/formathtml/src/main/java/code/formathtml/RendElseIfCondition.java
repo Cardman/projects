@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -27,8 +28,8 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        buildConditions(_cont, _anaDoc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildConditions(_cont, _anaDoc, _page);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendIfCondition)) {
             if (!(pBlock_ instanceof RendElseIfCondition)) {
@@ -36,29 +37,29 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _page.getKeyWords().getKeyWordElseif(),
                             StringList.join(
                                     new StringList(
-                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordIf(),
-                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
+                                            _page.getKeyWords().getKeyWordIf(),
+                                            _page.getKeyWords().getKeyWordElseif()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _anaDoc, _page);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _page.getKeyWords().getKeyWordElseif(),
                                 StringList.join(
                                         new StringList(
-                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordIf(),
-                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
+                                                _page.getKeyWords().getKeyWordIf(),
+                                                _page.getKeyWords().getKeyWordElseif()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _page);
                     }
                 }
             }

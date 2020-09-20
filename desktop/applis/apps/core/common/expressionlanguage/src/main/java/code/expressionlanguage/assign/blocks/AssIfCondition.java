@@ -1,11 +1,10 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.IfCondition;
 import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.ExecIfCondition;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,22 +18,22 @@ public final class AssIfCondition extends AssCondition implements AssBreakableBl
     }
 
     @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AssignedVariablesBlock _a) {
-        assignWhenTrue(_an, _a);
+    public void setAssignmentBeforeChild(AssignedVariablesBlock _a) {
+        assignWhenTrue(_a);
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AssignedVariablesBlock _a) {
+    public void setAssignmentBeforeNextSibling(AssignedVariablesBlock _a) {
         if (!canBeIncrementedCurGroup()) {
-            super.setAssignmentBeforeNextSibling(_an, _a);
+            super.setAssignmentBeforeNextSibling(_a);
             return;
         }
-        assignWhenFalse(false, _an, _a);
+        assignWhenFalse(false, _a);
     }
 
     @Override
-    public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
+        super.setAssignmentAfter(_anEl, _page);
         if (canBeIncrementedCurGroup()) {
             return;
         }
@@ -42,9 +41,9 @@ public final class AssIfCondition extends AssCondition implements AssBreakableBl
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ = buildAssFieldsAfterIf(true, new CustList<AssBlock>(this), _an, _anEl);
+        after_ = buildAssFieldsAfterIf(true, new CustList<AssBlock>(this), _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterIf(true, new CustList<AssBlock>(this), _an, _anEl);
+        afterVars_ = buildAssVariablesAfterIf(true, new CustList<AssBlock>(this), _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }

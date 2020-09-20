@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ClassFieldBlock;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -50,46 +49,45 @@ public final class ClassesUtil {
     private ClassesUtil(){
     }
 
-    public static void postValidation(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = page_.getClasses().getToStringMethodsToCallBodies();
-        _context.getAnalyzing().setAnnotAnalysis(false);
-        if (!page_.getOptions().isReadOnly()) {
-            validateFinals(_context);
+    public static void postValidation(AnalyzedPageEl _page) {
+        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _page.getClasses().getToStringMethodsToCallBodies();
+        _page.setAnnotAnalysis(false);
+        if (!_page.getOptions().isReadOnly()) {
+            validateFinals(_page);
         } else {
-            validateSimFinals(_context);
+            validateSimFinals(_page);
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
-            ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e.getKey(), _page);
             if (resDyn_.isFoundMethod()) {
-                ExecRootBlock ex_ = ExecOperationNode.fetchType(resDyn_.getRootNumber(), _context.getAnalyzing());
-                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _context.getAnalyzing());
+                ExecRootBlock ex_ = ExecOperationNode.fetchType(resDyn_.getRootNumber(), _page);
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _page);
                 String fullName_ = e.getKey().getFullName();
                 toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
-                page_.getToStringOwners().add(fullName_);
-                page_.getCoverage().putToStringOwner(fullName_);
+                _page.getToStringOwners().add(fullName_);
+                _page.getCoverage().putToStringOwner(fullName_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock c = e.getKey();
-            page_.setGlobalClass(c.getGenericString());
-            page_.setGlobalType(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getMappingLocal().clear();
-            page_.getMappingLocal().putAllMap(c.getMappings());
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof OverridableBlock) {
-                    page_.setCurrentAnaBlock(c);
-                    page_.setCurrentBlock(c);
-                    ((OverridableBlock)b).buildTypes(c,_context);
+                    _page.setCurrentAnaBlock(c);
+                    _page.setCurrentBlock(c);
+                    ((OverridableBlock)b).buildTypes(c, _page);
                 }
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = page_.getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
+            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _page.getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
             ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
             for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
                 OverridableBlock key_ = f.getKey();
@@ -100,16 +98,16 @@ public final class ClassesUtil {
                     continue;
                 }
                 MethodId id_ = key_.getId();
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _context.getAnalyzing()));
-                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _page));
+                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
                 map_.putAllMap(key_.getOverrides());
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
-                    override_.put(_context,g.getKey(),g.getValue());
+                    override_.put(g.getKey(),g.getValue(), _page);
                 }
                 redirections_.add(override_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
             if (root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = root_.getAllGenericSuperTypesInfo();
@@ -118,8 +116,8 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _context.getAnalyzing()), root_.getFullName());
+                            ExecRootBlock ex_ = _page.getMapTypes().getValue(superBl_.getNumberAll());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _page), root_.getFullName());
                             if (val_ == null) {
                                 FoundErrorInterpret err_;
                                 err_ = new FoundErrorInterpret();
@@ -127,11 +125,11 @@ public final class ClassesUtil {
                                 err_.setIndexFile(root_.getIdRowCol());
                                 //type id
                                 err_.buildError(
-                                        _context.getAnalyzing().getAnalysisMessages().getAbstractMethodImpl(),
+                                        _page.getAnalysisMessages().getAbstractMethodImpl(),
                                         base_,
-                                        m.getSignature(_context),
+                                        m.getSignature(_page),
                                         root_.getFullName());
-                                _context.getAnalyzing().addLocError(err_);
+                                _page.addLocError(err_);
                                 root_.addNameErrors(err_);
                             }
                         }
@@ -144,10 +142,10 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _context.getAnalyzing()), root_.getFullName());
+                            ExecRootBlock ex_ = _page.getMapTypes().getValue(superBl_.getNumberAll());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _page), root_.getFullName());
                             if (val_ == null) {
-                                ExecOverridableBlock value_ = page_.getMapMembers().getValue(superBl_.getNumberAll()).getAllMethods().getValue(m.getNameOverrideNumber());
+                                ExecOverridableBlock value_ = _page.getMapMembers().getValue(superBl_.getNumberAll()).getAllMethods().getValue(m.getNameOverrideNumber());
                                 e.getValue().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
                         }
@@ -155,39 +153,39 @@ public final class ClassesUtil {
                 }
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            Members valueMember_ = page_.getMapMembers().getValue(root_.getNumberAll());
+            Members valueMember_ = _page.getMapMembers().getValue(root_.getNumberAll());
             IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
             IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
             for (Block b: ClassesUtil.getDirectChildren(root_)) {
                 if (b instanceof MemberCallingsBlock) {
                     MemberCallingsBlock b1_ = (MemberCallingsBlock) b;
                     ExecMemberCallingsBlock value_ = allFct_.getValue(b1_.getNumberFct());
-                    feedFct(page_, b1_, value_);
+                    feedFct(_page, b1_, value_);
                 }
                 if (b instanceof InfoBlock) {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
+                        value_.getAnonymous().add(_page.getMapTypes().getValue(a.getNumberAll()));
                     }
                     for (AnonymousFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
-                        value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
+                        value_.getAnonymousLambda().add(_page.getMapAnonLambda().getValue(a.getNumberLambda()));
                     }
                 }
             }
             ExecRootBlock value_ = e.getValue();
             for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
-                value_.getAnonymousRootLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
+                value_.getAnonymousRootLambda().add(_page.getMapAnonLambda().getValue(a.getNumberLambda()));
             }
             for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
-                value_.getAnonymousRoot().add(page_.getMapTypes().getValue(a.getNumberAll()));
+                value_.getAnonymousRoot().add(_page.getMapTypes().getValue(a.getNumberAll()));
             }
         }
-        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: page_.getMapAnonLambda().entryList()) {
+        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: _page.getMapAnonLambda().entryList()) {
             AnonymousFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
-            feedFct(page_, key_, value_);
+            feedFct(_page, key_, value_);
         }
     }
 
@@ -203,17 +201,16 @@ public final class ClassesUtil {
         }
     }
 
-    private static ClassMethodIdReturn tryGetDeclaredToString(ContextEl _conf, RootBlock _class) {
+    private static ClassMethodIdReturn tryGetDeclaredToString(RootBlock _class, AnalyzedPageEl _page) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String baseCurName_ = _class.getFullName();
-        fetchToStringMethods(_conf,_class,baseCurName_,methods_);
-        return getCustResultExec(_conf, methods_);
+        fetchToStringMethods(_class,baseCurName_,methods_, _page);
+        return getCustResultExec(methods_, _page);
     }
 
-    private static ClassMethodIdReturn getCustResultExec(ContextEl _conf,
-                                                         CustList<MethodInfo> _methods) {
-        Parametrable found_ = getFoundMethodExec(_methods, _conf);
+    private static ClassMethodIdReturn getCustResultExec(CustList<MethodInfo> _methods, AnalyzedPageEl _page) {
+        Parametrable found_ = getFoundMethodExec(_methods, _page);
         if (!(found_ instanceof MethodInfo)) {
             return new ClassMethodIdReturn(false);
         }
@@ -235,7 +232,7 @@ public final class ClassesUtil {
         return res_;
     }
 
-    private static Parametrable getFoundMethodExec(CustList<MethodInfo> _fct, ContextEl _context) {
+    private static Parametrable getFoundMethodExec(CustList<MethodInfo> _fct, AnalyzedPageEl _page) {
         CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
         CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
         for (MethodInfo p: _fct) {
@@ -252,7 +249,7 @@ public final class ClassesUtil {
                 continue;
             }
             String type_ = p.getClassName();
-            if (_context.getAnalyzing().getAnaClassBody(type_) instanceof InterfaceBlock) {
+            if (_page.getAnaClassBody(type_) instanceof InterfaceBlock) {
                 continue;
             }
             nonAbs_.add(p);
@@ -277,19 +274,19 @@ public final class ClassesUtil {
             meths_.addEntry(cl_,p);
             sub_.add(cl_);
         }
-        sub_ = AnaTypeUtil.getSubclasses(sub_,_context);
+        sub_ = AnaTypeUtil.getSubclasses(sub_, _page);
         if (!sub_.onlyOneElt()) {
             return null;
         }
         return meths_.getVal(sub_.first());
     }
 
-    private static void fetchToStringMethods(ContextEl _conf, RootBlock _root, String _cl, CustList<MethodInfo> _methods) {
+    private static void fetchToStringMethods(RootBlock _root, String _cl, CustList<MethodInfo> _methods, AnalyzedPageEl _page) {
         StringList geneSuperTypes_ = new StringList();
         geneSuperTypes_.add(_cl);
         geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
         for (String t: geneSuperTypes_) {
-            ToStringMethodHeader toString_ = _conf.getAnalyzing().getToStringMethods().getVal(t);
+            ToStringMethodHeader toString_ = _page.getToStringMethods().getVal(t);
             if (toString_ == null) {
                 continue;
             }
@@ -315,15 +312,15 @@ public final class ClassesUtil {
         mloc_.formatWithoutParams();
         return mloc_;
     }
-    public static void buildAllBracesBodies(StringMap<String> _files, ContextEl _context) {
+    public static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        tryBuildAllBracedClassesBodies(_files, _context, outExec_);
-        validateInheritingClasses(_context);
-        validateIds(_context);
-        validateOverridingInherit(_context);
-        validateEl(_context);
-        AnaTypeUtil.checkInterfaces(_context);
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+        tryBuildAllBracedClassesBodies(_files, outExec_, _page);
+        validateInheritingClasses(_page);
+        validateIds(_page);
+        validateOverridingInherit(_page);
+        validateEl(_page);
+        AnaTypeUtil.checkInterfaces(_page);
+        AnalyzedPageEl page_ = _page;
         StringList basePkgFound_ = page_.getBasePackagesFound();
         StringList pkgFound_ = page_.getPackagesFound();
         while (true) {
@@ -375,10 +372,10 @@ public final class ClassesUtil {
                         undef_.setFileName(block_.getFile().getFileName());
                         undef_.setIndexFile(e.getKey().getIndex());
                         //original type len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
+                        undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
                                 base_);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         block_.addNameErrors(undef_);
                     }
                     if (StringList.quickEq(enumClassName_, base_)) {
@@ -387,10 +384,10 @@ public final class ClassesUtil {
                         undef_.setFileName(block_.getFile().getFileName());
                         undef_.setIndexFile(e.getKey().getIndex());
                         //original type len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
+                        undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
                                 base_);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         block_.addNameErrors(undef_);
                     }
                 }
@@ -406,14 +403,14 @@ public final class ClassesUtil {
                         continue;
                     }
                     int numberFile_ = block_.getFile().getNumberFile();
-                    processType(_context,basePkgFound_,pkgFound_,outExec_.getValue(numberFile_), block_);
+                    processType(basePkgFound_,pkgFound_,outExec_.getValue(numberFile_), block_, _page);
                 }
             }
             IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock> retr_ = new IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock>();
             for (IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> m: page_.getMapAnonymousLambda()) {
                 for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: m.entryList()) {
                     AnonymousLambdaOperation key_ = e.getKey();
-                    e.getValue().setExecAnonymousLambdaOperation(key_,_context);
+                    e.getValue().setExecAnonymousLambdaOperation(key_, _page);
                     AnonymousFunctionBlock method_ = key_.getBlock();
                     retr_.addEntry(method_,e.getValue().getFunction());
                 }
@@ -423,7 +420,7 @@ public final class ClassesUtil {
                 int numberFile_ = block_.getFile().getNumberFile();
                 ExecFileBlock value_ = outExec_.getValue(numberFile_);
                 e.getValue().setFile(value_);
-                processType(_context,basePkgFound_,pkgFound_, value_, block_);
+                processType(basePkgFound_,pkgFound_, value_, block_, _page);
             }
             for (RootBlock r: page_.getFoundTypes()) {
                 for (Block b: getDirectChildren(r)) {
@@ -442,10 +439,10 @@ public final class ClassesUtil {
                     r.getMappings().putAllMap(outerFuntion_.getMappings());
                 }
             }
-            innerFetchExec(_context);
-            validateInheritingClasses(_context);
-            validateIds(_context);
-            validateOverridingInherit(_context);
+            innerFetchExec(_page);
+            validateInheritingClasses(_page);
+            validateIds(_page);
+            validateOverridingInherit(_page);
             for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: page_.getMapAnonymous()) {
                 for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
                     AnonymousInstancingOperation key_ = e.getKey();
@@ -455,7 +452,7 @@ public final class ClassesUtil {
                         continue;
                     }
                     page_.setGlobalClass(key_.getGlClass());
-                    key_.postAnalyze(_context);
+                    key_.postAnalyze(_page);
                     ExecAnonymousInstancingOperation value_ = e.getValue();
                     CustList<OperationNode> read_ = key_.getChildrenNodes();
                     CustList<ExecOperationNode> write_ = value_.getChildrenNodes();
@@ -472,13 +469,13 @@ public final class ClassesUtil {
                             ((ExecNamedArgumentOperation)w_).setIndex(in_);
                         }
                     }
-                    value_.setExecAnonymousInstancingOperation(key_,_context);
+                    value_.setExecAnonymousInstancingOperation(key_, _page);
                 }
             }
 
             page_.getMapAnonymous().clear();
             page_.getMapAnonymousLambda().clear();
-            validateEl(_context);
+            validateEl(_page);
             for (EntryCust<AnonymousFunctionBlock, ExecNamedFunctionBlock> e:retr_.entryList()) {
                 AnonymousFunctionBlock method_ = e.getKey();
                 RootBlock c_ = method_.getParentType();
@@ -498,67 +495,65 @@ public final class ClassesUtil {
                 prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                 page_.getMappingLocal().clear();
                 page_.getMappingLocal().putAllMap(method_.getMappings());
-                method_.buildFctInstructionsReadOnly(_context,e.getValue());
+                method_.buildFctInstructionsReadOnly(e.getValue(), _page);
                 AnalyzingEl a_ = page_.getAnalysisAss();
                 a_.setVariableIssue(page_.isVariableIssue());
                 page_.getResultsMethod().addEntry(method_,a_);
             }
-            AnaTypeUtil.checkInterfaces(_context);
+            AnaTypeUtil.checkInterfaces(_page);
         }
 
     }
 
-    public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, ContextEl _context, StringMap<ExecFileBlock> _outExec) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(page_);
+    public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, StringMap<ExecFileBlock> _outExec, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(_page);
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
-        buildFilesBodies(_context,files_,true,out_, _outExec);
-        buildFilesBodies(_context,_files,false,out_, _outExec);
-        parseFiles(_context,out_, _outExec);
+        buildFilesBodies(files_,true,out_, _outExec, _page);
+        buildFilesBodies(_files,false,out_, _outExec, _page);
+        parseFiles(out_, _outExec, _page);
     }
 
-    public static void processBracedClass(boolean _add,ExecFileBlock _exFile, Block _outer, RootBlock _root, ContextEl _context) {
+    public static void processBracedClass(boolean _add, ExecFileBlock _exFile, Block _outer, RootBlock _root, AnalyzedPageEl _page) {
         String fullName_ = _root.getFullName();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
         boolean ok_ = _add;
-        if (page_.getClasses().getClassesBodies().contains(fullName_)) {
+        if (_page.getClasses().getClassesBodies().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedType(),
+            d_.buildError(_page.getAnalysisMessages().getDuplicatedType(),
                     fullName_);
-            _context.getAnalyzing().addLocError(d_);
+            _page.addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
-        page_.setCurrentBlock(_root);
-        page_.setCurrentAnaBlock(_root);
+        _page.setCurrentBlock(_root);
+        _page.setCurrentAnaBlock(_root);
         String packageName_;
         packageName_ = _root.getPackageName();
-        LgNames lgNames_ = page_.getStandards();
+        LgNames lgNames_ = _page.getStandards();
         if (packageName_.trim().isEmpty()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getBegin());
             //key word category len
-            badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyPackage());
-            _context.getAnalyzing().addLocError(badCl_);
+            badCl_.buildError(_page.getAnalysisMessages().getEmptyPackage());
+            _page.addLocError(badCl_);
             _root.addNameErrors(badCl_);
             ok_ = false;
         } else {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 String tr_ = e.trim();
-                TokenErrorMessage res_ = ManageTokens.partClass(page_).checkToken(tr_, page_);
+                TokenErrorMessage res_ = ManageTokens.partClass(_page).checkToken(tr_, _page);
                 if (res_.isError()) {
                     FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setIndexFile(_root.getIdRowCol());
                     //pkg part or dot
                     badCl_.setBuiltError(res_.getMessage());
-                    _context.getAnalyzing().addLocError(badCl_);
+                    _page.addLocError(badCl_);
                     _root.addNameErrors(badCl_);
                     ok_ = false;
                 }
@@ -566,20 +561,20 @@ public final class ClassesUtil {
         }
         String className_;
         className_ = _root.getName().trim();
-        TokenErrorMessage resClName_ = ManageTokens.partClass(page_).checkToken(className_, page_);
+        TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkToken(className_, _page);
         if (resClName_.isError()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getIdRowCol());
             //name part if possible or original type
             badCl_.setBuiltError(resClName_.getMessage());
-            _context.getAnalyzing().addLocError(badCl_);
+            _page.addLocError(badCl_);
             _root.addNameErrors(badCl_);
             ok_ = false;
         }
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
-        String objectClassName_ = page_.getStandards().getAliasObject();
+        String objectClassName_ = _page.getStandards().getAliasObject();
         StringList params_ = StringExpUtil.getAllTypes(fullDef_);
         StringList namesFromParent_ = getParamVarFromParent(_root);
         int tempOff_ = _root.getTemplateDefOffset() + 1;
@@ -595,8 +590,8 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //char after def
-                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyPartClassName());
-                _context.getAnalyzing().addLocError(badCl_);
+                badCl_.buildError(_page.getAnalysisMessages().getEmptyPartClassName());
+                _page.addLocError(badCl_);
                 StringList constraints_ = new StringList();
                 Ints ct_ = new Ints();
                 ct_.add(0);
@@ -611,14 +606,14 @@ public final class ClassesUtil {
                 tempOff_ += p.length() + 1;
                 continue;
             }
-            TokenErrorMessage res_ = ManageTokens.partVarClass(page_).checkToken(id_, page_);
+            TokenErrorMessage res_ = ManageTokens.partVarClass(_page).checkToken(id_, _page);
             if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.setBuiltError(res_.getMessage());
-                _context.getAnalyzing().addLocError(badCl_);
+                _page.addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(varTypes_, id_)) {
@@ -626,10 +621,10 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedPartVarClassName(),
+                badCl_.buildError(_page.getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
-                _context.getAnalyzing().addLocError(badCl_);
+                _page.addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(namesFromParent_, id_)) {
@@ -637,10 +632,10 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedPartVarClassName(),
+                badCl_.buildError(_page.getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
-                _context.getAnalyzing().addLocError(badCl_);
+                _page.addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             varTypes_.add(id_);
@@ -680,7 +675,7 @@ public final class ClassesUtil {
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
-            StringBuilder sBuild_ = new StringBuilder(page_.getStandards().getAliasEnumParam());
+            StringBuilder sBuild_ = new StringBuilder(_page.getStandards().getAliasEnumParam());
             sBuild_.append(Templates.TEMPLATE_BEGIN);
             sBuild_.append(generic_);
             sBuild_.append(Templates.TEMPLATE_END);
@@ -698,7 +693,7 @@ public final class ClassesUtil {
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_root instanceof AnnotationBlock) {
-            String type_ = page_.getStandards().getAliasAnnotationType();
+            String type_ = _page.getStandards().getAliasAnnotationType();
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -708,27 +703,27 @@ public final class ClassesUtil {
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypeStd(),
+            d_.buildError(_page.getAnalysisMessages().getDuplicatedTypeStd(),
                     fullName_);
-            _context.getAnalyzing().addLocError(d_);
+            _page.addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
-        if (AnaTypeUtil.isPrimitive(fullName_, page_)) {
+        if (AnaTypeUtil.isPrimitive(fullName_, _page)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypePrim(),
+            d_.buildError(_page.getAnalysisMessages().getDuplicatedTypePrim(),
                     fullName_);
-            _context.getAnalyzing().addLocError(d_);
+            _page.addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
-        page_.getFoundTypes().add(_root);
+        _page.getFoundTypes().add(_root);
         if (ok_) {
-            page_.getRefFoundTypes().add(_root);
-            page_.getCoverage().putType(_root);
+            _page.getRefFoundTypes().add(_root);
+            _page.getCoverage().putType(_root);
         }
         RootBlock parentType_ = _root.getParentType();
         int index_ = -1;
@@ -737,62 +732,62 @@ public final class ClassesUtil {
             _root.setFile(parentType_.getFile());
         }
         ExecRootBlock execParentType_ = null;
-        if (page_.getMapTypes().getKeys().isValidIndex(index_)) {
-            execParentType_ = page_.getMapTypes().getValue(index_);
+        if (_page.getMapTypes().getKeys().isValidIndex(index_)) {
+            execParentType_ = _page.getMapTypes().getValue(index_);
         }
         if (_root instanceof AnonymousTypeBlock) {
             ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
         }
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof EnumBlock) {
             ExecEnumBlock e_ = new ExecEnumBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InterfaceBlock) {
             ExecInterfaceBlock e_ = new ExecInterfaceBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof AnnotationBlock) {
             ExecAnnotationBlock e_ = new ExecAnnotationBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InnerElementBlock) {
             ExecInnerElementBlock e_ = new ExecInnerElementBlock((InnerElementBlock) _root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getMapTypes().size());
-            page_.getMapTypes().put(_root, e_);
-            ((InnerElementBlock) _root).setNumberInner(page_.getMapInnerEltTypes().size());
-            page_.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
-            page_.getClasses().getClassesBodies().put(fullName_, e_);
+            _root.setNumberAll(_page.getMapTypes().size());
+            _page.getMapTypes().put(_root, e_);
+            ((InnerElementBlock) _root).setNumberInner(_page.getMapInnerEltTypes().size());
+            _page.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
+            _page.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
     }
@@ -831,10 +826,9 @@ public final class ClassesUtil {
         }
     }
 
-    private static void innerFetchExec(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
-        for (RootBlock r: page_.getFoundTypes()) {
+    private static void innerFetchExec(AnalyzedPageEl _page) {
+        IdMap<RootBlock, ExecRootBlock> mapTypes_ = _page.getMapTypes();
+        for (RootBlock r: _page.getFoundTypes()) {
             ExecRootBlock current_ = mapTypes_.getValue(r.getNumberAll());
             RootBlock k_ = r;
             Members mem_ = new Members();
@@ -846,7 +840,7 @@ public final class ClassesUtil {
                     mem_.getAllAnnotables().addEntry((RootBlock) b,val_);
                 }
                 if (b instanceof InnerElementBlock) {
-                    ExecInnerElementBlock val_ = page_.getMapInnerEltTypes().getValue(((InnerElementBlock) b).getNumberInner());
+                    ExecInnerElementBlock val_ = _page.getMapInnerEltTypes().getValue(((InnerElementBlock) b).getNumberInner());
                     current_.appendChild(val_);
                     current_.getEnumElements().add(val_);
                     ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
@@ -931,28 +925,28 @@ public final class ClassesUtil {
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
             }
-            page_.getMapMembers().addEntry(k_, mem_);
+            _page.getMapMembers().addEntry(k_, mem_);
         }
     }
 
-    public static void buildFilesBodies(ContextEl _context, StringMap<String> _files, boolean _predefined, StringMap<FileBlock> _out, StringMap<ExecFileBlock> _outExec) {
+    public static void buildFilesBodies(StringMap<String> _files, boolean _predefined, StringMap<FileBlock> _out, StringMap<ExecFileBlock> _outExec, AnalyzedPageEl _page) {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
             FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
             fileBlock_.setFileName(file_);
-            AnalyzedPageEl page_ = _context.getAnalyzing();
+            AnalyzedPageEl page_ = _page;
             page_.putFileBlock(file_, fileBlock_);
             page_.getCoverage().putFile(fileBlock_);
-            page_.getErrors().putFile(_context,fileBlock_);
-            fileBlock_.processLinesTabsWithError(_context,content_);
+            page_.getErrors().putFile(fileBlock_, _page);
+            fileBlock_.processLinesTabsWithError(content_, _page);
             fileBlock_.setNumberFile(_out.size());
             _out.addEntry(file_,fileBlock_);
             ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
             _outExec.addEntry(file_,exFile_);
         }
     }
-    public static void parseFiles(ContextEl _context, StringMap<FileBlock> _files, StringMap<ExecFileBlock> _outExec) {
+    public static void parseFiles(StringMap<FileBlock> _files, StringMap<ExecFileBlock> _outExec, AnalyzedPageEl _page) {
         for (EntryCust<String,FileBlock> f: _files.entryList()) {
             String fileName_ = f.getKey();
             FileBlock block_ = f.getValue();
@@ -960,10 +954,10 @@ public final class ClassesUtil {
                 continue;
             }
             String file_ = block_.getContent();
-            FileResolver.parseFile(block_, fileName_,file_, _context);
+            FileResolver.parseFile(block_, fileName_,file_, _page);
         }
-        StringList basePkgFound_ = _context.getAnalyzing().getBasePackagesFound();
-        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
+        StringList basePkgFound_ = _page.getBasePackagesFound();
+        StringList pkgFound_ = _page.getPackagesFound();
         for (EntryCust<String,FileBlock> f: _files.entryList()) {
             pkgFound_.addAllElts(f.getValue().getAllPackages());
         }
@@ -974,10 +968,10 @@ public final class ClassesUtil {
         for (EntryCust<String,FileBlock> f: _files.entryList()) {
             FileBlock value_ = f.getValue();
             ExecFileBlock exFile_ = _outExec.getValue(i_);
-            fetchByFile(_context, basePkgFound_, pkgFound_, value_, exFile_);
+            fetchByFile(basePkgFound_, pkgFound_, value_, exFile_, _page);
             i_++;
         }
-        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock r: _page.getFoundTypes()) {
             for (Block b: getDirectChildren(r)) {
                 if (b instanceof MemberCallingsBlock) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
@@ -988,27 +982,27 @@ public final class ClassesUtil {
                 }
             }
         }
-        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock r: _page.getFoundTypes()) {
             MemberCallingsBlock outerFuntion_ = r.getStrictOuterFuntion();
             if (outerFuntion_ != null) {
                 r.getMappings().putAllMap(outerFuntion_.getMappings());
             }
         }
-        innerFetchExec(_context);
+        innerFetchExec(_page);
     }
 
-    public static void fetchByFile(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, ExecFileBlock _exeFile) {
+    public static void fetchByFile(StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, ExecFileBlock _exeFile, AnalyzedPageEl _page) {
         for (Block b: getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
-                processType(_context, _basePkgFound, _pkgFound, _exeFile, r_);
+                processType(_basePkgFound, _pkgFound, _exeFile, r_, _page);
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
                 ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
                 _exeFile.appendChild(e_);
                 e_.setFile(_exeFile);
-                AnalyzedPageEl page_ = _context.getAnalyzing();
+                AnalyzedPageEl page_ = _page;
                 page_.getClasses().getOperators().add(e_);
                 page_.getFoundOperators().add(r_);
                 r_.setNameNumber(page_.getMapOperators().size());
@@ -1024,9 +1018,9 @@ public final class ClassesUtil {
                             d_.setFileName(r_.getFile().getFileName());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
-                            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                            d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                     s_);
-                            _context.getAnalyzing().addLocError(d_);
+                            _page.addLocError(d_);
                             cur_.addNameErrors(d_);
                         }
                         Block fc_ = c_.getFirstChild();
@@ -1057,7 +1051,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processType(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, ExecFileBlock _exeFile, Block _r) {
+    private static void processType(StringList _basePkgFound, StringList _pkgFound, ExecFileBlock _exeFile, Block _r, AnalyzedPageEl _page) {
         StringList allReservedInnersRoot_ = new StringList();
         boolean addPkg_ = true;
         if (_r instanceof RootBlock) {
@@ -1074,10 +1068,10 @@ public final class ClassesUtil {
                     d_.setFileName(_r.getFile().getFileName());
                     d_.setIndexFile(r_.getIdRowCol());
                     //original id len
-                    d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypePkg(),
+                    d_.buildError(_page.getAnalysisMessages().getDuplicatedTypePkg(),
                             fullName_,
                             p);
-                    _context.getAnalyzing().addLocError(d_);
+                    _page.addLocError(d_);
                     r_.addNameErrors(d_);
                     addPkg_ = false;
                 }
@@ -1115,9 +1109,9 @@ public final class ClassesUtil {
                             d_.setFileName(_r.getFile().getFileName());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
-                            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                            d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                     s_);
-                            _context.getAnalyzing().addLocError(d_);
+                            _page.addLocError(d_);
                             cur_.addNameErrors(d_);
                             add_ = false;
                         }
@@ -1130,9 +1124,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.getAnalyzing().addLocError(d_);
+                                _page.addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             }
@@ -1142,9 +1136,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.getAnalyzing().addLocError(d_);
+                                _page.addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             }
@@ -1155,9 +1149,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.getAnalyzing().addLocError(d_);
+                                _page.addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             } else {
@@ -1181,9 +1175,9 @@ public final class ClassesUtil {
                         d_.setFileName(_r.getFile().getFileName());
                         d_.setIndexFile(cur_.getIdRowCol());
                         //s_ len
-                        d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                        d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                 s_);
-                        _context.getAnalyzing().addLocError(d_);
+                        _page.addLocError(d_);
                         cur_.addNameErrors(d_);
                         add_ = false;
                         addPkg_ = false;
@@ -1193,13 +1187,13 @@ public final class ClassesUtil {
                         d_.setFileName(_r.getFile().getFileName());
                         d_.setIndexFile(cur_.getIdRowCol());
                         //s_ len
-                        d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
+                        d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
                                 s_);
-                        _context.getAnalyzing().addLocError(d_);
+                        _page.addLocError(d_);
                         cur_.addNameErrors(d_);
                         add_ = false;
                     }
-                    ClassesUtil.processBracedClass(addPkg_&&add_, _exeFile, _r,cur_, _context);
+                    ClassesUtil.processBracedClass(addPkg_&&add_, _exeFile, _r,cur_, _page);
                 }
                 Block fc_ = c_.getFirstChild();
                 if (fc_ != null) {
@@ -1233,7 +1227,7 @@ public final class ClassesUtil {
             }
         } else {
             if (_r instanceof RootBlock) {
-                ClassesUtil.processBracedClass(addPkg_, _exeFile, _r, (RootBlock) _r, _context);
+                ClassesUtil.processBracedClass(addPkg_, _exeFile, _r, (RootBlock) _r, _page);
             }
         }
     }
@@ -1323,21 +1317,21 @@ public final class ClassesUtil {
         return list_;
     }
 
-    public static void validateInheritingClasses(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    public static void validateInheritingClasses(AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         String objectClassName_ = page_.getStandards().getAliasObject();
         page_.getListTypesNames().clear();
-        validateInheritingClassesId(_context);
+        validateInheritingClassesId(_page);
         CustList<RootBlock> listTypes_ = page_.getListTypesNames();
         for (RootBlock s: listTypes_) {
             page_.setCurrentBlock(s);
             page_.setCurrentAnaBlock(s);
-            s.buildDirectGenericSuperTypes(_context);
+            s.buildDirectGenericSuperTypes(_page);
         }
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setCurrentBlock(c);
             page_.setCurrentAnaBlock(c);
-            c.buildMapParamType(_context);
+            c.buildMapParamType(_page);
         }
         for (RootBlock c: page_.getFoundTypes()) {
             page_.getMapTypes().getValue(c.getNumberAll()).buildMapParamType(c);
@@ -1361,7 +1355,7 @@ public final class ClassesUtil {
                 p_ = p_.getParentType();
             }
             for (AnaResultPartType s: c.getResults()) {
-                RootBlock s_ = _context.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(s.getResult()));
+                RootBlock s_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(s.getResult()));
                 if (s_ == null) {
                     continue;
                 }
@@ -1385,7 +1379,7 @@ public final class ClassesUtil {
                     allPossibleDirectSuperTypes_.add(m_.getFullName());
                 }
                 for (String s: a.getAllSuperTypes()) {
-                    RootBlock g_ = _context.getAnalyzing().getAnaClassBody(s);
+                    RootBlock g_ = _page.getAnaClassBody(s);
                     if (g_ == null) {
                         continue;
                     }
@@ -1405,36 +1399,35 @@ public final class ClassesUtil {
                     enum_.setFileName(c.getFile().getFileName());
                     enum_.setIndexFile(c.getIdRowCol());
                     //super type len
-                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsType(),
+                    enum_.buildError(_page.getAnalysisMessages().getBadInheritsType(),
                             c.getFullName(),
                             s);
-                    _context.getAnalyzing().addLocError(enum_);
+                    _page.addLocError(enum_);
                     c.addNameErrors(enum_);
                 }
             }
         }
-        validateSingleParameterizedClasses(_context);
-        checkTemplatesDef(_context, objectClassName_);
+        validateSingleParameterizedClasses(_page);
+        checkTemplatesDef(objectClassName_, _page);
     }
 
-    public static void validateInheritingClassesId(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        String objectClassName_ = page_.getStandards().getAliasObject();
-        String enumClassName_ = page_.getStandards().getAliasEnumType();
-        String enumParamClassName_ = page_.getStandards().getAliasEnumParam();
-        String annotName_ = page_.getStandards().getAliasAnnotationType();
+    public static void validateInheritingClassesId(AnalyzedPageEl _page) {
+        String objectClassName_ = _page.getStandards().getAliasObject();
+        String enumClassName_ = _page.getStandards().getAliasEnumType();
+        String enumParamClassName_ = _page.getStandards().getAliasEnumParam();
+        String annotName_ = _page.getStandards().getAliasAnnotationType();
         StringMap<Boolean> builtTypes_ = new StringMap<Boolean>();
-        IdList<RootBlock> stClNames_ = new IdList<RootBlock>(page_.getFoundTypes());
+        IdList<RootBlock> stClNames_ = new IdList<RootBlock>(_page.getFoundTypes());
         for (RootBlock r: stClNames_) {
             builtTypes_.addEntry(r.getFullName(), false);
         }
-        for (RootBlock r: page_.getPrevFoundTypes()) {
+        for (RootBlock r: _page.getPrevFoundTypes()) {
             builtTypes_.addEntry(r.getFullName(), true);
         }
         while (true) {
             IdList<RootBlock> next_ = new IdList<RootBlock>();
             for (RootBlock r: stClNames_) {
-                ExecRootBlock exec_ = page_.getMapTypes().getVal(r);
+                ExecRootBlock exec_ = _page.getMapTypes().getVal(r);
                 String c= r.getFullName();
                 if (r instanceof AnnotationBlock) {
                     int index_ = 0;
@@ -1450,10 +1443,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
-                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsType(),
+                            undef_.buildError(_page.getAnalysisMessages().getBadInheritsType(),
                                     c,
                                     idSuper_);
-                            _context.getAnalyzing().addLocError(undef_);
+                            _page.addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1472,7 +1465,7 @@ public final class ClassesUtil {
                     exec_.getAllSuperTypes().add(objectClassName_);
                     r.getAllSuperTypes().removeDuplicates();
                     exec_.getAllSuperTypes().removeDuplicates();
-                    page_.getListTypesNames().add(r);
+                    _page.getListTypesNames().add(r);
                     builtTypes_.set(c, true);
                     next_.add(r);
                     continue;
@@ -1485,30 +1478,30 @@ public final class ClassesUtil {
                     s = StringExpUtil.removeDottedSpaces(s);
                     String idSuper_ = StringExpUtil.getIdFromAllTypes(s);
                     int offset_ = e.getKey();
-                    String void_ = page_.getStandards().getAliasVoid();
+                    String void_ = _page.getStandards().getAliasVoid();
                     if (StringList.quickEq(idSuper_, void_)) {
                         FoundErrorInterpret undef_ = new FoundErrorInterpret();
                         undef_.setFileName(r.getFile().getFileName());
                         undef_.setIndexFile(offset_);
                         //_in len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getVoidType(),
+                        undef_.buildError(_page.getAnalysisMessages().getVoidType(),
                                 void_);
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         r.addNameErrors(undef_);
                         index_++;
                         continue;
                     }
                     if (r.getExplicitDirectSuperTypes().getValue(index_)) {
-                        if (page_.getStandards().getStandards().contains(idSuper_)) {
+                        if (_page.getStandards().getStandards().contains(idSuper_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
-                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                     c,
                                     idSuper_);
-                            _context.getAnalyzing().addLocError(undef_);
+                            _page.addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1522,7 +1515,7 @@ public final class ClassesUtil {
                     }
                     String foundType_;
                     if (r.getExplicitDirectSuperTypes().getValue(index_)) {
-                        foundType_ = ResolvingSuperTypes.resolveBaseInherits(_context,idSuper_, r, readyTypes_);
+                        foundType_ = ResolvingSuperTypes.resolveBaseInherits(idSuper_, r, readyTypes_, _page);
                     } else {
                         InheritReadyTypes inh_ = new InheritReadyTypes(readyTypes_);
                         if (inh_.isReady(idSuper_)) {
@@ -1531,7 +1524,7 @@ public final class ClassesUtil {
                             foundType_ = "";
                         }
                     }
-                    RootBlock superType_ = page_.getAnaClassBody(foundType_);
+                    RootBlock superType_ = _page.getAnaClassBody(foundType_);
                     if (superType_ == null) {
                         ready_ = false;
                         break;
@@ -1548,10 +1541,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //original type len
-                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                     c,
                                     foundType_);
-                            _context.getAnalyzing().addLocError(undef_);
+                            _page.addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1562,10 +1555,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //original type len
-                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                     c,
                                     foundType_);
-                            _context.getAnalyzing().addLocError(undef_);
+                            _page.addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1595,9 +1588,9 @@ public final class ClassesUtil {
                         undef_.setFileName(r.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //original type len
-                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicateSuper(),
+                        undef_.buildError(_page.getAnalysisMessages().getDuplicateSuper(),
                                 c,e.getKey(),Integer.toString(e.getValue()));
-                        _context.getAnalyzing().addLocError(undef_);
+                        _page.addLocError(undef_);
                         r.addNameErrors(undef_);
                         hasDuplicates_ = true;
                     }
@@ -1623,10 +1616,10 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
-                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeInn(),
+                            enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeInn(),
                                     c,
                                     k_);
-                            _context.getAnalyzing().addLocError(enum_);
+                            _page.addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                     } else {
@@ -1638,12 +1631,12 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
-                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeAsInn(),
+                            enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeAsInn(),
                                     c,
                                     k_,
                                     Integer.toString(subSise_-1),
                                     Integer.toString(supSise_-1));
-                            _context.getAnalyzing().addLocError(enum_);
+                            _page.addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                     }
@@ -1654,9 +1647,9 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original type len
-                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeInt(),
+                            enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeInt(),
                                     c,k_);
-                            _context.getAnalyzing().addLocError(enum_);
+                            _page.addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
@@ -1672,9 +1665,9 @@ public final class ClassesUtil {
                         enum_.setFileName(r.getFile().getFileName());
                         enum_.setIndexFile(offset_);
                         //original type len
-                        enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getFinalType(),
+                        enum_.buildError(_page.getAnalysisMessages().getFinalType(),
                                 c,k_);
-                        _context.getAnalyzing().addLocError(enum_);
+                        _page.addLocError(enum_);
                         r.addNameErrors(enum_);
                     }
                     r.getImportedDirectBaseSuperTypes().put(ind_,k_);
@@ -1685,9 +1678,9 @@ public final class ClassesUtil {
                     enum_.setFileName(r.getFile().getFileName());
                     enum_.setIndexFile(r.getIdRowCol());
                     //second super class
-                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getSuperClass(),
+                    enum_.buildError(_page.getAnalysisMessages().getSuperClass(),
                             c,Integer.toString(nbDirectSuperClass_));
-                    _context.getAnalyzing().addLocError(enum_);
+                    _page.addLocError(enum_);
                     r.addNameErrors(enum_);
                 }
                 r.getAllSuperTypes().addAllElts(dup_);
@@ -1701,21 +1694,21 @@ public final class ClassesUtil {
                 exec_.getAllSuperTypes().add(objectClassName_);
                 r.getAllSuperTypes().removeDuplicates();
                 exec_.getAllSuperTypes().removeDuplicates();
-                page_.getListTypesNames().add(r);
+                _page.getListTypesNames().add(r);
                 builtTypes_.set(c, true);
                 next_.add(r);
             }
             if (next_.isEmpty()) {
                 for (RootBlock r: stClNames_) {
-                    page_.getListTypesNames().add(r);
+                    _page.getListTypesNames().add(r);
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFileName(r.getFile().getFileName());
                     undef_.setIndexFile(0);
                     //id len
-                    undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnknownSuperType(),
+                    undef_.buildError(_page.getAnalysisMessages().getUnknownSuperType(),
                             r.getFullName());
-                    _context.getAnalyzing().addLocError(undef_);
+                    _page.addLocError(undef_);
                     r.addNameErrors(undef_);
                 }
                 break;
@@ -1724,11 +1717,9 @@ public final class ClassesUtil {
         }
     }
 
-    private static void checkTemplatesDef(ContextEl _context,
-                                          String _objectClassName) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (RootBlock s: page_.getFoundTypes()) {
+    private static void checkTemplatesDef(String _objectClassName, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
+        for (RootBlock s: _page.getFoundTypes()) {
             String c = s.getFullName();
             Mapping mapping_ = new Mapping();
             StringMap<StringList> cts_ = new StringMap<StringList>();
@@ -1744,9 +1735,9 @@ public final class ClassesUtil {
                 b_.setFileName(s.getFile().getFileName());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
-                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getAnnotationParam(),
+                b_.buildError(_page.getAnalysisMessages().getAnnotationParam(),
                         c);
-                _context.getAnalyzing().addLocError(b_);
+                _page.addLocError(b_);
                 s.addNameErrors(b_);
                 continue;
             }
@@ -1758,9 +1749,9 @@ public final class ClassesUtil {
                 b_.setFileName(s.getFile().getFileName());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
-                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getCyclicMapping(),
+                b_.buildError(_page.getAnalysisMessages().getCyclicMapping(),
                         c);
-                _context.getAnalyzing().addLocError(b_);
+                _page.addLocError(b_);
                 s.addNameErrors(b_);
                 continue;
             }
@@ -1775,25 +1766,25 @@ public final class ClassesUtil {
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnexpectedTypeBound(),
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
-                        _context.getAnalyzing().addLocError(un_);
+                        _page.addLocError(un_);
                         s.addNameErrors(un_);
                     }
-                    if (AnaTypeUtil.isPrimitive(b,page_)) {
+                    if (AnaTypeUtil.isPrimitive(b, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnexpectedTypeBound(),
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
-                        _context.getAnalyzing().addLocError(un_);
+                        _page.addLocError(un_);
                         s.addNameErrors(un_);
                     }
                     String baseParams_ = StringExpUtil.getIdFromAllTypes(b);
                     String base_ = StringExpUtil.getQuickComponentBaseType(baseParams_).getComponent();
                     upperNotObj_.add(b);
-                    if (page_.getAnaClassBody(base_) != null) {
+                    if (_page.getAnaClassBody(base_) != null) {
                         existCustom_ = true;
                     } else {
                         existNative_ = true;
@@ -1805,14 +1796,14 @@ public final class ClassesUtil {
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     //type var len => at def
-                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
+                    un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                             c);
-                    _context.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                     s.addNameErrors(un_);
                     okLoc_ = false;
                     ok_ = false;
                 }
-                for (CustList<TypeInfo> g: OperationNode.typeLists(_context,upper_,MethodAccessKind.INSTANCE)) {
+                for (CustList<TypeInfo> g: OperationNode.typeLists(upper_,MethodAccessKind.INSTANCE, _page)) {
                     StringList all_ = new StringList();
                     for (TypeInfo i: g) {
                         all_.add(i.getType());
@@ -1825,9 +1816,9 @@ public final class ClassesUtil {
                             duplicate_.setFileName(s.getFile().getFileName());
                             duplicate_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedGenericSuperTypes(),
+                            duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                                     StringList.join(e.getValue(),"&"));
-                            _context.getAnalyzing().addLocError(duplicate_);
+                            _page.addLocError(duplicate_);
                             s.addNameErrors(duplicate_);
                         }
                     }
@@ -1855,7 +1846,7 @@ public final class ClassesUtil {
                         for (String b: upperNotObj_) {
                             String baseParamsUpp_ = StringExpUtil.getIdFromAllTypes(b);
                             String base_ = StringExpUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
-                            RootBlock r_ = page_.getAnaClassBody(base_);
+                            RootBlock r_ = _page.getAnaClassBody(base_);
                             if (!(r_ instanceof UniqueRootedBlock)) {
                                 continue;
                             }
@@ -1875,9 +1866,9 @@ public final class ClassesUtil {
                             inh_.setFileName(s.getFile().getFileName());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            inh_.buildError(_context.getAnalyzing().getAnalysisMessages().getAbsMapping(),
+                            inh_.buildError(_page.getAnalysisMessages().getAbsMapping(),
                                     Integer.toString(nbAbs_));
-                            _context.getAnalyzing().addLocError(inh_);
+                            _page.addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;
                         }
@@ -1888,9 +1879,9 @@ public final class ClassesUtil {
                             inh_.setFileName(s.getFile().getFileName());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            inh_.buildError(_context.getAnalyzing().getAnalysisMessages().getFinalMapping(),
+                            inh_.buildError(_page.getAnalysisMessages().getFinalMapping(),
                                     Integer.toString(nbFinal_));
-                            _context.getAnalyzing().addLocError(inh_);
+                            _page.addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;
                         }
@@ -1907,36 +1898,36 @@ public final class ClassesUtil {
             }
             for (TypeVar t: s.getParamTypesMapValues()) {
                 for (AnaResultPartType b: t.getResults()) {
-                    if (!AnaPartTypeUtil.processAnalyzeConstraints(b, map_, _context, true)) {
+                    if (!AnaPartTypeUtil.processAnalyzeConstraints(b, map_, true, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
+                        un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                                 b.getResult());
-                        _context.getAnalyzing().addLocError(un_);
+                        _page.addLocError(un_);
                         s.addNameErrors(un_);
                     }
                 }
             }
             for (AnaResultPartType t: s.getResults()) {
-                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, _context, true)) {
+                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, true, _page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     // char : before super type
-                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
+                    un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                             t.getResult());
-                    _context.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                     s.addNameErrors(un_);
                 }
             }
         }
     }
 
-    private static void validateSingleParameterizedClasses(ContextEl _context) {
-        for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
-            CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.getAllGenericSuperTypes(_context);
+    private static void validateSingleParameterizedClasses(AnalyzedPageEl _page) {
+        for (RootBlock i: _page.getFoundTypes()) {
+            CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.fetchAllGenericSuperTypes();
             for (AnaFormattedRootBlock a: genericSuperTypes_) {
                 i.getAllGenericSuperTypes().add(a.getFormatted());
             }
@@ -1948,34 +1939,34 @@ public final class ClassesUtil {
                     duplicate_.setFileName(i.getFile().getFileName());
                     duplicate_.setIndexFile(i.getIdRowCol());
                     //original id len
-                    duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedGenericSuperTypes(),
+                    duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                             StringList.join(e.getValue(),"&"));
-                    _context.getAnalyzing().addLocError(duplicate_);
+                    _page.addLocError(duplicate_);
                     i.addNameErrors(duplicate_);
                 }
             }
             i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
-            CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClasses(_context);
+            CustList<AnaFormattedRootBlock> genericClasses_ = i.fetchAllGenericClasses();
             for (AnaFormattedRootBlock a: genericClasses_) {
                 i.getAllGenericClasses().add(a.getFormatted());
             }
-            ExecRootBlock value_ = _context.getAnalyzing().getMapTypes().getValue(i.getNumberAll());
+            ExecRootBlock value_ = _page.getMapTypes().getValue(i.getNumberAll());
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _context.getAnalyzing()));
+                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _page));
             }
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             if (emptyCtor_ != null) {
-                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _context.getAnalyzing()));
+                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _page));
             }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
-        for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock i: _page.getFoundTypes()) {
             CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = i.getAllGenericSuperTypesInfo();
             CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
             for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(new ExecFormattedRootBlock(_context.getAnalyzing().getMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
+                l_.add(new ExecFormattedRootBlock(_page.getMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
             }
-            _context.getAnalyzing().getMapTypes().getValue(i.getNumberAll()).getAllGenericSuperTypes().addAllElts(l_);
+            _page.getMapTypes().getValue(i.getNumberAll()).getAllGenericSuperTypes().addAllElts(l_);
         }
     }
 
@@ -1992,8 +1983,8 @@ public final class ClassesUtil {
         return baseParams_;
     }
 
-    public static void validateIds(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    public static void validateIds(AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = mapTypes_.getValue(c.getNumberAll());
@@ -2005,9 +1996,9 @@ public final class ClassesUtil {
             page_.setImportingTypes(c);
             page_.getMappingLocal().clear();
             page_.getMappingLocal().putAllMap(c.getMappings());
-            c.validateIds(_context, type_,page_.getMapMembers().getVal(c));
+            c.validateIds(type_,page_.getMapMembers().getVal(c), _page);
             if (c.getNbOperators() > 0) {
-                _context.getAnalyzing().getTypesWithInnerOperators().add(c.getFullName());
+                _page.getTypesWithInnerOperators().add(c.getFullName());
             }
         }
         for (RootBlock c: page_.getFoundTypes()) {
@@ -2026,30 +2017,30 @@ public final class ClassesUtil {
                 if (b instanceof InternOverrideBlock) {
                     page_.setCurrentAnaBlock(c);
                     page_.setCurrentBlock(c);
-                    ((InternOverrideBlock)b).buildTypes(c,_context);
+                    ((InternOverrideBlock)b).buildTypes(c, _page);
                 }
             }
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         page_.setGlobalClass("");
         page_.setGlobalType((RootBlock) null);
-        for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
-            ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
+        for (OperatorBlock o: _page.getFoundOperators()) {
+            ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
             String name_ = o.getName();
             page_.setImporting(o);
             page_.setImportingAcces(new OperatorAccessor());
             page_.setImportingTypes(o);
             page_.getMappingLocal().clear();
-            o.buildImportedTypes(_context);
+            o.buildImportedTypes(_page);
             value_.buildImportedTypes(o);
             if (!StringExpUtil.isOper(name_)) {
                 FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                badMeth_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                badMeth_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                 badMeth_.setIndexFile(o.getNameOffset());
                 //key word len
-                badMeth_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadOperatorName(),
+                badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
                         name_);
-                _context.getAnalyzing().addLocError(badMeth_);
+                _page.addLocError(badMeth_);
                 o.addNameErrors(badMeth_);
             }
             MethodId id_ = o.getId();
@@ -2058,11 +2049,11 @@ public final class ClassesUtil {
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(o.getOffset().getOffsetTrim());
-                    duplicate_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                    duplicate_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     //key word len
-                    duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicateOperator(),
+                    duplicate_.buildError(_page.getAnalysisMessages().getDuplicateOperator(),
                             id_.getSignature(page_));
-                    _context.getAnalyzing().addLocError(duplicate_);
+                    _page.addLocError(duplicate_);
                     o.addNameErrors(duplicate_);
                 }
             }
@@ -2076,22 +2067,22 @@ public final class ClassesUtil {
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                    b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     b_.setIndexFile(o.getOffset().getOffsetTrim());
                     //param name len
                     b_.setBuiltError(res_.getMessage());
-                    _context.getAnalyzing().addLocError(b_);
+                    _page.addLocError(b_);
                     o.addParamErrors(i_,b_);
                 }
                 if (StringList.contains(seen_, v)){
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                    b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     b_.setIndexFile(o.getOffset().getOffsetTrim());
                     //param name len
-                    b_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
+                    b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                             v);
-                    _context.getAnalyzing().addLocError(b_);
+                    _page.addLocError(b_);
                     o.addParamErrors(i_,b_);
                 } else {
                     seen_.add(v);
@@ -2101,16 +2092,16 @@ public final class ClassesUtil {
         }
     }
 
-    public static void validateOverridingInherit(ContextEl _context) {
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            c.setupBasicOverrides(_context);
+    public static void validateOverridingInherit(AnalyzedPageEl _page) {
+        for (RootBlock c: _page.getFoundTypes()) {
+            c.setupBasicOverrides(_page);
         }
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            c.checkCompatibility(_context);
-            c.checkImplements(_context);
+        for (RootBlock c: _page.getFoundTypes()) {
+            c.checkCompatibility(_page);
+            c.checkImplements(_page);
         }
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            c.checkCompatibilityBounds(_context);
+        for (RootBlock c: _page.getFoundTypes()) {
+            c.checkCompatibilityBounds(_page);
         }
     }
 
@@ -2169,14 +2160,13 @@ public final class ClassesUtil {
     }
 
     //validate el and its possible returned type
-    public static void validateEl(ContextEl _context) {
-        initStaticFields(_context);
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    public static void validateEl(AnalyzedPageEl _page) {
+        initStaticFields(_page);
         CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
-        for (OperatorBlock c: _context.getAnalyzing().getFoundOperators()) {
+        for (OperatorBlock c: _page.getFoundOperators()) {
             brBl_.add(c);
         }
-        for (RootBlock c: page_.getFoundTypes()) {
+        for (RootBlock c: _page.getFoundTypes()) {
             brBl_.add(c);
         }
         for (BracedBlock c: brBl_) {
@@ -2185,21 +2175,21 @@ public final class ClassesUtil {
                 b_.setFileName(c.getFile().getFileName());
                 b_.setIndexFile(Math.max(0,Math.min(c.getFile().getLength()-1,i)));
                 //underline index char
-                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
-                _context.getAnalyzing().addLocError(b_);
+                b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+                _page.addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
                 c.getGlobalErrorsPars().add(g_);
             }
         }
-        for (RootBlock c: page_.getFoundTypes()) {
-            Members mem_ = page_.getMapMembers().getVal(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        for (RootBlock c: _page.getFoundTypes()) {
+            Members mem_ = _page.getMapMembers().getVal(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
@@ -2207,92 +2197,92 @@ public final class ClassesUtil {
                     continue;
                 }
                 InfoBlock f_ = (InfoBlock) b;
-                page_.getAllDeclaredFields().addAllElts(f_.getFieldName());
+                _page.getAllDeclaredFields().addAllElts(f_.getFieldName());
                 if (!f_.isStaticField()) {
                     continue;
                 }
                 if (f_ instanceof FieldBlock) {
-                    page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
+                    _page.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
                 }
                 if (f_ instanceof InnerTypeOrElement) {
-                    page_.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
+                    _page.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
                 }
                 int v_ = 0;
                 for (String f: f_.getFieldName()) {
                     StringList err_ = getErFields(f_, v_);
-                    checkConstField(_context, err_,c, fullName_, f);
+                    checkConstField(err_,c, fullName_, f, _page);
                     v_++;
                 }
             }
             for (Block b: bl_) {
                 if (b instanceof InnerTypeOrElement) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    page_.setCurrentFct(null);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
+                    _page.setCurrentFct(null);
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    _page.setCurrentBlock(b);
+                    _page.setCurrentAnaBlock(b);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(c.getMappings());
                     ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, val_);
-                    page_.getFieldsAssSt().addEntry(b,new AssElementBlock(method_));
+                    method_.buildExpressionLanguageReadOnly(val_, _page);
+                    _page.getFieldsAssSt().addEntry(b,new AssElementBlock(method_));
                 }
                 if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
                     FieldBlock method_ = (FieldBlock) b;
                     if (!method_.isStaticField()) {
                         continue;
                     }
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.setCurrentFct(null);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    _page.setCurrentBlock(b);
+                    _page.setCurrentAnaBlock(b);
+                    _page.setCurrentFct(null);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(c.getMappings());
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, exp_);
-                    page_.getFieldsAssSt().addEntry(b,new AssFieldBlock(method_));
+                    method_.buildExpressionLanguageReadOnly(exp_, _page);
+                    _page.getFieldsAssSt().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof StaticBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
                     StaticBlock method_ = (StaticBlock) b;
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
-                    AnalyzingEl a_ = page_.getAnalysisAss();
-                    a_.setVariableIssue(page_.isVariableIssue());
-                    page_.getResultsAna().addEntry(method_,a_);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(mem_.getAllInits().getVal(method_), _page);
+                    AnalyzingEl a_ = _page.getAnalysisAss();
+                    a_.setVariableIssue(_page.isVariableIssue());
+                    _page.getResultsAna().addEntry(method_,a_);
                 }
             }
         }
-        _context.getAnalyzing().setAssignedStaticFields(true);
-        for (RootBlock c: page_.getFoundTypes()) {
-            Members mem_ = page_.getMapMembers().getVal(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        _page.setAssignedStaticFields(true);
+        for (RootBlock c: _page.getFoundTypes()) {
+            Members mem_ = _page.getMapMembers().getVal(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            page_.getCoverage().putCalls(fullName_);
+            _page.getCoverage().putCalls(fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
-                    page_.getAllDeclaredFields().addAllElts(method_.getFieldName());
+                    _page.getAllDeclaredFields().addAllElts(method_.getFieldName());
                     if (method_.isStaticField()) {
-                        page_.getAssignedDeclaredFields().addAllElts(method_.getFieldName());
+                        _page.getAssignedDeclaredFields().addAllElts(method_.getFieldName());
                         continue;
                     }
                 }
                 if (b instanceof FieldBlock) {
-                    page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)b).getAssignedDeclaredFields());
+                    _page.getAssignedDeclaredFields().addAllElts(((FieldBlock)b).getAssignedDeclaredFields());
                 }
             }
             for (Block b: bl_) {
@@ -2303,60 +2293,60 @@ public final class ClassesUtil {
                     }
                 }
                 if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
                     FieldBlock method_ = (FieldBlock) b;
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.setCurrentFct(null);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    _page.setCurrentBlock(b);
+                    _page.setCurrentAnaBlock(b);
+                    _page.setCurrentFct(null);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(c.getMappings());
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, exp_);
-                    page_.getFieldsAss().addEntry(b,new AssFieldBlock(method_));
+                    method_.buildExpressionLanguageReadOnly(exp_, _page);
+                    _page.getFieldsAss().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof InstanceBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
                     InstanceBlock method_ = (InstanceBlock) b;
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
-                    AnalyzingEl a_ = page_.getAnalysisAss();
-                    a_.setVariableIssue(page_.isVariableIssue());
-                    page_.getResultsAnaInst().addEntry(method_,a_);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(mem_.getAllInits().getVal(method_), _page);
+                    AnalyzingEl a_ = _page.getAnalysisAss();
+                    a_.setVariableIssue(_page.isVariableIssue());
+                    _page.getResultsAnaInst().addEntry(method_,a_);
                 }
             }
-            processInterfaceCtor(_context, c, fullName_, bl_);
+            processInterfaceCtor(c, fullName_, bl_, _page);
             for (Block b: bl_) {
                 if (b instanceof ConstructorBlock) {
-                    page_.getInitFieldsCtors().clear();
-                    page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
+                    _page.getInitFieldsCtors().clear();
+                    _page.getInitFieldsCtors().addAllElts(_page.getInitFields());
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    page_.getCoverage().putCalls(fullName_,method_);
+                    _page.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
-                    AnalyzingEl a_ = page_.getAnalysisAss();
-                    a_.setVariableIssue(page_.isVariableIssue());
-                    page_.getResultsAnaNamed().addEntry(method_,a_);
+                    prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(mem_.getAllCtors().getVal(method_), _page);
+                    AnalyzingEl a_ = _page.getAnalysisAss();
+                    a_.setVariableIssue(_page.isVariableIssue());
+                    _page.getResultsAnaNamed().addEntry(method_,a_);
                 }
             }
         }
-        _context.getAnalyzing().setAssignedFields(true);
-        for (RootBlock c: page_.getFoundTypes()) {
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            Members mem_ = page_.getMapMembers().getVal(c);
+        _page.setAssignedFields(true);
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            Members mem_ = _page.getMapMembers().getVal(c);
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
@@ -2365,142 +2355,141 @@ public final class ClassesUtil {
                 }
                 OverridableBlock method_ = (OverridableBlock) b;
                 if (isStdOrExplicit(method_)) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    page_.getCoverage().putCalls(fullName_,method_);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                    AnalyzingEl a_ = page_.getAnalysisAss();
-                    a_.setVariableIssue(page_.isVariableIssue());
-                    page_.getResultsAnaMethod().addEntry(method_,a_);
+                    prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(mem_.getAllMethods().getVal(method_), _page);
+                    AnalyzingEl a_ = _page.getAnalysisAss();
+                    a_.setVariableIssue(_page.isVariableIssue());
+                    _page.getResultsAnaMethod().addEntry(method_,a_);
                 } else {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    page_.getCoverage().putCalls(fullName_,method_);
+                    _page.setGlobalClass(c.getGenericString());
+                    _page.setGlobalType(c);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    processValueParam(_context, page_, c, method_);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                    AnalyzingEl a_ = page_.getAnalysisAss();
-                    a_.setVariableIssue(page_.isVariableIssue());
-                    page_.getResultsAnaMethod().addEntry(method_,a_);
+                    prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    processValueParam(_page, c, method_);
+                    _page.getMappingLocal().clear();
+                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(mem_.getAllMethods().getVal(method_), _page);
+                    AnalyzingEl a_ = _page.getAnalysisAss();
+                    a_.setVariableIssue(_page.isVariableIssue());
+                    _page.getResultsAnaMethod().addEntry(method_,a_);
                 }
             }
         }
-        page_.setGlobalClass("");
-        page_.setGlobalType((RootBlock)null);
-        page_.setGlobalDirType(null);
-        putCallOperator(_context);
-        for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
-            page_.setImporting(o);
-            page_.setImportingAcces(new OperatorAccessor());
-            page_.setImportingTypes(o);
-            page_.getCoverage().putCalls("",o);
+        _page.setGlobalClass("");
+        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalDirType(null);
+        putCallOperator(_page);
+        for (OperatorBlock o: _page.getFoundOperators()) {
+            _page.setImporting(o);
+            _page.setImportingAcces(new OperatorAccessor());
+            _page.setImportingTypes(o);
+            _page.getCoverage().putCalls("",o);
             StringList params_ = o.getParametersNames();
             StringList types_ = o.getImportedParametersTypes();
-            ExecOperatorBlock value_ = page_.getMapOperators().getValue(o.getNameNumber());
-            prepareParams(page_,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
-            page_.getMappingLocal().clear();
-            o.buildFctInstructionsReadOnly(_context,value_);
-            AnalyzingEl a_ = page_.getAnalysisAss();
-            a_.setVariableIssue(page_.isVariableIssue());
-            page_.getResultsAnaOperator().addEntry(o,a_);
+            ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
+            prepareParams(_page,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
+            _page.getMappingLocal().clear();
+            o.buildFctInstructionsReadOnly(value_, _page);
+            AnalyzingEl a_ = _page.getAnalysisAss();
+            a_.setVariableIssue(_page.isVariableIssue());
+            _page.getResultsAnaOperator().addEntry(o,a_);
         }
-        page_.setAnnotAnalysis(true);
-        for (RootBlock c: page_.getFoundTypes()) {
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            Members mem_ = page_.getMapMembers().getVal(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setGlobalType(c);
-            page_.setCurrentFct(null);
+        _page.setAnnotAnalysis(true);
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            Members mem_ = _page.getMapMembers().getVal(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setCurrentFct(null);
             CustList<Block> annotated_ = new CustList<Block>();
             if (!(c instanceof InnerElementBlock)) {
                 annotated_.add(c);
             }
             annotated_.addAllElts(getDirectChildren(c));
-            page_.getCoverage().putBlockOperations(page_.getMapTypes().getVal(c),c);
-            page_.getMappingLocal().clear();
-            page_.getMappingLocal().putAllMap(c.getMappings());
+            _page.getCoverage().putBlockOperations(_page.getMapTypes().getVal(c),c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
-                page_.setCurrentBlock(b);
-                page_.setCurrentAnaBlock(b);
+                _page.setCurrentBlock(b);
+                _page.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
-                    page_.setAnnotAnalysisField(true);
-                    page_.setGlobalDirType(c);
-                    ((AnnotationMethodBlock)b).buildExpressionLanguage(_context,mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)));
-                    page_.getCoverage().putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
-                    page_.setAnnotAnalysisField(false);
+                    _page.setAnnotAnalysisField(true);
+                    _page.setGlobalDirType(c);
+                    ((AnnotationMethodBlock)b).buildExpressionLanguage(mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)), _page);
+                    _page.getCoverage().putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
+                    _page.setAnnotAnalysisField(false);
                 }
                 if (b instanceof RootBlock) {
-                    page_.setAnnotAnalysisField(false);
-                    page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(page_, b);
-                    ((RootBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    ((RootBlock)b).buildAnnotations(mem_.getAllAnnotables().getVal((AnnotableBlock) b), _page);
                 }
                 if (b instanceof NamedFunctionBlock) {
-                    page_.setAnnotAnalysisField(false);
-                    page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(page_, b);
-                    ((NamedFunctionBlock)b).buildAnnotations(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
-                    ((NamedFunctionBlock)b).buildAnnotationsParameters(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    ((NamedFunctionBlock)b).buildAnnotations(mem_.getAllNamed().getVal((NamedFunctionBlock) b), _page);
+                    ((NamedFunctionBlock)b).buildAnnotationsParameters(mem_.getAllNamed().getVal((NamedFunctionBlock) b), _page);
                 }
                 if (b instanceof InfoBlock) {
-                    page_.setAnnotAnalysisField(false);
-                    page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(page_, b);
-                    page_.getCoverage().putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
-                    ((InfoBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    _page.getCoverage().putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
+                    ((InfoBlock)b).buildAnnotations(mem_.getAllAnnotables().getVal((AnnotableBlock) b), _page);
                 }
             }
         }
-        page_.setGlobalClass("");
-        page_.setGlobalType((RootBlock)null);
-        page_.setGlobalDirType(null);
-        page_.setCurrentFct(null);
-        for (OperatorBlock o: page_.getFoundOperators()) {
-            page_.setImporting(o);
-            page_.setImportingAcces(new OperatorAccessor());
-            page_.setImportingTypes(o);
-            page_.setCurrentBlock(o);
-            page_.setCurrentAnaBlock(o);
-            page_.setAnnotAnalysisField(false);
-            page_.getCoverage().putBlockOperationsField(page_, o);
-            page_.getMappingLocal().clear();
-            ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
-            o.buildAnnotations(_context,value_);
-            o.buildAnnotationsParameters(_context,value_);
+        _page.setGlobalClass("");
+        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalDirType(null);
+        _page.setCurrentFct(null);
+        for (OperatorBlock o: _page.getFoundOperators()) {
+            _page.setImporting(o);
+            _page.setImportingAcces(new OperatorAccessor());
+            _page.setImportingTypes(o);
+            _page.setCurrentBlock(o);
+            _page.setCurrentAnaBlock(o);
+            _page.setAnnotAnalysisField(false);
+            _page.getCoverage().putBlockOperationsField(_page, o);
+            _page.getMappingLocal().clear();
+            ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
+            o.buildAnnotations(value_, _page);
+            o.buildAnnotationsParameters(value_, _page);
         }
-        page_.setAnnotAnalysis(false);
+        _page.setAnnotAnalysis(false);
         //init annotations here
-        for (RootBlock c: page_.getFoundTypes()) {
-            c.validateConstructors(_context);
+        for (RootBlock c: _page.getFoundTypes()) {
+            c.validateConstructors(_page);
         }
     }
 
-    private static void validateFinals(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    private static void validateFinals(AnalyzedPageEl _page) {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
-        _context.getAnalyzing().setAssignedStaticFields(false);
-        _context.getAnalyzing().setAssignedFields(false);
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        _page.setAssignedStaticFields(false);
+        _page.setAssignedFields(false);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
@@ -2530,55 +2519,55 @@ public final class ClassesUtil {
             assAfter_ = new StringMap<SimpleAssignment>();
             AssBlock pr_ = null;
             for (Block b: bl_) {
-                AssBlock val_ = page_.getFieldsAssSt().getVal(b);
+                AssBlock val_ = _page.getFieldsAssSt().getVal(b);
                 if (val_ instanceof AssInfoBlock) {
                     AssInfoBlock aInfo_ = (AssInfoBlock) val_;
-                    aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
-                    aInfo_.buildExpressionLanguage(_context,assVars_);
-                    aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
+                    aInfo_.setAssignmentBeforeAsLeaf(assVars_,pr_);
+                    aInfo_.buildExpressionLanguage(assVars_, _page);
+                    aInfo_.setAssignmentAfterAsLeaf(assVars_,pr_, _page);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal((AssBlock) aInfo_).getFieldsRoot());
                     pr_ = (AssBlock) aInfo_;
                 }
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
-                    anAss_ = page_.getResultsAna().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAna().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof MemberCallingsBlock && anAss_ != null) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
-                    tryAnalyseAssign(_context, assVars_, pr_, anAss_, assign_);
+                    tryAnalyseAssign(assVars_, pr_, anAss_, assign_, _page);
                     assAfter_.putAllMap(getFieldsRoot(assVars_, assign_));
-                    page_.clearAllLocalVars(assVars_);
+                    _page.clearAllLocalVars(assVars_);
                     pr_ = assign_;
                 }
             }
             for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
                 String key_ = a.getKey();
                 ClassField id_ = new ClassField(fullName_, key_);
-                if (!ContextUtil.isFinalField(_context,id_)) {
+                if (!ContextUtil.isFinalField(id_, _page)) {
                     continue;
                 }
-                if (!StringList.contains(page_.getInitFields(),key_)) {
+                if (!StringList.contains(_page.getInitFields(),key_)) {
                     //error
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(c.getFile().getFileName());
                     un_.setIndexFile(c.getOffset().getOffsetTrim());
-                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
+                    un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                             key_,fullName_);
-                    _context.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                 }
             }
 
         }
-        _context.getAnalyzing().setAssignedStaticFields(true);
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        _page.setAssignedStaticFields(true);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
@@ -2623,25 +2612,25 @@ public final class ClassesUtil {
                         continue;
                     }
                 }
-                AssBlock val_ = page_.getFieldsAss().getVal(b);
+                AssBlock val_ = _page.getFieldsAss().getVal(b);
                 if (val_ instanceof AssInfoBlock) {
                     AssInfoBlock aInfo_ = (AssInfoBlock) val_;
-                    aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
-                    aInfo_.buildExpressionLanguage(_context,assVars_);
-                    aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
+                    aInfo_.setAssignmentBeforeAsLeaf(assVars_,pr_);
+                    aInfo_.buildExpressionLanguage(assVars_, _page);
+                    aInfo_.setAssignmentAfterAsLeaf(assVars_,pr_, _page);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal((AssBlock) aInfo_).getFieldsRoot());
                     pr_ = (AssBlock) aInfo_;
                 }
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
-                    anAss_ = page_.getResultsAnaInst().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaInst().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof MemberCallingsBlock && anAss_ != null) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
-                    tryAnalyseAssign(_context, assVars_, pr_, anAss_, assign_);
+                    tryAnalyseAssign(assVars_, pr_, anAss_, assign_, _page);
                     assAfter_.putAllMap(getFieldsRoot(assVars_, assign_));
-                    page_.clearAllLocalVars(assVars_);
+                    _page.clearAllLocalVars(assVars_);
                     pr_ = assign_;
                 }
             }
@@ -2651,10 +2640,10 @@ public final class ClassesUtil {
                 for (EntryCust<String, SimpleAssignment> a : assAfter_.entryList()) {
                     String fieldName_ = a.getKey();
                     ClassField key_ = new ClassField(fullName_, fieldName_);
-                    if (!ContextUtil.isFinalField(_context,key_)) {
+                    if (!ContextUtil.isFinalField(key_, _page)) {
                         continue;
                     }
-                    if (StringList.contains(page_.getInitFields(), fieldName_)) {
+                    if (StringList.contains(_page.getInitFields(), fieldName_)) {
                         continue;
                     }
                     //error
@@ -2664,9 +2653,9 @@ public final class ClassesUtil {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                                 un_.setFileName(c.getFile().getFileName());
                                 un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
-                                un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
+                                un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                                         fieldName_,fullName_);
-                                _context.getAnalyzing().addLocError(un_);
+                                _page.addLocError(un_);
                             }
                         }
                     }
@@ -2676,34 +2665,34 @@ public final class ClassesUtil {
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
-                    anAss_ = page_.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof NamedFunctionBlock && anAss_ != null) {
                     NamedFunctionBlock m_ = (NamedFunctionBlock) b;
                     AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
-                    tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
+                    tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
                     StringMap<SimpleAssignment> fieldsRoot_ = getFieldsRoot(assVars_, assign_);
                     for (EntryCust<String, SimpleAssignment> f: fieldsRoot_.entryList()) {
                         String fieldName_ = f.getKey();
                         ClassField key_ = new ClassField(fullName_, fieldName_);
-                        if (!ContextUtil.isFinalField(_context,key_)) {
+                        if (!ContextUtil.isFinalField(key_, _page)) {
                             continue;
                         }
-                        if (StringList.contains(page_.getInitFieldsCtors(),fieldName_)) {
+                        if (StringList.contains(_page.getInitFieldsCtors(),fieldName_)) {
                             continue;
                         }
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(c.getFile().getFileName());
                         un_.setIndexFile(m_.getNameOffset());
-                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
+                        un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                                 fieldName_,fullName_);
-                        _context.getAnalyzing().addLocError(un_);
+                        _page.addLocError(un_);
                     }
-                    page_.clearAllLocalVars(assVars_);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
         }
-        _context.getAnalyzing().setAssignedFields(true);
+        _page.setAssignedFields(true);
         assVars_.getFinalVariablesGlobal().getFields().clear();
         assVars_.getFinalVariablesGlobal().getFieldsRoot().clear();
         assVars_.getFinalVariablesGlobal().getFieldsRootBefore().clear();
@@ -2711,173 +2700,172 @@ public final class ClassesUtil {
         StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
         b_.clear();
 
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
-                    anAss_ = page_.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof NamedFunctionBlock && anAss_ != null) {
                     NamedFunctionBlock m_ = (NamedFunctionBlock) b;
                     AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
-                    tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
-                    page_.clearAllLocalVars(assVars_);
+                    tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
         }
-        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: page_.getResultsMethod().entryList()) {
+        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
             AnonymousFunctionBlock method_ = e.getKey();
             RootBlock c_ = method_.getParentType();
-            _context.getAnalyzing().setImporting(c_);
-            _context.getAnalyzing().setImportingAcces(new TypeAccessor(c_.getFullName()));
-            _context.getAnalyzing().setImportingTypes(c_);
-            _context.getAnalyzing().setGlobalClass(c_.getGenericString());
-            _context.getAnalyzing().setGlobalType(c_);
-            _context.getAnalyzing().setGlobalDirType(c_);
+            _page.setImporting(c_);
+            _page.setImportingAcces(new TypeAccessor(c_.getFullName()));
+            _page.setImportingTypes(c_);
+            _page.setGlobalClass(c_.getGenericString());
+            _page.setGlobalType(c_);
+            _page.setGlobalDirType(c_);
             AnalyzingEl anAss_ = e.getValue();
             assVars_.setCache(method_.getCache());
             AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), method_);
-            tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
-            page_.clearAllLocalVars(assVars_);
+            tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
         }
         assVars_.setCache(new AnaCache());
-        page_.setGlobalClass("");
-        page_.setGlobalType((RootBlock)null);
-        page_.setGlobalDirType(null);
-        for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
+        _page.setGlobalClass("");
+        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalDirType(null);
+        for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
             AnalyzingEl anAss_ = e.getValue();
             AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
-            tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
-            page_.clearAllLocalVars(assVars_);
+            tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
         }
     }
 
-    private static void tryAnalyseAssign(ContextEl _context, AssignedVariablesBlock assVars_, AssBlock pr_, AnalyzingEl anAss_, AssMemberCallingsBlock assign_) {
+    private static void tryAnalyseAssign(AssignedVariablesBlock assVars_, AssBlock pr_, AnalyzingEl anAss_, AssMemberCallingsBlock assign_, AnalyzedPageEl _page) {
         if (!anAss_.isVariableIssue()) {
-            assign_.buildFctInstructions(_context,pr_,assVars_);
+            assign_.buildFctInstructions(pr_,assVars_, _page);
         }
     }
 
-    private static void validateSimFinals(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
+    private static void validateSimFinals(AnalyzedPageEl _page) {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
-        _context.getAnalyzing().setAssignedStaticFields(false);
-        _context.getAnalyzing().setAssignedFields(false);
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        _page.setAssignedStaticFields(false);
+        _page.setAssignedFields(false);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
-                    anAss_ = page_.getResultsAna().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAna().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof MemberCallingsBlock && anAss_ != null) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
-                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-                    page_.clearAllLocalVars(assVars_);
+                    tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
         }
-        _context.getAnalyzing().setAssignedStaticFields(true);
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getInitFields().clear();
-            page_.getAssignedDeclaredFields().clear();
-            page_.getAllDeclaredFields().clear();
+        _page.setAssignedStaticFields(true);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getInitFields().clear();
+            _page.getAssignedDeclaredFields().clear();
+            _page.getAllDeclaredFields().clear();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
-                    anAss_ = page_.getResultsAnaInst().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaInst().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof MemberCallingsBlock && anAss_ != null) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
-                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-                    page_.clearAllLocalVars(assVars_);
+                    tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
-                    anAss_ = page_.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof NamedFunctionBlock && anAss_ != null) {
                     NamedFunctionBlock m_ = (NamedFunctionBlock) b;
                     AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
-                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-                    page_.clearAllLocalVars(assVars_);
+                    tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
         }
-        _context.getAnalyzing().setAssignedFields(true);
+        _page.setAssignedFields(true);
 
-        for (RootBlock c: page_.getMapTypes().getKeys()) {
-            page_.setImporting(c);
-            page_.setGlobalClass(c.getGenericString());
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
+        for (RootBlock c: _page.getMapTypes().getKeys()) {
+            _page.setImporting(c);
+            _page.setGlobalClass(c.getGenericString());
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
-                    anAss_ = page_.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
+                    anAss_ = _page.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
                 }
                 if (b instanceof NamedFunctionBlock && anAss_ != null) {
                     NamedFunctionBlock m_ = (NamedFunctionBlock) b;
                     AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
-                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-                    page_.clearAllLocalVars(assVars_);
+                    tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+                    _page.clearAllLocalVars(assVars_);
                 }
             }
         }
 
-        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: page_.getResultsMethod().entryList()) {
+        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
             AnonymousFunctionBlock method_ = e.getKey();
             RootBlock c_ = method_.getParentType();
-            _context.getAnalyzing().setImporting(c_);
-            _context.getAnalyzing().setImportingAcces(new TypeAccessor(c_.getFullName()));
-            _context.getAnalyzing().setImportingTypes(c_);
-            _context.getAnalyzing().setGlobalClass(c_.getGenericString());
-            _context.getAnalyzing().setGlobalType(c_);
-            _context.getAnalyzing().setGlobalDirType(c_);
+            _page.setImporting(c_);
+            _page.setImportingAcces(new TypeAccessor(c_.getFullName()));
+            _page.setImportingTypes(c_);
+            _page.setGlobalClass(c_.getGenericString());
+            _page.setGlobalType(c_);
+            _page.setGlobalDirType(c_);
             AnalyzingEl anAss_ = e.getValue();
             assVars_.setCache(method_.getCache());
             AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), method_);
-            tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-            page_.clearAllLocalVars(assVars_);
+            tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
         }
         assVars_.setCache(new AnaCache());
-        page_.setGlobalClass("");
-        page_.setGlobalType((RootBlock)null);
-        page_.setGlobalDirType(null);
-        for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
+        _page.setGlobalClass("");
+        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalDirType(null);
+        for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
             AnalyzingEl anAss_ = e.getValue();
             AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
-            tryAnalyseAssign(_context, assVars_, anAss_, assign_);
-            page_.clearAllLocalVars(assVars_);
+            tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
         }
     }
-    private static void tryAnalyseAssign(ContextEl _context, AssignedVariablesBlock assVars_, AnalyzingEl anAss_, AssSimStdMethodBlock assign_) {
+    private static void tryAnalyseAssign(AssignedVariablesBlock assVars_, AnalyzingEl anAss_, AssSimStdMethodBlock assign_, AnalyzedPageEl _page) {
         if (!anAss_.isVariableIssue()) {
-            assign_.buildFctInstructions(_context,assVars_);
+            assign_.buildFctInstructions(assVars_, _page);
         }
     }
 
@@ -2889,12 +2877,11 @@ public final class ClassesUtil {
         return val_.getFieldsRoot();
     }
 
-    private static void putCallOperator(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        if (page_.getFoundOperators().isEmpty()) {
+    private static void putCallOperator(AnalyzedPageEl _page) {
+        if (_page.getFoundOperators().isEmpty()) {
             return;
         }
-        page_.getCoverage().putCalls("");
+        _page.getCoverage().putCalls("");
     }
 
     private static StringList getErFields(InfoBlock f_, int v_) {
@@ -2910,9 +2897,9 @@ public final class ClassesUtil {
                 || method_.getKind() == MethodKind.TRUE_OPERATOR || method_.getKind() == MethodKind.FALSE_OPERATOR;
     }
 
-    private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
+    private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
         if (_method.getKind() == MethodKind.SET_INDEX) {
-            String p_ = _context.getAnalyzing().getKeyWords().getKeyWordValue();
+            String p_ = _page.getKeyWords().getKeyWordValue();
             CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
             for (Block d: getDirectChildren(_cl)) {
                 if (!(d instanceof OverridableBlock)) {
@@ -2939,7 +2926,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processInterfaceCtor(ContextEl _context, RootBlock _cl, String _name, CustList<Block> _blocks) {
+    private static void processInterfaceCtor(RootBlock _cl, String _name, CustList<Block> _blocks, AnalyzedPageEl _page) {
         boolean hasCtor_ = false;
         for (Block b: _blocks) {
             if (b instanceof ConstructorBlock) {
@@ -2952,16 +2939,15 @@ public final class ClassesUtil {
             UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
             StringList all_ = _cl.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            AnalyzedPageEl page_ = _context.getAnalyzing();
-            StringList.removeAllElements(allCopy_, page_.getStandards().getPredefinedInterfacesInitOrder());
+            StringList.removeAllElements(allCopy_, _page.getStandards().getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
-            RootBlock superType_ = page_.getAnaClassBody(superClassId_);
+            RootBlock superType_ = _page.getAnaClassBody(superClassId_);
             if (superType_ instanceof UniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             for (String i: allCopy_) {
-                RootBlock int_ = page_.getAnaClassBody(i);
+                RootBlock int_ = _page.getAnaClassBody(i);
                 if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
@@ -2981,17 +2967,17 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.getAnalyzing().getNeedInterfaces().clear();
-        _context.getAnalyzing().getNeedInterfaces().addAllElts(filteredCtor_);
+        _page.getNeedInterfaces().clear();
+        _page.getNeedInterfaces().addAllElts(filteredCtor_);
         if (!hasCtor_ && !filteredCtor_.isEmpty()) {
             FoundErrorInterpret undef_;
             undef_ = new FoundErrorInterpret();
             undef_.setFileName(_cl.getFile().getFileName());
             undef_.setIndexFile(0);
             //original id len
-            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getMustCallIntCtor(),
+            undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtor(),
                     _cl.getFullName());
-            _context.getAnalyzing().addLocError(undef_);
+            _page.addLocError(undef_);
             _cl.addNameErrors(undef_);
         }
     }
@@ -3036,25 +3022,24 @@ public final class ClassesUtil {
         }
     }
 
-    private static void checkConstField(ContextEl _context, StringList _err, RootBlock _cl, String _clName, String _field) {
-        if (_context.getAnalyzing().getClasses().getStaticFieldMap(_clName).getVal(_field) == null) {
+    private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
+        if (_page.getClasses().getStaticFieldMap(_clName).getVal(_field) == null) {
             if (!_cl.isStaticType()) {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cl.getFile().getFileName());
                 un_.setIndexFile(_cl.getOffset().getOffsetTrim());
                 //field name len
-                un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
+                un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                         _field,_clName);
-                _context.getAnalyzing().addLocError(un_);
+                _page.addLocError(un_);
                 _err.add(un_.getBuiltError());
             }
         }
     }
 
-    public static void initStaticFields(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+    public static void initStaticFields(AnalyzedPageEl _page) {
+        for (RootBlock c: _page.getFoundTypes()) {
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<Struct> cl_ = new StringMap<Struct>();
@@ -3070,13 +3055,13 @@ public final class ClassesUtil {
                     cl_.put(f, null);
                 }
             }
-            page_.getClasses().getStaticFields().put(fullName_, cl_);
+            _page.getClasses().getStaticFields().put(fullName_, cl_);
         }
         IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
@@ -3089,15 +3074,15 @@ public final class ClassesUtil {
                 if (!f_.isFinalField()) {
                     continue;
                 }
-                page_.setGlobalClass(c.getGenericString());
-                page_.setGlobalType(c);
-                page_.setGlobalDirType(c);
-                page_.setCurrentBlock(f_);
-                page_.setCurrentAnaBlock(f_);
-                page_.getMappingLocal().clear();
-                page_.getMappingLocal().putAllMap(c.getMappings());
-                page_.setCurrentFct(null);
-                CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_context);
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                _page.setCurrentBlock(f_);
+                _page.setCurrentAnaBlock(f_);
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(c.getMappings());
+                _page.setCurrentFct(null);
+                CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_page);
                 String cl_ = c.getFullName();
                 for (String f: f_.getFieldName()) {
                     ClassField k_ = new ClassField(cl_, f);
@@ -3109,15 +3094,15 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
-                Struct value_ = page_.getClasses().getStaticField(k_);
+                Struct value_ = _page.getClasses().getStaticField(k_);
                 if (value_ != null) {
                     continue;
                 }
                 ClassFieldBlock cf_ = e.getValue();
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
-                ElUtil.tryCalculate(f_,ops_, _context, k_.getFieldName());
-                value_ = page_.getClasses().getStaticField(k_);
+                ElUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
+                value_ = _page.getClasses().getStaticField(k_);
                 if (value_ != null) {
                     calculatedValue_ = true;
                     break;

@@ -398,35 +398,35 @@ public abstract class ProcessMethodCommon {
 
 
     protected static void buildFilesBodies(AnalyzedTestContext cont_, StringMap<String> files_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
-        ClassesUtil.buildFilesBodies(cont_.getContext(), files_,true,out_,outExec_);
+        ClassesUtil.buildFilesBodies(files_,true,out_,outExec_, cont_.getAnalyzing());
     }
 
     protected static void parseFiles(AnalyzedTestContext cont_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
-        ClassesUtil.parseFiles(cont_.getContext(),out_,outExec_);
+        ClassesUtil.parseFiles(out_,outExec_, cont_.getAnalyzing());
     }
 
     protected static void validateInheritingClasses(AnalyzedTestContext cont_) {
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        ClassesUtil.validateInheritingClasses(cont_.getAnalyzing());
     }
 
     protected static void validateIds(AnalyzedTestContext cont_) {
-        ClassesUtil.validateIds(cont_.getContext());
+        ClassesUtil.validateIds(cont_.getAnalyzing());
     }
 
     protected static void validateOverridingInherit(AnalyzedTestContext cont_) {
-        ClassesUtil.validateOverridingInherit(cont_.getContext());
+        ClassesUtil.validateOverridingInherit(cont_.getAnalyzing());
     }
 
     protected static void postValidation(AnalyzedTestContext ctx_) {
-        ClassesUtil.postValidation(ctx_.getContext());
+        ClassesUtil.postValidation(ctx_.getAnalyzing());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {
-        ClassesUtil.validateEl(cont_.getContext());
+        ClassesUtil.validateEl(cont_.getAnalyzing());
     }
 
     protected static void checkInterfaces(AnalyzedTestContext cont_) {
-        AnaTypeUtil.checkInterfaces(cont_.getContext());
+        AnaTypeUtil.checkInterfaces(cont_.getAnalyzing());
     }
 
     protected static AnalyzedTestContext ctxAna() {
@@ -574,11 +574,11 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont.getContext(), new StringMap<ExecFileBlock>());
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files, new StringMap<ExecFileBlock>(), _cont.getAnalyzing());
     }
 
     protected static void validateInheritingClassesId(AnalyzedTestContext cont_) {
-        ClassesUtil.validateInheritingClassesId(cont_.getContext());
+        ClassesUtil.validateInheritingClassesId(cont_.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtx() {
@@ -609,17 +609,17 @@ public abstract class ProcessMethodCommon {
         _page.putFileBlock(_fileName, fileBlock_);
         ContextEl ctx_ = context_.getContext();
         ctx_.getCoverage().putFile(fileBlock_);
-        _page.getErrors().putFile(ctx_,fileBlock_);
-        fileBlock_.processLinesTabsWithError(ctx_,_file);
+        _page.getErrors().putFile(fileBlock_, context_.getAnalyzing());
+        fileBlock_.processLinesTabsWithError(_file, context_.getAnalyzing());
         if (fileBlock_.getBinChars().isEmpty()) {
-            FileResolver.parseFile(fileBlock_, _fileName, _file, ctx_);
+            FileResolver.parseFile(fileBlock_, _fileName, _file, context_.getAnalyzing());
         }
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
-        ClassesUtil.fetchByFile(ctx_,basePkgFound_,pkgFound_,fileBlock_,exFile_);
+        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_,exFile_, context_.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {

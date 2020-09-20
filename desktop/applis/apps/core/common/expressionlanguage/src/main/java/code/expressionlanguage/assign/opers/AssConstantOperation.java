@@ -1,10 +1,9 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public final class AssConstantOperation extends AssLeafOperation {
     AssConstantOperation(OperationNode _ex) {
@@ -12,7 +11,7 @@ public final class AssConstantOperation extends AssLeafOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssUtil.setAssignments(this,_ass,_a);
     }
 }

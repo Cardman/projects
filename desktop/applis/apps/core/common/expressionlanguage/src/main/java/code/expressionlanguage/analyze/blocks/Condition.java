@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -13,7 +12,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -45,40 +43,37 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(conditionOffset);
-        page_.setOffset(0);
-        CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        err = page_.getCurrentEmptyPartErr();
-        root = page_.getCurrentRoot();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        _page.setGlobalOffset(conditionOffset);
+        _page.setOffset(0);
+        CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        err = _page.getCurrentEmptyPartErr();
+        root = _page.getCurrentRoot();
         ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperationsConditions(this);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperationsConditions(this);
+        _page.getCoverage().putBlockOperations(exec_,this);
         ExecOperationNode last_ = opCondition_.last();
-        processBoolean(_cont, last_, root);
+        processBoolean(last_, root, _page);
         argument = last_.getArgument();
     }
 
     protected abstract ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops);
 
-    private void processBoolean(ContextEl _cont, ExecOperationNode _elCondition, OperationNode _root) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    private void processBoolean(ExecOperationNode _elCondition, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching resultClass_ = _root.getResultClass();
-        if (!resultClass_.isBoolType(page_)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, page_.getStandards().getAliasPrimBoolean(), resultClass_);
+        if (!resultClass_.isBoolType(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), resultClass_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resultClass_.getImplicits().add(cl_);
                 resultClass_.setRootNumber(res_.getRootNumber());
                 resultClass_.setMemberNumber(res_.getMemberNumber());
             } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont, resultClass_);
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(resultClass_, _page);
                 if (trueOp_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     resultClass_.getImplicitsTest().add(cl_);
@@ -90,16 +85,16 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(conditionOffset);
                     //key word len
-                    un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(resultClass_.getNames(),"&"));
-                    _cont.getAnalyzing().addLocError(un_);
+                    _page.addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());
                 }
             }
         }
         resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        ElUtil.setImplicits(_elCondition, _cont.getAnalyzing(), _root);
+        ElUtil.setImplicits(_elCondition, _page, _root);
     }
 
 

@@ -1,10 +1,9 @@
 package code.expressionlanguage.assign.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.opers.AssAffectationOperation;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
-import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;
 
@@ -14,8 +13,8 @@ public final class AssignedBooleanLoopVariables extends AssignedBooleanVariables
 
     private StringMap<Assignment> variablesRootAfterInit = new StringMap<Assignment>();
     private StringMap<Assignment> fieldsRootAfterInit = new StringMap<Assignment>();
-    public void add(AssAffectationOperation _aff, ContextEl _an) {
-        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
+    public void add(AssAffectationOperation _aff, AnalyzedPageEl _page) {
+        if (_page.getForLoopPartState() == ForLoopPart.INIT) {
             return;
         }
         affectations.add(_aff);

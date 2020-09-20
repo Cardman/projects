@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.common.AccessEnum;
@@ -144,14 +143,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public void buildImportedType(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getClassNameOffset());
-        page_.setOffset(0);
-        page_.setCurrentBlock(this);
-        page_.setCurrentAnaBlock(this);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-        partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
+    public void buildImportedType(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(getClassNameOffset());
+        _page.setOffset(0);
+        _page.setCurrentBlock(this);
+        _page.setCurrentAnaBlock(this);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
     }
 
     @Override
@@ -159,23 +157,22 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return partOffsets;
     }
     @Override
-    public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
+    public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
         Calculation calcul_ = Calculation.staticCalculation(staticField);
-        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, calcul_);
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, calcul_, _page);
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(getOffset().getOffsetTrim());
             //value len
-            b_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotRetrievedFields());
-            _cont.getAnalyzing().addLocError(b_);
+            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+            _page.addLocError(b_);
             addNameRetErrors(b_);
         }
-        checkFieldsNames(_cont, this, _fieldNames, names_);
+        checkFieldsNames(this, _fieldNames, names_, _page);
         for (PartOffsetAffect n: names_) {
             PartOffset p_ = n.getPartOffset();
             String name_ = p_.getPart();
@@ -194,10 +191,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
     }
 
-    static CustList<StringList> checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
+    static CustList<StringList> checkFieldsNames(Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList(_fieldNames);
         CustList<StringList> found_ = new CustList<StringList>();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _page;
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
@@ -210,7 +207,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 b_.setIndexFile(_bl.getOffset().getOffsetTrim());
                 //trName_ len
                 b_.setBuiltError(mess_.getMessage());
-                _cont.getAnalyzing().addLocError(b_);
+                _page.addLocError(b_);
                 err_.add(b_.getBuiltError());
             }
             for (String m: idsField_) {
@@ -221,9 +218,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(_bl.getFile().getFileName());
                     //trName_ len
-                    duplicate_.buildError(_cont.getAnalyzing().getAnalysisMessages().getDuplicateField(),
+                    duplicate_.buildError(_page.getAnalysisMessages().getDuplicateField(),
                             trName_);
-                    _cont.getAnalyzing().addLocError(duplicate_);
+                    _page.addLocError(duplicate_);
                     err_.add(duplicate_.getBuiltError());
                 }
             }
@@ -240,40 +237,38 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
 
-    public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecFieldBlock _exec) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
+        processPutCoverage(_exec, _page);
+        _page.setIndexBlock(0);
+        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(staticField), _page));
+        root = _page.getCurrentRoot();
+    }
+    public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        processPutCoverage(_cont,_exec);
         page_.setIndexBlock(0);
-        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField)));
-        root = page_.getCurrentRoot();
-    }
-    public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        page_.setIndexBlock(0);
-        return ElUtil.getAnalyzedOperationsQucikly(value, _cont, Calculation.staticCalculation(staticField));
+        return ElUtil.getAnalyzedOperationsQucikly(value, Calculation.staticCalculation(staticField), _page);
     }
 
-    private void processPutCoverage(ContextEl _cont, ExecFieldBlock _exec) {
-        _cont.getAnalyzing().getCoverage().putBlockOperations(_exec,this);
-        _cont.getAnalyzing().getCoverage().putBlockOperations(this);
+    private void processPutCoverage(ExecFieldBlock _exec, AnalyzedPageEl _page) {
+        _page.getCoverage().putBlockOperations(_exec,this);
+        _page.getCoverage().putBlockOperations(this);
     }
 
-    public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
+    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
-            page_.setGlobalOffset(begin_);
-            page_.setOffset(0);
+            _page.setGlobalOffset(begin_);
+            _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(page_.getCurrentRoot());
+            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
+            roots.add(_page.getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

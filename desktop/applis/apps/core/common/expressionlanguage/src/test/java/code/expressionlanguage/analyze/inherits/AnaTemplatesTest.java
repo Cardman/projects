@@ -416,7 +416,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<String> vars_ = getVarTypes(cont_, null, "");
+        StringMap<String> vars_ = getVarTypes(null, "");
         assertEq(0, vars_.size());
     }
     @Test
@@ -430,13 +430,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         RootBlock root_ = cont_.getAnalyzing().getAnaClassBody("pkg.Ex");
-        StringMap<String> vars_ = getVarTypes(cont_, root_, "pkg.Ex<java.lang.Number>");
+        StringMap<String> vars_ = getVarTypes(root_, "pkg.Ex<java.lang.Number>");
         String inferred_ = tryInfer(cont_,"pkg.Ex..Inner", "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",vars_);
         assertEq("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", inferred_);
     }
 
-    private static StringMap<String> getVarTypes(AnalyzedTestContext cont_, RootBlock root_, String s) {
-        return AnaTemplates.getVarTypes(root_, s, cont_.getContext());
+    private static StringMap<String> getVarTypes(RootBlock root_, String s) {
+        return AnaTemplates.getVarTypes(root_, s);
     }
 
     @Test
@@ -477,7 +477,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static boolean isCorrectOrNumbers(AnalyzedTestContext context_, Mapping m_) {
-        return AnaTemplates.isCorrectOrNumbers(m_,context_.getContext());
+        return AnaTemplates.isCorrectOrNumbers(m_, context_.getAnalyzing());
     }
 
     @Test
@@ -2242,12 +2242,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertTrue(isCorrect(context_, m_));
     }
 
-    private static boolean isCorrect(ContextEl context_, Mapping m_) {
-        return AnaTemplates.isCorrect(m_,context_);
-    }
-
     private static boolean isCorrect(AnalyzedTestContext context_, Mapping m_) {
-        return AnaTemplates.isCorrect(m_,context_.getContext());
+        return AnaTemplates.isCorrect(m_, context_.getAnalyzing());
     }
 
     @Test
@@ -5120,12 +5116,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
-    private static String wildCardFormatReturn(ContextEl context_, String first_, String second_) {
-        return AnaTemplates.wildCardFormatReturn(first_, second_, context_);
-    }
-
     private static String wildCardFormatReturn(AnalyzedTestContext context_, String first_, String second_) {
-        return AnaTemplates.wildCardFormatReturn(first_, second_, context_.getContext());
+        return AnaTemplates.wildCardFormatReturn(first_, second_, context_.getAnalyzing());
     }
 
 
@@ -5178,7 +5170,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String wildCardFormatParam(AnalyzedTestContext context_, String first_, String second_) {
-        return AnaTemplates.wildCardFormatParam(first_, second_, context_.getContext());
+        return AnaTemplates.wildCardFormatParam(first_, second_, context_.getAnalyzing());
     }
 
 
@@ -6182,19 +6174,20 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static boolean process(AnalyzedTestContext _cont, StringMap<StringList> _t, String _className, boolean _exact) {
         AnaResultPartType resType_;
-        _cont.getAnalyzing().getCurrentBadIndexes().clear();
-        _cont.getAnalyzing().getAvailableVariables().clear();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.getCurrentBadIndexes().clear();
+        page_.getAvailableVariables().clear();
         for (EntryCust<String,StringList> s: _t.entryList()) {
-            _cont.getAnalyzing().getAvailableVariables().addEntry(s.getKey(),0);
+            page_.getAvailableVariables().addEntry(s.getKey(),0);
         }
         ContextEl ctx_ = _cont.getContext();
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", ctx_, null,null, -1,new CustList<PartOffset>());
+            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", null,null, -1,new CustList<PartOffset>(), page_);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className,false,"", ctx_,null,null, -1,new CustList<PartOffset>());
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className,false,"", null,null, -1,new CustList<PartOffset>(), page_);
         }
         assertTrue(!resType_.getResult().isEmpty());
-        return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, ctx_, _exact);
+        return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, _exact,page_);
     }
 
     @Test
@@ -6407,7 +6400,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getCorrectTemplateAll(AnalyzedTestContext cont_, StringMap<StringList> t_) {
-        return AnaTemplates.getCorrectTemplateAll("",new StringList(),t_,cont_.getContext());
+        return AnaTemplates.getCorrectTemplateAll("",new StringList(),t_, cont_.getAnalyzing());
     }
 
 
@@ -6443,20 +6436,20 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String tryInfer(AnalyzedTestContext cont_, String s, String s2, StringMap<String> _vars) {
-        return AnaTemplates.tryInfer(s, _vars, s2, cont_.getContext());
+        return AnaTemplates.tryInfer(s, _vars, s2, cont_.getAnalyzing());
     }
 
 
     private static ResultTernary getResultTernary(StringList one_, StringList two_, Argument argOne_, Argument argTwo_, StringMap<StringList> map_, AnalyzedTestContext c_) {
-        return AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_.getContext());
+        return AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_.getAnalyzing());
     }
 
     private static StringList getSuperTypesSet(AnalyzedTestContext c_, StringMap<StringList> _vars, StringList _list) {
-        return AnaTemplates.getSuperTypesSet(_list, _vars, c_.getContext());
+        return AnaTemplates.getSuperTypesSet(_list, _vars, c_.getAnalyzing());
     }
 
 
     private static StringList getTernarySubclasses(AnalyzedTestContext c_, StringMap<StringList> map_, StringList _list) {
-        return AnaTemplates.getTernarySubclasses(_list, map_, c_.getContext());
+        return AnaTemplates.getTernarySubclasses(_list, map_, c_.getAnalyzing());
     }
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
 import code.expressionlanguage.instr.PartOffset;
@@ -23,19 +23,19 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        tryCalculateNode(this, _conf);
+    public void tryCalculateNode(AnalyzedPageEl _page) {
+        tryCalculateNode(this, _page);
     }
-    public static void tryCalculateNode(MethodOperation _par, ContextEl _conf) {
+    public static void tryCalculateNode(MethodOperation _par, AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = _par.getChildrenNodes();
         for (OperationNode o: children_) {
             if (o.getArgument() == null) {
                 return;
             }
         }
-        _par.quickCalculate(_conf);
+        _par.quickCalculate(_page);
     }
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(AnalyzedPageEl _page) {
     }
 
     public final void appendChild(OperationNode _child) {

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
@@ -52,24 +51,24 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         getChildren().putAllMap(vs_);
     }
 
-    NameParametersFilter buildFilter(ContextEl _conf) {
+    NameParametersFilter buildFilter(AnalyzedPageEl _page) {
         NameParametersFilter out_ = buildQuickFilter(this);
-        buildFilter(out_,_conf);
+        buildFilter(out_, _page);
         out_.setOk(out_.getParameterFilterErr().isEmpty());
         return out_;
     }
-    private static void buildFilter(NameParametersFilter _filter, ContextEl _conf) {
+    private static void buildFilter(NameParametersFilter _filter, AnalyzedPageEl _page) {
         for (NamedArgumentOperation o: _filter.getParameterFilterErr()) {
             String name_ = o.getName();
-            o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _conf);
+            o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _page);
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
-            b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //param name len
-            b_.buildError(_conf.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
+            b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name_);
-            _conf.getAnalyzing().addLocError(b_);
+            _page.addLocError(b_);
             o.getErrs().add(b_.getBuiltError());
         }
     }
@@ -113,13 +112,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return "";
     }
 
-    protected static String tryGetRetType(ContextEl _an) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        FunctionBlock f_ = page_.getCurrentFct();
+    protected static String tryGetRetType(AnalyzedPageEl _page) {
+        FunctionBlock f_ = _page.getCurrentFct();
         if (f_ instanceof NamedFunctionBlock) {
             NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
             String ret_ = n_.getImportedReturnType();
-            String void_ = page_.getStandards().getAliasVoid();
+            String void_ = _page.getStandards().getAliasVoid();
             if (!StringList.quickEq(ret_, void_)) {
                 return ret_;
             }
@@ -154,13 +152,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return deltaCount_;
     }
 
-    protected static void tryGetCtors(ContextEl _an, String _typeInfer, CustList<ConstructorInfo> _ctors) {
+    protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
-        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(base_);
+        AnaGeneType g_ = _page.getAnaGeneType(base_);
         CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(g_);
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId().copy(base_);
-            if (exclude(g_,_an,null,-1, e)) {
+            if (exclude(g_, null,-1, e, _page)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();
@@ -169,16 +167,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             mloc_.setParametersNames(e.getParametersNames());
             mloc_.setParameters(pg_);
             mloc_.setClassName(_typeInfer);
-            mloc_.format(_an);
+            mloc_.format(_page);
             _ctors.add(mloc_);
         }
     }
-    protected static String tryParamFormat(NameParametersFilter _filter,Parametrable _param, String _name, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
+    protected static String tryParamFormat(NameParametersFilter _filter, Parametrable _param, String _name, int nbParentsInfer_, String type_, StringMap<String> vars_, AnalyzedPageEl _page) {
         if (!isValidNameIndex(_filter,_param,_name)) {
             return null;
         }
         int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
-        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _an);
+        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _page);
     }
     protected static boolean isValidNameIndex(NameParametersFilter _filter, Parametrable _param, String _name) {
         int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
@@ -204,7 +202,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return StringExpUtil.getPrettyArrayType(idMethod_.getParametersTypes().last());
     }
-    protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
+    protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, AnalyzedPageEl _page) {
         String parametersType_ = tryGetParam(_param,indexChild_);
         if (parametersType_ == null) {
             return null;
@@ -224,7 +222,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 cp_ = cpTwo_;
             }
         }
-        return AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+        return AnaTemplates.tryInfer(type_,vars_, cp_, _page);
     }
     protected static String tryGetParam(Parametrable _param, int indexChild_) {
         String parametersType_;
@@ -271,7 +269,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return apply_;
     }
 
-    protected static void filterByNameReturnType(ContextEl _an, String trimMeth_, boolean apply_, CustList<CustList<MethodInfo>> _methodInfos) {
+    protected static void filterByNameReturnType(String trimMeth_, boolean apply_, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
         int len_ = _methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = _methodInfos.get(i).size();
@@ -286,15 +284,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             _methodInfos.set(i, newList_);
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (apply_ && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
+            typeAff_ = tryGetRetType(_page);
         }
-        filterByReturnType(_an, typeAff_, _methodInfos);
+        filterByReturnType(typeAff_, _methodInfos, _page);
     }
 
-    protected static void filterByReturnType(ContextEl _an, String typeAff_, CustList<CustList<MethodInfo>> _methodInfos) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
+    protected static void filterByReturnType(String typeAff_, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(typeAff_, keyWordVar_)) {
             return;
@@ -302,7 +300,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int len_ = _methodInfos.size();
         Mapping mapping_ = new Mapping();
         mapping_.setParam(typeAff_);
-        StringMap<StringList> currVars_ = _an.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
         mapping_.setMapping(currVars_);
         for (int i = 0; i < len_; i++) {
             int gr_ = _methodInfos.get(i).size();
@@ -311,8 +309,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
                 String returnType_ = methodInfo_.getReturnType();
                 mapping_.setArg(returnType_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_,_an)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_an, typeAff_, new AnaClassArgumentMatching(returnType_));
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(typeAff_, new AnaClassArgumentMatching(returnType_), _page);
                     if (!res_.isFoundMethod()) {
                         continue;
                     }
@@ -323,21 +321,21 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
     }
 
-    protected static ClassMethodId getTrueFalse(ContextEl _conf, ClassMethodId _feedBase) {
+    protected static ClassMethodId getTrueFalse(ClassMethodId _feedBase, AnalyzedPageEl _page) {
         ClassMethodId f_ = _feedBase;
         if (f_ != null) {
             MethodId constraints_ = f_.getConstraints();
             String name_ = constraints_.getName();
             String className_ = f_.getClassName();
             StringList parametersTypes_ = constraints_.getParametersTypes();
-            parametersTypes_.add(0,_conf.getAnalyzing().getStandards().getAliasPrimBoolean());
+            parametersTypes_.add(0, _page.getStandards().getAliasPrimBoolean());
             f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
         }
         return f_;
     }
-    public static boolean isTrueFalseKeyWord(ContextEl _an, String _trimMeth) {
-        return StringList.quickEq(_trimMeth, _an.getAnalyzing().getKeyWords().getKeyWordTrue())
-                ||StringList.quickEq(_trimMeth, _an.getAnalyzing().getKeyWords().getKeyWordFalse());
+    public static boolean isTrueFalseKeyWord(String _trimMeth, AnalyzedPageEl _page) {
+        return StringList.quickEq(_trimMeth, _page.getKeyWords().getKeyWordTrue())
+                ||StringList.quickEq(_trimMeth, _page.getKeyWords().getKeyWordFalse());
     }
     protected static boolean isNotCorrectDim(String cp_) {
         return cp_ == null||cp_.startsWith("[");
@@ -387,15 +385,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return firstArgs_;
     }
-    static StringList getBounds(String _cl, ContextEl _conf) {
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    static StringList getBounds(String _cl, AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-            String glClass_ = page_.getGlobalClass();
+            String glClass_ = _page.getGlobalClass();
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            AnaGeneType gl_ = page_.getAnaGeneType(curClassBase_);
+            AnaGeneType gl_ = _page.getAnaGeneType(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
             for (TypeVar t: ContextUtil.getParamTypesMapValues(gl_)) {
                 mapping_.put(t.getName(), t.getConstraints());
@@ -407,20 +404,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return bounds_;
     }
 
-    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, ContextEl _conf) {
+    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, AnalyzedPageEl _page) {
         if (_natvararg > -1) {
             int lenCh_ = _args.size();
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
-                    if (AnaTypeUtil.isPrimitive(_lasttype, _conf.getAnalyzing())) {
-                        a_.getResultClass().setUnwrapObject(_lasttype,_conf.getAnalyzing().getStandards());
+                    if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
+                        a_.getResultClass().setUnwrapObject(_lasttype, _page.getStandards());
                         a_.quickCancel();
                     }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
-                    if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
-                        a_.getResultClass().setUnwrapObject(param_,_conf.getAnalyzing().getStandards());
+                    if (AnaTypeUtil.isPrimitive(param_, _page)) {
+                        a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
                         a_.quickCancel();
                     }
                 }
@@ -433,8 +430,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }
-                if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
-                    a_.getResultClass().setUnwrapObject(param_,_conf.getAnalyzing().getStandards());
+                if (AnaTypeUtil.isPrimitive(param_, _page)) {
+                    a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
                     a_.quickCancel();
                 }
             }

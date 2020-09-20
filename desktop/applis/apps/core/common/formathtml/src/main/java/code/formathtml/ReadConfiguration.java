@@ -58,29 +58,29 @@ public final class ReadConfiguration {
         ContextEl context_ = ContextFactory.simpleBuild(stack_, lk_, di_, opt_, kw_, _stds, tab_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_);
         _conf.setContext(context_);
-        AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
+        AnalysisMessages.validateMessageContents(rMess_.allMessages(), page_);
         if (!page_.isEmptyMessageError()) {
             _conf.setContext(null);
             return page_;
         }
         StringMap<String> allTags_ = rkw_.allTags();
-        rkw_.validateTagContents(allTags_, _conf.getContext().getAnalyzing());
-        rkw_.validateDuplicates(_conf,allTags_);
+        rkw_.validateTagContents(allTags_, page_);
+        rkw_.validateDuplicates(allTags_, page_);
         StringMap<String> allAttrs_ = rkw_.allAttrs();
-        rkw_.validateAttrContents(_conf,allAttrs_);
-        rkw_.validateDuplicates(_conf,allAttrs_);
+        rkw_.validateAttrContents(allAttrs_, page_);
+        rkw_.validateDuplicates(allAttrs_, page_);
         StringMap<String> allValues_ = rkw_.allValues();
-        rkw_.validateValueContents(allValues_, _conf.getContext().getAnalyzing());
-        rkw_.validateDuplicates(_conf,allValues_);
+        rkw_.validateValueContents(allValues_, page_);
+        rkw_.validateDuplicates(allValues_, page_);
         StringMap<String> allStyleAttrs_ = rkw_.allStyleAttrs();
-        rkw_.validateAttrContents(_conf,allStyleAttrs_);
-        rkw_.validateDuplicates(_conf,allStyleAttrs_);
+        rkw_.validateAttrContents(allStyleAttrs_, page_);
+        rkw_.validateDuplicates(allStyleAttrs_, page_);
         StringMap<String> allSyleValues_ = rkw_.allStyleValues();
-        rkw_.validateStyleValueContents(allSyleValues_, _conf.getContext().getAnalyzing());
-        rkw_.validateDuplicates(_conf,allSyleValues_);
+        rkw_.validateStyleValueContents(allSyleValues_, page_);
+        rkw_.validateDuplicates(allSyleValues_, page_);
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
-        rkw_.validateStyleUnitContents(allStyleUnits_, _conf.getContext().getAnalyzing());
-        rkw_.validateDuplicates(_conf,allStyleUnits_);
+        rkw_.validateStyleUnitContents(allStyleUnits_, page_);
+        rkw_.validateDuplicates(allStyleUnits_, page_);
         if (!page_.isEmptyStdError()) {
             _conf.setContext(null);
             return page_;

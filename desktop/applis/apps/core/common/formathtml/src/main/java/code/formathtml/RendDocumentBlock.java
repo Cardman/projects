@@ -94,7 +94,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 parents_.add((RendParentBlock) en_);
             }
             RendBlock n_ = en_.getFirstChild();
-            tryBuildExpressionLanguage(en_, _cont,this, _anaDoc);
+            tryBuildExpressionLanguage(en_, _cont,this, _anaDoc, _page);
             reduce(en_,_cont);
             if (n_ != null) {
                 en_ = n_;
@@ -191,7 +191,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
     }
 
     public String getFile() {

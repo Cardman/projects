@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -48,36 +47,34 @@ public final class ReturnMethod extends AbruptBlock {
 
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        String retType_ = processReturnValue(_cont);
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        String retType_ = processReturnValue(_page);
         if (retType_.isEmpty()) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
             ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
-            exec_.setFile(page_.getBlockToWrite().getFile());
-            page_.getBlockToWrite().appendChild(exec_);
-            page_.getCoverage().putBlockOperations(exec_,this);
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getCoverage().putBlockOperations(exec_,this);
             return;
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
-        if (!page_.getCurrentEmptyPartErr().isEmpty()) {
-            getErrorsBlock().add(page_.getCurrentEmptyPartErr());
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(stCtx_), _page);
+        if (!_page.getCurrentEmptyPartErr().isEmpty()) {
+            getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        checkTypes(_cont, retType_, op_.last(), page_.getCurrentRoot());
+        checkTypes(retType_, op_.last(), _page.getCurrentRoot(), _page);
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
-        root = page_.getCurrentRoot();
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        root = _page.getCurrentRoot();
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private String processReturnValue(ContextEl _cont) {
-        LgNames stds_ = _cont.getAnalyzing().getStandards();
+    private String processReturnValue(AnalyzedPageEl _page) {
+        LgNames stds_ = _page.getStandards();
         String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();
         while (par_ != null) {
@@ -96,11 +93,10 @@ public final class ReturnMethod extends AbruptBlock {
         }
         return retType_;
     }
-    private void checkTypes(ContextEl _cont, String _retType, ExecOperationNode _ret, OperationNode _root) {
+    private void checkTypes(String _retType, ExecOperationNode _ret, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching ret_ = _root.getResultClass();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
+        LgNames stds_ = _page.getStandards();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(ret_);
@@ -110,48 +106,45 @@ public final class ReturnMethod extends AbruptBlock {
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //original type
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getVoidType(),
+            cast_.buildError(_page.getAnalysisMessages().getVoidType(),
                     _retType);
-            _cont.getAnalyzing().addLocError(cast_);
+            _page.addLocError(cast_);
             getErrorsBlock().add(cast_.getBuiltError());
             setReachableError(true);
             return;
         }
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
+        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
             //look for implicit casts
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, ret_);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_retType, ret_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 ret_.getImplicits().add(cl_);
                 ret_.setRootNumber(res_.getRootNumber());
                 ret_.setMemberNumber(res_.getMemberNumber());
-//                _ret.getResultClass().getImplicits().add(cl_);
-//                _ret.getResultClass().setRootNumber(res_.getRootNumber());
-//                _ret.getResultClass().setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //original type
-                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(ret_.getNames(), "&"),
                         _retType);
-                _cont.getAnalyzing().addLocError(cast_);
+                _page.addLocError(cast_);
                 setReachableError(true);
                 getErrorsBlock().add(cast_.getBuiltError());
             }
 
         }
-        if (AnaTypeUtil.isPrimitive(_retType, page_)) {
-            ret_.setUnwrapObject(_retType,page_.getStandards());
+        if (AnaTypeUtil.isPrimitive(_retType, _page)) {
+            ret_.setUnwrapObject(_retType, _page.getStandards());
         }
-        ElUtil.setImplicits(_ret, _cont.getAnalyzing(), _root);
+        ElUtil.setImplicits(_ret, _page, _root);
     }
 
 
     @Override
-    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
-        super.abrupt(_an, _anEl);
+    public void abrupt(AnalyzingEl _anEl) {
+        super.abrupt(_anEl);
         BracedBlock par_ = getParent();
         IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
         BracedBlock a_;

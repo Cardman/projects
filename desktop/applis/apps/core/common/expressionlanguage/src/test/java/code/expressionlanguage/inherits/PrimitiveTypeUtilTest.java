@@ -1,7 +1,6 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
@@ -46,7 +45,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     }
 
     private static int cmpTypes(AnalyzedTestContext context_, String int_, String nb_) {
-        return AnaTypeUtil.cmpTypes(nb_,int_,context_.getContext());
+        return AnaTypeUtil.cmpTypes(nb_,int_, context_.getAnalyzing());
     }
 
     @Test
@@ -78,7 +77,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     }
 
     private static StringList getSubclasses(AnalyzedTestContext context_, StringList classes_) {
-        return AnaTypeUtil.getSubclasses(classes_, context_.getContext());
+        return AnaTypeUtil.getSubclasses(classes_, context_.getAnalyzing());
     }
 
     private AnalyzedTestContext simpleContextEl() {

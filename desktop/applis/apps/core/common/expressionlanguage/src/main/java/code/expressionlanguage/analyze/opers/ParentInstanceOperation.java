@@ -1,14 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ParentInstanceOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -21,26 +19,26 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         StringList converted_ = new StringList();
         if (isIntermediateDottedOperation()) {
             for (String p:previousResultClass.getNames()) {
                 if (p.startsWith(AnaTemplates.ARR_BEG_STRING)) {
                     continue;
                 }
-                converted_.addAllElts(InvokingOperation.getBounds(p,_conf));
+                converted_.addAllElts(InvokingOperation.getBounds(p, _page));
             }
         } else {
-            converted_.add(_conf.getAnalyzing().getGlobalClass());
+            converted_.add(_page.getGlobalClass());
         }
-        StringList rs_ = getParentTypeList(_conf,converted_);
+        StringList rs_ = getParentTypeList(converted_, _page);
         setResultClass(new AnaClassArgumentMatching(rs_));
     }
 
-    static StringList getParentTypeList(ContextEl _conf, StringList _converted) {
+    static StringList getParentTypeList(StringList _converted, AnalyzedPageEl _page) {
         StringList rs_ = getParentType(_converted);
         if (rs_.isEmpty()) {
-            return new StringList(_conf.getAnalyzing().getStandards().getAliasObject());
+            return new StringList(_page.getStandards().getAliasObject());
         }
         return rs_;
     }

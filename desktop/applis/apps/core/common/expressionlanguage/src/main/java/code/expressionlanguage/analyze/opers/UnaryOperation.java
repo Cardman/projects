@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -33,50 +32,49 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
+    public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
-            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),page_)) {
+            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
                 classMethodId = clId_.getSymbol();
                 rootNumber = clId_.getRootNumber();
                 memberNumber = clId_.getMemberNumber();
             }
             return;
         }
-        AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, page_);
+        AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
         if (child_ instanceof ConstantOperation) {
             Argument arg_ = child_.getArgument();
             Struct instance_ = arg_.getStruct();
             if (instance_ instanceof ByteStruct) {
-                clMatch_.setUnwrapObject(cl_,page_.getStandards());
-                setResultClass(AnaClassArgumentMatching.copy(cl_,page_.getStandards()));
+                clMatch_.setUnwrapObject(cl_, _page.getStandards());
+                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
                 return;
             }
             if (instance_ instanceof ShortStruct) {
-                clMatch_.setUnwrapObject(cl_,page_.getStandards());
-                setResultClass(AnaClassArgumentMatching.copy(cl_,page_.getStandards()));
+                clMatch_.setUnwrapObject(cl_, _page.getStandards());
+                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
                 return;
             }
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (!AnaTypeUtil.isPureNumberClass(clMatch_,page_)) {
-            page_.setOkNumOp(false);
-            String exp_ = page_.getStandards().getAliasNumber();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        if (!AnaTypeUtil.isPureNumberClass(clMatch_, _page)) {
+            _page.setOkNumOp(false);
+            String exp_ = _page.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){
                 getErrs().add(un_.getBuiltError());
             }
@@ -84,21 +82,21 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             setResultClass(arg_);
             return;
         }
-        if (AnaTypeUtil.isIntOrderClass(cl_, _conf)) {
-            int res_ = AnaTypeUtil.getIntOrderClass(cl_, _conf);
-            int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
+        if (AnaTypeUtil.isIntOrderClass(cl_, _page)) {
+            int res_ = AnaTypeUtil.getIntOrderClass(cl_, _page);
+            int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _page);
             if (res_ < intOrder_) {
                 cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
             }
         }
-        clMatch_.setUnwrapObject(cl_,page_.getStandards());
+        clMatch_.setUnwrapObject(cl_, _page.getStandards());
         child_.quickCancel();
-        setResultClass(AnaClassArgumentMatching.copy(cl_,page_.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this,classMethodId,oper, _conf.getAnalyzing());
+    public void quickCalculate(AnalyzedPageEl _page) {
+        tryGetArg(this,classMethodId,oper, _page);
     }
 
     private static void tryGetArg(MethodOperation _par, ClassMethodId _m, String _oper, AnalyzedPageEl _page) {

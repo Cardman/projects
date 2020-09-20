@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -22,12 +23,12 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock function;
 
-    public ExecConstructorLambdaOperation(LambdaOperation _l, ContextEl _cont) {
+    public ExecConstructorLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
         super(_l);
         realId = _l.getRealId();
-        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
-        rootBlock = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
-        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+        rootBlock = fetchType(_l.getRootNumber(), _page);
+        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
     }
 
     @Override

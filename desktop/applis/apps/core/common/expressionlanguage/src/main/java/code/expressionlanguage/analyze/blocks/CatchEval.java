@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -53,29 +52,27 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        processVariable(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        processVariable(_page);
         ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName, importedClassName);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void processVariable(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.getCoverage().putCatches(this);
-        page_.setGlobalOffset(variableNameOffset);
-        page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+    private void processVariable(AnalyzedPageEl _page) {
+        _page.getCoverage().putCatches(this);
+        _page.setGlobalOffset(variableNameOffset);
+        _page.setOffset(0);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
             //variable name
             d_.setBuiltError(res_.getMessage());
-            _cont.getAnalyzing().addLocError(d_);
+            _page.addLocError(d_);
             nameErrors.add(d_.getBuiltError());
             return;
         }
@@ -83,16 +80,15 @@ public final class CatchEval extends AbstractCatchEval {
         lv_.setClassName(importedClassName);
         lv_.setRef(variableNameOffset);
         lv_.setConstType(ConstType.FIX_VAR);
-        _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
+        _page.getInfosVars().put(variableName, lv_);
     }
 
     @Override
-    public void reach(ContextEl _an, AnalyzingEl _anEl) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_an,className);
-        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
+    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
@@ -108,7 +104,7 @@ public final class CatchEval extends AbstractCatchEval {
         boolean reachCatch_ = true;
         for (String c: classes_) {
             _anEl.setParamMapping(c);
-            if (_anEl.isCorrectMapping(_an)) {
+            if (_anEl.isCorrectMapping(_page)) {
                 reachCatch_ = false;
                 break;
             }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -16,26 +15,25 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
     @Override
-    public final void analyze(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+    public final void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         MethodOperation.processEmptyError(getFirstChild(),getErrs());
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
-            AnalyzedPageEl page_ = _conf.getAnalyzing();
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //first operator part
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(children_.size()));
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        analyzeUnary(_conf);
+        analyzeUnary(_page);
     }
     boolean isFirstKo() {
         CustList<OperationNode> children_ = getChildrenNodes();
@@ -46,15 +44,15 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    public abstract void analyzeUnary(ContextEl _conf);
+    public abstract void analyzeUnary(AnalyzedPageEl _page);
 
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        setArg(_conf, this);
+    public void tryCalculateNode(AnalyzedPageEl _page) {
+        setArg(this, _page);
     }
 
-    private static void setArg(ContextEl _conf, AbstractUnaryOperation _current) {
+    private static void setArg(AbstractUnaryOperation _current, AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = _current.getChildrenNodes();
         if (children_.size() != 1) {
             return;
@@ -64,6 +62,6 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
                 return;
             }
         }
-        _current.quickCalculate(_conf);
+        _current.quickCalculate(_page);
     }
 }

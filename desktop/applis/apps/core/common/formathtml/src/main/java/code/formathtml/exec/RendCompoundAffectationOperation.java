@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -29,14 +29,14 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
-    public RendCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
+    public RendCompoundAffectationOperation(CompoundAffectationOperation _c, AnalyzedPageEl _page) {
         super(_c);
         oper = _c.getOper();
         kind = ExecOperationNode.getKind(_c.getClassMethodId());
         className = ExecOperationNode.getType(_c.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = ExecOperationNode.fetchType(_c.getRootNumber(), _context.getAnalyzing());
-        converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
+        named = ExecOperationNode.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
+        rootBlock = ExecOperationNode.fetchType(_c.getRootNumber(), _page);
+        converter = ExecOperationNode.fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
     }
 
     public void setup() {

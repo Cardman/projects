@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.analyze.opers.CurrentInvokingConstructor;
@@ -11,8 +12,8 @@ import code.util.IdMap;
 
 public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    public ExecCurrentInvokingConstructor(CurrentInvokingConstructor _current, ContextEl _context) {
-        super(_current,_context);
+    public ExecCurrentInvokingConstructor(CurrentInvokingConstructor _current, AnalyzedPageEl _page) {
+        super(_current, _page);
     }
 
 

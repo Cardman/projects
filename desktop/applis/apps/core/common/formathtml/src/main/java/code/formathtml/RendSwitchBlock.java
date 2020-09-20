@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -55,32 +54,31 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
-        result = page_.getCurrentRoot().getResultClass();
-        AnaClassArgumentMatching clArg_ = page_.getCurrentRoot().getResultClass();
+        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _page);
+        result = _page.getCurrentRoot().getResultClass();
+        AnaClassArgumentMatching clArg_ = _page.getCurrentRoot().getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
+            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _page);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _cont.getContext().getAnalyzing().getAnaGeneType(id_);
+            AnaGeneType classBody_ = _page.getAnaGeneType(id_);
             boolean final_ = true;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);
             } else if (type_.startsWith("[")) {
                 final_ = false;
             }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
@@ -89,9 +87,9 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
                             un_.setFileName(_anaDoc.getFileName());
                             un_.setIndexFile(valueOffset);
-                            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                            Configuration.addError(un_, _anaDoc, _page);
                         }
                     } else {
                         enumTest = true;
@@ -114,20 +112,20 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 first_ = first_.getNextSibling();
                 continue;
             }
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
+            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
-                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
+                    _page.getKeyWords().getKeyWordSwitch(),
                     StringList.join(
                             new StringList(
-                                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCase(),
-                                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDefault()
+                                    _page.getKeyWords().getKeyWordCase(),
+                                    _page.getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _page);
             first_ = first_.getNextSibling();
         }
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -11,8 +12,8 @@ import code.util.IdMap;
 
 public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConstructor {
     private String className;
-    public ExecInterfaceFctConstructor(InterfaceFctConstructor _abs, ContextEl _context) {
-        super(_abs,_context);
+    public ExecInterfaceFctConstructor(InterfaceFctConstructor _abs, AnalyzedPageEl _page) {
+        super(_abs, _page);
         className = _abs.getClassName();
     }
 

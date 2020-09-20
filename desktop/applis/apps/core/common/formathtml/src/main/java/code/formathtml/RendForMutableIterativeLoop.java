@@ -103,81 +103,80 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(classIndexNameOffset);
-        page_.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setOffset(0);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _page);
         }
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
         if (!className.isEmpty()) {
-            KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
+            KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
+                importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
             }
-            page_.setMerged(true);
-            page_.setFinalVariable(false);
-            page_.setCurrentVarSetting(importedClassName);
+            _page.setMerged(true);
+            _page.setFinalVariable(false);
+            _page.setCurrentVarSetting(importedClassName);
         } else {
-            page_.setMerged(false);
+            _page.setMerged(false);
         }
-        page_.getVariablesNames().clear();
-        page_.getVariablesNamesToInfer().clear();
-        page_.setGlobalOffset(initOffset);
-        page_.setOffset(0);
+        _page.getVariablesNames().clear();
+        _page.getVariablesNamesToInfer().clear();
+        _page.setGlobalOffset(initOffset);
+        _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrInit());
-        page_.setForLoopPartState(ForLoopPart.INIT);
-        page_.setAcceptCommaInstr(true);
+        _page.setForLoopPartState(ForLoopPart.INIT);
+        _page.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
-            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _page);
         }
-        if (page_.isMerged()) {
-            StringList vars_ = page_.getVariablesNames();
-            String t_ = inferOrObject(_cont,importedClassName);
-            AffectationOperation.processInferLoop(_cont.getContext(), t_);
+        if (_page.isMerged()) {
+            StringList vars_ = _page.getVariablesNames();
+            String t_ = inferOrObject(importedClassName, _page);
+            AffectationOperation.processInferLoop(t_, _page);
             getVariableNames().addAllElts(vars_);
         }
-        page_.setMerged(false);
-        page_.setAcceptCommaInstr(false);
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
+        _page.setMerged(false);
+        _page.setAcceptCommaInstr(false);
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        page_.setForLoopPartState(ForLoopPart.CONDITION);
+        _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
-            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc, _page);
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
-            LgNames stds_ = page_.getStandards();
-            OperationNode root_ = page_.getCurrentRoot();
+            LgNames stds_ = _page.getStandards();
+            OperationNode root_ = _page.getCurrentRoot();
             AnaClassArgumentMatching exp_ = root_.getResultClass();
-            if (!exp_.isBoolType(page_)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
+            if (!exp_.isBoolType(_page)) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getStandards().getAliasPrimBoolean(), exp_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     exp_.getImplicits().add(cl_);
                     exp_.setRootNumber(res_.getRootNumber());
                     exp_.setMemberNumber(res_.getMemberNumber());
                 } else {
-                    ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont.getContext(), exp_);
+                    ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                     if (trueOp_.isFoundMethod()) {
                         ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                         exp_.getImplicitsTest().add(cl_);
@@ -187,24 +186,24 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(expressionOffset);
-                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(exp_.getNames(),AND_ERR));
-                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _page);
                     }
                 }
             }
             exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing(), root_);
+            RenderExpUtil.setImplicits(elCondition_, _page, root_);
         }
-        buildIncrementPart(_cont,_doc, _anaDoc);
+        buildIncrementPart(_cont,_doc, _anaDoc, _page);
     }
 
     public String getImportedClassIndexName() {
         return importedClassIndexName;
     }
 
-    public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _an.getContext().getAnalyzing();
+    public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
@@ -215,7 +214,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {
-            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc, _an.getContext().getAnalyzing());
+            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc, _page);
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);

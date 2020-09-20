@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -23,13 +23,13 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
-    public RendQuickOperation(QuickOperation _q, ContextEl _context) {
+    public RendQuickOperation(QuickOperation _q, AnalyzedPageEl _page) {
         super(_q);
         kind = ExecOperationNode.getKind(_q.getClassMethodId());
         className = ExecOperationNode.getType(_q.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _context.getAnalyzing());
-        rootBlock = ExecOperationNode.fetchType(_q.getRootNumber(), _context.getAnalyzing());
-        converter = ExecOperationNode.fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
+        named = ExecOperationNode.fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _page);
+        rootBlock = ExecOperationNode.fetchType(_q.getRootNumber(), _page);
+        converter = ExecOperationNode.fetchImplicits(_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv(), _page);
     }
 
     @Override

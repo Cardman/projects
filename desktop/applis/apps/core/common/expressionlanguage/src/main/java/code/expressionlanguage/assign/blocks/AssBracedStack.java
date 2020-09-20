@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.assign.opers.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
@@ -12,12 +12,12 @@ public abstract class AssBracedStack extends AssBracedBlock {
     AssBracedStack(boolean _completeNormally, boolean _completeNormallyGroup) {
         super(_completeNormally,_completeNormallyGroup);
     }
-    protected void buildConditions(ContextEl _cont, AssignedVariablesBlock _a) {
+    protected void buildConditions(AssignedVariablesBlock _a) {
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _a.getFinalVariables().getVal(this);
         res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastFieldsOrEmpty()));
         res_.getVariablesRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastVariablesOrEmpty()));
     }
-    protected void assignWhenFalse(boolean _add,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected void assignWhenFalse(boolean _add, AssignedVariablesBlock _anEl) {
         AssBlock firstChild_;
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
@@ -30,7 +30,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         if (!(parAss_ instanceof AssignedBooleanVariables)) {
-            super.setAssignmentBeforeChild(_an, _anEl);
+            super.setAssignmentBeforeChild(_anEl);
             return;
         }
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
@@ -38,7 +38,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenFalse(abv_.getVariablesRootAfter()));
         id_.put(firstChild_, assBl_);
     }
-    protected void assignWhenTrue(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected void assignWhenTrue(AssignedVariablesBlock _anEl) {
         AssBlock firstChild_ = getFirstChild();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
@@ -48,10 +48,9 @@ public abstract class AssBracedStack extends AssBracedBlock {
         assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenTrue(abv_.getVariablesRootAfter()));
         id_.put(firstChild_, assBl_);
     }
-    protected void processFinalFields(ContextEl _an,
-                                      IdMap<AssBlock, AssignedVariables> _allDesc,
+    protected void processFinalFields(IdMap<AssBlock, AssignedVariables> _allDesc,
                                       AssignedVariables _root,
-                                      StringMap<AssignmentBefore> _fields) {
+                                      StringMap<AssignmentBefore> _fields, AnalyzedPageEl _page) {
         AssignedVariables vars_;
         for (EntryCust<String,AssignmentBefore> e: _fields.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -61,20 +60,20 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 continue;
             }
             String key_ = e.getKey();
-            processFinalFields(this, false, _an, _root, key_);
+            processFinalFields(this, false, _root, key_, _page);
             for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
                 AssBlock next_ = d.getKey();
                 //next siblings of d
-                processFinalFields(next_, true, _an, vars_, key_);
+                processFinalFields(next_, true, vars_, key_, _page);
             }
         }
     }
 
-    protected void processFinalVars(ContextEl _an, AssignedVariablesBlock _anEl,
+    protected void processFinalVars(AssignedVariablesBlock _anEl,
                                     IdMap<AssBlock, AssignedVariables> _allDesc,
                                     AssignedVariables _root,
-                                    StringMap<AssignmentBefore> _fields) {
+                                    StringMap<AssignmentBefore> _fields, AnalyzedPageEl _page) {
         AssignedVariables vars_;
         for (EntryCust<String,AssignmentBefore> e: _fields.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -87,18 +86,18 @@ public abstract class AssBracedStack extends AssBracedBlock {
             if (!_anEl.isFinalLocalVar(key_)) {
                 continue;
             }
-            processFinalVars(this, false, _an, _root, key_);
+            processFinalVars(this, false, _root, key_, _page);
             for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
                 AssBlock next_ = d.getKey();
                 //next siblings of d
-                processFinalVars(next_,true, _an, vars_, key_);
+                processFinalVars(next_,true, vars_, key_, _page);
             }
         }
 
     }
 
-    protected static void processFinalVars(AssBlock _curBlock, boolean _all, ContextEl _an, AssignedVariables _vars, String _field) {
+    protected static void processFinalVars(AssBlock _curBlock, boolean _all, AssignedVariables _vars, String _field, AnalyzedPageEl _page) {
         for (AssAffectationOperation f: _vars.getVariablesBefore(_curBlock,_all)) {
             AssOperationNode set_ = f.getSettableOp();
             if (!(set_ instanceof AssStdVariableOperation)) {
@@ -109,17 +108,17 @@ public abstract class AssBracedStack extends AssBracedBlock {
             if (!StringList.quickEq(str_, _field)) {
                 continue;
             }
-            cst_.setRelativeOffsetPossibleAnalyzable(_an);
+            cst_.setRelativeOffsetPossibleAnalyzable(_page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
-            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getFinalField(),
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getTraceIndex());
+            un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     str_);
-            _an.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
         }
     }
 
-    protected static void processFinalFields(AssBlock _curBlock, boolean _all, ContextEl _an, AssignedVariables _vars, String _field) {
+    protected static void processFinalFields(AssBlock _curBlock, boolean _all, AssignedVariables _vars, String _field, AnalyzedPageEl _page) {
         for (AssAffectationOperation f: _vars.getFieldsBefore(_curBlock,_all)) {
             AssOperationNode set_ = f.getSettableOp();
             if (!(set_ instanceof AssSettableFieldOperation)) {
@@ -129,21 +128,21 @@ public abstract class AssBracedStack extends AssBracedBlock {
             if (!cst_.getFieldMetaInfo().isFinalField()) {
                 continue;
             }
-            String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
+            String cl_ = StringExpUtil.getIdFromAllTypes(_page.getGlobalClass());
             ClassField key_ = new ClassField(cl_,_field);
             if (!cst_.matchFieldId(key_)) {
                 continue;
             }
-            cst_.setRelativeOffsetPossibleAnalyzable(_an);
+            cst_.setRelativeOffsetPossibleAnalyzable(_page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
-            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getFinalField(),
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getTraceIndex());
+            un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     _field);
-            _an.getAnalyzing().addLocError(un_);
+            _page.addLocError(un_);
         }
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldBeforeIncrPart(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -169,7 +168,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return beforeIncrPart(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected StringMap<AssignmentBefore> buildAssListLocVarBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListLocVarBeforeIncrPart(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -240,7 +239,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         return out_;
     }
     protected StringMap<SimpleAssignment> buildAssVariablesAfterIf(boolean _useBool,
-                                                                             CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+                                                                   CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
 
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -284,7 +283,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
     }
 
     protected StringMap<SimpleAssignment> buildAssFieldsAfterIf(boolean _useBool,
-                                                                CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+                                                                CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         AssignedVariables idStdIf_;
@@ -376,7 +375,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
     protected StringMap<SimpleAssignment> buildAssVariablesAfterSwitch(
             boolean _default,
             AssBlock _last,
-            ContextEl _an, AssignedVariablesBlock _anEl) {
+            AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<Assignment> list_;
@@ -403,7 +402,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
     protected StringMap<SimpleAssignment> buildAssFieldsAfterSwitch(
             boolean _default,
             AssBlock _last,
-            ContextEl _an, AssignedVariablesBlock _anEl) {
+            AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<Assignment> list_;
@@ -465,7 +464,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return out_;
     }
-    protected StringMap<SimpleAssignment> buildAssListFieldAfterLoop(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssListFieldAfterLoop(AssignedVariablesBlock _anEl) {
         CustList<AssBreakBlock> breaks_ = getBreakables();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -482,7 +481,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return buildAssAfterLoop(list_, breakAss_);
     }
-    protected StringMap<SimpleAssignment> buildAssListLocVarAfterLoop(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssListLocVarAfterLoop(AssignedVariablesBlock _anEl) {
         CustList<AssBreakBlock> breaks_ = getBreakables();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -525,7 +524,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         return out_;
     }
 
-    protected StringMap<SimpleAssignment> buildAssVariablesAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterFinally(CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<SimpleAssignment> list_;
@@ -595,7 +594,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
     }
 
-    protected StringMap<SimpleAssignment> buildAssFieldsAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterFinally(CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<SimpleAssignment> list_;
@@ -641,7 +640,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         buildAssFinally(out_, fin_, prev_);
         return out_;
     }
-    protected StringMap<SimpleAssignment> buildAssVariablesAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterTry(CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         CustList<StringMap<SimpleAssignment>> out_;
@@ -674,7 +673,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         return buildAssAfterTry(list_, listBl_, listBrs_);
     }
 
-    protected StringMap<SimpleAssignment> buildAssFieldsAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterTry(CustList<AssBlock> _blocks, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         StringMap<SimpleAssignment> list_;
@@ -746,9 +745,9 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return out_;
     }
-    protected static StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(AssTryEval _try, ContextEl _an, AssignedVariablesBlock _anEl,
+    protected static StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(AssTryEval _try, AssignedVariablesBlock _anEl,
                                                                                    CustList<AssCatchEval> _catchs) {
-        CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
+        CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_anEl);
         CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
@@ -768,7 +767,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
         }
         for (AssCatchEval c: _catchs) {
-            for (AssAbruptBlock a: c.getAbruptTry(_an, _anEl)) {
+            for (AssAbruptBlock a: c.getAbruptTry(_anEl)) {
                 if (a instanceof AssReturnMethod) {
                     if (((AssReturnMethod)a).isEmpty()) {
                         others_.add(id_.getVal(a).getFieldsRootBefore());
@@ -796,9 +795,9 @@ public abstract class AssBracedStack extends AssBracedBlock {
         StringMap<AssignmentBefore> tryBefore_ = id_.getVal(_try).getFieldsRootBefore();
         return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_, catchs_);
     }
-    protected static StringMap<AssignmentBefore> buildAssVarsBefNextCatchFinally(AssTryEval _try, ContextEl _an, AssignedVariablesBlock _anEl,
-                                                                                           CustList<AssCatchEval> _catchs) {
-        CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
+    protected static StringMap<AssignmentBefore> buildAssVarsBefNextCatchFinally(AssTryEval _try, AssignedVariablesBlock _anEl,
+                                                                                 CustList<AssCatchEval> _catchs) {
+        CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -832,7 +831,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
         }
         for (AssCatchEval c: _catchs) {
-            for (AssAbruptBlock a: c.getAbruptTry(_an, _anEl)) {
+            for (AssAbruptBlock a: c.getAbruptTry(_anEl)) {
                 if (a instanceof AssReturnMethod) {
                     if (((AssReturnMethod)a).isEmpty()) {
                         StringMap<AssignmentBefore> li_ = id_.getVal(a).getVariablesRootBefore();
@@ -910,7 +909,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return out_;
     }
-    protected CustList<AssAbruptBlock> getAbruptTry(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected CustList<AssAbruptBlock> getAbruptTry(AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         IdList<AssBlock> inners_;
         inners_ = new IdList<AssBlock>();

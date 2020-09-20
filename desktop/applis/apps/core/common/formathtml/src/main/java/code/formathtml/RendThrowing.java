@@ -23,12 +23,11 @@ public final class RendThrowing extends RendLeaf implements RendWithEl, RendRedu
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setOffset(0);
-        page_.setGlobalOffset(expressionOffset);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setOffset(0);
+        _page.setGlobalOffset(expressionOffset);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _page);
 
     }
     @Override

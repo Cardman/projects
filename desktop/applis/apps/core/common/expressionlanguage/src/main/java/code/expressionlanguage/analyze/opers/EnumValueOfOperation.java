@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
@@ -43,53 +42,52 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
+    public void analyzeUnary(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _page);
         CustList<AnaClassArgumentMatching> firstArgs_ = new CustList<AnaClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        String glClass_ = page_.getGlobalClass();
+        String glClass_ = _page.getGlobalClass();
         String clName_;
-        clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
-        partOffsets.addAllElts(page_.getCurrentParts());
-        RootBlock r_ = page_.getAnaClassBody(clName_);
+        clName_ = ResolvingImportTypes.resolveAccessibleIdType(0,className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
+        RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //className len
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     clName_);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            String argClName_ = page_.getStandards().getAliasObject();
+            String argClName_ = _page.getStandards().getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         numberEnum = r_.getNumberAll();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
-        if (!ContextUtil.canAccessType(curClassBase_,a_, page_)) {
+        if (!ContextUtil.canAccessType(curClassBase_,a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
             //className len
-            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
+            badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
                     clName_,
                     curClassBase_);
-            page_.getLocalizer().addError(badAccess_);
+            _page.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
         AnaClassArgumentMatching argCl_ = firstArgs_.first();
-        String stringType_ = page_.getStandards().getAliasString();
+        String stringType_ = _page.getStandards().getAliasString();
         if (!argCl_.matchClass(stringType_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //separator after className
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(argCl_.getNames(),"&"));
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
         }
         className = r_.getWildCardElement();

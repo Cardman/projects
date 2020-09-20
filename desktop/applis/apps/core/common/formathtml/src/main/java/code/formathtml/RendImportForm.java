@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -13,7 +14,7 @@ public final class RendImportForm extends RendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof RendImport)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
@@ -21,7 +22,7 @@ public final class RendImportForm extends RendParentBlock {
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordForm(),
                     _cont.getRendKeyWords().getKeyWordImport());
-            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _page);
         }
     }
 

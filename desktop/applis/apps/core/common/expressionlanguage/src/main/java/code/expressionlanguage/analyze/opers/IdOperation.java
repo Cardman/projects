@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -24,26 +23,25 @@ public final class IdOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
+    public void analyzeUnary(AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = getChildrenNodes();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (children_.size() > 1) {
             MethodOperation par_ = getParent();
             getPartOffsetsChildren().add(new CustList<PartOffset>());
             if (!(par_ instanceof CastOperation)) {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _conf);
-                int i_ = page_.getLocalizer().getCurrentLocationIndex();
-                LgNames stds_ = page_.getStandards();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
+                int i_ = _page.getLocalizer().getCurrentLocationIndex();
+                LgNames stds_ = _page.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //first comma
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
@@ -52,21 +50,21 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             String base_ = ((CastOperation) par_).getClassName();
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            RootBlock rBase_ = page_.getAnaClassBody(id_);
+            RootBlock rBase_ = _page.getAnaClassBody(id_);
             if (!(rBase_ instanceof InterfaceBlock)) {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _conf);
-                int i_ = page_.getLocalizer().getCurrentLocationIndex();
-                LgNames stds_ = page_.getStandards();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
+                int i_ = _page.getLocalizer().getCurrentLocationIndex();
+                LgNames stds_ = _page.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //first comma
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
@@ -79,20 +77,20 @@ public final class IdOperation extends AbstractUnaryOperation {
             for (int i = 1; i < len_; i++) {
                 int index_ = getPartOffsetsChildren().size();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
-                int i_ = page_.getLocalizer().getCurrentLocationIndex();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
+                int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 OperationNode op_ = children_.get(i);
                 if (!(op_ instanceof InterfaceFctConstructor)){
-                    LgNames stds_ = page_.getStandards();
+                    LgNames stds_ = _page.getStandards();
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     un_.setIndexFile(i_);
                     //i comma
-                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+                    un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                             Integer.toString(1),
                             Integer.toString(children_.size()));
-                    page_.getLocalizer().addError(un_);
+                    _page.getLocalizer().addError(un_);
                     setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
@@ -107,74 +105,73 @@ public final class IdOperation extends AbstractUnaryOperation {
                 } else {
                     existAll_ = false;
                 }
-                checkInherits(_conf, op_,previousInts_, cl_);
+                checkInherits(op_,previousInts_, cl_, _page);
                 previousInts_.add(cl_);
                 getPartOffsetsChildren().add(parts_);
             }
             if (!existAll_) {
-                LgNames stds_ = page_.getStandards();
+                LgNames stds_ = _page.getStandards();
                 setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             StringList all_ = new StringList(rBase_.getAllSuperTypes());
             all_.add(id_);
-            all_.removeAllString(page_.getStandards().getAliasObject());
+            all_.removeAllString(_page.getStandards().getAliasObject());
             if (!StringList.equalsSet(all_,previousInts_)) {
-                LgNames stds_ = page_.getStandards();
+                LgNames stds_ = _page.getStandards();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _conf);
-                int i_ = page_.getLocalizer().getCurrentLocationIndex();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
+                int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //i comma
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                 getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
                 setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             standard = false;
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (children_.isEmpty()) {
-            LgNames stds_ = page_.getStandards();
+            LgNames stds_ = _page.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //left par
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(0));
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(),page_.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getStandards()));
     }
 
-    private static void checkInherits(ContextEl _conf, OperationNode _op, StringList _previousInts, String _cl) {
+    private static void checkInherits(OperationNode _op, StringList _previousInts, String _cl, AnalyzedPageEl _page) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            AnalyzedPageEl page_ = _conf.getAnalyzing();
-            RootBlock supType_ = page_.getAnaClassBody(sup_);
-            if (supType_ != null &&supType_.isSubTypeOf(_cl,page_)) {
+            RootBlock supType_ = _page.getAnaClassBody(sup_);
+            if (supType_ != null &&supType_.isSubTypeOf(_cl, _page)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undef_.setFileName(_page.getLocalizer().getCurrentFileName());
                 undef_.setIndexFile(0);
                 //current type len
-                undef_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntInherits(),
+                undef_.buildError(_page.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
                         _cl
                 );
-                page_.getLocalizer().addError(undef_);
+                _page.getLocalizer().addError(undef_);
                 _op.getErrs().add(undef_.getBuiltError());
             }
         }
@@ -189,8 +186,8 @@ public final class IdOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setSimpleArgumentAna(chidren_.first().getArgument(), _conf.getAnalyzing());
+        setSimpleArgumentAna(chidren_.first().getArgument(), _page);
     }
 }

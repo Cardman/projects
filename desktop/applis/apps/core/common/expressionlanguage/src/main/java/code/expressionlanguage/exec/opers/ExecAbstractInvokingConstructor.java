@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
@@ -15,14 +15,14 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
     private int offsetOper;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public ExecAbstractInvokingConstructor(AbstractInvokingConstructor _abs, ContextEl _context) {
+    public ExecAbstractInvokingConstructor(AbstractInvokingConstructor _abs, AnalyzedPageEl _page) {
         super(_abs);
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
         classFromName = _abs.getClassFromName();
-        rootBlock = fetchType(_abs.getRootNumber(), _context.getAnalyzing());
-        ctor = fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = fetchType(_abs.getRootNumber(), _page);
+        ctor = fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
     }
 
     public int getOffsetOper() {

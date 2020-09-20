@@ -50,14 +50,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         methodName = getOperations().getFctName();
     }
 
-    void tryAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
+    void tryAnalyze(AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = methodName.trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
         int delta_ = 0;
         int offDelta_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _an);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);
             delta_ = j_+1;
@@ -66,8 +66,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         int local_ = StringList.getFirstPrintableCharIndex(afterNew_)+delta_;
         String className_ = afterNew_.trim();
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        ints_.parse(_an.getAnalyzing().getKeyWords(),0,newKeyWord_.length()+local_+ page_.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
         staticInitInterfacesOffset = ints_.getStaticInitInterfacesOffset();
         local_ = ints_.getLocIndex();
@@ -96,7 +95,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 }
             }
             for (String o: arg_.getNames()) {
-                StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _an);
+                StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
                 if (owners_.onlyOneElt()) {
                     ownersMap_.put(o, owners_.first());
                 }
@@ -105,10 +104,10 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 return;
             }
             sup_ = ownersMap_.values().first();
-            RootBlock root_ = page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
-            vars_ = AnaTemplates.getVarTypes(root_,sup_,_an);
+            RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
+            vars_ = AnaTemplates.getVarTypes(root_,sup_);
         } else {
-            setStaticAccess(page_.getStaticContext());
+            setStaticAccess(_page.getStaticContext());
         }
         String type_;
         OperationNode current_;
@@ -121,14 +120,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = page_.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
+            typeAff_ = tryGetRetType(_page);
         } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
-                String iter_ = page_.getStandards().getAliasIterable();
+                String iter_ = _page.getStandards().getAliasIterable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
             }
         } else if (m_ == null && cur_ instanceof ImportForEachTable) {
@@ -136,7 +135,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String typeAffOne_ = i_.getImportedClassNameFirst();
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
-                String iter_ = page_.getStandards().getAliasIterableTable();
+                String iter_ = _page.getStandards().getAliasIterableTable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
         } else {
@@ -158,7 +157,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (inferForm_ == null) {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
-                String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,newKeyWord_.length()+local_,className_,true,partOffsets_);
+                String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(newKeyWord_.length()+local_,className_,true,partOffsets_, _page);
                 if (!res_.isEmpty()) {
                     partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -168,16 +167,16 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 int begin_ = offset_;
                 className_ = className_.trim();
                 String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
-                ContextUtil.appendParts(_an,begin_,begin_ + idClass_.length(),StringList.concat(sup_, "..", idClass_),partOffsets_);
+                ContextUtil.appendParts(begin_,begin_ + idClass_.length(),StringList.concat(sup_, "..", idClass_),partOffsets_, _page);
                 offset_ += idClass_.length() + 1;
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                     int loc_ = StringList.getFirstPrintableCharIndex(a);
-                    partsArgs_.add(ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,offset_+loc_,a,true,partOffsets_));
+                    partsArgs_.add(ResolvingImportTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a,true,partOffsets_, _page));
                     offset_ += a.length() + 1;
                 }
-                StringMap<StringList> currVars_ = page_.getCurrentConstraints().getCurrentConstraints();
-                String res_ = AnaTemplates.tryGetAllInners(StringList.concat(sup_, "..", idClass_), partsArgs_, currVars_, _an);
+                StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
+                String res_ = AnaTemplates.tryGetAllInners(StringList.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
                     partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -188,20 +187,20 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         if (!isIntermediateDottedOperation()) {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-            type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
-            partOffsets_.addAllElts(page_.getCurrentParts());
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+            type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
+            partOffsets_.addAllElts(_page.getCurrentParts());
             if (type_.isEmpty()) {
                 return;
             }
         } else {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringList.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
-            ContextUtil.appendParts(_an,begin_,begin_+inferForm_.length(),type_,partOffsets_);
+            ContextUtil.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_, _page);
         }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
@@ -218,7 +217,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _an);
+                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
@@ -232,7 +231,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -245,7 +244,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _an);
+                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -259,7 +258,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -278,7 +277,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _an);
+                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -292,7 +291,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -308,7 +307,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _an);
+                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
@@ -322,7 +321,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -334,48 +333,48 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (isNotCorrectDim(cp_)) {
             return;
         }
-        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _page);
         if (infer_ == null) {
             return;
         }
         partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+        ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
         typeInfer = infer_;
     }
 
-    static void checkInstancingType(ContextEl _conf, String _realClassName, MethodAccessKind _staticAccess, StringList _errs) {
+    static void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, StringList _errs, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(base_);
+        AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (g_ != null && !g_.withoutInstance()) {
-            String glClass_ = _conf.getAnalyzing().getGlobalClass();
+            String glClass_ = _page.getGlobalClass();
             StringList parts_ = StringExpUtil.getAllPartInnerTypes(_realClassName);
             String outer_ = StringList.join(parts_.mid(0, parts_.size() - 2),"");
             if (_staticAccess != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original type len
-                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
+                static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                         _realClassName);
-                _conf.getAnalyzing().getLocalizer().addError(static_);
+                _page.getLocalizer().addError(static_);
                 _errs.add(static_.getBuiltError());
             } else {
-                StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 Mapping m_ = new Mapping();
                 m_.setArg(glClass_);
                 m_.setParam(outer_);
                 m_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _conf)){
+                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)){
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
-                    static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //original type len
-                    static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                    static_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             glClass_,
                             outer_);
-                    _conf.getAnalyzing().getLocalizer().addError(static_);
+                    _page.getLocalizer().addError(static_);
                     _errs.add(static_.getBuiltError());
                 }
             }

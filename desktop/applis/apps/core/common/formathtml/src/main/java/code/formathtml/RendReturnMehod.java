@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.stacks.RendAbruptCallingFinally;
@@ -33,7 +34,7 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
         return new RendAbruptCallingFinally(this);
     }
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
 
     }
 }

@@ -45,7 +45,7 @@ public final class ContextFactory {
 
     public static AnalyzedPageEl validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
                                     CustList<CommentDelimiters> _comments, Options _options) {
-        AnalyzedPageEl page_ = _context.setAnalyzing();
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
@@ -58,55 +58,55 @@ public final class ContextFactory {
         page_.setTabWidth(_context.getTabWidth());
         page_.setGettingErrors(_options.isGettingErrors());
         page_.getCoverage().setKeyWords(_definedKw);
-        AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         if (!page_.isEmptyMessageError()) {
             return page_;
         }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
-        _definedKw.validateKeyWordContents(_context, keyWords_);
+        _definedKw.validateKeyWordContents(keyWords_, page_);
         StringMap<String> escapings_ = _definedKw.allEscapings();
-        _definedKw.validateEscapingsContents(_context, escapings_);
+        _definedKw.validateEscapingsContents(escapings_, page_);
         StringMap<String> nbWords_ = _definedKw.allNbWords(_definedKw.allNbWordsBasic());
-        _definedKw.validateNbWordContents(_context, nbWords_);
-        _definedKw.validateBinarySeparators(_context);
+        _definedKw.validateNbWordContents(nbWords_, page_);
+        _definedKw.validateBinarySeparators(page_);
         StringMap<String> prims_ = _definedLgNames.allPrimitives();
-        ValidatorStandard.validatePrimitiveContents(_context, prims_);
-        ValidatorStandard.validatePrimitiveDuplicates(_context, prims_);
-        _definedKw.validateKeyWordDuplicates(_context, keyWords_);
-        _definedKw.validateEscapingsDuplicates(_context, escapings_);
+        ValidatorStandard.validatePrimitiveContents(prims_, page_);
+        ValidatorStandard.validatePrimitiveDuplicates(prims_, page_);
+        _definedKw.validateKeyWordDuplicates(keyWords_, page_);
+        _definedKw.validateEscapingsDuplicates(escapings_, page_);
         StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
-        _definedKw.validateNbWordDuplicates(_context, nbWordsDec_);
+        _definedKw.validateNbWordDuplicates(nbWordsDec_, page_);
         StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
-        _definedKw.validateNbWordDuplicates(_context, nbWordsBin_);
+        _definedKw.validateNbWordDuplicates(nbWordsBin_, page_);
         StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_definedKw.allNbWordsPreBin());
-        _definedKw.validateNbWordDuplicates(_context, nbWordsPreBin_);
-        _definedKw.validateStartsPrefixesDuplicates(_context);
+        _definedKw.validateNbWordDuplicates(nbWordsPreBin_, page_);
+        _definedKw.validateStartsPrefixesDuplicates(page_);
         StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
-        ValidatorStandard.validateRefTypeContents(_context, refTypes_, prims_);
-        boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(_context, refTypes_);
+        ValidatorStandard.validateRefTypeContents(refTypes_, prims_, page_);
+        boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(refTypes_, page_);
         if (dup_) {
             return page_;
         }
         StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
-        ValidatorStandard.validateMethodsContents(_context, methods_, prims_);
+        ValidatorStandard.validateMethodsContents(methods_, prims_, page_);
         CustList<CustList<KeyValueMemberName>> params_ = _definedLgNames.allTableTypeMethodParamNames();
-        ValidatorStandard.validateParamtersContents(_context, params_, prims_);
+        ValidatorStandard.validateParamtersContents(params_, prims_, page_);
         StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
-        ValidatorStandard.validateFieldsContents(_context, fields_, prims_);
+        ValidatorStandard.validateFieldsContents(fields_, prims_, page_);
         StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
-        ValidatorStandard.validateVarTypesContents(_context, varTypes_, prims_);
+        ValidatorStandard.validateVarTypesContents(varTypes_, prims_, page_);
         //duplicates
-        ValidatorStandard.validateMethodsDuplicates(_context, methods_);
-        ValidatorStandard.validateParamtersDuplicates(_context, params_);
-        ValidatorStandard.validateFieldsDuplicates(_context, fields_);
-        ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
+        ValidatorStandard.validateMethodsDuplicates(methods_, page_);
+        ValidatorStandard.validateParamtersDuplicates(params_, page_);
+        ValidatorStandard.validateFieldsDuplicates(fields_, page_);
+        ValidatorStandard.validateVarTypesDuplicates(varTypes_, page_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
-        ValidatorStandard.validateMergedDuplicates(_context, merge_);
+        ValidatorStandard.validateMergedDuplicates(merge_, page_);
         if (!page_.isEmptyStdError()) {
             return page_;
         }
         _definedLgNames.build();
-        ValidatorStandard.setupOverrides(_context);
+        ValidatorStandard.setupOverrides(page_);
         return page_;
     }
 }

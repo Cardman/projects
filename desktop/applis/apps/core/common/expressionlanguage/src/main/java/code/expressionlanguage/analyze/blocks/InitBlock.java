@@ -1,9 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringList;
 
 public abstract class InitBlock extends MemberCallingsBlock {
@@ -15,10 +14,10 @@ public abstract class InitBlock extends MemberCallingsBlock {
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
     }
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
     public MethodId getId() {
         String name_ = Integer.toString(getNumber());

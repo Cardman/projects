@@ -1,6 +1,6 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -11,7 +11,7 @@ public final class AssStdUnaryMethodOperation extends AssMethodOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
-        analyzeStdAssignmentAfter(_conf,_ass,_a);
+    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        analyzeStdAssignmentAfter(_ass,_a, _page);
     }
 }

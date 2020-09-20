@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -35,70 +34,69 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(ContextEl _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
+    public void analyzeUnary(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         String extract_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
         StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (types_.size() > 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
-            badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
+            badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(3),
                     Integer.toString(types_.size())
             );
-            page_.getLocalizer().addError(badCall_);
+            _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
         String res_;
         int leftPar_ = className.indexOf(PAR_LEFT);
-        res_ = ResolvingImportTypes.resolveCorrectType(_conf,leftPar_ +1,types_.first());
+        res_ = ResolvingImportTypes.resolveCorrectType(leftPar_ +1,types_.first(), _page);
         className = res_;
         classNameOwner = res_;
-        partOffsets = new CustList<PartOffset>(page_.getCurrentParts());
-        setResultClass(new AnaClassArgumentMatching(className,page_.getStandards()));
+        partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
+        setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
         if (!ExplicitOperation.customCast(res_)) {
             return;
         }
-        if (AnaTypeUtil.isPrimitive(className, page_)) {
-            getFirstChild().getResultClass().setUnwrapObject(className,page_.getStandards());
+        if (AnaTypeUtil.isPrimitive(className, _page)) {
+            getFirstChild().getResultClass().setUnwrapObject(className, _page.getStandards());
             Argument arg_ = getFirstChild().getArgument();
-            checkNull(arg_,_conf);
+            checkNull(arg_, _page);
         }
-        if (types_.size() == 2 && StringList.quickEq(types_.last(), _conf.getAnalyzing().getKeyWords().getKeyWordId())) {
+        if (types_.size() == 2 && StringList.quickEq(types_.last(), _page.getKeyWords().getKeyWordId())) {
             return;
         }
         ClassMethodId uniq_;
-        String exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordCast();
+        String exp_ = _page.getKeyWords().getKeyWordCast();
         if (types_.size() == 2){
             //add a type for full id
             String arg_ = types_.last();
-            String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, leftPar_ + types_.first().length() + 2, arg_, className);
-            partOffsets.addAllElts(page_.getCurrentParts());
-            AnaGeneType geneType_ = page_.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
+            String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(leftPar_ + types_.first().length() + 2, arg_, className, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
+            AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
             if (geneType_ == null) {
-                int rc_ = page_.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
+                int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
                 //_in len
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         className);
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
                 return;
             }
             String gene_ = geneType_.getGenericString();
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(gene_,lastType_)));
             AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-            CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(className,page_.getStandards()));
+            CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(className, _page.getStandards()));
             args_.add(resultClass_);
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-            ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(_conf,  className, uniq_, argsClass_);
+            ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(className, uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
                 castOpId = resMethod_.getRealId();
@@ -107,33 +105,33 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             }
             return;
         }
-        AnaGeneType geneType_ = page_.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
+        AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
         if (geneType_ == null) {
-            int rc_ = page_.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
+            int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className);
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             return;
         }
         String arg_ = types_.get(1);
         int lc_ = leftPar_ + types_.first().length() + 2;
-        String midType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, lc_,arg_, className);
-        partOffsets.addAllElts(page_.getCurrentParts());
+        String midType_ = ResolvingImportTypes.resolveCorrectAccessibleType(lc_,arg_, className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         arg_ = types_.last();
-        String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,lc_ +types_.get(1).length()+1,arg_, className);
-        partOffsets.addAllElts(page_.getCurrentParts());
+        String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1,arg_, className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
         AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-        AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_, _conf),page_.getStandards());
+        AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_), _page.getStandards());
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
         args_.add(resultClass_);
         AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-        ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(_conf,  className, uniq_, argsClass_);
+        ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(className, uniq_, argsClass_, _page);
         if (resMethod_.isFoundMethod()) {
             classNameOwner = resMethod_.getRealClass();
             castOpId = resMethod_.getRealId();
@@ -142,22 +140,21 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             setResultClass(virtual_);
             return;
         }
-        buildError(_conf,argsClass_);
+        buildError(argsClass_, _page);
     }
-    private void buildError(ContextEl _conf,AnaClassArgumentMatching[] _argsClass) {
+    private void buildError(AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
             classesNames_.add(StringList.join(c.getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
-        undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
-        String exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordCast();
-        undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(page_));
-        page_.getLocalizer().addError(undefined_);
+        String exp_ = _page.getKeyWords().getKeyWordCast();
+        undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
+                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
         getErrs().add(undefined_.getBuiltError());
 
     }

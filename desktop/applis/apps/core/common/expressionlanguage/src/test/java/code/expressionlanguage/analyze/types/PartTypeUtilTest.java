@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
@@ -1407,21 +1407,23 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
 
     private static String processAnalyze(String _input, String _globalType, AnalyzedTestContext _an, RootBlock _rooted) {
-        _an.getAnalyzing().setImportingTypes(_rooted);
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setImportingTypes(_rooted);
         ContextEl ctx_ = _an.getContext();
-        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, false, _globalType, ctx_, _rooted, _rooted, 0, new CustList<PartOffset>());
+        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, false, _globalType, _rooted, _rooted, 0, new CustList<PartOffset>(), page_);
         AnaPartType partType_ = anaResultPartType_.getPartType();
         if (partType_ == null) {
             return "";
         }
-        if (!AnaPartTypeUtil.checkParametersCount(partType_, ctx_)){
+        if (!AnaPartTypeUtil.checkParametersCount(partType_, page_)){
             return "";
         }
         return anaResultPartType_.getResult();
     }
 
     private static String processAnalyzeLine(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
-        _an.getAnalyzing().setImportingTypes(_rooted);
-        return AnaPartTypeUtil.processAnalyzeLine(_input,false,"", _an.getContext(), _rooted, _rooted, 0,new CustList<PartOffset>()).getResult();
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setImportingTypes(_rooted);
+        return AnaPartTypeUtil.processAnalyzeLine(_input,false,"", _rooted, _rooted, 0,new CustList<PartOffset>(), page_).getResult();
     }
 }

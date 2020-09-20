@@ -289,7 +289,7 @@ public final class NativeTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);

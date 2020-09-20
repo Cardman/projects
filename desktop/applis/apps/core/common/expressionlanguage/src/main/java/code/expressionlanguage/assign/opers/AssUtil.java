@@ -1,7 +1,7 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -133,46 +133,46 @@ public final class AssUtil {
         }
     }
 
-    public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context) {
-        getSortedDescNodes(_a,_root,_b,_context,false);
+    public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, AnalyzedPageEl _page) {
+        getSortedDescNodes(_a,_root,_b, false, _page);
     }
-    public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context, boolean _callingThis) {
-        _b.defaultAssignmentBefore(_context, _a,_root);
+    public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, boolean _callingThis, AnalyzedPageEl _page) {
+        _b.defaultAssignmentBefore(_a,_root, _page);
         AssOperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                _b.defaultAssignmentAfter(_context,  _a,_callingThis);
+                _b.defaultAssignmentAfter(_a,_callingThis, _page);
                 break;
             }
-            c_ = getAnalyzedNext(_a,_b,c_, _root, _context);
+            c_ = getAnalyzedNext(_a,_b,c_, _root, _page);
         }
     }
-    public static void getSimSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context) {
+    public static void getSimSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, AnalyzedPageEl _page) {
         AssOperationNode c_ = _root;
         while (c_ != null) {
-            c_ = getSimAnalyzedNext(_a, _b, c_, _root, _context);
+            c_ = getSimAnalyzedNext(_a, _b, c_, _root, _page);
         }
     }
 
     private static AssOperationNode getAnalyzedNext(AssignedVariablesBlock _a, AssBlock _b,
-                                                    AssOperationNode _current, AssOperationNode _root, ContextEl _context) {
+                                                    AssOperationNode _current, AssOperationNode _root, AnalyzedPageEl _page) {
 
         AssOperationNode next_ = _current.getFirstChild();
         if (next_ != null) {
-            ((AssMethodOperation) _current).tryAnalyzeAssignmentBefore(_context,_b,_a, next_);
+            ((AssMethodOperation) _current).tryAnalyzeAssignmentBefore(_b,_a, next_);
             return next_;
         }
         AssOperationNode current_ = _current;
         while (true) {
-            current_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+            current_.tryAnalyzeAssignmentAfter(_b,_a, _page);
             next_ = current_.getNextSibling();
             AssMethodOperation par_ = current_.getParent();
             if (par_ instanceof AssMultMethodOperation &&next_ != null) {
-                ((AssMultMethodOperation)par_).tryAnalyzeAssignmentBeforeNextSibling(_context, _b,_a,next_, current_);
+                ((AssMultMethodOperation)par_).tryAnalyzeAssignmentBeforeNextSibling(_b,_a,next_, current_);
                 return next_;
             }
             if (par_ == _root) {
-                par_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+                par_.tryAnalyzeAssignmentAfter(_b,_a, _page);
                 return null;
             }
             if (par_ == null) {
@@ -183,7 +183,7 @@ public final class AssUtil {
     }
 
     private static AssOperationNode getSimAnalyzedNext(AssignedVariablesBlock _a, AssBlock _b,
-                                                    AssOperationNode _current, AssOperationNode _root, ContextEl _context) {
+                                                       AssOperationNode _current, AssOperationNode _root, AnalyzedPageEl _page) {
 
         AssOperationNode next_ = _current.getFirstChild();
         if (next_ != null) {
@@ -191,14 +191,14 @@ public final class AssUtil {
         }
         AssOperationNode current_ = _current;
         while (true) {
-            current_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+            current_.tryAnalyzeAssignmentAfter(_b,_a, _page);
             next_ = current_.getNextSibling();
             AssMethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 return next_;
             }
             if (par_ == _root) {
-                par_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+                par_.tryAnalyzeAssignmentAfter(_b,_a, _page);
                 return null;
             }
             if (par_ == null) {
@@ -207,24 +207,24 @@ public final class AssUtil {
             current_ = par_;
         }
     }
-    public static boolean checkFinalField(ContextEl _conf, AssBlock _as,AssSettableFieldOperation _cst, StringMap<Assignment> _ass) {
-        boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
+    public static boolean checkFinalField(AssBlock _as, AssSettableFieldOperation _cst, StringMap<Assignment> _ass, AnalyzedPageEl _page) {
+        boolean fromCurClass_ = _cst.isFromCurrentClass(_page);
         ClassField cl_ = _cst.getFieldId();
         String fieldName_ = cl_.getFieldName();
-        if (stepForLoop(_conf,_as)) {
+        if (stepForLoop(_as, _page)) {
             return true;
         }
         StringMap<Boolean> ass_ = new StringMap<Boolean>();
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
             ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
         }
-        return checkFinalReadOnly(_conf, _cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_conf, cl_));
+        return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(cl_, _page), _page);
     }
-    private static boolean checkFinalReadOnly(ContextEl _conf, AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
+    private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta, AnalyzedPageEl _page) {
         boolean checkFinal_;
-        if (_conf.getAnalyzing().isAssignedFields()) {
+        if (_page.isAssignedFields()) {
             checkFinal_ = true;
-        } else if (_conf.getAnalyzing().isAssignedStaticFields()) {
+        } else if (_page.isAssignedStaticFields()) {
             if (_meta.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
@@ -266,15 +266,15 @@ public final class AssUtil {
         return checkFinal_;
     }
 
-    public static boolean checkFinalVar(ContextEl _conf, Assignment _ass, AssBlock _a) {
+    public static boolean checkFinalVar(Assignment _ass, AssBlock _a, AnalyzedPageEl _page) {
         if (!_ass.isUnassignedAfter()) {
             return true;
         }
-        return stepForLoop(_conf,_a);
+        return stepForLoop(_a, _page);
     }
-    private static boolean stepForLoop(ContextEl _conf, AssBlock _as) {
+    private static boolean stepForLoop(AssBlock _as, AnalyzedPageEl _page) {
         if (_as instanceof AssForMutableIterativeLoop) {
-            return _conf.getAnalyzing().getForLoopPartState() == ForLoopPart.STEP;
+            return _page.getForLoopPartState() == ForLoopPart.STEP;
         }
         return false;
     }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -36,8 +35,8 @@ public final class ValidatorStandard {
     private ValidatorStandard() {
     }
 
-    public static void validatePrimitiveContents(ContextEl _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validatePrimitiveContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String value_ = e.getValue();
@@ -45,21 +44,21 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),key_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
-            if (_cont.getAnalyzing().getKeyWords().isKeyWord(value_)) {
+            if (_page.getKeyWords().isKeyWord(value_)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     break;
                 }
             }
@@ -67,13 +66,13 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
 
-    public static void validatePrimitiveDuplicates(ContextEl _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validatePrimitiveDuplicates(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
         if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
@@ -81,14 +80,14 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicatePrimtive(),v_,e.getKey()));
                 err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
 
-    public static void validateRefTypeContents(ContextEl _cont, StringMap<String> _list, StringMap<String> _prims) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
-        LgNames stds_ = _cont.getAnalyzing().getStandards();
+    public static void validateRefTypeContents(StringMap<String> _list, StringMap<String> _prims, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        LgNames stds_ = _page.getStandards();
         StringList allPkgs_ = new StringList();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
@@ -97,7 +96,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),key_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
             for (String p : StringList.splitChars(value_, '.')) {
@@ -105,27 +104,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     continue;
                 }
                 if (StringList.contains(_prims.values(), p)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
-                if (_cont.getAnalyzing().getKeyWords().isKeyWord(p)) {
+                if (_page.getKeyWords().isKeyWord(p)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                        _cont.getAnalyzing().addStdError(err_);
+                        _page.addStdError(err_);
                         break;
                     }
                 }
@@ -133,7 +132,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
             String pkg_ = StandardType.getPackagePart(value_);
@@ -141,7 +140,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
             allPkgs_.add(pkg_);
         }
@@ -156,20 +155,20 @@ public final class ValidatorStandard {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(), stds_.getDefaultPkg()));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-            _cont.getAnalyzing().addStdError(err_);
+            _page.addStdError(err_);
         }
         for (String k: _list.values()) {
             if (stds_.getDefaultPkg().contains(k)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k, stds_.getDefaultPkg()));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
 
-    public static boolean validateRefTypeDuplicates(ContextEl _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static boolean validateRefTypeDuplicates(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
         boolean dup_ = false;
         if (keyWords_.hasDuplicates()) {
@@ -178,28 +177,28 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateRefType(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
                 dup_ = true;
             }
         }
         return dup_;
     }
 
-    public static void validateMethodsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+    public static void validateMethodsContents(StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims, AnalyzedPageEl _page){
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             CustList<KeyValueMemberName> list_ = e.getValue();
-            checkContent(_cont, _prims, list_, e.getKey());
+            checkContent(_prims, list_, e.getKey(), _page);
         }
     }
 
-    public static void validateParamtersContents(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+    public static void validateParamtersContents(CustList<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims, AnalyzedPageEl _page){
         for (CustList<KeyValueMemberName> e: _methods) {
-            checkContent(_cont,_prims,e,"");
+            checkContent(_prims,e,"", _page);
         }
     }
 
-    private static void checkContent(ContextEl _cont, StringMap<String> _prims, CustList<KeyValueMemberName> list_, String _key) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    private static void checkContent(StringMap<String> _prims, CustList<KeyValueMemberName> list_, String _key, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (KeyValueMemberName f: list_) {
             String key_ = f.getKey();
             String value_ = f.getValue();
@@ -207,27 +206,27 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
-            if (_cont.getAnalyzing().getKeyWords().isKeyWordNotVar(value_)) {
+            if (_page.getKeyWords().isKeyWordNotVar(value_)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
             if (StringList.contains(_prims.values(), value_)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     break;
                 }
             }
@@ -235,23 +234,23 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_, _key,Character.toString(value_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
-    public static void validateMethodsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+    public static void validateMethodsDuplicates(StringMap<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             CustList<KeyValueMemberName> value_ = e.getValue();
-            checkDuplicates(_cont, value_);
+            checkDuplicates(value_, _page);
         }
     }
-    public static void validateParamtersDuplicates(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods){
+    public static void validateParamtersDuplicates(CustList<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
         for (CustList<KeyValueMemberName> e: _methods) {
-            checkDuplicates(_cont, e);
+            checkDuplicates(e, _page);
         }
     }
-    private static void checkDuplicates(ContextEl _cont, CustList<KeyValueMemberName> value_) {
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    private static void checkDuplicates(CustList<KeyValueMemberName> value_, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList();
         for (KeyValueMemberName f: value_) {
             keyWords_.add(f.getValue());
@@ -262,13 +261,13 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                _cont.getAnalyzing().addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
 
-    public static void validateMergedDuplicates(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods){
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validateMergedDuplicates(CustList<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (CustList<KeyValueMemberName> e: _methods) {
             StringList keyWords_ = new StringList();
             for (KeyValueMemberName f: e) {
@@ -280,14 +279,14 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
         }
     }
 
-    public static void validateFieldsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validateFieldsContents(StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims, AnalyzedPageEl _page){
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             for (KeyValueMemberName f: e.getValue()) {
                 String key_ = f.getKey();
@@ -296,27 +295,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     continue;
                 }
-                if (_cont.getAnalyzing().getKeyWords().isKeyWord(value_)) {
+                if (_page.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getFieldKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getFieldPrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                        _cont.getAnalyzing().addStdError(err_);
+                        _page.addStdError(err_);
                         break;
                     }
                 }
@@ -324,14 +323,14 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
         }
     }
 
-    public static void validateFieldsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validateFieldsDuplicates(StringMap<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             StringList keyWords_ = new StringList();
             for (KeyValueMemberName f: e.getValue()) {
@@ -343,14 +342,14 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateField(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
         }
     }
 
-    public static void validateVarTypesContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validateVarTypesContents(StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims, AnalyzedPageEl _page){
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             for (KeyValueMemberName f: e.getValue()) {
                 String key_ = f.getKey();
@@ -359,27 +358,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                     continue;
                 }
-                if (_cont.getAnalyzing().getKeyWords().isKeyWord(value_)) {
+                if (_page.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypeKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypePrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                        _cont.getAnalyzing().addStdError(err_);
+                        _page.addStdError(err_);
                         break;
                     }
                 }
@@ -387,14 +386,14 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
         }
     }
 
-    public static void validateVarTypesDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
-        AnalysisMessages a_ = _cont.getAnalyzing().getAnalysisMessages();
+    public static void validateVarTypesDuplicates(StringMap<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
             StringList keyWords_ = new StringList();
             for (KeyValueMemberName f: e.getValue()) {
@@ -406,16 +405,16 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateVarType(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
-                    _cont.getAnalyzing().addStdError(err_);
+                    _page.addStdError(err_);
                 }
             }
         }
     }
 
-    public static void setupOverrides(ContextEl _cont) {
+    public static void setupOverrides(AnalyzedPageEl _page) {
         StringList pkgs_ = new StringList();
         StringList pkgsBase_ = new StringList();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _page;
         for (StandardType r: page_.getStandards().getStandards().values()) {
             String pkg_ = r.getPackageName();
             int until_ = Math.max(0, pkg_.indexOf('.'));
@@ -431,26 +430,26 @@ public final class ValidatorStandard {
         pkgsBase_.removeDuplicates();
         page_.getHeaders().getPackagesFound().addAllElts(pkgs_);
         page_.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
-        buildInherits(_cont);
+        buildInherits(_page);
     }
 
-    public static void buildInherits(ContextEl _context){
-        for (EntryCust<String, StandardType> s: _context.getAnalyzing().getStandards().getStandards().entryList()) {
-            buildInherits(s.getValue(), _context);
+    public static void buildInherits(AnalyzedPageEl _page){
+        for (EntryCust<String, StandardType> s: _page.getStandards().getStandards().entryList()) {
+            buildInherits(s.getValue(), _page);
         }
     }
 
-    private static void buildInherits(StandardType _type, ContextEl _context) {
-        feedSupers(_type,_context,_type.getAllSuperTypes());
+    private static void buildInherits(StandardType _type, AnalyzedPageEl _page) {
+        feedSupers(_type, _type.getAllSuperTypes(), _page);
     }
 
-    private static void feedSupers(StandardType _type, ContextEl _context, StringList _types) {
+    private static void feedSupers(StandardType _type, StringList _types, AnalyzedPageEl _page) {
         StringList currentSuperTypes_ = new StringList(_type.getDirectSuperTypes());
         _types.addAllElts(currentSuperTypes_);
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                StandardType st_ = _context.getAnalyzing().getStandards().getStandards().getVal(c);
+                StandardType st_ = _page.getStandards().getStandards().getVal(c);
                 for (String s: st_.getDirectSuperTypes()) {
                     newSuperTypes_.add(s);
                     _types.add(s);
@@ -464,32 +463,30 @@ public final class ValidatorStandard {
         _types.removeDuplicates();
     }
 
-    public static String checkExactType(ContextEl _an, int _loc, String _in, String _orig) {
+    public static String checkExactType(int _loc, String _in, String _orig, AnalyzedPageEl _page) {
         if (!_in.isEmpty()) {
             return _in;
         }
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        int rc_ = page_.getLocalizer().getCurrentLocationIndex() + _loc;
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(page_.getLocalizer().getCurrentFileName());
+        un_.setFileName(_page.getLocalizer().getCurrentFileName());
         un_.setIndexFile(rc_);
         //original type len
-        un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(),
+        un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                 _orig);
-        page_.getLocalizer().addError(un_);
-        return page_.getStandards().getAliasObject();
+        _page.getLocalizer().addError(un_);
+        return _page.getStandards().getAliasObject();
     }
 
-    public static IterableAnalysisResult getCustomTypeBase(StringList _names, ContextEl _context) {
+    public static IterableAnalysisResult getCustomTypeBase(StringList _names, AnalyzedPageEl _page) {
         StringList out_ = new StringList();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         for (String f: _names) {
             String iterable_ = stds_.getAliasIterable();
-            String type_ = AnaTemplates.getGeneric(f,iterable_,_context,mapping_);
+            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);
             }
@@ -497,16 +494,15 @@ public final class ValidatorStandard {
         return new IterableAnalysisResult(out_);
     }
 
-    public static IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context) {
+    public static IterableAnalysisResult getCustomTableType(StringList _names, AnalyzedPageEl _page) {
         StringList out_ = new StringList();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
+        LgNames stds_ = _page.getStandards();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         for (String f: _names) {
             String iterable_ = stds_.getAliasIterableTable();
-            String type_ = AnaTemplates.getGeneric(f,iterable_,_context,mapping_);
+            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);
             }

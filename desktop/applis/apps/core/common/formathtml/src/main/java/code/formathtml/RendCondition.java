@@ -32,29 +32,27 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        buildConditions(_cont, _anaDoc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildConditions(_cont, _anaDoc, _page);
     }
 
-    protected void buildConditions(Configuration _cont, AnalyzingDoc _analyzingDoc) {
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(conditionOffset);
-        page_.setOffset(0);
+    protected void buildConditions(Configuration _cont, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(conditionOffset);
+        _page.setOffset(0);
         _analyzingDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc, _cont.getContext().getAnalyzing());
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc, _page);
         RendDynOperationNode elCondition_ = opCondition.last();
-        LgNames stds_ = page_.getStandards();
-        OperationNode root_ = page_.getCurrentRoot();
+        OperationNode root_ = _page.getCurrentRoot();
         AnaClassArgumentMatching exp_ = root_.getResultClass();
-        if (!exp_.isBoolType(page_)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
+        if (!exp_.isBoolType(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getStandards().getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);
                 exp_.setRootNumber(res_.getRootNumber());
                 exp_.setMemberNumber(res_.getMemberNumber());
             } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont.getContext(), exp_);
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     exp_.getImplicitsTest().add(cl_);
@@ -64,14 +62,14 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_analyzingDoc.getFileName());
                     un_.setIndexFile(conditionOffset);
-                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(exp_.getNames(),AND_ERR));
-                    Configuration.addError(un_, _analyzingDoc, _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _analyzingDoc, _page);
                 }
             }
         }
         exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing(), root_);
+        RenderExpUtil.setImplicits(elCondition_, _page, root_);
     }
 
     @Override

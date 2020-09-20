@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
@@ -19,9 +20,9 @@ public final class RendAnchor extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list, _anaDoc);
+        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         opExp = res_.getOpExp();
         opExpAnch = res_.getOpExpAnchor();

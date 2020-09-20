@@ -1,6 +1,5 @@
 package code.expressionlanguage.assign.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -9,7 +8,7 @@ public final class AssignedVariablesDesc {
     private final AssignedVariables varsWhile;
     private final IdMap<AssBlock, AssignedVariables> allDesc;
 
-    public AssignedVariablesDesc(ContextEl _an, AssBlock _b, AssignedVariablesBlock _a) {
+    public AssignedVariablesDesc(AssBlock _b, AssignedVariablesBlock _a) {
         IdMap<AssBlock, AssignedVariables> allDesc_ = new IdMap<AssBlock, AssignedVariables>();
         boolean add_ = false;
         IdMap<AssBlock, AssignedVariables> id_;

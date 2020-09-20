@@ -1,9 +1,8 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
@@ -83,10 +82,10 @@ public final class ConstructorInfo implements Parametrable {
         varArgWrap = _v;
     }
 
-    public void format(ContextEl _an) {
+    public void format(AnalyzedPageEl _page) {
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaTemplates.wildCardFormatParam(className,p,_an));
+            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
         }
         formatted = new ConstructorId(className, params_, isVararg());
     }

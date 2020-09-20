@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -47,26 +46,25 @@ public final class AffectationOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+        LgNames stds_ = _page.getStandards();
         if (!ok_) {
-            setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(page_.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
-            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     "=");
-            page_.getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-            int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+            int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+1));
@@ -78,16 +76,16 @@ public final class AffectationOperation extends MethodOperation {
             VariableOperation v_ = (VariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(page_.getVariablesNamesToInfer(), inf_)) {
+            if (ElUtil.isDeclaringVariable(v_, _page) && StringList.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_,page_.getStandards());
-                    AnaLocalVariable lv_ = page_.getInfosVars().getVal(inf_);
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getStandards());
+                    AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
-                    page_.getVariablesNamesToInfer().removeString(inf_);
-                    page_.getLocalDeclaring().setupDeclaratorClass(type_);
-                    page_.setCurrentVarSetting(type_);
+                    _page.getVariablesNamesToInfer().removeString(inf_);
+                    _page.getLocalDeclaring().setupDeclaratorClass(type_);
+                    _page.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
             }
@@ -96,16 +94,16 @@ public final class AffectationOperation extends MethodOperation {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(page_.getVariablesNamesToInfer(), inf_)) {
+            if (ElUtil.isDeclaringLoopVariable(v_, _page) && StringList.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_,page_.getStandards());
-                    AnaLocalVariable lv_ = page_.getInfosVars().getVal(inf_);
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getStandards());
+                    AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
-                    page_.getVariablesNamesToInfer().removeString(inf_);
-                    page_.getLoopDeclaring().setupLoopDeclaratorClass(type_);
-                    page_.setCurrentVarSetting(type_);
+                    _page.getVariablesNamesToInfer().removeString(inf_);
+                    _page.getLoopDeclaring().setupLoopDeclaratorClass(type_);
+                    _page.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
             }
@@ -113,63 +111,63 @@ public final class AffectationOperation extends MethodOperation {
         if (elt_ instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)elt_;
             settableOp = cst_;
-            StringMap<Boolean> fieldsAfterLast_ = page_.getDeclaredAssignments();
-            if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
-                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+            StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
+            if (!synthetic&&ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
+                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(page_.getLocalizer().getCurrentFileName());
-                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
+                un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
-                page_.getLocalizer().addError(un_);
+                _page.getLocalizer().addError(un_);
                 IntTreeMap< String> ops_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-                int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+                int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+1));
                 getPartOffsetsChildren().add(err_);
-                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(),page_.getStandards()));
+                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getStandards()));
                 elt_.setVariable(true);
                 return;
             }
         }
 
-        setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(),page_.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getStandards()));
         elt_.setVariable(true);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
 
         if (clMatchRight_.isVariable()) {
-            if (!clMatchLeft_.isPrimitive(_conf)) {
+            if (!clMatchLeft_.isPrimitive(_page)) {
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(page_.getLocalizer().getCurrentFileName());
-            cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
-            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
-            page_.getLocalizer().addError(cast_);
+            _page.getLocalizer().addError(cast_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-            int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+            int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+1));
             getPartOffsetsChildren().add(err_);
             return;
         }
-        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(clMatchRight_);
         mapping_.setParam(clMatchLeft_);
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
-            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_);
+        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatchRight_.getImplicits().add(cl_);
@@ -177,67 +175,51 @@ public final class AffectationOperation extends MethodOperation {
                 clMatchRight_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
-                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                page_.getLocalizer().addError(cast_);
+                _page.getLocalizer().addError(cast_);
                 IntTreeMap< String> ops_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-                int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+                int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+1));
                 getPartOffsetsChildren().add(err_);
             }
         }
-        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
         IntTreeMap< String> ops_ = getOperations().getOperators();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-        foundOffset = page_.getLocalizer().getCurrentLocationIndex();
-        if (AnaTypeUtil.isPrimitive(clMatchLeft_, page_)) {
-            right_.getResultClass().setUnwrapObject(clMatchLeft_,page_.getStandards());
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+        foundOffset = _page.getLocalizer().getCurrentLocationIndex();
+        if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
+            right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getStandards());
             right_.quickCancel();
         }
     }
 
-    public static String processInfer(ContextEl _cont, String _import) {
-        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
-        if (StringList.quickEq(_import, _cont.getAnalyzing().getKeyWords().getKeyWordVar())) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //'var' len
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnassignedInferingType(),
-                    _import,
-                    StringList.join(vars_,"&"));
-            _cont.getAnalyzing().getLocalizer().addError(un_);
-            return un_.getBuiltError();
-        }
-        for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
-            AnaLocalVariable lv_ = _cont.getAnalyzing().getInfosVars().getVal(v);
-            lv_.setClassName(_import);
-        }
-        return "";
+    public static String processInfer(String _import, AnalyzedPageEl _page) {
+        return processInferLoop(_import, _page);
     }
 
-    public static String processInferLoop(ContextEl _cont, String _import) {
-        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
-        if (StringList.quickEq(_import, _cont.getAnalyzing().getKeyWords().getKeyWordVar())) {
+    public static String processInferLoop(String _import, AnalyzedPageEl _page) {
+        StringList vars_ = _page.getVariablesNames();
+        if (StringList.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //'var' len
-            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnassignedInferingType(),
+            un_.buildError(_page.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
                     StringList.join(vars_,"&"));
-            _cont.getAnalyzing().getLocalizer().addError(un_);
+            _page.getLocalizer().addError(un_);
             return un_.getBuiltError();
         }
-        for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
-            AnaLocalVariable lv_ = _cont.getAnalyzing().getInfosVars().getVal(v);
+        for (String v: _page.getVariablesNamesToInfer()) {
+            AnaLocalVariable lv_ = _page.getInfosVars().getVal(v);
             lv_.setClassName(_import);
         }
         return "";
@@ -267,12 +249,12 @@ public final class AffectationOperation extends MethodOperation {
         return null;
     }
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        setArg(_conf,this, getSettableOp());
+    public void quickCalculate(AnalyzedPageEl _page) {
+        setArg(this, getSettableOp(), _page);
     }
 
-    public static void setArg(ContextEl _conf, MethodOperation _current, OperationNode _settable) {
-        if (!ElUtil.isDeclaringField(_settable, _conf)) {
+    public static void setArg(MethodOperation _current, OperationNode _settable, AnalyzedPageEl _page) {
+        if (!ElUtil.isDeclaringField(_settable, _page)) {
             return;
         }
         StandardFieldOperation fieldRef_ = (StandardFieldOperation) _settable;
@@ -280,7 +262,7 @@ public final class AffectationOperation extends MethodOperation {
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldIdReadOnly();
         Struct str_ = value_.getStruct();
-        _conf.getAnalyzing().getClasses().initializeStaticField(id_, str_);
+        _page.getClasses().initializeStaticField(id_, str_);
         _current.setSimpleArgument(value_);
     }
 

@@ -246,10 +246,10 @@ public final class AnalysisMessagesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        AnalyzedPageEl page_ = s_.setAnalyzing();
+        getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(def_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
 

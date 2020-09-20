@@ -25,15 +25,14 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
     public void setExecAnonymousLambdaOperation(AnonymousLambdaOperation _s) {
         method = _s.getMethod();
     }
-    public void setExecAnonymousLambdaOperation(AnonymousLambdaOperation _s,ContextEl _context) {
+    public void setExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, AnalyzedPageEl _page) {
         setExecAnonymousLambdaOperation(_s);
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
-        declaring = analyzing_.getMapTypes().getValue(_s.getRootNumber());
+        declaring = _page.getMapTypes().getValue(_s.getRootNumber());
         AnonymousFunctionBlock block_ = _s.getBlock();
-        block_.setNumberLambda(analyzing_.getMapAnonLambda().size());
+        block_.setNumberLambda(_page.getMapAnonLambda().size());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_);
         fct_.setParentType(declaring);
-        analyzing_.getMapAnonLambda().addEntry(block_,fct_);
+        _page.getMapAnonLambda().addEntry(block_,fct_);
         fct_.buildImportedTypes(block_);
         function = fct_;
         functionBlock = fct_;

@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -51,8 +50,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana.getAnalyzing());
+    public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
     }
 
     @Override
@@ -61,10 +60,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public void buildImportedReturnTypes(ContextEl _stds) {
-        super.buildImportedReturnTypes(_stds);
-        AnalyzedPageEl page_ = _stds.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
+    public void buildImportedReturnTypes(AnalyzedPageEl _page) {
+        super.buildImportedReturnTypes(_page);
+        LgNames stds_ = _page.getStandards();
         String string_ = stds_.getAliasString();
         String class_ = stds_.getAliasClassType();
         String itype_ = getImportedReturnType();
@@ -73,10 +71,10 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (ctype_ != null) {
             type_ = ctype_;
         }
-        if (AnaTypeUtil.isPrimitiveOrWrapper(type_, _stds)) {
+        if (AnaTypeUtil.isPrimitiveOrWrapper(type_, _page)) {
             return;
         }
-        RootBlock r_ = page_.getAnaClassBody(type_);
+        RootBlock r_ = _page.getAnaClassBody(type_);
         if (r_ instanceof AnnotationBlock) {
             return;
         }
@@ -90,12 +88,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             return;
         }
         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-        cast_.setFileName(page_.getLocalizer().getCurrentFileName());
-        cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+        cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //return type len
-        cast_.buildError(_stds.getAnalyzing().getAnalysisMessages().getUnexpectedRetType(),
-                itype_,getSignature(_stds));
-        _stds.getAnalyzing().addLocError(cast_);
+        cast_.buildError(_page.getAnalysisMessages().getUnexpectedRetType(),
+                itype_,getSignature(_page));
+        _page.addLocError(cast_);
         addNameErrors(cast_);
     }
 
@@ -124,17 +122,16 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return false;
     }
 
-    public void buildExpressionLanguage(ContextEl _cont, ExecAnnotationMethodBlock _exec) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguage(ExecAnnotationMethodBlock _exec, AnalyzedPageEl _page) {
         if (defaultValue.trim().isEmpty()) {
             _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
-        page_.setGlobalOffset(defaultValueOffset);
-        page_.setOffset(0);
-        page_.getCoverage().putBlockOperationsField(page_, this);
-        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
-        root = page_.getCurrentRoot();
+        _page.setGlobalOffset(defaultValueOffset);
+        _page.setOffset(0);
+        _page.getCoverage().putBlockOperationsField(_page, this);
+        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
+        root = _page.getCurrentRoot();
         _exec.setOpValue(ops_);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -143,19 +140,19 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         AnaClassArgumentMatching arg_ = root.getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
+        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
-            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(arg_.getNames(),"&"),
                     import_);
-            _cont.getAnalyzing().addLocError(cast_);
+            _page.addLocError(cast_);
             addNameErrors(cast_);
         }
-        if (AnaTypeUtil.isPrimitive(import_, page_)) {
-            ops_.last().getResultClass().setUnwrapObject(import_,page_.getStandards());
+        if (AnaTypeUtil.isPrimitive(import_, _page)) {
+            ops_.last().getResultClass().setUnwrapObject(import_, _page.getStandards());
         }
     }
 

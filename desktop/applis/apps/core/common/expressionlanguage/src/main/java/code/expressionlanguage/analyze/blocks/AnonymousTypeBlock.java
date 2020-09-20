@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.IntMap;
@@ -18,8 +18,8 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
     }
 
     @Override
-    public void setupBasicOverrides(ContextEl _context) {
-        checkAccess(_context);
+    public void setupBasicOverrides(AnalyzedPageEl _page) {
+        checkAccess(_page);
     }
 
     @Override

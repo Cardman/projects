@@ -50,7 +50,7 @@ public final class RenderInitNavTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -95,7 +95,7 @@ public final class RenderInitNavTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -145,7 +145,7 @@ public final class RenderInitNavTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -186,7 +186,7 @@ public final class RenderInitNavTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
@@ -487,7 +487,7 @@ public final class RenderInitNavTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(cont_.getAnalyzing());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);

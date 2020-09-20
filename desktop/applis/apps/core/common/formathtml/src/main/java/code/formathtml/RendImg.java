@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
@@ -19,11 +20,11 @@ public final class RendImg extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultText res_ = new ResultText();
         String pageName_ = _read.getAttribute(_cont.getRendKeyWords().getAttrSrc());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrSrc());
-        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc);
+        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc, _page);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
         _list.removeAllString(_cont.getRendKeyWords().getAttrSrc());

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -51,34 +50,32 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        processVariable(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        processVariable(_page);
         ExecDeclareVariable exec_ = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
-        page_.setExecDeclareVariable(exec_);
-        exec_.setFile(page_.getBlockToWrite().getFile());
-        page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(exec_,this);
+        _page.setExecDeclareVariable(exec_);
+        exec_.setFile(_page.getBlockToWrite().getFile());
+        _page.getBlockToWrite().appendChild(exec_);
+        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void processVariable(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
+    private void processVariable(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
+            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            partOffsets.addAllElts(_page.getCurrentParts());
         }
-        page_.setMerged(true);
-        page_.setAcceptCommaInstr(true);
-        page_.setFinalVariable(finalVariable);
-        page_.setCurrentVarSetting(importedClassName);
-        page_.getVariablesNames().clear();
-        page_.getVariablesNamesToInfer().clear();
+        _page.setMerged(true);
+        _page.setAcceptCommaInstr(true);
+        _page.setFinalVariable(finalVariable);
+        _page.setCurrentVarSetting(importedClassName);
+        _page.getVariablesNames().clear();
+        _page.getVariablesNamesToInfer().clear();
     }
 
     public boolean isFinalVariable() {

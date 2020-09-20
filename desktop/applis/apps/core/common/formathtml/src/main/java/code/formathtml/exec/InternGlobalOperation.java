@@ -1,6 +1,5 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -22,19 +21,18 @@ public final class InternGlobalOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(ContextEl _conf) {
+    public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String arg_ = analyzingDoc.getInternGlobalClass();
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        if (page_.isStaticContext()) {
+        if (_page.isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(analyzingDoc.getFileName());
-            static_.setIndexFile(Configuration.getCurrentLocationIndex(page_, analyzingDoc));
-            static_.buildError(page_.getAnalysisMessages().getStaticAccess(),
-                    page_.getKeyWords().getKeyWordThis());
-            Configuration.addError(static_, analyzingDoc, page_);
+            static_.setIndexFile(Configuration.getCurrentLocationIndex(_page, analyzingDoc));
+            static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
+                    _page.getKeyWords().getKeyWordThis());
+            Configuration.addError(static_, analyzingDoc, _page);
         }
         setResultClass(new AnaClassArgumentMatching(arg_));
     }
