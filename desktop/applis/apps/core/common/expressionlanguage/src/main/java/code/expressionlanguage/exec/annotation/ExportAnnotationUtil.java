@@ -12,6 +12,9 @@ public final class ExportAnnotationUtil {
         CustList<CustList<StackObject>> elts_;
         elts_ = new CustList<CustList<StackObject>>();
         InfoAnnotPart root_ = InfoAnnotPart.create(_str, null);
+        if (!(root_ instanceof ParentAnnotPart)) {
+            return "";
+        }
         CustList<StackObject> elt_ =((ParentAnnotPart)root_).getStack();
         InfoAnnotPart current_ = root_;
         if (elt_.isEmpty()) {

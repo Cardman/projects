@@ -4150,6 +4150,23 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         calculateError("pkg.Ex", id_, args_, cont_);
     }
     @Test
+    public void calculateArgument108Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  $return $static($Annotation).getString($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("", getString(ret_));
+    }
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $annotation pkg.MyAnnot {\n");
