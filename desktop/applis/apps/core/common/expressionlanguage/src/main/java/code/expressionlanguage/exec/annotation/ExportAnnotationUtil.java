@@ -8,26 +8,16 @@ public final class ExportAnnotationUtil {
     private ExportAnnotationUtil(){
     }
     public static String exportAnnotation(String _infinity, String _nan,String _exp,Struct _str) {
-        StringBuilder out_ = new StringBuilder();
-        CustList<CustList<StackObject>> elts_;
-        elts_ = new CustList<CustList<StackObject>>();
         InfoAnnotPart root_ = InfoAnnotPart.create(_str, null);
         if (!(root_ instanceof ParentAnnotPart)) {
             return "";
         }
-        CustList<StackObject> elt_ =((ParentAnnotPart)root_).getStack();
+        StringBuilder out_ = new StringBuilder();
+        CustList<CustList<StackObject>> elts_ = new CustList<CustList<StackObject>>();
         InfoAnnotPart current_ = root_;
-        if (elt_.isEmpty()) {
-            out_.append(((ParentAnnotPart)root_).getBegin());
-            out_.append(((ParentAnnotPart)root_).getEnd());
-            return out_.toString();
-        }
-        CustList<InfoAnnotPart> vis_ = new CustList<InfoAnnotPart>();
-        CustList<StackObject> visSt_ = new CustList<StackObject>();
-        StackObject curStack_ = elt_.first();
-        vis_.add(root_);
-        while (true) {
-            if (current_ != root_) {
+        StackObject curStack_ = null;
+        while (current_ != null) {
+            if (curStack_ != null) {
                 out_.append(curStack_.getPrefix());
             }
             if (current_ instanceof LeafAnnotPart) {
@@ -39,7 +29,6 @@ public final class ExportAnnotationUtil {
                 if (!eltCur_.isEmpty()) {
                     elts_.add(eltCur_);
                     StackObject f_ = eltCur_.first();
-                    visSt_.add(f_);
                     InfoAnnotPart next_ = InfoAnnotPart.create(f_.getValue(), par_);
                     par_.append(next_);
                     current_ = next_;
@@ -48,9 +37,9 @@ public final class ExportAnnotationUtil {
                 }
                 out_.append(par_.getEnd());
             }
-            while (true) {
+            while (current_ != null) {
                 ParentAnnotPart par_ = current_.getParent();
-                if (current_.getIndex() + 1 < elts_.last().size()) {
+                if (!elts_.isEmpty()&&current_.getIndex() + 1 < elts_.last().size()) {
                     out_.append(ParentAnnotPart.PART_SEP);
                     StackObject value_ = elts_.last().get(current_.getIndex() + 1);
                     InfoAnnotPart next_ = InfoAnnotPart.create(value_.getValue(), par_);
@@ -59,14 +48,13 @@ public final class ExportAnnotationUtil {
                     curStack_ = value_;
                     break;
                 }
-                out_.append(par_.getEnd());
-                current_ = current_.getParent();
                 elts_.removeLast();
-                visSt_.removeLast();
-                if (elts_.isEmpty()) {
-                    return out_.toString();
+                current_ = par_;
+                if (par_ != null) {
+                    out_.append(par_.getEnd());
                 }
             }
         }
+        return out_.toString();
     }
 }
