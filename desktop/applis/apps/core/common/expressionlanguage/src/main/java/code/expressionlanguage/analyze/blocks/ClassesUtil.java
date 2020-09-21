@@ -69,6 +69,8 @@ public final class ClassesUtil {
                 _page.getCoverage().putToStringOwner(fullName_);
             }
         }
+        _page.getToStringOwners().add(_page.getStandards().getAliasObject());
+        _page.getCoverage().putToStringOwner(_page.getStandards().getAliasObject());
         for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock c = e.getKey();
             _page.setGlobalClass(c.getGenericString());

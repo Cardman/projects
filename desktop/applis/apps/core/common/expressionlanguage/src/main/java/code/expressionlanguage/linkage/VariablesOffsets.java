@@ -3,10 +3,8 @@ package code.expressionlanguage.linkage;
 import code.expressionlanguage.analyze.blocks.OperatorBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
@@ -19,8 +17,7 @@ public final class VariablesOffsets {
     private CustList<RootBlock> refFoundTypes;
     private CustList<OperatorBlock> refOperators;
     private KeyWords keyWords;
-    private Coverage coverage;
-    private LgNames stds;
+    private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
 
     public String getCurrentFileName() {
@@ -80,20 +77,12 @@ public final class VariablesOffsets {
         this.keyWords = keyWords;
     }
 
-    public Coverage getCoverage() {
-        return coverage;
+    public DisplayedStrings getDisplayedStrings() {
+        return displayedStrings;
     }
 
-    public void setCoverage(Coverage coverage) {
-        this.coverage = coverage;
-    }
-
-    public LgNames getStds() {
-        return stds;
-    }
-
-    public void setStds(LgNames stds) {
-        this.stds = stds;
+    public void setDisplayedStrings(DisplayedStrings displayedStrings) {
+        this.displayedStrings = displayedStrings;
     }
 
     public StringList getToStringOwners() {

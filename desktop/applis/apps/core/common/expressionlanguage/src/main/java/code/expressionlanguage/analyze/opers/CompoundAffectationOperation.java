@@ -30,6 +30,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private ClassMethodId test;
 
     private int opOffset;
+    private boolean rightBool;
 
     public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -128,6 +129,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 }
                 setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getStandards()));
             }
+            setBool(right_,_page);
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getStandards()));
@@ -228,6 +230,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             ((OperationNode) elt_).quickCancel();
             right_.quickCancel();
+            setBool(right_,_page);
             return;
         }
         if (StringList.quickEq(oper, Block.AND_LOG_EQ) || StringList.quickEq(oper, Block.OR_LOG_EQ)) {
@@ -251,6 +254,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             ((OperationNode) elt_).quickCancel();
             right_.quickCancel();
+            setBool(right_,_page);
             return;
         }
         if (StringList.quickEq(oper, Block.NULL_EQ)) {
@@ -307,6 +311,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
     }
 
+    private void setBool(OperationNode _right,AnalyzedPageEl _page) {
+        rightBool = _right.getResultClass().isBoolType(_page);
+    }
 
     public String getOper() {
         return oper;
@@ -346,5 +353,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public int getMemberNumberConv() {
         return memberNumberConv;
+    }
+
+    public boolean isRightBool() {
+        return rightBool;
     }
 }
