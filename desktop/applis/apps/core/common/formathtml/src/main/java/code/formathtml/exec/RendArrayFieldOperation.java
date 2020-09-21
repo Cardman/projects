@@ -25,12 +25,12 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
             ArrayStruct arr_ = (ArrayStruct) inst_;
             return new Argument(new IntStruct(arr_.getInstance().length));
         }
-        String npe_;
-        npe_ = _conf.getStandards().getAliasNullPe();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ContextEl _context = _conf.getContext();
+        String npe_;
+        npe_ = _context.getStandards().getAliasNullPe();
+        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String argCl_ = inst_.getClassName(_context);
-        String arrObj_ = _conf.getStandards().getAliasObject();
+        String arrObj_ = _context.getStandards().getAliasObject();
         arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
         return new Argument();

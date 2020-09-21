@@ -60,7 +60,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 escaped.add(false);
             }
-            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc, _page));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_, 0, _anaDoc, _page));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -76,7 +76,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             varNames = varNames_;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
+                lv_.setClassName(_page.getStandards().getAliasPrimInteger());
                 _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
             }
@@ -94,7 +94,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringList.concat(href_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
                             }
-                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc, _page);
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_, 1, _anaDoc, _page);
                             callExpsLoc_.add(expsCall_);
                         } else {
                             callExpsLoc_.add(new CustList<RendDynOperationNode>());
@@ -107,7 +107,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offMessage_);
-                    badEl_.buildError(_cont.getRendAnalysisMessages().getBadDocument(),
+                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }

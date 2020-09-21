@@ -1209,8 +1209,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
-        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).intStruct());
-        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).intStruct());
+        assertEq(1, ((NumberStruct) getStaticField(cont_, new ClassField("pkg.Ex", "t"))).intStruct());
+        assertEq(6, ((NumberStruct) getStaticField(cont_, new ClassField("pkg.Ex", "v"))).intStruct());
     }
     @Test
     public void calculate67Test() {
@@ -1484,19 +1484,19 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));
         return BooleanStruct.isTrue(str_);
     }
     private int getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));
         return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).intStruct();
     }
     private int getNumber(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));
         return ((NumberStruct)str_).intStruct();
     }
     private String getString(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));
         return ((CharSequenceStruct)str_).toStringInstance();
     }
 

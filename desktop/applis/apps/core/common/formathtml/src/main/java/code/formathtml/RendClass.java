@@ -22,7 +22,7 @@ public final class RendClass extends RendParentBlock {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
+            un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordClass(),
                     _cont.getRendKeyWords().getKeyWordPackage());
             Configuration.addError(un_, _anaDoc, _page);

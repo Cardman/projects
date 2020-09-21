@@ -34,10 +34,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -67,10 +67,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -94,10 +94,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -120,10 +120,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -149,13 +149,13 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(0, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
         assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
         assertSame(str_, field_.getParent());
@@ -182,13 +182,13 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(0, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
         assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
         assertSame(str_, field_.getParent());
@@ -216,10 +216,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -246,10 +246,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -276,10 +276,10 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -305,13 +305,13 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(0, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
         assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
         assertSame(str_, field_.getParent());
@@ -338,13 +338,13 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(0, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
         assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
         assertSame(str_, field_.getParent());

@@ -52,7 +52,7 @@ public final class RendTitledAnchor extends RendElement {
             String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            r_.build(attribute_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+            r_.build(attribute_, rowsGrId_,_doc, _anaDoc, _page);
             opExpTitle.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }

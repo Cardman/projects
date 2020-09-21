@@ -55,17 +55,17 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
-                    badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
-                String string_ = _cont.getStandards().getAliasString();
+                String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -75,7 +75,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 _page.getInfosVars().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -94,7 +94,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         }
         String converterField_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         if (!converterField_.trim().isEmpty()) {
-            String object_ = _cont.getStandards().getAliasObject();
+            String object_ = _page.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -104,20 +104,20 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
-            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
-                        _cont.getStandards().getAliasCharSequence());
+                        _page.getStandards().getAliasCharSequence());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -125,7 +125,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         if (!id_.isEmpty()) {
             ResultText rId_ = new ResultText();
             int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
-            rId_.buildId(id_,_cont,off_,_doc, _anaDoc, _page);
+            rId_.buildId(id_, off_,_doc, _anaDoc, _page);
             attributesText.put(_cont.getRendKeyWords().getAttrId(),rId_);
         }
         String prefixWrite_ = _cont.getPrefix();
@@ -134,21 +134,21 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         int offGrId_ = getAttributeDelimiter(prefGr_);
         if (!groupId_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.buildId(groupId_,_cont,offGrId_,_doc, _anaDoc, _page);
+            rId_.buildId(groupId_, offGrId_,_doc, _anaDoc, _page);
             attributesText.put(prefGr_,rId_);
         }
         String rows_ = elt.getAttribute(_cont.getRendKeyWords().getAttrRows());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrRows());
         if (!rows_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.build(rows_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+            rId_.build(rows_, rowsGrId_,_doc, _anaDoc, _page);
             attributes.addEntry(_cont.getRendKeyWords().getAttrRows(),rId_);
         }
         String cols_ = elt.getAttribute(_cont.getRendKeyWords().getAttrCols());
         int colsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrCols());
         if (!cols_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.build(cols_,_cont,colsGrId_,_doc, _anaDoc, _page);
+            rId_.build(cols_, colsGrId_,_doc, _anaDoc, _page);
             attributes.addEntry(_cont.getRendKeyWords().getAttrCols(),rId_);
         }
     }

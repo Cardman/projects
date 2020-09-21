@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.util.*;
@@ -959,19 +958,12 @@ public final class SubmitFormTest extends CommonRender {
         files_.put("page1.html", html_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c;");
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
 
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_.getContext());
-        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        conf_.setContext(cont_.getContext());
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
+        AnalyzedTestConfiguration a_ = build(conf_);
+        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
+        getHeaders(filesSec_, a_);
+        assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -983,8 +975,8 @@ public final class SubmitFormTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        analyze(nav_, page_);
-        tryInitStaticlyTypes(cont_,nav_.getSession());
+        analyze(nav_, a_.getAnalyzing(), a_.getAdvStandards());
+        tryInitStaticlyTypes(a_);
         nav_.initializeRendSession();
         return nav_;
     }
@@ -994,19 +986,12 @@ public final class SubmitFormTest extends CommonRender {
         files_.put("page1.html", html_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c;");
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
 
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_.getContext());
-        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        conf_.setContext(cont_.getContext());
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
+        AnalyzedTestConfiguration a_ = build(conf_);
+        a_.getContext().setFullStack(new AdvancedFullStack(conf_));
+        getHeaders(filesSec_, a_);
+        assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1019,18 +1004,19 @@ public final class SubmitFormTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
-        analyze(nav_, page_);
-        tryInitStaticlyTypes(cont_,nav_.getSession());
+        analyze(nav_, a_.getAnalyzing(), a_.getAdvStandards());
+        tryInitStaticlyTypes(a_);
         nav_.initializeRendSession();
         return nav_;
     }
 
-    private static void analyze(Navigation _nav, AnalyzedPageEl page_) {
+    private static void analyze(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(new AnalyzingDoc(), page_);
+        AnalyzingDoc anaDoc_ = new AnalyzingDoc();
+        setupAna(anaDoc_, page_);
         _nav.initInstancesPattern(page_);
         _nav.getSession().setPrefix("c:");
-        _nav.setupRenders(page_);
+        _nav.setupRenders(page_, _stds, anaDoc_.getRendAnalysisMessages());
     }
 
 

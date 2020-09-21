@@ -6,6 +6,7 @@ import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
@@ -2275,9 +2276,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
         Options options_ = new Options();
-        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
+        ClassesCommon com_ = new ClassesCommon();
+        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_);
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2309,9 +2311,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
         Options options_ = new Options();
-        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
+        ClassesCommon com_ = new ClassesCommon();
+        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_);
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2322,9 +2325,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
-    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options) {
+    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options, ClassesCommon _com) {
         AnalysisMessages mess_ = new AnalysisMessages();
-        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, kw_, lgName_, 4);
+        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, lgName_, 4, _com);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
@@ -2335,7 +2338,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     public static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
-        return getCtx(lk_, di_, kw_, lgName_, new Options());
+        return getCtx(lk_, di_, kw_, lgName_, new Options(), new ClassesCommon());
     }
     @Test
     public void parseLineArg1Test() {

@@ -3,6 +3,7 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.SingleContextEl;
@@ -21,8 +22,8 @@ public final class ContextFactory {
     private ContextFactory(){}
 
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                            CustList<CommentDelimiters> _comments, Options _options) {
-        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options);
+                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com) {
+        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options, _com);
         return addResourcesAndValidate(_files, _contextEl, _folder, page_);
     }
 
@@ -35,16 +36,16 @@ public final class ContextFactory {
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
-        _page.getClasses().addResources(_files);
+        _page.addResources(_files);
         return Classes.validateAll(srcFiles_, _contextEl, _page);
     }
 
-    public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
-        return new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames,_tabWidth);
+    public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, LgNames _definedLgNames, int _tabWidth, ClassesCommon _com) {
+        return new SingleContextEl(_stack, _lock, _init, _options, _definedLgNames,_tabWidth, _com);
     }
 
     public static AnalyzedPageEl validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
-                                    CustList<CommentDelimiters> _comments, Options _options) {
+                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
@@ -54,6 +55,7 @@ public final class ContextFactory {
         page_.setKeyWords(_definedKw);
         page_.setStandards(_definedLgNames);
         page_.setClasses(_context.getClasses());
+        page_.setClassesCommon(_com);
         page_.setCoverage(_context.getCoverage());
         page_.setTabWidth(_context.getTabWidth());
         page_.setGettingErrors(_options.isGettingErrors());

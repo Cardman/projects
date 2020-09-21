@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -40,7 +41,7 @@ public final class RendRadio extends RendInput {
         _list.removeAllString(_cont.getRendKeyWords().getAttrType());
         String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
         if (!converterFieldValue_.trim().isEmpty()) {
-            String object_ = _cont.getStandards().getAliasObject();
+            String object_ = _page.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -50,20 +51,20 @@ public final class RendRadio extends RendInput {
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
-            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
-                        _cont.getStandards().getAliasCharSequence());
+                        _page.getStandards().getAliasCharSequence());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -73,16 +74,17 @@ public final class RendRadio extends RendInput {
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         Element elt_ = (Element) _nextWrite;
         Argument arg_ = processIndexes(_cont, _read, elt_);
-        if (_cont.getContext().hasException()) {
+        ContextEl context_ = _cont.getContext();
+        if (context_.hasException()) {
             return;
         }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(),_cont.getStandards().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), context_.getStandards().getAliasObject());
             _cont.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
             Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont);
             _cont.getLastPage().removeLocalVar(varNameConverterFieldValue);
-            if (_cont.getContext().hasException()) {
+            if (context_.hasException()) {
                 return;
             }
             res_ = argConv_.getStruct();
@@ -91,7 +93,7 @@ public final class RendRadio extends RendInput {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
             String strObj_ = getStringKey(_cont, res_);
-            if (_cont.getContext().hasException()) {
+            if (context_.hasException()) {
                 return;
             }
             if (StringList.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {

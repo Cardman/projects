@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -25,6 +26,7 @@ import code.expressionlanguage.analyze.blocks.ImportForEachLoop;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.IterableAnalysisResult;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -61,9 +63,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     private CustList<RendDynOperationNode> opList;
     private boolean okVar = true;
 
-    RendForEachLoop(Configuration _importingPage,
-                    OffsetStringInfo _className, OffsetStringInfo _variable,
-                    OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+    RendForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
+                    OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -73,7 +74,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _stds.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -104,7 +105,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
+            mapping_.setParam(_page.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -131,7 +132,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _page);
+        opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
         return _page.getCurrentRoot();
     }
     public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {
@@ -174,35 +175,35 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _cont.getStandards().getAliasNullPe());
+                    _page.getStandards().getAliasNullPe());
             Configuration.addError(static_, _anaDoc, _page);
         } else if (root_.getResultClass().isArray()) {
             inferArrayClass(_anaDoc, root_, _page);
         } else {
             StringList names_ = el_.getResultClass().getNames();
-            StringList out_ = getInferredIterable(names_, _cont, _page);
-            checkIterableCandidates(out_, _cont, _anaDoc, _page);
+            StringList out_ = getInferredIterable(names_, _page);
+            checkIterableCandidates(out_, _anaDoc, _page);
         }
         if (!okVar) {
             return;
         }
-        putVariable(_cont, _page);
+        putVariable(_page);
     }
-    public StringList getInferredIterable(StringList _types, Configuration _cont, AnalyzedPageEl _page) {
-        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,importedClassName, _page);
+    public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
+        IterableAnalysisResult it_ = _page.getStandards().getCustomType(_types,importedClassName, _page);
         return it_.getClassName();
     }
-    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             }
             if (toInfer(_page)) {
                 importedClassName = paramArg_;
@@ -222,15 +223,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 }
             }
         } else {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(_cont.getStandards().getAliasObject());
-            mapping_.setParam(_cont.getStandards().getAliasIterable());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    _cont.getStandards().getAliasObject(),
-                    _cont.getStandards().getAliasIterable());
+                    _page.getStandards().getAliasObject(),
+                    _page.getStandards().getAliasIterable());
             Configuration.addError(cast_, _anaDoc, _page);
         }
     }
@@ -239,7 +237,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }
-    public void putVariable(Configuration _cont, AnalyzedPageEl _page) {
+    public void putVariable(AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
         _page.getLoopsVars().put(variableName, lv_);
@@ -247,7 +245,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(_cont.getStandards().getAliasObject());
+            lInfo_.setClassName(_page.getStandards().getAliasObject());
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
         _page.getInfosVars().put(variableName, lInfo_);
@@ -262,7 +260,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return;
         }
         Struct its_ = processLoop(_cont);
-        if (_cont.getContext().hasException()) {
+        ContextEl context_ = _cont.getContext();
+        if (context_.hasException()) {
             return;
         }
         Struct iterStr_ = null;
@@ -274,17 +273,17 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
-            if (_cont.getContext().hasException()) {
+            if (context_.hasException()) {
                 return;
             }
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
-                String npe_ = _cont.getStandards().getAliasNullPe();
-                _cont.setException(new ErrorStruct(_cont.getContext(), npe_));
+                String npe_ = context_.getStandards().getAliasNullPe();
+                _cont.setException(new ErrorStruct(context_, npe_));
                 return;
             }
             Argument arg_ = iterator(its_,_cont);
-            if (_cont.getContext().hasException()) {
+            if (context_.hasException()) {
                 return;
             }
             iterStr_ = arg_.getStruct();
@@ -300,7 +299,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ip_.addBlock(l_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _cont.getContext());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, context_);
         lv_.setIndexClassName(importedClassIndexName);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
@@ -312,8 +311,9 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (_str instanceof ArrayStruct) {
             return ((ArrayStruct)_str).getInstance().length;
         }
-        String npe_ = _cont.getStandards().getAliasNullPe();
-        _cont.setException(new ErrorStruct(_cont.getContext(), npe_));
+        ContextEl context_ = _cont.getContext();
+        String npe_ = context_.getStandards().getAliasNullPe();
+        _cont.setException(new ErrorStruct(context_, npe_));
         return -1;
     }
     Struct processLoop(Configuration _conf) {

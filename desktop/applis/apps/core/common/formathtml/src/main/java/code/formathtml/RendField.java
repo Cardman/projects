@@ -24,7 +24,7 @@ public final class RendField extends RendParentBlock {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
+            un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordField(),
                     _cont.getRendKeyWords().getKeyWordClass());
             Configuration.addError(un_, _anaDoc, _page);
@@ -35,7 +35,7 @@ public final class RendField extends RendParentBlock {
             _page.setGlobalOffset(prepareOffset);
             _page.setOffset(0);
             _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());
-            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc, _page);
+            exps = RenderExpUtil.getAnalyzedOperations(prepare, 0, _anaDoc, _page);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }

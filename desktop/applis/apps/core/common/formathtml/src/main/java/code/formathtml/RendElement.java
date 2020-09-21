@@ -34,7 +34,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         if (!id_.isEmpty()) {
             ResultText r_ = new ResultText();
             int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
-            r_.buildId(id_,_cont,off_,_doc, _anaDoc, _page);
+            r_.buildId(id_, off_,_doc, _anaDoc, _page);
             attributesText.put(_cont.getRendKeyWords().getAttrId(),r_);
         }
         String prefGr_ = StringList.concat(prefixWrite_, _cont.getRendKeyWords().getAttrGroupId());
@@ -43,7 +43,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         if (!groupId_.isEmpty()) {
             ResultText r_ = new ResultText();
             int off_ = getAttributeDelimiter(prefGr_);
-            r_.buildId(groupId_,_cont,off_,_doc, _anaDoc, _page);
+            r_.buildId(groupId_, off_,_doc, _anaDoc, _page);
             attributesText.put(prefGr_,r_);
         }
         processAttributes(_cont,_doc,read,attributesNames_, _anaDoc, _page);
@@ -54,7 +54,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
             }
             ResultText r_ = new ResultText();
             int rowsGrId_ = getAttributeDelimiter(a);
-            r_.build(attr_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+            r_.build(attr_, rowsGrId_,_doc, _anaDoc, _page);
             attributes.addEntry(a,r_);
         }
     }

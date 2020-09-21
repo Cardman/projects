@@ -1,13 +1,13 @@
 package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.formathtml.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
@@ -27,11 +27,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setKeyWordBody("");
         r_.setKeyWordBreak("continue");
@@ -55,11 +53,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setAttrAction("");
         r_.setAttrAlias("bean");
@@ -79,11 +75,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setValueRadio("");
         StringMap<String> tags_ = r_.allValues();
@@ -105,11 +99,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleValueRgb("");
         r_.setStyleValueRed("-");
@@ -132,11 +124,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleAttrBorder("");
         r_.setStyleAttrColor("/");
@@ -155,11 +145,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("0");
@@ -177,11 +165,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("/");
@@ -198,11 +184,9 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        Configuration conf_ = new Configuration();
-        setCtx(s_, conf_);
-        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
-        validateMess(def_, s_);
+        AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
+
+        validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleAttrBorder("");
         r_.setStyleAttrColor("");
@@ -362,20 +346,22 @@ public final class RendKeyWordsTest {
         r_.validateStyleUnitContents(tags_, conf_.getAnalyzing());
     }
 
-    private static void validateMess(RendAnalysisMessages def_, AnalyzedTestContext s_) {
+    private static void validateMess(RendAnalysisMessages def_, AnalyzedTestConfiguration s_) {
         AnalysisMessages.validateMessageContents(def_.allMessages(), s_.getAnalyzing());
     }
 
-    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
-        SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
+    private static AnalyzedTestConfiguration build(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        Configuration conf_ = new Configuration();
+        return new AnalyzedTestConfiguration(conf_,s_);
+    }
+
+    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
+        SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, lgName_, 4, new ClassesCommon());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);
-        return new AnalyzedTestContext(s_,page_);
-    }
-
-    private static void setCtx(AnalyzedTestContext s_, Configuration conf_) {
-        conf_.setContext(s_.getContext());
+        return new AnalyzedTestContext(s_, page_);
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {

@@ -30,8 +30,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                                 CustInitializer _init, Options _options, ExecutingOptions _exec,
-                                LgNames _stds, int _tabWidth) {
-        super(new CommonExecutionInfos(_tabWidth, _stackOverFlow, _stds, new Classes(), new Coverage(_options.isCovering()), _lock, _init));
+                                LgNames _stds, int _tabWidth, ClassesCommon _com) {
+        super(new CommonExecutionInfos(_tabWidth, _stackOverFlow, _stds, new Classes(_com), new Coverage(_options.isCovering()), _lock, _init));
         setFullStack(new DefaultFullStack(this));
         executingOptions = _exec;
         setThread();

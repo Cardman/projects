@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -48,11 +49,12 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        ContextEl context_ = _conf.getContext();
         if (((RendDynOperationNode) settable).getParent() instanceof RendSafeDotOperation) {
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, context_, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -83,7 +85,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         }
         if (converterTo != null) {
             String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, context_.getStandards());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(stored_, oper, cast_);
             Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);

@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.utilcompo.CustLockingClass;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
@@ -35,9 +36,10 @@ public final class GuiContextFactory {
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         GuiInitializer ci_ = new GuiInitializer();
-        GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth);
+        ClassesCommon com_ = new ClassesCommon();
+        GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth, com_);
         r_.initApplicationParts(_mainArgs,_window);
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options, com_);
         return new ResultsGuiContext(r_,reportedMessages_);
     }
 }

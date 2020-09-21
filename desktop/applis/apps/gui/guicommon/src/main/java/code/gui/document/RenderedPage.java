@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
@@ -88,13 +89,14 @@ public final class RenderedPage implements ProcessingSession {
         _stds.setDataBase(_db);
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds);
+        RendAnalysisMessages rend_ = new RendAnalysisMessages();
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_);
         if (navigation.isError()) {
             setupText();
             return;
         }
         setFiles();
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_);
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_, _stds, rend_);
         if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }

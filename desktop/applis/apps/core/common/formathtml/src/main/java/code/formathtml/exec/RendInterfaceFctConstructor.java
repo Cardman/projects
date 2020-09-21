@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -43,14 +44,15 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             //init and test
             int order_ = getParent().getFirstChild().getOrder();
             Argument lda_ = new Argument(Argument.getNullableValue(_nodes.getValue(order_).getArgument()).getStruct());
-            if (!ExecTemplates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf.getContext())) {
+            ContextEl context_ = _conf.getContext();
+            if (!ExecTemplates.checkObject(context_.getStandards().getAliasFct(), lda_, context_)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
-            String form_ = _conf.getPageEl().formatVarType(className, _conf.getContext());
+            String form_ = _conf.getPageEl().formatVarType(className, context_);
             Argument ref_ = new Argument(lda_.getStruct());
-            ExecCastOperation.wrapFct(form_,true, _conf.getContext(), ref_);
-            if (!ExecTemplates.checkObject(form_, ref_, _conf.getContext())) {
+            ExecCastOperation.wrapFct(form_,true, context_, ref_);
+            if (!ExecTemplates.checkObject(form_, ref_, context_)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }

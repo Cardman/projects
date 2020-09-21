@@ -11,6 +11,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.errors.RendKeyWords;
@@ -171,18 +172,18 @@ public abstract class RendBlock implements AnalyzedBlock {
         parent = _b;
     }
 
-    public static RendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText) {
+    public static RendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText, LgNames _stds) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         RendDocumentBlock out_ = new RendDocumentBlock(documentElement_,_docText,new OffsetsBlock(),_conf.getCurrentUrl());
-        RendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText);
+        RendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText, _stds);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
             MutableNode firstChild_ = curNode_.getFirstChild();
             if (firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
-                RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(RendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText);
+                RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(RendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText, _stds);
                 ((RendParentBlock) curWrite_).appendChild(rendBlock_);
                 curWrite_ = rendBlock_;
                 curNode_ = firstChild_;
@@ -193,7 +194,7 @@ public abstract class RendBlock implements AnalyzedBlock {
                 RendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
-                    RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText);
+                    RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText, _stds);
                     par_.appendChild(rendBlock_);
                     curWrite_ = rendBlock_;
                     curNode_ = nextSibling_;
@@ -284,8 +285,8 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return indexText_ + 1;
     }
-    private static RendBlock newRendBlockEsc(int _begin,RendParentBlock _curParent,Configuration _conf,String _prefix,Node _elt, String _docText) {
-        RendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText);
+    private static RendBlock newRendBlockEsc(int _begin, RendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
+        RendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText, _stds);
         if (_elt instanceof Text) {
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
             AttributePart attrPart_ = new AttributePart();
@@ -311,7 +312,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return bl_;
     }
-    private static RendBlock newRendBlock(int _begin,RendParentBlock _curParent,Configuration _conf,String _prefix,Node _elt, String _docText) {
+    private static RendBlock newRendBlock(int _begin, RendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             if (t_.getTextContent().trim().isEmpty()) {
@@ -328,17 +329,17 @@ public abstract class RendBlock implements AnalyzedBlock {
         RendKeyWords rendKeyWords_ = _conf.getRendKeyWords();
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordFor()))) {
             if (elt_.hasAttribute(rendKeyWords_.getAttrList())) {
-                return new RendForEachLoop(_conf,
+                return new RendForEachLoop(
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrList(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin)
+                        new OffsetsBlock(_begin,_begin), _stds
                 );
             }
             if (elt_.hasAttribute(rendKeyWords_.getAttrMap())) {
-                return new RendForEachTable(_conf,
+                return new RendForEachTable(
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrKeyClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrKey(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrVarClassName(), attr_),
@@ -346,11 +347,11 @@ public abstract class RendBlock implements AnalyzedBlock {
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrMap(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin)
+                        new OffsetsBlock(_begin,_begin), _stds
                 );
             }
             if (elt_.hasAttribute(rendKeyWords_.getAttrVar())) {
-                return new RendForIterativeLoop(_conf,
+                return new RendForIterativeLoop(
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrFrom(), attr_),
@@ -359,17 +360,17 @@ public abstract class RendBlock implements AnalyzedBlock {
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin)
-                        );
+                        new OffsetsBlock(_begin,_begin), _stds
+                );
             }
-            return new RendForMutableIterativeLoop(_conf,
+            return new RendForMutableIterativeLoop(
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrInit(), attr_),
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_)
                     ,newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
+                    new OffsetsBlock(_begin,_begin), _stds);
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordWhile()))) {
             MutableNode previousSibling_ = elt_.getPreviousSibling();
@@ -523,7 +524,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
             badEl_.setIndexFile(_offset);
-            badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
+            badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                     var_);
             Configuration.addError(badEl_, _analyzingDoc, _page);
             return new StringMap<String>();
@@ -544,18 +545,18 @@ public abstract class RendBlock implements AnalyzedBlock {
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
                         Integer.toString(index_),
-                        content_);
+                        cont_);
                 Configuration.addError(badEl_, _analyzingDoc, _page);
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
+            StringMap<String> messages_ = RendExtractFromResources.getMessages(cont_);
             String key_ = elts_.last();
             String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
             if (format_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_analyzingDoc.getFileName());
                 badEl_.setIndexFile(_offset);
-                badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
+                badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                         key_);
                 Configuration.addError(badEl_, _analyzingDoc, _page);
                 return new StringMap<String>();
@@ -888,7 +889,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
         Argument o_ = _o;
         if (!_opsConv.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_.getStruct(),_cont.getStandards().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_.getStruct(),_cont.getContext().getStandards().getAliasObject());
             _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
             _cont.getLastPage().removeLocalVar(_varNameConv);

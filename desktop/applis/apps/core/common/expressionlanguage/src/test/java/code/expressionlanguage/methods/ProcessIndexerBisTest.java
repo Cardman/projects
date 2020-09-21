@@ -47,7 +47,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(6, getNumber(ret_));
-        assertEq("1 set at 0,5;2 get at 0;3 set at 0,6;4 get at 0;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
+        assertEq("1 set at 0,5;2 get at 0;3 set at 0,6;4 get at 0;", ((StringStruct) getStaticField(cont_, new ClassField("pkg.Ex", "calls"))).getInstance());
     }
     @Test
     public void calculate47Test() {
@@ -82,7 +82,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, getNumber(ret_));
-        assertEq("1 set at 0,5;2 get at 0;3 set at 0,15;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
+        assertEq("1 set at 0,5;2 get at 0;3 set at 0,15;", ((StringStruct) getStaticField(cont_, new ClassField("pkg.Ex", "calls"))).getInstance());
     }
     @Test
     public void calculate101Test() {

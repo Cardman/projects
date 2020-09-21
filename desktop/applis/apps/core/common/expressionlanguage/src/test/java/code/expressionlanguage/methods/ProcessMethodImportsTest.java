@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -847,7 +846,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq("pkg.Ex", field_.getClassName(cont_));
-        assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
+        assertSame(getStaticField(cont_, new ClassField("pkg.Ex", "ONE")), field_);
     }
     @Test
     public void calculateArgument23Test() {
@@ -929,7 +928,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
 
         assertTrue(isInitialized(cont_));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex<java.lang.String>", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -938,14 +937,14 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.Ex", "second"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("generic", ((StringStruct)field_).getInstance());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex<java.lang.Integer>", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
         field_ = getField(str_, new ClassField("pkg.Ex", "second"));
         assertSame(NullStruct.NULL_VALUE,field_);
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "THREE"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "THREE"));
         assertEq("pkg.Ex<pkg.ExTwo>", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));

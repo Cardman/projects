@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -30,15 +31,16 @@ final class RendRequestUtil {
     private static Struct calculate(Configuration _conf, Argument _bean, StringList varNames_, CustList<RendDynOperationNode> exps_, StringList args_) {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
-        for (int i =0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))),_conf.getStandards().getAliasPrimLong());
+        ContextEl context_ = _conf.getContext();
+        for (int i = 0; i< s_; i++) {
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), context_.getStandards().getAliasPrimLong());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);
         for (String n: varNames_) {
             ip_.removeLocalVar(n);
         }
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
@@ -68,7 +70,8 @@ final class RendRequestUtil {
             ip_.putLocalVar(p, lv_);
             i_++;
         }
-        String wrap_ = PrimitiveTypeUtil.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _conf.getStandards());
+        ContextEl context_ = _conf.getContext();
+        String wrap_ = PrimitiveTypeUtil.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), context_.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);

@@ -1,6 +1,7 @@
 package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -59,7 +60,7 @@ public final class Navigation {
     public Navigation(){
         //instance
     }
-    public AnalyzedPageEl loadConfiguration(String _cont, String _lgCode,BeanLgNames _lgNames) {
+    public AnalyzedPageEl loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
@@ -68,13 +69,12 @@ public final class Navigation {
             return null;
         }
         session = new Configuration();
-        session.setStandards(_lgNames);
-        AnalyzedPageEl page_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames);
+        AnalyzedPageEl page_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames, _rend);
         if (session.getContext() == null) {
             error = true;
             return page_;
         }
-        session.init(page_);
+        session.init();
         return page_;
     }
     public boolean isError() {
@@ -124,14 +124,14 @@ public final class Navigation {
         setupText(htmlText);
     }
 
-    public ReportedMessages setupRendClassesInit(AnalyzedPageEl _page) {
-        return session.getAdvStandards().setupAll(this,session,files, _page);
+    public ReportedMessages setupRendClassesInit(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend) {
+        return _stds.setupAll(this,session,files, _page, _rend);
     }
 
-    public void setupRenders(AnalyzedPageEl _page) {
-        BeanLgNames stds_ = session.getAdvStandards();
-        stds_.preInitBeans(session);
+    public void setupRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend) {
+        _stds.preInitBeans(session);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setRendAnalysisMessages(_rend);
         analyzingDoc_.setLanguages(languages);
         session.setCurrentLanguage(language);
         session.setupRenders(files, analyzingDoc_, _page);
@@ -142,17 +142,13 @@ public final class Navigation {
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
-                    StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session, anaDoc_, _page);
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
             info_.setResolvedClassName(_page.getCurrentRoot().getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
-                    StringList.concat(keyWordNew_, " ", v_.getClassName(),RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session, anaDoc_, _page);
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
             v_.setExps(exps_);
         }
     }

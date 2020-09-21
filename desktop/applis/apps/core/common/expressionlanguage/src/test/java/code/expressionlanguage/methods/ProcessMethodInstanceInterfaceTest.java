@@ -2243,7 +2243,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq("pkg.Ex", field_.getClassName(cont_));
-        assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
+        assertSame(getStaticField(cont_, new ClassField("pkg.Ex", "ONE")), field_);
     }
     @Test
     public void instanceArgument94Test() {
@@ -3490,7 +3490,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq("pkg.Ex", field_.getClassName(cont_));
-        assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
+        assertSame(getStaticField(cont_, new ClassField("pkg.Ex", "ONE")), field_);
     }
     @Test
     public void instanceArgument114Test() {
@@ -4416,7 +4416,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct intern_ = getField(elt_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, ((NumberStruct)intern_).intStruct());
-        Struct st_ = cont_.getClasses().getStaticField(new ClassField("pkg.Int3","res"));
+        Struct st_ = getStaticField(cont_, new ClassField("pkg.Int3", "res"));
         assertEq(INTEGER, st_.getClassName(cont_));
         assertEq(-1, ((NumberStruct)st_).intStruct());
     }
@@ -4503,7 +4503,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct intern_ = getField(elt_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, ((NumberStruct)intern_).intStruct());
-        Struct st_ = cont_.getClasses().getStaticField(new ClassField("pkg.Int3","res"));
+        Struct st_ = getStaticField(cont_, new ClassField("pkg.Int3", "res"));
         assertEq(INTEGER, st_.getClassName(cont_));
         assertEq(-1, ((NumberStruct)st_).intStruct());
     }

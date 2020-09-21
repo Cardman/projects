@@ -12,6 +12,7 @@ import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.files.CommentDelimiters;
@@ -51,8 +52,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
         Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
@@ -71,8 +73,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.setAliasLe("ge");
         lgName_.setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
         Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyStdError());
     }
@@ -88,8 +91,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
         Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
@@ -104,8 +108,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
         Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
@@ -2905,9 +2910,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(2, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -2962,7 +2967,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(1, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -2983,9 +2988,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(1, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myt"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myt"));
         assertEq(3, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3019,9 +3024,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(127, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(129, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3035,9 +3040,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(2, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3051,9 +3056,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(2, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3070,7 +3075,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3085,9 +3090,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(2, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3102,9 +3107,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(1, ((NumberStruct)str_).intStruct());
-        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "mys"));
         assertEq(2, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3131,7 +3136,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "ch"));
         assertSame(NullStruct.NULL_VALUE,str_);
     }
 
@@ -3148,7 +3153,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3164,7 +3169,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3180,7 +3185,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3196,7 +3201,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3212,7 +3217,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3228,7 +3233,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3244,7 +3249,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3260,7 +3265,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3276,7 +3281,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3544,7 +3549,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(-1,((NumberStruct)str_).intStruct());
     }
 
@@ -3560,7 +3565,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3576,7 +3581,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3635,7 +3640,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3652,7 +3657,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3669,7 +3674,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3686,7 +3691,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3703,7 +3708,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3720,7 +3725,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3737,7 +3742,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3754,7 +3759,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3771,7 +3776,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3787,7 +3792,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(-1,((NumberStruct)str_).intStruct());
     }
 
@@ -3803,7 +3808,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3819,7 +3824,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
 
@@ -3836,7 +3841,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -3852,7 +3857,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
 
@@ -3870,7 +3875,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(4, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -3887,7 +3892,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(4, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -3903,7 +3908,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3919,7 +3924,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3935,7 +3940,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3951,7 +3956,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
@@ -3967,7 +3972,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -3983,7 +3988,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -3999,7 +4004,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4015,7 +4020,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -4031,7 +4036,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -4047,7 +4052,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4063,7 +4068,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -4079,7 +4084,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4095,7 +4100,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq("",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4110,7 +4115,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq("",((StringStruct)str_).getInstance());
     }
     @Test
@@ -4126,7 +4131,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -4142,7 +4147,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4158,7 +4163,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isFalse(str_));
     }
     @Test
@@ -4174,7 +4179,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4189,7 +4194,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "ch"));
         assertSame(NullStruct.NULL_VALUE,str_);
     }
     @Test
@@ -4204,7 +4209,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "ch"));
         assertSame(NullStruct.NULL_VALUE,str_);
     }
     @Test
@@ -4219,7 +4224,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "ch"));
         assertSame(NullStruct.NULL_VALUE,str_);
     }
     @Test
@@ -4234,7 +4239,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "ch"));
         assertSame(NullStruct.NULL_VALUE,str_);
     }
     @Test
@@ -4250,7 +4255,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertTrue(BooleanStruct.isTrue(str_));
     }
     @Test
@@ -4294,7 +4299,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
         assertEq(2, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -4454,7 +4459,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(0, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -5094,7 +5099,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longStruct());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).longStruct());
     }
     @Test
     public void calculateStaticField153Test() {
@@ -5107,7 +5112,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longStruct());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).longStruct());
     }
     @Test
     public void calculateStaticField154Test() {
@@ -5306,7 +5311,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(2,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField175Test() {
@@ -5327,7 +5332,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(2,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField176Test() {
@@ -5348,7 +5353,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(1,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField177Test() {
@@ -5366,7 +5371,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(3,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField178Test() {
@@ -5387,7 +5392,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(2,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField179Test() {
@@ -5408,7 +5413,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(2,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField180Test() {
@@ -5429,7 +5434,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(1,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField181Test() {
@@ -5447,7 +5452,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = ctxOk(files_);
-        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+        assertEq(3,((NumberStruct) getStaticField(ctx_, new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField182Test() {
@@ -5512,7 +5517,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq(2, ((NumberStruct)str_).intStruct());
     }
     @Test
@@ -5526,7 +5531,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq("pkg.ExTwo", ((ClassMetaInfo)str_).getName());
     }
     @Test
@@ -5541,7 +5546,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
-        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq("b", ((ReplacementStruct)str_).getInstance().getNewString());
         assertEq("a", ((ReplacementStruct)str_).getInstance().getOldString());
     }

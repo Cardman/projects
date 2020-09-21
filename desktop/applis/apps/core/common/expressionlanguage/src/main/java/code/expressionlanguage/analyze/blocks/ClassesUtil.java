@@ -24,6 +24,7 @@ import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
@@ -50,7 +51,7 @@ public final class ClassesUtil {
     }
 
     public static void postValidation(AnalyzedPageEl _page) {
-        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _page.getClasses().getToStringMethodsToCallBodies();
+        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _page.getToStringMethodsToCallBodies();
         _page.setAnnotAnalysis(false);
         if (!_page.getOptions().isReadOnly()) {
             validateFinals(_page);
@@ -3023,7 +3024,7 @@ public final class ClassesUtil {
     }
 
     private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
-        if (_page.getClasses().getStaticFieldMap(_clName).getVal(_field) == null) {
+        if (Classes.getStaticFieldMap(_clName, _page.getStaticFields()).getVal(_field) == null) {
             if (!_cl.isStaticType()) {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -3055,7 +3056,7 @@ public final class ClassesUtil {
                     cl_.put(f, null);
                 }
             }
-            _page.getClasses().getStaticFields().put(fullName_, cl_);
+            _page.getStaticFields().put(fullName_, cl_);
         }
         IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
         for (RootBlock c: _page.getFoundTypes()) {
@@ -3094,7 +3095,8 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
-                Struct value_ = _page.getClasses().getStaticField(k_);
+                StringMap<StringMap<Struct>> staticFields_1 = _page.getStaticFields();
+                Struct value_ = Classes.getStaticField(k_, staticFields_1);
                 if (value_ != null) {
                     continue;
                 }
@@ -3102,7 +3104,8 @@ public final class ClassesUtil {
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ElUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
-                value_ = _page.getClasses().getStaticField(k_);
+                StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
+                value_ = Classes.getStaticField(k_, staticFields_);
                 if (value_ != null) {
                     calculatedValue_ = true;
                     break;

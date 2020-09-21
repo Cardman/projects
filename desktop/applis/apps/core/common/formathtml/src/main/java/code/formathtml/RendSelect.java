@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -62,7 +63,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (!id_.isEmpty()) {
             ResultText rId_ = new ResultText();
             int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
-            rId_.buildId(id_,_cont,off_,_doc, _anaDoc, _page);
+            rId_.buildId(id_, off_,_doc, _anaDoc, _page);
             attributesText.put(_cont.getRendKeyWords().getAttrId(),rId_);
         }
         String prefixWrite_ = _cont.getPrefix();
@@ -71,24 +72,24 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (!groupId_.isEmpty()) {
             ResultText rId_ = new ResultText();
             int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrGroupId());
-            rId_.buildId(groupId_,_cont,off_,_doc, _anaDoc, _page);
+            rId_.buildId(groupId_, off_,_doc, _anaDoc, _page);
             attributesText.put(prefGr_,rId_);
         }
         multiple = elt.hasAttribute(_cont.getRendKeyWords().getAttrMultiple());
         String map_ = elt.getAttribute(_cont.getRendKeyWords().getAttrMap());
         int offMap_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrMap());
-        opsMap = RenderExpUtil.getAnalyzedOperations(map_,offMap_, 0, _cont, _anaDoc, _page);
+        opsMap = RenderExpUtil.getAnalyzedOperations(map_, 0, _anaDoc, _page);
         String converterValue_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertValue());
         if (multiple) {
             if (converterValue_.trim().isEmpty()) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(getOffset().getOffsetTrim());
-                badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _cont.getRendKeyWords().getAttrConvertValue());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
-            String string_ = _cont.getStandards().getAliasString();
+            String string_ = _page.getStandards().getAliasString();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -99,7 +100,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
-            opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont, _anaDoc, _page);
+            opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
@@ -131,17 +132,17 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         } else if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
-                    badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             _cont.getRendKeyWords().getAttrConvertValue());
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
-                String string_ = _cont.getStandards().getAliasString();
+                String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -151,7 +152,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 _page.getInfosVars().addEntry(varLoc_,lv_);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont, _anaDoc, _page);
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -167,7 +168,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
             } else if (!converterValue_.trim().isEmpty()) {
-                String string_ = _cont.getStandards().getAliasString();
+                String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -177,7 +178,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 _page.getInfosVars().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont, _anaDoc, _page);
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -196,7 +197,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
         String converterField_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertField());
         if (!converterField_.trim().isEmpty()) {
-            String object_ = _cont.getStandards().getAliasObject();
+            String object_ = _page.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -206,26 +207,26 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertField());
-            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont, _anaDoc, _page);
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
-                        _cont.getStandards().getAliasCharSequence());
+                        _page.getStandards().getAliasCharSequence());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
         String converterFieldValue_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertFieldValue());
         if (!converterFieldValue_.trim().isEmpty()) {
-            String object_ = _cont.getStandards().getAliasObject();
+            String object_ = _page.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -235,20 +236,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertFieldValue());
-            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont, _anaDoc, _page);
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
-                        _cont.getStandards().getAliasCharSequence());
+                        _page.getStandards().getAliasCharSequence());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -259,24 +260,24 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(getOffset().getOffsetTrim());
-                badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _cont.getRendKeyWords().getAttrConvert());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
             String concat_ = StringList.concat(mName_,LEFT_PAR,STR,default_,STR,RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvert());
-            opsDefault = RenderExpUtil.getAnalyzedOperations(concat_,offConvValue_,0,_cont, _anaDoc, _page);
+            opsDefault = RenderExpUtil.getAnalyzedOperations(concat_, 0, _anaDoc, _page);
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
             if (!multiple) {
-                m_.setParam(_cont.getStandards().getAliasCharSequence());
+                m_.setParam(_page.getStandards().getAliasCharSequence());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_cont.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(opsDefault.last().getResultClass().getNames(),AND_ERR),
-                            _cont.getStandards().getAliasCharSequence());
+                            _page.getStandards().getAliasCharSequence());
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
             } else {
@@ -296,7 +297,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrRows());
         if (!rows_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.build(rows_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+            rId_.build(rows_, rowsGrId_,_doc, _anaDoc, _page);
             attributes.addEntry(_cont.getRendKeyWords().getAttrRows(),rId_);
         }
     }
@@ -460,11 +461,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (opsConverterField.isEmpty()) {
             return getStringKey(_conf, _arg);
         }
-        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg,_conf.getStandards().getAliasObject());
+        ContextEl context_ = _conf.getContext();
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, context_.getStandards().getAliasObject());
         _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterField);
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return EMPTY_STRING;
         }
         return stds_.processString(arg_,_conf);
@@ -474,11 +476,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (opsConverterFieldValue.isEmpty()) {
             return stds_.processString(_arg,_conf);
         }
-        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(),_conf.getStandards().getAliasObject());
+        ContextEl context_ = _conf.getContext();
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), context_.getStandards().getAliasObject());
         _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return EMPTY_STRING;
         }
         return stds_.processString(arg_,_conf);

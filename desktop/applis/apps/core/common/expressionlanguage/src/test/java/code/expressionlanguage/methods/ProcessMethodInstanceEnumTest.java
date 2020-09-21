@@ -49,7 +49,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -71,7 +71,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -97,13 +97,13 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
@@ -128,13 +128,13 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
@@ -167,18 +167,18 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "stFirst"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "stFirst"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(1, ((NumberStruct)str_).intStruct());
     }
@@ -207,7 +207,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -216,7 +216,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.Super", "sup"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
@@ -236,7 +236,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex-ONE", "first"));
@@ -258,7 +258,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -287,7 +287,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "out"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "out"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(4, ((NumberStruct)str_).intStruct());
     }
@@ -313,7 +313,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "out"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "out"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
     }
@@ -345,10 +345,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(5, ((NumberStruct)str_).intStruct());
     }
@@ -382,10 +382,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(22, ((NumberStruct)str_).intStruct());
     }
@@ -420,15 +420,15 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(22, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
     }
     @Test
@@ -462,15 +462,15 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq("$core.Integer", str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq("$core.Integer", str_.getClassName(cont_));
         assertEq(22, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
     }
     @Test
@@ -505,7 +505,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -517,7 +517,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.SuperInt", "supTwo"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, ((NumberStruct)field_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
@@ -562,16 +562,16 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(22, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         assertEq(STRING, getField(str_, new ClassField("pkg.Ex", "second")).getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
         assertEq("pkg.ExOther", getField(str_, new ClassField("pkg.Ex", "second")).getClassName(cont_));
     }
@@ -592,7 +592,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -621,7 +621,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -649,7 +649,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -679,7 +679,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -708,7 +708,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -739,7 +739,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -771,7 +771,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "first"));
@@ -797,7 +797,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex..ExInner-ONE", "first"));
@@ -820,13 +820,13 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex..ExInner-ONE", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
     }
@@ -846,10 +846,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -869,10 +869,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -891,10 +891,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -913,10 +913,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -935,10 +935,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -958,10 +958,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -981,10 +981,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -1004,10 +1004,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
@@ -1029,10 +1029,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
         assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
@@ -1067,15 +1067,15 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(18, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outTwo"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(22, ((NumberStruct)str_).intStruct());
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
     }
     @Test
@@ -1098,7 +1098,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE"));
         assertEq("pkg.Ex-ONE..Sample", str_.getClassName(cont_));
     }
     @Test

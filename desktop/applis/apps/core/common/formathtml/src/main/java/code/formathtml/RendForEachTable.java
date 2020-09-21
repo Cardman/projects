@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -22,6 +23,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.blocks.ImportForEachTable;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -73,10 +75,9 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     private boolean okVarFirst = true;
     private boolean okVarSecond = true;
 
-    RendForEachTable(Configuration _importingPage,
-                     OffsetStringInfo _className, OffsetStringInfo _variable,
+    RendForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                      OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                     OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                     OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
@@ -90,7 +91,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _stds.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -113,14 +114,14 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _cont.getStandards().getAliasNullPe());
+                    _page.getStandards().getAliasNullPe());
             Configuration.addError(static_, _anaDoc, _page);
         } else {
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _cont, _page);
             checkIterableCandidates(out_, _cont, _anaDoc, _page);
         }
-        putVariable(_cont, _anaDoc, _page);
+        putVariable(_anaDoc, _page);
     }
 
     @Override
@@ -140,7 +141,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
+            mapping_.setParam(_page.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -183,7 +184,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrMap());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont, _anaDoc, _page);
+        opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
     }
 
     public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -192,11 +193,11 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             }
             if (toInferFirst(_page)) {
                 importedClassNameFirst = paramArg_;
@@ -218,11 +219,11 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             mapping_ = new Mapping();
             paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = _page.getStandards().getAliasObject();
             }
             if (toInferSecond(_page)) {
                 importedClassNameSecond = paramArg_;
@@ -242,20 +243,17 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 }
             }
         } else {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(_cont.getStandards().getAliasObject());
-            mapping_.setParam(_cont.getStandards().getAliasIterableTable());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    _cont.getStandards().getAliasObject(),
-                    _cont.getStandards().getAliasIterableTable());
+                    _page.getStandards().getAliasObject(),
+                    _page.getStandards().getAliasIterableTable());
             Configuration.addError(cast_, _anaDoc, _page);
         }
     }
 
-    public void putVariable(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void putVariable(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (okVarFirst && okVarSecond) {
             if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -275,7 +273,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
             } else {
-                lInfo_.setClassName(_cont.getStandards().getAliasObject());
+                lInfo_.setClassName(_page.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableNameFirst, lInfo_);
@@ -287,7 +285,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             if (!importedClassNameSecond.isEmpty()) {
                 lInfo_.setClassName(importedClassNameSecond);
             } else {
-                lInfo_.setClassName(_cont.getStandards().getAliasObject());
+                lInfo_.setClassName(_page.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableNameSecond, lInfo_);
@@ -368,13 +366,14 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrMap());
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
-        if (_conf.getContext().hasException()) {
+        ContextEl context_ = _conf.getContext();
+        if (context_.hasException()) {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
         if (ito_ == NullStruct.NULL_VALUE) {
-            String npe_ = _conf.getStandards().getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf.getContext(), npe_));
+            String npe_ = context_.getStandards().getAliasNullPe();
+            _conf.setException(new ErrorStruct(context_, npe_));
         }
         return ito_;
 

@@ -96,7 +96,7 @@ public abstract class ContextEl {
         }
         _ana.getClassMetaInfos().clear();
         _ana.getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
-        ValidatorStandard.buildIterable(_ana);
+        ValidatorStandard.buildIterable(_ana, _ana.getClasses());
     }
 
     public AbstractPageEl getLastPage() {

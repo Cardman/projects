@@ -2376,7 +2376,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk("en", files_);
-        assertEq("",getString(new Argument(cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res")))));
+        assertEq("",getString(new Argument(getStaticField(cont_, new ClassField("pkg.Ex", "res")))));
     }
     @Test
     public void calculateArgument10FailTest() {
@@ -2393,7 +2393,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk("en", files_);
-        assertEq("",getString(new Argument(cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res")))));
+        assertEq("",getString(new Argument(getStaticField(cont_, new ClassField("pkg.Ex", "res")))));
     }
     @Test
     public void calculateArgument11FailTest() {

@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -16,6 +17,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.options.IterableAnalysisResult;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -157,7 +159,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "validators")) {
@@ -412,9 +414,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
         _nav.initInstancesPattern(_page);
-        _nav.setupRenders(_page);
+        _nav.setupRenders(_page, this, _rend);
         return _page.getMessages();
     }
     public abstract Struct wrapStd(Object _element);
@@ -475,8 +477,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, kw_, this, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_);
         _conf.setContext(contextEl_);
         return page_;
     }

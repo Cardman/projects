@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.options.ContextFactory;
@@ -103,8 +104,9 @@ public final class CustContextFactory {
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth);
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
+        ClassesCommon com_ = new ClassesCommon();
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth, com_);
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options, com_);
         return new ResultsRunnableContext(r_,reportedMessages_);
     }
 }

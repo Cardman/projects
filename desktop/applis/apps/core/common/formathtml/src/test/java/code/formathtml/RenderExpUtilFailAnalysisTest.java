@@ -5,11 +5,8 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.options.Options;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -285,45 +282,30 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
 
     private static boolean hasEr(StringMap<String> files_, String s) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        setCtx(conf_, cont_);
-        setStack(conf_, cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        AnalyzedPageEl page_ = getHeaders(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
-        getCheckedConfiguration(new AnalyzedTestConfiguration(conf_,page_), s);
-        return !page_.isEmptyErrors();
-    }
+        AnalyzedTestConfiguration a_ = build(conf_);
 
-    private static void setCtx(Configuration conf_, AnalyzedTestContext cont_) {
-        conf_.setContext(cont_.getContext());
+        setStack(a_);
+        getHeaders(files_, a_);
+        assertTrue(isEmptyErrors(a_));
+        getCheckedConfiguration(a_, s);
+        return !a_.getAnalyzing().isEmptyErrors();
     }
 
     private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String s, StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        setCtx(conf_, cont_);
-        setStack(conf_, cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        AnalyzedPageEl page_ = getHeaders(_files, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
-        Configuration context_ = conf_;
+        AnalyzedTestConfiguration a_ = build(conf_);
+
+        setStack(a_);
+        getHeaders(_files, a_);
+        assertTrue(isEmptyErrors(a_));
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
-        processFail(s, new AnalyzedTestConfiguration(context_,page_), new PairVar("v", lv_));
-        return page_;
+        processFail(s, a_, new PairVar("v", lv_));
+        return a_.getAnalyzing();
     }
 
-    private static void setStack(Configuration conf_, AnalyzedTestContext cont_) {
-        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
+    private static void setStack(AnalyzedTestConfiguration cont_) {
+        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration()));
     }
 
     private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration configuration, String s) {

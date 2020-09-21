@@ -578,87 +578,85 @@ public final class ValidatorStandard {
         return result_;
     }
 
-    public static void buildIterable(AnalyzedPageEl analyzing) {
+    public static void buildIterable(AnalyzedPageEl analyzing, Classes _classes) {
         //local names
-        AnalyzedPageEl page_ = analyzing;
-        LgNames stds_ = page_.getStandards();
-        page_.setCurrentBlock(null);
-        page_.setCurrentAnaBlock(null);
-        Classes cl_ = page_.getClasses();
+        LgNames stds_ = analyzing.getStandards();
+        analyzing.setCurrentBlock(null);
+        analyzing.setCurrentAnaBlock(null);
         String next_ = stds_.getAliasNext();
         String hasNext_ = stds_.getAliasHasNext();
         String nextPair_ = stds_.getAliasNextPair();
         String hasNextPair_ = stds_.getAliasHasNextPair();
         StringList l_ = new StringList();
         String locName_ = tr(l_, analyzing);
-        cl_.setIteratorVarCust(locName_);
+        _classes.setIteratorVarCust(locName_);
         String iterator_ = stds_.getAliasIterator();
-        cl_.setExpsIteratorCust(newCall(cl_.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
+        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
                 new ClassMethodId(stds_.getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorType(),"<?>"), analyzing));
+                StringList.concat(stds_.getAliasIteratorType(),"<?>"), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setHasNextVarCust(locName_);
-        cl_.setExpsHasNextCust(newCall(cl_.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
+        _classes.setHasNextVarCust(locName_);
+        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
                 new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
-                stds_.getAliasPrimBoolean(), analyzing));
+                stds_.getAliasPrimBoolean(), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setNextVarCust(locName_);
-        cl_.setExpsNextCust(newCall(cl_.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
+        _classes.setNextVarCust(locName_);
+        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
                 new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
-                stds_.getAliasObject(), analyzing));
+                stds_.getAliasObject(), _classes));
 
-        cl_.setIteratorTableVarCust(locName_);
+        _classes.setIteratorTableVarCust(locName_);
         String iteratorTable_ = stds_.getAliasIteratorTable();
-        cl_.setExpsIteratorTableCust(newCall(cl_.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
+        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"), analyzing));
+                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setHasNextPairVarCust(locName_);
-        cl_.setExpsHasNextPairCust(newCall(cl_.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
+        _classes.setHasNextPairVarCust(locName_);
+        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
-                stds_.getAliasPrimBoolean(), analyzing));
+                stds_.getAliasPrimBoolean(), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setNextPairVarCust(locName_);
-        cl_.setExpsNextPairCust(newCall(cl_.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
+        _classes.setNextPairVarCust(locName_);
+        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
-                StringList.concat(stds_.getAliasPairType(),"<?,?>"), analyzing));
+                StringList.concat(stds_.getAliasPairType(),"<?,?>"), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setFirstVarCust(locName_);
+        _classes.setFirstVarCust(locName_);
         String first_ = stds_.getAliasGetFirst();
-        cl_.setExpsFirstCust(newCall(cl_.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
+        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
-                stds_.getAliasObject(), analyzing));
+                stds_.getAliasObject(), _classes));
         locName_ = tr(l_, analyzing);
-        cl_.setSecondVarCust(locName_);
+        _classes.setSecondVarCust(locName_);
         String second_ = stds_.getAliasGetSecond();
-        cl_.setExpsSecondCust(newCall(cl_.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
+        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
-                stds_.getAliasObject(), analyzing));
+                stds_.getAliasObject(), _classes));
         String id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedDoubleGenerator());
-        ExecRootBlock classBody_ = cl_.getClassBody(id_);
-        cl_.setSeedDoubleGenerator(classBody_);
+        ExecRootBlock classBody_ = _classes.getClassBody(id_);
+        _classes.setSeedDoubleGenerator(classBody_);
         String nameToCall_ = stds_.getAliasSeedGet();
         MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
-        cl_.setSeedDoublePick(fct_);
+        _classes.setSeedDoublePick(fct_);
         id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedGenerator());
-        classBody_ = cl_.getClassBody(id_);
-        cl_.setSeedGenerator(classBody_);
+        classBody_ = _classes.getClassBody(id_);
+        _classes.setSeedGenerator(classBody_);
         idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getAliasPrimLong()));
         fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
-        cl_.setSeedPick(fct_);
+        _classes.setSeedPick(fct_);
     }
 
     private static CustList<ExecOperationNode> newCall(String _varPrevious, String _previous,
                                                        ClassMethodId _id,
-                                                       String _res, AnalyzedPageEl _analyzing) {
+                                                       String _res, Classes _classes) {
         CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
         ExecDotOperation dot_ = new ExecDotOperation(0,new ExecClassArgumentMatching(_res),2);
         ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _analyzing.getClasses().getClassBody(id_);
+        ExecRootBlock classBody_ = _classes.getClassBody(id_);
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
         dot_.appendChild(f_);

@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.formathtml.RendBlock;
 import code.formathtml.RendDocumentBlock;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.util.EntryCust;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -15,6 +16,7 @@ public final class AnalyzingDoc {
     private String attribute="";
     private String fileName="";
     private RendDocumentBlock currentDoc;
+    private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
 
     private int nextIndex;
 
@@ -125,5 +127,13 @@ public final class AnalyzingDoc {
 
     public void setNextIndex(int nextIndex) {
         this.nextIndex = nextIndex;
+    }
+
+    public RendAnalysisMessages getRendAnalysisMessages() {
+        return rendAnalysisMessages;
+    }
+
+    public void setRendAnalysisMessages(RendAnalysisMessages rendAnalysisMessages) {
+        this.rendAnalysisMessages = rendAnalysisMessages;
     }
 }

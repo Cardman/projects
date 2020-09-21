@@ -1,6 +1,7 @@
 package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
@@ -33,14 +34,14 @@ public final class RendAnalysisMessagesTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        getCtx(lk_, di_, kw_, lgName_, opts_);
+        getCtx(lk_, di_, lgName_, opts_, new ClassesCommon());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
 
-    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
-        return new SingleContextEl(-1,lk_,di_,opts_, kw_,lgName_,4);
+    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, LgNames lgName_, Options opts_, ClassesCommon _com) {
+        return new SingleContextEl(-1,lk_,di_,opts_, lgName_,4, _com);
     }
 }

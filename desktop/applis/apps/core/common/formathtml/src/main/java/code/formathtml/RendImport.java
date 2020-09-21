@@ -35,7 +35,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         _page.setOffset(0);
         String pageName_ = elt.getAttribute(_cont.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrPage());
-        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+        res_.build(pageName_, rowsGrId_,_doc, _anaDoc, _page);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

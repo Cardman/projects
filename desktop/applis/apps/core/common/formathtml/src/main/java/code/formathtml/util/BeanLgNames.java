@@ -9,6 +9,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.RendStdFctOperation;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
@@ -155,7 +156,7 @@ public abstract class BeanLgNames extends LgNames {
 
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
-    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page);
+    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend);
     protected static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
@@ -174,7 +175,7 @@ public abstract class BeanLgNames extends LgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
 
-    public AnalyzedPageEl load(Configuration _configuration, String _lgCode,Document _document) {
+    public AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "firstUrl")) {
@@ -210,9 +211,9 @@ public abstract class BeanLgNames extends LgNames {
                 _configuration.setRenderFiles(ReadConfiguration.getStringList(c));
             }
         }
-        return specificLoad(_configuration,_lgCode,_document);
+        return specificLoad(_configuration,_lgCode,_document, _rend);
     }
-    protected abstract AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document);
+    protected abstract AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend);
 
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);

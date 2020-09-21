@@ -19,7 +19,7 @@ public final class RendImportForm extends RendParentBlock {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
+            un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordForm(),
                     _cont.getRendKeyWords().getKeyWordImport());
             Configuration.addError(un_, _anaDoc, _page);

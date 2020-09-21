@@ -20,11 +20,13 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
+import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -34,6 +36,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.*;
 import code.util.*;
 
@@ -46,6 +49,7 @@ public final class AnalyzedPageEl {
     private int tabWidth = DEFAULT_TAB_WIDTH;
     private LgNames standards;
     private Classes classes;
+    private ClassesCommon classesCommon;
     private Coverage coverage;
 
     private Block currentBlock;
@@ -165,12 +169,35 @@ public final class AnalyzedPageEl {
         return page_;
     }
 
+    public StringMap<StringMap<Struct>> getStaticFields() {
+        return getClassesCommon().getStaticFields();
+    }
+
+    public StringMap<String> getResources() {
+        return getClassesCommon().getResources();
+    }
+
+    public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
+        return getClassesCommon().getToStringMethodsToCallBodies();
+    }
+
+    public void addResources(StringMap<String> _resources) {
+        getClassesCommon().addResources(_resources);
+    }
     public Classes getClasses() {
         return classes;
     }
 
     public void setClasses(Classes classes) {
         this.classes = classes;
+    }
+
+    public ClassesCommon getClassesCommon() {
+        return classesCommon;
+    }
+
+    public void setClassesCommon(ClassesCommon classesCommon) {
+        this.classesCommon = classesCommon;
     }
 
     public LgNames getStandards() {

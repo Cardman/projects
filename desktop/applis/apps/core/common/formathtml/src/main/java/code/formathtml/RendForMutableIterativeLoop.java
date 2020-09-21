@@ -62,10 +62,9 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     private CustList<RendDynOperationNode> opStep;
 
-    RendForMutableIterativeLoop(Configuration _importingPage,
-                                OffsetStringInfo _className,
+    RendForMutableIterativeLoop(OffsetStringInfo _className,
                                 OffsetStringInfo _from,
-                                OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                                OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -77,7 +76,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         stepOffset = _step.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _stds.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -110,7 +109,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
+            mapping_.setParam(_page.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -144,7 +143,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
-            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _page);
+            opInit = RenderExpUtil.getAnalyzedOperations(init, 0, _anaDoc, _page);
         }
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
@@ -161,15 +160,14 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
-            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc, _page);
+            opExp = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
-            LgNames stds_ = _page.getStandards();
             OperationNode root_ = _page.getCurrentRoot();
             AnaClassArgumentMatching exp_ = root_.getResultClass();
             if (!exp_.isBoolType(_page)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getStandards().getAliasPrimBoolean(), exp_, _page);
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     exp_.getImplicits().add(cl_);
@@ -214,7 +212,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {
-            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc, _page);
+            opStep = RenderExpUtil.getAnalyzedOperations(step, 0, _anaDoc, _page);
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);

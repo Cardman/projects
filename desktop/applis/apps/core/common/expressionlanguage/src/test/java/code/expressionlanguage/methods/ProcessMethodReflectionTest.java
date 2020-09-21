@@ -208,7 +208,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", getString(ret_));
-        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        assertEq(14, ((NumberStruct) getStaticField(cont_, new ClassField("pkg.Ex", "inst"))).intStruct());
     }
 
     @Test
@@ -562,7 +562,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, getNumber(ret_));
-        NumberStruct res_ = (NumberStruct) cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        NumberStruct res_ = (NumberStruct) getStaticField(cont_, new ClassField("pkg.Ex", "inst"));
         assertEq(14, res_.intStruct());
     }
     @Test
@@ -984,7 +984,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
 
-        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        assertEq(10, ((NumberStruct) getStaticField(cont_, new ClassField("pkg.Ex", "inst"))).intStruct());
     }
     @Test
     public void processEl262Test() {

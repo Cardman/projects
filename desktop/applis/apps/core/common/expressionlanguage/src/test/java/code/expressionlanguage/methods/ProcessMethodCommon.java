@@ -363,7 +363,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl ctxResOk(StringMap<String> srcFiles_, StringMap<String> all_) {
         AnalyzedTestContext cont_ = ctxAna();
-        cont_.getContext().getClasses().addResources(all_);
+        cont_.getAnalyzing().addResources(all_);
         return validateAndRet(srcFiles_, cont_);
     }
 
@@ -393,7 +393,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void validateWithoutInit(StringMap<String> files_, AnalyzedTestContext cont_) {
-        Classes.validateWithoutInit(files_, cont_.getContext(), cont_.getAnalyzing());
+        Classes.validateWithoutInit(files_, cont_.getAnalyzing());
     }
 
 
@@ -526,6 +526,11 @@ public abstract class ProcessMethodCommon {
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         return validQuick(_files, cont_);
+    }
+
+    protected static Struct getStaticField(ContextEl ctx_, ClassField _id) {
+        StringMap<StringMap<Struct>> staticFields_ = ctx_.getClasses().getStaticFields();
+        return Classes.getStaticField(_id, staticFields_);
     }
 
     private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext cont_) {

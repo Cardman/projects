@@ -30,7 +30,7 @@ public final class ResultText {
     private StringList varNames = new StringList();
     private Ints expOffsets = new Ints();
     private Ints expEnds = new Ints();
-    public void build(String _expression, Configuration _conf, int _off, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void build(String _expression, int _off, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
@@ -86,7 +86,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, _anaDoc, _page);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperationsDel(_expression, i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
                 opExpRoot.add(_page.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
@@ -110,7 +110,7 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public void buildId(String _expression, Configuration _conf, int _begin, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildId(String _expression, int _begin, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
@@ -170,7 +170,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, _anaDoc, _page);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperationsDel(_expression, i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
                 opExpRoot.add(_page.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
@@ -206,20 +206,20 @@ public final class ResultText {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-            r_.build(lk_,_cont,colsGrId_,_doc, _anaDoc, _page);
+            r_.build(lk_, colsGrId_,_doc, _anaDoc, _page);
             CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
             CustList<CustList<RendDynOperationNode>> opExp_ = r_.getOpExp();
             for (OperationNode e: opExpRoot_) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
-                m_.setParam(_cont.getStandards().getAliasLong());
+                m_.setParam(_page.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(colsGrId_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),RendBlock.AND_ERR),
-                            _cont.getStandards().getAliasLong());
+                            _page.getStandards().getAliasLong());
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
             }
@@ -243,7 +243,7 @@ public final class ResultText {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont, _anaDoc, _page);
+            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

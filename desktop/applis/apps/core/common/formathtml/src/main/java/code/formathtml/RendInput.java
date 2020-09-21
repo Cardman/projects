@@ -46,9 +46,9 @@ public abstract class RendInput extends RendElement {
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
-                String string_ = _cont.getStandards().getAliasString();
+                String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -58,7 +58,7 @@ public abstract class RendInput extends RendElement {
                 _page.getInfosVars().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertValue()));
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -102,7 +102,7 @@ public abstract class RendInput extends RendElement {
         }
         String converterField_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         if (!converterField_.trim().isEmpty()) {
-            String object_ = _cont.getStandards().getAliasObject();
+            String object_ = _page.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = RendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -112,20 +112,20 @@ public abstract class RendInput extends RendElement {
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
-            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc, _page);
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(_page.getCurrentRoot().getResultClass());
-            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
-                        _cont.getStandards().getAliasCharSequence());
+                        _page.getStandards().getAliasCharSequence());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }

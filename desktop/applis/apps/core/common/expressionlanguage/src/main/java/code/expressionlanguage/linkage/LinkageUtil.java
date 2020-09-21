@@ -39,7 +39,7 @@ public final class LinkageUtil {
             if (f.isPredefined()) {
                 continue;
             }
-            String value_ = _analyzing.getClasses().getResources().getVal(f.getFileName());
+            String value_ = _analyzing.getResources().getVal(f.getFileName());
             String fileExp_ = f.getFileName() + ".html";
             CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, cov_,keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);

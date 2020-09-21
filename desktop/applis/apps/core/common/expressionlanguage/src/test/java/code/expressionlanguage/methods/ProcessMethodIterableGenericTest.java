@@ -813,7 +813,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }

@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
@@ -24,10 +25,10 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds) {
-        return _stds.load(_configuration,_lgCode,_document);
+    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend) {
+        return _stds.load(_configuration,_lgCode,_document, _rend);
     }
-    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
+    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -41,8 +42,7 @@ public final class ReadConfiguration {
             }
         }
         RendKeyWords rkw_ = _conf.getRendKeyWords();
-        RendAnalysisMessages rMess_ = _conf.getRendAnalysisMessages();
-        _stds.buildAliases(_elt,_lg, rkw_,kw_,rMess_,a_);
+        _stds.buildAliases(_elt,_lg, rkw_,kw_, _rend,a_);
         int stack_ = -1;
         int tab_ = 4;
         for (Element c: _elt.getChildElements()) {
@@ -55,10 +55,11 @@ public final class ReadConfiguration {
                 tab_=(Numbers.parseInt(c.getAttribute("value")));
             }
         }
-        ContextEl context_ = ContextFactory.simpleBuild(stack_, lk_, di_, opt_, kw_, _stds, tab_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl context_ = ContextFactory.simpleBuild(stack_, lk_, di_, opt_, _stds, tab_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, com_);
         _conf.setContext(context_);
-        AnalysisMessages.validateMessageContents(rMess_.allMessages(), page_);
+        AnalysisMessages.validateMessageContents(_rend.allMessages(), page_);
         if (!page_.isEmptyMessageError()) {
             _conf.setContext(null);
             return page_;

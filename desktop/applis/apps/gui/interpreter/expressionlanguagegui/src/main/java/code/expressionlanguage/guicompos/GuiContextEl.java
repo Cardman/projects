@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -72,8 +73,8 @@ public final class GuiContextEl extends RunnableContextEl {
 
     GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, GuiInitializer _init,
                  Options _options, ExecutingOptions _exec,
-                 LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _init, _options, _exec, _stds, _tabWidth);
+                 LgNames _stds, int _tabWidth, ClassesCommon _com) {
+        super(_stackOverFlow, _lock, _init, _options, _exec, _stds, _tabWidth, _com);
     }
 
     public void initApplicationParts(StringList _mainArgs, MainWindow _window) {

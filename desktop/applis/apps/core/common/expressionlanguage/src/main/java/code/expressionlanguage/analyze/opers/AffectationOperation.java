@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.instr.ElUtil;
@@ -262,7 +263,7 @@ public final class AffectationOperation extends MethodOperation {
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldIdReadOnly();
         Struct str_ = value_.getStruct();
-        _page.getClasses().initializeStaticField(id_, str_);
+        Classes.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), str_);
         _current.setSimpleArgument(value_);
     }
 

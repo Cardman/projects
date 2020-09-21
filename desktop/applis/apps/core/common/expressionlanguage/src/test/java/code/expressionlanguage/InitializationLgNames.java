@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
@@ -58,8 +59,9 @@ public final class InitializationLgNames {
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_);
     }
@@ -70,8 +72,9 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_);
     }
@@ -90,8 +93,9 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
-        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, kw_, _lgNames, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, _lgNames, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_);
     }
@@ -424,8 +428,9 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, _undefinedLgNames, _tabWidth, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options, com_);
         return new AnalyzedTestContext(contextEl_,page_);
     }
 }

@@ -362,7 +362,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                             return Argument.createVoid();
                         }
                         String fieldName_ = i_.getUniqueFieldName();
-                        Struct staticField_ = _cont.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
+                        StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
+                        Struct staticField_ = Classes.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
                         parent_ = Argument.getNull(staticField_);
                         start_ = 1;
                     }
@@ -1233,7 +1234,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
-        classes_.initializeStaticField(fieldId_, _right.getStruct());
+        Classes.getStaticFieldMap(fieldId_.getClassName(), classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
         return _right;
     }
 }

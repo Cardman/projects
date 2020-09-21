@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
@@ -26,10 +27,11 @@ public final class InitializationLgNames {
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, kw_, lgNames_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(contextEl_,page_);
+        return new AnalyzedTestContext(contextEl_, page_);
     }
 
     private static BeanCustLgNames getBeanCustLgNames() {

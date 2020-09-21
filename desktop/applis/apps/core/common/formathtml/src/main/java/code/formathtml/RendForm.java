@@ -38,21 +38,21 @@ public final class RendForm extends RendElement {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-            r_.build(lk_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+            r_.build(lk_, rowsGrId_,_doc, _anaDoc, _page);
             texts = r_.getTexts();
             opExp = r_.getOpExp();
             opExpRoot = r_.getOpExpRoot();
             for (OperationNode e: r_.getOpExpRoot()) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
-                m_.setParam(_cont.getStandards().getAliasLong());
+                m_.setParam(_page.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),AND_ERR),
-                            _cont.getStandards().getAliasLong());
+                            _page.getStandards().getAliasLong());
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
             }
@@ -76,7 +76,7 @@ public final class RendForm extends RendElement {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont, _anaDoc, _page);
+            opForm = RenderExpUtil.getAnalyzedOperations(pref_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

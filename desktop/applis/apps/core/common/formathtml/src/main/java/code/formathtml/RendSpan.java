@@ -23,7 +23,7 @@ public final class RendSpan extends RendElement {
         String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         int off_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         result = new ResultText();
-        result.buildId(id_,_cont,off_,_doc, _anaDoc, _page);
+        result.buildId(id_, off_,_doc, _anaDoc, _page);
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }

@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CallDynMethodOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -20,13 +21,14 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        if (StringList.quickEq(fctName,_conf.getStandards().getAliasMetaInfo())) {
-            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _conf.getContext());
+        ContextEl context_ = _conf.getContext();
+        if (StringList.quickEq(fctName,context_.getStandards().getAliasMetaInfo())) {
+            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, context_);
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }
-        if (StringList.quickEq(fctName,_conf.getStandards().getAliasInstance())) {
-            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _conf.getContext());
+        if (StringList.quickEq(fctName,context_.getStandards().getAliasInstance())) {
+            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, context_);
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }

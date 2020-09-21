@@ -17,11 +17,8 @@ import code.util.*;
 
 public final class Classes {
 
+    private final ClassesCommon common;
     private final StringMap<ExecRootBlock> classesBodies;
-    private final StringMap<String> resources;
-
-    private StringMap<StringMap<Struct>> staticFields;
-    private final StringMap<PolymorphMethod> toStringMethodsToCallBodies = new StringMap<PolymorphMethod>();
 
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -47,26 +44,20 @@ public final class Classes {
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private String keyWordValue = "";
 
-    public Classes(){
+    public Classes(ClassesCommon _common){
+        common = _common;
         classesBodies = new StringMap<ExecRootBlock>();
-        resources = new StringMap<String>();
-        staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<ExecOperatorBlock>();
     }
 
 
     public StringMap<String> getResources() {
-		return resources;
+		return common.getResources();
 	}
 
-    public void addResources(StringMap<String> _resources) {
-    	for (EntryCust<String, String> e: _resources.entryList()) {
-    		resources.addEntry(e.getKey(), e.getValue());
-    	}
-    }
     /**Resources are possibly added before analyzing file types*/
     public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page) {
-        validateWithoutInit(_files, _context, _page);
+        validateWithoutInit(_files, _page);
         ReportedMessages messages_ = _page.getMessages();
         if (!_page.isEmptyErrors()) {
             //all errors are logged here
@@ -83,7 +74,7 @@ public final class Classes {
         _context.forwardAndClear(_analyzing);
     }
 
-    public static void validateWithoutInit(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page) {
+    public static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
         if (!_page.isEmptyErrors()) {
             //all standards errors are logged here
             return;
@@ -130,10 +121,10 @@ public final class Classes {
             StringList new_ = new StringList();
             for (String c: all_) {
                 _context.getInitializingTypeInfos().resetInitEnums(_context);
-                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
+                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.common.getStaticFields());
                 ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context);
                 if (_context.isFailInit()) {
-                    cl_.staticFields = bk_;
+                    cl_.common.setStaticFields(bk_);
                 } else {
                     new_.add(c);
                 }
@@ -197,26 +188,25 @@ public final class Classes {
     }
 
 
-    public void initializeStaticField(ClassField _clField, Struct _str) {
-        getStaticFieldMap(_clField.getClassName()).set(_clField.getFieldName(), _str);
-    }
-
     public Struct getStaticField(ClassField _clField, String _returnType, ContextEl _context) {
-        Struct strInit_ = getStaticField(_clField);
+        StringMap<StringMap<Struct>> staticFields_ = getStaticFields();
+        Struct strInit_ = getStaticField(_clField, staticFields_);
         if (strInit_ != null) {
             return strInit_;
         }
         return ExecClassArgumentMatching.defaultValue(_returnType, _context);
     }
-    public Struct getStaticField(ClassField _clField) {
-        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName());
+
+    public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> staticFields_) {
+        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), staticFields_);
         if (map_.isEmpty()) {
             return null;
         }
         return map_.getVal(_clField.getFieldName());
     }
-    public StringMap<Struct> getStaticFieldMap(String _clField) {
-        StringMap<Struct> map_ = staticFields.getVal(_clField);
+
+    public static StringMap<Struct> getStaticFieldMap(String _clField, StringMap<StringMap<Struct>> _map) {
+        StringMap<Struct> map_ = _map.getVal(_clField);
         if (map_ == null) {
             map_ = new StringMap<Struct>();
         }
@@ -224,7 +214,7 @@ public final class Classes {
     }
 
     public StringMap<StringMap<Struct>> getStaticFields() {
-        return staticFields;
+        return common.getStaticFields();
     }
 
     public String getIteratorVarCust() {
@@ -337,7 +327,7 @@ public final class Classes {
     }
 
     public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
-        return toStringMethodsToCallBodies;
+        return common.getToStringMethodsToCallBodies();
     }
 
     public StringMap<ExecRootBlock> getClassesBodies() {

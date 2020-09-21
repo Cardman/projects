@@ -1185,9 +1185,8 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Classes cl_ = cont_.getClasses();
-        Struct valueOne_ = cl_.getStaticField(new ClassField("pkg.Ex", "ONE"));
-        Struct valueTwo_ = cl_.getStaticField(new ClassField("pkg.Ex", "TWO"));
+        Struct valueOne_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
+        Struct valueTwo_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", valueOne_.getClassName(cont_));
         assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
         Struct field_;
@@ -1215,9 +1214,8 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Classes cl_ = cont_.getClasses();
-        Struct valueOne_ = cl_.getStaticField(new ClassField("pkg.Ex", "ONE"));
-        Struct valueTwo_ = cl_.getStaticField(new ClassField("pkg.Ex", "TWO"));
+        Struct valueOne_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
+        Struct valueTwo_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex", valueOne_.getClassName(cont_));
         assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
         Struct field_;

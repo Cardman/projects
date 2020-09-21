@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
@@ -11,10 +10,13 @@ import code.util.StringMap;
 public final class AnalyzedTestConfiguration {
     private final Configuration configuration;
     private final AnalyzedPageEl analyzing;
+    private final BeanLgNames adv;
 
-    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedPageEl analyzing) {
+    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing) {
         this.configuration = configuration;
-        this.analyzing = analyzing;
+        adv=(BeanLgNames) analyzing.getAnalyzing().getStandards();
+        this.configuration.setContext(analyzing.getContext());
+        this.analyzing = analyzing.getAnalyzing();
     }
 
     public Configuration getConfiguration() {
@@ -30,7 +32,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public LgNames getStandards() {
-        return configuration.getStandards();
+        return configuration.getContext().getStandards();
     }
 
     public ContextEl getContext() {
@@ -62,6 +64,6 @@ public final class AnalyzedTestConfiguration {
     }
 
     public BeanLgNames getAdvStandards() {
-        return configuration.getAdvStandards();
+        return adv;
     }
 }

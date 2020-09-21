@@ -125,7 +125,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExFour","ance"))).intStruct());
+        assertEq(1,((IntStruct) getStaticField(cont_, new ClassField("pkg.ExFour", "ance"))).intStruct());
     }
     @Test
     public void calculate4Test() {
@@ -178,7 +178,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
+        assertEq(1,((IntStruct) getStaticField(cont_, new ClassField("pkg.ExThree", "anceSt"))).intStruct());
     }
     @Test
     public void calculate5Test() {
@@ -231,7 +231,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        assertEq(3,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
+        assertEq(3,((IntStruct) getStaticField(cont_, new ClassField("pkg.ExThree", "anceSt"))).intStruct());
     }
     @Test
     public void calculate6Test() {
@@ -284,7 +284,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        assertEq(3,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
+        assertEq(3,((IntStruct) getStaticField(cont_, new ClassField("pkg.ExThree", "anceSt"))).intStruct());
     }
     @Test
     public void calculate12Test() {
@@ -349,7 +349,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExFour","ance"))).intStruct());
+        assertEq(1,((IntStruct) getStaticField(cont_, new ClassField("pkg.ExFour", "ance"))).intStruct());
     }
     @Test
     public void calculate23Test() {

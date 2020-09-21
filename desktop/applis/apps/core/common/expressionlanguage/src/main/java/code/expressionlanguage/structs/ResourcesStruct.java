@@ -25,7 +25,7 @@ public final class ResourcesStruct {
 		return new ArrayStruct(arr_, cl_);
 	}
 	public static Struct getResourceNamesLength(AnalyzedPageEl _contextEl) {
-		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		StringMap<String> res_ = _contextEl.getResources();
 		return new IntStruct(res_.size());
 	}
 	public static Struct getResourceNamesLength(ContextEl _contextEl) {
@@ -34,7 +34,7 @@ public final class ResourcesStruct {
 	}
 	public static Struct getResource(AnalyzedPageEl _contextEl,StringStruct _in) {
 		String name_ = _in.getInstance();
-		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		StringMap<String> res_ = _contextEl.getResources();
 		String content_ = res_.getVal(name_);
 		return Argument.wrapStr(content_);
 	}
@@ -45,7 +45,7 @@ public final class ResourcesStruct {
 		return Argument.wrapStr(content_);
 	}
 	public static Struct getResourceIndex(AnalyzedPageEl _contextEl,Struct _in) {
-		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		StringMap<String> res_ = _contextEl.getResources();
 		return getResourceIndex(_in, res_);
 	}
 	public static Struct getResourceIndex(ContextEl _contextEl,Struct _in) {

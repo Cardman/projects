@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -383,7 +382,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_));
         Struct field_;
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        field_ = getStaticField(cont_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, ((NumberStruct)field_).intStruct());
     }

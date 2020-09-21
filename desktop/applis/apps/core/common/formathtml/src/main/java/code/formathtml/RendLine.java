@@ -27,7 +27,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont, _anaDoc, _page);
+        opExp = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();

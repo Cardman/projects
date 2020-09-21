@@ -23,6 +23,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanLgNames;
 import code.gui.CustComponent;
@@ -120,7 +121,8 @@ public final class ThreadActions implements Runnable {
                 afterAction();
                 return;
             }
-            AnalyzedPageEl page_ = page.getNavigation().loadConfiguration(content_, lgCode, stds);
+            RendAnalysisMessages rend_ = new RendAnalysisMessages();
+            AnalyzedPageEl page_ = page.getNavigation().loadConfiguration(content_, lgCode, stds, rend_);
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
@@ -129,7 +131,7 @@ public final class ThreadActions implements Runnable {
                 } else {
                     page.getNavigation().setFiles(fileNames);
                 }
-                ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit(page_);
+                ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit(page_, stds, rend_);
                 if (!reportedMessages_.isAllEmptyErrors()) {
                     if (page.getArea() != null) {
                         page.getArea().append(reportedMessages_.displayErrors());
@@ -139,10 +141,10 @@ public final class ThreadActions implements Runnable {
                 }
                 Configuration conf_ = page.getNavigation().getSession();
                 if (fileNames != null) {
-                    LgNames stds_ = conf_.getStandards();
+                    ContextEl ctx_ = conf_.getContext();
+                    LgNames stds_ = ctx_.getStandards();
                     String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
                     MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
-                    ContextEl ctx_ = conf_.getContext();
                     ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
                     CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
                     if (!methods_.isEmpty()) {

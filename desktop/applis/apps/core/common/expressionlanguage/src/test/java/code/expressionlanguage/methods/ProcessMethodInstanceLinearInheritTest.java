@@ -1122,7 +1122,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         subField_ = getField(field_, new ClassField("pkg.ExEnum", "ance"));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, ((NumberStruct)subField_).intStruct());
-        assertSame(field_, cont_.getClasses().getStaticField(new ClassField("pkg.ExEnum", "ONE")));
+        assertSame(field_, getStaticField(cont_, new ClassField("pkg.ExEnum", "ONE")));
     }
 
     @Test
@@ -2795,7 +2795,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(1, ((NumberStruct)str_).intStruct());
     }
@@ -2828,10 +2828,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
-        Struct field_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
+        Struct field_ = getStaticField(cont_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
-        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ancetwo"));
+        field_ = getStaticField(cont_, new ClassField("pkg.ExThree", "ancetwo"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, ((NumberStruct)field_).intStruct());
     }

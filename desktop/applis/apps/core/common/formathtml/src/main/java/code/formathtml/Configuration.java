@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
@@ -14,7 +13,6 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -56,7 +54,6 @@ public final class Configuration {
     private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
 
     private String prefix = EMPTY_STRING;
-    private BeanLgNames standards;
 
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -95,7 +92,6 @@ public final class Configuration {
 
     private Struct mainBean;
     private String currentLanguage = "";
-    private final RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private final RendKeyWords rendKeyWords = new RendKeyWords();
     private RendDocumentBlock rendDocumentBlock;
     private StringMap<String> files = new StringMap<String>();
@@ -110,7 +106,7 @@ public final class Configuration {
         for (int i = 0; i < lenArrCtx_; i++) {
             arr_[i+count_] = ExecutingUtil.newStackTraceElement(context,i);
         }
-        String cl_ = getStandards().getAliasStackTraceElement();
+        String cl_ = context.getStandards().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         return new ArrayStruct(arr_, cl_);
     }
@@ -125,13 +121,11 @@ public final class Configuration {
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
     }
 
-    public void init(AnalyzedPageEl _page) {
+    public void init() {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
         prefix = StringList.concat(prefix,SEP);
-        standards.build();
-        ValidatorStandard.setupOverrides(_page);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
     }
@@ -149,13 +143,13 @@ public final class Configuration {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_analyzingDoc.getFileName());
                 badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
-                badEl_.buildError(getRendAnalysisMessages().getBadDocument(),
+                badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
                 addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
             currentUrl = link_;
-            renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
+            renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getStandards()));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this, _analyzingDoc, _page);
@@ -167,7 +161,7 @@ public final class Configuration {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
             badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
-            badEl_.buildError(getRendAnalysisMessages().getInexistantFile(),
+            badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantFile(),
                     realFilePath_);
             addError(badEl_, _analyzingDoc, _page);
         }
@@ -196,23 +190,23 @@ public final class Configuration {
             return NullStruct.NULL_VALUE;
         }
         Struct strBean_ = arg_.getStruct();
-        standards.forwardDataBase(_bean,strBean_,this);
+        getAdvStandards().forwardDataBase(_bean,strBean_,this);
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }
-        standards.setStoredForms(strBean_, this);
+        getAdvStandards().setStoredForms(strBean_, this);
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }
-        standards.setLanguage(strBean_, _language,this);
+        getAdvStandards().setLanguage(strBean_, _language,this);
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }
-        String str_ = standards.getScope(_bean,this);
+        String str_ = getAdvStandards().getScope(_bean,this);
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }
-        standards.setScope(strBean_, str_,this);
+        getAdvStandards().setScope(strBean_, str_,this);
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }
@@ -354,15 +348,8 @@ public final class Configuration {
         return builtValidators;
     }
 
-    public LgNames getStandards() {
-        return getAdvStandards();
-    }
-
     public BeanLgNames getAdvStandards() {
-        return standards;
-    }
-    public void setStandards(BeanLgNames _standards) {
-        standards = _standards;
+        return (BeanLgNames)context.getStandards();
     }
 
 
@@ -374,10 +361,6 @@ public final class Configuration {
     public static void addError(FoundErrorInterpret _error, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _error.setLocationFile(_analyzingDoc.getLocationFile(_error.getFileName(),_error.getIndexFile()));
         _analyzing.addError(_error);
-    }
-
-    public RendAnalysisMessages getRendAnalysisMessages() {
-        return rendAnalysisMessages;
     }
 
     public RendKeyWords getRendKeyWords() {

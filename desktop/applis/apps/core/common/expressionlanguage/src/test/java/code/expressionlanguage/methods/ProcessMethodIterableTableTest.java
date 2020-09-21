@@ -761,7 +761,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_));
-        Struct res_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "res"));
+        Struct res_ = getStaticField(cont_, new ClassField("pkg.Ex", "res"));
         assertEq(25, ((NumberStruct)res_).intStruct());
     }
     @Test

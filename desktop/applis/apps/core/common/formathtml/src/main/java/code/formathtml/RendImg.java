@@ -24,7 +24,7 @@ public final class RendImg extends RendElement {
         ResultText res_ = new ResultText();
         String pageName_ = _read.getAttribute(_cont.getRendKeyWords().getAttrSrc());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrSrc());
-        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc, _page);
+        res_.build(pageName_, rowsGrId_,_doc, _anaDoc, _page);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
         _list.removeAllString(_cont.getRendKeyWords().getAttrSrc());

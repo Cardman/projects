@@ -1,5 +1,7 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -8,6 +10,7 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -17,8 +20,6 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -2317,21 +2318,29 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_.getContext());
-        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        Classes.validateWithoutInit(_files, cont_.getContext(), cont_.getAnalyzing());
-        assertTrue(isEmptyErrors(cont_));
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        AnalyzedTestConfiguration a_ = build(conf_);
+        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
+        Classes.validateWithoutInit(_files, a_.getAnalyzing());
+        assertTrue(isEmptyErrors(a_));
+        AnalyzedPageEl page_ = a_.getAnalyzing();
         AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
         ReportedMessages messages_ = page_.getMessages();
-        Classes.tryInitStaticlyTypes(cont_.getContext(),analysisMessages_,messages_, page_.getOptions());
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
-        return new AnalyzedTestConfiguration(conf_,page_);
+        Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, page_.getOptions());
+        return a_;
+    }
+
+    private static void processEl(String _el, int _index, AnalyzedTestConfiguration _conf) {
+        CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf, new AnalyzingDoc());
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        assertTrue(_conf.isEmptyErrors());
+        ContextEl context_ = _conf.getContext();
+        Classes.forwardAndClear(context_, page_);
+        for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
+        }
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        RenderExpUtil.calculateReuse(out_, _conf.getConfiguration());
     }
 
 }

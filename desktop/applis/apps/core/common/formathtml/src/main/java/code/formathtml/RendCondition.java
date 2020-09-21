@@ -10,7 +10,6 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendDynOperationNode;
@@ -40,12 +39,12 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         _page.setGlobalOffset(conditionOffset);
         _page.setOffset(0);
         _analyzingDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc, _page);
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition, 0, _analyzingDoc, _page);
         RendDynOperationNode elCondition_ = opCondition.last();
         OperationNode root_ = _page.getCurrentRoot();
         AnaClassArgumentMatching exp_ = root_.getResultClass();
         if (!exp_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getStandards().getAliasPrimBoolean(), exp_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);

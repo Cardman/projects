@@ -34,10 +34,10 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
-        Struct exp_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
+        Struct exp_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertSame(exp_.getParent(), str_);
     }
     @Test
@@ -62,10 +62,10 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
-        Struct exp_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
+        Struct exp_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertSame(exp_.getParent(), str_);
     }
     @Test
@@ -90,9 +90,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -121,9 +121,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -152,9 +152,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -178,10 +178,10 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
-        Struct exp_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
+        Struct exp_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertSame(exp_.getParent(), str_);
     }
     @Test
@@ -205,10 +205,10 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
-        Struct exp_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
+        Struct exp_ = getStaticField(cont_, new ClassField("pkg.Ex", "INSTANCE2"));
         assertSame(exp_.getParent(), str_);
     }
     @Test
@@ -237,9 +237,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -268,9 +268,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -295,9 +295,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
     @Test
@@ -322,9 +322,9 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
-        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
-        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "PARENT"));
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "PARENT"));
         assertSame(NullStruct.NULL_VALUE, str_);
     }
 

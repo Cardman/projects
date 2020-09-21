@@ -195,10 +195,10 @@ public abstract class SettableAbstractFieldOperation extends
         if (!_info.isFinalField()) {
             return;
         }
-        Classes cl_ = _page.getClasses();
         ClassField fieldId_ = _info.getClassField();
-        StringMap<Struct> map_ = cl_.getStaticFieldMap(fieldId_.getClassName());
-        Struct str_ = cl_.getStaticField(fieldId_);
+        StringMap<Struct> map_ = Classes.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
+        StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
+        Struct str_ = Classes.getStaticField(fieldId_, staticFields_);
         if (map_.isEmpty()) {
             LgNames stds_ = _page.getStandards();
             ResultErrorStd res_ = stds_.getSimpleResult(fieldId_);

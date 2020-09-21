@@ -11,11 +11,13 @@ import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -373,7 +375,8 @@ public final class AnaTypeUtil {
                         }
                         boolean allCst_ = true;
                         for (String n: a_.getFieldName()) {
-                            if (_page.getClasses().getStaticField(new ClassField(i, n)) == null) {
+                            StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
+                            if (Classes.getStaticField(new ClassField(i, n), staticFields_) == null) {
                                 allCst_ = false;
                                 break;
                             }

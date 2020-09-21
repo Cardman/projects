@@ -30,13 +30,13 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static CustList<RendDynOperationNode> getAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_anaDoc.getFileName());
-            badEl_.setIndexFile(_glInd+badOffset_);
+            badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Integer.toString(badOffset_),
@@ -58,21 +58,18 @@ public final class RenderExpUtil {
         String el_ = _el.substring(beg_,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc, _page);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _anaDoc, _page);
         return getExecutableNodes(all_, _page);
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        return getAnalyzedOperations(_el,1,_index,_conf, _anaDoc, _page);
-    }
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl, int _index, Configuration _conf, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _index, _page);
         int badOffset_ = d_.getBadOffset();
         _page.setCurrentRoot(null);
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_anaDoc.getFileName());
-            badEl_.setIndexFile(_gl+badOffset_);
+            badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Integer.toString(badOffset_),
@@ -81,7 +78,7 @@ public final class RenderExpUtil {
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _conf.getStandards().getAliasObject();
+            String argClName_ = _page.getStandards().getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             _page.setCurrentRoot(e_);
@@ -90,7 +87,7 @@ public final class RenderExpUtil {
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc, _page);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _anaDoc, _page);
         return getExecutableNodes(all_, _page);
     }
 
@@ -161,19 +158,19 @@ public final class RenderExpUtil {
         }
         return out_;
     }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, Configuration _context, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
             if (c_ instanceof PreAnalyzableOperation) {
                 ((PreAnalyzableOperation) c_).preAnalyze(_page);
             }
-            c_ = getAnalyzedNext(c_, _root, list_, _context, _analyzingDoc, _page);
+            c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Configuration _context, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         
         OperationNode next_ = createFirstChild(_current, 0, _anaDoc, _page);
         if (next_ != null) {
@@ -183,7 +180,7 @@ public final class RenderExpUtil {
         OperationNode current_ = _current;
         while (true) {
             _page.setOkNumOp(true);
-            processAnalyze(_context, current_, _anaDoc, _page);
+            processAnalyze(current_, _anaDoc, _page);
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_page);
             }
@@ -210,7 +207,7 @@ public final class RenderExpUtil {
             }
             if (par_ == _root) {
                 _page.setOkNumOp(true);
-                processAnalyze(_context, par_, _anaDoc, _page);
+                processAnalyze(par_, _anaDoc, _page);
                 AnaClassArgumentMatching cl_ = par_.getResultClass();
                 if (AnaTypeUtil.isPrimitive(cl_, _page)) {
                     cl_.setUnwrapObject(cl_,_page.getStandards());
@@ -227,7 +224,7 @@ public final class RenderExpUtil {
         }
     }
 
-    private static void processAnalyze(Configuration _context, OperationNode _current, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static void processAnalyze(OperationNode _current, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_current instanceof InterfaceFctConstructor) {
             _current.analyze(_page);
             return;
@@ -238,7 +235,7 @@ public final class RenderExpUtil {
                     FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                     badNb_.setFileName(_anaDoc.getFileName());
                     badNb_.setIndexFile(Configuration.getCurrentLocationIndex(_page, _anaDoc));
-                    badNb_.buildError(_context.getRendAnalysisMessages().getUnexpectedExp());
+                    badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
                     Configuration.addError(badNb_, _anaDoc, _page);
                     return;
                 }
@@ -269,7 +266,7 @@ public final class RenderExpUtil {
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_anaDoc.getFileName());
             badNb_.setIndexFile(Configuration.getCurrentLocationIndex(_page, _anaDoc));
-            badNb_.buildError(_context.getRendAnalysisMessages().getUnexpectedExp());
+            badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
             Configuration.addError(badNb_, _anaDoc, _page);
         }
     }

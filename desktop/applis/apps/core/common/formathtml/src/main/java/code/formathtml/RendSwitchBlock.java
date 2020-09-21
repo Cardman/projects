@@ -58,7 +58,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _page);
+        opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
         result = _page.getCurrentRoot().getResultClass();
         AnaClassArgumentMatching clArg_ = _page.getCurrentRoot().getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
@@ -79,7 +79,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
+                if (!StringList.quickEq(id_, _page.getStandards().getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;

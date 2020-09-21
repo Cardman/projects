@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -69,10 +70,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     private CustList<RendDynOperationNode> opExp;
 
     private CustList<RendDynOperationNode> opStep;
-    RendForIterativeLoop(Configuration _importingPage,
-                         OffsetStringInfo _className, OffsetStringInfo _variable,
+    RendForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
                          OffsetStringInfo _from,
-                         OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                         OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -88,7 +88,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _stds.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -121,7 +121,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
+            mapping_.setParam(_page.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -155,19 +155,19 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrFrom());
-        opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _page);
+        opInit = RenderExpUtil.getAnalyzedOperations(init, 0, _anaDoc, _page);
         RendDynOperationNode initEl_ = opInit.last();
         checkResult(_anaDoc, _page, cl_, initEl_, initOffset);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrTo());
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _page);
+        opExp = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
         RendDynOperationNode expressionEl_ = opExp.last();
         checkResult(_anaDoc, _page, cl_, expressionEl_, expressionOffset);
         _page.setGlobalOffset(stepOffset);
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrStep());
-        opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont, _anaDoc, _page);
+        opStep = RenderExpUtil.getAnalyzedOperations(step, 0, _anaDoc, _page);
         RendDynOperationNode stepEl_ = opStep.last();
         checkResult(_anaDoc, _page, cl_, stepEl_, stepOffset);
         if (!res_.isError()) {
@@ -238,7 +238,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     void processLoop(Configuration _conf) {
-        LgNames stds_ = _conf.getStandards();
+        ContextEl context_ = _conf.getContext();
+        LgNames stds_ = context_.getStandards();
         String null_ = stds_.getAliasNullPe();
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
@@ -251,31 +252,31 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrFrom());
         Argument argFrom_ = RenderExpUtil.calculateReuse(opInit,_conf);
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
+            _conf.setException(new ErrorStruct(context_,null_));
             return;
         }
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrTo());
         Argument argTo_ = RenderExpUtil.calculateReuse(opExp,_conf);
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
+            _conf.setException(new ErrorStruct(context_,null_));
             return;
         }
         ip_.setOffset(stepOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
         Argument argStep_ = RenderExpUtil.calculateReuse(opStep,_conf);
-        if (_conf.getContext().hasException()) {
+        if (context_.hasException()) {
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
+            _conf.setException(new ErrorStruct(context_,null_));
             return;
         }
         fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
@@ -333,7 +334,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getStandards()), new LongStruct(fromValue_));
+        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getContext().getStandards()), new LongStruct(fromValue_));
         varsLoop_.put(var_, lv_);
         ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
     }
@@ -383,7 +384,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         LoopVariable lv_ = _vars.getVal(var_);
         LocalVariable lInfo_ = _varsInfos.getVal(var_);
         long o_ = NumParsers.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
-        lInfo_.setStruct(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getStandards()), new LongStruct(o_)));
+        lInfo_.setStruct(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getContext().getStandards()), new LongStruct(o_)));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 }

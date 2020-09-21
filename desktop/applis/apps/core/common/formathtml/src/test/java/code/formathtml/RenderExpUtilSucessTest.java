@@ -14,15 +14,12 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -129,8 +126,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(_clasName);
         localVars_.put(_varName, lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
-        return fwdCalculate(context_, out_);
+        return calc("v.inst", context_);
     }
 
     @Test
@@ -145,8 +141,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         context_.getLastPage().getValueVars().put("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("v.inst", context_);
         assertEq(2, getNumber(arg_));
     }
     @Test
@@ -253,8 +248,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
@@ -268,8 +262,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format($vararg(java.lang.CharSequence))", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("f.format($vararg(java.lang.CharSequence))", context_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
     @Test
@@ -291,8 +284,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format(v,d,v)", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("f.format(v,d,v)", context_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
@@ -306,16 +298,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format()", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("f.format()", context_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
 
     private static Argument processElNormal3(String el, StringMap<String> files) {
         AnalyzedTestConfiguration context_ = getConfiguration(files);
         addImportingPage(context_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(el, context_);
-        return fwdCalculate(context_, out_);
+        return calc(el, context_);
     }
 
     @Test
@@ -365,8 +355,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("arrays[0i]", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("arrays[0i]", context_);
         assertEq(0, getNumber(arg_));
     }
     @Test
@@ -388,8 +377,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("arrays[0i].length", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("arrays[0i].length", context_);
         assertEq(2, getNumber(arg_));
     }
     @Test
@@ -441,8 +429,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
         assertEq(14, getNumber(arg_));
     }
     @Test
@@ -457,8 +444,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$static($math).abs(v[0i]+2)*2", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("$static($math).abs(v[0i]+2)*2", context_);
         assertEq(20L, getNumber(arg_));
     }
     @Test
@@ -473,8 +459,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v[0i]+2)*2", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("(v[0i]+2)*2", context_);
         assertEq(20L, getNumber(arg_));
     }
     @Test
@@ -643,8 +628,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("v.inst", context_);
         assertEq(2, getNumber(arg_));
     }
     @Test
@@ -978,8 +962,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("arg={2}", context_);
-        fwdCalculate(context_, out_);
+        calc("arg={2}", context_);
         ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
         assertEq(1,struct_.getInstance().length);
         assertEq(2,((NumberStruct)struct_.getInstance()[0]).intStruct());
@@ -1135,8 +1118,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$this.inst", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("$this.inst", context_);
         assertEq(2, getNumber(arg_));
     }
 
@@ -1485,9 +1467,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
-        Argument arg_ = fwdCalculate(cont_, out_);
-        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        Argument arg_ = calc("$static(pkg.ExTwo).exmeth()", cont_);
+        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertEq("pkg.Ex",getString(arg_));
     }
     @Test
@@ -1579,9 +1560,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
-        Argument arg_ = fwdCalculate(cont_, out_);
-        assertEq(14, ((NumberStruct) cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        Argument arg_ = calc("$static(pkg.ExTwo).exmeth()", cont_);
+        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -1956,11 +1936,16 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
-        Argument arg_ = fwdCalculate(cont_, out_);
-        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        Argument arg_ = calc("$static(pkg.ExTwo).exmeth()", cont_);
+        assertEq(10, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertTrue(arg_.isNull());
     }
+
+    protected static Struct getStaticField(AnalyzedTestConfiguration cont_) {
+        StringMap<StringMap<Struct>> staticFields_ = cont_.getClasses().getStaticFields();
+        return Classes.getStaticField(new ClassField("pkg.Ex", "inst"), staticFields_);
+    }
+
     @Test
     public void processEl267Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -2843,8 +2828,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = s.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = rendOpSeq2(i, context_, analyzingDoc_, d_, el_);
-        OperationNode op_ = rendOp2(i, context_, analyzingDoc_, opTwo_);
+        OperationsSequence opTwo_ = rendOpSeq(i, context_, analyzingDoc_, d_, el_);
+        OperationNode op_ = rendOp(i, context_, analyzingDoc_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
@@ -2889,11 +2874,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static OperationsSequence rendOpSeq(AnalyzedTestConfiguration context_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_, int _off) {
-        return rendOpSeq2(_off, context_, analyzingDoc_, d_, el_);
+        return rendOpSeq(_off, context_, analyzingDoc_, d_, el_);
     }
 
     protected static OperationNode rendOp(AnalyzedTestConfiguration context_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return rendOp2(2, context_, analyzingDoc_, opTwo_);
+        return rendOp(2, context_, analyzingDoc_, opTwo_);
     }
 
     @Test
@@ -3087,8 +3072,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("([arg])", context_);
-        Argument argument_ = fwdCalculate(context_, out_);
+        Argument argument_ = calc("([arg])", context_);
         assertEq(5,getNumber(argument_));
     }
 
@@ -3125,8 +3109,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(String)arg", context_);
-        Argument argument_ = fwdCalculate(context_, out_);
+        Argument argument_ = calc("(String)arg", context_);
         assertEq("str",getString(argument_));
     }
     @Test
@@ -3188,8 +3171,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.clone()", context_);
-        Argument arg_ = fwdCalculate(context_, out_);
+        Argument arg_ = calc("v.clone()", context_);
         ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
         assertEq(1, arr_.getInstance().length);
         assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
@@ -3244,8 +3226,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v)=$this.inst", context_);
-        fwdCalculate(context_, out_);
+        calc("(v)=$this.inst", context_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
     @Test
@@ -3266,8 +3247,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$this.inst=(v)", context_);
-        fwdCalculate(context_, out_);
+        calc("$this.inst=(v)", context_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
 
@@ -4321,8 +4301,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v+=$new pkg.Ex(8)).inst", conf_);
-        Argument argument_ = fwdCalculate(conf_, out_);
+        Argument argument_ = calc("(v+=$new pkg.Ex(8)).inst", conf_);
         assertEq(14,getNumber(argument_));
         assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -4358,8 +4337,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v++).inst", conf_);
-        Argument argument_ = fwdCalculate(conf_, out_);
+        Argument argument_ = calc("(v++).inst", conf_);
         assertEq(6,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -4394,8 +4372,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(++v).inst", conf_);
-        Argument argument_ = fwdCalculate(conf_, out_);
+        Argument argument_ = calc("(++v).inst", conf_);
         assertEq(7,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -4964,8 +4941,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]=12i", context_);
-        fwdCalculate(context_, out_);
+        calc("v[0i]=12i", context_);
         assertEq(12, ((NumberStruct) ((ArrayStruct)lv_.getStruct()).getInstance()[0]).intStruct());
     }
     @Test
@@ -4983,8 +4959,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]=12i", context_);
-        fwdCalculate(context_, out_);
+        calc("v[0i][0i]=12i", context_);
         assertEq(12, ((NumberStruct)(((ArrayStruct)((ArrayStruct)lv_.getStruct()).getInstance()[0]).getInstance())[0]).intStruct());
     }
     @Test
@@ -5009,8 +4984,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.integer-=12i", cont_);
-        Argument res_ = fwdCalculate(cont_, out_);
+        Argument res_ = calc("v.integer-=12i", cont_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
     }
@@ -5026,8 +5000,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]-=12i", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("v[0i]-=12i", context_);
         assertEq(-12, ((NumberStruct) in_[0]).intStruct());
         assertEq(-12, getNumber(res_));
     }
@@ -5046,8 +5019,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]-=12i", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("v[0i][0i]-=12i", context_);
         assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(-12, getNumber(res_));
     }
@@ -5066,8 +5038,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]++", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("v[0i][0i]++", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
@@ -5086,8 +5057,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]--", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("v[0i][0i]--", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
@@ -5106,8 +5076,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("++v[0i][0i]", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("++v[0i][0i]", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(1, getNumber(res_));
     }
@@ -5126,8 +5095,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("--v[0i][0i]", context_);
-        Argument res_ = fwdCalculate(context_, out_);
+        Argument res_ = calc("--v[0i][0i]", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(-1, getNumber(res_));
     }
@@ -5146,9 +5114,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$classchoice(pkg.Ex)inst=2i", cont_);
-        fwdCalculate(cont_, out_);
-        Struct fieldValue_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        calc("$classchoice(pkg.Ex)inst=2i", cont_);
+        Struct fieldValue_ = getStaticField(cont_);
         assertEq(2, ((NumberStruct) fieldValue_).intStruct());
     }
     @Test
@@ -5172,9 +5139,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(cont_.getAnaStandards().getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$classchoice(pkg.Ex)inst=v", cont_);
-        fwdCalculate(cont_, out_);
-        Struct arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        calc("$classchoice(pkg.Ex)inst=v", cont_);
+        Struct arg_ = getStaticField(cont_);
         assertSame(NullStruct.NULL_VALUE,arg_);
     }
     @Test
@@ -5187,8 +5153,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasString());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v+=1i", context_);
-        fwdCalculate(context_, out_);
+        calc("v+=1i", context_);
         assertEq("add 1", ((StringStruct)lv_.getStruct()).getInstance());
     }
     @Test
@@ -5204,8 +5169,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]+=1i", context_);
-        fwdCalculate(context_, out_);
+        calc("v[0i]+=1i", context_);
         assertEq("add 1",((StringStruct)(((ArrayStruct) lv_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
@@ -5221,9 +5185,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.Ex).exmeth()[0i]=2i", cont_);
-        fwdCalculate(cont_, out_);
-        Struct fieldValue_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        calc("$static(pkg.Ex).exmeth()[0i]=2i", cont_);
+        Struct fieldValue_ = getStaticField(cont_);
         Struct[] res_ = ((ArrayStruct) fieldValue_).getInstance();
         assertEq(1,res_.length);
         assertEq(2,((NumberStruct)res_[0]).intStruct());
@@ -5256,8 +5219,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("v.integer++", cont_);
-        Argument res_ = fwdCalculate(cont_, out_);
+        Argument res_ = calc("v.integer++", cont_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(0, getNumber(res_));
     }
@@ -5278,8 +5240,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("++v.integer", cont_);
-        Argument res_ = fwdCalculate(cont_, out_);
+        Argument res_ = calc("++v.integer", cont_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(1, getNumber(res_));
     }
@@ -5301,8 +5262,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v.integer-=12i)", cont_);
-        Argument res_ = fwdCalculate(cont_, out_);
+        Argument res_ = calc("(v.integer-=12i)", cont_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
     }
@@ -5321,8 +5281,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze("(v[0i][0i])=12i", context_);
-        fwdCalculate(context_, out_);
+        calc("(v[0i][0i])=12i", context_);
         assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
     }
 
@@ -5707,8 +5666,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
     }
 
     private static Argument processElNormal2BooleanVars(String s) {
@@ -5724,8 +5682,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
     }
 
     private static Argument processElNormalBoolInt(boolean b, String s, IntStruct _sec) {
@@ -5741,8 +5698,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
     }
 
     private static Argument processElNormalBool(boolean b, String s) {
@@ -5754,8 +5710,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
     }
 
     private static Argument processElNormal1Int(int i, String s, String _varName) {
@@ -5767,8 +5722,26 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put(_varName, lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
+    }
+
+    private static Argument calc(String s, AnalyzedTestConfiguration context_) {
+        if (context_.hasPages() && context_.getAnalyzing() != null) {
+            context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalClass());
+        }
+        CustList<RendDynOperationNode> out_ = getAnalyzed(s, 0, context_, new AnalyzingDoc());
+        AnalyzedPageEl page_ = context_.getAnalyzing();
+        assertTrue(context_.isEmptyErrors());
+        Classes.forwardAndClear(context_.getContext(), page_);
+        Configuration _cont = context_.getConfiguration();
+        for (ClassMetaInfo c: _cont.getContext().getClasses().getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_cont.getContext(), name_), c);
+        }
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        Argument arg_ = caculateReuse(context_, out_);
+        assertNull(getException(context_));
+        return arg_;
     }
 
     private static Argument processElNormal2BoolVars(boolean b, boolean b2, String s) {
@@ -5784,8 +5757,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        return fwdCalculate(context_, out_);
+        return calc(s, context_);
     }
 
     private static Argument processElNormalVar2(StringMap<String> files_, String s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
@@ -5795,8 +5767,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addVar(_keyField, _className, _value, _varName, _init, cont_, localVars_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, conf_);
-        return fwdCalculate(conf_, out_);
+        return calc(s, conf_);
     }
 
     private static void addVar(ClassField _keyField, String _className, Struct _value, String _varName, String _init, ContextEl cont_, StringMap<LocalVariable> localVars_) {
@@ -5817,8 +5788,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        fwdCalculate(context_, out_);
+        calc(s, context_);
         return lv_;
     }
 
@@ -5831,42 +5801,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
-        fwdCalculate(context_, out_);
+        calc(s, context_);
         return lv_;
     }
 
     private static Argument processElNormal(String _el, AnalyzedTestConfiguration _cont, String _expClass) {
-        CustList<RendDynOperationNode> out_ = fullAnalyze(_el, _cont);
-        Argument arg_ = fwdCalculate(_cont, out_);
+        Argument arg_ = calc(_el, _cont);
         assertEq(_expClass,arg_.getStruct().getClassName(_cont.getContext()));
         return arg_;
-    }
-
-    private static Argument fwdCalculate(AnalyzedTestConfiguration _cont, CustList<RendDynOperationNode> _out) {
-        forward(_cont.getConfiguration());
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getReducedNodes(_out.last());
-        Argument arg_ = caculateReuse(_cont, out_);
-        assertNull(getException(_cont));
-        return arg_;
-    }
-
-    private static void forward(Configuration _cont) {
-        for (ClassMetaInfo c: _cont.getContext().getClasses().getClassMetaInfos()) {
-            String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_cont.getContext(), name_), c);
-        }
-    }
-
-    private static CustList<RendDynOperationNode> fullAnalyze(String _el, AnalyzedTestConfiguration _cont) {
-        if (_cont.hasPages() && _cont.getAnalyzing() != null) {
-            _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
-        }
-        CustList<RendDynOperationNode> out_ = getAnalyzed(_el, 0, _cont, new AnalyzingDoc());
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        assertTrue(_cont.isEmptyErrors());
-        Classes.forwardAndClear(_cont.getContext(), page_);
-        return out_;
     }
 
     private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
@@ -5886,8 +5828,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processElNormalNotInit(StringMap<String> files_, String s) {
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, cont_);
-        Argument arg_ = fwdCalculate(cont_, out_);
+        Argument arg_ = calc(s, cont_);
         assertTrue(!isInitialized(cont_));
         return arg_;
     }
@@ -5899,8 +5840,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processElNormalInit(StringMap<String> files_, String s) {
         AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         addImportingPage(conf_);
-        CustList<RendDynOperationNode> out_ = fullAnalyze(s, conf_);
-        Argument arg_ = fwdCalculate(conf_, out_);
+        Argument arg_ = calc(s, conf_);
         assertTrue(isInitialized(conf_));
         assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
         return arg_;
@@ -5935,21 +5875,15 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_.getContext());
-        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
+        AnalyzedTestConfiguration a_ = build(conf_);
+        a_.getContext().setFullStack(new AdvancedFullStack(conf_));
         //
-        AnalyzedPageEl ana_ = getHeaders(_files, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        AnalysisMessages analysisMessages_ = ana_.getAnalysisMessages();
-        ReportedMessages messages_ = ana_.getMessages();
-        Classes.tryInitStaticlyTypes(cont_.getContext(),analysisMessages_,messages_, ana_.getOptions());
-        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
-        return new AnalyzedTestConfiguration(conf_,ana_);
+        getHeaders(_files, a_);
+        assertTrue(isEmptyErrors(a_));
+        AnalysisMessages analysisMessages_ = a_.getAnalyzing().getAnalysisMessages();
+        ReportedMessages messages_ = a_.getAnalyzing().getMessages();
+        Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, a_.getAnalyzing().getOptions());
+        return a_;
     }
 
     private static String getString(Argument _arg) {

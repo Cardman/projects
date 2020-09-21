@@ -490,17 +490,18 @@ public abstract class RendDynOperationNode {
     }
 
     private void setNextSiblingsArg(Argument _arg, Configuration _cont) {
-        if (_cont.getContext().hasException()) {
+        ContextEl context_ = _cont.getContext();
+        if (context_.hasException()) {
             return;
         }
         byte unwrapObjectNb_ = resultClass.getUnwrapObjectNb();
         if (resultClass.isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (_arg.isNull()) {
-                LgNames stds_ = _cont.getStandards();
+                LgNames stds_ = context_.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont.getContext(),null_));
+                _cont.setException(new ErrorStruct(context_,null_));
                 return;
             }
         }

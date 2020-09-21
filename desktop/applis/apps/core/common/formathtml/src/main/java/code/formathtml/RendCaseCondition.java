@@ -70,7 +70,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                     value,
                     _page.getKeyWords().getKeyWordSwitch());
             Configuration.addError(un_, _anaDoc, _page);
-            opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _page);
+            opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
             return;
         }
         RendSwitchBlock sw_ = (RendSwitchBlock) par_;
@@ -124,7 +124,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                     checkDuplicateEnumCase(_anaDoc, _page);
                     return;
                 }
-                opValue = RenderExpUtil.getAnalyzedOperations(value, valueOffset,0,_cont, _anaDoc, _page);
+                opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
                 Argument a_ = opValue.last().getArgument();
                 if (Argument.isNullValue(a_)) {
                     checkDuplicateCase(a_, _anaDoc, _page);
@@ -140,7 +140,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                 return;
             }
         }
-        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _page);
+        opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
         RendDynOperationNode op_ = opValue.last();
         AnaClassArgumentMatching resCase_ = _page.getCurrentRoot().getResultClass();
         Argument arg_ = op_.getArgument();

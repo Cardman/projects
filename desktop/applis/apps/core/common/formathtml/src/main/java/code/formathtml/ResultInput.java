@@ -30,7 +30,7 @@ public final class ResultInput {
     public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc, _page);
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_, 0, _anaDoc, _page);
             opsReadRoot = _page.getCurrentRoot();
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
@@ -44,7 +44,7 @@ public final class ResultInput {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
+                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
                 Configuration.addError(badEl_, _anaDoc, _page);
             } else {
                 className = NumParsers.getSingleNameOrEmpty(((RendDynOperationNode) settable_).getResultClass().getNames());
@@ -55,7 +55,7 @@ public final class ResultInput {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                         badEl_.setFileName(_anaDoc.getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                        badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
+                        badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
                         Configuration.addError(badEl_, _anaDoc, _page);
                     }
@@ -127,7 +127,7 @@ public final class ResultInput {
                             list_.add(rendVar_);
                             varNames_.add(varParam_);
                             varParamNames_.add(varParam_);
-                            typeNames_.add(_cont.getStandards().getAliasPrimInteger());
+                            typeNames_.add(_page.getStandards().getAliasPrimInteger());
                             i_++;
                         }
                         idName = StringList.concat("[](", StringList.join(typeNames_,","),")");
@@ -201,13 +201,13 @@ public final class ResultInput {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
+                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
                 Configuration.addError(badEl_, _anaDoc, _page);
             }
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc, _page);
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_, 0, _anaDoc, _page);
             opsValueRoot = _page.getCurrentRoot();
         }
     }

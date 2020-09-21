@@ -3,11 +3,13 @@ package code.formathtml.nat;
 import code.bean.Bean;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.*;
 import code.formathtml.classes.BeanFive;
@@ -16,6 +18,7 @@ import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.MyValidator;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
@@ -254,9 +257,10 @@ public final class NativeTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_);
+        RendAnalysisMessages rend_ = new RendAnalysisMessages();
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit(page_);
+        n_.setupRendClassesInit(page_, lgNames_, rend_);
         n_.initializeRendSession();
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -274,10 +278,7 @@ public final class NativeTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestContext cont_ = getContextEl();
-        conf_.setContext(cont_.getContext());
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
+        AnalyzedTestConfiguration a_ = buildNat(conf_);
         conf_.setFirstUrl("page2.html");
         conf_.getRenderFiles().add("page1.html");
         conf_.getRenderFiles().add("page2.html");
@@ -289,19 +290,20 @@ public final class NativeTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
-        conf_.init(cont_.getAnalyzing());
+        conf_.init();
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit(cont_.getAnalyzing());
+        n_.setupRendClassesInit(a_.getAnalyzing(), a_.getAdvStandards(), new RendAnalysisMessages());
         n_.initializeRendSession();
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
 
-    private static AnalyzedTestContext getContextEl() {
+    private static AnalyzedTestConfiguration buildNat(Configuration conf_) {
         Options opt_ = new Options();
-        return buildStdOne(opt_);
+        AnalyzedTestContext cont_ = buildStdOne(opt_);
+        return new AnalyzedTestConfiguration(conf_,cont_);
     }
 
     @Test
@@ -333,7 +335,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -685,7 +687,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -717,7 +719,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -749,7 +751,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -781,7 +783,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1113,7 +1115,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1152,7 +1154,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1163,7 +1165,7 @@ public final class NativeTest extends CommonRender {
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         setupBeansAfter(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).rendRefresh(nav_);
+        ((BeanNatLgNames)nav_.getSession().getContext().getStandards()).rendRefresh(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -1201,7 +1203,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(null);
+        ((BeanNatLgNames)conf_.getAnaStandards()).setDataBase(null);
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1221,16 +1223,6 @@ public final class NativeTest extends CommonRender {
 //        new StdStruct()
 
     }
-    private static void setupBeansAfter(Configuration _conf) {
-        cleanBeans(_conf);
-        for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
-            putBean((Bean) ((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
-        }
-    }
-
-    private static void cleanBeans(Configuration _conf) {
-        ((BeanNatLgNames)_conf.getStandards()).getBeans().clear();
-    }
 
     private static void setupBeansAfter(AnalyzedTestConfiguration _conf) {
         cleanBeans(_conf);
@@ -1245,7 +1237,8 @@ public final class NativeTest extends CommonRender {
 
     private static void initSessionNat(AnalyzedTestConfiguration _conf,Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        for (EntryCust<String, Bean> e: ((BeanNatLgNames)_nav.getSession().getStandards()).getBeans().entryList()) {
+        BeanNatLgNames standards_ = (BeanNatLgNames) _conf.getAnalyzing().getStandards();
+        for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
             i_.setScope(e.getValue().getScope());
@@ -1256,7 +1249,7 @@ public final class NativeTest extends CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _nav.initInstancesPattern(_conf.getAnalyzing());
-        _nav.setupRenders(_conf.getAnalyzing());
+        _nav.setupRenders(_conf.getAnalyzing(), standards_, analyzingDoc_.getRendAnalysisMessages());
         _nav.initializeRendSession();
     }
 
@@ -1265,12 +1258,12 @@ public final class NativeTest extends CommonRender {
 
         setupNative(folder_, relative_, context_.getConfiguration());
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        putBean(bean_, context_.getConfiguration(), "bean_one");
+        putBean(bean_, "bean_one", context_.getAnaStandards());
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_.getConfiguration(), "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_.getConfiguration(), "c:", doc_, html_, context_.getAnaStandards());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(context_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_.getConfiguration(), analyzingDoc_, context_.getAnalyzing());
+        buildFctInstructions(context_,rendDocumentBlock_, analyzingDoc_);
         return !context_.isEmptyErrors();
     }
 
@@ -1279,15 +1272,14 @@ public final class NativeTest extends CommonRender {
 
         setupNative(folder_, relative_, conf_.getConfiguration());
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        putBean(bean_, conf_.getConfiguration(), "bean_one");
+        putBean(bean_, "bean_one", conf_.getAnaStandards());
         addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_.getConfiguration(), "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_.getConfiguration(), "c:", doc_, html_, conf_.getAnaStandards());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_.getConfiguration(), analyzingDoc_, conf_.getAnalyzing());
+        buildFctInstructions(conf_,rendDocumentBlock_, analyzingDoc_);
         assertTrue(conf_.isEmptyErrors());
         conf_.getConfiguration().setDocument(doc_);
-        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         String res = getSampleRes(conf_.getConfiguration(), rendDocumentBlock_);
         assertNull(getException(conf_));
         return res;
@@ -1296,11 +1288,7 @@ public final class NativeTest extends CommonRender {
     private AnalyzedTestConfiguration contextElSec() {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
-        AnalyzedTestContext cont_ = getContextEl();
-        conf_.setContext(cont_.getContext());
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        return new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        return buildNat(conf_);
     }
 
     private static RendDocumentBlock buildRendWithTwoNativeBean(String html_, String htmlTwo_, BeanOne bean_, BeanTwo beanTwo_, AnalyzedTestConfiguration conf_) {
@@ -1309,14 +1297,14 @@ public final class NativeTest extends CommonRender {
         addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(c_, "c:", doc_, html_);
-        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(c_, "c:", docSec_, htmlTwo_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(c_, "c:", doc_, html_, conf_.getAnalyzing().getStandards());
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(c_, "c:", docSec_, htmlTwo_, conf_.getAnalyzing().getStandards());
         c_.getRenders().put("page1.html",rendDocumentBlock_);
         c_.getRenders().put("page2.html",rendDocumentBlockSec_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(c_, analyzingDoc_, conf_.getAnalyzing());
-        rendDocumentBlockSec_.buildFctInstructions(c_, analyzingDoc_, conf_.getAnalyzing());
+        buildFctInstructions(conf_,rendDocumentBlock_,analyzingDoc_);
+        buildFctInstructions(conf_,rendDocumentBlockSec_,analyzingDoc_);
         c_.setDocument(doc_);
         return rendDocumentBlock_;
     }
@@ -1328,9 +1316,10 @@ public final class NativeTest extends CommonRender {
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, kw_, lgNames_, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt);
-        return new AnalyzedTestContext(contextEl_,page_);
+        ClassesCommon com_ = new ClassesCommon();
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
+        return new AnalyzedTestContext(contextEl_, page_);
     }
 
     private static void addBeanInfo(AnalyzedTestConfiguration _conf, String _id, Struct _str) {
@@ -1655,8 +1644,8 @@ public final class NativeTest extends CommonRender {
         setup(folder_, relative_, context_);
     }
 
-    private static void putBean(Bean beanTwo_, Configuration conf_, String _key) {
-        ((BeanNatLgNames)conf_.getStandards()).getBeans().put(_key, beanTwo_);
+    private static void putBean(Bean beanTwo_, String _key, LgNames _stds) {
+        ((BeanNatLgNames) _stds).getBeans().put(_key, beanTwo_);
     }
 
     private static void setupNative(String folder_, String relative_, AnalyzedTestConfiguration context_) {
@@ -1670,7 +1659,7 @@ public final class NativeTest extends CommonRender {
     private static void setupVal(String folder_, String relative_, AnalyzedTestConfiguration conf_) {
         conf_.getConfiguration().setFirstUrl("page1.html");
         setup(folder_, relative_, conf_.getConfiguration());
-        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
+        ((BeanNatLgNames)conf_.getAnaStandards()).getValidators().put("rate_val", new MyValidator());
     }
 
     private static void setSess(Configuration conf_, Navigation nav_) {
@@ -1686,15 +1675,15 @@ public final class NativeTest extends CommonRender {
     }
 
     private static void putBean(Bean beanTwo_, AnalyzedTestConfiguration conf_, String _key) {
-        ((BeanNatLgNames)conf_.getStandards()).getBeans().put(_key, beanTwo_);
+        putBean(beanTwo_, _key, conf_.getAnaStandards());
     }
 
     private static String getSampleRes(Configuration conf_, RendDocumentBlock rendDocumentBlock_) {
-        return RendBlock.getRes(rendDocumentBlock_, conf_);
+        return getRes(conf_,rendDocumentBlock_);
     }
 
     private static String getSampleRes(AnalyzedTestConfiguration conf_, RendDocumentBlock rendDocumentBlock_) {
-        return RendBlock.getRes(rendDocumentBlock_, conf_.getConfiguration());
+        return getRes(conf_.getConfiguration(),rendDocumentBlock_);
     }
 
     private static void preinit(AnalyzedTestConfiguration conf_) {
