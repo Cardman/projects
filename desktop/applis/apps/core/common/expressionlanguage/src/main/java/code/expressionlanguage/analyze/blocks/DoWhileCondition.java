@@ -4,9 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.exec.blocks.ExecDoWhileCondition;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.files.OffsetStringInfo;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.*;
 

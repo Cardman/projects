@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
 
@@ -76,10 +75,6 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     @Override
     public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
-    }
-
-    @Override
-    public void setPreviousArgument(Argument _argument) {
     }
 
     public boolean isIntermediate() {

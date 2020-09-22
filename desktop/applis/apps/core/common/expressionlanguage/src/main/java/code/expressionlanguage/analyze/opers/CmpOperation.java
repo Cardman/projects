@@ -6,10 +6,10 @@ import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -81,10 +81,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-            Argument arg_ = l_.getArgument();
-            checkNull(arg_, _page);
-            arg_ = r_.getArgument();
-            checkNull(arg_, _page);
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
             return;
@@ -94,8 +90,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
             r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
-            l_.quickCancel();
-            r_.quickCancel();
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -104,8 +98,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
             r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
-            l_.quickCancel();
-            r_.quickCancel();
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -134,40 +126,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         getPartOffsetsChildren().add(err_);
         setResultClass(new AnaClassArgumentMatching(res_, _page.getStandards()));
     }
-    @Override
-    void checkNull(Argument _arg, AnalyzedPageEl _page) {
-        if (Argument.isNullValue(_arg)) {
-            okNum = false;
-            _page.setOkNumOp(false);
-        }
-        super.checkNull(_arg, _page);
-    }
     public boolean isStringCompare() {
         return stringCompare;
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        if (!okNum) {
-            return;
-        }
-        tryGetResult(op, classMethodId, stringCompare, this, _page);
-    }
-    private static void tryGetResult(String _op, ClassMethodId _cl, boolean _str, MethodOperation _to, AnalyzedPageEl _page) {
-        if (_cl != null) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = _to.getChildrenNodes();
-        Argument first_ = chidren_.first().getArgument();
-        Argument second_ = chidren_.last().getArgument();
-        Argument arg_;
-        if (_str) {
-            arg_ = calculateCommonStr(first_, second_, _op);
-        } else {
-            arg_ = calculateCommonNb(first_, second_, _op);
-        }
-        _to.setSimpleArgumentAna(arg_, _page);
-    }
     public static Argument calculateCommonNb(Argument _one, Argument _two, String _op) {
         boolean complement_ = false;
         String useOp_ = _op;

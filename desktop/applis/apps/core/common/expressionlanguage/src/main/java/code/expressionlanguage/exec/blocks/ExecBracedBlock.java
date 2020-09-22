@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class ExecBracedBlock extends ExecBlock {
 

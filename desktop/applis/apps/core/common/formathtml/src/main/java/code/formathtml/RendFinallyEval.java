@@ -1,8 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendTryBlockStack;

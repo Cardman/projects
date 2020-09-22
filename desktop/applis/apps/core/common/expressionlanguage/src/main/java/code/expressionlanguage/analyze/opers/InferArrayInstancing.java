@@ -9,13 +9,13 @@ import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -208,7 +208,6 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {
                 o.getResultClass().setUnwrapObject(classNameFinal_, _page.getStandards());
-                o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);
         }

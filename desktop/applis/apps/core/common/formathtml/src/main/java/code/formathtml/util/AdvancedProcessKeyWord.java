@@ -2,8 +2,8 @@ package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.instr.AbstractProcessKeyWord;
-import code.expressionlanguage.instr.ResultAfterInstKeyWord;
+import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
+import code.expressionlanguage.analyze.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.options.KeyWords;
 
 public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {

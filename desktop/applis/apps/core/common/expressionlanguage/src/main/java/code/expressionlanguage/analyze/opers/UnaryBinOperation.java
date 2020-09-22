@@ -5,8 +5,8 @@ import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -70,28 +70,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
         clMatch_.setUnwrapObject(cl_, _page.getStandards());
-        child_.quickCancel();
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
-    }
-
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        tryGetArg(this,classMethodId, _page);
-    }
-
-    private static void tryGetArg(MethodOperation _par, ClassMethodId _m, AnalyzedPageEl _page) {
-        if (_m != null) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Struct nb_ = arg_.getStruct();
-        if (!(nb_ instanceof NumberStruct)) {
-            return;
-        }
-        AnaClassArgumentMatching res_ = _par.getResultClass();
-        Argument out_ = new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(nb_), res_.getUnwrapObjectNb()));
-        _par.setSimpleArgumentAna(out_, _page);
     }
 
     @Override

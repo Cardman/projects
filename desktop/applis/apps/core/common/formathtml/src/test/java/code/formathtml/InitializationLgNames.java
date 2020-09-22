@@ -1,9 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
 

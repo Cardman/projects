@@ -4,7 +4,7 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
 import code.util.StringList;

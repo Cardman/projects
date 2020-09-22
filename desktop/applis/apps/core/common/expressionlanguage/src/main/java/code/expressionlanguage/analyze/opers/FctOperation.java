@@ -1,7 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -10,12 +8,12 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
@@ -223,8 +221,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             classMethodId = new ClassMethodId(foundClass_, id_);
             setResultClass(new AnaClassArgumentMatching(arrayBounds_));
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_, _page);
             return;
         }
         NameParametersFilter name_ = buildFilter(_page);
@@ -296,10 +292,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
-        if (isIntermediateDottedOperation() && !staticMethod) {
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_, _page);
-        }
     }
 
     private void setDelta(AnalyzedPageEl _page) {
@@ -344,43 +336,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         return b_;
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        tryGetArg(this, getPreviousArgument(), classMethodId, naturalVararg, lastType, _page);
-    }
-
-    public static void tryGetArg(FctOperation _current, Argument _pr,
-                                 ClassMethodId _classMethodId, int _naturalVararg, String _lastType, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _current.getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        if (_classMethodId == null) {
-            return;
-        }
-        Argument previous_;
-        previous_ = _pr;
-        Struct str_;
-        MethodId id_ = _classMethodId.getConstraints();
-        if (!id_.isStaticMethod()) {
-            if (previous_ == null || previous_.isNull()) {
-                return;
-            }
-            str_ = previous_.getStruct();
-        } else if (previous_ != null) {
-            str_ = previous_.getStruct();
-        } else {
-            str_ = NullStruct.NULL_VALUE;
-        }
-        CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_);
-        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(_classMethodId, str_, _page, Argument.toArgArray(firstArgs_));
-        if (out_ == null) {
-            return;
-        }
-        Argument arg_ = new Argument(out_);
-        _current.setSimpleArgumentAna(arg_, _page);
-    }
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }

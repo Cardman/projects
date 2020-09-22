@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public final class ExecElseIfCondition extends ExecCondition implements StackableBlock {

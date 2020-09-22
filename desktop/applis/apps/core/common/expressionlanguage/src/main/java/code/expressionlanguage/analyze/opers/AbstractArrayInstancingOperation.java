@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 public abstract class AbstractArrayInstancingOperation extends InvokingOperation {
     private String methodName;

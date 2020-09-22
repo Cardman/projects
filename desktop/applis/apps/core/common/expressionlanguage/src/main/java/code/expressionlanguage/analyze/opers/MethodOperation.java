@@ -1,13 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.exec.opers.ReductibleOperable;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.*;
 
-public abstract class MethodOperation extends OperationNode implements ReductibleOperable {
+public abstract class MethodOperation extends OperationNode {
 
     private OperationNode firstChild;
 
@@ -20,22 +18,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         super(_index, _indexChild, _m, _op);
         children = new IntTreeMap<String>();
         calculateChildren();
-    }
-
-    @Override
-    public void tryCalculateNode(AnalyzedPageEl _page) {
-        tryCalculateNode(this, _page);
-    }
-    public static void tryCalculateNode(MethodOperation _par, AnalyzedPageEl _page) {
-        CustList<OperationNode> children_ = _par.getChildrenNodes();
-        for (OperationNode o: children_) {
-            if (o.getArgument() == null) {
-                return;
-            }
-        }
-        _par.quickCalculate(_page);
-    }
-    public void quickCalculate(AnalyzedPageEl _page) {
     }
 
     public final void appendChild(OperationNode _child) {

@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 
 public interface AbstractLocalizer {
     String getCurrentFileName();

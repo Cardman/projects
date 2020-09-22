@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -78,13 +77,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             return;
         }
         ResultOperand res_ = analyzeOper(a_, ops_.firstValue(), c_, _page);
-        if (!res_.isCatString()) {
-            l_.quickCancel();
-            r_.quickCancel();
-        } else {
-            l_.cancelArgumentString();
-            r_.cancelArgumentString();
-        }
         setCatenize(res_);
         okNum = _page.isOkNumOp();
         a_ = res_.getResult();
@@ -92,26 +84,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     abstract ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page);
-
-    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page);
-
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        if (classMethodId != null || !okNum) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.first().getArgument();
-        IntTreeMap< String> ops_ = getOperations().getOperators();
-        Argument c_ = chidren_.last().getArgument();
-        Argument r_;
-        r_ = calculateOperAna(a_, ops_.firstValue(), c_, _page);
-        if (r_.isNull()) {
-            return;
-        }
-        a_ = r_;
-        setSimpleArgumentAna(a_, _page);
-    }
 
     @Override
     final void calculateChildren() {

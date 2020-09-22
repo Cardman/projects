@@ -1,9 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -11,21 +8,16 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.opers.ReductibleOperable;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public abstract class SettableAbstractFieldOperation extends
-        AbstractFieldOperation implements SettableElResult, ReductibleOperable {
+        AbstractFieldOperation implements SettableElResult {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
@@ -99,10 +91,6 @@ public abstract class SettableAbstractFieldOperation extends
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getStandards()));
-        if (isIntermediateDottedOperation() && !fieldMetaInfo.isStaticField()) {
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_, _page);
-        }
     }
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
@@ -179,54 +167,6 @@ public abstract class SettableAbstractFieldOperation extends
     }
     public final FieldInfo getFieldMetaInfo() {
         return fieldMetaInfo;
-    }
-
-    @Override
-    public final void tryCalculateNode(AnalyzedPageEl _page) {
-        trySet(this, fieldMetaInfo, _page);
-    }
-    private static void trySet(OperationNode _oper, FieldInfo _info, AnalyzedPageEl _page) {
-        if (_info == null) {
-            return;
-        }
-        if (!_info.isStaticField()) {
-            return;
-        }
-        if (!_info.isFinalField()) {
-            return;
-        }
-        ClassField fieldId_ = _info.getClassField();
-        StringMap<Struct> map_ = Classes.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
-        StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
-        Struct str_ = Classes.getStaticField(fieldId_, staticFields_);
-        if (map_.isEmpty()) {
-            LgNames stds_ = _page.getStandards();
-            ResultErrorStd res_ = stds_.getSimpleResult(fieldId_);
-            Argument arg_ = new Argument(res_.getResult());
-            _oper.setSimpleArgumentAna(arg_, _page);
-            trySetDotParent(_oper, arg_, _page);
-            return;
-        }
-        if (ElUtil.isDeclaringField(_oper, _page)) {
-            Argument arg_ = Argument.createVoid();
-            _oper.setSimpleArgument(arg_);
-            return;
-        }
-        if (str_ != null) {
-            Argument arg_ = new Argument(str_);
-            _oper.setSimpleArgumentAna(arg_, _page);
-            trySetDotParent(_oper, arg_, _page);
-        }
-    }
-    private static void trySetDotParent(OperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
-        Block bl_ = _page.getCurrentBlock();
-        if (!(bl_ instanceof CaseCondition)) {
-            return;
-        }
-        if (_oper.getIndexChild() > 0
-                && _oper.getParent() instanceof AbstractDotOperation) {
-            _oper.getParent().setSimpleArgumentAna(_arg, _page);
-        }
     }
 
     public boolean isDeclare() {

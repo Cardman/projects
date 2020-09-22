@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;

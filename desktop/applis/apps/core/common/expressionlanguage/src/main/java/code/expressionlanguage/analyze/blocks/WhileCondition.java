@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.exec.blocks.ExecWhileCondition;
-import code.expressionlanguage.files.OffsetStringInfo;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.*;
 

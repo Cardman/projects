@@ -2,8 +2,8 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.LeafOperation;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.formathtml.Configuration;

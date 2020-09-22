@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -66,26 +66,4 @@ public final class NullSafeOperation extends MethodOperation {
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 
-    @Override
-    public void tryCalculateNode(AnalyzedPageEl _page) {
-        tryGetResult(this, _page);
-    }
-
-    public static void tryGetResult(MethodOperation _to, AnalyzedPageEl _page) {
-        CustList<OperationNode> children_ = _to.getChildrenNodes();
-        Argument f_ = children_.first().getArgument();
-        Argument s_ = children_.last().getArgument();
-        if (f_ == null) {
-            return;
-        }
-        Struct v_ = f_.getStruct();
-        if (v_ != NullStruct.NULL_VALUE) {
-            _to.setSimpleArgumentAna(f_, _page);
-            return;
-        }
-        Struct value_ = Argument.getNull(Argument.getNullable(s_));
-        if (value_ != NullStruct.NULL_VALUE) {
-            _to.setSimpleArgumentAna(s_, _page);
-        }
-    }
 }

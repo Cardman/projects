@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.CustList;
 
 public final class DotOperation extends AbstractDotOperation {
@@ -11,13 +10,4 @@ public final class DotOperation extends AbstractDotOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        DotOperation.setArg(this, _page);
-    }
-
-    public static void setArg(MethodOperation _op, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _op.getChildrenNodes();
-        _op.setSimpleArgumentAna(chidren_.last().getArgument(), _page);
-    }
 }

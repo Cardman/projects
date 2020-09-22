@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecEmptyInstruction extends ExecLeaf implements WithEl {
     public ExecEmptyInstruction(OffsetsBlock _offset) {

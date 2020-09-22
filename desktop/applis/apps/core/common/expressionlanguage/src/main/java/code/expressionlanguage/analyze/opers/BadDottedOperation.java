@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 public class BadDottedOperation extends LeafOperation {
     public BadDottedOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {

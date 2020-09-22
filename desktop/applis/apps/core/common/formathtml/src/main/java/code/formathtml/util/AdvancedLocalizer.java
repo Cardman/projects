@@ -1,8 +1,8 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.types.AbstractLocalizer;
 import code.formathtml.Configuration;
 

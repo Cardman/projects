@@ -11,7 +11,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.analyze.errors.custom.*;
 
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;

@@ -3162,6 +3162,45 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
                  "pkgtwo.ExClass.0()",getString(ret_));
     }
     @Test
+    public void calculateArgument130Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final String a = \"old\";\n");
+        xml_.append("  $final String b = \"new\";\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement(a,b);\n");
+        xml_.append("  $return inst.getOldString();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("old", getString(ret_));
+    }
+    @Test
+    public void calculateArgument131Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final String a = \"old\";\n");
+        xml_.append("  $final String b = \"new\";\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement(a,b);\n");
+        xml_.append("  $return inst.getNewString();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("new", getString(ret_));
+    }
+
+    @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

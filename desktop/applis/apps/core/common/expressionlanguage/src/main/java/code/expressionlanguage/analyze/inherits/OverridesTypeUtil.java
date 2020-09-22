@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.inherits;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
@@ -13,7 +12,6 @@ import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ComparingByTypeList;
 import code.util.*;
 
 public final class OverridesTypeUtil {

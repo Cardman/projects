@@ -1,13 +1,11 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.StringList;
@@ -18,21 +16,6 @@ public final class MultOperation extends NumericOperation {
     public MultOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    Argument calculateOperAna(Argument _a, String _op, Argument _b,
-                              AnalyzedPageEl _page) {
-        if (StringList.quickEq(_op.trim(), MULT)) {
-            return new Argument(NumParsers.calculateMult(NumParsers.convertToNumber(_a.getStruct()),
-                    NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
-        }
-        if (StringList.quickEq(_op.trim(), DIV)) {
-            return new Argument(NumParsers.calculateDiv(NumParsers.convertToNumber(_a.getStruct()),
-                    NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
-        }
-        return new Argument(NumParsers.calculateMod(NumParsers.convertToNumber(_a.getStruct()),
-                NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
 
     @Override

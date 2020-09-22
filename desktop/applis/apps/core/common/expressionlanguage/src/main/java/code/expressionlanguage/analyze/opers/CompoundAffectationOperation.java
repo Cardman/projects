@@ -5,14 +5,14 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
@@ -160,7 +160,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     return;
                 }
                 clMatchRight_.setConvertToString(true);
-                right_.cancelArgumentString();
                 return;
             }
             if (!AnaTypeUtil.isPureNumberClass(clMatchRight_, _page)) {
@@ -197,8 +196,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            ((OperationNode) elt_).quickCancel();
-            right_.quickCancel();
             return;
         }
         if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ) || StringList.quickEq(oper, Block.XOR_EQ)) {
@@ -228,8 +225,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
             elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            ((OperationNode) elt_).quickCancel();
-            right_.quickCancel();
             setBool(right_,_page);
             return;
         }
@@ -252,8 +247,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
             elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            ((OperationNode) elt_).quickCancel();
-            right_.quickCancel();
             setBool(right_,_page);
             return;
         }
@@ -306,8 +299,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
             elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            ((OperationNode) elt_).quickCancel();
-            right_.quickCancel();
         }
     }
 

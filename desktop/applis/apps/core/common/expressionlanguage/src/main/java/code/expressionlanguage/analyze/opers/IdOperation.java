@@ -4,10 +4,10 @@ import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -185,9 +185,4 @@ public final class IdOperation extends AbstractUnaryOperation {
         return false;
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        setSimpleArgumentAna(chidren_.first().getArgument(), _page);
-    }
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

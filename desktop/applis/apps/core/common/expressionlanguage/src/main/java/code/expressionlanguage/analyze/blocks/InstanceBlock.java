@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class InstanceBlock extends InitBlock {

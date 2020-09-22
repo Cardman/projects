@@ -1,8 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.files.OffsetStringInfo;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;

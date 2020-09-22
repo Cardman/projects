@@ -2,9 +2,9 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.stds.ErrorCat;
-import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.stds.ErrorCat;
+import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;

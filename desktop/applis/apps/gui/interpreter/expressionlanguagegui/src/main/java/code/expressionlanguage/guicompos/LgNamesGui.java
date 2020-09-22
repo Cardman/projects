@@ -7,7 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.options.KeyWords;

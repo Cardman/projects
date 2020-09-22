@@ -3,14 +3,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -27,10 +26,6 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         super(_index, _indexChild, _m, _op);
         oper = _op.getOperators().values().first();
         opOffset = _op.getOperators().firstKey();
-    }
-
-    private static boolean calculateEq(Argument _a, Argument _b) {
-        return _a.getStruct().sameReference(_b.getStruct());
     }
 
     @Override
@@ -64,26 +59,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         LgNames stds_ = _page.getStandards();
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        if (classMethodId != null) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument first_ = chidren_.first().getArgument();
-        Argument second_ = chidren_.last().getArgument();
-        boolean complement_ = false;
-        String op_ = getOperations().getOperators().values().first().trim();
-        if (StringList.quickEq(op_, DIFF)) {
-            complement_ = true;
-        }
-        boolean b_ = calculateEq(first_, second_);
-        if (complement_) {
-            b_ = !b_;
-        }
-        Argument arg_ = new Argument(BooleanStruct.of(b_));
-        setSimpleArgumentAna(arg_, _page);
-    }
+
     @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();

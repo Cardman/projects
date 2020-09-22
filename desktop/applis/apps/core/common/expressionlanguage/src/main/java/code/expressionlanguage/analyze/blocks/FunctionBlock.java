@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public interface FunctionBlock {
 

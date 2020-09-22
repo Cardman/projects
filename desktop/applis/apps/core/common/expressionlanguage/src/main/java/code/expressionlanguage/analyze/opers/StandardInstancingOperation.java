@@ -1,7 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -11,14 +9,13 @@ import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -273,37 +270,6 @@ public final class StandardInstancingOperation extends
         }
         unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
-    }
-
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        tryGetArg(this, getNaturalVararg(), getConstId(), getLastType(), _page);
-    }
-
-    public static void tryGetArg(StandardInstancingOperation _current,
-                                 int _naturalVararg, ConstructorId _constId, String _lastType, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _current.getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(o.getArgument());
-            filter_.add(o);
-        }
-        if (_constId == null) {
-            return;
-        }
-        CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_);
-        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(_constId, _page, Argument.toArgArray(firstArgs_));
-        if (out_ == null) {
-            return;
-        }
-        Argument arg_ = new Argument(out_);
-        _current.setSimpleArgumentAna(arg_, _page);
     }
 
     public String getFieldName() {

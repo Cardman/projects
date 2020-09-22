@@ -4,10 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -67,25 +67,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             }
         }
         clMatch_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        child_.quickCancel();
         setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));
-    }
-
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        tryGetArg(this, _page);
-    }
-
-    private static void tryGetArg(MethodOperation _par, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Struct value_ = arg_.getStruct();
-        if (!(value_ instanceof BooleanStruct)) {
-            return;
-        }
-        BooleanStruct o_ = (BooleanStruct) value_;
-        Argument a_ = new Argument(o_.neg());
-        _par.setSimpleArgumentAna(a_, _page);
     }
 
 

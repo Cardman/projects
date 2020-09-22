@@ -1,7 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.utilcompo.CustLockingClass;
 import code.expressionlanguage.utilcompo.ExecutingOptions;

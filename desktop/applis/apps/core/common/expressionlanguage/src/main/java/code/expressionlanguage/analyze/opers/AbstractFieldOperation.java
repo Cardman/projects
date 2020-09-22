@@ -1,8 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -10,7 +9,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     private AnaClassArgumentMatching previousResultClass;
     private boolean intermediate;
 
-    private Argument previousArgument;
     private int off;
     public AbstractFieldOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -41,14 +39,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         previousResultClass = _previousResultClass;
     }
 
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
     public int getOff() {
         return off;
     }

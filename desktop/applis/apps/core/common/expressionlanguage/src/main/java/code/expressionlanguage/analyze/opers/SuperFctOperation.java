@@ -9,11 +9,11 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -215,10 +215,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
-        if (isIntermediateDottedOperation() && !staticMethod) {
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_, _page);
-        }
     }
 
     public String getMethodName() {

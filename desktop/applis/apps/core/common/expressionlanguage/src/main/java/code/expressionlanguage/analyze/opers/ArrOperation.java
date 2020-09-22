@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
@@ -9,16 +8,13 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -162,8 +158,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
                 bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
                 varargParam_, name_, _page);
-        Argument arg_ = getPreviousArgument();
-        checkNull(arg_, _page);
         if (clMeth_.isFoundMethod()) {
             rootNumber = clMeth_.getRootNumber();
             memberNumber = clMeth_.getMemberNumber();
@@ -227,15 +221,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _page);
         LgNames stds_ = _page.getStandards();
-        Argument rightArg_ = right_.getArgument();
-        boolean convertNumber_ = false;
-        if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
-            long valueUnwrapped_ = NumParsers.convertToNumber(rightArg_.getStruct()).longStruct();
-            if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
-                right_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);
-                convertNumber_ = true;
-            }
-        }
         if (!indexClass_.isNumericInt(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
@@ -268,10 +253,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(class_);
             return;
         }
-        if (!convertNumber_) {
-            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getStandards());
-            right_.quickCancel();
-        }
+        indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getStandards());
         class_ = StringExpUtil.getQuickComponentType(class_);
         class_.setUnwrapObject(class_,stds_);
         setResultClass(class_);

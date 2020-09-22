@@ -3,8 +3,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -28,8 +28,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         AnaClassArgumentMatching cl_ = getPreviousResultClass();
         String aliasLength_ = _page.getStandards().getAliasLength();
         if (StringList.quickEq(str_, aliasLength_)) {
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_, _page);
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
             return;
         }

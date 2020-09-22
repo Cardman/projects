@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
-import code.expressionlanguage.files.OffsetBooleanInfo;
-import code.expressionlanguage.files.OffsetStringInfo;
-import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;

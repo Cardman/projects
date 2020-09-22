@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
@@ -10,22 +9,16 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -35,8 +28,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     private AnaClassArgumentMatching previousResultClass;
     private MethodAccessKind staticAccess;
     private boolean intermediate;
-
-    private Argument previousArgument;
 
     public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -345,46 +336,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
     }
 
-    public static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
-        if (_natVararg > -1) {
-            CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
-            int lenCh_ = _children.size();
-            int natVarArg_ = _natVararg;
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof IdFctOperation
-                        || _children.get(i) instanceof VarargOperation) {
-                    natVarArg_++;
-                    continue;
-                }
-                Argument a_ = _nodes.get(i);
-                if (i >= natVarArg_) {
-                    optArgs_.add(a_);
-                } else {
-                    firstArgs_.add(a_);
-                }
-            }
-            int len_ = optArgs_.size();
-            Struct[] array_ = new Struct[len_];
-            String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            ExecTemplates.setElements(optArgs_,str_);
-            Argument argRem_ = new Argument(str_);
-            firstArgs_.add(argRem_);
-            return firstArgs_;
-        }
-        CustList<Argument> firstArgs_ = new CustList<Argument>();
-        int lenCh_ = _children.size();
-        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof IdFctOperation
-                    || _children.get(i) instanceof VarargOperation) {
-                continue;
-            }
-            Argument a_ = _nodes.get(i);
-            firstArgs_.add(a_);
-        }
-        return firstArgs_;
-    }
     static StringList getBounds(String _cl, AnalyzedPageEl _page) {
         LgNames stds_ = _page.getStandards();
         String objectClassName_ = stds_.getAliasObject();
@@ -412,13 +363,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
                         a_.getResultClass().setUnwrapObject(_lasttype, _page.getStandards());
-                        a_.quickCancel();
                     }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
                     if (AnaTypeUtil.isPrimitive(param_, _page)) {
                         a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
-                        a_.quickCancel();
                     }
                 }
             }
@@ -432,7 +381,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 if (AnaTypeUtil.isPrimitive(param_, _page)) {
                     a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
-                    a_.quickCancel();
                 }
             }
         }
@@ -503,15 +451,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     public final void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
         staticAccess = _staticAccess;
-    }
-
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
     }
 
     public final MethodAccessKind isStaticAccess() {

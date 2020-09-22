@@ -3,8 +3,8 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.StringList;
 
 public final class ManageTokens {

@@ -6,11 +6,11 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -187,7 +187,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
                 if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
                     o.getResultClass().setUnwrapObject(eltType_, _page.getStandards());
-                    o.quickCancel();
                 }
                 getPartOffsetsChildren().add(parts_);
             }

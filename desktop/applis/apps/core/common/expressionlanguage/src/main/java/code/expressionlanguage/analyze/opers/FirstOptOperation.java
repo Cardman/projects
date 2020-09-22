@@ -5,8 +5,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
@@ -98,19 +98,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getStandards()));
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        setArg(this, _page);
-    }
-
-    private static void setArg(FirstOptOperation _par, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        _par.setSimpleArgumentAna(arguments_.first(), _page);
-    }
     public int getOffset() {
         return offset;
     }

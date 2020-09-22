@@ -1,21 +1,17 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.errors.custom.DeadCodeTernary;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -36,35 +32,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
 
     public final int getOffsetLocal() {
         return offsetLocal;
-    }
-    @Override
-    public final void tryCalculateNode(AnalyzedPageEl _page) {
-        tryGetResult(this, _page);
-    }
-    private static void tryGetResult(MethodOperation _to, AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = _to.getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argBool_ = arguments_.first();
-        if (argBool_ == null) {
-            return;
-        }
-        Struct str_ = argBool_.getStruct();
-        if (!(str_ instanceof BooleanStruct)) {
-            return;
-        }
-        Argument arg_;
-        if (BooleanStruct.isTrue(str_)) {
-            arg_ = arguments_.get(CustList.SECOND_INDEX);
-        } else {
-            arg_ = arguments_.last();
-        }
-        if (arg_ == null) {
-            return;
-        }
-        _to.setSimpleArgumentAna(arg_, _page);
     }
 
     @Override
@@ -111,7 +78,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         opOne_.getResultClass().setCheckOnlyNullPe(true);
-        opOne_.quickCancel();
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
@@ -143,11 +109,8 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             if (AnaTypeUtil.isPrimitive(type_, _page)) {
                 opTwo_.getResultClass().setUnwrapObject(type_, _page.getStandards());
                 opThree_.getResultClass().setUnwrapObject(type_, _page.getStandards());
-                opTwo_.quickCancel();
-                opThree_.quickCancel();
             }
             setResultClass(new AnaClassArgumentMatching(type_));
-            checkDeadCode(opOne_, _page);
             return;
         }
         StringList one_ = clMatchTwo_.getNames();
@@ -155,23 +118,11 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _page);
         if (res_.isUnwrapFirst()) {
             opTwo_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
-            opTwo_.quickCancel();
         }
         if (res_.isUnwrapSecond()) {
             opThree_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
-            opThree_.quickCancel();
         }
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
-        checkDeadCode(opOne_, _page);
-    }
-
-    private void checkDeadCode(OperationNode _opOne, AnalyzedPageEl _page) {
-        if (_opOne.getArgument() != null) {
-            DeadCodeTernary d_ = new DeadCodeTernary();
-            d_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            d_.setFileName(_page.getLocalizer().getCurrentFileName());
-            _page.getLocalizer().addWarning(d_);
-        }
     }
 
     public ClassMethodId getTest() {

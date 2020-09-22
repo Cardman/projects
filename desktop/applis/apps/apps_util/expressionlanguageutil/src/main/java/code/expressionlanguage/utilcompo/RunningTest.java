@@ -1,6 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.util.CustList;

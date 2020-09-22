@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.GraphicErrorList;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;

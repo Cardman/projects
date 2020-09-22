@@ -1,19 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.opers.ReductibleOperable;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class StaticInfoOperation extends LeafOperation implements ReductibleOperable {
+public final class StaticInfoOperation extends LeafOperation {
 
     private String className;
 
@@ -44,28 +40,6 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         partOffsets.addAllElts(_page.getCurrentParts());
         className = classStr_;
         setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasClassType()));
-    }
-
-    @Override
-    public void tryCalculateNode(AnalyzedPageEl _page) {
-        setArg(this, className, _page);
-    }
-    private static void setArg(OperationNode _current, String _className, AnalyzedPageEl _page) {
-        if (_className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
-            return;
-        }
-        ClassMetaInfo candidate_ = new ClassMetaInfo(_className);
-        CustList<ClassMetaInfo> classMetaInfos_ = _page.getClassMetaInfos();
-        for (ClassMetaInfo c: classMetaInfos_) {
-            if (c.sameReference(candidate_)) {
-                Argument a_ = new Argument(c);
-                _current.setSimpleArgumentAna(a_, _page);
-                return;
-            }
-        }
-        classMetaInfos_.add(candidate_);
-        Argument a_ = new Argument(candidate_);
-        _current.setSimpleArgumentAna(a_, _page);
     }
 
     public String getClassName() {

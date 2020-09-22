@@ -1,6 +1,6 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.types.AbstractAnnotationAnalysis;
 

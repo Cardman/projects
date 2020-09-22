@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.files.ParsedFctHeader;
+import code.expressionlanguage.analyze.files.ParsedFctHeader;
 
 public final class AnonymousResult {
     private ParsedFctHeader results;

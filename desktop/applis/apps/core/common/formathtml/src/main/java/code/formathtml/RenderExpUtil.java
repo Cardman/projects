@@ -3,16 +3,16 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.instr.*;
+import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
-import code.expressionlanguage.exec.opers.ReductibleOperable;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -167,6 +167,7 @@ public final class RenderExpUtil {
             }
             c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
+        ReachOperationUtil.tryCalculate(list_,_page);
         return list_;
     }
 
@@ -181,9 +182,9 @@ public final class RenderExpUtil {
         while (true) {
             _page.setOkNumOp(true);
             processAnalyze(current_, _anaDoc, _page);
-            if (current_ instanceof ReductibleOperable) {
-                ((ReductibleOperable)current_).tryCalculateNode(_page);
-            }
+//            if (current_ instanceof ReductibleOperable) {
+//                ((ReductibleOperable)current_).tryCalculateNode(_page);
+//            }
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
@@ -198,7 +199,6 @@ public final class RenderExpUtil {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
                         MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
                         possible_.setIntermediateDotted();
-                        possible_.setPreviousArgument(current_.getArgument());
                         possible_.setPreviousResultClass(current_.getResultClass(), static_);
                     }
                 }
@@ -212,7 +212,7 @@ public final class RenderExpUtil {
                 if (AnaTypeUtil.isPrimitive(cl_, _page)) {
                     cl_.setUnwrapObject(cl_,_page.getStandards());
                 }
-                par_.tryCalculateNode(_page);
+//                par_.tryCalculateNode(_page);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;

@@ -2,8 +2,8 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 
 public final class DefaultLocalizer implements AbstractLocalizer {
     private final AnalyzedPageEl context;

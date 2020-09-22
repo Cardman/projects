@@ -7,15 +7,15 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -198,7 +198,6 @@ public final class AffectationOperation extends MethodOperation {
         foundOffset = _page.getLocalizer().getCurrentLocationIndex();
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getStandards());
-            right_.quickCancel();
         }
     }
 
@@ -248,23 +247,6 @@ public final class AffectationOperation extends MethodOperation {
             return (SettableElResult) _op;
         }
         return null;
-    }
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        setArg(this, getSettableOp(), _page);
-    }
-
-    public static void setArg(MethodOperation _current, OperationNode _settable, AnalyzedPageEl _page) {
-        if (!ElUtil.isDeclaringField(_settable, _page)) {
-            return;
-        }
-        StandardFieldOperation fieldRef_ = (StandardFieldOperation) _settable;
-        OperationNode lastChild_ = _current.getChildrenNodes().get(1);
-        Argument value_ = lastChild_.getArgument();
-        ClassField id_ = fieldRef_.getFieldIdReadOnly();
-        Struct str_ = value_.getStruct();
-        Classes.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), str_);
-        _current.setSimpleArgument(value_);
     }
 
     public int getOpOffset() {

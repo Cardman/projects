@@ -3,13 +3,15 @@ package code.expressionlanguage.analyze.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
 import code.util.*;
@@ -322,5 +324,37 @@ public final class ContextUtil {
             }
         }
         return null;
+    }
+
+    public static IterableAnalysisResult getCustomTypeBase(StringList _names, AnalyzedPageEl _page) {
+        StringList out_ = new StringList();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        LgNames stds_ = _page.getStandards();
+        for (String f: _names) {
+            String iterable_ = stds_.getAliasIterable();
+            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
+            if (!type_.isEmpty()) {
+                out_.add(type_);
+            }
+        }
+        return new IterableAnalysisResult(out_);
+    }
+
+    public static IterableAnalysisResult getCustomTableType(StringList _names, AnalyzedPageEl _page) {
+        StringList out_ = new StringList();
+        LgNames stds_ = _page.getStandards();
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        for (String f: _names) {
+            String iterable_ = stds_.getAliasIterableTable();
+            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
+            if (!type_.isEmpty()) {
+                out_.add(type_);
+            }
+        }
+        return new IterableAnalysisResult(out_);
     }
 }

@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
-import code.expressionlanguage.errors.custom.GraphicErrorList;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.*;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {

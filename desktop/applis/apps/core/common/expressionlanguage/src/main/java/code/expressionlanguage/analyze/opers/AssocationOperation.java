@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.*;
 import code.util.StringList;
 
@@ -80,11 +79,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         setResultClass(getFirstChild().getResultClass());
     }
 
-    @Override
-    public void quickCalculate(AnalyzedPageEl _page) {
-        Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgumentAna(arg_, _page);
-    }
     public String getFieldName() {
         return fieldName;
     }

@@ -6,11 +6,11 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -44,33 +44,6 @@ public abstract class QuickOperation extends MethodOperation {
         getChildren().putAllMap(vs_);
     }
 
-    static void tryGetResult(MethodOperation _to, boolean _abs, boolean _okNum, AnalyzedPageEl _page) {
-        if (!_okNum) {
-            return;
-        }
-        CustList<OperationNode> children_ = _to.getChildrenNodes();
-        Argument f_ = children_.first().getArgument();
-        Argument s_ = children_.last().getArgument();
-        if (f_ == null) {
-            return;
-        }
-        Struct v_ = f_.getStruct();
-        if (_abs) {
-            if (BooleanStruct.isTrue(v_)) {
-                _to.setSimpleArgumentAna(f_, _page);
-                return;
-            }
-        } else {
-            if (BooleanStruct.isFalse(v_)) {
-                _to.setSimpleArgumentAna(f_, _page);
-                return;
-            }
-        }
-        if (s_ == null) {
-            return;
-        }
-        _to.setSimpleArgumentAna(s_, _page);
-    }
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -154,8 +127,6 @@ public abstract class QuickOperation extends MethodOperation {
         }
         leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         rightRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        left_.quickCancel();
-        right_.quickCancel();
         setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getStandards()));
     }
 

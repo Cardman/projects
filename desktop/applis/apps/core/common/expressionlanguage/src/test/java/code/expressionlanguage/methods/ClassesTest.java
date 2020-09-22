@@ -7,15 +7,15 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.assign.util.*;
+import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -5549,6 +5549,36 @@ public final class ClassesTest extends ProcessMethodCommon {
         Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
         assertEq("b", ((ReplacementStruct)str_).getInstance().getNewString());
         assertEq("a", ((ReplacementStruct)str_).getInstance().getOldString());
+    }
+    @Test
+    public void calculateStaticField194Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final String field=iOne.substring(a:3,b:5);\n");
+        xml_.append(" $public $static $final String iOne=\"Hello\";\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, countStaticFields(ctx_));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
+        assertEq("lo",((StringStruct)str_).getInstance());
+    }
+    @Test
+    public void calculateStaticField195Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final String field=iOne.substring(b:5,a:3);\n");
+        xml_.append(" $public $static $final String iOne=\"Hello\";\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, countStaticFields(ctx_));
+        Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "field"));
+        assertEq("lo",((StringStruct)str_).getInstance());
     }
     private static int countStaticFields(ContextEl _ctx) {
         int sum_ = 0;

@@ -2,13 +2,14 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.options.IterableAnalysisResult;
+import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.options.PredefinedClasses;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.structs.*;
@@ -1276,14 +1277,14 @@ public abstract class LgNames {
      * @param _first le premier
      * */
     public IterableAnalysisResult getCustomType(StringList _names, String _first, AnalyzedPageEl _page) {
-        return ValidatorStandard.getCustomTypeBase(_names, _page);
+        return ContextUtil.getCustomTypeBase(_names, _page);
     }
 
     /**@param _first le premier
     @param _second le second
      * @param _page*/
     public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second, AnalyzedPageEl _page) {
-        return ValidatorStandard.getCustomTableType(_names, _page);
+        return ContextUtil.getCustomTableType(_names, _page);
     }
 
     public StringMap<String> buildFiles(AnalyzedPageEl _page) {

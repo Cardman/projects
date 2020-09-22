@@ -5,13 +5,13 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -89,7 +89,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
         }
-        checkNull(getPreviousArgument(), _page);
         if (all_.size() == 1) {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -167,7 +166,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 }
                 if (AnaTypeUtil.isPrimitive(pa_, _page)) {
                     a_.setUnwrapObject(pa_, _page.getStandards());
-                    chidren_.get(i).quickCancel();
                 }
                 getPartOffsetsChildren().add(parts_);
             }

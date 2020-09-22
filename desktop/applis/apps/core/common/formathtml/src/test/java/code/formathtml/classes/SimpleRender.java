@@ -1,7 +1,7 @@
 package code.formathtml.classes;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
 import code.formathtml.RendDocumentBlock;
 import code.formathtml.RendParentBlock;

@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecInstanceCaseCondition extends ExecAbstractInstanceTypeCaseCondition {
 

@@ -3,7 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {

@@ -80,12 +80,6 @@ public final class Argument {
         }
         return _arg.object == NullStruct.NULL_VALUE;
     }
-    public static boolean isNotDisplayableValue(Argument _arg) {
-        if (_arg == null) {
-            return false;
-        }
-        return !(_arg.object instanceof DisplayableStruct);
-    }
 
     public boolean isNull() {
         return object == NullStruct.NULL_VALUE;

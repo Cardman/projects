@@ -14,15 +14,15 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -88,8 +88,6 @@ public abstract class OperationNode {
     private final int indexChild;
 
     private AnaClassArgumentMatching resultClass;
-
-    private PossibleIntermediateDotted siblingSet;
 
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
@@ -954,18 +952,6 @@ public abstract class OperationNode {
         return false;
     }
 
-    void checkNull(Argument _arg, AnalyzedPageEl _page) {
-        if (Argument.isNullValue(_arg)) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //leaf or header parent or first operator
-            static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
-            _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
-        }
-    }
     static ClassMethodIdReturn getDeclaredCustMethod(OperationNode _op, int _varargOnly,
                                                      MethodAccessKind _staticContext, StringList _classes, String _name,
                                                      boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
@@ -3073,17 +3059,6 @@ public abstract class OperationNode {
         return null;
     }
 
-    public void quickCancel() {
-        if (Argument.isNullValue(argument)) {
-            argument = null;
-        }
-    }
-
-    public void cancelArgumentString() {
-        if (Argument.isNotDisplayableValue(argument)) {
-            argument = null;
-        }
-    }
     private static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
         ConstructorInfo ctor_ = getFoundConstructor(_fct, _context);
         if (ctor_ != null) {
@@ -3541,38 +3516,12 @@ public abstract class OperationNode {
         argument = _argument;
     }
 
-    public final void setSimpleArgumentAna(Argument _argument, AnalyzedPageEl _page) {
-        setArgAna(this, _argument, _page);
-    }
-    private static void setArgAna(OperationNode _op, Argument _argument, AnalyzedPageEl _page) {
-        PossibleIntermediateDotted n_ = _op.getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-        byte unwrapObjectNb_ = _op.getResultClass().getUnwrapObjectNb();
-        if (unwrapObjectNb_ > -1) {
-            if (_argument.isNull()) {
-                return;
-            }
-            _argument.setStruct(NumParsers.unwrapObject(unwrapObjectNb_, _argument.getStruct()));
-        }
-        _op.setSimpleArgument(_argument);
-    }
-
     public final AnaClassArgumentMatching getResultClass() {
         return resultClass;
     }
 
     public final void setResultClass(AnaClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-    }
-
-    public PossibleIntermediateDotted getSiblingSet() {
-        return siblingSet;
-    }
-
-    public final void setSiblingSet(PossibleIntermediateDotted _siblingSet) {
-        siblingSet = _siblingSet;
     }
 
     public final int getIndexBegin() {

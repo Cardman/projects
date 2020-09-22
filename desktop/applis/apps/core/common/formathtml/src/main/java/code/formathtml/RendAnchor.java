@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;

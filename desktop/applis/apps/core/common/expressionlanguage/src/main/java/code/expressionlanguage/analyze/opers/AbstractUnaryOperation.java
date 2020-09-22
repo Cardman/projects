@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -47,21 +47,4 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
     public abstract void analyzeUnary(AnalyzedPageEl _page);
 
 
-    @Override
-    public void tryCalculateNode(AnalyzedPageEl _page) {
-        setArg(this, _page);
-    }
-
-    private static void setArg(AbstractUnaryOperation _current, AnalyzedPageEl _page) {
-        CustList<OperationNode> children_ = _current.getChildrenNodes();
-        if (children_.size() != 1) {
-            return;
-        }
-        for (OperationNode o: children_) {
-            if (o.getArgument() == null) {
-                return;
-            }
-        }
-        _current.quickCalculate(_page);
-    }
 }

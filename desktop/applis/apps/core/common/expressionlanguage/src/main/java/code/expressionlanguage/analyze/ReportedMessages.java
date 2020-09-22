@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.errors.custom.ErrorList;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.errors.custom.WarningList;
-import code.expressionlanguage.errors.stds.StdErrorList;
-import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.analyze.errors.custom.ErrorList;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.custom.WarningList;
+import code.expressionlanguage.analyze.errors.stds.StdErrorList;
+import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.util.StringList;
 import code.util.StringMap;
 

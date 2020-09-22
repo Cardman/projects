@@ -12,10 +12,10 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -307,7 +307,6 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
                 o.getResultClass().setUnwrapObject(eltType_, _page.getStandards());
-                o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);
         }
