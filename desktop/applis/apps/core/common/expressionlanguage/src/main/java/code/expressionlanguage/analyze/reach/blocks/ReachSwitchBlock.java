@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -41,31 +42,32 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
-        ReachBlock first_ = getFirstChild();
-        boolean def_ = false;
-        while (first_ != null) {
-            ReachBlock elt_ = first_;
-            if (elt_ instanceof ReachDefaultCondition) {
-                def_ = true;
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            first_ = first_.getNextSibling();
-        }
-        _page.getCoverage().putBlockOperationsSwitchs(getInfo(),def_);
-        CustList<ExecOperationNode> op_ = ReachOperationUtil.tryCalculateAndSupply(root, _page);
-        ExecBracedBlock exec_;
-        if (!instanceTest.isEmpty()) {
-            exec_ = new ExecInstanceSwitchBlock(getOffset(), label, valueOffset, op_);
-        } else if (enumTest) {
-            exec_ = new ExecEnumSwitchBlock(getOffset(), label, valueOffset, op_);
-        } else {
-            exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
-        }
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+        ReachOperationUtil.tryCalculate(root, _page);
+//        ReachBlock first_ = getFirstChild();
+//        boolean def_ = false;
+//        while (first_ != null) {
+//            ReachBlock elt_ = first_;
+//            if (elt_ instanceof ReachDefaultCondition) {
+//                def_ = true;
+//                first_ = first_.getNextSibling();
+//                continue;
+//            }
+//            first_ = first_.getNextSibling();
+//        }
+//        _page.getCoverage().putBlockOperationsSwitchs(getInfo(),def_);
+//        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root);
+//        ExecBracedBlock exec_;
+//        if (!instanceTest.isEmpty()) {
+//            exec_ = new ExecInstanceSwitchBlock(getOffset(), label, valueOffset, op_);
+//        } else if (enumTest) {
+//            exec_ = new ExecEnumSwitchBlock(getOffset(), label, valueOffset, op_);
+//        } else {
+//            exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
+//        }
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
     @Override
     public void abrupt(AnalyzingEl _anEl) {

@@ -49,20 +49,17 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    public void setupInstancingStep(ExecConstructorBlock _exec, AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
+    public void setupInstancingStep(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setOffset(0);
         Block first_ = getFirstChild();
         if (!(first_ instanceof Line)) {
             implicitCallSuper = true;
-            _exec.setImplicitCallSuper(true);
             return;
         }
         Line l_ = (Line) first_;
         if (l_.isCallInts()) {
             implicitCallSuper = true;
-            _exec.setImplicitCallSuper(true);
         }
         if (l_.isCallSuper() || l_.isCallInts()) {
             return;
@@ -72,7 +69,10 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             return;
         }
         implicitCallSuper = true;
-        _exec.setImplicitCallSuper(true);
+    }
+
+    public void fwdInstancingStep(ExecConstructorBlock _exec, AnalyzedPageEl _page) {
+        _exec.setImplicitCallSuper(implicitCallSuper);
     }
 
     public boolean implicitConstr() {

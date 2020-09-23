@@ -8,6 +8,7 @@ import code.util.IntMap;
 public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedBlock {
     private String name = "";
     private int indexEnd;
+    private int numberAnonType = -1;
     public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
@@ -42,5 +43,13 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
 
     public void setIndexEnd(int indexEnd) {
         this.indexEnd = indexEnd;
+    }
+
+    public int getNumberAnonType() {
+        return numberAnonType;
+    }
+
+    public void setNumberAnonType(int numberAnonType) {
+        this.numberAnonType = numberAnonType;
     }
 }

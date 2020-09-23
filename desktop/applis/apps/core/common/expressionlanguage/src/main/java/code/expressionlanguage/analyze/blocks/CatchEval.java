@@ -65,7 +65,7 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     private void processVariable(AnalyzedPageEl _page) {
-        _page.getCoverage().putCatches(this);
+//        _page.getCoverage().putCatches(this);
         _page.setGlobalOffset(variableNameOffset);
         _page.setOffset(0);
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);

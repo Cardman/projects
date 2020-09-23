@@ -154,7 +154,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return AccessEnum.PUBLIC;
     }
 
-    public void buildExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldNameOffest);
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
@@ -166,12 +166,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         int index_ = getIndex();
         _page.setIndexChildType(index_);
         root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page);
-        _exec.setTrOffset(tr_);
+        ReachOperationUtil.tryCalculate(root, _page);
+        _page.setTranslatedOffset(0);
+    }
+
+    @Override
+    public void fwdExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
+        _exec.setTrOffset(trOffset);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
-        _page.setTranslatedOffset(0);
-//        _page.getCurrentRoot();
+        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
     }
 
     private int getIndex() {
@@ -184,8 +188,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return index_;
     }
 
-    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+    public void buildAnnotations(AnalyzedPageEl _page) {
         int len_ = annotationsIndexes.size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
@@ -193,12 +196,19 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-//            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
-            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+            ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
-        _ex.getAnnotationsOps().addAllElts(ops_);
+    }
+
+    @Override
+    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        for (OperationNode r:roots) {
+            ops_.add(ElUtil.getExecutableNodes(_page, r));
+        }
+        _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {

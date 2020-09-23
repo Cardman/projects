@@ -123,15 +123,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return false;
     }
 
-    public void buildExpressionLanguage(ExecAnnotationMethodBlock _exec, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnalyzedPageEl _page) {
         if (defaultValue.trim().isEmpty()) {
-            _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
         _page.setGlobalOffset(defaultValueOffset);
         _page.setOffset(0);
-//        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
-//        root = _page.getCurrentRoot();
         root = ElUtil.getRootAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -151,11 +148,19 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             _page.addLocError(cast_);
             addNameErrors(cast_);
         }
+        ReachOperationUtil.tryCalculate(root, _page);
+    }
+
+    public void fwd(ExecAnnotationMethodBlock _exec, AnalyzedPageEl _page) {
+        if (root == null) {
+            _exec.setOpValue(new CustList<ExecOperationNode>());
+            return;
+        }
         _page.getCoverage().putBlockOperationsField(_page, this);
-        CustList<ExecOperationNode> ops_ = ReachOperationUtil.tryCalculateAndSupply(root, _page);
+        CustList<ExecOperationNode> ops_ = ElUtil.getExecutableNodes(_page, root);
         _exec.setOpValue(ops_);
-        if (AnaTypeUtil.isPrimitive(import_, _page)) {
-            ops_.last().getResultClass().setUnwrapObject(import_, _page.getStandards());
+        if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
+            ops_.last().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
         }
     }
 

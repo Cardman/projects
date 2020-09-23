@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 
 public interface AnnotableBlock {
 
-    void buildAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page);
+    void buildAnnotations(AnalyzedPageEl _page);
+    void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page);
 
 }

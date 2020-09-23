@@ -72,6 +72,7 @@ public final class AnalyzedPageEl {
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
+    private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
     private final IdMap<Block,AssBlock> fieldsAssSt = new IdMap<Block,AssBlock>();
     private final IdMap<Block,AssBlock> fieldsAss = new IdMap<Block,AssBlock>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAna = new IdMap<MemberCallingsBlock,AnalyzingEl>();
@@ -81,10 +82,11 @@ public final class AnalyzedPageEl {
     private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
-    private ExecBracedBlock blockToWrite;
+    private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     private int offset;
 
@@ -136,8 +138,11 @@ public final class AnalyzedPageEl {
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
-    private CustList<IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation>> mapAnonymous = new CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>>();
-    private CustList<IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation>> mapAnonymousLambda = new CustList<IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation>>();
+    private CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
+    private CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
+    private CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
+    private IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation> mapAnonymous = new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>();
+    private IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation> mapAnonymousLambda = new IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
@@ -511,6 +516,10 @@ public final class AnalyzedPageEl {
         return foundTypes;
     }
 
+    public CustList<RootBlock> getAllFoundTypes() {
+        return allFoundTypes;
+    }
+
     public CustList<OperatorBlock> getFoundOperators() {
         return foundOperators;
     }
@@ -625,14 +634,6 @@ public final class AnalyzedPageEl {
 
     public void setTokenValidation(AbstractTokenValidation tokenValidation) {
         this.tokenValidation = tokenValidation;
-    }
-
-    public ExecBracedBlock getBlockToWrite() {
-        return blockToWrite;
-    }
-
-    public void setBlockToWrite(ExecBracedBlock blockToWrite) {
-        this.blockToWrite = blockToWrite;
     }
 
     public ExecDeclareVariable getExecDeclareVariable() {
@@ -819,16 +820,31 @@ public final class AnalyzedPageEl {
         return anonymousResults;
     }
 
-    public CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>> getMapAnonymous() {
+    public IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> getMapAnonymous() {
         return mapAnonymous;
     }
 
-    public CustList<IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>> getMapAnonymousLambda() {
+    public IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> getMapAnonymousLambda() {
         return mapAnonymousLambda;
+    }
+
+    public CustList<CustList<AnonymousInstancingOperation>> getAnonymous() {
+        return anonymous;
+    }
+
+    public CustList<CustList<AnonymousLambdaOperation>> getAnonymousLambda() {
+        return anonymousLambda;
+    }
+    public CustList<AnonymousLambdaOperation> getAllAnonymousLambda() {
+        return allAnonymousLambda;
     }
 
     public IdMap<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
         return mapAnonLambda;
+    }
+
+    public IdMap<AnonymousTypeBlock, ExecAnonymousTypeBlock> getMapAnonTypes() {
+        return mapAnonTypes;
     }
 
     public IdMap<Block, AssBlock> getFieldsAssSt() {
@@ -925,5 +941,9 @@ public final class AnalyzedPageEl {
 
     public void setOptions(Options options) {
         this.options = options;
+    }
+
+    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
+        return allFct;
     }
 }

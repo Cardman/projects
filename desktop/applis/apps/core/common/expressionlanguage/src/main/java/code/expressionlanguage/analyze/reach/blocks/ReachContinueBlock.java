@@ -18,10 +18,10 @@ public final class ReachContinueBlock extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

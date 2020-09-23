@@ -22,8 +22,7 @@ public final class OverridesTypeUtil {
     public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
         String baseClassFound_ = _type.getFullName();
-        for (EntryCust<RootBlock, Members> e: _page.getMapMembers().entryList()) {
-            RootBlock c = e.getKey();
+        for (RootBlock c: _page.getAllFoundTypes()) {
             String name_ = c.getFullName();
             String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _page);
             if (baseCond_.isEmpty()) {

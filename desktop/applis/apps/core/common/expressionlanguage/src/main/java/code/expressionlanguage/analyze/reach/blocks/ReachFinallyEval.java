@@ -21,11 +21,11 @@ public final class ReachFinallyEval extends ReachBracedBlock implements ReachEva
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

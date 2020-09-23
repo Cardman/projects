@@ -161,8 +161,8 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, CustList.FIRST_INDEX, _page);
-        _page.getMapAnonymous().removeLast();
-        _page.getMapAnonymousLambda().removeLast();
+        _page.getAnonymous().removeLast();
+        _page.getAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();

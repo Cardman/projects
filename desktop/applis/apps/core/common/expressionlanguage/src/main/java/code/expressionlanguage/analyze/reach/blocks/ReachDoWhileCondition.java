@@ -3,21 +3,12 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.Condition;
-import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.exec.blocks.ExecDoWhileCondition;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 
 public final class ReachDoWhileCondition extends ReachCondition {
     protected ReachDoWhileCondition(Condition _info) {
         super(_info);
-    }
-
-    @Override
-    protected ExecCondition newCondition(int _conditionOffset, CustList<ExecOperationNode> _ops) {
-        return new ExecDoWhileCondition(getOffset(), _conditionOffset,_ops);
     }
 
     @Override

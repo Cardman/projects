@@ -418,7 +418,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void postValidation(AnalyzedTestContext ctx_) {
-        ClassesUtil.postValidation(ctx_.getAnalyzing());
+        ClassesUtil.postValidation(ctx_.getAnalyzing(), new StringMap<ExecFileBlock>());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {

@@ -21,11 +21,11 @@ public final class ReachElseCondition extends ReachBracedBlock implements ReachB
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
 

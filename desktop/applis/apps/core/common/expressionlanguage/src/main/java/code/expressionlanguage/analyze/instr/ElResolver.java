@@ -103,8 +103,8 @@ public final class ElResolver {
     public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
-        _page.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
-        _page.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
+        _page.getAnonymous().add(new CustList<AnonymousInstancingOperation>());
+        _page.getAnonymousLambda().add(new CustList<AnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _page);
         return commonCheck(_string, _minIndex, ret_, d_, _page);
     }
@@ -112,8 +112,8 @@ public final class ElResolver {
     public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        _page.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
-        _page.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
+        _page.getAnonymous().add(new CustList<AnonymousInstancingOperation>());
+        _page.getAnonymousLambda().add(new CustList<AnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _page);
         return commonCheck(_string, _elOffest, ret_, d_, _page);
     }

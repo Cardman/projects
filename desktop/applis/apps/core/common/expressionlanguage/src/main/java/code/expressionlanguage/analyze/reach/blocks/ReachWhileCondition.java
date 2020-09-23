@@ -2,13 +2,7 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.analyze.blocks.BreakBlock;
-import code.expressionlanguage.analyze.blocks.BreakableBlock;
 import code.expressionlanguage.analyze.blocks.WhileCondition;
-import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.exec.blocks.ExecWhileCondition;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 
@@ -23,11 +17,6 @@ public final class ReachWhileCondition extends ReachCondition implements ReachLo
     @Override
     public String getRealLabel() {
         return label;
-    }
-
-    @Override
-    protected ExecCondition newCondition(int _conditionOffset, CustList<ExecOperationNode> _ops) {
-        return new ExecWhileCondition(getOffset(), _conditionOffset,label, _ops);
     }
 
     @Override

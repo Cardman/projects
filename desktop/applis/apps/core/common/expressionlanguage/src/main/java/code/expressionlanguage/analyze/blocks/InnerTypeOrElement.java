@@ -7,5 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 public interface InnerTypeOrElement extends InfoBlock {
     String getUniqueFieldName();
     OperationNode getRoot();
-    void buildExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page);
+    void buildExpressionLanguageReadOnly(AnalyzedPageEl _page);
+    void fwdExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page);
 }

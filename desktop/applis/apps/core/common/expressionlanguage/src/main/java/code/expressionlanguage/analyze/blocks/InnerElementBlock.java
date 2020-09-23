@@ -115,7 +115,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         return valueOffest;
     }
 
-    public void buildExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldNameOffest);
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
@@ -123,16 +123,19 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
         int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 1 - newKeyWord_.length();
         trOffset = trOffset_;
-        _exec.setTrOffset(trOffset_);
         _page.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
         root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page);
+        ReachOperationUtil.tryCalculate(root, _page);
+        _page.setTranslatedOffset(0);
+    }
+
+    public void fwdExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
+        _exec.setTrOffset(trOffset);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
-//        root = _page.getCurrentRoot();
-        _page.setTranslatedOffset(0);
+        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
     }
 
 

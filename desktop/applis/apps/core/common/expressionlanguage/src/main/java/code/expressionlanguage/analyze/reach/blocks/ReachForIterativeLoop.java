@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ForIterativeLoop;
 import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -27,27 +28,27 @@ public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(meta.getInitOffset());
         _page.setOffset(0);
-        CustList<ExecOperationNode> init_ = ReachOperationUtil.tryCalculateAndSupply(meta.getRootInit(), _page);
-        ExecOperationNode initEl_ = init_.last();
-//        ElUtil.setImplicits(initEl_, _page, meta.getRootInit());
+        OperationNode rInit_ = meta.getRootInit();
+        ReachOperationUtil.tryCalculate(rInit_, _page);
         _page.setGlobalOffset(meta.getExpressionOffset());
         _page.setOffset(0);
-        CustList<ExecOperationNode> exp_ = ReachOperationUtil.tryCalculateAndSupply(meta.getRootExp(), _page);
-        ExecOperationNode expressionEl_ = exp_.last();
-//        ElUtil.setImplicits(expressionEl_, _page, meta.getRootExp());
+        OperationNode rExp_ = meta.getRootExp();
+        ReachOperationUtil.tryCalculate(rExp_, _page);
         _page.setGlobalOffset(meta.getStepOffset());
         _page.setOffset(0);
-        CustList<ExecOperationNode> step_ = ReachOperationUtil.tryCalculateAndSupply(meta.getRootStep(), _page);
-        ExecOperationNode stepEl_ = step_.last();
-//        ElUtil.setImplicits(stepEl_, _page, meta.getRootStep());
-        _page.getCoverage().putBlockOperationsLoops(getInfo());
-        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, meta.getImportedClassName(),
-                meta.getImportedClassIndexName(), meta.getVariableName(), meta.getVariableNameOffset(), meta.getInitOffset(),
-                meta.getExpressionOffset(), meta.getStepOffset(), meta.isEq(),init_,exp_,step_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+        OperationNode rStep_ = meta.getRootStep();
+        ReachOperationUtil.tryCalculate(rStep_, _page);
+//        _page.getCoverage().putBlockOperationsLoops(getInfo());
+//        CustList<ExecOperationNode> init_ = ElUtil.getExecutableNodes(_page, rInit_);
+//        CustList<ExecOperationNode> exp_ = ElUtil.getExecutableNodes(_page, rExp_);
+//        CustList<ExecOperationNode> step_ = ElUtil.getExecutableNodes(_page, rStep_);
+//        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, meta.getImportedClassName(),
+//                meta.getImportedClassIndexName(), meta.getVariableName(), meta.getVariableNameOffset(), meta.getInitOffset(),
+//                meta.getExpressionOffset(), meta.getStepOffset(), meta.isEq(),init_,exp_,step_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

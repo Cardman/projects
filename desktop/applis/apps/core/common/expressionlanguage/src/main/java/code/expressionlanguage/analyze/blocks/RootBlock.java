@@ -99,6 +99,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private ConstructorBlock emptyCtor;
     private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
     private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
+    private CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
 
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -171,8 +172,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return staticInitInterfacesOffset;
     }
 
-    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+    public void buildAnnotations(AnalyzedPageEl _page) {
         int len_ = annotationsIndexes.size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
@@ -181,11 +181,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
-            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_, _page));
+            ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
-        _ex.getAnnotationsOps().clear();
-        _ex.getAnnotationsOps().addAllElts(ops_);
+    }
+
+    @Override
+    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        for (OperationNode r: roots) {
+            ops_.add(ElUtil.getExecutableNodes(_page, r));
+        }
+        _ann.getAnnotationsOps().clear();
+        _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {
@@ -498,7 +506,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return strBuilder_.toString();
     }
 
-    public final void validateIds(ExecRootBlock _exec, Members _mem, AnalyzedPageEl _page) {
+    public final void validateIds(AnalyzedPageEl _page) {
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();
         CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
@@ -1671,7 +1679,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             addNameErrors(un_);
         }
         for (ConstructorBlock c: ctors_) {
-            c.setupInstancingStep(_page.getMapMembers().getVal(this).getAllCtors().getVal(c), _page);
+            c.setupInstancingStep(_page);
         }
         for (ConstructorBlock c: ctors_) {
             if (c.implicitConstr() && !opt_) {
@@ -2013,5 +2021,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnonymousTypeBlock> getAnonymousRoot() {
         return anonymousRoot;
+    }
+
+    public CustList<OverridableBlock> getOverridableBlocks() {
+        return overridableBlocks;
     }
 }

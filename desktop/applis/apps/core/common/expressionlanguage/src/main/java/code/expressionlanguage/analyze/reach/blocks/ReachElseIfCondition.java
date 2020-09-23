@@ -3,10 +3,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.exec.blocks.ExecElseIfCondition;
-import code.expressionlanguage.exec.blocks.ExecIfCondition;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
 public final class ReachElseIfCondition extends ReachCondition implements ReachBlockCondition {
@@ -19,11 +15,6 @@ public final class ReachElseIfCondition extends ReachCondition implements ReachB
     @Override
     public String getRealLabel() {
         return label;
-    }
-
-    @Override
-    protected ExecCondition newCondition(int _conditionOffset, CustList<ExecOperationNode> _ops) {
-        return new ExecElseIfCondition(getOffset(), _conditionOffset, _ops);
     }
 
     private boolean canBeIncrementedCurGroup() {

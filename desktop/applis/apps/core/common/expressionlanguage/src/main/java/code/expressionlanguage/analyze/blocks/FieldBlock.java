@@ -238,14 +238,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
 
-    public void buildExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
+    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
         _page.setIndexBlock(0);
         root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(staticField), _page);
+        ReachOperationUtil.tryCalculate(root, _page);
+    }
+    public void fwdExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
         processPutCoverage(_exec, _page);
-        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
-//        root = _page.getCurrentRoot();
+        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         AnalyzedPageEl page_ = _page;
@@ -260,8 +262,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.getCoverage().putBlockOperations(this);
     }
 
-    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+    public void buildAnnotations(AnalyzedPageEl _page) {
         int len_ = annotationsIndexes.size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
@@ -270,10 +271,18 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
-            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+            ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
-        _ex.getAnnotationsOps().addAllElts(ops_);
+    }
+
+    @Override
+    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        for (OperationNode r: roots) {
+            ops_.add(ElUtil.getExecutableNodes(_page, r));
+        }
+        _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {

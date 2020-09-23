@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -15,7 +16,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -41,31 +41,31 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         _page.setOffset(0);
         ReachBracedBlock par_ = getParent();
         if (!(par_ instanceof ReachSwitchBlock)) {
-            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(), valueOffset);
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,getInfo());
+//            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(), valueOffset);
+//            exec_.setFile(_page.getBlockToWrite().getFile());
+//            _page.getBlockToWrite().appendChild(exec_);
+//            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//            _page.getCoverage().putBlockOperations(exec_,getInfo());
             return;
         }
-        _page.getCoverage().putBlockOperationsSwitchs(par_.getInfo(),getInfo());
+//        _page.getCoverage().putBlockOperationsSwitchs(par_.getInfo(),getInfo());
         ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!sw_.getInstanceTest().isEmpty()) {
-            if (importedType.isEmpty()) {
-                ExecNullInstanceCaseCondition exec_ = new ExecNullInstanceCaseCondition(getOffset(),valueOffset);
-                exec_.setFile(_page.getBlockToWrite().getFile());
-                _page.getBlockToWrite().appendChild(exec_);
-                _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-                _page.getCoverage().putBlockOperations(exec_,getInfo());
-                return;
-            }
-            ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(), meta.getVariableName(), importedType,valueOffset);
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,getInfo());
+//            if (importedType.isEmpty()) {
+//                ExecNullInstanceCaseCondition exec_ = new ExecNullInstanceCaseCondition(getOffset(),valueOffset);
+//                exec_.setFile(_page.getBlockToWrite().getFile());
+//                _page.getBlockToWrite().appendChild(exec_);
+//                _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//                _page.getCoverage().putBlockOperations(exec_,getInfo());
+//                return;
+//            }
+//            ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(), meta.getVariableName(), importedType,valueOffset);
+//            exec_.setFile(_page.getBlockToWrite().getFile());
+//            _page.getBlockToWrite().appendChild(exec_);
+//            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//            _page.getCoverage().putBlockOperations(exec_,getInfo());
             return;
         }
         EnumBlock e_ = getEnumType(type_, _page);
@@ -75,52 +75,49 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                     continue;
                 }
                 meta.setBuiltEnum(true);
-                CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-                ops_.add(ExecOperationNode.createExecOperationNode(root, _page));
+//                CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
+//                ops_.add(ExecOperationNode.createExecOperationNode(root, _page));
                 checkDuplicateEnumCase(_page);
-                ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
-                exec_.setFile(_page.getBlockToWrite().getFile());
-                _page.getBlockToWrite().appendChild(exec_);
-                _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-                _page.getCoverage().putBlockOperations(exec_,getInfo());
+//                ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
+//                exec_.setFile(_page.getBlockToWrite().getFile());
+//                _page.getBlockToWrite().appendChild(exec_);
+//                _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//                _page.getCoverage().putBlockOperations(exec_,getInfo());
                 return;
             }
-            CustList<ExecOperationNode> op_ = ReachOperationUtil.tryCalculateAndSupply(root,_page);
-            ExecOperationNode last_ = op_.last();
-            meta.setArgument(last_.getArgument());
+            meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
             if (!Argument.isNullValue(meta.getArgument())) {
                 meta.setBuiltEnum(true);
+                meta.setNullCaseEnum(true);
             }
             processNullValue(_page);
-            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,getInfo());
+//            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
+//            exec_.setFile(_page.getBlockToWrite().getFile());
+//            _page.getBlockToWrite().appendChild(exec_);
+//            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//            _page.getCoverage().putBlockOperations(exec_,getInfo());
             return;
         }
-        CustList<ExecOperationNode> op_ = ReachOperationUtil.tryCalculateAndSupply(root,_page);
-        ExecOperationNode last_ = op_.last();
-        meta.setArgument(last_.getArgument());
+        meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
         processNumValues(resSwitch_, root.getResultClass(), _page);
-        if (meta.getArgument() == null) {
-            ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,getInfo());
-            return;
-        }
-        ExecBracedBlock exec_;
-        if (!meta.getArgument().isNull()) {
-            exec_ = new ExecStdCaseCondition(getOffset(),valueOffset, meta.getArgument());
-        } else {
-            exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
-        }
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        if (meta.getArgument() == null) {
+//            ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
+//            exec_.setFile(_page.getBlockToWrite().getFile());
+//            _page.getBlockToWrite().appendChild(exec_);
+//            _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//            _page.getCoverage().putBlockOperations(exec_,getInfo());
+//            return;
+//        }
+//        ExecBracedBlock exec_;
+//        if (!meta.getArgument().isNull()) {
+//            exec_ = new ExecStdCaseCondition(getOffset(),valueOffset, meta.getArgument());
+//        } else {
+//            exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
+//        }
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
     private void processNullValue(AnalyzedPageEl _page) {
         if (Argument.isNullValue(meta.getArgument())) {

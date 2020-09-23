@@ -965,6 +965,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
+        postValidation(cont_);
         return cont_;
     }
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
@@ -973,6 +974,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
+        postValidation(cont_);
         return cont_;
     }
 

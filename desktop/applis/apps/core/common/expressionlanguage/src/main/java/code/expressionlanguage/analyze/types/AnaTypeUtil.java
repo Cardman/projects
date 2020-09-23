@@ -240,7 +240,7 @@ public final class AnaTypeUtil {
 
     public static void checkInterfaces(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getFoundTypes()) {
-            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
+//            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -288,7 +288,7 @@ public final class AnaTypeUtil {
                         c.addNameErrors(enum_);
                     }
                 } else {
-                    type_.getStaticInitImportedInterfaces().add(base_);
+//                    type_.getStaticInitImportedInterfaces().add(base_);
                     c.getStaticInitImportedInterfaces().add(base_);
                 }
             }

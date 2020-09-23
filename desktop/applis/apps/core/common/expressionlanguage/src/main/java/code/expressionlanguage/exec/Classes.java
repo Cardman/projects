@@ -79,8 +79,8 @@ public final class Classes {
             //all standards errors are logged here
             return;
         }
-        ClassesUtil.buildAllBracesBodies(_files, _page);
-        ClassesUtil.postValidation(_page);
+        StringMap<ExecFileBlock> ret_ = ClassesUtil.buildAllBracesBodies(_files, _page);
+        ClassesUtil.postValidation(_page,ret_);
         if (_page.isGettingErrors()) {
             ReportedMessages messages_ = _page.getMessages();
             messages_.setErrors(ExecFileBlock.errors(_page));

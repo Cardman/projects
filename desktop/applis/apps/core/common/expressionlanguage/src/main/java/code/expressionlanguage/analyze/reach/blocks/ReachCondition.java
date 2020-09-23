@@ -23,22 +23,18 @@ public abstract class ReachCondition extends ReachBracedBlock implements ReachBu
         conditionOffset = _info.getConditionOffset();
     }
 
-    protected abstract ExecCondition newCondition(int _conditionOffset, CustList<ExecOperationNode> _ops);
-
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(conditionOffset);
         _page.setOffset(0);
-        CustList<ExecOperationNode> opCondition_ = ReachOperationUtil.tryCalculateAndSupply(root,_page);
-        ExecCondition exec_ = newCondition(conditionOffset, opCondition_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperationsConditions(getInfo());
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
-        ExecOperationNode last_ = opCondition_.last();
-//        ElUtil.setImplicits(last_, _page, root);
-        meta.setArgument(last_.getArgument());
+        meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
+//        CustList<ExecOperationNode> opCondition_ = ElUtil.getExecutableNodes(_page, root);
+//        ExecCondition exec_ = newCondition(conditionOffset, opCondition_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperationsConditions(getInfo());
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     public Argument getArgument() {

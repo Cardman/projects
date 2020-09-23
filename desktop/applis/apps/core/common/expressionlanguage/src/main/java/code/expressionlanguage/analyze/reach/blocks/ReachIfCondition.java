@@ -3,10 +3,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.IfCondition;
-import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.exec.blocks.ExecIfCondition;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ReachIfCondition extends ReachCondition implements ReachBlockCondition {
     private String label;
@@ -18,11 +14,6 @@ public final class ReachIfCondition extends ReachCondition implements ReachBlock
     @Override
     public String getRealLabel() {
         return label;
-    }
-
-    @Override
-    protected ExecCondition newCondition(int _conditionOffset, CustList<ExecOperationNode> _ops) {
-        return new ExecIfCondition(getOffset(), _conditionOffset,label, _ops);
     }
 
     @Override

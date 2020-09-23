@@ -11,9 +11,9 @@ public final class ReachEmptyInstruction extends ReachLeaf implements ReachBuild
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 }

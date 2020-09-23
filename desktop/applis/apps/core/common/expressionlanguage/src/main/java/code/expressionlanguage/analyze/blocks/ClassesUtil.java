@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
+import code.expressionlanguage.analyze.reach.blocks.ReachMemberCallingsBlock;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
@@ -37,7 +38,6 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardMethod;
@@ -51,7 +51,7 @@ public final class ClassesUtil {
     private ClassesUtil(){
     }
 
-    public static void postValidation(AnalyzedPageEl _page) {
+    public static void postValidation(AnalyzedPageEl _page, StringMap<ExecFileBlock> _files) {
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _page.getToStringMethodsToCallBodies();
         _page.setAnnotAnalysis(false);
         if (!_page.getOptions().isReadOnly()) {
@@ -59,12 +59,12 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
-            ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e.getKey(), _page);
+        for (RootBlock e: _page.getAllFoundTypes()) {
+            ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e, _page);
             if (resDyn_.isFoundMethod()) {
                 ExecRootBlock ex_ = ExecOperationNode.fetchType(resDyn_.getRootNumber(), _page);
                 ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _page);
-                String fullName_ = e.getKey().getFullName();
+                String fullName_ = e.getFullName();
                 toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
                 _page.getToStringOwners().add(fullName_);
                 _page.getCoverage().putToStringOwner(fullName_);
@@ -72,29 +72,28 @@ public final class ClassesUtil {
         }
         _page.getToStringOwners().add(_page.getStandards().getAliasObject());
         _page.getCoverage().putToStringOwner(_page.getStandards().getAliasObject());
-        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
-            RootBlock c = e.getKey();
-            _page.setGlobalClass(c.getGenericString());
-            _page.setGlobalType(c);
-            _page.setImporting(c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
+        for (RootBlock e: _page.getAllFoundTypes()) {
+            _page.setGlobalClass(e.getGenericString());
+            _page.setGlobalType(e);
+            _page.setImporting(e);
+            _page.setImportingAcces(new TypeAccessor(e.getFullName()));
+            _page.setImportingTypes(e);
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(c.getMappings());
-            for (Block b: getDirectChildren(c)) {
+            _page.getMappingLocal().putAllMap(e.getMappings());
+            for (Block b: getDirectChildren(e)) {
                 if (b instanceof OverridableBlock) {
-                    _page.setCurrentAnaBlock(c);
-                    _page.setCurrentBlock(c);
-                    ((OverridableBlock)b).buildTypes(c, _page);
+                    _page.setCurrentAnaBlock(e);
+                    _page.setCurrentBlock(e);
+                    ((OverridableBlock)b).buildTypes(e, _page);
                 }
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
-            RootBlock root_ = e.getKey();
-            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _page.getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
-            ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
-            for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
-                OverridableBlock key_ = f.getKey();
+        IdMap<OverridableBlock,StringMap<GeneStringOverridable>> anaRed_;
+        anaRed_ = new IdMap<OverridableBlock,StringMap<GeneStringOverridable>>();
+        for (RootBlock e: _page.getAllFoundTypes()) {
+            RootBlock root_ = e;
+            for (OverridableBlock o: root_.getOverridableBlocks()) {
+                OverridableBlock key_ = o;
                 if (key_.hiddenInstance()) {
                     continue;
                 }
@@ -102,9 +101,54 @@ public final class ClassesUtil {
                     continue;
                 }
                 MethodId id_ = key_.getId();
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _page));
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
                 map_.putAllMap(key_.getOverrides());
+                anaRed_.addEntry(o,map_);
+            }
+        }
+        for (RootBlock r: _page.getAllFoundTypes()) {
+            if (r.mustImplement()) {
+                CustList<AnaFormattedRootBlock> allSuperClass_ = r.getAllGenericSuperTypesInfo();
+                for (AnaFormattedRootBlock s: allSuperClass_) {
+                    String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
+                    RootBlock superBl_ = s.getRootBlock();
+                    for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
+                        if (m.isAbstractMethod()) {
+                            GeneStringOverridable inf_ = anaRed_.getVal(m).getVal(r.getFullName());
+                            if (inf_ == null) {
+                                FoundErrorInterpret err_;
+                                err_ = new FoundErrorInterpret();
+                                err_.setFileName(r.getFile().getFileName());
+                                err_.setIndexFile(r.getIdRowCol());
+                                //type id
+                                err_.buildError(
+                                        _page.getAnalysisMessages().getAbstractMethodImpl(),
+                                        base_,
+                                        m.getSignature(_page),
+                                        r.getFullName());
+                                _page.addLocError(err_);
+                                r.addNameErrors(err_);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            RootBlock root_ = e.getKey();
+            ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
+            for (OverridableBlock o: root_.getOverridableBlocks()) {
+                OverridableBlock key_ = o;
+                if (key_.hiddenInstance()) {
+                    continue;
+                }
+                if (key_.isFinalMethod()) {
+                    continue;
+                }
+                MethodId id_ = key_.getId();
+                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
+                map_.putAllMap(key_.getOverrides());
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _page));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     override_.put(g.getKey(),g.getValue(), _page);
                 }
@@ -113,33 +157,7 @@ public final class ClassesUtil {
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            if (root_.mustImplement()) {
-                CustList<AnaFormattedRootBlock> allSuperClass_ = root_.getAllGenericSuperTypesInfo();
-                for (AnaFormattedRootBlock s: allSuperClass_) {
-                    String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
-                    RootBlock superBl_ = s.getRootBlock();
-                    for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
-                        if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = _page.getMapTypes().getValue(superBl_.getNumberAll());
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _page), root_.getFullName());
-                            if (val_ == null) {
-                                FoundErrorInterpret err_;
-                                err_ = new FoundErrorInterpret();
-                                err_.setFileName(root_.getFile().getFileName());
-                                err_.setIndexFile(root_.getIdRowCol());
-                                //type id
-                                err_.buildError(
-                                        _page.getAnalysisMessages().getAbstractMethodImpl(),
-                                        base_,
-                                        m.getSignature(_page),
-                                        root_.getFullName());
-                                _page.addLocError(err_);
-                                root_.addNameErrors(err_);
-                            }
-                        }
-                    }
-                }
-            } else {
+            if (!root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
                 allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allSuperClass_) {
@@ -157,6 +175,213 @@ public final class ClassesUtil {
                 }
             }
         }
+        for (EntryCust<RootBlock, ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            e.getValue().getAllSuperTypes().addAllElts(e.getKey().getAllSuperTypes());
+            e.getValue().getStaticInitImportedInterfaces().addAllElts(e.getKey().getStaticInitImportedInterfaces());
+        }
+        for (EntryCust<RootBlock, ExecRootBlock> e: _page.getMapTypes().entryList()) {
+           e.getValue().buildMapParamType(e.getKey());
+        }
+        for (EntryCust<RootBlock, ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            RootBlock i = e.getKey();
+            CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClassesInfo();
+            if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
+                e.getValue().setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _page));
+            }
+            ConstructorBlock emptyCtor_ = i.getEmptyCtor();
+            if (emptyCtor_ != null) {
+                e.getValue().setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _page));
+            }
+        }
+        for (EntryCust<RootBlock, ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getKey().getAllGenericSuperTypesInfo();
+            CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
+            for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
+                l_.add(new ExecFormattedRootBlock(_page.getMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
+            }
+            e.getValue().getAllGenericSuperTypes().addAllElts(l_);
+        }
+        for (EntryCust<RootBlock, ExecRootBlock> e: _page.getMapTypes().entryList()) {
+            ExecRootBlock type_ = e.getValue();
+            IdMap<RootBlock, Members> mapMembers_ = _page.getMapMembers();
+            type_.validateIds(e.getKey(), mapMembers_);
+        }
+        for (EntryCust<RootBlock, Members> e: _page.getMapMembers().entryList()) {
+            RootBlock c = e.getKey();
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            Members mem_ = _page.getMapMembers().getVal(c);
+            String fullName_ = c.getFullName();
+            _page.getCoverage().putCalls(fullName_);
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                _page.setCurrentFct(null);
+                InnerTypeOrElement method_ = f.getKey();
+                _page.setCurrentBlock((Block) f.getKey());
+                _page.setCurrentAnaBlock((AnalyzedBlock) f.getKey());
+                ExecInnerTypeOrElement val_ = f.getValue();
+                method_.fwdExpressionLanguageReadOnly(val_, _page);
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                FieldBlock method_ = f.getKey();
+                _page.setCurrentBlock(f.getKey());
+                _page.setCurrentAnaBlock(f.getKey());
+                _page.setCurrentFct(null);
+                ExecFieldBlock exp_ = f.getValue();
+                method_.fwdExpressionLanguageReadOnly(exp_, _page);
+            }
+            for (EntryCust<InitBlock, ExecInitBlock> f: mem_.getAllInits().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                InitBlock method_ = f.getKey();
+                _page.getAllFct().addEntry(method_,f.getValue());
+            }
+            for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getAllCtors().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                ConstructorBlock method_ = f.getKey();
+                _page.getCoverage().putCalls(fullName_,method_);
+                _page.getAllFct().addEntry(method_,f.getValue());
+                method_.fwdInstancingStep(f.getValue(), _page);
+            }
+            for (EntryCust<OverridableBlock, ExecOverridableBlock> f: mem_.getAllMethods().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                OverridableBlock method_ =  f.getKey();
+                _page.getCoverage().putCalls(fullName_,method_);
+                _page.getAllFct().addEntry(method_,f.getValue());
+            }
+        }
+        _page.getCoverage().putCalls("");
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _page.getMapOperators().entryList()) {
+            OperatorBlock o = e.getKey();
+            ExecOperatorBlock value_ = e.getValue();
+            _page.getCoverage().putCalls("",o);
+            _page.getAllFct().addEntry(o,value_);
+        }
+        _page.setAnnotAnalysis(true);
+        for (EntryCust<RootBlock, Members> e: _page.getMapMembers().entryList()) {
+            RootBlock c = e.getKey();
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            Members mem_ = e.getValue();
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setCurrentFct(null);
+            CustList<Block> annotated_ = new CustList<Block>();
+            if (!(c instanceof InnerElementBlock)) {
+                annotated_.add(c);
+            }
+            annotated_.addAllElts(getDirectChildren(c));
+            _page.getCoverage().putBlockOperations(_page.getMapTypes().getVal(c),c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
+            for (Block b:annotated_) {
+                _page.setCurrentBlock(b);
+                _page.setCurrentAnaBlock(b);
+                if (b instanceof AnnotationMethodBlock) {
+                    _page.setAnnotAnalysisField(true);
+                    _page.setGlobalDirType(c);
+                    ((AnnotationMethodBlock)b).fwd(mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)), _page);
+                    _page.getCoverage().putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
+                    _page.setAnnotAnalysisField(false);
+                }
+                if (b instanceof RootBlock) {
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    ExecAnnotableBlock val_ = mem_.getAllAnnotables().getVal((AnnotableBlock) b);
+                    ((RootBlock)b).fwdAnnotations(val_, _page);
+                }
+                if (b instanceof NamedFunctionBlock) {
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    ExecNamedFunctionBlock val_ = mem_.getAllNamed().getVal((NamedFunctionBlock) b);
+                    ((NamedFunctionBlock)b).fwdAnnotations(val_, _page);
+                    ((NamedFunctionBlock)b).fwdAnnotationsParameters(val_, _page);
+                }
+                if (b instanceof InfoBlock) {
+                    _page.setAnnotAnalysisField(false);
+                    _page.setGlobalDirType(c);
+                    _page.getCoverage().putBlockOperationsField(_page, b);
+                    _page.getCoverage().putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
+                    ExecAnnotableBlock val_ = mem_.getAllAnnotables().getVal((AnnotableBlock) b);
+                    ((InfoBlock)b).fwdAnnotations(val_, _page);
+                }
+            }
+        }
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _page.getMapOperators().entryList()) {
+            OperatorBlock o = e.getKey();
+            _page.setImporting(o);
+            _page.setImportingAcces(new OperatorAccessor());
+            _page.setImportingTypes(o);
+            _page.setCurrentBlock(o);
+            _page.setCurrentAnaBlock(o);
+            _page.setAnnotAnalysisField(false);
+            _page.getCoverage().putBlockOperationsField(_page, o);
+            ExecOperatorBlock value_ = e.getValue();
+            o.fwdAnnotations(value_, _page);
+            o.fwdAnnotationsParameters(value_, _page);
+        }
+        _page.setAnnotAnalysis(false);
+        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
+            AnonymousLambdaOperation key_ = e;
+            AnonymousFunctionBlock method_ = key_.getBlock();
+            RootBlock c_ = method_.getParentType();
+            _page.getCoverage().putCalls(c_.getFullName(),method_);
+            ExecNamedFunctionBlock function_ = ExecAnonymousLambdaOperation.buildExecAnonymousLambdaOperation(key_,_page);
+            _page.getAllFct().addEntry(method_, function_);
+            int numberFile_ = method_.getFile().getNumberFile();
+            ExecFileBlock value_ = _files.getValue(numberFile_);
+            function_.setFile(value_);
+        }
+        for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _page.getAllFct().entryList()) {
+            ReachMemberCallingsBlock.buildExec(_page,e.getKey(),e.getValue());
+        }
+        for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: _page.getMapAnonymousLambda().entryList()) {
+            AnonymousLambdaOperation key_ = e.getKey();
+            AnonymousFunctionBlock method_ = key_.getBlock();
+            ExecMemberCallingsBlock r_ = _page.getAllFct().getVal(method_);
+            e.getValue().setExecAnonymousLambdaOperation(key_, (ExecAnonymousFunctionBlock) r_, _page);
+        }
+        for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: _page.getMapAnonymous().entryList()) {
+            AnonymousInstancingOperation key_ = e.getKey();
+            AnonymousTypeBlock block_ = key_.getBlock();
+            RootBlock parentType_ = block_.getParentType();
+            if (parentType_ == null) {
+                continue;
+            }
+            _page.setGlobalClass(key_.getGlClass());
+            ExecAnonymousInstancingOperation value_ = e.getValue();
+            CustList<OperationNode> read_ = key_.getChildrenNodes();
+            CustList<ExecOperationNode> write_ = value_.getChildrenNodes();
+            int min_ = Math.min(read_.size(),write_.size());
+            for (int i = 0; i < min_;i++){
+                OperationNode r_ = read_.get(i);
+                ExecOperationNode w_ = null;
+                int in_ = -1;
+                if (r_ instanceof NamedArgumentOperation) {
+                    w_ = write_.get(i);
+                    in_ = ((NamedArgumentOperation)r_).getIndex();
+                }
+                if (w_ instanceof ExecNamedArgumentOperation) {
+                    ((ExecNamedArgumentOperation)w_).setIndex(in_);
+                }
+            }
+            value_.setExecAnonymousInstancingOperation(key_, _page);
+        }
+
         for (EntryCust<RootBlock,ExecRootBlock> e: _page.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = _page.getMapMembers().getValue(root_.getNumberAll());
@@ -198,7 +423,7 @@ public final class ClassesUtil {
             value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
         }
         for (AnonymousTypeBlock a: b1_.getAnonymous()) {
-            value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
+            value_.getAnonymous().add(page_.getMapAnonTypes().getValue(a.getNumberAnonType()));
         }
         for (RootBlock a: b1_.getReserved()) {
             value_.getReserved().add(page_.getMapTypes().getValue(a.getNumberAll()));
@@ -316,7 +541,7 @@ public final class ClassesUtil {
         mloc_.formatWithoutParams();
         return mloc_;
     }
-    public static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
+    public static StringMap<ExecFileBlock> buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
         tryBuildAllBracedClassesBodies(_files, outExec_, _page);
         validateInheritingClasses(_page);
@@ -329,9 +554,9 @@ public final class ClassesUtil {
         StringList pkgFound_ = page_.getPackagesFound();
         while (true) {
             boolean contained_ = false;
-            for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: page_.getMapAnonymous()) {
-                for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
-                    AnonymousTypeBlock block_ = e.getKey().getBlock();
+            for (CustList<AnonymousInstancingOperation> m: page_.getAnonymous()) {
+                for (AnonymousInstancingOperation e: m) {
+                    AnonymousTypeBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     contained_ = true;
                     if (parentType_ == null) {
@@ -348,10 +573,10 @@ public final class ClassesUtil {
                     }
                 }
             }
-            for (IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> m: page_.getMapAnonymousLambda()) {
-                for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: m.entryList()) {
+            for (CustList<AnonymousLambdaOperation> m: page_.getAnonymousLambda()) {
+                for (AnonymousLambdaOperation e: m) {
                     contained_ = true;
-                    AnonymousFunctionBlock block_ = e.getKey().getBlock();
+                    AnonymousFunctionBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     parentType_.setCountsAnonFct(parentType_.getCountsAnonFct()+1);
                     block_.setIntenName(Integer.toString(parentType_.getCountsAnonFct()));
@@ -360,21 +585,21 @@ public final class ClassesUtil {
             if (!contained_) {
                 break;
             }
-            for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: page_.getMapAnonymous()) {
-                for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
-                    AnonymousTypeBlock block_ = e.getKey().getBlock();
+            for (CustList<AnonymousInstancingOperation> m: page_.getAnonymous()) {
+                for (AnonymousInstancingOperation e: m) {
+                    AnonymousTypeBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     if (parentType_ == null) {
                         continue;
                     }
-                    String base_ = e.getKey().getBase();
+                    String base_ = e.getBase();
                     String enumClassName_ = page_.getStandards().getAliasEnumType();
                     String enumParamClassName_ = page_.getStandards().getAliasEnumParam();
                     if (StringList.quickEq(enumParamClassName_, base_)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(block_.getFile().getFileName());
-                        undef_.setIndexFile(e.getKey().getIndex());
+                        undef_.setIndexFile(e.getIndex());
                         //original type len
                         undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
@@ -386,7 +611,7 @@ public final class ClassesUtil {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(block_.getFile().getFileName());
-                        undef_.setIndexFile(e.getKey().getIndex());
+                        undef_.setIndexFile(e.getIndex());
                         //original type len
                         undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
@@ -399,9 +624,9 @@ public final class ClassesUtil {
             page_.getPrevFoundTypes().addAllElts(page_.getFoundTypes());
             page_.getFoundTypes().clear();
             page_.getFoundOperators().clear();
-            for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: page_.getMapAnonymous()) {
-                for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
-                    AnonymousTypeBlock block_ = e.getKey().getBlock();
+            for (CustList<AnonymousInstancingOperation> m: page_.getAnonymous()) {
+                for (AnonymousInstancingOperation e: m) {
+                    AnonymousTypeBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     if (parentType_ == null) {
                         continue;
@@ -410,21 +635,17 @@ public final class ClassesUtil {
                     processType(basePkgFound_,pkgFound_,outExec_.getValue(numberFile_), block_, _page);
                 }
             }
-            IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock> retr_ = new IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock>();
-            for (IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> m: page_.getMapAnonymousLambda()) {
-                for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: m.entryList()) {
-                    AnonymousLambdaOperation key_ = e.getKey();
-                    e.getValue().setExecAnonymousLambdaOperation(key_, _page);
-                    AnonymousFunctionBlock method_ = key_.getBlock();
-                    retr_.addEntry(method_,e.getValue().getFunction());
+            CustList<AnonymousFunctionBlock> retrList_ = new CustList<AnonymousFunctionBlock>();
+            for (CustList<AnonymousLambdaOperation> m: page_.getAnonymousLambda()) {
+                for (AnonymousLambdaOperation e: m) {
+                    AnonymousFunctionBlock method_ = e.getBlock();
+                    retrList_.add(method_);
                 }
             }
-            for (EntryCust<AnonymousFunctionBlock, ExecNamedFunctionBlock> e: retr_.entryList()) {
-                AnonymousFunctionBlock block_ = e.getKey();
-                int numberFile_ = block_.getFile().getNumberFile();
+            for (AnonymousFunctionBlock e: retrList_) {
+                int numberFile_ = e.getFile().getNumberFile();
                 ExecFileBlock value_ = outExec_.getValue(numberFile_);
-                e.getValue().setFile(value_);
-                processType(basePkgFound_,pkgFound_, value_, block_, _page);
+                processType(basePkgFound_,pkgFound_, value_, e, _page);
             }
             for (RootBlock r: page_.getFoundTypes()) {
                 for (Block b: getDirectChildren(r)) {
@@ -447,42 +668,22 @@ public final class ClassesUtil {
             validateInheritingClasses(_page);
             validateIds(_page);
             validateOverridingInherit(_page);
-            for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: page_.getMapAnonymous()) {
-                for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
-                    AnonymousInstancingOperation key_ = e.getKey();
-                    AnonymousTypeBlock block_ = key_.getBlock();
+            for (CustList<AnonymousInstancingOperation> m: page_.getAnonymous()) {
+                for (AnonymousInstancingOperation e: m) {
+                    AnonymousTypeBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     if (parentType_ == null) {
                         continue;
                     }
-                    page_.setGlobalClass(key_.getGlClass());
-                    key_.postAnalyze(_page);
-                    ExecAnonymousInstancingOperation value_ = e.getValue();
-                    CustList<OperationNode> read_ = key_.getChildrenNodes();
-                    CustList<ExecOperationNode> write_ = value_.getChildrenNodes();
-                    int min_ = Math.min(read_.size(),write_.size());
-                    for (int i = 0; i < min_;i++){
-                        OperationNode r_ = read_.get(i);
-                        ExecOperationNode w_ = null;
-                        int in_ = -1;
-                        if (r_ instanceof NamedArgumentOperation) {
-                            w_ = write_.get(i);
-                            in_ = ((NamedArgumentOperation)r_).getIndex();
-                        }
-                        if (w_ instanceof ExecNamedArgumentOperation) {
-                            ((ExecNamedArgumentOperation)w_).setIndex(in_);
-                        }
-                    }
-                    value_.setExecAnonymousInstancingOperation(key_, _page);
+                    page_.setGlobalClass(e.getGlClass());
+                    e.postAnalyze(_page);
                 }
             }
-
-            page_.getMapAnonymous().clear();
-            page_.getMapAnonymousLambda().clear();
+            page_.getAnonymous().clear();
+            page_.getAnonymousLambda().clear();
             validateEl(_page);
-            for (EntryCust<AnonymousFunctionBlock, ExecNamedFunctionBlock> e:retr_.entryList()) {
-                AnonymousFunctionBlock method_ = e.getKey();
-                RootBlock c_ = method_.getParentType();
+            for (AnonymousFunctionBlock e:retrList_) {
+                RootBlock c_ = e.getParentType();
                 page_.setImporting(c_);
                 page_.setImportingAcces(new TypeAccessor(c_.getFullName()));
                 page_.setImportingTypes(c_);
@@ -491,22 +692,21 @@ public final class ClassesUtil {
                 page_.setGlobalDirType(c_);
                 page_.getCache().getLocalVariables().clear();
                 page_.getCache().getLoopVariables().clear();
-                page_.getCache().getLocalVariables().addAllElts(method_.getCache().getLocalVariables());
-                page_.getCache().getLoopVariables().addAllElts(method_.getCache().getLoopVariables());
-                page_.getCoverage().putCalls(c_.getFullName(),method_);
-                StringList params_ = method_.getParametersNames();
-                StringList types_ = method_.getImportedParametersTypes();
-                prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                page_.getCache().getLocalVariables().addAllElts(e.getCache().getLocalVariables());
+                page_.getCache().getLoopVariables().addAllElts(e.getCache().getLoopVariables());
+                StringList params_ = e.getParametersNames();
+                StringList types_ = e.getImportedParametersTypes();
+                prepareParams(page_, e.getParametersNamesOffset(), e.getParamErrors(),params_, types_, e.isVarargs());
                 page_.getMappingLocal().clear();
-                page_.getMappingLocal().putAllMap(method_.getMappings());
-                method_.buildFctInstructionsReadOnly(e.getValue(), _page);
+                page_.getMappingLocal().putAllMap(e.getMappings());
+                e.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = page_.getAnalysisAss();
                 a_.setVariableIssue(page_.isVariableIssue());
-                page_.getResultsMethod().addEntry(method_,a_);
+                page_.getResultsMethod().addEntry(e,a_);
             }
             AnaTypeUtil.checkInterfaces(_page);
         }
-
+        return outExec_;
     }
 
     public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, StringMap<ExecFileBlock> _outExec, AnalyzedPageEl _page) {
@@ -725,6 +925,7 @@ public final class ClassesUtil {
             ok_ = false;
         }
         _page.getFoundTypes().add(_root);
+        _page.getAllFoundTypes().add(_root);
         if (ok_) {
             _page.getRefFoundTypes().add(_root);
             _page.getCoverage().putType(_root);
@@ -739,12 +940,19 @@ public final class ClassesUtil {
         if (_page.getMapTypes().getKeys().isValidIndex(index_)) {
             execParentType_ = _page.getMapTypes().getValue(index_);
         }
+        for (Block b: getDirectChildren(_root)) {
+            if (b instanceof OverridableBlock) {
+                _root.getOverridableBlocks().add((OverridableBlock)b);
+            }
+        }
         if (_root instanceof AnonymousTypeBlock) {
             ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
             _root.setNumberAll(_page.getMapTypes().size());
             _page.getMapTypes().put(_root, e_);
+            ((AnonymousTypeBlock)_root).setNumberAnonType(_page.getMapAnonTypes().size());
+            _page.getMapAnonTypes().put((AnonymousTypeBlock)_root, e_);
             _page.getClasses().getClassesBodies().put(fullName_, e_);
         }
         if (_root instanceof ClassBlock) {
@@ -1338,9 +1546,6 @@ public final class ClassesUtil {
             c.buildMapParamType(_page);
         }
         for (RootBlock c: page_.getFoundTypes()) {
-            page_.getMapTypes().getValue(c.getNumberAll()).buildMapParamType(c);
-        }
-        for (RootBlock c: page_.getFoundTypes()) {
             if (c.isStaticType()) {
                 continue;
             }
@@ -1431,7 +1636,7 @@ public final class ClassesUtil {
         while (true) {
             IdList<RootBlock> next_ = new IdList<RootBlock>();
             for (RootBlock r: stClNames_) {
-                ExecRootBlock exec_ = _page.getMapTypes().getVal(r);
+//                ExecRootBlock exec_ = _page.getMapTypes().getVal(r);
                 String c= r.getFullName();
                 if (r instanceof AnnotationBlock) {
                     int index_ = 0;
@@ -1464,11 +1669,11 @@ public final class ClassesUtil {
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
                     }
                     r.getAllSuperTypes().addAllElts(foundNames_.getKeys());
-                    exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
+//                    exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                     r.getAllSuperTypes().add(objectClassName_);
-                    exec_.getAllSuperTypes().add(objectClassName_);
+//                    exec_.getAllSuperTypes().add(objectClassName_);
                     r.getAllSuperTypes().removeDuplicates();
-                    exec_.getAllSuperTypes().removeDuplicates();
+//                    exec_.getAllSuperTypes().removeDuplicates();
                     _page.getListTypesNames().add(r);
                     builtTypes_.set(c, true);
                     next_.add(r);
@@ -1688,16 +1893,16 @@ public final class ClassesUtil {
                     r.addNameErrors(enum_);
                 }
                 r.getAllSuperTypes().addAllElts(dup_);
-                exec_.getAllSuperTypes().addAllElts(dup_);
+//                exec_.getAllSuperTypes().addAllElts(dup_);
                 for (FoundSuperType f: types_) {
                     RootBlock s_ = f.getType();
-                    exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
+//                    exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                     r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
                 r.getAllSuperTypes().add(objectClassName_);
-                exec_.getAllSuperTypes().add(objectClassName_);
+//                exec_.getAllSuperTypes().add(objectClassName_);
                 r.getAllSuperTypes().removeDuplicates();
-                exec_.getAllSuperTypes().removeDuplicates();
+//                exec_.getAllSuperTypes().removeDuplicates();
                 _page.getListTypesNames().add(r);
                 builtTypes_.set(c, true);
                 next_.add(r);
@@ -1954,24 +2159,17 @@ public final class ClassesUtil {
             for (AnaFormattedRootBlock a: genericClasses_) {
                 i.getAllGenericClasses().add(a.getFormatted());
             }
-            ExecRootBlock value_ = _page.getMapTypes().getValue(i.getNumberAll());
-            if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _page));
-            }
-            ConstructorBlock emptyCtor_ = i.getEmptyCtor();
-            if (emptyCtor_ != null) {
-                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _page));
-            }
+//            ExecRootBlock value_ = _page.getMapTypes().getValue(i.getNumberAll());
+//            if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
+//                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _page));
+//            }
+//            ConstructorBlock emptyCtor_ = i.getEmptyCtor();
+//            if (emptyCtor_ != null) {
+//                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _page));
+//            }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
-        for (RootBlock i: _page.getFoundTypes()) {
-            CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = i.getAllGenericSuperTypesInfo();
-            CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
-            for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(new ExecFormattedRootBlock(_page.getMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
-            }
-            _page.getMapTypes().getValue(i.getNumberAll()).getAllGenericSuperTypes().addAllElts(l_);
-        }
+
     }
 
     private static StringMap<StringList> getBaseParams(StringList _genericSuperTypes) {
@@ -1988,53 +2186,46 @@ public final class ClassesUtil {
     }
 
     public static void validateIds(AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
-        for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = mapTypes_.getValue(c.getNumberAll());
-            page_.setGlobalClass(c.getGenericString());
-            page_.setGlobalType(c);
-            page_.setGlobalDirType(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getMappingLocal().clear();
-            page_.getMappingLocal().putAllMap(c.getMappings());
-            c.validateIds(type_,page_.getMapMembers().getVal(c), _page);
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setGlobalDirType(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
+            c.validateIds(_page);
             if (c.getNbOperators() > 0) {
                 _page.getTypesWithInnerOperators().add(c.getFullName());
             }
         }
-        for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = mapTypes_.getValue(c.getNumberAll());
-            type_.validateIds(c,page_.getMapMembers());
-        }
-        for (RootBlock c: page_.getFoundTypes()) {
-            page_.setGlobalClass(c.getGenericString());
-            page_.setGlobalType(c);
-            page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-            page_.setImportingTypes(c);
-            page_.getMappingLocal().clear();
-            page_.getMappingLocal().putAllMap(c.getMappings());
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setGlobalClass(c.getGenericString());
+            _page.setGlobalType(c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
-                    page_.setCurrentAnaBlock(c);
-                    page_.setCurrentBlock(c);
+                    _page.setCurrentAnaBlock(c);
+                    _page.setCurrentBlock(c);
                     ((InternOverrideBlock)b).buildTypes(c, _page);
                 }
             }
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
-        page_.setGlobalClass("");
-        page_.setGlobalType((RootBlock) null);
+        _page.setGlobalClass("");
+        _page.setGlobalType((RootBlock) null);
         for (OperatorBlock o: _page.getFoundOperators()) {
             ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
             String name_ = o.getName();
-            page_.setImporting(o);
-            page_.setImportingAcces(new OperatorAccessor());
-            page_.setImportingTypes(o);
-            page_.getMappingLocal().clear();
+            _page.setImporting(o);
+            _page.setImportingAcces(new OperatorAccessor());
+            _page.setImportingTypes(o);
+            _page.getMappingLocal().clear();
             o.buildImportedTypes(_page);
             value_.buildImportedTypes(o);
             if (!StringExpUtil.isOper(name_)) {
@@ -2056,7 +2247,7 @@ public final class ClassesUtil {
                     duplicate_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     //key word len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicateOperator(),
-                            id_.getSignature(page_));
+                            id_.getSignature(_page));
                     _page.addLocError(duplicate_);
                     o.addNameErrors(duplicate_);
                 }
@@ -2067,7 +2258,7 @@ public final class ClassesUtil {
             int i_ = 0;
             for (String v: l_) {
                 o.addParamErrors();
-                TokenErrorMessage res_ = ManageTokens.partParam(page_).checkToken(v, page_);
+                TokenErrorMessage res_ = ManageTokens.partParam(_page).checkToken(v, _page);
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -2187,7 +2378,6 @@ public final class ClassesUtil {
             }
         }
         for (RootBlock c: _page.getFoundTypes()) {
-            Members mem_ = _page.getMapMembers().getVal(c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2229,8 +2419,7 @@ public final class ClassesUtil {
                     _page.setCurrentAnaBlock(b);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
-                    ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(val_, _page);
+                    method_.buildExpressionLanguageReadOnly(_page);
                     _page.getFieldsAssSt().addEntry(b,new AssElementBlock(method_));
                 }
                 if (b instanceof FieldBlock) {
@@ -2246,8 +2435,7 @@ public final class ClassesUtil {
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
-                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(exp_, _page);
+                    method_.buildExpressionLanguageReadOnly(_page);
                     _page.getFieldsAssSt().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof StaticBlock) {
@@ -2257,7 +2445,7 @@ public final class ClassesUtil {
                     StaticBlock method_ = (StaticBlock) b;
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(mem_.getAllInits().getVal(method_), _page);
+                    method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
                     _page.getResultsAna().addEntry(method_,a_);
@@ -2266,7 +2454,6 @@ public final class ClassesUtil {
         }
         _page.setAssignedStaticFields(true);
         for (RootBlock c: _page.getFoundTypes()) {
-            Members mem_ = _page.getMapMembers().getVal(c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2274,7 +2461,6 @@ public final class ClassesUtil {
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            _page.getCoverage().putCalls(fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
@@ -2306,8 +2492,7 @@ public final class ClassesUtil {
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
-                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(exp_, _page);
+                    method_.buildExpressionLanguageReadOnly(_page);
                     _page.getFieldsAss().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof InstanceBlock) {
@@ -2317,7 +2502,7 @@ public final class ClassesUtil {
                     InstanceBlock method_ = (InstanceBlock) b;
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(mem_.getAllInits().getVal(method_), _page);
+                    method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
                     _page.getResultsAnaInst().addEntry(method_,a_);
@@ -2332,13 +2517,12 @@ public final class ClassesUtil {
                     _page.setGlobalType(c);
                     _page.setGlobalDirType(c);
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    _page.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(mem_.getAllCtors().getVal(method_), _page);
+                    method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
                     _page.getResultsAnaNamed().addEntry(method_,a_);
@@ -2350,8 +2534,6 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            Members mem_ = _page.getMapMembers().getVal(c);
-            String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (!(b instanceof OverridableBlock)) {
@@ -2362,13 +2544,12 @@ public final class ClassesUtil {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
                     _page.setGlobalDirType(c);
-                    _page.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(mem_.getAllMethods().getVal(method_), _page);
+                    method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
                     _page.getResultsAnaMethod().addEntry(method_,a_);
@@ -2376,14 +2557,13 @@ public final class ClassesUtil {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
                     _page.setGlobalDirType(c);
-                    _page.getCoverage().putCalls(fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
+                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     processValueParam(_page, c, method_);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
-                    method_.buildFctInstructionsReadOnly(mem_.getAllMethods().getVal(method_), _page);
+                    method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
                     _page.getResultsAnaMethod().addEntry(method_,a_);
@@ -2393,18 +2573,15 @@ public final class ClassesUtil {
         _page.setGlobalClass("");
         _page.setGlobalType((RootBlock)null);
         _page.setGlobalDirType(null);
-        putCallOperator(_page);
         for (OperatorBlock o: _page.getFoundOperators()) {
             _page.setImporting(o);
             _page.setImportingAcces(new OperatorAccessor());
             _page.setImportingTypes(o);
-            _page.getCoverage().putCalls("",o);
             StringList params_ = o.getParametersNames();
             StringList types_ = o.getImportedParametersTypes();
-            ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
             prepareParams(_page,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
             _page.getMappingLocal().clear();
-            o.buildFctInstructionsReadOnly(value_, _page);
+            o.buildFctInstructionsReadOnly(_page);
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
             _page.getResultsAnaOperator().addEntry(o,a_);
@@ -2414,7 +2591,6 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            Members mem_ = _page.getMapMembers().getVal(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setGlobalType(c);
             _page.setCurrentFct(null);
@@ -2423,7 +2599,6 @@ public final class ClassesUtil {
                 annotated_.add(c);
             }
             annotated_.addAllElts(getDirectChildren(c));
-            _page.getCoverage().putBlockOperations(_page.getMapTypes().getVal(c),c);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
@@ -2432,29 +2607,24 @@ public final class ClassesUtil {
                 if (b instanceof AnnotationMethodBlock) {
                     _page.setAnnotAnalysisField(true);
                     _page.setGlobalDirType(c);
-                    ((AnnotationMethodBlock)b).buildExpressionLanguage(mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)), _page);
-                    _page.getCoverage().putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
+                    ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
                     _page.setAnnotAnalysisField(false);
                 }
                 if (b instanceof RootBlock) {
                     _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
-                    _page.getCoverage().putBlockOperationsField(_page, b);
-                    ((RootBlock)b).buildAnnotations(mem_.getAllAnnotables().getVal((AnnotableBlock) b), _page);
+                    ((RootBlock)b).buildAnnotations(_page);
                 }
                 if (b instanceof NamedFunctionBlock) {
                     _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
-                    _page.getCoverage().putBlockOperationsField(_page, b);
-                    ((NamedFunctionBlock)b).buildAnnotations(mem_.getAllNamed().getVal((NamedFunctionBlock) b), _page);
-                    ((NamedFunctionBlock)b).buildAnnotationsParameters(mem_.getAllNamed().getVal((NamedFunctionBlock) b), _page);
+                    ((NamedFunctionBlock)b).buildAnnotations(_page);
+                    ((NamedFunctionBlock)b).buildAnnotationsParameters(_page);
                 }
                 if (b instanceof InfoBlock) {
                     _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
-                    _page.getCoverage().putBlockOperationsField(_page, b);
-                    _page.getCoverage().putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
-                    ((InfoBlock)b).buildAnnotations(mem_.getAllAnnotables().getVal((AnnotableBlock) b), _page);
+                    ((InfoBlock)b).buildAnnotations(_page);
                 }
             }
         }
@@ -2469,11 +2639,9 @@ public final class ClassesUtil {
             _page.setCurrentBlock(o);
             _page.setCurrentAnaBlock(o);
             _page.setAnnotAnalysisField(false);
-            _page.getCoverage().putBlockOperationsField(_page, o);
             _page.getMappingLocal().clear();
-            ExecOperatorBlock value_ = _page.getMapOperators().getValue(o.getNameNumber());
-            o.buildAnnotations(value_, _page);
-            o.buildAnnotationsParameters(value_, _page);
+            o.buildAnnotations(_page);
+            o.buildAnnotationsParameters(_page);
         }
         _page.setAnnotAnalysis(false);
         //init annotations here
@@ -2486,7 +2654,7 @@ public final class ClassesUtil {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         _page.setAssignedStaticFields(false);
         _page.setAssignedFields(false);
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2564,7 +2732,7 @@ public final class ClassesUtil {
 
         }
         _page.setAssignedStaticFields(true);
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2704,7 +2872,7 @@ public final class ClassesUtil {
         StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
         b_.clear();
 
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2761,7 +2929,7 @@ public final class ClassesUtil {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         _page.setAssignedStaticFields(false);
         _page.setAssignedFields(false);
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2784,7 +2952,7 @@ public final class ClassesUtil {
             }
         }
         _page.setAssignedStaticFields(true);
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2820,7 +2988,7 @@ public final class ClassesUtil {
         }
         _page.setAssignedFields(true);
 
-        for (RootBlock c: _page.getMapTypes().getKeys()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2879,13 +3047,6 @@ public final class ClassesUtil {
             return new StringMap<SimpleAssignment>();
         }
         return val_.getFieldsRoot();
-    }
-
-    private static void putCallOperator(AnalyzedPageEl _page) {
-        if (_page.getFoundOperators().isEmpty()) {
-            return;
-        }
-        _page.getCoverage().putCalls("");
     }
 
     private static StringList getErFields(InfoBlock f_, int v_) {

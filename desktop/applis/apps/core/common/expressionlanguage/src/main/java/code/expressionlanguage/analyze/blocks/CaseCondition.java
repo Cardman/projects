@@ -28,6 +28,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private boolean builtEnum;
     private boolean emptyType;
     private boolean nullCase;
+    private boolean nullCaseEnum;
 
     private String importedType = EMPTY_STRING;
 
@@ -214,6 +215,14 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public void setBuiltEnum(boolean builtEnum) {
         this.builtEnum = builtEnum;
+    }
+
+    public boolean isNullCaseEnum() {
+        return nullCaseEnum;
+    }
+
+    public void setNullCaseEnum(boolean nullCaseEnum) {
+        this.nullCaseEnum = nullCaseEnum;
     }
 
     public StringList getEmptErrs() {

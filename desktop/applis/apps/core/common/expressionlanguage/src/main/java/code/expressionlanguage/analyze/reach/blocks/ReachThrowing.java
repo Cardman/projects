@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Throwing;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.exec.blocks.ExecThrowing;
@@ -21,10 +22,11 @@ public final class ReachThrowing extends ReachAbruptBlock {
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setOffset(0);
         _page.setGlobalOffset(meta.getExpressionOffset());
-        CustList<ExecOperationNode> op_ = ReachOperationUtil.tryCalculateAndSupply(root, _page);
-        ExecThrowing exec_ = new ExecThrowing(getOffset(), meta.getExpressionOffset(),op_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+        ReachOperationUtil.tryCalculate(root, _page);
+//        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root);
+//        ExecThrowing exec_ = new ExecThrowing(getOffset(), meta.getExpressionOffset(),op_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 }

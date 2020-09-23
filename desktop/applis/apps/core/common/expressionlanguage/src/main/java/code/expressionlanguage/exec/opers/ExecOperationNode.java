@@ -255,7 +255,7 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
             ExecAnonymousInstancingOperation exec_ = new ExecAnonymousInstancingOperation(s_);
-            _page.getMapAnonymous().last().addEntry(s_,exec_);
+            _page.getMapAnonymous().addEntry(s_,exec_);
             return exec_;
         }
         if (_anaNode instanceof ArrOperation) {
@@ -350,7 +350,7 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof AnonymousLambdaOperation) {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
             ExecAnonymousLambdaOperation exec_ = new ExecAnonymousLambdaOperation(s_);
-            _page.getMapAnonymousLambda().last().addEntry(s_,exec_);
+            _page.getMapAnonymousLambda().addEntry(s_,exec_);
             return exec_;
         }
         if (_anaNode instanceof LambdaOperation) {

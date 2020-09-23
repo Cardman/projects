@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
@@ -122,34 +121,59 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         return varargs_;
     }
-    public void buildAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        buildAnnotationsBasic(_ex, _page);
+    public void buildAnnotations(AnalyzedPageEl _page) {
+        roots = new CustList<OperationNode>();
+        int len_ = annotationsIndexes.size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            _page.setGlobalOffset(begin_);
+            _page.setOffset(0);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            ReachOperationUtil.tryCalculate(r_, _page);
+            roots.add(r_);
+        }
     }
 
     @Override
-    public void buildAnnotationsParameters(ExecAnnotableParametersBlock _ann, AnalyzedPageEl _page) {
-        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+    public void fwdAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        for (OperationNode r: roots) {
+            ops_.add(ElUtil.getExecutableNodes(_page, r));
+        }
+        _ex.getAnnotationsOps().addAllElts(ops_);
+    }
+
+    @Override
+    public void buildAnnotationsParameters(AnalyzedPageEl _page) {
         int j_ = 0;
         rootsList = new CustList<CustList<OperationNode>>();
         for (Ints l: annotationsIndexesParams) {
-            CustList<CustList<ExecOperationNode>> annotation_;
-            annotation_ = new CustList<CustList<ExecOperationNode>>();
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
             int len_ = l.size();
-            AnalyzedPageEl page_ = _page;
             StringList list_ = annotationsParams.get(j_);
             for (int i = 0; i < len_; i++) {
                 int begin_ = l.get(i);
-                page_.setGlobalOffset(begin_);
-                page_.setOffset(0);
+                _page.setGlobalOffset(begin_);
+                _page.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(list_.get(i), c_, _page);
-                annotation_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+                ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }
             rootsList.add(rootList_);
-            ops_.add(annotation_);
             j_++;
+        }
+    }
+    public void fwdAnnotationsParameters(ExecAnnotableParametersBlock _ann, AnalyzedPageEl _page) {
+        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        for (CustList<OperationNode> l: rootsList) {
+            CustList<CustList<ExecOperationNode>> annotation_;
+            annotation_ = new CustList<CustList<ExecOperationNode>>();
+            for (OperationNode r: l) {
+                annotation_.add(ElUtil.getExecutableNodes(_page, r));
+            }
+            ops_.add(annotation_);
         }
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
@@ -263,22 +287,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public String getImportedReturnType() {
         return importedReturnType;
-    }
-
-    public void buildAnnotationsBasic(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
-        roots = new CustList<OperationNode>();
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            _page.setGlobalOffset(begin_);
-            _page.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
-            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
-            roots.add(r_);
-        }
-        _ex.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {

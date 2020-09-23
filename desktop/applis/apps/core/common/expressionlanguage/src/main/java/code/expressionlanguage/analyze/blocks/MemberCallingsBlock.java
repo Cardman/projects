@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.reach.blocks.ReachMemberCallingsBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -40,7 +39,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    public final void buildFctInstructionsReadOnly(ExecMemberCallingsBlock _mem, AnalyzedPageEl _page) {
+    public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         _page.setVariableIssue(false);
@@ -56,7 +55,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         if (firstChild_ == null) {
             checkIndexes(en_, _page);
             _page.getInfosVars().clear();
-            ReachMemberCallingsBlock.newReachBlocks(this).buildFctInstructionsReadOnly(_mem,_page,anEl_);
+            ReachMemberCallingsBlock.newReachBlocks(this).buildFctInstructionsReadOnly(_page,anEl_);
             return;
         }
         while (true) {
@@ -93,7 +92,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ == this) {
                     par_.removeAllVars(_page);
                     _page.getInfosVars().clear();
-                    ReachMemberCallingsBlock.newReachBlocks(this).buildFctInstructionsReadOnly(_mem,_page,anEl_);
+                    ReachMemberCallingsBlock.newReachBlocks(this).buildFctInstructionsReadOnly(_page,anEl_);
                     return;
                 }
                 par_.checkTree(anEl_, _page);

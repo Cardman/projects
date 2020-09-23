@@ -61,10 +61,10 @@ public final class ReachOperationUtil {
         }
     }
 
-    public static CustList<ExecOperationNode> tryCalculateAndSupply(OperationNode _list, AnalyzedPageEl _page) {
+    public static Argument tryCalculate(OperationNode _list, AnalyzedPageEl _page) {
         CustList<ReachMethodOperation> list_ = getExecutableNodes(_list);
         tryCalculate(_page, list_);
-        return ElUtil.getExecutableNodes(_page,_list);
+        return _list.getArgument();
     }
 
     public static void tryCalculate(AnalyzedPageEl _page, CustList<ReachMethodOperation> list_) {

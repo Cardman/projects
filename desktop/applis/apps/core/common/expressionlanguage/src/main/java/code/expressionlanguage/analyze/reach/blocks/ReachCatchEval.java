@@ -15,12 +15,12 @@ public final class ReachCatchEval extends ReachAbstractCatchEval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.getCoverage().putCatches(getInfo());
-        ExecCatchEval exec_ = new ExecCatchEval(getOffset(), meta.getVariableName(), meta.getImportedClassName());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        _page.getCoverage().putCatches(getInfo());
+//        ExecCatchEval exec_ = new ExecCatchEval(getOffset(), meta.getVariableName(), meta.getImportedClassName());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

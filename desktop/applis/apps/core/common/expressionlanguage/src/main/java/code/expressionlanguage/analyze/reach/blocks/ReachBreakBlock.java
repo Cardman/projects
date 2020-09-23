@@ -17,10 +17,10 @@ public final class ReachBreakBlock extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,getInfo());
+//        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
     @Override
     public void abrupt(AnalyzingEl _anEl) {

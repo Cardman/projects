@@ -5,12 +5,10 @@ import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.blocks.*;
-import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.util.*;
 
 public final class AnalyzingEl {
-    private IdMap<ReachBracedBlock,ExecBracedBlock> reachMappingBracedMembers = new IdMap<ReachBracedBlock,ExecBracedBlock>();
     private BlocksFlags canCompleteNormally = new BlocksFlags();
     private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
@@ -137,10 +135,6 @@ public final class AnalyzingEl {
 
     public IdMap<ReachContinueBlock, ReachLoop> getReachContinuables() {
         return reachContinuables;
-    }
-
-    public IdMap<ReachBracedBlock, ExecBracedBlock> getReachMappingBracedMembers() {
-        return reachMappingBracedMembers;
     }
 
     public boolean isVariableIssue() {
