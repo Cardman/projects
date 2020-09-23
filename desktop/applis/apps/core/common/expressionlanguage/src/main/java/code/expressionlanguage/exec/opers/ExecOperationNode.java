@@ -95,8 +95,8 @@ public abstract class ExecOperationNode {
         return null;
     }
     public static ExecRootBlock fetchType(int _nbRoot, AnalyzedPageEl _page) {
-        if (_page.getMapTypes().getKeys().isValidIndex(_nbRoot)) {
-            return _page.getMapTypes().getValue(_nbRoot);
+        if (_page.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
+            return _page.getMapMembers().getValue(_nbRoot).getRootBlock();
         }
         return null;
     }

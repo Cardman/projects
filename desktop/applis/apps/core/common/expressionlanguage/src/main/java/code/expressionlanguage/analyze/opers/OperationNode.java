@@ -1749,8 +1749,8 @@ public abstract class OperationNode {
     static CustList<MethodInfo> getOperators(ClassMethodId _cl, AnalyzedPageEl _page){
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        for (EntryCust<OperatorBlock,ExecOperatorBlock> e: _page.getMapOperators().entryList()) {
-            OperatorBlock o = e.getKey();
+        for (OperatorBlock e: _page.getAllOperators()) {
+            OperatorBlock o = e;
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();
             if (_cl != null) {

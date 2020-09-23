@@ -67,12 +67,15 @@ public final class AnalyzedPageEl {
     private ExecAccessingImportingBlock importingAcces;
     private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
-    private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
+    private int countTypes;
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
+    private int countInnerEltTypes;
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
+    private int countOperators;
     private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
     private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
+    private int countAnonTypes;
     private final IdMap<Block,AssBlock> fieldsAssSt = new IdMap<Block,AssBlock>();
     private final IdMap<Block,AssBlock> fieldsAss = new IdMap<Block,AssBlock>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAna = new IdMap<MemberCallingsBlock,AnalyzingEl>();
@@ -82,8 +85,10 @@ public final class AnalyzedPageEl {
     private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final NatStringTreeMap<RootBlock> sorted = new NatStringTreeMap<RootBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
+    private final CustList<OperatorBlock> allOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
@@ -118,7 +123,6 @@ public final class AnalyzedPageEl {
     private final StringList initFieldsCtors = new StringList();
     private final StringList assignedDeclaredFields = new StringList();
     private final StringList allDeclaredFields = new StringList();
-    private ExecDeclareVariable execDeclareVariable;
 
     private final CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private String currentEmptyPartErr = "";
@@ -139,6 +143,7 @@ public final class AnalyzedPageEl {
     private AbstractTokenValidation tokenValidation;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
+    private CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
     private CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
     private CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation> mapAnonymous = new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>();
@@ -520,8 +525,16 @@ public final class AnalyzedPageEl {
         return allFoundTypes;
     }
 
+    public NatStringTreeMap<RootBlock> getSorted() {
+        return sorted;
+    }
+
     public CustList<OperatorBlock> getFoundOperators() {
         return foundOperators;
+    }
+
+    public CustList<OperatorBlock> getAllOperators() {
+        return allOperators;
     }
 
     public CustList<RootBlock> getPrevFoundTypes() {
@@ -532,12 +545,24 @@ public final class AnalyzedPageEl {
         return refFoundTypes;
     }
 
-    public IdMap<RootBlock, ExecRootBlock> getMapTypes() {
-        return mapTypes;
+    public int getCountTypes() {
+        return countTypes;
+    }
+
+    public void setCountTypes(int countTypes) {
+        this.countTypes = countTypes;
     }
 
     public IdMap<InnerElementBlock, ExecInnerElementBlock> getMapInnerEltTypes() {
         return mapInnerEltTypes;
+    }
+
+    public int getCountInnerEltTypes() {
+        return countInnerEltTypes;
+    }
+
+    public void setCountInnerEltTypes(int countInnerEltTypes) {
+        this.countInnerEltTypes = countInnerEltTypes;
     }
 
     public IdMap<RootBlock, Members> getMapMembers() {
@@ -546,6 +571,14 @@ public final class AnalyzedPageEl {
 
     public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
         return mapOperators;
+    }
+
+    public int getCountOperators() {
+        return countOperators;
+    }
+
+    public void setCountOperators(int countOperators) {
+        this.countOperators = countOperators;
     }
 
     public AbstractProcessKeyWord getProcessKeyWord() {
@@ -634,14 +667,6 @@ public final class AnalyzedPageEl {
 
     public void setTokenValidation(AbstractTokenValidation tokenValidation) {
         this.tokenValidation = tokenValidation;
-    }
-
-    public ExecDeclareVariable getExecDeclareVariable() {
-        return execDeclareVariable;
-    }
-
-    public void setExecDeclareVariable(ExecDeclareVariable execDeclareVariable) {
-        this.execDeclareVariable = execDeclareVariable;
     }
 
     public CustList<PartOffset> getCurrentParts() {
@@ -832,6 +857,10 @@ public final class AnalyzedPageEl {
         return anonymous;
     }
 
+    public CustList<AnonymousInstancingOperation> getAnonymousList() {
+        return anonymousList;
+    }
+
     public CustList<CustList<AnonymousLambdaOperation>> getAnonymousLambda() {
         return anonymousLambda;
     }
@@ -845,6 +874,14 @@ public final class AnalyzedPageEl {
 
     public IdMap<AnonymousTypeBlock, ExecAnonymousTypeBlock> getMapAnonTypes() {
         return mapAnonTypes;
+    }
+
+    public int getCountAnonTypes() {
+        return countAnonTypes;
+    }
+
+    public void setCountAnonTypes(int countAnonTypes) {
+        this.countAnonTypes = countAnonTypes;
     }
 
     public IdMap<Block, AssBlock> getFieldsAssSt() {

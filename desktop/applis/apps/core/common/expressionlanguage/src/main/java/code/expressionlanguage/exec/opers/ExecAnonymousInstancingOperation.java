@@ -40,7 +40,7 @@ public final class ExecAnonymousInstancingOperation extends
     }
     public void setExecAnonymousInstancingOperation(AnonymousInstancingOperation _s, AnalyzedPageEl _page) {
         setExecAnonymousInstancingOperation(_s);
-        rootBlock = _page.getMapTypes().getValue(_s.getBlock().getNumberAll());
+        rootBlock = _page.getMapMembers().getValue(_s.getBlock().getNumberAll()).getRootBlock();
         ctor = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
     }
     @Override

@@ -1995,6 +1995,7 @@ public final class FileResolver {
                         parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                         new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
                 ov_.setKind(kind_);
+                _currentParent.getOverridableBlocks().add(ov_);
                 br_ = ov_;
             } else if (meth_) {
                 String retType_ = declaringType_.trim();
@@ -2062,6 +2063,7 @@ public final class FileResolver {
                     ov_.setDefinitionOffset(offsetLast_);
                 }
                 ov_.setKind(kind_);
+                _currentParent.getOverridableBlocks().add(ov_);
                 br_ = ov_;
             } else {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),

@@ -6418,10 +6418,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         StringMap<String> files_ = stds_.buildFiles(page_);
-        StringMap<FileBlock> out_ = new StringMap<FileBlock>();
-        StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        buildFilesBodies(cont_, files_,out_,outExec_);
-        parseFiles(cont_, out_, outExec_);
+        buildFilesBodies(cont_, files_);
+        parseFiles(cont_);
         validateInheritingClasses(cont_);
         validateIds(cont_);
         validateOverridingInherit(cont_);

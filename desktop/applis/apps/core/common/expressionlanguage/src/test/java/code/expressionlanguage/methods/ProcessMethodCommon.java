@@ -397,12 +397,12 @@ public abstract class ProcessMethodCommon {
     }
 
 
-    protected static void buildFilesBodies(AnalyzedTestContext cont_, StringMap<String> files_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
-        ClassesUtil.buildFilesBodies(files_,true,out_,outExec_, cont_.getAnalyzing());
+    protected static void buildFilesBodies(AnalyzedTestContext cont_, StringMap<String> files_) {
+        ClassesUtil.buildFilesBodies(files_,true, cont_.getAnalyzing());
     }
 
-    protected static void parseFiles(AnalyzedTestContext cont_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
-        ClassesUtil.parseFiles(out_,outExec_, cont_.getAnalyzing());
+    protected static void parseFiles(AnalyzedTestContext cont_) {
+        ClassesUtil.parseFiles(cont_.getAnalyzing());
     }
 
     protected static void validateInheritingClasses(AnalyzedTestContext cont_) {
@@ -418,7 +418,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void postValidation(AnalyzedTestContext ctx_) {
-        ClassesUtil.postValidation(ctx_.getAnalyzing(), new StringMap<ExecFileBlock>());
+        ClassesUtil.postValidation(ctx_.getAnalyzing());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {
@@ -579,7 +579,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, new StringMap<ExecFileBlock>(), _cont.getAnalyzing());
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files, _cont.getAnalyzing());
     }
 
     protected static void validateInheritingClassesId(AnalyzedTestContext cont_) {
@@ -624,7 +624,8 @@ public abstract class ProcessMethodCommon {
         StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
-        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_,exFile_, context_.getAnalyzing());
+        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, context_.getAnalyzing());
+        ClassesUtil.processExecFile(fileBlock_,exFile_, context_.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {

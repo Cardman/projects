@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.util.IdMap;
 
 public final class Members {
+    private ExecRootBlock rootBlock;
     private IdMap<OverridableBlock,ExecOverridableBlock> allMethods = new IdMap<OverridableBlock,ExecOverridableBlock>();
     private IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock> allAnnotMethods = new IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock>();
     private IdMap<ConstructorBlock,ExecConstructorBlock> allCtors = new IdMap<ConstructorBlock,ExecConstructorBlock>();
@@ -54,5 +55,13 @@ public final class Members {
 
     public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
         return allFct;
+    }
+
+    public ExecRootBlock getRootBlock() {
+        return rootBlock;
+    }
+
+    public void setRootBlock(ExecRootBlock rootBlock) {
+        this.rootBlock = rootBlock;
     }
 }

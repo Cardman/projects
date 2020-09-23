@@ -63,7 +63,6 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         ReachBlock firstChild_ = getFirstChild();
-        _page.setExecDeclareVariable(null);
         _page.setMerged(false);
         _page.setCurrentBlock(getInfo());
         _page.setAnalysisAss(_anEl);
@@ -124,7 +123,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         ExecBracedBlock blockToWrite_ = _dest;
         ExecFileBlock fileDest_ = _dest.getFile();
         Block firstChild_ = _from.getFirstChild();
-        _page.setExecDeclareVariable(null);
+        ExecDeclareVariable decl_ = null;
         _page.setMerged(false);
         _page.setCurrentBlock(_from);
         IdMap<BracedBlock,ExecBracedBlock> mappingBracedMembers_ = new IdMap<BracedBlock,ExecBracedBlock>();
@@ -259,7 +258,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                     _page.getCoverage().putBlockOperations(exec_,en_);
                 } else if (en_ instanceof DeclareVariable) {
                     ExecDeclareVariable exec_ = new ExecDeclareVariable(en_.getOffset(), ((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames());
-                    _page.setExecDeclareVariable(exec_);
+                    decl_ = exec_;
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
                     _page.getCoverage().putBlockOperations(exec_,en_);
@@ -297,11 +296,10 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                     _page.getCoverage().putBlockOperations(exec_,en_);
                 } else if (en_ instanceof Line) {
                     CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, ((Line)en_).getRoot());
-                    ExecDeclareVariable ex_ = _page.getExecDeclareVariable();
-                    if (ex_ != null) {
-                        ex_.setImportedClassName(((Line) en_).getImportedClass());
+                    if (decl_ != null) {
+                        decl_.setImportedClassName(((Line) en_).getImportedClass());
                     }
-                    _page.setExecDeclareVariable(null);
+                    decl_ = null;
                     ExecLine exec_ = new ExecLine(en_.getOffset(), ((Line) en_).getExpressionOffset(),op_);
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
