@@ -38,11 +38,11 @@ public final class TryEval extends BracedBlock implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecTryEval exec_ = new ExecTryEval(getOffset(),label);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecTryEval exec_ = new ExecTryEval(getOffset(),label);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override

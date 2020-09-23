@@ -3,8 +3,10 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.DeclaringOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -58,8 +60,14 @@ public final class ReachOperationUtil {
             ind_ = getNextIndex(curr_, a_.getStruct());
         }
     }
-    public static void tryCalculate(CustList<OperationNode> _list, AnalyzedPageEl _page) {
+
+    public static CustList<ExecOperationNode> tryCalculateAndSupply(OperationNode _list, AnalyzedPageEl _page) {
         CustList<ReachMethodOperation> list_ = getExecutableNodes(_list);
+        tryCalculate(_page, list_);
+        return ElUtil.getExecutableNodes(_page,_list);
+    }
+
+    public static void tryCalculate(AnalyzedPageEl _page, CustList<ReachMethodOperation> list_) {
         int ind_ = 0;
         int len_ = list_.size();
         while (ind_ < len_) {
@@ -84,9 +92,14 @@ public final class ReachOperationUtil {
             ind_ = getNextIndex(curr_, a_.getStruct());
         }
     }
-    private static CustList<ReachMethodOperation> getExecutableNodes(CustList<OperationNode> _list) {
-        CustList<ReachMethodOperation> out_ = new CustList<ReachMethodOperation>();
+
+    public static CustList<ReachMethodOperation> getExecutableNodes(CustList<OperationNode> _list) {
         OperationNode root_ = _list.last();
+        return getExecutableNodes(root_);
+    }
+
+    private static CustList<ReachMethodOperation> getExecutableNodes(OperationNode root_) {
+        CustList<ReachMethodOperation> out_ = new CustList<ReachMethodOperation>();
         OperationNode current_ = root_;
         ReachMethodOperation exp_ = ReachOperationNode.creatReachOperationNode(current_);
         while (current_ != null) {
@@ -126,6 +139,7 @@ public final class ReachOperationUtil {
         }
         return out_;
     }
+
     private static void processDot(ReachOperationNode _next, ReachOperationNode _current, ReachMethodOperation _par) {
         if (!(_next instanceof ReachPossibleIntermediateDotted)) {
             return;

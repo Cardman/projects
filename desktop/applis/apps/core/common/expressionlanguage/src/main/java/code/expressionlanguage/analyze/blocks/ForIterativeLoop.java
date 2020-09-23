@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -19,7 +18,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -156,6 +154,14 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         return eq;
     }
 
+    public String getImportedClassName() {
+        return importedClassName;
+    }
+
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
+    }
+
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         boolean res_ = processVariableNames(_page);
@@ -164,22 +170,22 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
-        rootInit = _page.getCurrentRoot();
-        ExecOperationNode initEl_ = init_.last();
-        checkType(cl_, initEl_, initOffset, rootInit, _page);
+        rootInit = ElUtil.getRootAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
+//        rootInit = _page.getCurrentRoot();
+//        ExecOperationNode initEl_ = init_.last();
+        checkType(cl_, initOffset, rootInit, _page);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-        rootExp = _page.getCurrentRoot();
-        ExecOperationNode expressionEl_ = exp_.last();
-        checkType(cl_, expressionEl_, expressionOffset, rootExp, _page);
+        rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+//        rootExp = _page.getCurrentRoot();
+//        ExecOperationNode expressionEl_ = exp_.last();
+        checkType(cl_, expressionOffset, rootExp, _page);
         _page.setGlobalOffset(stepOffset);
         _page.setOffset(0);
-        CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
-        rootStep = _page.getCurrentRoot();
-        ExecOperationNode stepEl_ = step_.last();
-        checkType(cl_, stepEl_, stepOffset, rootStep, _page);
+        rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
+//        rootStep = _page.getCurrentRoot();
+//        ExecOperationNode stepEl_ = step_.last();
+        checkType(cl_, stepOffset, rootStep, _page);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffset);
@@ -191,17 +197,17 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             lInfo_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableName, lInfo_);
         }
-        _page.getCoverage().putBlockOperationsLoops(this);
-        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
-                importedClassIndexName,variableName,variableNameOffset, initOffset,
-                expressionOffset, stepOffset,eq,init_,exp_,step_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        _page.getCoverage().putBlockOperationsLoops(this);
+//        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
+//                importedClassIndexName,variableName,variableNameOffset, initOffset,
+//                expressionOffset, stepOffset,eq,init_,exp_,step_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkType(String _elementClass, ExecOperationNode _stepEl, int _offset, OperationNode _root, AnalyzedPageEl _page) {
+    private void checkType(String _elementClass, int _offset, OperationNode _root, AnalyzedPageEl _page) {
         Mapping m_ = new Mapping();
         AnaClassArgumentMatching arg_ = _root.getResultClass();
         m_.setArg(arg_);
@@ -226,7 +232,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 getErrorsBlock().add(cast_.getBuiltError());
             }
         }
-        ElUtil.setImplicits(_stepEl, _page, _root);
+//        ElUtil.setImplicits(_stepEl, _page, _root);
     }
 
     private boolean processVariableNames(AnalyzedPageEl _page) {
@@ -276,13 +282,6 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         return true;
     }
 
-
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        if (!_anEl.isReachable(this)) {
-            _anEl.completeAbruptGroup(this);
-        }
-    }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {

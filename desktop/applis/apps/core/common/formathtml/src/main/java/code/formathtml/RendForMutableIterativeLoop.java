@@ -164,7 +164,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
-            OperationNode root_ = _page.getCurrentRoot();
+            OperationNode root_ = _anaDoc.getCurrentRoot();
             AnaClassArgumentMatching exp_ = root_.getResultClass();
             if (!exp_.isBoolType(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);

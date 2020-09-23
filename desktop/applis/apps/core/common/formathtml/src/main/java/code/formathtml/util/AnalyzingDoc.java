@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.RendBlock;
 import code.formathtml.RendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -19,6 +20,7 @@ public final class AnalyzingDoc {
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
 
     private int nextIndex;
+    private OperationNode currentRoot;
 
     public String getLocationFile(String _fileName, int _sum) {
         return StringList.concat(Integer.toString(_sum));
@@ -135,5 +137,13 @@ public final class AnalyzingDoc {
 
     public void setRendAnalysisMessages(RendAnalysisMessages rendAnalysisMessages) {
         this.rendAnalysisMessages = rendAnalysisMessages;
+    }
+
+    public OperationNode getCurrentRoot() {
+        return currentRoot;
+    }
+
+    public void setCurrentRoot(OperationNode currentRoot) {
+        this.currentRoot = currentRoot;
     }
 }

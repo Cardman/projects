@@ -3107,7 +3107,6 @@ public final class ClassesUtil {
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ReachOperationUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
-//                ElUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
                 StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
                 value_ = Classes.getStaticField(k_, staticFields_);
                 if (value_ != null) {

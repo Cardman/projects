@@ -79,7 +79,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
-                m_.setArg(_page.getCurrentRoot().getResultClass());
+                m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -109,7 +109,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(_page.getCurrentRoot().getResultClass());
+            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
             m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

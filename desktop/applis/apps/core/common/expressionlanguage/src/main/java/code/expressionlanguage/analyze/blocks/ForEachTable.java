@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecForEachTable;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -21,7 +20,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -122,38 +120,38 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MethodAccessKind static_ = processVarTypes(_page);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-        root = _page.getCurrentRoot();
-        ExecOperationNode l_ = op_.last();
-        argument = l_.getArgument();
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+//        root = _page.getCurrentRoot();
+//        ExecOperationNode l_ = op_.last();
+//        argument = l_.getArgument();
         checkMatchs(root.getResultClass(), _page);
         processVariables(_page);
-        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, importedClassNameFirst,
-                importedClassNameSecond,
-                importedClassIndexName,variableNameFirst,
-                variableNameSecond, expressionOffset,op_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, importedClassNameFirst,
+//                importedClassNameSecond,
+//                importedClassIndexName,variableNameFirst,
+//                variableNameSecond, expressionOffset,op_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
 
     }
 
     private void checkMatchs(AnaClassArgumentMatching _el, AnalyzedPageEl _page) {
-        if (Argument.isNullValue(argument)) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-            static_.setIndexFile(_page.getTraceIndex());
-            //separator char
-            static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
-            _page.addLocError(static_);
-            sepErrors.add(static_.getBuiltError());
-        } else {
+//        if (Argument.isNullValue(argument)) {
+//            FoundErrorInterpret static_ = new FoundErrorInterpret();
+//            static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+//            static_.setIndexFile(_page.getTraceIndex());
+//            //separator char
+//            static_.buildError(_page.getAnalysisMessages().getNullValue(),
+//                    _page.getStandards().getAliasNullPe());
+//            _page.addLocError(static_);
+//            sepErrors.add(static_.getBuiltError());
+//        } else {
             StringList names_ = _el.getNames();
             StringList out_ = getCustomType(names_, _page);
             checkIterableCandidates(out_, _page);
-        }
+//        }
     }
     private StringList getCustomType(StringList _names, AnalyzedPageEl _page) {
         LgNames stds_ = _page.getStandards();
@@ -224,7 +222,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        _page.getCoverage().putBlockOperationsLoops(this);
+//        _page.getCoverage().putBlockOperationsLoops(this);
         return static_;
     }
 
@@ -400,11 +398,8 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         return importedClassNameSecond;
     }
 
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        if (!_anEl.isReachable(this)) {
-            _anEl.completeAbruptGroup(this);
-        }
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
     }
 
     @Override

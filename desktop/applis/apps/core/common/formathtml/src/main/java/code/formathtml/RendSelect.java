@@ -117,7 +117,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     Configuration.addError(badEl_, _anaDoc, _page);
                 }
                 Mapping m_ = new Mapping();
-                m_.setArg(_page.getCurrentRoot().getResultClass());
+                m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -156,7 +156,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
-                m_.setArg(_page.getCurrentRoot().getResultClass());
+                m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -182,7 +182,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
-                m_.setArg(_page.getCurrentRoot().getResultClass());
+                m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -212,7 +212,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(_page.getCurrentRoot().getResultClass());
+            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
             m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -241,7 +241,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(_page.getCurrentRoot().getResultClass());
+            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
             m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -268,7 +268,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvert());
             opsDefault = RenderExpUtil.getAnalyzedOperations(concat_, 0, _anaDoc, _page);
             Mapping m_ = new Mapping();
-            m_.setArg(_page.getCurrentRoot().getResultClass());
+            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
             if (!multiple) {
                 m_.setParam(_page.getStandards().getAliasCharSequence());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {

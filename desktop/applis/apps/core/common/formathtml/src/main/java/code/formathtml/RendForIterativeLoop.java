@@ -183,7 +183,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
 
     private static void checkResult(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, String _result, RendDynOperationNode _exec, int _offset) {
         Mapping m_ = new Mapping();
-        OperationNode root_ = _page.getCurrentRoot();
+        OperationNode root_ = _anaDoc.getCurrentRoot();
         AnaClassArgumentMatching resCl_ = root_.getResultClass();
         m_.setArg(resCl_);
         m_.setParam(_result);

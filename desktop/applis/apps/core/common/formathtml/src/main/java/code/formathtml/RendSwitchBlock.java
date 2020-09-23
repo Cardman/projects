@@ -59,8 +59,8 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
         opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
-        result = _page.getCurrentRoot().getResultClass();
-        AnaClassArgumentMatching clArg_ = _page.getCurrentRoot().getResultClass();
+        result = _anaDoc.getCurrentRoot().getResultClass();
+        AnaClassArgumentMatching clArg_ = _anaDoc.getCurrentRoot().getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

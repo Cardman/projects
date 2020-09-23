@@ -1692,9 +1692,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  <a title=\"The code is unreachable in the function method()\n" +
+                "  <a title=\"The $elseif block must be preceded by one of the blocks $if|$elseif.\n" +
                 "\n" +
-                "The $elseif block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$elseif</a> ($true){\n" +
+                "The code is unreachable in the function method()\" class=\"e\">$elseif</a> ($true){\n" +
                 "  }\n" +
                 "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
                 " }\n" +
@@ -1716,9 +1716,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  $else <a title=\"The code is unreachable in the function method()\n" +
+                "  $else <a title=\"The $elseif block must be preceded by one of the blocks $if|$elseif.\n" +
                 "\n" +
-                "The $elseif block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$if</a> ($true){\n" +
+                "The code is unreachable in the function method()\" class=\"e\">$if</a> ($true){\n" +
                 "  }\n" +
                 "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
                 " }\n" +
@@ -1740,9 +1740,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  <a title=\"The code is unreachable in the function method()\n" +
+                "  <a title=\"The $else block must be preceded by one of the blocks $if|$elseif.\n" +
                 "\n" +
-                "The $else block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$else</a> {\n" +
+                "The code is unreachable in the function method()\" class=\"e\">$else</a> {\n" +
                 "  }\n" +
                 "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
                 " }\n" +
@@ -5362,7 +5362,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
-                "  $for($int <a name=\"m44\">i</a>,$int <a name=\"m51\">j</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>$null){\n" +
+                "  $for($int <a name=\"m44\">i</a>,$int <a name=\"m51\">j</a><a title=\"The type java.lang.Object cannot be implicitly cast to java.lang.$iterableTable\n" +
+                "\n" +
+                "The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>$null){\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +

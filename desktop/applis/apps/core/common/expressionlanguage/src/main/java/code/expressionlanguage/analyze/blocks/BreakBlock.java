@@ -1,11 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecBreakBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.util.IdList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class BreakBlock extends AbruptBlock {
@@ -32,10 +29,10 @@ public final class BreakBlock extends AbruptBlock {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         checkBreakable(_page);
-        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkBreakable(AnalyzedPageEl _page) {
@@ -109,46 +106,6 @@ public final class BreakBlock extends AbruptBlock {
                 errorsRefLabels.add(un_.getBuiltError());
             }
         }
-    }
-
-    @Override
-    public void abrupt(AnalyzingEl _anEl) {
-        super.abrupt(_anEl);
-        boolean childOfBreakable_ = false;
-        BracedBlock b_ = getParent();
-        while (b_ != null) {
-            if (b_ instanceof BreakableBlock) {
-                if (label.isEmpty()) {
-                    if (b_ instanceof Loop || b_ instanceof SwitchBlock) {
-                        childOfBreakable_ = true;
-                        break;
-                    }
-                } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
-                        childOfBreakable_ = true;
-                        break;
-                    }
-                }
-            }
-            b_ = b_.getParent();
-        }
-        if (!childOfBreakable_) { 
-            return;
-        }
-        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getBreakablesAncestors();
-        BracedBlock par_ = getParent();
-        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-        BracedBlock a_ = b_;
-        while (par_ != a_) {
-            pars_.add(par_);
-            par_ = par_.getParent();
-        }
-        IdMap<BreakableBlock, IdList<BracedBlock>> id_;
-        id_ = new IdMap<BreakableBlock, IdList<BracedBlock>>();
-        id_.put((BreakableBlock) a_, pars_);
-        breakablesAncestors_.put(this, id_);
-        breakables_.put(this, (BreakableBlock) a_);
     }
 
     public int getLabelOffsetRef() {

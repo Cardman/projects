@@ -13,9 +13,6 @@ public abstract class InitBlock extends MemberCallingsBlock {
         super(_offset);
     }
 
-    @Override
-    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-    }
     public String getSignature(AnalyzedPageEl _page) {
         return getId().getSignature(_page);
     }

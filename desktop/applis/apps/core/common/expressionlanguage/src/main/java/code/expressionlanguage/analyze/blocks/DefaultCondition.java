@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.exec.blocks.ExecDefaultCondition;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecInstanceDefaultCondition;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 
@@ -28,16 +26,10 @@ public final class DefaultCondition extends SwitchPartBlock {
     }
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        if (checkDefault(_page)){
-            ExecDefaultCondition exec_ = new ExecDefaultCondition(getOffset());
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,this);
-        }
+        checkDefault(_page);
     }
 
-    private boolean checkDefault(AnalyzedPageEl _page) {
+    private void checkDefault(AnalyzedPageEl _page) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)) {
             _page.setGlobalOffset(getOffset().getOffsetTrim());
@@ -53,9 +45,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
-            return true;
         } else {
-            _page.getCoverage().putBlockOperationsSwitchs(b_,this);
             SwitchBlock s_ = (SwitchBlock) b_;
             String instanceTest_ = s_.getInstanceTest();
             if (instanceTest_.isEmpty()) {
@@ -76,7 +66,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                     }
                     first_ = first_.getNextSibling();
                 }
-                return true;
+                return;
             }
             instanceTest = instanceTest_;
             if (getNextSibling() != null){
@@ -104,19 +94,13 @@ public final class DefaultCondition extends SwitchPartBlock {
                     setReachableError(true);
                     getErrorsBlock().add(d_.getBuiltError());
                 }
-                return true;
+                return;
             }
-            ExecInstanceDefaultCondition exec_ = new ExecInstanceDefaultCondition(getOffset(),variableName, instanceTest_,variableOffset);
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _page.getCoverage().putBlockOperations(exec_,this);
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(instanceTest_);
             lv_.setRef(variableOffset);
             lv_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableName, lv_);
-            return false;
         }
     }
 

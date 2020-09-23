@@ -35,16 +35,16 @@ public final class Throwing extends AbruptBlock {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setOffset(0);
         _page.setGlobalOffset(expressionOffset);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(f_.getStaticContext()), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        root = _page.getCurrentRoot();
-        ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        root = _page.getCurrentRoot();
+//        ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     public OperationNode getRoot() {

@@ -320,9 +320,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "   <a href=\"#m93\">i</a>++;\n" +
                 "  }\n" +
                 "  return <a href=\"#m77\">res</a>;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\n" +
+                "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
-                "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
+                "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -398,9 +398,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "   <a href=\"#m77\">res</a>+=<a href=\"#m98\">i</a>+<span class=\"s\">\",\"</span>;\n" +
                 "  }\n" +
                 "  return <a href=\"#m77\">res</a>;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\n" +
+                "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
-                "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
+                "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -514,9 +514,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "   <a href=\"#m77\">res</a>+=<a href=\"#m105\">y</a>+<span class=\"s\">\",\"</span>+<a href=\"#m98\">i</a>+<span class=\"s\">\";\"</span>;\n" +
                 "  }\n" +
                 "  return <a href=\"#m77\">res</a>;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\n" +
+                "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
-                "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
+                "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

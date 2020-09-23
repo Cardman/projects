@@ -150,29 +150,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return MethodAccessKind.INSTANCE;
     }
 
-    @Override
-    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        checkReturnFctOverridable(_anEl, _page);
-    }
-
-    private void checkReturnFctOverridable(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
-            if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
-                //error
-                FoundErrorInterpret miss_ = new FoundErrorInterpret();
-                miss_.setIndexFile(getOffset().getOffsetTrim());
-                miss_.setFileName(getFile().getFileName());
-                //return type len
-                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
-                        _page.getKeyWords().getKeyWordThrow(),
-                        _page.getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_page));
-                _page.addLocError(miss_);
-                addNameErrors(miss_);
-            }
-        }
-    }
     public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
         int indexDefOv_ = definition.indexOf('(');
         _page.setGlobalOffset(definitionOffset+indexDefOv_+1);

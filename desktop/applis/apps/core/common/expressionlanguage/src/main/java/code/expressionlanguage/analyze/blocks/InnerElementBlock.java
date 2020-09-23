@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -126,10 +127,11 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _page.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page));
-        root = _page.getCurrentRoot();
+        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
+//        root = _page.getCurrentRoot();
         _page.setTranslatedOffset(0);
     }
 

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
@@ -179,8 +180,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
-            roots.add(_page.getCurrentRoot());
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_, _page));
+            roots.add(r_);
         }
         _ex.getAnnotationsOps().clear();
         _ex.getAnnotationsOps().addAllElts(ops_);

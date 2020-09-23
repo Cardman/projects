@@ -8,9 +8,4 @@ public abstract class AbruptBlock extends Leaf implements BuildableElMethod {
         super(_offset);
     }
 
-    @Override
-    public void abrupt(AnalyzingEl _anEl) {
-        _anEl.completeAbruptGroup(this);
-    }
-
 }

@@ -4,38 +4,45 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.reach.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.util.*;
 
 public final class AnalyzingEl {
-    private IdMap<BracedBlock,ExecBracedBlock> mappingBracedMembers = new IdMap<BracedBlock,ExecBracedBlock>();
+    private IdMap<ReachBracedBlock,ExecBracedBlock> reachMappingBracedMembers = new IdMap<ReachBracedBlock,ExecBracedBlock>();
     private BlocksFlags canCompleteNormally = new BlocksFlags();
     private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
     private BlocksFlags reachable = new BlocksFlags();
     private BlocksLabels labelsMapping = new BlocksLabels();
-    private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
-    private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
-    private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
-    private IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors = new IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>>();
-    private IdMap<ReturnMethod, Eval> returnables = new IdMap<ReturnMethod, Eval>();
-    private IdMap<ReturnMethod, MemberCallingsBlock> returnablesCallings = new IdMap<ReturnMethod, MemberCallingsBlock>();
-    private IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> returnablesAncestors = new IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>>();
-    private IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> returnablesAncestorsCallings = new IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>>();
-    private CustList<BracedBlock> parents = new CustList<BracedBlock>();
+    private IdMap<ReachBreakBlock, ReachBreakableBlock> reachBreakables = new IdMap<ReachBreakBlock, ReachBreakableBlock>();
+    private IdMap<ReachContinueBlock, ReachLoop> reachContinuables = new IdMap<ReachContinueBlock, ReachLoop>();
     private StringList labels = new StringList();
-    private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
-    private CustList<Loop> parentsContinuables = new CustList<Loop>();
-    private CustList<Eval> parentsReturnables = new CustList<Eval>();
     private Mapping mapping;
-    private MemberCallingsBlock root;
     private boolean variableIssue;
 
     public AnalyzingEl(Mapping _mapping) {
         mapping = _mapping;
     }
 
+    public boolean isReachable(ReachBlock _reach) {
+        return isReachable(getOrNull(_reach));
+    }
+
+    public boolean canCompleteNormally(ReachBlock _reach) {
+        return canCompleteNormally(getOrNull(_reach));
+    }
+
+    public boolean canCompleteNormallyGroup(ReachBlock _reach) {
+        return canCompleteNormallyGroup(getOrNull(_reach));
+    }
+    private static Block getOrNull(ReachBlock _reach) {
+        if (_reach == null) {
+            return null;
+        }
+        return _reach.getInfo();
+    }
     public boolean isReachable(Block _reach) {
         return reachable.getVal(_reach);
     }
@@ -56,6 +63,18 @@ public final class AnalyzingEl {
         return canCompleteNormallyGroup;
     }
 
+    public void reach(ReachBlock _reach) {
+        reach(_reach.getInfo());
+    }
+
+    public void putLabel(ReachBlock _reach) {
+        putLabel(_reach.getInfo());
+    }
+
+    public void putLabel(ReachBlock _reach, String _label) {
+        putLabel(_reach.getInfo(),_label);
+    }
+
     public void reach(Block _reach) {
         reachable.put(_reach, true);
         canCompleteNormally.put(_reach, true);
@@ -72,6 +91,17 @@ public final class AnalyzingEl {
 
     public BlocksLabels getLabelsMapping() {
         return labelsMapping;
+    }
+
+    public void completeAbruptGroup(ReachBlock _reach) {
+        completeAbruptGroup(_reach.getInfo());
+    }
+    public void completeAbrupt(ReachBlock _reach) {
+        completeAbrupt(_reach.getInfo());
+    }
+
+    public void unreach(ReachBlock _reach) {
+        unreach(_reach.getInfo());
     }
 
     public void completeAbruptGroup(Block _reach) {
@@ -97,68 +127,20 @@ public final class AnalyzingEl {
         return AnaTemplates.isCorrectOrNumbers(mapping, _page);
     }
 
-    public IdMap<BreakBlock, BreakableBlock> getBreakables() {
-        return breakables;
-    }
-
-    public IdMap<ContinueBlock, Loop> getContinuables() {
-        return continuables;
-    }
-
-    public IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> getBreakablesAncestors() {
-        return breakablesAncestors;
-    }
-
-    public IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> getContinuablesAncestors() {
-        return continuablesAncestors;
-    }
-
-    public CustList<BracedBlock> getParents() {
-        return parents;
-    }
-
     public StringList getLabels() {
         return labels;
     }
 
-    public CustList<BreakableBlock> getParentsBreakables() {
-        return parentsBreakables;
+    public IdMap<ReachBreakBlock, ReachBreakableBlock> getReachBreakables() {
+        return reachBreakables;
     }
 
-    public CustList<Loop> getParentsContinuables() {
-        return parentsContinuables;
+    public IdMap<ReachContinueBlock, ReachLoop> getReachContinuables() {
+        return reachContinuables;
     }
 
-    public CustList<Eval> getParentsReturnables() {
-        return parentsReturnables;
-    }
-
-    public IdMap<ReturnMethod, Eval> getReturnables() {
-        return returnables;
-    }
-
-    public IdMap<ReturnMethod, MemberCallingsBlock> getReturnablesCallings() {
-        return returnablesCallings;
-    }
-
-    public IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> getReturnablesAncestors() {
-        return returnablesAncestors;
-    }
-
-    public IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> getReturnablesAncestorsCallings() {
-        return returnablesAncestorsCallings;
-    }
-
-    public MemberCallingsBlock getRoot() {
-        return root;
-    }
-
-    public void setRoot(MemberCallingsBlock _root) {
-        root = _root;
-    }
-
-    public IdMap<BracedBlock, ExecBracedBlock> getMappingBracedMembers() {
-        return mappingBracedMembers;
+    public IdMap<ReachBracedBlock, ExecBracedBlock> getReachMappingBracedMembers() {
+        return reachMappingBracedMembers;
     }
 
     public boolean isVariableIssue() {

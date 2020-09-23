@@ -47,23 +47,12 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setGlobalOffset(conditionOffset);
         _page.setOffset(0);
-        CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(condition, Calculation.staticCalculation(f_.getStaticContext()), _page);
         err = _page.getCurrentEmptyPartErr();
-        root = _page.getCurrentRoot();
-        ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperationsConditions(this);
-        _page.getCoverage().putBlockOperations(exec_,this);
-        ExecOperationNode last_ = opCondition_.last();
-        processBoolean(last_, root, _page);
-        argument = last_.getArgument();
+        processBoolean(root, _page);
     }
 
-    protected abstract ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops);
-
-    private void processBoolean(ExecOperationNode _elCondition, OperationNode _root, AnalyzedPageEl _page) {
+    private void processBoolean(OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching resultClass_ = _root.getResultClass();
         if (!resultClass_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), resultClass_, _page);
@@ -94,12 +83,15 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
             }
         }
         resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        ElUtil.setImplicits(_elCondition, _page, _root);
     }
 
 
     public Argument getArgument() {
         return argument;
+    }
+
+    public void setArgument(Argument argument) {
+        this.argument = argument;
     }
 
     public final String getCondition() {

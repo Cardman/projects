@@ -1,11 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecContinueBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.util.IdList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class ContinueBlock extends AbruptBlock {
@@ -32,10 +29,10 @@ public final class ContinueBlock extends AbruptBlock {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         checkLoop(_page);
-        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkLoop(AnalyzedPageEl _page) {
@@ -97,43 +94,6 @@ public final class ContinueBlock extends AbruptBlock {
                 errorsRefLabels.add(un_.getBuiltError());
             }
         }
-    }
-
-    @Override
-    public void abrupt(AnalyzingEl _anEl) {
-        super.abrupt(_anEl);
-        boolean childOfLoop_ = false;
-        BracedBlock b_ = getParent();
-        while (b_ != null) {
-            if (b_ instanceof Loop) {
-                if (label.isEmpty()) {
-                    childOfLoop_ = true;
-                    break;
-                }
-                if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
-                    childOfLoop_ = true;
-                    break;
-                }
-            }
-            b_ = b_.getParent();
-        }
-        if (!childOfLoop_) {
-            return;
-        }
-        IdMap<ContinueBlock, Loop> continuables_ = _anEl.getContinuables();
-        IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors_ = _anEl.getContinuablesAncestors();
-        BracedBlock par_ = getParent();
-        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-        BracedBlock a_ = b_;
-        while (par_ != a_) {
-            pars_.add(par_);
-            par_ = par_.getParent();
-        }
-        IdMap<Loop, IdList<BracedBlock>> id_;
-        id_ = new IdMap<Loop, IdList<BracedBlock>>();
-        id_.put((Loop) a_, pars_);
-        continuablesAncestors_.put(this, id_);
-        continuables_.put(this, (Loop) a_);
     }
 
     public int getLabelOffsetRef() {

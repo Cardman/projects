@@ -5,8 +5,8 @@ import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.structs.NullStruct;
 
-public final class ReachStaticFctStd extends ReachStdFctOption {
-    ReachStaticFctStd(AbstractCallFctOperation _meta, OperationNode _info) {
+public final class ReachStaticFctStdOperation extends ReachStdFctOption {
+    ReachStaticFctStdOperation(AbstractCallFctOperation _meta, OperationNode _info) {
         super(_meta,_info);
     }
 

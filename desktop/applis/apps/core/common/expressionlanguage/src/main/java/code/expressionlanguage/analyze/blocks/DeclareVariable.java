@@ -52,11 +52,11 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         processVariable(_page);
-        ExecDeclareVariable exec_ = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
-        _page.setExecDeclareVariable(exec_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecDeclareVariable exec_ = new ExecDeclareVariable(getOffset(), importedClassName,variableNames);
+//        _page.setExecDeclareVariable(exec_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void processVariable(AnalyzedPageEl _page) {

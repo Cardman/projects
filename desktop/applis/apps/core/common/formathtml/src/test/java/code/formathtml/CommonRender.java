@@ -202,7 +202,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
-        return RenderExpUtil.getExecutableNodes(_ops, _an.getAnalyzing());
+        return RenderExpUtil.getExecutableNodes(_ops, _an.getAnalyzing(), new AnalyzingDoc());
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String el_, AnalyzedTestConfiguration ctx_, Delimiters d_) {
@@ -1357,7 +1357,7 @@ public abstract class CommonRender {
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName(className);
-        b2_.setResolvedClassName(a_.getAnalyzing().getCurrentRoot().getResultClass().getSingleNameOrEmpty());
+        b2_.setResolvedClassName(analyzingDoc_.getCurrentRoot().getResultClass().getSingleNameOrEmpty());
         a_.getConfiguration().getBeansInfos().addEntry(bean_two, b2_);
         return ops2_;
     }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecFinallyEval;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.*;
@@ -34,11 +33,11 @@ public final class FinallyEval extends BracedBlock implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
@@ -65,63 +64,5 @@ public final class FinallyEval extends BracedBlock implements Eval {
         }
     }
 
-
-    @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            if (p_ == null) {
-                break;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        if (p_ == null) {
-            _anEl.reach(this);
-            return;
-        }
-        if (_anEl.isReachable(p_)) {
-            _anEl.reach(this);
-        } else {
-            _anEl.unreach(this);
-        }
-    }
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        CustList<Block> group_ = getTryBlocks();
-        if (!_anEl.canCompleteNormally(this)) {
-            for (Block b: group_) {
-                _anEl.completeAbruptGroup(b);
-            }
-            _anEl.completeAbruptGroup(this);
-            return;
-        }
-        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        boolean existBreak_ = false;
-        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-            if (b.getValue() == this) {
-                if (_anEl.isReachable(b.getKey())) {
-                    existBreak_ = true;
-                }
-            }
-        }
-        if (existBreak_) {
-            //because break instructions cancel all abrupt instructions in the previous blocks
-            //there exists a break instruction that break the try statement
-            return;
-        }
-        boolean canCmpNormally_ = false;
-        for (Block b: group_) {
-            if (_anEl.canCompleteNormally(b)) {
-                canCmpNormally_ = true;
-                break;
-            }
-        }
-        if (!canCmpNormally_) {
-            for (Block b: group_) {
-                _anEl.completeAbruptGroup(b);
-            }
-            _anEl.completeAbruptGroup(this);
-        }
-    }
 
 }

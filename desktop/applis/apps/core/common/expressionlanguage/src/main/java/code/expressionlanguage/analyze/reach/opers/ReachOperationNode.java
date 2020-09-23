@@ -180,7 +180,7 @@ public abstract class ReachOperationNode {
                         if (!f_.isStaticMethod()) {
                             return new ReachInstanceFctStdOperation(f_, _oper);
                         }
-                        return new ReachStaticFctStd(f_,_oper);
+                        return new ReachStaticFctStdOperation(f_,_oper);
                     }
                     if (!f_.isStaticMethod()) {
                         return new ReachIntermStdOperation(_oper, int_);

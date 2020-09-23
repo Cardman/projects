@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.util.CustList;
 import code.util.StringList;
 
 public abstract class AbstractCatchEval extends BracedBlock implements Eval {
@@ -34,28 +33,6 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
     }
 
     @Override
-    public final void abruptGroup(AnalyzingEl _anEl) {
-        if (canBeIncrementedCurGroup()) {
-            return;
-        }
-        CustList<Block> group_ = new CustList<Block>();
-        group_.add(this);
-        group_.addAllElts(getTryBlocks());
-        boolean canCmpNormally_ = false;
-        for (Block b: group_) {
-            if (_anEl.canCompleteNormally(b)) {
-                canCmpNormally_ = true;
-                break;
-            }
-        }
-        if (!canCmpNormally_) {
-            for (Block b: group_) {
-                _anEl.completeAbruptGroup(b);
-            }
-        }
-    }
-
-    @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
@@ -77,11 +54,6 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
                 getErrorsBlock().add(un_.getBuiltError());
             }
         }
-    }
-
-    private boolean canBeIncrementedCurGroup() {
-        Block next_ = getNextSibling();
-        return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
     }
 
 

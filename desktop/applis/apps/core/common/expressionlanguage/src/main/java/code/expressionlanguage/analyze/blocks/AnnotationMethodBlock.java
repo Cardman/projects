@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
@@ -129,10 +130,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
         _page.setGlobalOffset(defaultValueOffset);
         _page.setOffset(0);
-        _page.getCoverage().putBlockOperationsField(_page, this);
-        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
-        root = _page.getCurrentRoot();
-        _exec.setOpValue(ops_);
+//        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
+//        root = _page.getCurrentRoot();
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
@@ -151,6 +151,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             _page.addLocError(cast_);
             addNameErrors(cast_);
         }
+        _page.getCoverage().putBlockOperationsField(_page, this);
+        CustList<ExecOperationNode> ops_ = ReachOperationUtil.tryCalculateAndSupply(root, _page);
+        _exec.setOpValue(ops_);
         if (AnaTypeUtil.isPrimitive(import_, _page)) {
             ops_.last().getResultClass().setUnwrapObject(import_, _page.getStandards());
         }

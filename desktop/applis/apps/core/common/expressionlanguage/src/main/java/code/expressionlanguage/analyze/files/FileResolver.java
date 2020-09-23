@@ -2681,18 +2681,19 @@ public final class FileResolver {
             int nextEltMut_ = getIndex(exp_, END_LINE);
             if (nextEltMut_ > -1) {
                 String init_ = exp_.substring(0, nextEltMut_);
-                initOff_ += StringList.getFirstPrintableCharIndex(init_);
-                exp_ = exp_.substring(init_.length()+1);
-                int toOff_ = initOff_ + nextEltMut_;
+                int off_ = StringExpUtil.getOffset(init_);
+                initOff_ += off_;
+                exp_ = exp_.substring(nextEltMut_+1);
+                int toOff_ = initOff_ -off_+ nextEltMut_+1;
                 int nextElt_ = getIndex(exp_, END_LINE);
                 if (nextElt_ > -1) {
                     String to_ = exp_.substring(0, nextElt_);
-                    int expOff_ = toOff_ + nextElt_;
-                    toOff_ += StringList.getFirstPrintableCharIndex(to_);
-                    int stepOff_ = expOff_ + 1;
+                    int offTwo_ = StringExpUtil.getOffset(to_);
+                    toOff_ += offTwo_;
+                    int stepOff_ = toOff_ - offTwo_ + nextElt_+1;
                     exp_ = exp_.substring(nextElt_ + 1);
                     String step_ = exp_;
-                    stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+                    stepOff_ += StringExpUtil.getOffset(step_);
                     label_ = label_.substring(lastPar_ + 1);
                     labelOff_ += getLabelOffset(label_);
                     br_ = new ForMutableIterativeLoop(

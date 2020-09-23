@@ -14,21 +14,12 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
 
     private StringList variableNames;
 
-    private final String className;
-
     private String importedClassName;
 
-    private int classNameOffset;
-
-    private CustList<PartOffset> partOffsets;
-
-    public ExecDeclareVariable(OffsetsBlock _offset, String _className, int _classNameOffset,String _importedClassName,StringList _variableNames,CustList<PartOffset> _partOffsets) {
+    public ExecDeclareVariable(OffsetsBlock _offset, String _importedClassName, StringList _variableNames) {
         super(_offset);
-        className = _className;
         importedClassName = _importedClassName;
-        classNameOffset = _classNameOffset;
         variableNames = _variableNames;
-        partOffsets = _partOffsets;
     }
 
     @Override

@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecForEachLoop;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -21,7 +20,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
@@ -179,7 +177,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        page_.getCoverage().putBlockOperationsLoops(this);
+//        page_.getCoverage().putBlockOperationsLoops(this);
         return static_;
     }
 
@@ -225,33 +223,33 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MethodAccessKind static_ = processVarTypes(_page);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-        root = _page.getCurrentRoot();
-        ExecOperationNode l_ = op_.last();
-        argument = l_.getArgument();
+        root= ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+//        root = _page.getCurrentRoot();
+//        ExecOperationNode l_ = op_.last();
+//        argument = l_.getArgument();
         checkMatchs(root.getResultClass(), _page);
         if (okVar) {
             processVariable(_page);
         }
-        ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
-                importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
+//                importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkMatchs(AnaClassArgumentMatching _elt, AnalyzedPageEl _page) {
-        if (Argument.isNullValue(argument)) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-            static_.setIndexFile(_page.getTraceIndex());
-            //separator char
-            static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
-            _page.addLocError(static_);
-            sepErrors.add(static_.getBuiltError());
-        } else {
+//        if (Argument.isNullValue(argument)) {
+//            FoundErrorInterpret static_ = new FoundErrorInterpret();
+//            static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+//            static_.setIndexFile(_page.getTraceIndex());
+//            //separator char
+//            static_.buildError(_page.getAnalysisMessages().getNullValue(),
+//                    _page.getStandards().getAliasNullPe());
+//            _page.addLocError(static_);
+//            sepErrors.add(static_.getBuiltError());
+//        } else {
             if (_elt.isArray()) {
                 inferArrayClass(_elt, _page);
             } else {
@@ -259,7 +257,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                 StringList out_ = getInferredIterable(names_, _page);
                 checkIterableCandidates(out_, _page);
             }
-        }
+//        }
     }
 
     public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
@@ -330,18 +328,16 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     }
 
     @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        if (!_anEl.isReachable(this)) {
-            _anEl.completeAbruptGroup(this);
-        }
-    }
-
-    @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
         _ip.getLoopsVars().removeKey(variableName);
         _ip.getInfosVars().removeKey(variableName);
     }
+
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
+    }
+
     public OperationNode getRoot() {
         return root;
     }

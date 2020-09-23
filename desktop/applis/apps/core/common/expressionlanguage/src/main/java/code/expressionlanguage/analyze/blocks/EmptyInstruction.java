@@ -12,10 +12,10 @@ public final class EmptyInstruction extends Leaf implements BuildableElMethod {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -142,38 +143,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 page_.setGlobalOffset(begin_);
                 page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), c_, _page));
-                rootList_.add(page_.getCurrentRoot());
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(list_.get(i), c_, _page);
+                annotation_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+                rootList_.add(r_);
             }
             rootsList.add(rootList_);
             ops_.add(annotation_);
             j_++;
         }
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
-    }
-
-    @Override
-    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        checkReturnFct(_anEl, _page);
-    }
-
-    private void checkReturnFct(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
-            if (_anEl.canCompleteNormally(this)) {
-                //error
-                FoundErrorInterpret miss_ = new FoundErrorInterpret();
-                miss_.setIndexFile(getOffset().getOffsetTrim());
-                miss_.setFileName(getFile().getFileName());
-                //return type len
-                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
-                        _page.getKeyWords().getKeyWordThrow(),
-                        _page.getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_page));
-                _page.addLocError(miss_);
-                addNameErrors(miss_);
-            }
-        }
     }
 
     public Ints getParametersTypesOffset() {
@@ -296,8 +274,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
-            roots.add(_page.getCurrentRoot());
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+            roots.add(r_);
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

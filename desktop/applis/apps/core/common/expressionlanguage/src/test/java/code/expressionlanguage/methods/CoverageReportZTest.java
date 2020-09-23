@@ -226,7 +226,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "class <a name=\"m97\">pkg.Ext</a> {\n" +
                 " static int <span class=\"g\"><a name=\"m119\">extField</a></span>;\n" +
                 " static int <a name=\"m141\">m</a>(){\n" +
-                "  <span class=\"p\">if</span> (<span class=\"f\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m161\">{</a>\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m161\">{</a>\n" +
                 "   public int <span class=\"f\"><a name=\"m177\">subfield</a></span>;\n" +
                 "  }</span></span>)<a title=\"pkg.Int.static true(boolean,pkg.Int)\" href=\"#m49\">{</a>\n" +
                 "   return <span class=\"f\">1</span>;\n" +
@@ -274,7 +274,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "class <a name=\"m97\">pkg.Ext</a> {\n" +
                 " static int <span class=\"g\"><a name=\"m119\">extField</a></span>;\n" +
                 " static int <a name=\"m141\">m</a>(){\n" +
-                "  <span class=\"p\">if</span> (<span class=\"f\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m161\">{</a>\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m161\">{</a>\n" +
                 "   public int <span class=\"f\"><a name=\"m177\">subfield</a></span>;\n" +
                 "  }</span></span>)<a name=\"m191\">lab</a><a title=\"pkg.Int.static true(boolean,pkg.Int)\" href=\"#m49\">{</a>\n" +
                 "   return <span class=\"f\">1</span>;\n" +

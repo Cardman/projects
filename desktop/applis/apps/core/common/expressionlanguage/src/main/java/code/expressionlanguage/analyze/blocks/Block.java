@@ -87,25 +87,7 @@ public abstract class Block implements AnalyzedBlock {
         }
     }
 
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block prev_ = getPreviousSibling();
-        if (_anEl.canCompleteNormallyGroup(prev_)) {
-            _anEl.reach(this);
-        } else {
-            _anEl.unreach(this);
-        }
-    }
-
-    public boolean accessibleCondition() {
-        return true;
-    }
-
-    public boolean accessibleForNext() {
-        return true;
-    }
-
-    public abstract void abrupt(AnalyzingEl _anEl);
-   public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
+    public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
     protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, AnalyzedPageEl _page) {
         if (_block instanceof BuildableElMethod) {
@@ -117,11 +99,6 @@ public abstract class Block implements AnalyzedBlock {
 
     private static boolean processOther(Block _block, AnalyzedPageEl _page) {
         if (_block instanceof UnclassedBracedBlock) {
-            ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_block.getOffset());
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
-            _page.getCoverage().putBlockOperations(exec_,_block);
             return true;
         }
         if (_block instanceof RootBlock) {

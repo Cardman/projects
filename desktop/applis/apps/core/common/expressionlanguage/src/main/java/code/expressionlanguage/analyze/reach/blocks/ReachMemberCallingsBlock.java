@@ -1,0 +1,182 @@
+package code.expressionlanguage.analyze.reach.blocks;
+
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.ExecUnclassedBracedBlock;
+import code.util.StringList;
+import code.util.StringMap;
+
+public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implements FunctionBlock,ReturnableWithSignature {
+    protected ReachMemberCallingsBlock(Block _info) {
+        super(_info);
+    }
+
+    public static ReachMemberCallingsBlock newReachBlocks(MemberCallingsBlock _list) {
+        ReachMemberCallingsBlock m_ = ReachBlock.newReachBlock(_list);
+        if (_list.getFirstChild() == null) {
+            return m_;
+        }
+        Block c_ = _list;
+        ReachBlock ac_ = m_;
+        while (c_ != null) {
+            Block f_ = c_.getFirstChild();
+            if (!(c_ instanceof RootBlock)&&ac_ instanceof ReachBracedBlock&&f_ != null) {
+                ReachBlock af_ = ReachBlock.newReachBlock(f_);
+                ((ReachBracedBlock)ac_).appendChild(af_);
+                ac_ = af_;
+                c_ = f_;
+                continue;
+            }
+            while (true) {
+                Block n_ = c_.getNextSibling();
+                if (n_ != null) {
+                    ReachBlock af_ = ReachBlock.newReachBlock(n_);
+                    ReachBracedBlock par_ = ac_.getParent();
+                    par_.appendChild(af_);
+                    ac_ = af_;
+                    c_ = n_;
+                    break;
+                }
+                BracedBlock p_ = c_.getParent();
+                if (p_ == _list) {
+                    c_ = null;
+                    break;
+                }
+                c_ = p_;
+                ac_ = ac_.getParent();
+            }
+        }
+        return m_;
+    }
+
+    public final void buildFctInstructionsReadOnly(ExecMemberCallingsBlock _mem, AnalyzedPageEl _page, AnalyzingEl _anEl) {
+        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setOffset(0);
+        _page.setBlockToWrite(_mem);
+        ReachBlock firstChild_ = getFirstChild();
+        _page.setExecDeclareVariable(null);
+        _page.setMerged(false);
+        _page.setCurrentBlock(getInfo());
+        _anEl.getReachMappingBracedMembers().put(this,_mem);
+        _page.getCoverage().putBlockOperations(_mem,getInfo());
+        _page.setAnalysisAss(_anEl);
+        ReachBlock en_ = this;
+        if (firstChild_ == null) {
+            _anEl.reach(this);
+            abrupt(_anEl);
+            setAssignmentAfterCallReadOnly(_anEl, _page);
+            _page.getInfosVars().clear();
+            return;
+        }
+        while (true) {
+            _page.setCurrentBlock(en_.getInfo());
+            _page.setCurrentAnaBlock(en_.getInfo());
+            _anEl.putLabel(this);
+            _page.getCoverage().putBlockOperations(en_.getInfo());
+            if (en_ == this) {
+                _anEl.reach(this);
+            } else {
+                en_.reach(_anEl, _page);
+            }
+            processUnreachable(_anEl, en_, _page);
+            ReachBlock n_ = en_.getFirstChild();
+            addParent(_anEl, en_, n_);
+            boolean visit_ = true;
+            if (en_ != this) {
+                visit_ = tryBuildExpressionLanguageReadOnly(en_, _page);
+            }
+            if (visit_ && en_ instanceof ReachBracedBlock&& n_ != null) {
+                _page.setBlockToWrite(_anEl.getReachMappingBracedMembers().getVal((ReachBracedBlock) en_));
+            }
+            if (visit_ && n_ != null) {
+                en_ = n_;
+                continue;
+            }
+            if (visit_) {
+                en_.abrupt(_anEl);
+                abrupGroup(_anEl, en_);
+            }
+            while (true) {
+                n_ = en_.getNextSibling();
+                if (n_ != null) {
+                    en_ = n_;
+                    break;
+                }
+                ReachBracedBlock par_;
+                par_ = en_.getParent();
+                _page.setCurrentBlock(par_.getInfo());
+                _page.setCurrentAnaBlock(par_.getInfo());
+                par_.abrupt(_anEl);
+                par_.abruptGroup(_anEl);
+                if (par_ == this) {
+                    setAssignmentAfterCallReadOnly(_anEl, _page);
+                    _page.getInfosVars().clear();
+                    return;
+                }
+                _page.setBlockToWrite(_page.getBlockToWrite().getParent());
+                en_ = par_;
+            }
+        }
+    }
+
+    public abstract void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page);
+
+    protected static boolean tryBuildExpressionLanguageReadOnly(ReachBlock _block, AnalyzedPageEl _page) {
+        if (_block instanceof ReachBuildableElMethod) {
+            ((ReachBuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
+            return true;
+        }
+        return processOther(_block, _page);
+    }
+
+    private static boolean processOther(ReachBlock _block, AnalyzedPageEl _page) {
+        if (_block instanceof ReachUnclassedBracedBlock) {
+            ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_block.getOffset());
+            exec_.setFile(_page.getBlockToWrite().getFile());
+            _page.getBlockToWrite().appendChild(exec_);
+            _page.getAnalysisAss().getReachMappingBracedMembers().put((ReachBracedBlock) _block,exec_);
+            _page.getCoverage().putBlockOperations(exec_,_block.getInfo());
+            return true;
+        }
+        return false;
+    }
+
+    private static void abrupGroup(AnalyzingEl _anEl, ReachBlock _en) {
+        if (_en instanceof ReachBracedBlock) {
+            ((ReachBracedBlock) _en).abruptGroup(_anEl);
+        }
+    }
+
+    private static void addParent(AnalyzingEl _anEl, ReachBlock _en,
+                                  ReachBlock _n) {
+        if (_en instanceof ReachBracedBlock && _n != null) {
+            if (_en instanceof ReachBreakableBlock) {
+                _anEl.putLabel(_en,((ReachBreakableBlock)_en).getRealLabel());
+            }
+        }
+    }
+
+    private void processUnreachable(AnalyzingEl _anEl, ReachBlock _en, AnalyzedPageEl _page) {
+        if (!(_en instanceof ReachRootBlock)&&!_anEl.isReachable(_en)) {
+            //error
+            FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
+            deadCode_.setFileName(getFile().getFileName());
+            deadCode_.setIndexFile(_en.getOffset().getOffsetTrim());
+            //all header expression
+            deadCode_.buildError(_page.getAnalysisMessages().getDeadCode(),
+                    getPseudoSignature(_page));
+            _page.addLocError(deadCode_);
+            _en.getErrorsBlock().add(deadCode_.getBuiltError());
+            _en.setReachableError(true);
+        }
+    }
+
+    public String getPseudoSignature(AnalyzedPageEl _page) {
+        return getSignature(_page);
+    }
+
+}

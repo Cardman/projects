@@ -56,7 +56,7 @@ public final class RendRadio extends RendInput {
                 _page.getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(_page.getCurrentRoot().getResultClass());
+            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
             m_.setParam(_page.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
@@ -240,10 +241,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void buildExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
-        processPutCoverage(_exec, _page);
         _page.setIndexBlock(0);
-        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(staticField), _page));
-        root = _page.getCurrentRoot();
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(staticField), _page);
+        processPutCoverage(_exec, _page);
+        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
+//        root = _page.getCurrentRoot();
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         AnalyzedPageEl page_ = _page;
@@ -267,8 +269,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
-            roots.add(_page.getCurrentRoot());
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+            roots.add(r_);
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

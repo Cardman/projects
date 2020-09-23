@@ -99,12 +99,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
 
-    @Override
-    public void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        checkInterfaces(_page);
-    }
-
-    private void checkInterfaces(AnalyzedPageEl _page) {
+    public void checkInterfaces(AnalyzedPageEl _page) {
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
         StringList filteredCtor_ = _page.getNeedInterfaces();

@@ -88,7 +88,7 @@ public final class ResultText {
 //                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperationsDel(_expression, i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
-                opExpRoot.add(_page.getCurrentRoot());
+                opExpRoot.add(_anaDoc.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;
@@ -172,7 +172,7 @@ public final class ResultText {
 //                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperationsDel(_expression, i_, _anaDoc, _page);
                 opExp.add(opsLoc_);
-                opExpRoot.add(_page.getCurrentRoot());
+                opExpRoot.add(_anaDoc.getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;

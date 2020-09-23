@@ -142,7 +142,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
         }
         opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
         RendDynOperationNode op_ = opValue.last();
-        AnaClassArgumentMatching resCase_ = _page.getCurrentRoot().getResultClass();
+        AnaClassArgumentMatching resCase_ = _anaDoc.getCurrentRoot().getResultClass();
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

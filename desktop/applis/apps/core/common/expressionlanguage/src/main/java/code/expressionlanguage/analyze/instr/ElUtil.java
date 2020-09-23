@@ -1,13 +1,11 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -119,11 +117,10 @@ public final class ElUtil {
         _page.setAccessStaticContext(access_);
     }
 
-    public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static OperationNode getRootAnalyzedOperationsReadOnly(String _el, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentEmptyPartErr("");
-        _page.setCurrentRoot(null);
         Delimiters d_ = ElResolver.checkSyntax(_el, CustList.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
@@ -140,8 +137,7 @@ public final class ElUtil {
             String argClName_ = _page.getStandards().getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            _page.setCurrentRoot(e_);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_, _page));
+            return e_;
         }
         OperationNode op_;
         if (badOffset_ >= 0) {
@@ -156,9 +152,8 @@ public final class ElUtil {
         boolean hasFieldName_ = _calcul.isHasFieldName();
         setupStaticContext(hiddenVarTypes_, op_, _page);
         setSyntheticRoot(op_, hasFieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, fieldName_,hasFieldName_, _page);
-        ReachOperationUtil.tryCalculate(all_,_page);
-        return getExecutableNodes(all_, _page);
+        getSortedDescNodesReadOnly(op_, fieldName_,hasFieldName_, _page);
+        return op_;
     }
 
 
@@ -569,16 +564,14 @@ public final class ElUtil {
         return checkFinal_;
     }
 
-    private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list, AnalyzedPageEl _page) {
+    public static CustList<ExecOperationNode> getExecutableNodes(AnalyzedPageEl _page, OperationNode root_) {
         Block bl_ = _page.getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
-        OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_, _page);
         setImplicits(exp_, _page, current_);
         cancelUnwrap(exp_);
         cancelUnwrap(current_);
-        _page.setCurrentRoot(root_);
         _page.getCoverage().putBlockOperation(_page, bl_, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();

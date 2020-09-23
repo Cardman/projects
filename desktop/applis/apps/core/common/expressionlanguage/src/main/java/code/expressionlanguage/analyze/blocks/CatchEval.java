@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.exec.blocks.ExecCatchEval;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -53,12 +52,16 @@ public final class CatchEval extends AbstractCatchEval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        partOffsets.addAllElts(_page.getCurrentParts());
         processVariable(_page);
-        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName, importedClassName);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName, importedClassName);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void processVariable(AnalyzedPageEl _page) {
@@ -84,39 +87,6 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
-        StringList classes_ = new StringList();
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            if (p_ instanceof CatchEval) {
-                classes_.add(((CatchEval)p_).importedClassName);
-            }
-            if (p_ == null) {
-                break;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        _anEl.setArgMapping(importedClassName);
-        boolean reachCatch_ = true;
-        for (String c: classes_) {
-            _anEl.setParamMapping(c);
-            if (_anEl.isCorrectMapping(_page)) {
-                reachCatch_ = false;
-                break;
-            }
-        }
-        if (reachCatch_) {
-            _anEl.reach(this);
-        } else {
-            _anEl.unreach(this);
-        }
-    }
-
-    @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
         _ip.getInfosVars().removeKey(variableName);
@@ -128,5 +98,9 @@ public final class CatchEval extends AbstractCatchEval {
 
     public StringList getNameErrors() {
         return nameErrors;
+    }
+
+    public String getImportedClassName() {
+        return importedClassName;
     }
 }

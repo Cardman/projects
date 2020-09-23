@@ -397,7 +397,6 @@ public final class Configuration {
 
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
         _page.getMappingLocal().clear();
-        _page.setCurrentRoot(null);
         _page.setCurrentAnaBlock(null);
         _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
         _page.setHiddenTypes(new AdvancedHiddenTypes(_page));

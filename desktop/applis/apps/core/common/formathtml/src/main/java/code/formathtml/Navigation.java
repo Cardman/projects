@@ -143,7 +143,7 @@ public final class Navigation {
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
-            info_.setResolvedClassName(_page.getCurrentRoot().getResultClass().getSingleNameOrEmpty());
+            info_.setResolvedClassName(anaDoc_.getCurrentRoot().getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {

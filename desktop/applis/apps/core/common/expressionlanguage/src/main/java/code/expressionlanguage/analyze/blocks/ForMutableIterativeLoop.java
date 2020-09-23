@@ -4,7 +4,6 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -16,10 +15,8 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
@@ -172,29 +169,29 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setOffset(0);
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
-        CustList<ExecOperationNode> init_;
+//        CustList<ExecOperationNode> init_;
         if (init.trim().isEmpty()) {
-            init_ = new CustList<ExecOperationNode>();
+//            init_ = new CustList<ExecOperationNode>();
         } else {
-            init_ = ElUtil.getAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
-            rootInit = _page.getCurrentRoot();
+            rootInit = ElUtil.getRootAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
+//            rootInit = _page.getCurrentRoot();
         }
         addVars(_page);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         _page.setForLoopPartState(ForLoopPart.CONDITION);
-        CustList<ExecOperationNode> exp_;
+//        CustList<ExecOperationNode> exp_;
         if (expression.trim().isEmpty()) {
-            exp_ = new CustList<ExecOperationNode>();
+//            exp_ = new CustList<ExecOperationNode>();
             alwaysTrue = true;
         } else {
-            exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-            ExecOperationNode l_ = exp_.last();
-            argument = l_.getArgument();
-            checkBoolCondition(l_, _page.getCurrentRoot(), _page);
-            rootExp = _page.getCurrentRoot();
+            rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+//            ExecOperationNode l_ = exp_.last();
+//            argument = l_.getArgument();
+            checkBoolCondition(rootExp, _page);
+//            rootExp = _page.getCurrentRoot();
         }
-        _page.getCoverage().putBlockOperationsConditions(this);
+//        _page.getCoverage().putBlockOperationsConditions(this);
         MemberCallingsBlock f_1 = _page.getCurrentFct();
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
@@ -203,22 +200,22 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
         MethodAccessKind static_1 = f_1.getStaticContext();
-        CustList<ExecOperationNode> step_;
+//        CustList<ExecOperationNode> step_;
         if (step.trim().isEmpty()) {
-            step_ = new CustList<ExecOperationNode>();
+//            step_ = new CustList<ExecOperationNode>();
         } else {
-            step_ = ElUtil.getAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_1), _page);
-            rootStep = _page.getCurrentRoot();
+            rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_1), _page);
+//            rootStep = _page.getCurrentRoot();
         }
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
-        ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label, importedClassName, importedClassIndexName,
-                variableNames, initOffset, expressionOffset, stepOffset,
-                init_,exp_,step_);
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label, importedClassName, importedClassIndexName,
+//                variableNames, initOffset, expressionOffset, stepOffset,
+//                init_,exp_,step_);
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
 
     }
 
@@ -270,20 +267,15 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             page_.setMerged(false);
         }
     }
-    private void checkBoolCondition(ExecOperationNode _exp, OperationNode _root, AnalyzedPageEl _page) {
+    private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching exp_ = _root.getResultClass();
-        AnalyzedPageEl page_ = _page;
-        LgNames stds_ = page_.getStandards();
-        if (!exp_.isBoolType(page_)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(page_.getStandards().getAliasPrimBoolean(), exp_, _page);
+        if (!exp_.isBoolType(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);
                 exp_.setRootNumber(res_.getRootNumber());
                 exp_.setMemberNumber(res_.getMemberNumber());
-//                _exp.getResultClass().getImplicits().add(cl_);
-//                _exp.getResultClass().setRootNumber(res_.getRootNumber());
-//                _exp.getResultClass().setMemberNumber(res_.getMemberNumber());
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_.isFoundMethod()) {
@@ -291,9 +283,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     exp_.getImplicitsTest().add(cl_);
                     exp_.setRootNumberTest(trueOp_.getRootNumber());
                     exp_.setMemberNumberTest(trueOp_.getMemberNumber());
-//                    _exp.getResultClass().getImplicitsTest().add(cl_);
-//                    _exp.getResultClass().setRootNumberTest(trueOp_.getRootNumber());
-//                    _exp.getResultClass().setMemberNumberTest(trueOp_.getMemberNumber());
                     test = cl_;
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -309,7 +298,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             }
         }
         exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        ElUtil.setImplicits(_exp, _page, _root);
+//        ElUtil.setImplicits(_exp, _page, _root);
     }
 
     public String getImportedClassIndexName() {
@@ -318,40 +307,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public StringList getVariableNames() {
         return variableNames;
-    }
-
-    @Override
-    public boolean accessibleCondition() {
-        if (alwaysTrue) {
-            return true;
-        }
-        Argument arg_ = getArgument();
-        return Argument.isNotFalseValue(arg_);
-    }
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        boolean abr_ = true;
-        boolean proc_ = true;
-        if (!alwaysTrue) {
-            Argument arg_ = getArgument();
-            proc_ = Argument.isTrueValue(arg_);
-        }
-        if (_anEl.isReachable(this)) {
-            if (!proc_) {
-                abr_ = false;
-            }
-        }
-        IdMap<BreakBlock, BreakableBlock> breakables_;
-        breakables_ = _anEl.getBreakables();
-        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
-            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                abr_ = false;
-                break;
-            }
-        }
-        if (abr_) {
-            _anEl.completeAbruptGroup(this);
-        }
     }
 
     @Override
@@ -397,5 +352,17 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public ClassMethodId getTest() {
         return test;
+    }
+
+    public void setArgument(Argument argument) {
+        this.argument = argument;
+    }
+
+    public boolean isAlwaysTrue() {
+        return alwaysTrue;
+    }
+
+    public void setAlwaysTrue(boolean alwaysTrue) {
+        this.alwaysTrue = alwaysTrue;
     }
 }

@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.util.MappingLocalType;
@@ -120,7 +119,6 @@ public final class AnalyzedPageEl {
     private ExecDeclareVariable execDeclareVariable;
 
     private final CustList<PartOffset> currentParts = new CustList<PartOffset>();
-    private OperationNode currentRoot;
     private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
     private MethodHeaders headers = new MethodHeaders();
@@ -649,14 +647,6 @@ public final class AnalyzedPageEl {
         return currentParts;
     }
 
-    public OperationNode getCurrentRoot() {
-        return currentRoot;
-    }
-
-    public void setCurrentRoot(OperationNode currentRoot) {
-        this.currentRoot = currentRoot;
-    }
-
     public String getCurrentEmptyPartErr() {
         return currentEmptyPartErr;
     }
@@ -918,7 +908,7 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isCovering() {
-        return getCoverage().isCovering();
+        return getOptions().isCovering();
     }
 
     public boolean isGettingErrors() {

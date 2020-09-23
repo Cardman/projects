@@ -133,7 +133,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         _page.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
         opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _anaDoc, _page);
-        return _page.getCurrentRoot();
+        return _anaDoc.getCurrentRoot();
     }
     public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_root.getResultClass());

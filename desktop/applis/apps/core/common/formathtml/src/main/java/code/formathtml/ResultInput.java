@@ -31,7 +31,7 @@ public final class ResultInput {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
             opsRead = RenderExpUtil.getAnalyzedOperations(name_, 0, _anaDoc, _page);
-            opsReadRoot = _page.getCurrentRoot();
+            opsReadRoot = _anaDoc.getCurrentRoot();
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -208,7 +208,7 @@ public final class ResultInput {
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
             opsValue = RenderExpUtil.getAnalyzedOperations(value_, 0, _anaDoc, _page);
-            opsValueRoot = _page.getCurrentRoot();
+            opsValueRoot = _anaDoc.getCurrentRoot();
         }
     }
 

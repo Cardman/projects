@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -161,15 +162,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
         int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 1 - newKeyWord_.length();
         trOffset = tr_;
-        _exec.setTrOffset(tr_);
         _page.setTranslatedOffset(tr_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page);
+        _exec.setTrOffset(tr_);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page));
-        root = _page.getCurrentRoot();
+        _exec.setOpValue(ReachOperationUtil.tryCalculateAndSupply(root,_page));
         _page.setTranslatedOffset(0);
+//        _page.getCurrentRoot();
     }
 
     private int getIndex() {
@@ -191,8 +193,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
-            roots.add(_page.getCurrentRoot());
+//            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), c_, _page));
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            ops_.add(ReachOperationUtil.tryCalculateAndSupply(r_,_page));
+            roots.add(r_);
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

@@ -1,9 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecElseCondition;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class ElseCondition extends BracedBlock implements BlockCondition, BuildableElMethod {
@@ -36,11 +34,11 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+//        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
+//        exec_.setFile(_page.getBlockToWrite().getFile());
+//        _page.getBlockToWrite().appendChild(exec_);
+//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
@@ -68,29 +66,4 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
     }
 
 
-    @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block p_ = getPreviousSibling();
-        if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
-            _anEl.reach(this);
-        } else {
-            _anEl.unreach(this);
-        }
-    }
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        CustList<Block> group_ = getConditionBlocks();
-        boolean canCmpNormally_ = false;
-        for (Block b: group_) {
-            if (_anEl.canCompleteNormally(b)) {
-                canCmpNormally_ = true;
-                break;
-            }
-        }
-        if (!canCmpNormally_) {
-            for (Block b: group_) {
-                _anEl.completeAbruptGroup(b);
-            }
-        }
-    }
 }

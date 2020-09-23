@@ -14,27 +14,6 @@ public abstract class Leaf extends Block {
     }
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block prev_ = getPreviousSibling();
-        BracedBlock br_ = getParent();
-        if (prev_ == null) {
-            if (_anEl.isReachable(br_) && br_.accessibleCondition()) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else {
-            super.reach(_anEl, _page);
-        }
-    }
-    @Override
-    public void abrupt(AnalyzingEl _anEl) {
-        if (!_anEl.isReachable(this)) {
-            _anEl.completeAbruptGroup(this);
-        }
-    }
-
-    @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
     }
 }

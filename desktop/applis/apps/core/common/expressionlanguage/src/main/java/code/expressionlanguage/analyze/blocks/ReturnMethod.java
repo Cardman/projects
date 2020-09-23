@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.exec.blocks.ExecReturnMethod;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -15,7 +14,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
@@ -26,6 +24,7 @@ public final class ReturnMethod extends AbruptBlock {
     private OperationNode root;
     private int expressionOffset;
     private boolean implicit;
+    private String returnType = "";
 
     public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
@@ -51,26 +50,18 @@ public final class ReturnMethod extends AbruptBlock {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         String retType_ = processReturnValue(_page);
         if (retType_.isEmpty()) {
-            ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
-            exec_.setFile(_page.getBlockToWrite().getFile());
-            _page.getBlockToWrite().appendChild(exec_);
-            _page.getCoverage().putBlockOperations(exec_,this);
             return;
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(stCtx_), _page);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(stCtx_), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        checkTypes(retType_, op_.last(), _page.getCurrentRoot(), _page);
-        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
-        root = _page.getCurrentRoot();
-        exec_.setFile(_page.getBlockToWrite().getFile());
-        _page.getBlockToWrite().appendChild(exec_);
-        _page.getCoverage().putBlockOperations(exec_,this);
+        returnType = retType_;
+        checkTypes(retType_, root, _page);
     }
 
     private String processReturnValue(AnalyzedPageEl _page) {
@@ -93,7 +84,7 @@ public final class ReturnMethod extends AbruptBlock {
         }
         return retType_;
     }
-    private void checkTypes(String _retType, ExecOperationNode _ret, OperationNode _root, AnalyzedPageEl _page) {
+    private void checkTypes(String _retType, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching ret_ = _root.getResultClass();
         LgNames stds_ = _page.getStandards();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
@@ -138,43 +129,8 @@ public final class ReturnMethod extends AbruptBlock {
         if (AnaTypeUtil.isPrimitive(_retType, _page)) {
             ret_.setUnwrapObject(_retType, _page.getStandards());
         }
-        ElUtil.setImplicits(_ret, _page, _root);
     }
 
-
-    @Override
-    public void abrupt(AnalyzingEl _anEl) {
-        super.abrupt(_anEl);
-        BracedBlock par_ = getParent();
-        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-        BracedBlock a_;
-        if (_anEl.getParentsReturnables().isEmpty()) {
-            a_ = _anEl.getRoot();
-        } else {
-            a_ = (BracedBlock) _anEl.getParentsReturnables().last();
-        }
-        while (par_ != a_) {
-            pars_.add(par_);
-            par_ = par_.getParent();
-        }
-        if (a_ instanceof Eval) {
-            IdMap<ReturnMethod, Eval> breakables_ = _anEl.getReturnables();
-            IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestors();
-            IdMap<Eval, IdList<BracedBlock>> id_;
-            id_ = new IdMap<Eval, IdList<BracedBlock>>();
-            id_.put((Eval) a_, pars_);
-            breakablesAncestors_.put(this, id_);
-            breakables_.put(this, (Eval) a_);
-        } else {
-            IdMap<ReturnMethod, MemberCallingsBlock> breakables_ = _anEl.getReturnablesCallings();
-            IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestorsCallings();
-            IdMap<MemberCallingsBlock, IdList<BracedBlock>> id_;
-            id_ = new IdMap<MemberCallingsBlock, IdList<BracedBlock>>();
-            id_.put((MemberCallingsBlock) a_, pars_);
-            breakablesAncestors_.put(this, id_);
-            breakables_.put(this, (MemberCallingsBlock) a_);
-        }
-    }
 
     public OperationNode getRoot() {
         return root;
@@ -186,5 +142,9 @@ public final class ReturnMethod extends AbruptBlock {
 
     public void setImplicit(boolean implicit) {
         this.implicit = implicit;
+    }
+
+    public String getReturnType() {
+        return returnType;
     }
 }

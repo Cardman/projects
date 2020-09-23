@@ -7,11 +7,4 @@ public final class UnclassedBracedBlock extends BracedBlock {
         super(_offset);
     }
 
-    @Override
-    public void abruptGroup(AnalyzingEl _anEl) {
-        if (!_anEl.canCompleteNormally(this)) {
-            _anEl.completeAbruptGroup(this);
-        }
-    }
-
 }

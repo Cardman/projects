@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -59,13 +60,13 @@ public final class RenderExpUtil {
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _anaDoc, _page);
-        return getExecutableNodes(all_, _page);
+        return getExecutableNodes(all_, _page, _anaDoc);
     }
 
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _index, _page);
         int badOffset_ = d_.getBadOffset();
-        _page.setCurrentRoot(null);
+        _anaDoc.setCurrentRoot(null);
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_anaDoc.getFileName());
@@ -81,21 +82,21 @@ public final class RenderExpUtil {
             String argClName_ = _page.getStandards().getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            _page.setCurrentRoot(e_);
+            _anaDoc.setCurrentRoot(e_);
             return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_, _page));
         }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _anaDoc, _page);
-        return getExecutableNodes(all_, _page);
+        return getExecutableNodes(all_, _page, _anaDoc);
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, AnalyzedPageEl _page) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        _page.setCurrentRoot(root_);
+        _anaDoc.setCurrentRoot(root_);
         RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_, _page);
         setImplicits(exp_, _page, current_);
         while (current_ != null) {
@@ -167,7 +168,8 @@ public final class RenderExpUtil {
             }
             c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
-        ReachOperationUtil.tryCalculate(list_,_page);
+        CustList<ReachMethodOperation> reach_ = ReachOperationUtil.getExecutableNodes(list_);
+        ReachOperationUtil.tryCalculate(_page, reach_);
         return list_;
     }
 
@@ -182,9 +184,6 @@ public final class RenderExpUtil {
         while (true) {
             _page.setOkNumOp(true);
             processAnalyze(current_, _anaDoc, _page);
-//            if (current_ instanceof ReductibleOperable) {
-//                ((ReductibleOperable)current_).tryCalculateNode(_page);
-//            }
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
@@ -212,7 +211,6 @@ public final class RenderExpUtil {
                 if (AnaTypeUtil.isPrimitive(cl_, _page)) {
                     cl_.setUnwrapObject(cl_,_page.getStandards());
                 }
-//                par_.tryCalculateNode(_page);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
