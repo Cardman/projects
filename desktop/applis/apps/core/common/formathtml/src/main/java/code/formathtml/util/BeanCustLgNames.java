@@ -927,13 +927,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, _conf);
             ExecRootBlock rootBlock_ = _conf.getContext().getClasses().getClassBody(getAliasBean());
-            ExecInvokingOperation.setInstanceField(rootBlock_,getAliasBean(),getAliasForms(),getAliasStringMapObject(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasForms(),getAliasStringMapObject(),
                     new Argument(strBean_),mapArg_, _conf.getContext());
-            ExecInvokingOperation.setInstanceField(rootBlock_,getAliasBean(),getAliasDataBaseField(),getAliasObject(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasDataBaseField(),getAliasObject(),
                     new Argument(strBean_),new Argument(_db), _conf.getContext());
-            ExecInvokingOperation.setInstanceField(rootBlock_,getAliasBean(),getAliasLanguage(),getAliasString(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasLanguage(),getAliasString(),
                     new Argument(strBean_),new Argument(new StringStruct(_language)), _conf.getContext());
-            ExecInvokingOperation.setInstanceField(rootBlock_,getAliasBean(),getAliasScope(),getAliasString(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasScope(),getAliasString(),
                     new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _conf.getContext());
             _conf.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
@@ -1149,7 +1149,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        return ExecInvokingOperation.getField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
+        return ExecTemplates.getField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
     }
 
     @Override
@@ -1182,7 +1182,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        return ExecInvokingOperation.setField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), _root,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
+        return ExecTemplates.setField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), _root,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
     }
 
     @Override

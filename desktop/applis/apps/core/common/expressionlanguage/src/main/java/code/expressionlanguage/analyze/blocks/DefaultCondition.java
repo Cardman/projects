@@ -13,7 +13,7 @@ public final class DefaultCondition extends SwitchPartBlock {
 
     private final StringList nameErrors = new StringList();
     private int variableOffset;
-    private String instanceTest;
+    private String instanceTest = "";
 
     public DefaultCondition(OffsetsBlock _offset) {
         super(_offset);

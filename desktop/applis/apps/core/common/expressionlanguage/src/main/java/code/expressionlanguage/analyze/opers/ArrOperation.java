@@ -254,7 +254,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getStandards());
-        class_ = StringExpUtil.getQuickComponentType(class_);
+        class_ = AnaTypeUtil.getQuickComponentType(class_);
         class_.setUnwrapObject(class_,stds_);
         setResultClass(class_);
     }

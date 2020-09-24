@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.Struct;
@@ -53,7 +53,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
-            array_ = ExecInvokingOperation.getElement(array_, o_, _conf.getContext());
+            array_ = ExecTemplates.getElement(array_, o_, _conf.getContext());
             if (_conf.getContext().hasException()) {
                 return new Argument();
             }
@@ -104,7 +104,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     private Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
-        ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf.getContext());
+        ExecTemplates.setElement(_array, o_, _right.getStruct(), _conf.getContext());
         return _right.getStruct();
     }
 
@@ -117,7 +117,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         if (_conf.getContext().hasException()) {
             return _stored;
         }
-        ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf.getContext());
+        ExecTemplates.setElement(_array, o_, res_.getStruct(), _conf.getContext());
         return res_.getStruct();
     }
     private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf, byte _cast) {
@@ -126,7 +126,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument left_ = new Argument(_stored);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf.getContext());
+        ExecTemplates.setElement(_array, o_, res_.getStruct(), _conf.getContext());
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();
     }
@@ -150,7 +150,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes,lastElement_);
-        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf.getContext());
+        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _conf.getContext());
     }
 
     public ExecClassArgumentMatching getPrevious() {

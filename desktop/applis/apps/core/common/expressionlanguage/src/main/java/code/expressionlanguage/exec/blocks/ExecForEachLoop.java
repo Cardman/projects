@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -93,7 +92,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         } else {
             Struct container_ = _l.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
-            element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
+            element_ = ExecTemplates.getElement(container_, lg_, _conf);
         }
         if (_conf.callsOrException()) {
             return;

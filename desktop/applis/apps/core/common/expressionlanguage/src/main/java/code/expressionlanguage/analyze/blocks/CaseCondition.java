@@ -31,6 +31,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private boolean nullCaseEnum;
 
     private String importedType = EMPTY_STRING;
+    private String instanceTest = "";
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -87,7 +88,9 @@ public final class CaseCondition extends SwitchPartBlock {
         SwitchBlock sw_ = (SwitchBlock) par_;
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
-        if (!sw_.getInstanceTest().isEmpty()) {
+        String instanceTest_ = sw_.getInstanceTest();
+        instanceTest = instanceTest_;
+        if (!instanceTest_.isEmpty()) {
             ParsedType p_ = new ParsedType();
             p_.parse(value);
             String declaringType_ = p_.getInstruction().toString();
@@ -255,5 +258,9 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public boolean isNullCase() {
         return nullCase;
+    }
+
+    public String getInstanceTest() {
+        return instanceTest;
     }
 }

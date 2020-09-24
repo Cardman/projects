@@ -654,7 +654,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
                                         Argument _previous, CustList<Argument> _firstArgs,
                                         Argument _right) {
-        checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs, _right);
+        ExecTemplates.checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs, _right);
     }
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
                                             ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,
@@ -673,7 +673,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                           Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
                                           CallPrepareState _state,
                                           InstancingStep _kindCall, Argument _right) {
-        FormattedParameters classFormat_ = checkParams(_conf,_classNameFound,_rootBlock,_methodId,_previous,_cache,_firstArgs,_right);
+        FormattedParameters classFormat_ = ExecTemplates.checkParams(_conf,_classNameFound,_rootBlock,_methodId,_previous,_cache,_firstArgs,_right);
         if (_conf.callsOrException()) {
             return classFormat_;
         }
@@ -693,50 +693,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return classFormat_;
     }
 
-    public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                      Argument _previous, CustList<Argument> _firstArgs,
-                                      Argument _right) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCastType();
-        String classFormat_ = _classNameFound;
-        if (!_methodId.isStaticMethod()) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecTemplates.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
-                _conf.setException(new ErrorStruct(_conf,cast_));
-                return "";
-            }
-        }
-        if (!ExecTemplates.okArgs(_methodId, classFormat_,_firstArgs, _conf, _right)) {
-            return "";
-        }
-        return classFormat_;
-    }
-    public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
-                                                  Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
-                                                  Argument _right) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCastType();
-        String classFormat_ = _classNameFound;
-        FormattedParameters f_ = new FormattedParameters();
-        if (!(_methodId instanceof GeneMethod) || !((GeneMethod)_methodId).getId().isStaticMethod()) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecTemplates.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
-                _conf.setException(new ErrorStruct(_conf,cast_));
-                return f_;
-            }
-        }
-        Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _methodId, false, classFormat_,_cache, _firstArgs, _conf, _right);
-        if (parameters_.getError() != null) {
-            return f_;
-        }
-        f_.setParameters(parameters_);
-        f_.setFormattedClass(classFormat_);
-        return f_;
-    }
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf) {
         Struct ls_ = _previous.getStruct();
         if (ls_ instanceof LambdaStruct) {
@@ -977,17 +933,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             for (int i = 0; i < len_; i++) {
                 Struct ind_ = argArr_.getInstance()[i];
-                arr_ = getElement(arr_,ind_,_conf);
+                arr_ = ExecTemplates.getElement(arr_,ind_,_conf);
                 if (_conf.callsOrException()) {
                     return new Argument();
                 }
             }
             Struct ind_ = argArr_.getInstance()[len_];
             if (StringList.quickEq(_l.getFid().getName(),"[]")) {
-                return new Argument(getElement(arr_,ind_,_conf));
+                return new Argument(ExecTemplates.getElement(arr_,ind_,_conf));
             }
             Struct right_ = argArr_.getInstance()[len_ + 1];
-            setElement(arr_,ind_, right_,_conf);
+            ExecTemplates.setElement(arr_,ind_, right_,_conf);
             return new Argument(right_);
         }
         if (_l.isDirectCast()) {
@@ -1040,14 +996,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         _conf.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _pr, _nList, _lambda));
     }
-    public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf) {
-        Struct elt_ = ExecTemplates.gearErrorWhenIndex(_struct, _index, _conf);
-        _conf.getInitializingTypeInfos().addSensibleField(_struct, elt_);
-        return elt_;
-    }
-    public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf) {
-        ExecTemplates.gearErrorWhenContain(_struct, _index, _value, _conf);
-    }
     private static Argument getEnumValues(AbstractExiting _exit, String _class, ExecRootBlock _root, ContextEl _conf) {
         String id_ = StringExpUtil.getIdFromAllTypes(_class);
         if (_exit.hasToExit(id_)) {
@@ -1090,151 +1038,5 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         return new Argument();
-    }
-    public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf) {
-        String baseClass_ = _meta.getDeclaringClass();
-        baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-        String fieldName_ = _meta.getName();
-        boolean isStaticField_ = _meta.isStaticField();
-        String type_ = _meta.getType();
-        return getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1);
-    }
-    public static Argument getField(AbstractSetOffset _setOffset,AbstractExiting _exit,String _className, String _fieldName, boolean _isStaticField, String _ret, Argument _previous, ContextEl _conf, int _possibleOffset) {
-        if (_possibleOffset > -1) {
-            _setOffset.setOffset(_possibleOffset);
-        }
-
-        if (_isStaticField) {
-            return getStaticField(_exit,_className, _fieldName, _ret, _conf);
-        }
-        return getInstanceField(_className, _fieldName, _previous, _conf);
-    }
-
-    public static Argument getInstanceField(String _className, String _fieldName, Argument _previous, ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCastType();
-        ClassField fieldId_ = new ClassField(_className, _fieldName);
-        Struct previous_ = _previous.getStruct();
-        String argClassName_ = previous_.getClassName(_conf);
-        if (!(previous_ instanceof FieldableStruct)) {
-            if (previous_ == NullStruct.NULL_VALUE) {
-                String npe_;
-                npe_ = stds_.getAliasNullPe();
-                _conf.setException(new ErrorStruct(_conf,npe_));
-                return Argument.createVoid();
-            }
-            String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
-            return _previous;
-        }
-        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
-        if (entry_ == null) {
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
-            return _previous;
-        }
-        Struct struct_ = entry_.getStruct();
-        _conf.getInitializingTypeInfos().addSensibleField(previous_, struct_);
-        return new Argument(struct_);
-    }
-
-    public static Argument getStaticField(AbstractExiting _exit,String _className, String _fieldName, String _ret,ContextEl _conf) {
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = new ClassField(_className, _fieldName);
-        if (_exit.hasToExit(_className)) {
-            return Argument.createVoid();
-        }
-        Struct struct_ = classes_.getStaticField(fieldId_,_ret, _conf);
-        _conf.getInitializingTypeInfos().addSensibleField(_conf,fieldId_.getClassName(), struct_);
-        return new Argument(struct_);
-    }
-
-    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ContextEl _conf) {
-        String baseClass_ = _meta.getDeclaringClass();
-        baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-        String fieldName_ = _meta.getName();
-        boolean isStaticField_ = _meta.isStaticField();
-        boolean isFinalField_ = _meta.isFinalField();
-        String type_ = _meta.getType();
-        return setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
-    }
-    public static Argument setField(AbstractSetOffset _setOffset,AbstractExiting _exit,ExecRootBlock _rootBlock,String _className, String _fieldName,
-                                    boolean _isStaticField, boolean _finalField, boolean _failIfFinal,
-                                    String _returnType, Argument _previous,
-                                    Argument _right,ContextEl _conf, int _possibleOffset) {
-        if (_possibleOffset > -1) {
-            _setOffset.setOffset(_possibleOffset);
-        }
-        if (_isStaticField) {
-            return setStaticField(_exit,_className, _fieldName, _finalField, _failIfFinal, _returnType, _right, _conf);
-        }
-        return setInstanceField(_rootBlock,_className, _fieldName, _returnType, _previous, _right, _conf);
-    }
-
-    public static Argument setInstanceField(ExecRootBlock _rootBlock,String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf) {
-        ClassField fieldId_ = new ClassField(_className, _fieldName);
-        LgNames stds_ = _conf.getStandards();
-        Struct previous_ = _previous.getStruct();
-        String argClassName_ = previous_.getClassName(_conf);
-        String cast_;
-        cast_ = stds_.getAliasCastType();
-        if (!(previous_ instanceof FieldableStruct)) {
-            if (previous_ == NullStruct.NULL_VALUE) {
-                String npe_;
-                npe_ = stds_.getAliasNullPe();
-                _conf.setException(new ErrorStruct(_conf,npe_));
-                return Argument.createVoid();
-            }
-            String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
-            return Argument.createVoid();
-        }
-        String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        String classNameFound_ = _className;
-        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
-        if (entry_ == null) {
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-            return Argument.createVoid();
-        }
-        classNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, classNameFound_, _conf);
-        String fieldType_;
-        fieldType_ = _returnType;
-        fieldType_ = ExecTemplates.quickFormat(_rootBlock,classNameFound_, fieldType_);
-        if (!ExecTemplates.checkQuick(fieldType_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        if (_conf.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
-            _conf.getInitializingTypeInfos().failInitEnums();
-            return _right;
-        }
-        entry_.setStruct(_right.getStruct());
-        return _right;
-    }
-
-    public static Argument setStaticField(AbstractExiting _exit,String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf) {
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = new ClassField(_className, _fieldName);
-        LgNames stds_ = _conf.getStandards();
-        if (_finalField && _failIfFinal) {
-            String npe_;
-            npe_ = stds_.getAliasIllegalArg();
-            _conf.setException(new ErrorStruct(_conf,npe_));
-            return Argument.createVoid();
-        }
-        if (_exit.hasToExit(_className)) {
-            return Argument.createVoid();
-        }
-        String fieldType_;
-        fieldType_ = _returnType;
-        if (!ExecTemplates.checkQuick(fieldType_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        if (_conf.getInitializingTypeInfos().isSensibleField(_conf,fieldId_.getClassName())) {
-            _conf.getInitializingTypeInfos().failInitEnums();
-            return _right;
-        }
-        Classes.getStaticFieldMap(fieldId_.getClassName(), classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
-        return _right;
     }
 }

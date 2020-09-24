@@ -23,7 +23,6 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.blocks.ImportForEachLoop;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.stds.LgNames;
@@ -136,7 +135,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return _anaDoc.getCurrentRoot();
     }
     public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_root.getResultClass());
+        AnaClassArgumentMatching compo_ = AnaTypeUtil.getQuickComponentType(_root.getResultClass());
         if (toInfer(_page) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
@@ -405,7 +404,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             Struct container_ = _l.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
-            element_ = ExecInvokingOperation.getElement(container_, lg_, _conf.getContext());
+            element_ = ExecTemplates.getElement(container_, lg_, _conf.getContext());
         }
         if (_conf.getContext().hasException()) {
             return;

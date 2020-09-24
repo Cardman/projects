@@ -246,8 +246,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setParam(param_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     if (param_.isArray()) {
-                        AnaClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
-                        mapping_.setParam(c_);
+                        mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
                         if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                             AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                             i_.setType(paramName_);
@@ -393,8 +392,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setParam(param_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                     if (param_.isArray()) {
-                        AnaClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
-                        mapping_.setParam(c_);
+                        mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
                         if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                             AnnotationTypeInfo i_ = fieldNames.getVal(suppliedKey_);
                             i_.setType(paramName_);

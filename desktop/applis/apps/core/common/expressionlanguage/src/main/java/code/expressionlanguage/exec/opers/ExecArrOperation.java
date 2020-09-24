@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.structs.Struct;
@@ -48,7 +49,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             Struct o_ = getArgument(_nodes,op_).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
-            array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
+            array_ = ExecTemplates.getElement(array_, o_, _conf);
             if (_conf.callsOrException()) {
                 return new Argument();
             }
@@ -104,7 +105,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
 
     private Struct affectArray(Struct _array, Argument _index, Argument _right, ContextEl _conf) {
         Struct o_ = _index.getStruct();
-        ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
+        ExecTemplates.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
@@ -116,7 +117,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         if (_conf.callsOrException()) {
             return _stored;
         }
-        ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
+        ExecTemplates.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
     private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf, byte _cast) {
@@ -124,7 +125,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Argument left_ = new Argument(_stored);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
+        ExecTemplates.setElement(_array, o_, res_.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();
     }
@@ -136,7 +137,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes, lastElement_);
-        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
+        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
         return _right;
     }
 
@@ -149,7 +150,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes, lastElement_);
-        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
+        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 }

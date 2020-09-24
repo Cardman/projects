@@ -746,4 +746,16 @@ public final class AnaTypeUtil {
         }
         return false;
     }
+
+    public static AnaClassArgumentMatching getQuickComponentType(AnaClassArgumentMatching _className) {
+        StringList cl_ = new StringList();
+        for (String c: _className.getNames()) {
+            String res_ = StringExpUtil.getQuickComponentType(c);
+            if (res_ == null) {
+                continue;
+            }
+            cl_.add(res_);
+        }
+        return new AnaClassArgumentMatching(cl_);
+    }
 }

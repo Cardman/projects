@@ -18,7 +18,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -1943,14 +1942,14 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                Struct out_ = ExecInvokingOperation.getElement(inst_, args_[1], _cont);
+                Struct out_ = ExecTemplates.getElement(inst_, args_[1], _cont);
                 result_.setResult(out_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
                 Struct value_ = args_[2];
-                ExecInvokingOperation.setElement(inst_, args_[1], value_, _cont);
+                ExecTemplates.setElement(inst_, args_[1], value_, _cont);
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }

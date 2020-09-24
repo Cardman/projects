@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -100,7 +100,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         }
         AbstractPageEl ip_ = _cont.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
-        ExecInvokingOperation.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, _arg, _cont);
+        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, _arg, _cont);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

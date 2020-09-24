@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.types.InaccessibleType;
-import code.expressionlanguage.analyze.util.AnaCache;
-import code.expressionlanguage.analyze.util.MappingLocalType;
-import code.expressionlanguage.analyze.util.Members;
+import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
@@ -21,7 +19,6 @@ import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
@@ -92,6 +89,7 @@ public final class AnalyzedPageEl {
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+    private final IdMap<RootBlock,ClassMethodIdReturn> toStr = new IdMap<RootBlock, ClassMethodIdReturn>();
 
     private int offset;
 
@@ -982,5 +980,9 @@ public final class AnalyzedPageEl {
 
     public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
         return allFct;
+    }
+
+    public IdMap<RootBlock, ClassMethodIdReturn> getToStr() {
+        return toStr;
     }
 }

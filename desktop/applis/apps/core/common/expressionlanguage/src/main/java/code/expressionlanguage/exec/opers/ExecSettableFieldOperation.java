@@ -56,7 +56,7 @@ public final class ExecSettableFieldOperation extends
             return Argument.createVoid();
         }
         String fieldType_ = fieldMetaInfo.getRealType();
-        return ExecInvokingOperation.getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
+        return ExecTemplates.getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
     
     public ClassField getFieldId() {
@@ -107,7 +107,7 @@ public final class ExecSettableFieldOperation extends
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
-        return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
+        return ExecTemplates.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
     private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         Argument left_ = new Argument(_store);

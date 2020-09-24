@@ -58,11 +58,10 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
-        IdMap<RootBlock,ClassMethodIdReturn> toStr_ = new IdMap<RootBlock, ClassMethodIdReturn>();
         for (RootBlock e: _page.getAllFoundTypes()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e, _page);
             if (resDyn_.isFoundMethod()) {
-                toStr_.addEntry(e,resDyn_);
+                _page.getToStr().addEntry(e,resDyn_);
             }
         }
         _page.getToStringOwners().add(_page.getStandards().getAliasObject());
@@ -86,18 +85,16 @@ public final class ClassesUtil {
         IdMap<OverridableBlock,StringMap<GeneStringOverridable>> anaRed_;
         anaRed_ = new IdMap<OverridableBlock,StringMap<GeneStringOverridable>>();
         for (RootBlock e: _page.getAllFoundTypes()) {
-            RootBlock root_ = e;
-            for (OverridableBlock o: root_.getOverridableBlocks()) {
-                OverridableBlock key_ = o;
-                if (key_.hiddenInstance()) {
+            for (OverridableBlock o: e.getOverridableBlocks()) {
+                if (o.hiddenInstance()) {
                     continue;
                 }
-                if (key_.isFinalMethod()) {
+                if (o.isFinalMethod()) {
                     continue;
                 }
-                MethodId id_ = key_.getId();
-                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
-                map_.putAllMap(key_.getOverrides());
+                MethodId id_ = o.getId();
+                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(e, id_, _page);
+                map_.putAllMap(o.getOverrides());
                 anaRed_.addEntry(o,map_);
             }
         }
@@ -129,6 +126,10 @@ public final class ClassesUtil {
                 }
             }
         }
+        generalForward(_page);
+    }
+
+    public static void generalForward(AnalyzedPageEl _page) {
         StringMap<ExecFileBlock> files_ = new StringMap<ExecFileBlock>();
         for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
             String file_ = f.getKey();
@@ -161,7 +162,7 @@ public final class ClassesUtil {
         }
         innerFetchExecEnd(_page);
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _page.getToStringMethodsToCallBodies();
-        for (EntryCust<RootBlock, ClassMethodIdReturn> e: toStr_.entryList()) {
+        for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             ExecRootBlock ex_ = ExecOperationNode.fetchType(resDyn_.getRootNumber(), _page);
             ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _page);
@@ -174,17 +175,16 @@ public final class ClassesUtil {
             RootBlock root_ = e.getKey();
             ClassMethodIdOverrides redirections_ = e.getValue().getRootBlock().getRedirections();
             for (OverridableBlock o: root_.getOverridableBlocks()) {
-                OverridableBlock key_ = o;
-                if (key_.hiddenInstance()) {
+                if (o.hiddenInstance()) {
                     continue;
                 }
-                if (key_.isFinalMethod()) {
+                if (o.isFinalMethod()) {
                     continue;
                 }
-                MethodId id_ = key_.getId();
+                MethodId id_ = o.getId();
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
-                map_.putAllMap(key_.getOverrides());
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _page));
+                map_.putAllMap(o.getOverrides());
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(), o.getNameNumber(), _page));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     override_.put(g.getKey(),g.getValue(), _page);
                 }
@@ -400,11 +400,10 @@ public final class ClassesUtil {
         }
         _page.setAnnotAnalysis(false);
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
-            AnonymousLambdaOperation key_ = e;
-            AnonymousFunctionBlock method_ = key_.getBlock();
+            AnonymousFunctionBlock method_ = e.getBlock();
             RootBlock c_ = method_.getParentType();
             _page.getCoverage().putCalls(c_.getFullName(),method_);
-            ExecNamedFunctionBlock function_ = ExecAnonymousLambdaOperation.buildExecAnonymousLambdaOperation(key_,_page);
+            ExecNamedFunctionBlock function_ = ExecAnonymousLambdaOperation.buildExecAnonymousLambdaOperation(e,_page);
             _page.getAllFct().addEntry(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
             ExecFileBlock value_ = files_.getValue(numberFile_);
@@ -461,7 +460,6 @@ public final class ClassesUtil {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
                         value_.getAnonymous().add(_page.getMapAnonTypes().getValue(a.getNumberAnonType()));
-//                        value_.getAnonymous().add(_page.getMapTypes().getValue(a.getNumberAll()));
                     }
                     for (AnonymousFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
                         value_.getAnonymousLambda().add(_page.getMapAnonLambda().getValue(a.getNumberLambda()));

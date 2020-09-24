@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
@@ -38,7 +38,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
             return true;
         }
         Argument instance_ = getArguments().first();
-        Argument arg_ = ExecInvokingOperation.getField(method_, instance_, _context);
+        Argument arg_ = ExecTemplates.getField(method_, instance_, _context);
         if (_context.callsOrException()) {
             return false;
         }

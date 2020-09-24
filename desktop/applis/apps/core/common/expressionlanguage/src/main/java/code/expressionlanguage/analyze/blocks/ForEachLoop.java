@@ -138,11 +138,10 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
-        AnalyzedPageEl page_ = _page;
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(page_.getStandards().getAliasLong());
+            mapping_.setParam(_page.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -153,7 +152,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
@@ -164,8 +163,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
@@ -174,15 +173,13 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         } else {
             importedClassName = "";
         }
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        MethodAccessKind static_ = f_.getStaticContext();
-//        page_.getCoverage().putBlockOperationsLoops(this);
-        return static_;
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
+        return f_.getStaticContext();
     }
 
     public void inferArrayClass(AnaClassArgumentMatching _elt, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_elt);
+        AnaClassArgumentMatching compo_ = AnaTypeUtil.getQuickComponentType(_elt);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {

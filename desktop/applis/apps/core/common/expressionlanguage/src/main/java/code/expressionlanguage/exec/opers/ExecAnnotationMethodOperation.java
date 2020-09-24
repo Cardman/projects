@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -44,7 +45,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
             return new Argument();
         }
         String clName_ = argPrev_.getClassName(_conf);
-        Struct ret_ = getInstanceField(clName_, _name,_previous,_conf).getStruct();
+        Struct ret_ = ExecTemplates.getInstanceField(clName_, _name,_previous,_conf).getStruct();
         Argument a_;
         if (ret_ instanceof ArrayStruct) {
             ArrayStruct orig_ = (ArrayStruct) ret_;
