@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -171,20 +172,23 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                                 blockToWrite_.appendChild(exec_);
                                 _page.getCoverage().putBlockOperations(exec_, en_);
                             }
-                        } else if (((CaseCondition) en_).getArgument() == null) {
-                            exec_ = new ExecUnclassedBracedBlock(en_.getOffset());
-                            exec_.setFile(fileDest_);
-                            blockToWrite_.appendChild(exec_);
-                            _page.getCoverage().putBlockOperations(exec_,en_);
                         } else {
-                            if (!((CaseCondition) en_).getArgument().isNull()) {
-                                exec_ = new ExecStdCaseCondition(en_.getOffset(), ((CaseCondition) en_).getValueOffset(), ((CaseCondition) en_).getArgument());
+                            Argument argument_ = ((CaseCondition) en_).getArgument();
+                            if (argument_ == null) {
+                                exec_ = new ExecUnclassedBracedBlock(en_.getOffset());
+                                exec_.setFile(fileDest_);
+                                blockToWrite_.appendChild(exec_);
+                                _page.getCoverage().putBlockOperations(exec_, en_);
                             } else {
-                                exec_ = new ExecNullCaseCondition(en_.getOffset(), ((CaseCondition) en_).getValueOffset());
+                                if (!argument_.isNull()) {
+                                    exec_ = new ExecStdCaseCondition(en_.getOffset(), ((CaseCondition) en_).getValueOffset(), argument_);
+                                } else {
+                                    exec_ = new ExecNullCaseCondition(en_.getOffset(), ((CaseCondition) en_).getValueOffset());
+                                }
+                                exec_.setFile(fileDest_);
+                                blockToWrite_.appendChild(exec_);
+                                _page.getCoverage().putBlockOperations(exec_, en_);
                             }
-                            exec_.setFile(fileDest_);
-                            blockToWrite_.appendChild(exec_);
-                            _page.getCoverage().putBlockOperations(exec_,en_);
                         }
                     }
                 }

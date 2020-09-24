@@ -42,16 +42,6 @@ public final class ReachForEachTable extends ReachBracedBlock implements ReachLo
             _page.addLocError(static_);
             meta.getSepErrors().add(static_.getBuiltError());
         }
-//        _page.getCoverage().putBlockOperationsLoops(getInfo());
-//        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root_);
-//        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, meta.getImportedClassNameFirst(),
-//                meta.getImportedClassNameSecond(),
-//                meta.getImportedClassIndexName(), meta.getVariableNameFirst(),
-//                meta.getVariableNameSecond(), meta.getExpressionOffset(),op_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

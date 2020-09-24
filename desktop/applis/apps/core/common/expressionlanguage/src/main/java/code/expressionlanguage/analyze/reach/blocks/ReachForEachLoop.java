@@ -42,14 +42,6 @@ public final class ReachForEachLoop extends ReachBracedBlock implements ReachLoo
             _page.addLocError(static_);
             meta.getSepErrors().add(static_.getBuiltError());
         }
-//        _page.getCoverage().putBlockOperationsLoops(getInfo());
-//        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root_);
-//        ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, meta.getImportedClassName(),
-//                meta.getImportedClassIndexName(), meta.getVariableName(), meta.getVariableNameOffset(), meta.getExpressionOffset(),op_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

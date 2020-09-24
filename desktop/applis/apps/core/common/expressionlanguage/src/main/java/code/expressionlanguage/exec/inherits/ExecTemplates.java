@@ -124,7 +124,7 @@ public final class ExecTemplates {
     public static Struct getParent(int _nbAncestors,String _required, Struct _current, ContextEl _an) {
         String id_ = StringExpUtil.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
-        Argument arg_ = new Argument();
+        Struct arg_ = _current;
         String cast_ = lgNames_.getAliasCastType();
         if (_current != NullStruct.NULL_VALUE) {
             String className_ = _current.getClassName(_an);
@@ -165,20 +165,19 @@ public final class ExecTemplates {
                 }
                 return _current;
             }
-            arg_.setStruct(_current);
             for (int i = 0; i < _nbAncestors; i++) {
-                Struct enc_ = arg_.getStruct();
+                Struct enc_ = arg_;
                 Struct par_ = enc_.getParent();
                 _an.getInitializingTypeInfos().addSensibleField(enc_, par_);
-                arg_.setStruct(par_);
+                arg_=par_;
             }
         }
         String npe_ = lgNames_.getAliasNullPe();
-        if (arg_.isNull()) {
+        if (arg_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,npe_));
-            return arg_.getStruct();
+            return arg_;
         }
-        Struct current_ = arg_.getStruct();
+        Struct current_ = arg_;
         String className_ = current_.getClassName(_an);
         String cl_ = StringExpUtil.getIdFromAllTypes(className_);
         StringList list_ = new StringList();

@@ -29,10 +29,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         String npe_;
         npe_ = _context.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = inst_.getClassName(_context);
-        String arrObj_ = _context.getStandards().getAliasObject();
-        arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
+        _conf.setException(new ErrorStruct(_conf.getContext(),npe_));
         return new Argument();
     }
 }

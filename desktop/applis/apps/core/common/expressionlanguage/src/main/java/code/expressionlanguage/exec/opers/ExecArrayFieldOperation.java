@@ -27,10 +27,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = inst_.getClassName(_conf);
-        String arrObj_ = _conf.getStandards().getAliasObject();
-        arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
+        _conf.setException(new ErrorStruct(_conf, npe_));
         return new Argument();
     }
 

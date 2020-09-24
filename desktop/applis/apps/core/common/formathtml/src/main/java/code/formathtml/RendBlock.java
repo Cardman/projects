@@ -757,7 +757,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             arg_ = Argument.getNullableValue(pair_.getArgument());
         } else {
             ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
-            obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
+            obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
             objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(((RendMethodOperation) settable_).getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
@@ -887,21 +887,21 @@ public abstract class RendBlock implements AnalyzedBlock {
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
     private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
-        Argument o_ = _o;
+        Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_.getStruct(),_cont.getContext().getStandards().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_,_cont.getContext().getStandards().getAliasObject());
             _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
             _cont.getLastPage().removeLocalVar(_varNameConv);
             if (_cont.getContext().hasException()) {
                 return Argument.createVoid();
             }
-            o_ = arg_;
+            o_ = arg_.getStruct();
         }
-        if (o_.getStruct() == NullStruct.NULL_VALUE) {
-            o_.setStruct(new StringStruct(EMPTY_STRING));
+        if (o_ == NullStruct.NULL_VALUE) {
+            o_ = new StringStruct(EMPTY_STRING);
         }
-        return o_;
+        return new Argument(o_);
     }
     protected static String getProperty(Configuration _conf, String _key) {
         return _conf.getProperties().getVal(_key);
