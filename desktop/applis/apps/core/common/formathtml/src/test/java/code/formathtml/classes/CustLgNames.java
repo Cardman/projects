@@ -394,13 +394,11 @@ public final class CustLgNames extends BeanNatLgNames {
         }
         if (StringList.quickEq(_method.getClassName(), aliasFailMethods)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
-                res_.setError(getAliasError());
                 return res_;
             }
         }
         if (StringList.quickEq(_method.getClassName(), aliasStrangeInit)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
-                res_.setError(getAliasError());
                 return res_;
             }
         }
@@ -434,11 +432,9 @@ public final class CustLgNames extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasFailMethods)) {
-            res_.setError(getAliasError());
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasStrangeInit)) {
-            res_.setError(getAliasError());
             return res_;
         }
         return res_;
@@ -485,7 +481,6 @@ public final class CustLgNames extends BeanNatLgNames {
         }
         if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
             if (StringList.quickEq(fieldName_, aliasNotRead)) {
-                res_.setError(getAliasError());
                 return res_;
             }
         }

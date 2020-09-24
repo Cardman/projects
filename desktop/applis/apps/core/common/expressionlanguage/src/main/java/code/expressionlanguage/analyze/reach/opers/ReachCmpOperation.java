@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.CmpOperation;
+import code.expressionlanguage.common.NumParsers;
 import code.util.CustList;
 
 public final class ReachCmpOperation extends ReachMethodOperation implements ReachCalculable {
@@ -36,9 +37,9 @@ public final class ReachCmpOperation extends ReachMethodOperation implements Rea
         Argument second_ = ch_.last().getArgument();
         Argument arg_;
         if (stringCompare) {
-            arg_ = CmpOperation.calculateCommonStr(first_, second_, op);
+            arg_ = new Argument(NumParsers.compareStr(op, first_.getStruct(), second_.getStruct()));
         } else {
-            arg_ = CmpOperation.calculateCommonNb(first_, second_, op);
+            arg_ = new Argument(NumParsers.compareNb(op, first_.getStruct(), second_.getStruct()));
         }
         setSimpleArgumentAna(arg_);
     }

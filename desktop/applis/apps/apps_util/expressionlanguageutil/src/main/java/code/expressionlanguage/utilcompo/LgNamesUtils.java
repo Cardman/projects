@@ -1542,10 +1542,8 @@ public class LgNamesUtils extends LgNames {
         try {
             return super.instance(_cont, _method, _args);
         } catch (RuntimeException e) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            res_.setError(aliasConcurrentError);
-            ApplyCoreMethodUtil.processError(_cont,res_);
-            return res_;
+            _cont.setException(new ErrorStruct(_cont, aliasConcurrentError));
+            return new ResultErrorStd();
         }
     }
 
@@ -1553,10 +1551,8 @@ public class LgNamesUtils extends LgNames {
         try {
             return super.invoke(_cont,_method,_struct,_args);
         } catch (RuntimeException e) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            res_.setError(aliasConcurrentError);
-            ApplyCoreMethodUtil.processError(_cont,res_);
-            return res_;
+            _cont.setException(new ErrorStruct(_cont, aliasConcurrentError));
+            return new ResultErrorStd();
         }
     }
     @Override
@@ -1579,7 +1575,7 @@ public class LgNamesUtils extends LgNames {
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
                 ins_.add(_args[0]);
                 if (!(_args[0] instanceof ThreadStruct)) {
-                    res_.setError(getAliasNullPe());
+                    _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -1639,7 +1635,7 @@ public class LgNamesUtils extends LgNames {
                 if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    res_.setError(getAliasIllegalThreadStateException());
+                    _cont.setException(new ErrorStruct(_cont,getAliasIllegalThreadStateException()));
                 }
                 return res_;
             }
@@ -1650,7 +1646,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 if (!(_args[0] instanceof NumberStruct)) {
-                    res_.setError(getAliasNullPe());
+                    _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                     return res_;
                 }
                 res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
@@ -1729,7 +1725,7 @@ public class LgNamesUtils extends LgNames {
                 if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    res_.setError(getAliasIllegalArg());
+                    _cont.setException(new ErrorStruct(_cont,getAliasIllegalArg()));
                 }
                 return res_;
             }
@@ -1975,7 +1971,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
-        	    res_.setError(getAliasNullPe());
+                _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 return res_;
             }
         	if (StringList.quickEq(name_,aliasRead)) {
@@ -2035,7 +2031,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasFileRename)) {
                 if (!(_args[1] instanceof StringStruct)) {
-                    res_.setError(getAliasNullPe());
+                    _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                     return res_;
                 }
                 String file_ = ((StringStruct)_args[0]).getInstance();

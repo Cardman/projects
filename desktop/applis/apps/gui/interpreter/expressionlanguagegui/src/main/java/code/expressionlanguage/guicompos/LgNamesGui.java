@@ -2597,24 +2597,24 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             if (!(_args[1] instanceof CustComponentStruct)) {
-                r_.setError(getAliasNullPe());
+                _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[2] instanceof CustComponentStruct)) {
-                r_.setError(getAliasNullPe());
+                _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             CustComponentStruct first_ = (CustComponentStruct) _args[1];
             CustComponentStruct second_ = (CustComponentStruct) _args[2];
             if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                r_.setError(getAliasIllegalArg());
+                _cont.setException(new ErrorStruct(_cont,getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                r_.setError(getAliasIllegalArg());
+                _cont.setException(new ErrorStruct(_cont,getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2733,7 +2733,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             if (!(_args[0] instanceof TreeNodeStruct)) {
-                r_.setError(getAliasNullPe());
+                _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 return r_;
             }
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
@@ -3042,7 +3042,7 @@ public class LgNamesGui extends LgNamesUtils {
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
                 ins_.add(_args[0],true);
                 if (!(_args[0] instanceof WindowStruct)) {
-                    res_.setError(getAliasNullPe());
+                    _cont.setException(new ErrorStruct(_cont,getAliasNullPe()));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }

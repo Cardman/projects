@@ -1,11 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -13,7 +11,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -128,49 +125,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
     public boolean isStringCompare() {
         return stringCompare;
-    }
-
-    public static Argument calculateCommonNb(Argument _one, Argument _two, String _op) {
-        boolean complement_ = false;
-        String useOp_ = _op;
-        if (StringList.quickEq(_op, LOWER_EQ)) {
-            complement_ = true;
-            useOp_ = GREATER;
-        } else if (StringList.quickEq(_op, GREATER_EQ)) {
-            complement_ = true;
-            useOp_ = LOWER;
-        }
-        BooleanStruct arg_;
-        if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = NumParsers.quickCalculateLowerNb(_one.getStruct(), _two.getStruct());
-        } else {
-            arg_ = NumParsers.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
-        }
-        if (complement_) {
-            arg_ = arg_.neg();
-        }
-        return new Argument(arg_);
-    }
-    public static Argument calculateCommonStr(Argument _one, Argument _two, String _op) {
-        boolean complement_ = false;
-        String useOp_ = _op;
-        if (StringList.quickEq(_op, LOWER_EQ)) {
-            complement_ = true;
-            useOp_ = GREATER;
-        } else if (StringList.quickEq(_op, GREATER_EQ)) {
-            complement_ = true;
-            useOp_ = LOWER;
-        }
-        BooleanStruct arg_;
-        if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = NumParsers.quickCalculateLowerStr(_one.getStruct(), _two.getStruct());
-        } else {
-            arg_ = NumParsers.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
-        }
-        if (complement_) {
-            arg_ = arg_.neg();
-        }
-        return new Argument(arg_);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CmpOperation;
 import code.formathtml.Configuration;
@@ -31,9 +32,9 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
     private Argument calculateCommon(Argument _one, Argument _two) {
         String op_ = getOp().trim();
         if (stringCompare) {
-            return CmpOperation.calculateCommonStr(_one, _two, op_);
+            return new Argument(NumParsers.compareStr(op_, _one.getStruct(), _two.getStruct()));
         }
-        return CmpOperation.calculateCommonNb(_one, _two, op_);
+        return new Argument(NumParsers.compareNb(op_, _one.getStruct(), _two.getStruct()));
     }
 
     public String getOp() {

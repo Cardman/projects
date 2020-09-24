@@ -83,12 +83,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         String className_ = _container.getNodeInformation().getInputClass();
         StringList values_ = _container.getValue();
-        ResultErrorStd out_ = getStructToBeValidated(values_, className_, _conf);
-        if (out_.getError() != null) {
-            String err_ = out_.getError();
-            _conf.getContext().setException(new ErrorStruct(_conf.getContext(),err_));
-        }
-        return out_;
+        return getStructToBeValidated(values_, className_, _conf);
     }
     protected LocalVariable newLocVar(NodeContainer _container, Configuration _conf) {
         StringList values_ = _container.getValue();
@@ -134,7 +129,7 @@ public abstract class BeanLgNames extends LgNames {
         if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
-                res_.setError(getAliasCastType());
+                _context.getContext().setException(new ErrorStruct(_context.getContext(),getAliasCastType()));
                 return res_;
             }
             res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
@@ -142,7 +137,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
-            res_.setError(getAliasCastType());
+            _context.getContext().setException(new ErrorStruct(_context.getContext(),getAliasCastType()));
             return res_;
         }
         res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));

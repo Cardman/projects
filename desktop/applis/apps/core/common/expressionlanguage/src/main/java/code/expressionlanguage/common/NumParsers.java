@@ -8,6 +8,10 @@ import code.util.Replacement;
 import code.util.StringList;
 
 public final class NumParsers {
+    private static final String LOWER_EQ = "<=";
+    private static final String LOWER = "<";
+    private static final String GREATER_EQ = ">=";
+    private static final String GREATER = ">";
     private static final int DEFAULT_RADIX = 10;
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
@@ -1453,6 +1457,50 @@ public final class NumParsers {
             return (NumberStruct) _arg;
         }
         return new ByteStruct((byte)0);
+    }
+
+    public static BooleanStruct compareNb(String _op, Struct _one, Struct _two) {
+        boolean complement_ = false;
+        String useOp_ = _op;
+        if (StringList.quickEq(_op, LOWER_EQ)) {
+            complement_ = true;
+            useOp_ = GREATER;
+        } else if (StringList.quickEq(_op, GREATER_EQ)) {
+            complement_ = true;
+            useOp_ = LOWER;
+        }
+        BooleanStruct arg_;
+        if (StringList.quickEq(useOp_, LOWER)) {
+            arg_ = quickCalculateLowerNb(_one, _two);
+        } else {
+            arg_ = quickCalculateGreaterNb(_one, _two);
+        }
+        if (complement_) {
+            arg_ = arg_.neg();
+        }
+        return arg_;
+    }
+
+    public static BooleanStruct compareStr(String _op, Struct _one, Struct _two) {
+        boolean complement_ = false;
+        String useOp_ = _op;
+        if (StringList.quickEq(_op, LOWER_EQ)) {
+            complement_ = true;
+            useOp_ = GREATER;
+        } else if (StringList.quickEq(_op, GREATER_EQ)) {
+            complement_ = true;
+            useOp_ = LOWER;
+        }
+        BooleanStruct arg_;
+        if (StringList.quickEq(useOp_, LOWER)) {
+            arg_ = quickCalculateLowerStr(_one, _two);
+        } else {
+            arg_ = quickCalculateGreaterStr(_one, _two);
+        }
+        if (complement_) {
+            arg_ = arg_.neg();
+        }
+        return arg_;
     }
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {

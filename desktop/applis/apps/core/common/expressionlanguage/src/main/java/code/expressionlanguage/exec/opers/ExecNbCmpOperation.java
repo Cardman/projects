@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CmpOperation;
 import code.util.CustList;
@@ -26,7 +27,7 @@ public final class ExecNbCmpOperation extends ExecMethodOperation implements Ato
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
-        Argument arg_ = CmpOperation.calculateCommonNb(first_, second_, oper);
+        Argument arg_ = new Argument(NumParsers.compareNb(oper, first_.getStruct(), second_.getStruct()));
         setSimpleArgument(arg_, _conf, _nodes);
     }
 

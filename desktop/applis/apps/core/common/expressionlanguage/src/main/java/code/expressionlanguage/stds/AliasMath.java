@@ -3,10 +3,22 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public final class AliasMath {
@@ -287,7 +299,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    result_.setError(divZero_);
+                    _cont.setException(new ErrorStruct(_cont,divZero_));
                     return result_;
                 }
                 result_.setResult(new LongStruct(Numbers.mod(num_, den_)));
@@ -296,7 +308,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                result_.setError(divZero_);
+                _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(new IntStruct(Numbers.mod(num_, den_)));
@@ -307,7 +319,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    result_.setError(divZero_);
+                    _cont.setException(new ErrorStruct(_cont,divZero_));
                     return result_;
                 }
                 result_.setResult(new LongStruct(Numbers.quot(num_, den_)));
@@ -316,7 +328,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                result_.setError(divZero_);
+                _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(new IntStruct(Numbers.quot(num_, den_)));
@@ -351,7 +363,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
             if (arg_ == NullStruct.NULL_VALUE) {
-                result_.setError(divZero_);
+                _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(arg_);
@@ -361,7 +373,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
             if (arg_ == NullStruct.NULL_VALUE) {
-                result_.setError(divZero_);
+                _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(arg_);
@@ -436,7 +448,93 @@ public final class AliasMath {
             result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
             return result_;
         }
-        return result_;
+        if (_cont.getInitializingTypeInfos().isInitEnums()) {
+            _cont.getInitializingTypeInfos().failInitEnums();
+            return result_;
+        }
+        if (StringList.quickEq(_method.getConstraints().getName(), lgNames_.getAliasSeed())) {
+            if (paramList_.isEmpty()) {
+                Struct seed_ = _cont.getSeed();
+                result_.setResult(seed_);
+                return result_;
+            }
+            _cont.setSeed(_args[0].getStruct());
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        if (paramList_.isEmpty()) {
+            return random(_cont, result_);
+        }
+        return randomParam(_cont, result_, args_);
+    }
+
+    private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result) {
+        LgNames lgNames_ = _cont.getStandards();
+        Struct seed_ = _cont.getSeed();
+        Argument argSeed_ = new Argument(seed_);
+        ExecNamedFunctionBlock named_ = null;
+        ExecRootBlock type_ = null;
+        CustList<Argument> argsToPass_ = new CustList<Argument>();
+        String cl_ = "";
+        if (seed_ != NullStruct.NULL_VALUE
+                && ExecTemplates.safeObject(lgNames_.getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+            String argClassName_ = seed_.getClassName(_cont);
+            Classes classes_ = _cont.getClasses();
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick());
+            named_ = polymorphMeth_.getOverridableBlock();
+            String className_ = polymorphMeth_.getClassName();
+            type_ = polymorphMeth_.getRootBlock();
+            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            cl_ = className_;
+        }
+        if (named_ instanceof ExecOverridableBlock) {
+            ExecOverridableBlock meth_ = (ExecOverridableBlock)named_;
+            if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
+                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
+                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                return _result;
+            }
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,new Parameters()));
+            return _result;
+        }
+        AbstractGenerator generator_ = lgNames_.getGenerator();
+        _result.setResult(new DoubleStruct(generator_.pick()));
+        return _result;
+    }
+
+    private static ResultErrorStd randomParam(ContextEl _cont, ResultErrorStd _result, Struct[] _args) {
+        LgNames lgNames_ = _cont.getStandards();
+        Struct seed_ = _cont.getSeed();
+        Argument argSeed_ = new Argument(seed_);
+        ExecRootBlock type_ = null;
+        ExecNamedFunctionBlock named_ = null;
+        CustList<Argument> argsToPass_ = new CustList<Argument>();
+        String cl_ = "";
+        if (seed_ != NullStruct.NULL_VALUE
+                && ExecTemplates.safeObject(lgNames_.getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+            String argClassName_ = seed_.getClassName(_cont);
+            Classes classes_ = _cont.getClasses();
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGenerator(), classes_.getSeedPick());
+            named_ = polymorphMeth_.getOverridableBlock();
+            type_ = polymorphMeth_.getRootBlock();
+            String className_ = polymorphMeth_.getClassName();
+            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            cl_ = className_;
+            argsToPass_.add(new Argument(_args[0]));
+        }
+        if (named_ instanceof ExecOverridableBlock) {
+            ExecOverridableBlock meth_ = (ExecOverridableBlock)named_;
+            if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
+                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
+                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                return _result;
+            }
+            ExecTemplates.wrapAndCall(meth_,type_,cl_,argSeed_,argsToPass_,_cont);
+            return _result;
+        }
+        AbstractGenerator generator_ = lgNames_.getGenerator();
+        _result.setResult(new LongStruct(AbMonteCarlo.randomLong(NumParsers.convertToNumber(_args[0]).longStruct(),generator_)));
+        return _result;
     }
 
     public static Struct[] getObjects(Argument... _args) {

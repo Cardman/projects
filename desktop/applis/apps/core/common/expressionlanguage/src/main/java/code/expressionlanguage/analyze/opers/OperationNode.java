@@ -53,13 +53,6 @@ public abstract class OperationNode {
     protected static final String BIT_SHIFT_LEFT = "<<<";
     protected static final String BIT_SHIFT_RIGHT = ">>>";
     protected static final String ROTATE_LEFT = "<<<<";
-    protected static final String LOWER_EQ = "<=";
-
-    protected static final String LOWER = "<";
-
-    protected static final String GREATER_EQ = ">=";
-
-    protected static final String GREATER = ">";
 
     protected static final String AFF = "=";
 

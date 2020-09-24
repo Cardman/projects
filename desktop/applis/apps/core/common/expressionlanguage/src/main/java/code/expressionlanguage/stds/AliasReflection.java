@@ -613,793 +613,708 @@ public final class AliasReflection {
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
-        String type_ = _method.getClassName();
-        String name_ = _method.getConstraints().getName();
+
+    public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
+        String name_ = _method.getConstraints().getName();
         String aliasClass_ = ref_.aliasClassType;
-        String aliasMethod_ = ref_.aliasMethod;
-        String aliasConstructor_ = ref_.aliasConstructor;
-        String aliasField_ = ref_.aliasField;
-        if (StringList.quickEq(type_, ref_.aliasAnnotationType)) {
-            DisplayedStrings dis_ = lgNames_.getDisplayedStrings();
-            result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(
-                    dis_.getInfinity(),
-                    dis_.getNan(),
-                    dis_.getExponent(),args_[0])));
+        ResultErrorStd result_ = new ResultErrorStd();
+        if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isStaticField()));
             return result_;
         }
-        if (StringList.quickEq(type_, ref_.aliasField)) {
-            if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isStaticField()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isFinalField()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPackage()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPrivate()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isProtected()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                FieldMetaInfo class_ = NumParsers.getField(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPublic()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                FieldMetaInfo field_ = NumParsers.getField(_struct);
-                result_.setResult(new StringStruct(field_.getName()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-                FieldMetaInfo field_ = NumParsers.getField(_struct);
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,field_.getDeclaringClass()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetType)) {
-                FieldMetaInfo field_ = NumParsers.getField(_struct);
-                String owner_ = field_.getDeclaringClass();
-                String typeField_ = field_.getType();
-                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
-                    typeField_ = ExecTemplates.reflectFormat(owner_, typeField_, _cont);
-                }
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-                FieldMetaInfo field_ = NumParsers.getField(_struct);
-                ExecAnnotableBlock annotableBlock_ = field_.getAnnotableBlock();
-                StringList methods_;
-                methods_ = new StringList();
-                if (annotableBlock_ instanceof ExecInfoBlock) {
-                    for (ExecRootBlock c: ((ExecInfoBlock)annotableBlock_).getAnonymous()) {
-                        methods_.add(c.getFullName());
-                    }
-                }
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
+        if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isFinalField()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPackage()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPrivate()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isProtected()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
+            FieldMetaInfo class_ = NumParsers.getField(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPublic()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetName)) {
+            FieldMetaInfo field_ = NumParsers.getField(_struct);
+            result_.setResult(new StringStruct(field_.getName()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
+            FieldMetaInfo field_ = NumParsers.getField(_struct);
+            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,field_.getDeclaringClass()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetType)) {
             FieldMetaInfo field_ = NumParsers.getField(_struct);
             String owner_ = field_.getDeclaringClass();
             String typeField_ = field_.getType();
+            if (ExecTemplates.correctNbParameters(owner_,_cont)) {
+                typeField_ = ExecTemplates.reflectFormat(owner_, typeField_, _cont);
+            }
             result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
             return result_;
         }
-        if (StringList.quickEq(type_, ref_.aliasMethod)) {
-            if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+            FieldMetaInfo field_ = NumParsers.getField(_struct);
+            ExecAnnotableBlock annotableBlock_ = field_.getAnnotableBlock();
+            StringList methods_;
+            methods_ = new StringList();
+            if (annotableBlock_ instanceof ExecInfoBlock) {
+                for (ExecRootBlock c: ((ExecInfoBlock)annotableBlock_).getAnonymous()) {
+                    methods_.add(c.getFullName());
+                }
+            }
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        FieldMetaInfo field_ = NumParsers.getField(_struct);
+        String owner_ = field_.getDeclaringClass();
+        String typeField_ = field_.getType();
+        result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
+        return result_;
+    }
+
+    public static ResultErrorStd invokeMethodInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+        LgNames lgNames_ = _cont.getStandards();
+        AliasReflection ref_ = lgNames_.getReflect();
+        String name_ = _method.getConstraints().getName();
+        String aliasClass_ = ref_.aliasClassType;
+        ResultErrorStd result_ = new ResultErrorStd();
+        if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(method_.isAbstract()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isFinal()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isStatic()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsStaticCall)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isStaticCall()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsInstanceMethod)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isInstanceMethod()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsNormal)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isNormal()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isVararg()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPackage()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPrivate()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isProtected()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
+            MethodMetaInfo class_ = NumParsers.getMethod(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPublic()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            String declaring_ = method_.getFormClassName();
+            StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            if (method_.isVararg()) {
+                int first_ = len_ -1;
+                for (int i = 0; i < first_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+                String int_ = geneInterfaces_.get(first_);
+                int_ = StringExpUtil.getPrettyArrayType(int_);
+                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            String declaring_ = method_.getFormClassName();
+            StringList geneInterfaces_ = method_.getParameterNames();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            if (method_.isVararg()) {
+                int first_ = len_ -1;
+                for (int i = 0; i < first_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+                String int_ = geneInterfaces_.get(first_);
+                int_ = StringExpUtil.getPrettyArrayType(int_);
+                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLocalVars)) {
+            if (args_.length == 3) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(method_.isAbstract()));
+                Cache cache_ = method_.getCache();
+                if (cache_ != null) {
+                    cache_.putLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),args_[2]);
+                }
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isFinal()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isStatic()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsStaticCall)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isStaticCall()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsInstanceMethod)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isInstanceMethod()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsNormal)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isNormal()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isVararg()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPackage()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPrivate()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isProtected()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                MethodMetaInfo class_ = NumParsers.getMethod(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPublic()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
+            if (args_.length == 2) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                String declaring_ = method_.getFormClassName();
-                StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                if (method_.isVararg()) {
-                    int first_ = len_ -1;
-                    for (int i = 0; i < first_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                    String int_ = geneInterfaces_.get(first_);
-                    int_ = StringExpUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                String declaring_ = method_.getFormClassName();
-                StringList geneInterfaces_ = method_.getParameterNames();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                if (method_.isVararg()) {
-                    int first_ = len_ -1;
-                    for (int i = 0; i < first_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                    String int_ = geneInterfaces_.get(first_);
-                    int_ = StringExpUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLocalVars)) {
-                if (args_.length == 3) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
+                Cache cache_ = method_.getCache();
+                if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
                     if (cache_ != null) {
-                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),args_[2]);
-                    }
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                if (args_.length == 2) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
-                    if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
-                        if (cache_ != null) {
-                            result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
-                        } else {
-                            result_.setResult(NullStruct.NULL_VALUE);
-                        }
-                        return result_;
-                    }
-                    if (cache_ != null) {
-                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]),args_[1]);
-                    }
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                if (args_.length == 1) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
-                    if (cache_ != null) {
-                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),0));
+                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
                     return result_;
                 }
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                Cache cache_ = method_.getCache();
-                String arrStr_ = lgNames_.getAliasString();
-                arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
                 if (cache_ != null) {
-                    StringList localVars_ = cache_.getLocalVars();
-                    int size_ = localVars_.size();
-                    Struct[] arr_ = new Struct[size_];
-                    for (int i = 0; i < size_; i++) {
-                        arr_[i] = Argument.wrapStr(localVars_.get(i));
-                    }
-                    result_.setResult(new ArrayStruct(arr_,arrStr_));
-                    return result_;
+                    cache_.putLocalValue(NumParsers.getStringValue(args_[0]),args_[1]);
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLoopVars)) {
-                if (args_.length == 3) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
-                    if (cache_ != null) {
-                        if (args_[2] instanceof NumberStruct) {
-                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
-                        }
-                    }
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                if (args_.length == 2) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
-                    if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
-                        if (cache_ != null) {
-                            result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
-                        } else {
-                            result_.setResult(NullStruct.NULL_VALUE);
-                        }
-                        return result_;
-                    }
-                    if (cache_ != null) {
-                        if (args_[1] instanceof NumberStruct) {
-                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]),((NumberStruct)args_[1]).longStruct());
-                        }
-                    }
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                if (args_.length == 1) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                    Cache cache_ = method_.getCache();
-                    if (cache_ != null) {
-                        result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),0));
-                    } else {
-                        result_.setResult(NullStruct.NULL_VALUE);
-                    }
-                    return result_;
-                }
+            if (args_.length == 1) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
-                String arrStr_ = lgNames_.getAliasString();
-                arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
                 if (cache_ != null) {
-                    StringList localVars_ = cache_.getLoopVars();
-                    int size_ = localVars_.size();
-                    Struct[] arr_ = new Struct[size_];
-                    for (int i = 0; i < size_; i++) {
-                        arr_[i] = Argument.wrapStr(localVars_.get(i));
-                    }
-                    result_.setResult(new ArrayStruct(arr_,arrStr_));
-                    return result_;
+                    result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),0));
+                } else {
+                    result_.setResult(NullStruct.NULL_VALUE);
                 }
-                result_.setResult(NullStruct.NULL_VALUE);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                StringList methods_;
-                methods_ = new StringList();
-                ExecMemberCallingsBlock callee_ = method_.getCallee();
-                fetchAnonymous(methods_, callee_);
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                StringList methods_;
-                methods_ = new StringList();
-                ExecMemberCallingsBlock callee_ = method_.getCallee();
-                fetchLocalTypes(methods_, callee_);
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                String owner_ = method_.getFormClassName();
-                String typeMethod_ = method_.getReturnType();
-                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
-                    typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
-                }
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                String owner_ = method_.getFormClassName();
-                String typeMethod_ = method_.getReturnType();
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-                result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
             MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-            String cl_ = method_.getFormClassName();
-            if (cl_.isEmpty()) {
+            Cache cache_ = method_.getCache();
+            String arrStr_ = lgNames_.getAliasString();
+            arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
+            if (cache_ != null) {
+                StringList localVars_ = cache_.getLocalVars();
+                int size_ = localVars_.size();
+                Struct[] arr_ = new Struct[size_];
+                for (int i = 0; i < size_; i++) {
+                    arr_[i] = Argument.wrapStr(localVars_.get(i));
+                }
+                result_.setResult(new ArrayStruct(arr_,arrStr_));
+                return result_;
+            }
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLoopVars)) {
+            if (args_.length == 3) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                Cache cache_ = method_.getCache();
+                if (cache_ != null) {
+                    if (args_[2] instanceof NumberStruct) {
+                        cache_.putLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
+                    }
+                }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,cl_));
+            if (args_.length == 2) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                Cache cache_ = method_.getCache();
+                if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
+                    if (cache_ != null) {
+                        result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
+                    } else {
+                        result_.setResult(NullStruct.NULL_VALUE);
+                    }
+                    return result_;
+                }
+                if (cache_ != null) {
+                    if (args_[1] instanceof NumberStruct) {
+                        cache_.putLoopValue(NumParsers.getStringValue(args_[0]),((NumberStruct)args_[1]).longStruct());
+                    }
+                }
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            if (args_.length == 1) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                Cache cache_ = method_.getCache();
+                if (cache_ != null) {
+                    result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),0));
+                } else {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                }
+                return result_;
+            }
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            Cache cache_ = method_.getCache();
+            String arrStr_ = lgNames_.getAliasString();
+            arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
+            if (cache_ != null) {
+                StringList localVars_ = cache_.getLoopVars();
+                int size_ = localVars_.size();
+                Struct[] arr_ = new Struct[size_];
+                for (int i = 0; i < size_; i++) {
+                    arr_[i] = Argument.wrapStr(localVars_.get(i));
+                }
+                result_.setResult(new ArrayStruct(arr_,arrStr_));
+                return result_;
+            }
+            result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
-        if (StringList.quickEq(type_, aliasClass_)) {
-            if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isAbstractType()));
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            StringList methods_;
+            methods_ = new StringList();
+            ExecMemberCallingsBlock callee_ = method_.getCallee();
+            fetchAnonymous(methods_, callee_);
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            StringList methods_;
+            methods_ = new StringList();
+            ExecMemberCallingsBlock callee_ = method_.getCallee();
+            fetchLocalTypes(methods_, callee_);
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            String owner_ = method_.getFormClassName();
+            String typeMethod_ = method_.getReturnType();
+            if (ExecTemplates.correctNbParameters(owner_,_cont)) {
+                typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
+            }
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            String owner_ = method_.getFormClassName();
+            String typeMethod_ = method_.getReturnType();
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetName)) {
+            MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+            result_.setResult(new StringStruct(method_.getName()));
+            return result_;
+        }
+        MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+        String cl_ = method_.getFormClassName();
+        if (cl_.isEmpty()) {
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,cl_));
+        return result_;
+    }
+
+    public static ResultErrorStd invokeClassInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+        LgNames lgNames_ = _cont.getStandards();
+        AliasReflection ref_ = lgNames_.getReflect();
+        String aliasClass_ = ref_.aliasClassType;
+        String name_ = _method.getConstraints().getName();
+        String aliasMethod_ = ref_.aliasMethod;
+        String aliasConstructor_ = ref_.aliasConstructor;
+        String aliasField_ = ref_.aliasField;
+        ResultErrorStd result_ = new ResultErrorStd();
+        if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isAbstractType()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isStaticType()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsArray)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeArray()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasMakeWildCard)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            if (class_.isTypeVoid()) {
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isStaticType()));
+            Struct isUpper_ = args_[0];
+            String varOwn_ = class_.getVariableOwner();
+            String nameCl_ = class_.getName();
+            if (!(isUpper_ instanceof BooleanStruct)) {
+                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, varOwn_));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsArray)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeArray()));
+            String baseWildCard_ = nameCl_;
+            if (StringList.quickEq(nameCl_,Templates.SUB_TYPE)) {
+                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, varOwn_));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasMakeWildCard)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                if (class_.isTypeVoid()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                Struct isUpper_ = args_[0];
-                String varOwn_ = class_.getVariableOwner();
-                String nameCl_ = class_.getName();
-                if (!(isUpper_ instanceof BooleanStruct)) {
-                    result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, varOwn_));
-                    return result_;
-                }
-                String baseWildCard_ = nameCl_;
-                if (StringList.quickEq(nameCl_,Templates.SUB_TYPE)) {
-                    result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, varOwn_));
-                    return result_;
-                }
-                if (nameCl_.startsWith(Templates.SUB_TYPE)) {
-                    baseWildCard_ = nameCl_.substring(Templates.SUB_TYPE.length());
-                } else if (nameCl_.startsWith(Templates.SUP_TYPE)) {
-                    baseWildCard_ = nameCl_.substring(Templates.SUP_TYPE.length());
-                }
-                if (BooleanStruct.isTrue(isUpper_)) {
-                    result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,StringList.concat(Templates.SUB_TYPE,baseWildCard_), varOwn_));
-                } else {
-                    result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,StringList.concat(Templates.SUP_TYPE,baseWildCard_), varOwn_));
-                }
+            if (nameCl_.startsWith(Templates.SUB_TYPE)) {
+                baseWildCard_ = nameCl_.substring(Templates.SUB_TYPE.length());
+            } else if (nameCl_.startsWith(Templates.SUP_TYPE)) {
+                baseWildCard_ = nameCl_.substring(Templates.SUP_TYPE.length());
+            }
+            if (BooleanStruct.isTrue(isUpper_)) {
+                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,StringList.concat(Templates.SUB_TYPE,baseWildCard_), varOwn_));
+            } else {
+                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,StringList.concat(Templates.SUP_TYPE,baseWildCard_), varOwn_));
+            }
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsAnnotation)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeAnnotation()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsClass)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeClass()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsWildCard)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeWildCard()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsEnum)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeEnum()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isFinalType()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsTypeVariable)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeVariable()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsVariable)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isVariable()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsInterface)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypeInterface()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPackage()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPrimitive)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isTypePrimitive()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPrivate()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isProtected()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPublic()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsInstance)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            String param_ = class_.getName();
+            if (param_.contains(Templates.PREFIX_VAR_TYPE)) {
+                result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsAnnotation)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeAnnotation()));
+            Argument arg_ = new Argument(args_[0]);
+            if (arg_.isNull()) {
+                result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsClass)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeClass()));
+            result_.setResult(BooleanStruct.of(ExecTemplates.safeObject(param_, arg_, _cont) == ErrorType.NOTHING));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
+            ClassMetaInfo class_ = NumParsers.getClass(_struct);
+            String param_ = class_.getName();
+            Struct subType_ = args_[0];
+            if (!(subType_ instanceof ClassMetaInfo)) {
+                result_.setResult(BooleanStruct.of(!ExecClassArgumentMatching.isPrimitive(param_,_cont)));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsWildCard)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeWildCard()));
+            String arg_ = NumParsers.getClass(subType_).getName();
+            result_.setResult(BooleanStruct.of(ExecTemplates.isCorrectExecute(arg_,param_, _cont)));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetName)) {
+            result_.setResult(new StringStruct((NumParsers.getClass(_struct)).getName()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
+            String nameCl_ = (NumParsers.getClass(_struct)).getName();
+            result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettyType(nameCl_)));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetPrettySingleName)) {
+            String nameCl_ = (NumParsers.getClass(_struct)).getName();
+            result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettySingleType(nameCl_)));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String t_ = cl_.getTypeOwner();
+            if (t_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsEnum)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeEnum()));
-                return result_;
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,t_,cl_.getVariableOwner()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList methods_;
+            methods_ = cl_.getMemberTypes();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,cl_.getVariableOwner());
+                index_++;
             }
-            if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isFinalType()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsTypeVariable)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeVariable()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsVariable)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isVariable()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsInterface)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypeInterface()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPackage()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPrimitive)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isTypePrimitive()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPrivate()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isProtected()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPublic()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsInstance)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                String param_ = class_.getName();
-                if (param_.contains(Templates.PREFIX_VAR_TYPE)) {
-                    result_.setResult(BooleanStruct.of(false));
-                    return result_;
-                }
-                Argument arg_ = new Argument(args_[0]);
-                if (arg_.isNull()) {
-                    result_.setResult(BooleanStruct.of(false));
-                    return result_;
-                }
-                result_.setResult(BooleanStruct.of(ExecTemplates.safeObject(param_, arg_, _cont) == ErrorType.NOTHING));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
-                ClassMetaInfo class_ = NumParsers.getClass(_struct);
-                String param_ = class_.getName();
-                Struct subType_ = args_[0];
-                if (!(subType_ instanceof ClassMetaInfo)) {
-                    result_.setResult(BooleanStruct.of(!ExecClassArgumentMatching.isPrimitive(param_,_cont)));
-                    return result_;
-                }
-                String arg_ = NumParsers.getClass(subType_).getName();
-                result_.setResult(BooleanStruct.of(ExecTemplates.isCorrectExecute(arg_,param_, _cont)));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                result_.setResult(new StringStruct((NumParsers.getClass(_struct)).getName()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
-                String nameCl_ = (NumParsers.getClass(_struct)).getName();
-                result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettyType(nameCl_)));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetPrettySingleName)) {
-                String nameCl_ = (NumParsers.getClass(_struct)).getName();
-                result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettySingleType(nameCl_)));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String t_ = cl_.getTypeOwner();
-                if (t_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,t_,cl_.getVariableOwner()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList methods_;
-                methods_ = cl_.getMemberTypes();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,cl_.getVariableOwner());
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetOperators)) {
-                CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                if (args_.length == 0) {
-                    for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
-                        MethodId id_ = o.getId();
-                        String ret_ = o.getImportedReturnType();
-                        AccessEnum acc_ = o.getAccess();
-                        MethodId fid_;
-                        fid_ = id_;
-                        String decl_ = o.getDeclaringType();
-                        MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
-                        met_.setFileName(o.getFile().getFileName());
-                        met_.setAnnotableBlock(o);
-                        met_.setCallee(o);
-                        met_.setCalleeInv(o);
-                        operators_.add(met_);
-                    }
-                    operators_.sortElts(new OperatorCmp());
-                    Struct[] ctorsArr_ = new Struct[operators_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: operators_) {
-                        ctorsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetOperators)) {
+            CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            if (args_.length == 0) {
                 for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                     MethodId id_ = o.getId();
-                    if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
-                        String ret_ = o.getImportedReturnType();
-                        AccessEnum acc_ = o.getAccess();
-                        MethodId fid_;
-                        fid_ = id_;
-                        String decl_ = o.getDeclaringType();
-                        MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
-                        met_.setFileName(o.getFile().getFileName());
-                        met_.setAnnotableBlock(o);
-                        met_.setCallee(o);
-                        met_.setCalleeInv(o);
-                        candidates_.add(met_);
-                    }
+                    String ret_ = o.getImportedReturnType();
+                    AccessEnum acc_ = o.getAccess();
+                    MethodId fid_;
+                    fid_ = id_;
+                    String decl_ = o.getDeclaringType();
+                    MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                    met_.setFileName(o.getFile().getFileName());
+                    met_.setAnnotableBlock(o);
+                    met_.setCallee(o);
+                    met_.setCalleeInv(o);
+                    operators_.add(met_);
                 }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                operators_.sortElts(new OperatorCmp());
+                Struct[] ctorsArr_ = new Struct[operators_.size()];
                 int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
-                CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
-                Classes classesInfo_ = _cont.getClasses();
-                for (ExecRootBlock c: classesInfo_.getClassBodies()) {
-                    String forName_ = c.getGenericString();
-                    classes_.add(ExecutingUtil.getCustomClassMetaInfo(c, forName_, _cont));
-                }
-                for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
-                    String k_ = c.getKey();
-                    StandardType clblock_ = c.getValue();
-                    classes_.add(ExecutingUtil.getClassMetaInfo(_cont,clblock_, k_));
-                }
-                classes_.sortElts(new ClassNameCmp());
-                Struct[] ctorsArr_ = new Struct[classes_.size()];
-                int index_ = 0;
-                for (ClassMetaInfo e: classes_) {
+                for (MethodMetaInfo e: operators_) {
                     ctorsArr_[index_] = e;
                     index_++;
                 }
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
                 ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetClass)) {
-                Struct str_ = args_[0];
-                if (str_ == NullStruct.NULL_VALUE) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    String className_ = str_.getClassName(_cont);
-                    result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,className_));
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
+                MethodId id_ = o.getId();
+                if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
+                    String ret_ = o.getImportedReturnType();
+                    AccessEnum acc_ = o.getAccess();
+                    MethodId fid_;
+                    fid_ = id_;
+                    String decl_ = o.getDeclaringType();
+                    MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                    met_.setFileName(o.getFile().getFileName());
+                    met_.setAnnotableBlock(o);
+                    met_.setCallee(o);
+                    met_.setCalleeInv(o);
+                    candidates_.add(met_);
                 }
-                return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredConstructors)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<ConstructorMetaInfo> ctors_;
-                ctors_ = cl_.getConstructorsInfos();
-                String className_= StringExpUtil.getPrettyArrayType(aliasConstructor_);
-                if (args_.length == 0) {
-                    Struct[] ctorsArr_ = new Struct[ctors_.size()];
-                    int index_ = 0;
-                    for (ConstructorMetaInfo e: ctors_) {
-                        ctorsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<ConstructorMetaInfo> candidates_;
-                candidates_ = new CustList<ConstructorMetaInfo>();
-                String instClassName_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
-                    for (ConstructorMetaInfo e: ctors_) {
-                        ConstructorId id_ = e.getRealId();
-                        if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
-                            candidates_.add(e);
-                        }
-                    }
-                } else {
-                    for (ConstructorMetaInfo e: ctors_) {
-                        ConstructorId id_ = e.getRealId();
-                        if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
-                            candidates_.add(e);
-                        }
-                    }
-                }
-                Struct[] ctorsArr_ = new Struct[candidates_.size()];
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
+            CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
+            Classes classesInfo_ = _cont.getClasses();
+            for (ExecRootBlock c: classesInfo_.getClassBodies()) {
+                String forName_ = c.getGenericString();
+                classes_.add(ExecutingUtil.getCustomClassMetaInfo(c, forName_, _cont));
+            }
+            for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
+                String k_ = c.getKey();
+                StandardType clblock_ = c.getValue();
+                classes_.add(ExecutingUtil.getClassMetaInfo(_cont,clblock_, k_));
+            }
+            classes_.sortElts(new ClassNameCmp());
+            Struct[] ctorsArr_ = new Struct[classes_.size()];
+            int index_ = 0;
+            for (ClassMetaInfo e: classes_) {
+                ctorsArr_[index_] = e;
+                index_++;
+            }
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetClass)) {
+            Struct str_ = args_[0];
+            if (str_ == NullStruct.NULL_VALUE) {
+                result_.setResult(NullStruct.NULL_VALUE);
+            } else {
+                String className_ = str_.getClassName(_cont);
+                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,className_));
+            }
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredConstructors)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<ConstructorMetaInfo> ctors_;
+            ctors_ = cl_.getConstructorsInfos();
+            String className_= StringExpUtil.getPrettyArrayType(aliasConstructor_);
+            if (args_.length == 0) {
+                Struct[] ctorsArr_ = new Struct[ctors_.size()];
                 int index_ = 0;
-                for (ConstructorMetaInfo c: candidates_) {
-                    ctorsArr_[index_] = c;
+                for (ConstructorMetaInfo e: ctors_) {
+                    ctorsArr_[index_] = e;
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredExplicits)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getExplicitsInfos();
-                if (args_.length == 0) {
-                    Struct[] methodsArr_ = new Struct[methods_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: methods_) {
-                        methodsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
-                String instClassName_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
-                    for (MethodMetaInfo e: methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
-                            candidates_.add(e);
-                        }
-                    }
-                } else {
-                    for (MethodMetaInfo e : methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
-                            candidates_.add(e);
-                        }
+            CustList<ConstructorMetaInfo> candidates_;
+            candidates_ = new CustList<ConstructorMetaInfo>();
+            String instClassName_ = cl_.getName();
+            if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
+                for (ConstructorMetaInfo e: ctors_) {
+                    ConstructorId id_ = e.getRealId();
+                    if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                        candidates_.add(e);
                     }
                 }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
-                int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
-                    index_++;
+            } else {
+                for (ConstructorMetaInfo e: ctors_) {
+                    ConstructorId id_ = e.getRealId();
+                    if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                        candidates_.add(e);
+                    }
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredImplicits)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getImplicitsInfos();
-                if (args_.length == 0) {
-                    Struct[] methodsArr_ = new Struct[methods_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: methods_) {
-                        methodsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
-                String instClassName_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
-                    for (MethodMetaInfo e: methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
-                            candidates_.add(e);
-                        }
-                    }
-                } else {
-                    for (MethodMetaInfo e : methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
-                            candidates_.add(e);
-                        }
-                    }
-                }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
-                int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
+            Struct[] ctorsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (ConstructorMetaInfo c: candidates_) {
+                ctorsArr_[index_] = c;
+                index_++;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredTrueOperators)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getTruesInfos();
+            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredExplicits)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getExplicitsInfos();
+            if (args_.length == 0) {
                 Struct[] methodsArr_ = new Struct[methods_.size()];
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
@@ -1410,11 +1325,40 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredFalseOperators)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getFalsesInfos();
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            String instClassName_ = cl_.getName();
+            if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
+                for (MethodMetaInfo e: methods_) {
+                    MethodId id_ = e.getRealId();
+                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                        candidates_.add(e);
+                    }
+                }
+            } else {
+                for (MethodMetaInfo e : methods_) {
+                    MethodId id_ = e.getRealId();
+                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                        candidates_.add(e);
+                    }
+                }
+            }
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredImplicits)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getImplicitsInfos();
+            if (args_.length == 0) {
                 Struct[] methodsArr_ = new Struct[methods_.size()];
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
@@ -1425,46 +1369,74 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getMethodsInfos();
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                if (args_.length == 0) {
-                    if (cl_.isTypeArray()) {
-                        String instClassName_ = cl_.getName();
-                        String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getAliasObject());
-                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
-                        AccessEnum acc_ = AccessEnum.PUBLIC;
-                        String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
-                        String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
-                        String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
-                        Struct[] methodsArr_ = new Struct[1];
-                        methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
-                        ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                        result_.setResult(str_);
-                        return result_;
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            String instClassName_ = cl_.getName();
+            if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
+                for (MethodMetaInfo e: methods_) {
+                    MethodId id_ = e.getRealId();
+                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                        candidates_.add(e);
                     }
-                    Struct[] methodsArr_ = new Struct[methods_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: methods_) {
-                        methodsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
                 }
+            } else {
+                for (MethodMetaInfo e : methods_) {
+                    MethodId id_ = e.getRealId();
+                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                        candidates_.add(e);
+                    }
+                }
+            }
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredTrueOperators)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getTruesInfos();
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo e: methods_) {
+                methodsArr_[index_] = e;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredFalseOperators)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getFalsesInfos();
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo e: methods_) {
+                methodsArr_[index_] = e;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getMethodsInfos();
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            if (args_.length == 0) {
                 if (cl_.isTypeArray()) {
-                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
-                    if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
-                        Struct[] methodsArr_ = new Struct[0];
-                        ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                        result_.setResult(str_);
-                        return result_;
-                    }
                     String instClassName_ = cl_.getName();
                     String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getAliasObject());
+                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
                     AccessEnum acc_ = AccessEnum.PUBLIC;
                     String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
                     String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
@@ -1475,653 +1447,683 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
-                String instClassName_ = cl_.getName();
-                filterMethods(_cont, args_, instClassName_, candidates_, methods_);
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                Struct[] methodsArr_ = new Struct[methods_.size()];
                 int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
+                for (MethodMetaInfo e: methods_) {
+                    methodsArr_[index_] = e;
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredStaticMethods)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getMethodsInfos();
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                if (cl_.isTypeArray()) {
+            if (cl_.isTypeArray()) {
+                MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
+                if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
                     Struct[] methodsArr_ = new Struct[0];
                     ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                     result_.setResult(str_);
                     return result_;
                 }
-                if (args_.length == 0) {
-                    CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
-                    for (MethodMetaInfo e: methods_) {
-                        if (e.getKind() == MethodAccessKind.INSTANCE) {
-                            continue;
-                        }
-                        stMethods_.add(e);
-                    }
-                    Struct[] methodsArr_ = new Struct[stMethods_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: stMethods_) {
-                        methodsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
-                    for (MethodMetaInfo e: methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
-                            candidates_.add(e);
-                        }
+                String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getAliasObject());
+                AccessEnum acc_ = AccessEnum.PUBLIC;
+                String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
+                String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
+                String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
+                Struct[] methodsArr_ = new Struct[1];
+                methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            String instClassName_ = cl_.getName();
+            filterMethods(_cont, args_, instClassName_, candidates_, methods_);
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredStaticMethods)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getMethodsInfos();
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            if (cl_.isTypeArray()) {
+                Struct[] methodsArr_ = new Struct[0];
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (args_.length == 0) {
+                CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
+                for (MethodMetaInfo e: methods_) {
+                    if (e.getKind() == MethodAccessKind.INSTANCE) {
+                        continue;
                     }
-                } else {
-                    for (MethodMetaInfo e : methods_) {
-                        MethodId id_ = e.getRealId();
-                        if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
-                            candidates_.add(e);
-                        }
-                    }
+                    stMethods_.add(e);
                 }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                Struct[] methodsArr_ = new Struct[stMethods_.size()];
                 int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
+                for (MethodMetaInfo e: stMethods_) {
+                    methodsArr_[index_] = e;
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredBlocks)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<MethodMetaInfo> methods_;
-                methods_ = cl_.getBlocsInfos();
-                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-                if (args_.length == 0) {
-                    Struct[] methodsArr_ = new Struct[methods_.size()];
-                    int index_ = 0;
-                    for (MethodMetaInfo e: methods_) {
-                        methodsArr_[index_] = e;
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
-                for (MethodMetaInfo e : methods_) {
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            String instClassName_ = cl_.getName();
+            if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
+                for (MethodMetaInfo e: methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eq(id_,args_[0],args_[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE)) {
+                    if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
                         candidates_.add(e);
                     }
                 }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
+            } else {
+                for (MethodMetaInfo e : methods_) {
+                    MethodId id_ = e.getRealId();
+                    if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
+                        candidates_.add(e);
+                    }
+                }
+            }
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredBlocks)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<MethodMetaInfo> methods_;
+            methods_ = cl_.getBlocsInfos();
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            if (args_.length == 0) {
+                Struct[] methodsArr_ = new Struct[methods_.size()];
                 int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
+                for (MethodMetaInfo e: methods_) {
+                    methodsArr_[index_] = e;
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredFields)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringMap<FieldMetaInfo> fields_;
-                fields_ = cl_.getFieldsInfos();
-                String className_= StringExpUtil.getPrettyArrayType(aliasField_);
-                if (args_.length == 0 || !(args_[0] instanceof StringStruct)) {
-                    Struct[] ctorsArr_ = new Struct[fields_.size()];
-                    int index_ = 0;
-                    for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
-                        ctorsArr_[index_] = e.getValue();
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
+            CustList<MethodMetaInfo> candidates_;
+            candidates_ = new CustList<MethodMetaInfo>();
+            for (MethodMetaInfo e : methods_) {
+                MethodId id_ = e.getRealId();
+                if (eq(id_,args_[0],args_[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE)) {
+                    candidates_.add(e);
                 }
-                String fieldName_ = ((StringStruct) args_[0]).getInstance();
-                FieldMetaInfo meta_ = fields_.getVal(fieldName_);
-                Struct[] ctorsArr_;
-                if (meta_ != null) {
-                    ctorsArr_ = new Struct[1];
-                    ctorsArr_[0] = meta_;
-                } else {
-                    ctorsArr_ = new Struct[0];
+            }
+            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            int index_ = 0;
+            for (MethodMetaInfo c: candidates_) {
+                methodsArr_[index_] = c;
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredFields)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringMap<FieldMetaInfo> fields_;
+            fields_ = cl_.getFieldsInfos();
+            String className_= StringExpUtil.getPrettyArrayType(aliasField_);
+            if (args_.length == 0 || !(args_[0] instanceof StringStruct)) {
+                Struct[] ctorsArr_ = new Struct[fields_.size()];
+                int index_ = 0;
+                for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
+                    ctorsArr_[index_] = e.getValue();
+                    index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetSuperClass)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String genericSuperClassName_ = cl_.getSuperClass();
-                if (genericSuperClassName_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                String nameType_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
-                    genericSuperClassName_ = ExecTemplates.reflectFormat(nameType_, genericSuperClassName_, _cont);
-                }
-                ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
-                result_.setResult(superCl_);
+            String fieldName_ = ((StringStruct) args_[0]).getInstance();
+            FieldMetaInfo meta_ = fields_.getVal(fieldName_);
+            Struct[] ctorsArr_;
+            if (meta_ != null) {
+                ctorsArr_ = new Struct[1];
+                ctorsArr_[0] = meta_;
+            } else {
+                ctorsArr_ = new Struct[0];
+            }
+            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetSuperClass)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String genericSuperClassName_ = cl_.getSuperClass();
+            if (genericSuperClassName_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericSuperClass)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String genericSuperClassName_ = cl_.getSuperClass();
-                if (genericSuperClassName_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
-                result_.setResult(superCl_);
+            String nameType_ = cl_.getName();
+            if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
+                genericSuperClassName_ = ExecTemplates.reflectFormat(nameType_, genericSuperClassName_, _cont);
+            }
+            ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
+            result_.setResult(superCl_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetGenericSuperClass)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String genericSuperClassName_ = cl_.getSuperClass();
+            if (genericSuperClassName_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetInterfaces)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList geneInterfaces_ = cl_.getSuperInterfaces();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                String nameType_ = cl_.getName();
-                Struct[] superInts_ = new Struct[len_];
-                if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        int_ = ExecTemplates.reflectFormat(nameType_, int_, _cont);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
-                    }
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
-                    }
+            ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
+            result_.setResult(superCl_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetInterfaces)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList geneInterfaces_ = cl_.getSuperInterfaces();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            String nameType_ = cl_.getName();
+            Struct[] superInts_ = new Struct[len_];
+            if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    int_ = ExecTemplates.reflectFormat(nameType_, int_, _cont);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
                 }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList geneInterfaces_ = cl_.getSuperInterfaces();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
+            } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
                     superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
                 }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetLowerBounds)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList geneInterfaces_ = cl_.getLowerBounds();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                String clName_ = cl_.getVariableOwner();
-                if (clName_.isEmpty()) {
-                    Struct[] superInts_ = new Struct[0];
-                    ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                    result_.setResult(arr_);
-                    return result_;
-                }
-                Struct[] superInts_ = new Struct[len_];
-                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
-                    }
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetUpperBounds)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList geneInterfaces_ = cl_.getUpperBounds();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                String clName_ = cl_.getVariableOwner();
-                if (clName_.isEmpty()) {
-                    Struct[] superInts_ = new Struct[0];
-                    ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                    result_.setResult(arr_);
-                    return result_;
-                }
-                Struct[] superInts_ = new Struct[len_];
-                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
-                    }
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                if (cl_.isTypeVoid()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                String clName_ = cl_.getName();
-                String baseWildCard_ = clName_;
-                if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
-                    baseWildCard_ = lgNames_.getAliasObject();
-                } else if (clName_.startsWith(Templates.SUB_TYPE)) {
-                    baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
-                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
-                    baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
-                }
-                String owner_ = cl_.getVariableOwner();
-                String arrayName_ = StringExpUtil.getPrettyArrayType(baseWildCard_);
-                if (clName_.startsWith(Templates.SUB_TYPE)) {
-                    arrayName_ = StringList.concat(Templates.SUB_TYPE,arrayName_);
-                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
-                    arrayName_ = StringList.concat(Templates.SUP_TYPE,arrayName_);
-                }
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,arrayName_, owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetVariableOwner)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String owner_ = cl_.getVariableOwner();
-                if (owner_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericVariableOwner)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String owner_ = cl_.getVariableOwner();
-                if (owner_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                owner_ = StringExpUtil.getIdFromAllTypes(owner_);
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetTypeParameters)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<ClassMetaInfo> list_ = cl_.getTypeParameters(_cont);
-                int len_ = list_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                for (int i = 0; i < len_; i++) {
-                    superInts_[i] = list_.get(i);
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetBounds)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
-                int len_ = list_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                String clName_ = cl_.getVariableOwner();
-                if (clName_.isEmpty()) {
-                    Struct[] superInts_ = new Struct[0];
-                    ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                    result_.setResult(arr_);
-                    return result_;
-                }
-                Struct[] superInts_ = new Struct[len_];
-                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
-                    for (int i = 0; i < len_; i++) {
-                        String nameVar_ = list_.get(i).getName();
-                        nameVar_ = ExecTemplates.reflectFormat(clName_, nameVar_, _cont);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
-
-                    }
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String nameVar_ = list_.get(i).getName();
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericBounds)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
-                int len_ = list_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                for (int i = 0; i < len_; i++) {
-                    superInts_[i] = list_.get(i);
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String owner_ = cl_.getVariableOwner();
-                String clName_ = cl_.getName();
-                String baseWildCard_ = clName_;
-                if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
-                    baseWildCard_ = lgNames_.getAliasObject();
-                } else if (clName_.startsWith(Templates.SUB_TYPE)) {
-                    baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
-                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
-                    baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
-                }
-                if (!baseWildCard_.startsWith(Templates.ARR_BEG_STRING)) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                String pre_ = "";
-                if (clName_.startsWith(Templates.SUB_TYPE)) {
-                    pre_ = Templates.SUB_TYPE;
-                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
-                    pre_ = Templates.SUP_TYPE;
-                }
-                clName_ = baseWildCard_.substring(Templates.ARR_BEG_STRING.length());
-                clName_ = StringList.concat(pre_,clName_);
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,clName_, owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList classesNames_ = new StringList();
-                if (!(args_[0] instanceof ArrayStruct)) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                for (Struct s: ((ArrayStruct)args_[0]).getInstance()) {
-                    if (!(s instanceof ClassMetaInfo)) {
-                        result_.setResult(NullStruct.NULL_VALUE);
-                        return result_;
-                    }
-                    classesNames_.add(NumParsers.getClass(s).getName());
-                }
-                String res_ = ExecTemplates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
-                if (res_ == null) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,res_));
-                }
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasArrayNewInstance)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                String clDyn_ = cl_.getName();
-                if (cl_.isTypeWildCard()) {
-                    result_.setErrorMessage(clDyn_);
-                    result_.setError(lgNames_.getAliasIllegalArg());
-                    return result_;
-                }
-                if (clDyn_.contains(Templates.PREFIX_VAR_TYPE)) {
-                    result_.setErrorMessage(clDyn_);
-                    result_.setError(lgNames_.getAliasIllegalArg());
-                    return result_;
-                }
-                if (cl_.isTypeVoid()) {
-                    result_.setErrorMessage(clDyn_);
-                    result_.setError(lgNames_.getAliasClassNotFoundError());
-                    return result_;
-                }
-                if (!ExecTemplates.correctNbParameters(clDyn_,_cont)) {
-                    result_.setErrorMessage(clDyn_);
-                    result_.setError(lgNames_.getAliasIllegalArg());
-                    return result_;
-                }
-                Ints dims_ = new Ints();
-                Struct inst_ = args_[0];
-                if (!(inst_ instanceof ArrayStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                    return result_;
-                }
-                Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
-                for (Struct s: arrayDim_) {
-                    int dim_ = NumParsers.convertToNumber(s).intStruct();
-                    dims_.add(dim_);
-                }
-                Struct res_ = ExecTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont);
-                if (res_ instanceof ErrorStruct) {
-                    ErrorStruct err_ = (ErrorStruct)res_;
-                    String messageValue_ = err_.getMessageValue();
-                    if (!messageValue_.isEmpty()) {
-                        result_.setErrorMessage(messageValue_);
-                    }
-                    result_.setError(err_.getClassName());
-                    return result_;
-                }
-                result_.setResult(res_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasArrayGetLength)) {
-                Struct inst_ = args_[0];
-                if (!(inst_ instanceof ArrayStruct)) {
-                    result_.setErrorMessage(inst_.getClassName(_cont));
-                    result_.setError(lgNames_.getAliasIllegalArg());
-                    return result_;
-                }
-                ArrayStruct arr_ = (ArrayStruct) inst_;
-                int len_ = arr_.getInstance().length;
-                result_.setResult(new IntStruct(len_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
-                Struct inst_ = args_[0];
-                Struct out_ = ExecTemplates.getElement(inst_, args_[1], _cont);
-                result_.setResult(out_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasArraySet)) {
-                Struct inst_ = args_[0];
-                Struct value_ = args_[2];
-                ExecTemplates.setElement(inst_, args_[1], value_, _cont);
-                result_.setResult(NullStruct.NULL_VALUE);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-                StringList methods_;
-                methods_ = new StringList();
-                ExecRootBlock callee_ = cl_.getRootBlock();
-                fetchAnonymous(methods_, callee_);
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
-            StringList types_ = StringExpUtil.getAllTypes(cl_.getName());
-            String owner_ = cl_.getName();
-            int len_ = types_.size();
-            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_-1];
-            for (int i = 1; i < len_; i++) {
-                String nameVar_ = types_.get(i);
-                superInts_[i-1] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_);
             }
             ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
-        if (StringList.quickEq(type_, aliasConstructor_)) {
-            if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
-                ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
-                result_.setResult(BooleanStruct.of(class_.isVararg()));
-                return result_;
+        if (StringList.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList geneInterfaces_ = cl_.getSuperInterfaces();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            for (int i = 0; i < len_; i++) {
+                String int_ = geneInterfaces_.get(i);
+                superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
             }
-            if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPackage()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPrivate()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
-                result_.setResult(BooleanStruct.of(class_.isProtected()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
-                result_.setResult(BooleanStruct.of(class_.isPublic()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                String declaring_ = method_.getFormClassName();
-                StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                if (method_.isVararg()) {
-                    int first_ = len_ -1;
-                    for (int i = 0; i < first_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                    String int_ = geneInterfaces_.get(first_);
-                    int_ = StringExpUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                String declaring_ = method_.getFormClassName();
-                StringList geneInterfaces_ =  method_.getParametersTypes();
-                int len_ = geneInterfaces_.size();
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
-                if (method_.isVararg()) {
-                    int first_ = len_ -1;
-                    for (int i = 0; i < first_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                    String int_ = geneInterfaces_.get(first_);
-                    int_ = StringExpUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                } else {
-                    for (int i = 0; i < len_; i++) {
-                        String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
-                    }
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                String owner_ = method_.getFormClassName();
-                String typeMethod_ = method_.getReturnType();
-                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
-                    typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
-                }
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                String owner_ = method_.getFormClassName();
-                String typeMethod_ = method_.getReturnType();
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                result_.setResult(new StringStruct(method_.getName()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                StringList methods_;
-                methods_ = new StringList();
-                ExecMemberCallingsBlock callee_ = method_.getCallee();
-                fetchAnonymous(methods_, callee_);
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
-                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-                StringList methods_;
-                methods_ = new StringList();
-                ExecMemberCallingsBlock callee_ = method_.getCallee();
-                fetchLocalTypes(methods_, callee_);
-                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-                Struct[] methodsArr_ = new Struct[methods_.size()];
-                int index_ = 0;
-                for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,method_.getFormClassName()));
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
             return result_;
         }
+        if (StringList.quickEq(name_, ref_.aliasGetLowerBounds)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList geneInterfaces_ = cl_.getLowerBounds();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            String clName_ = cl_.getVariableOwner();
+            if (clName_.isEmpty()) {
+                Struct[] superInts_ = new Struct[0];
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            Struct[] superInts_ = new Struct[len_];
+            if (ExecTemplates.correctNbParameters(clName_,_cont)) {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                }
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetUpperBounds)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList geneInterfaces_ = cl_.getUpperBounds();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            String clName_ = cl_.getVariableOwner();
+            if (clName_.isEmpty()) {
+                Struct[] superInts_ = new Struct[0];
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            Struct[] superInts_ = new Struct[len_];
+            if (ExecTemplates.correctNbParameters(clName_,_cont)) {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                }
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            if (cl_.isTypeVoid()) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            String clName_ = cl_.getName();
+            String baseWildCard_ = clName_;
+            if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
+                baseWildCard_ = lgNames_.getAliasObject();
+            } else if (clName_.startsWith(Templates.SUB_TYPE)) {
+                baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
+            } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
+            }
+            String owner_ = cl_.getVariableOwner();
+            String arrayName_ = StringExpUtil.getPrettyArrayType(baseWildCard_);
+            if (clName_.startsWith(Templates.SUB_TYPE)) {
+                arrayName_ = StringList.concat(Templates.SUB_TYPE,arrayName_);
+            } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                arrayName_ = StringList.concat(Templates.SUP_TYPE,arrayName_);
+            }
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,arrayName_, owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetVariableOwner)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String owner_ = cl_.getVariableOwner();
+            if (owner_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetGenericVariableOwner)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String owner_ = cl_.getVariableOwner();
+            if (owner_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            owner_ = StringExpUtil.getIdFromAllTypes(owner_);
+            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetTypeParameters)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<ClassMetaInfo> list_ = cl_.getTypeParameters(_cont);
+            int len_ = list_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            for (int i = 0; i < len_; i++) {
+                superInts_[i] = list_.get(i);
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetBounds)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
+            int len_ = list_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            String clName_ = cl_.getVariableOwner();
+            if (clName_.isEmpty()) {
+                Struct[] superInts_ = new Struct[0];
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            Struct[] superInts_ = new Struct[len_];
+            if (ExecTemplates.correctNbParameters(clName_,_cont)) {
+                for (int i = 0; i < len_; i++) {
+                    String nameVar_ = list_.get(i).getName();
+                    nameVar_ = ExecTemplates.reflectFormat(clName_, nameVar_, _cont);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
+
+                }
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String nameVar_ = list_.get(i).getName();
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetGenericBounds)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
+            int len_ = list_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            for (int i = 0; i < len_; i++) {
+                superInts_[i] = list_.get(i);
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String owner_ = cl_.getVariableOwner();
+            String clName_ = cl_.getName();
+            String baseWildCard_ = clName_;
+            if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
+                baseWildCard_ = lgNames_.getAliasObject();
+            } else if (clName_.startsWith(Templates.SUB_TYPE)) {
+                baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
+            } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
+            }
+            if (!baseWildCard_.startsWith(Templates.ARR_BEG_STRING)) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            String pre_ = "";
+            if (clName_.startsWith(Templates.SUB_TYPE)) {
+                pre_ = Templates.SUB_TYPE;
+            } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                pre_ = Templates.SUP_TYPE;
+            }
+            clName_ = baseWildCard_.substring(Templates.ARR_BEG_STRING.length());
+            clName_ = StringList.concat(pre_,clName_);
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,clName_, owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList classesNames_ = new StringList();
+            if (!(args_[0] instanceof ArrayStruct)) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            for (Struct s: ((ArrayStruct)args_[0]).getInstance()) {
+                if (!(s instanceof ClassMetaInfo)) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                classesNames_.add(NumParsers.getClass(s).getName());
+            }
+            String res_ = ExecTemplates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
+            if (res_ == null) {
+                result_.setResult(NullStruct.NULL_VALUE);
+            } else {
+                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,res_));
+            }
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasArrayNewInstance)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            String clDyn_ = cl_.getName();
+            if (cl_.isTypeWildCard()) {
+                _cont.setException(new ErrorStruct(_cont,clDyn_,lgNames_.getAliasIllegalArg()));
+                return result_;
+            }
+            if (clDyn_.contains(Templates.PREFIX_VAR_TYPE)) {
+                _cont.setException(new ErrorStruct(_cont,clDyn_,lgNames_.getAliasIllegalArg()));
+                return result_;
+            }
+            if (cl_.isTypeVoid()) {
+                _cont.setException(new ErrorStruct(_cont,clDyn_,lgNames_.getAliasClassNotFoundError()));
+                return result_;
+            }
+            if (!ExecTemplates.correctNbParameters(clDyn_,_cont)) {
+                _cont.setException(new ErrorStruct(_cont,clDyn_,lgNames_.getAliasIllegalArg()));
+                return result_;
+            }
+            Ints dims_ = new Ints();
+            Struct inst_ = args_[0];
+            if (!(inst_ instanceof ArrayStruct)) {
+                _cont.setException(new ErrorStruct(_cont,lgNames_.getAliasNullPe()));
+                return result_;
+            }
+            Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
+            for (Struct s: arrayDim_) {
+                int dim_ = NumParsers.convertToNumber(s).intStruct();
+                dims_.add(dim_);
+            }
+            Struct res_ = ExecTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont);
+            if (res_ instanceof ErrorStruct) {
+                ErrorStruct err_ = (ErrorStruct)res_;
+                String messageValue_ = err_.getMessageValue();
+                if (!messageValue_.isEmpty()) {
+                    _cont.setException(new ErrorStruct(_cont,messageValue_,err_.getClassName()));
+                } else {
+                    _cont.setException(new ErrorStruct(_cont,err_.getClassName()));
+                }
+                return result_;
+            }
+            result_.setResult(res_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasArrayGetLength)) {
+            Struct inst_ = args_[0];
+            if (!(inst_ instanceof ArrayStruct)) {
+                _cont.setException(new ErrorStruct(_cont,inst_.getClassName(_cont),lgNames_.getAliasIllegalArg()));
+                return result_;
+            }
+            ArrayStruct arr_ = (ArrayStruct) inst_;
+            int len_ = arr_.getInstance().length;
+            result_.setResult(new IntStruct(len_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
+            Struct inst_ = args_[0];
+            Struct out_ = ExecTemplates.getElement(inst_, args_[1], _cont);
+            result_.setResult(out_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasArraySet)) {
+            Struct inst_ = args_[0];
+            Struct value_ = args_[2];
+            ExecTemplates.setElement(inst_, args_[1], value_, _cont);
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+            ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+            StringList methods_;
+            methods_ = new StringList();
+            ExecRootBlock callee_ = cl_.getRootBlock();
+            fetchAnonymous(methods_, callee_);
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+        StringList types_ = StringExpUtil.getAllTypes(cl_.getName());
+        String owner_ = cl_.getName();
+        int len_ = types_.size();
+        String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+        Struct[] superInts_ = new Struct[len_-1];
+        for (int i = 1; i < len_; i++) {
+            String nameVar_ = types_.get(i);
+            superInts_[i-1] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_);
+        }
+        ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+        result_.setResult(arr_);
+        return result_;
+    }
+
+    public static ResultErrorStd invokeCtorInfo(ContextEl _cont, Struct _struct, ClassMethodId _method) {
+        LgNames lgNames_ = _cont.getStandards();
+        String name_ = _method.getConstraints().getName();
+        AliasReflection ref_ = lgNames_.getReflect();
+        String aliasClass_ = ref_.aliasClassType;
+        ResultErrorStd result_ = new ResultErrorStd();
+        if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
+            ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
+            result_.setResult(BooleanStruct.of(class_.isVararg()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
+            ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPackage()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
+            ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPrivate()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
+            ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
+            result_.setResult(BooleanStruct.of(class_.isProtected()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
+            ConstructorMetaInfo class_ = NumParsers.getCtor(_struct);
+            result_.setResult(BooleanStruct.of(class_.isPublic()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            String declaring_ = method_.getFormClassName();
+            StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            if (method_.isVararg()) {
+                int first_ = len_ -1;
+                for (int i = 0; i < first_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+                String int_ = geneInterfaces_.get(first_);
+                int_ = StringExpUtil.getPrettyArrayType(int_);
+                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            String declaring_ = method_.getFormClassName();
+            StringList geneInterfaces_ =  method_.getParametersTypes();
+            int len_ = geneInterfaces_.size();
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_];
+            if (method_.isVararg()) {
+                int first_ = len_ -1;
+                for (int i = 0; i < first_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+                String int_ = geneInterfaces_.get(first_);
+                int_ = StringExpUtil.getPrettyArrayType(int_);
+                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+            } else {
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                }
+            }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            String owner_ = method_.getFormClassName();
+            String typeMethod_ = method_.getReturnType();
+            if (ExecTemplates.correctNbParameters(owner_,_cont)) {
+                typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
+            }
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            String owner_ = method_.getFormClassName();
+            String typeMethod_ = method_.getReturnType();
+            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetName)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            result_.setResult(new StringStruct(method_.getName()));
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            StringList methods_;
+            methods_ = new StringList();
+            ExecMemberCallingsBlock callee_ = method_.getCallee();
+            fetchAnonymous(methods_, callee_);
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
+            ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+            StringList methods_;
+            methods_ = new StringList();
+            ExecMemberCallingsBlock callee_ = method_.getCallee();
+            fetchLocalTypes(methods_, callee_);
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            Struct[] methodsArr_ = new Struct[methods_.size()];
+            int index_ = 0;
+            for (String t: methods_) {
+                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                index_++;
+            }
+            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+            result_.setResult(str_);
+            return result_;
+        }
+        ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+        result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,method_.getFormClassName()));
         return result_;
     }
 

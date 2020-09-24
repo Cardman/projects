@@ -232,9 +232,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
         ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf);
-        if (resError_.getError() != null) {
-            String err_ = resError_.getError();
-            _conf.getContext().setException(new ErrorStruct(_conf.getContext(),err_));
+        if (_conf.getContext().hasException()) {
             return null;
         }
         Struct obj_ = resError_.getResult();

@@ -1335,15 +1335,12 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             }
             if (StringList.quickEq(methodName_,INVOKE_METHOD)) {
                 if (_args[0] == null) {
-                    res_.setError(getAliasError());
                     return res_;
                 }
                 if (i_.getComposite() == null) {
-                    res_.setError(getAliasError());
                     return res_;
                 }
                 if (i_.getComposite().getStrings() == null) {
-                    res_.setError(getAliasError());
                     return res_;
                 }
                 res_.setResult(new StringStruct(i_.invokeMethod((Long)_args[0])));
@@ -1441,7 +1438,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,SETTER)) {
-                res_.setError(getAliasError());
                 return res_;
             }
         }
@@ -1768,7 +1764,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_RATE_EQ)) {
             if (StringList.quickEq(_method.getParametersTypes().first(), getAliasString())) {
                 if (!RateEq.matchesRate((String)_args[0])) {
-                    res_.setError(getAliasError());
                     return res_;
                 }
                 res_.setResult(new StdStruct(new RateEq((String)_args[0]),TYPE_RATE_EQ));
@@ -1994,7 +1989,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, TYPE_RATE)) {
             if (!Rate.matchesRate(_values.first())) {
-                res_.setError(getAliasError());
                 return res_;
             }
             res_.setResult(new StdStruct(new Rate(_values.first()), _className));
@@ -2003,7 +1997,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(_className, TYPE_ENUM_NUMBER)) {
             EnumNumber en_ = EnumNumber.getByName(_values.first());
             if (en_ == null) {
-                res_.setError(getAliasError());
             } else {
                 res_.setResult(StdStruct.newInstance(en_, _className));
             }
