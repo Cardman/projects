@@ -41,6 +41,26 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
+    protected CustList<Argument> fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+        String lastType_ = ExecTemplates.quickFormat(_rootBlock,className_, _lastType);
+        return fectchArgs(_nodes, lastType_, _naturalVararg);
+    }
+
+    protected CustList<Argument> fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+        String cl_ = _pr.getClassName(_conf);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
+        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _conf);
+        String lastType_ = ExecTemplates.quickFormat(_rootBlock,clGen_, _lastType);
+        return fectchArgs(_nodes,lastType_, _naturalVararg);
+    }
+
+    protected CustList<Argument> fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
+        return listArguments(filter_, _naturalVararg, _lastType, first_);
+    }
     static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
         ArgumentList out_ = new ArgumentList();
         CustList<Argument> args_ = out_.getArguments();
@@ -187,6 +207,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
+    public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, String _className, ExecRootBlock _root, ExecNamedFunctionBlock _named) {
+        if (_super) {
+            return new ExecOverrideInfo(_className,_root,_named);
+        }
+        return polymorph(_conf, _previous, _root, _named);
+    }
     public static ExecOverrideInfo polymorph(ContextEl _conf, Struct _previous, ExecRootBlock _root, ExecNamedFunctionBlock _named) {
         String argClassName_ = Argument.getNull(_previous).getClassName(_conf);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);

@@ -38,14 +38,14 @@ public final class ExecDirectStandardInstancingOperation extends
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = argumentList_.getArguments();
-        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes);
         return instancePrepareStd(_conf, className, constId, firstArgs_);
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return fectchArgs(_nodes,lastType,naturalVararg);
     }
 
 }

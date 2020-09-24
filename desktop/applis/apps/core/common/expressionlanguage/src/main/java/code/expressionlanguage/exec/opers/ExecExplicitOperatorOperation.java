@@ -6,6 +6,7 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -38,15 +39,16 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String classNameFound_ = className;
-        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, kind);
-        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType, kind);
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
         checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className,kind);
+    }
+
+    public CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+        String classNameFound_ = ClassMethodId.formatType(className,_conf, kind);
+        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType, kind);
+        return fectchArgs(_nodes,lastType_,naturalVararg);
     }
 
     public int getOffsetOper() {

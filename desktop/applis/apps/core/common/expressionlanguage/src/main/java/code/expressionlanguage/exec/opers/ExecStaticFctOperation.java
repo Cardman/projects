@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -45,23 +46,20 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
-        String classNameFound_;
-        Argument prev_ = new Argument();
-        classNameFound_ = className;
-        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, kind);
-        lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType_, kind);
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
+        String classNameFound_ = ClassMethodId.formatType(className,_conf, kind);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, classNameFound_);
         if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
             return Argument.createVoid();
         }
+        Argument prev_ = new Argument();
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), kind, "");
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String classNameFound_) {
+        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType, kind);
+        return fectchArgs(_nodes,lastType_,naturalVararg);
     }
 
     public ExecNamedFunctionBlock getNamed() {

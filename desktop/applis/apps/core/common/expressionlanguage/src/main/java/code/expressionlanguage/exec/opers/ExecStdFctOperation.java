@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
@@ -45,7 +46,6 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         MethodId methodId_ = classMethodId.getConstraints();
-        String lastType_ = lastType;
         String classNameFound_;
         Argument prev_;
         if (!staticMethod) {
@@ -59,10 +59,12 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
             prev_ = new Argument();
         }
         classNameFound_ = classMethodId.getClassName();
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes);
         return callStd(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        return fectchArgs(_nodes,lastType,naturalVararg);
     }
 
     public ClassMethodId getClassMethodId() {

@@ -73,8 +73,6 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
-        ExecNamedFunctionBlock fct_ = named;
-        ExecRootBlock type_ = rootBlock;
         classNameFound_ =className;
         ContextEl ctx_ = _conf.getContext();
         Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), ctx_));
@@ -88,12 +86,10 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, ctx_);
         lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
         firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
-        if (!isStaticChoiceMethod()) {
-            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(ctx_, pr_, rootBlock, named);
-            fct_ = polymorph_.getOverridableBlock();
-            type_ = polymorph_.getRootBlock();
-            classNameFound_ = polymorph_.getClassName();
-        }
+        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(),ctx_,pr_,classNameFound_,rootBlock,named);
+        ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
+        ExecRootBlock type_ = polymorph_.getRootBlock();
+        classNameFound_ = polymorph_.getClassName();
         return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
     }
 

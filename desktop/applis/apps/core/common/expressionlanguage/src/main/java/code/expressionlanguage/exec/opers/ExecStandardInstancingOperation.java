@@ -50,7 +50,6 @@ public final class ExecStandardInstancingOperation extends
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         if (!fieldName.isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
@@ -58,21 +57,20 @@ public final class ExecStandardInstancingOperation extends
             off_ --;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_;
         PageEl page_ = _conf.getLastPage();
-        className_ = page_.formatVarType(getClassName(), _conf);
+        String className_ = page_.formatVarType(getClassName(), _conf);
         if (fieldName.isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
             if (ExecutingUtil.hasToExit(_conf,base_)) {
                 return Argument.createVoid();
             }
         }
-        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
-        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = argumentList_.getArguments();
-        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
         return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, fieldName, blockIndex);
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_) {
+        return fectchInstFormattedArgs(_nodes,className_,rootBlock,lastType,naturalVararg);
     }
 
     public String getClassName() {

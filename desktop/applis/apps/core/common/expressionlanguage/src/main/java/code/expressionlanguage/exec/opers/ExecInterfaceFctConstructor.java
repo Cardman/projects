@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
 import code.util.CustList;
@@ -46,17 +47,16 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     }
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
         String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
-        String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(getRootBlock(),superClass_, lastType_);
-        int natvararg_ = getNaturalVararg();
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String superClass_) {
+        String lastType_ = ExecTemplates.quickFormat(getRootBlock(),superClass_, getLastType());
+        return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }
 }

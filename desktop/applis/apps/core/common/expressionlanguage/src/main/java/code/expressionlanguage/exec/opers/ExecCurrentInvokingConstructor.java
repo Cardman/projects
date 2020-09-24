@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.analyze.opers.CurrentInvokingConstructor;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.CustList;
 import code.util.IdMap;
@@ -25,20 +26,18 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
     }
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        PageEl page_ = _conf.getLastPage();
-        String gl_ = page_.getGlobalClass();
-        CustList<Argument> firstArgs_;
-        String lastType_ = getLastType();
-        lastType_ = page_.formatVarType(lastType_, _conf);
-        int natvararg_ = getNaturalVararg();
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        checkParametersCtors(_conf, gl_, getRootBlock(),getCtor(), firstArgs_, InstancingStep.USING_THIS);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
+        checkParametersCtors(_conf, _conf.getLastPage().getGlobalClass(), getRootBlock(),getCtor(), firstArgs_, InstancingStep.USING_THIS);
         return Argument.createVoid();
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+        PageEl page_ = _conf.getLastPage();
+        String lastType_ = page_.formatVarType(getLastType(), _conf);
+        return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }
 
 }

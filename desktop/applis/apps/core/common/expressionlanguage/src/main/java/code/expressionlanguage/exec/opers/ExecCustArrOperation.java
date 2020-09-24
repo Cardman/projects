@@ -7,6 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -116,37 +117,29 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     private Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        CustList<Argument> firstArgs_;
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
-        String classNameFound_;
-        classNameFound_ = className;
         Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, className, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         ExecNamedFunctionBlock fct_;
         if (_right != null) {
             fct_ = set;
         } else {
             fct_ = get;
         }
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         Struct pr_ = prev_.getStruct();
-        String cl_ = pr_.getClassName(_conf);
-        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _conf);
-        lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        if (!staticChoiceMethod) {
-            ExecOverrideInfo polymorph_ = polymorph(_conf, pr_, rootBlock, fct_);
-            fct_ = polymorph_.getOverridableBlock();
-            classNameFound_ = polymorph_.getClassName();
-        }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(staticChoiceMethod,_conf,pr_,className,rootBlock,fct_);
+        fct_ = polymorph_.getOverridableBlock();
+        ExecRootBlock dest_ = polymorph_.getRootBlock();
+        String classNameFound_ = polymorph_.getClassName();
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
+        return fetchFormattedArgs(_nodes,_conf,_pr,className,rootBlock,lastType,naturalVararg);
     }
 
 }

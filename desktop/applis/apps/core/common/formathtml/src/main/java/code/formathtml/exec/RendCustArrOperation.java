@@ -162,12 +162,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, ctx_);
         lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        if (!staticChoiceMethod) {
-            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(ctx_, pr_, rootBlock, fct_);
-            fct_ = polymorph_.getOverridableBlock();
-            classNameFound_ = polymorph_.getClassName();
-        }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,rootBlock, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(staticChoiceMethod,ctx_,pr_,classNameFound_,rootBlock,fct_);
+        fct_ = polymorph_.getOverridableBlock();
+        ExecRootBlock dest_ = polymorph_.getRootBlock();
+        classNameFound_ = polymorph_.getClassName();
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
     }
 
     public ClassMethodId getClassMethodId() {

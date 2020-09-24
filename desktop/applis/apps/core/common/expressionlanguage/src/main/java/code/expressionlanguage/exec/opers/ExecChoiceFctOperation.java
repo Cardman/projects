@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -46,24 +47,19 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
         String classNameFound_ = getClassName();
         Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        String argClassName_ = prev_.getStruct().getClassName(_conf);
-        String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-        String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-        lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, prev_.getStruct());
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), MethodAccessKind.INSTANCE, "");
+    }
+
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
+        return fetchFormattedArgs(_nodes, _conf, _pr, getClassName(), rootBlock, lastType, naturalVararg);
     }
 
     public ExecNamedFunctionBlock getNamed() {
