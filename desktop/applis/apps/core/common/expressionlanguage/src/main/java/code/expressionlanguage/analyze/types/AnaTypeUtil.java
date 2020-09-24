@@ -12,9 +12,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.structs.Struct;
@@ -657,7 +655,7 @@ public final class AnaTypeUtil {
     }
 
     public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
-        if (PrimitiveTypeUtil.isPrimitive(_className, _stds)) {
+        if (_stds.getPrimitiveTypes().contains(_className)) {
             return true;
         }
         return isWrapper(_className, _stds);
@@ -672,10 +670,6 @@ public final class AnaTypeUtil {
         return false;
     }
 
-    public static boolean isWrapper(String _className, AnalyzedPageEl _page) {
-        return isWrapper(_className, _page.getStandards());
-    }
-
     public static boolean isWrapper(String _className, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             String wrap_ = e.getValue().getWrapper();
@@ -687,7 +681,7 @@ public final class AnaTypeUtil {
     }
 
     public static boolean isPrimitive(String _className, AnalyzedPageEl _context) {
-        return PrimitiveTypeUtil.isPrimitive(_className, _context.getStandards());
+        return _context.getStandards().getPrimitiveTypes().contains(_className);
     }
 
     public static boolean isPureNumberClass(AnaClassArgumentMatching _class, AnalyzedPageEl _context) {
@@ -740,7 +734,7 @@ public final class AnaTypeUtil {
 
     public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft, LgNames stds_) {
         for (String n: _clMatchLeft.getNames()) {
-            if (PrimitiveTypeUtil.isPrimitive(n, stds_)) {
+            if (stds_.getPrimitiveTypes().contains(n)) {
                 return true;
             }
         }

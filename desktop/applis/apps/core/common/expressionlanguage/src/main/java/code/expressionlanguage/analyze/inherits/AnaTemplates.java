@@ -48,25 +48,17 @@ public final class AnaTemplates {
         LgNames stds_ = _page.getStandards();
         AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_first);
         AnaClassArgumentMatching second_ = new AnaClassArgumentMatching(_second);
-        if (first_.isPrimitive(_page) && second_.isWrapper(_page) && StringList.equalsSet(new StringList(PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_)), second_.getNames())) {
+        if (_page.matchPrimWrap(_first,_second)) {
             return ResultTernary.unwrapRight(_first, first_.getPrimitiveCast(_page));
         }
-        if (second_.isPrimitive(_page) && first_.isWrapper(_page) && StringList.equalsSet(new StringList(PrimitiveTypeUtil.toWrapper(second_.getSingleNameOrEmpty(), stds_)), first_.getNames())) {
+        if (_page.matchPrimWrap(_second,_first)) {
             return ResultTernary.unwrapLeft(_second, second_.getPrimitiveCast(_page));
         }
-        if (StringList.contains(_first, NO_SUB_CLASS) && !second_.isPrimitive(_page)) {
-            return ResultTernary.noUnwrap(_second);
-        }
         if (StringList.contains(_first, NO_SUB_CLASS)) {
-            String w_ = PrimitiveTypeUtil.toWrapper(second_.getSingleNameOrEmpty(), stds_);
-            return ResultTernary.noUnwrap(new StringList(w_));
-        }
-        if (StringList.contains(_second, NO_SUB_CLASS) && !first_.isPrimitive(_page)) {
-            return ResultTernary.noUnwrap(_first);
+            return ResultTernary.noUnwrap(_page.getTernary(_second));
         }
         if (StringList.contains(_second, NO_SUB_CLASS)) {
-            String w_ = PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_);
-            return ResultTernary.noUnwrap(new StringList(w_));
+            return ResultTernary.noUnwrap(_page.getTernary(_first));
         }
         if (AnaTypeUtil.isPrimitiveOrWrapper(first_, _page) && AnaTypeUtil.isPrimitiveOrWrapper(second_, _page)) {
             String primShort_ = stds_.getAliasPrimShort();
@@ -290,12 +282,14 @@ public final class AnaTemplates {
                 continue;
             }
             if (StringList.quickEq(base_, bool_)) {
-                String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-                AnaGeneType g_ = _page.getAnaGeneType(w_);
-                superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
-                for (String t: g_.getAllGenericSuperTypes()) {
-                    superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
-                }
+//                String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
+//                AnaGeneType g_ = _page.getAnaGeneType(w_);
+//                superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
+//                for (String t: g_.getAllGenericSuperTypes()) {
+//                    superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
+//                }
+                superTypes_.add(StringExpUtil.getPrettyArrayType(base_, d_));
+                superTypes_.addAllElts(_page.getAllGenericSuperTypesWrapper(base_,d_));
                 for (int d = 1; d <= d_; d++) {
                     superTypes_.add(StringExpUtil.getPrettyArrayType(obj_, d));
                 }
@@ -306,12 +300,13 @@ public final class AnaTemplates {
                 for (AnaClassArgumentMatching s: getAllSuperTypes(c_, _page)) {
                     for (String p: s.getNames()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(p, d_));
-                        String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-                        AnaGeneType g_ = _page.getAnaGeneType(w_);
-                        superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
-                        for (String t: g_.getAllGenericSuperTypes()) {
-                            superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
-                        }
+                        superTypes_.addAllElts(_page.getAllGenericSuperTypesWrapper(p,d_));
+//                        String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
+//                        AnaGeneType g_ = _page.getAnaGeneType(w_);
+//                        superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
+//                        for (String t: g_.getAllGenericSuperTypes()) {
+//                            superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
+//                        }
                     }
                 }
                 for (int d = 1; d <= d_; d++) {

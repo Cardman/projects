@@ -675,7 +675,7 @@ public final class ExecTemplates {
         Struct str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = str_.getClassName(_context);
-            String param_ = PrimitiveTypeUtil.toWrapper(_param, stds_);
+            String param_ = toWrapper(_param, stds_);
             if (!isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
             }
@@ -768,7 +768,7 @@ public final class ExecTemplates {
         }
         if (_value != NullStruct.NULL_VALUE) {
             String arg_ = _value.getClassName(_context);
-            param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
+            param_ = toWrapper(param_, stds_);
             if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
             }
@@ -784,7 +784,7 @@ public final class ExecTemplates {
         }
         if (_value != NullStruct.NULL_VALUE) {
             String arg_ = _value.getClassName(_context);
-            param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
+            param_ = toWrapper(param_, stds_);
             if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
             }
@@ -985,7 +985,7 @@ public final class ExecTemplates {
     }
 
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, LgNames _stds) {
-        if (!PrimitiveTypeUtil.isPrimitive(_className, _stds)) {
+        if (!_stds.getPrimitiveTypes().contains(_className)) {
             return false;
         }
         return _instance == NullStruct.NULL_VALUE;
@@ -1630,5 +1630,14 @@ public final class ExecTemplates {
 
     public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf) {
         gearErrorWhenContain(_struct, _index, _value, _conf);
+    }
+
+    public static String toWrapper(String _class, LgNames _stds) {
+        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getKey(), _class)) {
+                return e.getValue().getWrapper();
+            }
+        }
+        return _class;
     }
 }

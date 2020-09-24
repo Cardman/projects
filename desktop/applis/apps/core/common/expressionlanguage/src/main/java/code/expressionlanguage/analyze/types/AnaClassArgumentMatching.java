@@ -111,15 +111,6 @@ public final class AnaClassArgumentMatching {
         return ClassArgumentMatching.getPrimitiveCast(_className, stds_);
     }
 
-    public boolean isWrapper(AnalyzedPageEl _page) {
-        for (String b: className) {
-            if (AnaTypeUtil.isWrapper(b, _page)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean isBoolType(AnalyzedPageEl _context) {
         LgNames lgNames_ = _context.getStandards();
         return isBoolType(lgNames_);

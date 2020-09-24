@@ -1,8 +1,10 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -28,9 +30,12 @@ import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.*;
@@ -403,6 +408,51 @@ public final class AnalyzedPageEl {
         return needInterfaces;
     }
 
+    public boolean matchPrimWrap(StringList _first, StringList _second) {
+        String w_ = getWrap(_first);
+        if (w_.isEmpty()) {
+            return false;
+        }
+        return StringList.equalsSet(new StringList(w_),_second);
+    }
+    public StringList getTernary(StringList _list) {
+        String w_ = getWrap(_list);
+        if (w_.isEmpty()) {
+            return _list;
+        }
+        return new StringList(w_);
+    }
+
+    private String getWrap(StringList _list) {
+        AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_list);
+        String uniq_ = first_.getSingleNameOrEmpty();
+        String w_ = "";
+        for (EntryCust<String, PrimitiveType> e: standards.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getKey(), uniq_)) {
+                w_ = e.getValue().getWrapper();
+                break;
+            }
+        }
+        return w_;
+    }
+
+    public StringList getAllGenericSuperTypesWrapper(String _prim, int _d) {
+        StringList list_ = new StringList();
+        for (EntryCust<String, PrimitiveType> e: standards.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getKey(), _prim)) {
+                for (EntryCust<String,StandardType> f: standards.getStandards().entryList()) {
+                    String wrapper_ = e.getValue().getWrapper();
+                    if (StringList.quickEq(wrapper_,f.getKey())) {
+                        list_.add(StringExpUtil.getPrettyArrayType(wrapper_,_d));
+                        for (String t: f.getValue().getAllGenericSuperTypes()) {
+                            list_.add(StringExpUtil.getPrettyArrayType(t,_d));
+                        }
+                    }
+                }
+            }
+        }
+        return list_;
+    }
     public AnaGeneType getAnaGeneType(String _type) {
         RootBlock r_ = getAnaClassBody(_type);
         if (r_ != null) {

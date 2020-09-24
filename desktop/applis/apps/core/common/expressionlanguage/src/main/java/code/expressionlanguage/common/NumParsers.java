@@ -1410,6 +1410,9 @@ public final class NumParsers {
     }
 
     public static Struct convert(byte _cast) {
+        if (_cast == PrimitiveTypes.BOOL_WRAP) {
+            return BooleanStruct.of(false);
+        }
         if (_cast == PrimitiveTypes.DOUBLE_WRAP) {
             return new DoubleStruct(0);
         }
@@ -1428,7 +1431,10 @@ public final class NumParsers {
         if (_cast == PrimitiveTypes.SHORT_WRAP) {
             return new ShortStruct((short)0);
         }
-        return new ByteStruct((byte)0);
+        if (_cast == PrimitiveTypes.BYTE_WRAP) {
+            return new ByteStruct((byte)0);
+        }
+        return NullStruct.NULL_VALUE;
     }
 
     public static String getSingleNameOrEmpty(StringList className) {

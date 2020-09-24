@@ -2,9 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -71,7 +69,7 @@ final class RendRequestUtil {
             i_++;
         }
         ContextEl context_ = _conf.getContext();
-        String wrap_ = PrimitiveTypeUtil.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), context_.getStandards());
+        String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), context_.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);

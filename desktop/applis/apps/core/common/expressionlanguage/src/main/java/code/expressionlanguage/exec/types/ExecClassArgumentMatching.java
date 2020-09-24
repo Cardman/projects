@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -106,7 +105,7 @@ public final class ExecClassArgumentMatching {
 
     public static boolean isPrimitive(ExecClassArgumentMatching _clMatchLeft, LgNames stds_) {
         for (String n: _clMatchLeft.getNames()) {
-            if (PrimitiveTypeUtil.isPrimitive(n, stds_)) {
+            if (stds_.getPrimitiveTypes().contains(n)) {
                 return true;
             }
         }
@@ -127,11 +126,12 @@ public final class ExecClassArgumentMatching {
     }
 
     public static boolean isPrimitive(String _className, ContextEl _context) {
-        return PrimitiveTypeUtil.isPrimitive(_className, _context.getStandards());
+        return _context.getStandards().getPrimitiveTypes().contains(_className);
     }
 
     public static Struct defaultValue(String _class, ContextEl _context) {
-        return PrimitiveTypeUtil.defaultValue(_class, _context.getStandards());
+        byte cast_ = ClassArgumentMatching.getPrimitiveCast(_class, _context.getStandards());
+        return NumParsers.convert(cast_);
     }
 
 
