@@ -2,6 +2,8 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
@@ -22,9 +24,9 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     private int defaultValueOffset;
 
     private CustList<ExecOperationNode> opValue;
-    public ExecAnnotationMethodBlock(AnnotationMethodBlock _offset) {
-        super(_offset);
-        defaultValueOffset = _offset.getDefaultValueOffset();
+    public ExecAnnotationMethodBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset) {
+        super(_offset, _name, _varargs, _access, _parametersNames);
+        defaultValueOffset = _defaultValueOffset;
     }
 
     public MethodModifier getModifier() {

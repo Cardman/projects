@@ -1,7 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.ConstructorBlock;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
@@ -10,8 +11,8 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
 
     private boolean implicitCallSuper;
 
-    public ExecConstructorBlock(ConstructorBlock _offset) {
-        super(_offset);
+    public ExecConstructorBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames) {
+        super(_offset, _name, _varargs, _access, _parametersNames);
     }
 
     public ConstructorId getId() {
@@ -39,9 +40,9 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         return implicitCallSuper;
     }
 
-    public void buildImportedTypes(ConstructorBlock _key) {
-        setImportedReturnType(_key.getImportedReturnType());
-        getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
+    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
+        setImportedReturnType(_importedReturnType);
+        getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
     public void setImplicitCallSuper(boolean implicitCallSuper) {

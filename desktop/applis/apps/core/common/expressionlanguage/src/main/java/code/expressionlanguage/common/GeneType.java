@@ -18,8 +18,6 @@ public interface GeneType extends InheritedType {
 
     String getGenericString();
 
-    String getPackageName();
-
     String getFullName();
 
 }

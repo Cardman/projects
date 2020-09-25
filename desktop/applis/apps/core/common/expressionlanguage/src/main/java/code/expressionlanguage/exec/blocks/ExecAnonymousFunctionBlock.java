@@ -1,36 +1,32 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
-import code.expressionlanguage.analyze.blocks.AnonymousFunctionBlock;
-import code.expressionlanguage.analyze.blocks.MethodKind;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.exec.util.NameAndType;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
 
-    private final boolean staticMethod;
-    private final boolean staticCallMethod;
+    private final MethodModifier methodModifier;
     private ExecRootBlock parentType;
     private final CacheInfo cacheInfo = new CacheInfo();
 
-    public ExecAnonymousFunctionBlock(AnonymousFunctionBlock _offset) {
-        super(_offset);
-        staticMethod = _offset.isStaticMethod();
-        staticCallMethod = _offset.isStaticCallMethod();
-        for (AnaNamedLocalVariable e: _offset.getCache().getLocalVariables()) {
+    public ExecAnonymousFunctionBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, AnaCache _cache) {
+        super(_offset, _name, _varargs, _access, _parametersNames);
+        methodModifier = _modifier;
+        for (AnaNamedLocalVariable e: _cache.getLocalVariables()) {
             cacheInfo.getCacheLocalNames().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
         }
-        for (AnaNamedLoopVariable e: _offset.getCache().getLoopVariables()) {
+        for (AnaNamedLoopVariable e: _cache.getLoopVariables()) {
             cacheInfo.getCacheLoopNames().add(new NameAndType(e.getName(),e.getLocalVariable().getIndexClassName()));
         }
     }
@@ -48,18 +44,12 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
         return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
     }
 
-    public void buildImportedTypes(AnonymousFunctionBlock _key) {
-        setImportedReturnType(_key.getImportedReturnType());
-        getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
+    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
+        setImportedReturnType(_importedReturnType);
+        getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
     public MethodModifier getModifier() {
-        if (staticCallMethod) {
-            return MethodModifier.STATIC_CALL;
-        }
-        if (staticMethod) {
-            return MethodModifier.STATIC;
-        }
-        return MethodModifier.NORMAL;
+        return methodModifier;
     }
     @Override
     public String getSignature(ContextEl _ana) {

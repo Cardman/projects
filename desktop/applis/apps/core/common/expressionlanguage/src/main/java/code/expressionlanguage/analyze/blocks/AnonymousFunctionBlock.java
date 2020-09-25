@@ -62,10 +62,6 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         return staticMethod;
     }
 
-    public boolean isStaticCallMethod() {
-        return staticCallMethod;
-    }
-
     @Override
     public MethodAccessKind getStaticContext() {
         if (staticMethod) {

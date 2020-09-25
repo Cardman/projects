@@ -131,10 +131,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return abstractMethod;
     }
 
-    public boolean isStaticCallMethod() {
-        return staticCallMethod;
-    }
-
     public boolean isNormalMethod() {
         return normalMethod;
     }

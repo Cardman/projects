@@ -147,7 +147,7 @@ public final class ForwardInfos {
             _page.setImporting(o);
             _page.setImportingAcces(new OperatorAccessor());
             _page.setImportingTypes(o);
-            value_.buildImportedTypes(o);
+            value_.buildImportedTypes(o.getImportedReturnType(), o.getImportedParametersTypes());
         }
         for (EntryCust<RootBlock, Members> e: _page.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
@@ -494,7 +494,7 @@ public final class ForwardInfos {
                     mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
                 }
                 if (b instanceof ConstructorBlock) {
-                    ExecConstructorBlock val_ = new ExecConstructorBlock((ConstructorBlock)b);
+                    ExecConstructorBlock val_ = new ExecConstructorBlock(b.getOffset(), ((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
@@ -502,7 +502,7 @@ public final class ForwardInfos {
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof OverridableBlock) {
-                    ExecOverridableBlock val_ = new ExecOverridableBlock((OverridableBlock)b);
+                    ExecOverridableBlock val_ = new ExecOverridableBlock(b.getOffset(), ((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), ((OverridableBlock)b).getKind());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
@@ -510,7 +510,7 @@ public final class ForwardInfos {
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof AnnotationMethodBlock) {
-                    ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((AnnotationMethodBlock)b);
+                    ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock(b.getOffset(), ((AnnotationMethodBlock)b).getName(), ((AnnotationMethodBlock)b).isVarargs(), ((AnnotationMethodBlock)b).getAccess(), ((AnnotationMethodBlock)b).getParametersNames(), ((AnnotationMethodBlock)b).getDefaultValueOffset());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllAnnotMethods().addEntry((AnnotationMethodBlock) b,val_);
@@ -545,7 +545,7 @@ public final class ForwardInfos {
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
-                ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
+                ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getOffset(), r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames());
                 _exeFile.appendChild(e_);
                 e_.setFile(_exeFile);
                 _page.getClasses().getOperators().add(e_);
@@ -597,10 +597,10 @@ public final class ForwardInfos {
         ExecRootBlock declaring = _page.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         AnonymousFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_page.getMapAnonLambda().size());
-        ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_);
+        ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.getOffset(), block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getCache());
         fct_.setParentType(declaring);
         _page.getMapAnonLambda().addEntry(block_,fct_);
-        fct_.buildImportedTypes(block_);
+        fct_.buildImportedTypes(block_.getImportedReturnType(), block_.getImportedParametersTypes());
         return fct_;
     }
 
@@ -1507,5 +1507,32 @@ public final class ForwardInfos {
             return new ExecAffectationOperation(new ExecOperationContent(a_.getContent()), a_.getOpOffset());
         }
         return new ExecDeclaringOperation(new ExecOperationContent(_anaNode.getContent()));
+    }
+
+    public static void updateExec(ExecRootBlock _ex,RootBlock _root){
+        CustList<ExecRootBlock> pars_ = new CustList<ExecRootBlock>();
+        ExecRootBlock c_ = _ex;
+        boolean add_ = true;
+        while (c_ != null) {
+            if (add_) {
+                pars_.add(c_);
+            }
+            if (c_.withoutInstance()) {
+                add_ = false;
+            }
+            c_ = c_.getParentType();
+        }
+        ExecRootBlockContent rootBlockContent_ = _ex.getRootBlockContent();
+        rootBlockContent_.setSelfAndParentTypes(pars_.getReverse());
+        updateExec(rootBlockContent_,_root);
+    }
+
+    public static void updateExec(ExecRootBlockContent _ex,RootBlock _root){
+        _ex.update(_root.getRootBlockContent());
+        _ex.setBoundsAll(_root.getBoundAll());
+        _ex.setFullName(_root.getFullName());
+        _ex.setGenericString(_root.getGenericString());
+        _ex.setWildCardString(_root.getWildCardString());
+        _ex.setTypeVarCounts(_root.getTypeVarCounts());
     }
 }

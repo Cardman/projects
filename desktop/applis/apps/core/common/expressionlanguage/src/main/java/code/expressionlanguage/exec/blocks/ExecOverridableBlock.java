@@ -1,9 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.analyze.blocks.MethodKind;
-import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
@@ -11,24 +12,17 @@ import code.util.StringList;
 
 public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
 
-    private final boolean staticMethod;
-    private final boolean staticCallMethod;
-
-    private final boolean finalMethod;
-    private final boolean abstractMethod;
+    private final MethodModifier methodModifier;
 
     private final MethodKind kind;
-    public ExecOverridableBlock(OverridableBlock _offset) {
-        super(_offset);
-        staticMethod = _offset.isStaticMethod();
-        staticCallMethod = _offset.isStaticCallMethod();
-        finalMethod = _offset.isFinalMethod();
-        abstractMethod = _offset.isAbstractMethod();
-        kind = _offset.getKind();
+    public ExecOverridableBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, MethodKind _kind) {
+        super(_offset, _name, _varargs, _access, _parametersNames);
+        methodModifier = _modifier;
+        kind = _kind;
     }
 
     public boolean isAbstractMethod() {
-        return abstractMethod;
+        return methodModifier == MethodModifier.ABSTRACT;
     }
 
     @Override
@@ -50,19 +44,7 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     }
 
     public MethodModifier getModifier() {
-        if (abstractMethod) {
-            return MethodModifier.ABSTRACT;
-        }
-        if (finalMethod) {
-            return MethodModifier.FINAL;
-        }
-        if (staticCallMethod) {
-            return MethodModifier.STATIC_CALL;
-        }
-        if (staticMethod) {
-            return MethodModifier.STATIC;
-        }
-        return MethodModifier.NORMAL;
+        return methodModifier;
     }
 
     @Override
@@ -70,9 +52,9 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         return getId().getSignature(_ana);
     }
 
-    public void buildImportedTypes(OverridableBlock _key) {
-        setImportedReturnType(_key.getImportedReturnType());
-        getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
+    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
+        setImportedReturnType(_importedReturnType);
+        getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
     public MethodKind getKind() {

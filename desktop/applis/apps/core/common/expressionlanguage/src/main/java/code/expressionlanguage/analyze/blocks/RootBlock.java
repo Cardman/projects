@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -34,7 +35,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final StringList nameErrors = new StringList();
 
-    private final String packageName;
+    private AnaRootBlockContent rootBlockContent = new AnaRootBlockContent();
+
+//    private final String packageName;
 
     private final AccessEnum access;
 
@@ -48,9 +51,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private CustList<OverridingMethodDto> allOverridingMethods;
 
-    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
+//    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
-    private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
+//    private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
     private final CustList<AnaResultPartType> results = new CustList<AnaResultPartType>();
 
     private final StringList directSuperTypes = new StringList();
@@ -59,7 +62,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private IntMap< String> rowColDirectSuperTypes;
     private IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
 
-    private int idRowCol;
+//    private int idRowCol;
 
     private StringList staticInitInterfaces = new StringList();
     private int templateDefOffset;
@@ -94,9 +97,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringMap<Integer> counts = new StringMap<Integer>();
     private StringMap<Integer> countsAnon = new StringMap<Integer>();
     private int countsAnonFct;
-    private String suffix="";
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
-    private RootBlock parentType;
     private ConstructorBlock emptyCtor;
     private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
     private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
@@ -107,11 +108,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
               IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
         allOverridingMethods = new CustList<OverridingMethodDto>();
-        packageName = StringExpUtil.removeDottedSpaces(_packageName);
+        rootBlockContent.setPackageName(StringExpUtil.removeDottedSpaces(_packageName));
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
-        idRowCol = _idRowCol;
+        rootBlockContent.setIdRowCol(_idRowCol);
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             String type_ = StringExpUtil.removeDottedSpaces(t.getValue());
@@ -123,7 +124,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public void setupOffsets(String _name, String _packageName) {
         nameLength = _name.length();
         if (!templateDef.isEmpty()) {
-            templateDefOffset = idRowCol + nameLength;
+            templateDefOffset = rootBlockContent.getIdRowCol() + nameLength;
             if (!_packageName.isEmpty()) {
                 templateDefOffset += _packageName.length() + 1;
             }
@@ -225,7 +226,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public int getIdRowCol() {
-        return idRowCol;
+        return rootBlockContent.getIdRowCol();
     }
 
     public CustList<AnaResultPartType> getResults() {
@@ -335,11 +336,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
     public final RootBlock getParentType() {
-        return parentType;
+        return rootBlockContent.getParentType();
     }
 
     public final void setParentType(RootBlock _parentType) {
-        parentType = _parentType;
+        rootBlockContent.setParentType(_parentType);
     }
 
     public final CustList<RootBlock> getAllParentTypes() {
@@ -370,13 +371,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return isStaticType();
     }
     public final void buildMapParamType(AnalyzedPageEl _page) {
-        paramTypesMap = new StringMap<TypeVar>();
+        rootBlockContent.setParamTypesMap(new StringMap<TypeVar>());
         _page.getMappingLocal().clear();
         _page.getMappingLocal().putAllMap(mappings);
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
                 int j_ = 0;
-                for (TypeVar t: paramTypes) {
+                for (TypeVar t: rootBlockContent.getParamTypes()) {
                     StringList const_ = new StringList();
                     CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
@@ -405,10 +406,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     t_.getResults().addAllElts(results_);
                     t_.setConstraints(const_);
                     t_.setName(t.getName());
-                    paramTypesMap.addEntry(t.getName(), t_);
+                    rootBlockContent.getParamTypesMap().addEntry(t.getName(), t_);
                 }
             } else {
-                for (EntryCust<String,TypeVar> e: r.paramTypesMap.entryList()) {
+                for (EntryCust<String,TypeVar> e: r.rootBlockContent.getParamTypesMap().entryList()) {
                     boolean exist_ = false;
                     for (TypeVar t: r.getParamTypes()) {
                         if (StringList.quickEq(t.getName(),e.getKey())) {
@@ -418,26 +419,18 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (!exist_) {
                         continue;
                     }
-                    paramTypesMap.addEntry(e.getKey(),e.getValue());
+                    rootBlockContent.getParamTypesMap().addEntry(e.getKey(),e.getValue());
                 }
             }
         }
     }
 
     public CustList<TypeVar> getParamTypesMapValues() {
-        return paramTypesMap.values();
+        return rootBlockContent.getParamTypesMap().values();
     }
 
     public CustList<TypeVar> getParamTypes() {
-        return paramTypes;
-    }
-
-    public StringList getParamTypesAsStringList() {
-        StringList list_ = new StringList();
-        for (TypeVar t: paramTypes) {
-            list_.add(t.getName());
-        }
-        return list_;
+        return rootBlockContent.getParamTypes();
     }
 
     public int getTemplateDefOffset() {
@@ -476,10 +469,14 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public abstract String getName();
 
     public String getSuffixedName() {
-        return StringList.concat(getName(),suffix);
+        return StringList.concat(getName(), rootBlockContent.getSuffix());
     }
     public String getPackageName() {
-        return packageName;
+        return rootBlockContent.getPackageName();
+    }
+
+    public AnaRootBlockContent getRootBlockContent() {
+        return rootBlockContent;
     }
 
     public AccessEnum getAccess() {
@@ -498,7 +495,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         all_.addAllElts(getAllParentTypes());
         RootBlock p_ = null;
         StringBuilder strBuilder_ = new StringBuilder();
-        addPkgIfNotEmpty(packageName,strBuilder_);
+        addPkgIfNotEmpty(rootBlockContent.getPackageName(),strBuilder_);
         for (RootBlock r: all_.getReverse()) {
             appendParts(strBuilder_,p_,r);
             strBuilder_.append(r.getSuffixedName());
@@ -1297,7 +1294,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             types_.removeDuplicates();
             FoundErrorInterpret err_ = new FoundErrorInterpret();
             err_.setFileName(getFile().getFileName());
-            err_.setIndexFile(idRowCol);
+            err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
@@ -1321,7 +1318,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (!AnaTemplates.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
                     FoundErrorInterpret err_ = new FoundErrorInterpret();
                     err_.setFileName(getFile().getFileName());
-                    err_.setIndexFile(idRowCol);
+                    err_.setIndexFile(rootBlockContent.getIdRowCol());
                     //original id len
                     err_.buildError(_page.getAnalysisMessages().getFinalNotSubReturnType(),
                             subType_,
@@ -1347,7 +1344,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             types_.removeDuplicates();
             FoundErrorInterpret err_ = new FoundErrorInterpret();
             err_.setFileName(getFile().getFileName());
-            err_.setIndexFile(idRowCol);
+            err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
@@ -1360,7 +1357,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (MethodIdAncestors e: er_) {
             FoundErrorInterpret err_ = new FoundErrorInterpret();
             err_.setFileName(getFile().getFileName());
-            err_.setIndexFile(idRowCol);
+            err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoFinal(),
                     _virtualType,
@@ -1605,7 +1602,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<StringList> boundsAll_ = new CustList<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             boolean contained_ = false;
-            for (TypeVar u: paramTypes) {
+            for (TypeVar u: rootBlockContent.getParamTypes()) {
                 if (!StringList.quickEq(t.getName(),u.getName())) {
                     continue;
                 }
@@ -1782,17 +1779,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return nameLength;
     }
 
-    public StringMap<ExecTypeVar> getParamTypesMapAsExec() {
-        StringMap<ExecTypeVar> map_ = new StringMap<ExecTypeVar>();
-        for (EntryCust<String,TypeVar> e: paramTypesMap.entryList()) {
-            ExecTypeVar t_ = new ExecTypeVar();
-            t_.setName(e.getValue().getName());
-            t_.setConstraints(e.getValue().getConstraints());
-            map_.addEntry(e.getKey(), t_);
-        }
-        return map_;
-    }
-
     public CustList<OperationNode> getRoots() {
         return roots;
     }
@@ -1879,9 +1865,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (RootBlock r: pars_) {
             appendParts(generic_, previous_, r);
             generic_.append(r.getSuffixedName());
-            if (!r.paramTypes.isEmpty()) {
+            if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
-                int count_ = r.paramTypes.size();
+                int count_ = r.rootBlockContent.getParamTypes().size();
                 for (int i = 0; i < count_; i++) {
                     vars_.add(Templates.SUB_TYPE);
                 }
@@ -1929,9 +1915,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (RootBlock r: pars_) {
             appendParts(generic_, previous_, r);
             generic_.append(r.getSuffixedName());
-            if (!r.paramTypes.isEmpty()) {
+            if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
-                for (TypeVar t:r.paramTypes) {
+                for (TypeVar t: r.rootBlockContent.getParamTypes()) {
                     vars_.add(StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
@@ -1945,7 +1931,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public StringList getParamTypesValues() {
         StringList l_ = new StringList();
         for (RootBlock r: getSelfAndParentTypes()) {
-            for (TypeVar t: r.paramTypes) {
+            for (TypeVar t: r.rootBlockContent.getParamTypes()) {
                 l_.add(t.getName());
             }
         }
@@ -1960,7 +1946,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             generic_.add(0);
         }
         for (RootBlock r: pars_) {
-            generic_.add(r.paramTypes.size());
+            generic_.add(r.rootBlockContent.getParamTypes().size());
         }
         return generic_;
     }
@@ -1988,12 +1974,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return countsAnon;
     }
 
-    public String getSuffix() {
-        return suffix;
-    }
-
     public void setSuffix(String suffix) {
-        this.suffix = suffix;
+        this.rootBlockContent.setSuffix(suffix);
     }
 
     public StringMap<MappingLocalType> getMappings() {

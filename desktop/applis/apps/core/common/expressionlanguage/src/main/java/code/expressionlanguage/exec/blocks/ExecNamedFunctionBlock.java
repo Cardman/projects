@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -26,13 +26,13 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    ExecNamedFunctionBlock(NamedFunctionBlock _offset) {
-        super(_offset.getOffset());
+    ExecNamedFunctionBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames) {
+        super(_offset);
         importedParametersTypes = new StringList();
-        name = _offset.getName();
-        varargs = _offset.isVarargs();
-        access = _offset.getAccess();
-        parametersNames = _offset.getParametersNames();
+        name = _name;
+        varargs = _varargs;
+        access = _access;
+        parametersNames = _parametersNames;
     }
 
     @Override

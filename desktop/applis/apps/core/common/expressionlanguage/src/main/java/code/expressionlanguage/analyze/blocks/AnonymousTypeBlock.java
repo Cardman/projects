@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.IntMap;
 
 public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedBlock {
-    private String name = "";
+//    private String name = "";
     private int indexEnd;
     private int numberAnonType = -1;
     public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
@@ -30,11 +30,11 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
 
     @Override
     public String getName() {
-        return name;
+        return getRootBlockContent().getName();
     }
 
     public void setName(String _name) {
-        name = _name;
+        getRootBlockContent().setName(_name);
     }
 
     public int getIndexEnd() {
