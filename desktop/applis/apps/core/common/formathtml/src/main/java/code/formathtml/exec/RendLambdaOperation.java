@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.Configuration;
 import code.util.IdMap;
@@ -44,30 +45,30 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     public RendLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
         super(_l);
         standardMethod = _l.getStandardMethod();
-        intermediate = _l.isIntermediate();
-        safeInstance = _l.isSafeInstance();
+        intermediate = _l.getLambdaCommonContent().isIntermediate();
+        safeInstance = _l.getLambdaCommonContent().isSafeInstance();
         method = _l.getMethod();
-        foundClass = _l.getFoundClass();
-        ancestor = _l.getAncestor();
-        shiftArgument = _l.isShiftArgument();
-        polymorph = _l.isPolymorph();
-        abstractMethod = _l.isAbstractMethod();
+        foundClass = _l.getLambdaCommonContent().getFoundClass();
+        ancestor = _l.getLambdaCommonContent().getAncestor();
+        shiftArgument = _l.getLambdaCommonContent().isShiftArgument();
+        polymorph = _l.getLambdaMethodContent().isPolymorph();
+        abstractMethod = _l.getLambdaMethodContent().isAbstractMethod();
         realId = _l.getRealId();
         fieldId = _l.getFieldId();
-        staticField = _l.isStaticField();
-        finalField = _l.isFinalField();
-        affField = _l.isAffField();
-        returnFieldType = _l.getReturnFieldType();
-        directCast = _l.isDirectCast();
-        expCast = _l.isExpCast();
-        fileName = _l.getFileName();
+        staticField = _l.getLambdaFieldContent().isStaticField();
+        finalField = _l.getLambdaFieldContent().isFinalField();
+        affField = _l.getLambdaFieldContent().isAffField();
+        returnFieldType = _l.getLambdaCommonContent().getReturnFieldType();
+        directCast = _l.getLambdaMethodContent().isDirectCast();
+        expCast = _l.getLambdaMethodContent().isExpCast();
+        fileName = _l.getLambdaCommonContent().getFileName();
         if (method == null && realId == null) {
-            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l, _page);
+            annotableBlock = ForwardInfos.fetchField(_page, _l.getLambdaMemberNumberContent().getRootNumber(), _l.getLambdaMemberNumberContent().getMemberNumber());
         } else {
-            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
-            function = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+            functionBlock = ForwardInfos.fetchFunction(_l.getLambdaMemberNumberContent().getRootNumber(), _l.getLambdaMemberNumberContent().getMemberNumber(), _l.getLambdaMemberNumberContent().getOperatorNumber(), _page);
+            function = ForwardInfos.fetchFunction(_l.getLambdaMemberNumberContent().getRootNumber(), _l.getLambdaMemberNumberContent().getMemberNumber(), _l.getLambdaMemberNumberContent().getOperatorNumber(), _page);
         }
-        declaring = ExecAbstractLambdaOperation.fetchType(_l.getRootNumber(), _page);
+        declaring = ForwardInfos.fetchType(_l.getLambdaMemberNumberContent().getRootNumber(), _page);
     }
 
     @Override
@@ -78,7 +79,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     }
 
     Argument getCommonArgument(Argument _previous, Configuration _conf) {
-        String name_ = getResultClass().getName();
+        String name_ = getResultClass().getSingleNameOrEmpty();
         PageEl pageEl_ = _conf.getPageEl();
         ContextEl context_ = _conf.getContext();
         if (standardMethod != null) {

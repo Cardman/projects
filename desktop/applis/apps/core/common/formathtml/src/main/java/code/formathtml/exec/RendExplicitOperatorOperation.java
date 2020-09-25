@@ -4,11 +4,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -27,12 +27,12 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     private int offsetOper;
     public RendExplicitOperatorOperation(ExplicitOperatorOperation _fct, AnalyzedPageEl _page) {
         super(_fct);
-        named = ExecOperationNode.fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _page);
-        rootBlock = ExecOperationNode.fetchType(_fct.getRootNumber(), _page);
-        kind = ExecOperationNode.getKind(_fct.getClassMethodId());
-        className = ExecOperationNode.getType(_fct.getClassMethodId());
-        lastType = _fct.getLastType();
-        naturalVararg = _fct.getNaturalVararg();
+        named = ForwardInfos.fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _page);
+        rootBlock = ForwardInfos.fetchType(_fct.getRootNumber(), _page);
+        kind = ForwardInfos.getKind(_fct.getClassMethodId());
+        className = ForwardInfos.getType(_fct.getClassMethodId());
+        lastType = _fct.getCallFctContent().getLastType();
+        naturalVararg = _fct.getCallFctContent().getNaturalVararg();
         offsetOper = _fct.getOffsetOper();
     }
 

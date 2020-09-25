@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ConstructorBlock;
 import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -23,12 +24,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     private String methodName;
     private ConstructorId constId;
-    private String classFromName = EMPTY_STRING;
+    private AnaInvokingConstructorContent invokingConstructorContent;
 
-    private String lastType = EMPTY_STRING;
-
-    private int naturalVararg = -1;
-    private int offsetOper;
     private AnaClassArgumentMatching from;
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private int rootNumber = -1;
@@ -37,11 +34,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
-        offsetOper = getOperations().getOperators().firstKey();
+        invokingConstructorContent = new AnaInvokingConstructorContent();
+        invokingConstructorContent.setOffsetOper(getOperations().getOperators().firstKey());
     }
 
     public int getOffsetOper() {
-        return offsetOper;
+        return invokingConstructorContent.getOffsetOper();
     }
 
     @Override
@@ -79,7 +77,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
         String clCurName_ = from.getName();
-        classFromName = clCurName_;
+        invokingConstructorContent.setClassFromName(clCurName_);
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         RootBlock type_ = _page.getAnaClassBody(id_);
         NameParametersFilter name_ = buildFilter(_page);
@@ -104,10 +102,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
     private void postAnalysis(ConstrustorIdVarArg _res, NameParametersFilter _args, AnalyzedPageEl _page) {
         if (_res.isVarArgToCall()) {
-            naturalVararg = constId.getParametersTypes().size() - 1;
-            lastType = constId.getParametersTypes().last();
+            invokingConstructorContent.setNaturalVararg(constId.getParametersTypes().size() - 1);
+            invokingConstructorContent.setLastType(constId.getParametersTypes().last());
         }
-        unwrapArgsFct(constId, naturalVararg, lastType, _args.getAll(), _page);
+        unwrapArgsFct(constId, invokingConstructorContent.getNaturalVararg(), invokingConstructorContent.getLastType(), _args.getAll(), _page);
         LgNames stds_ = _page.getStandards();
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
@@ -164,20 +162,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         return constId;
     }
 
-    public String getClassFromName() {
-        return classFromName;
-    }
-
     public String getMethodName() {
         return methodName;
     }
 
-    public String getLastType() {
-        return lastType;
-    }
-
-    public int getNaturalVararg() {
-        return naturalVararg;
+    public AnaInvokingConstructorContent getInvokingConstructorContent() {
+        return invokingConstructorContent;
     }
 
     public CustList<ConstructorInfo> getCtors() {

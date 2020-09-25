@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.common.ConstType;
@@ -23,6 +22,7 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -68,26 +68,28 @@ public abstract class OperationNode {
 
     private OperationNode nextSibling;
 
-    private Argument argument;
+    private AnaOperationContent content;
+//    private Argument argument;
 
     private OperationsSequence operations;
 
     private StringList errs = new StringList();
 
-    private int indexInEl;
+//    private int indexInEl;
 
-    private int order = CustList.INDEX_NOT_FOUND_ELT;
+//    private int order = CustList.INDEX_NOT_FOUND_ELT;
 
-    private final int indexChild;
+//    private final int indexChild;
 
-    private AnaClassArgumentMatching resultClass;
+//    private AnaClassArgumentMatching resultClass;
 
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        content = new AnaOperationContent(_indexInEl,_indexChild,_op);
         parent = _m;
-        indexInEl = _indexInEl;
+//        indexInEl = _indexInEl;
         operations = _op;
-        indexChild = _indexChild;
-        resultClass = new AnaClassArgumentMatching(EMPTY_STRING);
+//        indexChild = _indexChild;
+//        resultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
 
     public static AnaClassArgumentMatching[] getResultsFromArgs(CustList<OperationNode> _args) {
@@ -1849,7 +1851,7 @@ public abstract class OperationNode {
     }
 
     private static void fetchFrom(String glClass_, CustList<MethodInfo> methods_, String _returnType, String _id, AnalyzedPageEl _page) {
-        if (!ExplicitOperation.customCast(_id)) {
+        if (!StringExpUtil.customCast(_id)) {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
@@ -1872,7 +1874,7 @@ public abstract class OperationNode {
 
     private static void fetchTo(String glClass_, CustList<MethodInfo> methods_, String _returnType, String _id, AnalyzedPageEl _page) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-        if (!ExplicitOperation.customCast(_id)) {
+        if (!StringExpUtil.customCast(_id)) {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
@@ -1885,7 +1887,7 @@ public abstract class OperationNode {
     }
 
     private static void fetchBinary(CustList<MethodInfo> methods_, String _first, String _second, AnalyzedPageEl _page) {
-        if (ExplicitOperation.customCast(_first)) {
+        if (StringExpUtil.customCast(_first)) {
             String di_ = StringExpUtil.getIdFromAllTypes(_first);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
@@ -1901,7 +1903,7 @@ public abstract class OperationNode {
                 }
             }
         }
-        if (ExplicitOperation.customCast(_second)) {
+        if (StringExpUtil.customCast(_second)) {
             String di_ = StringExpUtil.getIdFromAllTypes(_second);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
@@ -1919,7 +1921,7 @@ public abstract class OperationNode {
         }
     }
     private static void fetchUnary(CustList<MethodInfo> methods_, String _id, AnalyzedPageEl _page) {
-        if (!ExplicitOperation.customCast(_id)) {
+        if (!StringExpUtil.customCast(_id)) {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
@@ -1955,7 +1957,7 @@ public abstract class OperationNode {
         return getCustCastResult(listTrue_,  _arg, _page);
     }
     private static void fetchTrue(CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
-        if (!ExplicitOperation.customCast(_id)) {
+        if (!StringExpUtil.customCast(_id)) {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
@@ -1977,7 +1979,7 @@ public abstract class OperationNode {
         }
     }
     private static void fetchFalse(CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
-        if (!ExplicitOperation.customCast(_id)) {
+        if (!StringExpUtil.customCast(_id)) {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
@@ -3480,41 +3482,45 @@ public abstract class OperationNode {
     }
 
     public final int getOrder() {
-        return order;
+        return content.getOrder();
     }
 
     public final void setOrder(int _order) {
-        order = _order;
+        content.setOrder(_order);
     }
 
     public final int getFullIndexInEl() {
         String meth_ = getOperations().getFctName();
         int off_ = StringList.getFirstPrintableCharIndex(meth_);
-        return off_+operations.getDelimiter().getIndexBegin()+indexInEl;
+        return off_+operations.getDelimiter().getIndexBegin()+ content.getIndexInEl();
     }
 
     public final int getIndexInEl() {
-        return indexInEl;
+        return content.getIndexInEl();
     }
 
     public final int getIndexChild() {
-        return indexChild;
+        return content.getIndexChild();
     }
 
     public final Argument getArgument() {
-        return argument;
+        return content.getArgument();
     }
 
     public final void setSimpleArgument(Argument _argument) {
-        argument = _argument;
+        content.setArgument(_argument);
     }
 
     public final AnaClassArgumentMatching getResultClass() {
-        return resultClass;
+        return content.getResultClass();
     }
 
     public final void setResultClass(AnaClassArgumentMatching _resultClass) {
-        resultClass = _resultClass;
+        content.setResultClass(_resultClass);
+    }
+
+    public AnaOperationContent getContent() {
+        return content;
     }
 
     public final int getIndexBegin() {

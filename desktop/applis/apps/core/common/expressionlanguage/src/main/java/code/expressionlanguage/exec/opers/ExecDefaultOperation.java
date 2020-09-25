@@ -4,16 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.DefaultOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
 
     private int offset;
-    public ExecDefaultOperation(DefaultOperation _f) {
-        super(_f);
-        offset = _f.getOffset();
+    public ExecDefaultOperation(ExecOperationContent _opCont, int _offset) {
+        super(_opCont);
+        offset = _offset;
     }
 
     @Override

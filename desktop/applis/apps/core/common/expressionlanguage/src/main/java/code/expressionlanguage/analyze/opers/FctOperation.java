@@ -11,14 +11,13 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -26,17 +25,11 @@ import code.util.StringMap;
 
 public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
 
-    private String methodName;
-
-    private ClassMethodId classMethodId;
+    private AnaCallFctContent callFctContent;
 
     private boolean staticMethod;
 
     private boolean staticChoiceMethod;
-
-    private String lastType = EMPTY_STRING;
-
-    private int naturalVararg = -1;
 
     private int anc;
 
@@ -50,17 +43,15 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StandardMethod standardMethod;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName();
+        callFctContent = new AnaCallFctContent(getOperations().getFctName());
     }
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         boolean import_ = false;
         AnaClassArgumentMatching clCur_;
@@ -73,7 +64,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         StringList l_ = clCur_.getNames();
         setDelta(_page);
-        String trimMeth_ = methodName.trim();
+        String trimMeth_ = callFctContent.getMethodName().trim();
         boolean accessSuperTypes_ = true;
         boolean accessFromSuper_ = false;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -119,7 +110,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         LgNames stds_ = _page.getStandards();
         boolean import_ = false;
@@ -134,7 +125,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setDelta(_page);
-        String trimMeth_ = methodName.trim();
+        String trimMeth_ = callFctContent.getMethodName().trim();
         String varargParam_ = getVarargParam(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
@@ -219,7 +210,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             clonedMethod = true;
             String foundClass_ = StringExpUtil.getPrettyArrayType(stds_.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
-            classMethodId = new ClassMethodId(foundClass_, id_);
+            callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             setResultClass(new AnaClassArgumentMatching(arrayBounds_));
             return;
         }
@@ -238,16 +229,16 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
                 return;
             }
-            rootNumber = clMeth_.getRootNumber();
-            memberNumber = clMeth_.getMemberNumber();
+            callFctContent.setRootNumber(clMeth_.getRootNumber());
+            callFctContent.setMemberNumber(clMeth_.getMemberNumber());
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
+            callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             MethodId realId_ = clMeth_.getRealId();
             staticChoiceMethod = staticChoiceMethod_;
             staticMethod = true;
-            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getPositional(), _page);
+            unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
             return;
         }
@@ -259,8 +250,8 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         standardMethod = clMeth_.getStandardMethod();
-        rootNumber = clMeth_.getRootNumber();
-        memberNumber = clMeth_.getMemberNumber();
+        callFctContent.setRootNumber(clMeth_.getRootNumber());
+        callFctContent.setMemberNumber(clMeth_.getMemberNumber());
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
@@ -281,28 +272,28 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         if (id_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
-        classMethodId = new ClassMethodId(foundClass_, id_);
+        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
-            naturalVararg = paramtTypes_.size() - 1;
-            lastType = paramtTypes_.last();
+            callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
+            callFctContent.setLastType(paramtTypes_.last());
         }
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
+        unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
     }
 
     private void setDelta(AnalyzedPageEl _page) {
-        String trimMeth_ = methodName.trim();
+        String trimMeth_ = callFctContent.getMethodName().trim();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        int delta_ = StringList.getFirstPrintableCharIndex(methodName);
-        lengthMethod = methodName.length();
-        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
+        int delta_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        lengthMethod = callFctContent.getMethodName().length();
+        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
         lengthMethod -= delta_;
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
@@ -337,11 +328,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     }
 
     public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
-
-    public String getMethodName() {
-        return methodName;
+        return callFctContent.getClassMethodId();
     }
 
     public boolean isStaticMethod() {
@@ -352,12 +339,8 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         return staticChoiceMethod;
     }
 
-    public String getLastType() {
-        return lastType;
-    }
-
-    public int getNaturalVararg() {
-        return naturalVararg;
+    public AnaCallFctContent getCallFctContent() {
+        return callFctContent;
     }
 
     public int getAnc() {
@@ -399,12 +382,12 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     @Override
     public int getRootNumber() {
-        return rootNumber;
+        return callFctContent.getRootNumber();
     }
 
     @Override
     public int getMemberNumber() {
-        return memberNumber;
+        return callFctContent.getMemberNumber();
     }
 
 }

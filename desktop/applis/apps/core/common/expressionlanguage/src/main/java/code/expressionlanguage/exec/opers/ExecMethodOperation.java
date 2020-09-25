@@ -1,13 +1,13 @@
 package code.expressionlanguage.exec.opers;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode {
 
     private ExecOperationNode firstChild;
 
-    public ExecMethodOperation(OperationNode _m) {
+    protected ExecMethodOperation(ExecOperationContent _m) {
         super(_m);
     }
 

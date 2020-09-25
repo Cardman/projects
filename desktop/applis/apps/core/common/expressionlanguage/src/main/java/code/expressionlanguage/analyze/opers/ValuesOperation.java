@@ -11,13 +11,13 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.*;
 
 public final class ValuesOperation extends LeafOperation {
 
     private String className;
-    private int argOffset;
-    private int numberEnum=-1;
+    private AnaValuesContent valuesContent;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -26,12 +26,12 @@ public final class ValuesOperation extends LeafOperation {
         super(_indexInEl, _indexChild, _m, _op);
         IntTreeMap< String> vs_ = getOperations().getValues();
         className = vs_.firstValue();
-        argOffset = vs_.firstKey();
+        valuesContent = new AnaValuesContent(vs_.firstKey());
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ valuesContent.getArgOffset(), _page);
         String glClass_ = _page.getGlobalClass();
         int leftPar_ = className.indexOf('(')+1;
         String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
@@ -53,7 +53,7 @@ public final class ValuesOperation extends LeafOperation {
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
-        numberEnum = r_.getNumberAll();
+        valuesContent.setNumberEnum(r_.getNumberAll());
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
         if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
@@ -72,15 +72,11 @@ public final class ValuesOperation extends LeafOperation {
         setResultClass(new AnaClassArgumentMatching(ret_));
     }
 
-    public int getArgOffset() {
-        return argOffset;
-    }
-
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
     }
 
-    public int getNumberEnum() {
-        return numberEnum;
+    public AnaValuesContent getValuesContent() {
+        return valuesContent;
     }
 }

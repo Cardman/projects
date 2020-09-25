@@ -4,9 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -33,7 +33,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
             _cont.setException(new ErrorStruct(_cont,null_));
             return true;
         }
-        if (!ExplicitOperation.customCast(res_)) {
+        if (!StringExpUtil.customCast(res_)) {
             return false;
         }
         String paramNameOwner_ = _cont.getLastPage().formatVarType(res_, _cont);

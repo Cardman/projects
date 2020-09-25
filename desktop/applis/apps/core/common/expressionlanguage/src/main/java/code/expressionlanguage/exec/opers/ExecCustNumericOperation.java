@@ -6,9 +6,8 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.SymbolOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -19,10 +18,10 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    public ExecCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_n,_op);
-        kind = getKind(_n.getClassMethodId());
-        className = getType(_n.getClassMethodId());
+    public ExecCustNumericOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, int _opOffset, MethodAccessKind _kind, String _type) {
+        super(_opCont, _opOffset);
+        kind = _kind;
+        className = _type;
         named = _named;
         rootBlock = _rootBlock;
     }

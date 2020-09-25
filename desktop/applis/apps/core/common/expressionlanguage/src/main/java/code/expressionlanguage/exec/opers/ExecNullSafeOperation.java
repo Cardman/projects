@@ -4,15 +4,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecNullSafeOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
-    public ExecNullSafeOperation(OperationNode _m) {
-        super(_m);
+    public ExecNullSafeOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
     @Override

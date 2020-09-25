@@ -3,38 +3,29 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
 
-    private String lastType;
+    private ExecStaticFctContent staticFctContent;
 
-    private int naturalVararg;
-
-    private String className;
-    private MethodAccessKind kind;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private int offsetOper;
 
-    public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct, AnalyzedPageEl _page) {
-        super(_fct);
-        named = fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _page);
-        rootBlock = fetchType(_fct.getRootNumber(), _page);
-        kind = getKind(_fct.getClassMethodId());
-        className = getType(_fct.getClassMethodId());
-        lastType = _fct.getLastType();
-        naturalVararg = _fct.getNaturalVararg();
-        offsetOper = _fct.getOffsetOper();
+    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+        super(_opCont, _intermediateDottedOperation);
+        staticFctContent = _staticFctContent;
+        offsetOper = _offsetOper;
+        named = _named;
+        rootBlock = _rootBlock;
     }
 
     @Override
@@ -42,13 +33,13 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
-        checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className,kind);
+        checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
     }
 
     public CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        String classNameFound_ = ClassMethodId.formatType(className,_conf, kind);
-        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType, kind);
-        return fectchArgs(_nodes,lastType_,naturalVararg);
+        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
+        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+        return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }
 
     public int getOffsetOper() {

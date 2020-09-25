@@ -20,8 +20,8 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
         super(_f);
         off = _f.getOff();
         type = _f.getType();
-        variableName = _f.getVariableName();
-        deep = _f.getDeep();
+        variableName = _f.getVariableContent().getVariableName();
+        deep = _f.getVariableContent().getDeep();
     }
 
     @Override

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -47,7 +48,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
             return;
         }
         if (ElUtil.isDeclaringField(getInfo(), _page)) {
-            Argument arg_ = Argument.createVoid();
+            Argument arg_ = new Argument(NumParsers.convert(getInfo().getResultClass().getUnwrapObjectNb()));
             setSimpleArgument(arg_);
             return;
         }

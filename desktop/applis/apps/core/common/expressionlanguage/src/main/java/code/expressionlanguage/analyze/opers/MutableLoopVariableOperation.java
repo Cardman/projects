@@ -10,19 +10,17 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
 
-    private boolean variable;
 
-    private boolean catString;
-
-    private String variableName = EMPTY_STRING;
+    private AnaVariableContent variableContent;
     private String realVariableName = EMPTY_STRING;
-    private int off;
+
     private String className;
 
     private final StringList nameErrors = new StringList();
@@ -30,7 +28,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private int ref;
     private boolean declare;
     private boolean finalVariable;
-    private int deep;
+
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0,-1,false);
@@ -39,10 +37,10 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, String _className, int _ref, int _deep, boolean _finalVariable) {
         super(_indexInEl, _indexChild, _m, _op);
-        off = _op.getOffset();
+        variableContent = new AnaVariableContent(_op.getOffset());
         className = _className;
         ref = _ref;
-        deep = _deep;
+        variableContent.setDeep(_deep);
         finalVariable = _finalVariable;
     }
     @Override
@@ -55,7 +53,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         if (ElUtil.isDeclaringLoopVariable(this, _page)) {
             declare = true;
             TokenErrorMessage res_ = _page.getTokenValidation().isValidSingleToken(str_);
-            variableName = str_;
+            variableContent.setVariableName(str_);
             realVariableName = str_;
             if (res_.isError()) {
                 _page.setVariableIssue(true);
@@ -95,23 +93,23 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             setResultClass(new AnaClassArgumentMatching(_page.getCurrentVarSetting(), _page.getStandards()));
             return;
         }
-        variableName = StringExpUtil.skipPrefix(str_);
+        variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
         realVariableName = str_;
         setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
     }
 
     @Override
     public void setVariable(boolean _variable) {
-        variable = _variable;
+        variableContent.setVariable(_variable);
     }
 
     @Override
     public void setCatenizeStrings() {
-        catString = true;
+        variableContent.setCatString(true);
     }
 
     public String getVariableName() {
-        return variableName;
+        return variableContent.getVariableName();
     }
 
     public String getRealVariableName() {
@@ -119,15 +117,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     public int getOff() {
-        return off;
-    }
-
-    public boolean isVariable() {
-        return variable;
-    }
-
-    public boolean isCatString() {
-        return catString;
+        return variableContent.getOff();
     }
 
     public StringList getNameErrors() {
@@ -147,6 +137,10 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     public int getDeep() {
-        return deep;
+        return variableContent.getDeep();
+    }
+
+    public AnaVariableContent getVariableContent() {
+        return variableContent;
     }
 }

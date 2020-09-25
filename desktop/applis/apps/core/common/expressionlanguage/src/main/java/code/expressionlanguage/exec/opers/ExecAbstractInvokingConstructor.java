@@ -1,44 +1,37 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
+import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperation {
 
-    private String classFromName;
+    private ExecInvokingConstructorContent invokingConstructorContent;
 
-    private String lastType;
-
-    private int naturalVararg;
-    private int offsetOper;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public ExecAbstractInvokingConstructor(AbstractInvokingConstructor _abs, AnalyzedPageEl _page) {
-        super(_abs);
-        lastType = _abs.getLastType();
-        naturalVararg = _abs.getNaturalVararg();
-        offsetOper = _abs.getOffsetOper();
-        classFromName = _abs.getClassFromName();
-        rootBlock = fetchType(_abs.getRootNumber(), _page);
-        ctor = fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
+    protected ExecAbstractInvokingConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+        super(_opCont, _intermediateDottedOperation);
+        invokingConstructorContent = _invokingConstructorContent;
+        rootBlock = _rootBlock;
+        ctor = _ctor;
     }
 
     public int getOffsetOper() {
-        return offsetOper;
+        return invokingConstructorContent.getOffsetOper();
     }
 
     public String getLastType() {
-        return lastType;
+        return invokingConstructorContent.getLastType();
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return invokingConstructorContent.getNaturalVararg();
     }
 
     public String getClassFromName() {
-        return classFromName;
+        return invokingConstructorContent.getClassFromName();
     }
 
     public ExecRootBlock getRootBlock() {

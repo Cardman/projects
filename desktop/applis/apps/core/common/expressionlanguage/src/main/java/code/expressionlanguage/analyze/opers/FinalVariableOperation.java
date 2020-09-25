@@ -7,19 +7,18 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
 public final class FinalVariableOperation extends LeafOperation {
 
-    private String variableName = EMPTY_STRING;
+    private AnaVariableContent variableContent;
     private String realVariableName = EMPTY_STRING;
-    private int off;
     private int delta;
     private ConstType type;
     private String className = EMPTY_STRING;
     private int ref;
-    private int deep;
     private boolean keyWord;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
@@ -31,12 +30,12 @@ public final class FinalVariableOperation extends LeafOperation {
             MethodOperation _m, OperationsSequence _op, String _className, int _ref, int _deep, boolean _keyWord) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
+        variableContent = new AnaVariableContent(relativeOff_);
         delta = _op.getDelta();
-        off = relativeOff_;
         type = _op.getConstType();
         className = _className;
         ref = _ref;
-        deep = _deep;
+        variableContent.setDeep(_deep);
         keyWord = _keyWord;
     }
 
@@ -45,10 +44,10 @@ public final class FinalVariableOperation extends LeafOperation {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
         LgNames stds_ = _page.getStandards();
         if (!className.isEmpty()) {
-            variableName = StringExpUtil.skipPrefix(str_);
+            variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
             realVariableName = str_;
             setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
             return;
@@ -66,28 +65,24 @@ public final class FinalVariableOperation extends LeafOperation {
             val_ = _page.getCache().getLoopVar(shortStr_,deep_);
         }
         if (val_ != null) {
-            deep = deep_;
+            variableContent.setDeep(deep_);
             ref = val_.getRef();
-            variableName = shortStr_;
+            variableContent.setVariableName(shortStr_);
             realVariableName = str_;
             setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(), _page.getStandards()));
             return;
         }
-        variableName = str_;
+        variableContent.setVariableName(str_);
         realVariableName = str_;
         FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFileName(_page.getLocalizer().getCurrentFileName());
         und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //variable name len
         und_.buildError(_page.getAnalysisMessages().getUndefinedVariable(),
-                variableName);
+                variableContent.getVariableName());
         _page.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
-    }
-
-    public String getVariableName() {
-        return variableName;
     }
 
     public String getRealVariableName() {
@@ -99,7 +94,7 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     public int getOff() {
-        return off;
+        return variableContent.getOff();
     }
 
     public int getRef() {
@@ -114,7 +109,7 @@ public final class FinalVariableOperation extends LeafOperation {
         return keyWord;
     }
 
-    public int getDeep() {
-        return deep;
+    public AnaVariableContent getVariableContent() {
+        return variableContent;
     }
 }

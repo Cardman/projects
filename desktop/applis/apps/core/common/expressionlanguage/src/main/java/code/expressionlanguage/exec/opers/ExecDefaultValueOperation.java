@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.DefaultValueOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public final class ExecDefaultValueOperation extends ExecLeafOperation implements
@@ -12,9 +12,9 @@ public final class ExecDefaultValueOperation extends ExecLeafOperation implement
 
     private String className;
 
-    ExecDefaultValueOperation(DefaultValueOperation _l) {
-        super(_l);
-        className = _l.getClassName();
+    public ExecDefaultValueOperation(ExecOperationContent _opCont, String _className) {
+        super(_opCont);
+        className = _className;
     }
 
     @Override

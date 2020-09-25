@@ -3,28 +3,26 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AbstractFieldOperation;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public abstract class ExecAbstractFieldOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private boolean intermediate;
+    private ExecFieldOperationContent fieldContent;
 
-    private int off;
-
-    public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
+    public ExecAbstractFieldOperation(ExecOperationContent _a, ExecFieldOperationContent _fieldContent) {
         super(_a);
-        intermediate = _a.isIntermediateDottedOperation();
-        off = _a.getOff();
+        fieldContent = _fieldContent;
     }
 
     public int getOff() {
-        return off;
+        return fieldContent.getOff();
     }
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return fieldContent.isIntermediate();
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

@@ -2,16 +2,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
@@ -20,28 +19,13 @@ import code.util.StringList;
 
 public final class ExecFctOperation extends ExecInvokingOperation {
 
-    private String methodName;
-
-    private String className;
-
-    private boolean staticChoiceMethod;
-
-    private String lastType;
-
-    private int naturalVararg;
-
-    private int anc;
+    private ExecInstFctContent instFctContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    protected ExecFctOperation(FctOperation _fct, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_fct);
-        methodName = _fct.getMethodName();
-        className = ExecOperationNode.getType(_fct.getClassMethodId());
-        staticChoiceMethod = _fct.isStaticChoiceMethod();
-        lastType = _fct.getLastType();
-        naturalVararg = _fct.getNaturalVararg();
-        anc = _fct.getAnc();
+    public ExecFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+        super(_opCont, _intermediateDottedOperation);
+        instFctContent = _instFctContent;
         named = _named;
         rootBlock = _rootBlock;
     }
@@ -50,10 +34,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                             ClassMethodId _classMethodId,
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_child,_res,_order,true);
-        className = _classMethodId.getClassName();
-        methodName = _classMethodId.getConstraints().getName();
-        naturalVararg = -1;
-        lastType = "";
+        instFctContent = new ExecInstFctContent(_classMethodId);
         named = _named;
         rootBlock = _rootBlock;
     }
@@ -65,17 +46,17 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String classNameFound_ = getClassName();
         Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
         Struct pr_ = prev_.getStruct();
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(staticChoiceMethod,_conf,pr_,classNameFound_,rootBlock,getNamed());
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_,classNameFound_,rootBlock,getNamed());
         ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock type_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
@@ -83,7 +64,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct pr_) {
-        return fetchFormattedArgs(_nodes,_conf,pr_,getClassName(),rootBlock,lastType,naturalVararg);
+        return fetchFormattedArgs(_nodes,_conf,pr_,getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
     public ExecNamedFunctionBlock getNamed() {
@@ -91,11 +72,11 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     }
 
     public String getClassName() {
-        return className;
+        return instFctContent.getClassName();
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return instFctContent.getNaturalVararg();
     }
 
 }

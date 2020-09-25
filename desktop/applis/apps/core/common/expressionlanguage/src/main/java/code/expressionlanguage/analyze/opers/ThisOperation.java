@@ -7,20 +7,19 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.AnaThisContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private AnaClassArgumentMatching previousResultClass;
-    private boolean intermediate;
-    private int nbAncestors;
-    private int off;
+    private AnaThisContent thisContent;
 
     public ThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        off = _op.getOffset();
+        thisContent = new AnaThisContent(_op.getOffset());
     }
 
     @Override
@@ -79,7 +78,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                                     _page.getKeyWords().getKeyWordThis());
                             _page.getLocalizer().addError(static_);
                             getErrs().add(static_.getBuiltError());
-                        } else if (nbAncestors == 0){
+                        } else if (thisContent.getNbAncestors() == 0){
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
                             static_.setFileName(_page.getLocalizer().getCurrentFileName());
                             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -94,7 +93,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                     setResultClass(new AnaClassArgumentMatching(className_));
                     return;
                 }
-                nbAncestors++;
+                thisContent.setNbAncestors(thisContent.getNbAncestors()+1);
             }
             String arg_ = stds_.getAliasObject();
             FoundErrorInterpret static_ = new FoundErrorInterpret();
@@ -110,7 +109,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             setResultClass(new AnaClassArgumentMatching(arg_));
             return;
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ thisContent.getOff(), _page);
         String arg_ = _page.getGlobalClass();
         if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
@@ -127,11 +126,11 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
 
     @Override
     public void setIntermediateDotted() {
-        intermediate = true;
+        thisContent.setIntermediate(true);
     }
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return thisContent.isIntermediate();
     }
 
     @Override
@@ -139,15 +138,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         previousResultClass = _previousResultClass;
     }
 
-    public boolean isIntermediate() {
-        return intermediate;
-    }
-
-    public int getNbAncestors() {
-        return nbAncestors;
-    }
-
-    public int getOff() {
-        return off;
+    public AnaThisContent getThisContent() {
+        return thisContent;
     }
 }

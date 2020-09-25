@@ -1,11 +1,11 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.analyze.opers.DeclaringOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class ExecDeclaringOperation extends ExecMethodOperation {
 
-    public ExecDeclaringOperation(DeclaringOperation _d) {
-        super(_d);
+    public ExecDeclaringOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
 }

@@ -3,15 +3,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.UnaryBooleanOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation {
 
-    public ExecUnaryBooleanOperation(UnaryBooleanOperation _u) {
-        super(_u);
+    public ExecUnaryBooleanOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
     @Override

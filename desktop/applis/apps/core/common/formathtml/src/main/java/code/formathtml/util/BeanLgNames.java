@@ -116,16 +116,15 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        ExecClassArgumentMatching cl_ = new ExecClassArgumentMatching(_className);
-        if (ExecClassArgumentMatching.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
+        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
+        if (cast_ == PrimitiveTypes.BOOL_WRAP) {
             res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
             return res_;
         }
-        if (ExecClassArgumentMatching.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
+        if (cast_ == PrimitiveTypes.CHAR_WRAP) {
             res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
             return res_;
         }
-        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
         if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {

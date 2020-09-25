@@ -1,11 +1,11 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.analyze.opers.LeafOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecLeafOperation extends ExecOperationNode {
 
-    ExecLeafOperation(LeafOperation _l) {
+    ExecLeafOperation(ExecOperationContent _l) {
         super(_l);
     }
 

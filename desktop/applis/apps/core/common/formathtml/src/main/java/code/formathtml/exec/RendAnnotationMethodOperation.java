@@ -24,7 +24,7 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
 
     protected RendAnnotationMethodOperation(InvokingOperation _inv, AbstractCallFctOperation _fct) {
         super(_inv);
-        methodName = _fct.getMethodName();
+        methodName = _fct.getCallFctContent().getMethodName();
         classMethodId = _fct.getClassMethodId().getConstraints().getName();
     }
 

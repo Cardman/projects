@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AddOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -13,8 +13,8 @@ import code.util.IdMap;
 
 public final class ExecCatOperation extends ExecNumericOperation {
 
-    public ExecCatOperation(AddOperation _a) {
-        super(_a,_a);
+    public ExecCatOperation(ExecOperationContent _opCont, int _opOffset) {
+        super(_opCont, _opOffset);
     }
 
     @Override

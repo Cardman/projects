@@ -2,11 +2,10 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.SymbolOperation;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
@@ -15,9 +14,9 @@ import code.util.StringList;
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private int opOffset;
 
-    public ExecNumericOperation(SymbolOperation _n, OperationNode _op) {
-        super(_op);
-        opOffset = _n.getOpOffset();
+    protected ExecNumericOperation(ExecOperationContent _opCont, int _opOffset) {
+        super(_opCont);
+        opOffset = _opOffset;
     }
 
     static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {

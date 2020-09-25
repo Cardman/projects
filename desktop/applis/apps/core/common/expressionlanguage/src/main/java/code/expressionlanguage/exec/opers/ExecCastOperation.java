@@ -7,10 +7,10 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CastOperation;
-import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
@@ -22,12 +22,10 @@ import code.util.StringList;
 
 public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
-    private String className;
-    private int offset;
-    public ExecCastOperation(CastOperation _c) {
-        super(_c);
-        className = _c.getClassName();
-        offset = _c.getOffset();
+    private ExecTypeCheckContent typeCheckContent;
+    public ExecCastOperation(ExecOperationContent _opCont, ExecTypeCheckContent _typeCheckContent) {
+        super(_opCont);
+        typeCheckContent = _typeCheckContent;
     }
 
 
@@ -40,15 +38,15 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
     }
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+typeCheckContent.getOffset(), _conf);
         Argument objArg_ = new Argument(_arguments.first().getStruct());
-        String paramName_ = _conf.getLastPage().formatVarType(className, _conf);
+        String paramName_ = _conf.getLastPage().formatVarType(typeCheckContent.getClassName(), _conf);
         wrapFct(paramName_,false, _conf, objArg_);
         ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
     public static void wrapFct(String _className, boolean _full, ContextEl _conf, Argument _objArg) {
-        if (ExplicitOperation.customCast(_className)) {
+        if (StringExpUtil.customCast(_className)) {
             Struct str_ = _objArg.getStruct();
             if (str_ instanceof LambdaStruct) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_className);

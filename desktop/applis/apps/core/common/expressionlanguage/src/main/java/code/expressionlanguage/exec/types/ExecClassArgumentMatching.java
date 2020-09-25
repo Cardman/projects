@@ -26,26 +26,21 @@ public final class ExecClassArgumentMatching {
         className.add(_className);
     }
 
-    public ExecClassArgumentMatching(String _className, byte _conv) {
-        className.add(_className);
-        unwrapObjectNb = _conv;
-    }
-
     public ExecClassArgumentMatching(StringList _className) {
         className.addAllElts(_className);
     }
 
     public static Struct convert(PageEl _page, Struct _arg,
                                  ContextEl _exec, StringList _names) {
-        ExecClassArgumentMatching format_ = format(_page,_exec, _names);
-        if (format_.matchClass(_exec.getStandards().getAliasNumber())) {
+        StringList className_ = formatted(_page, _exec, _names);
+        if (StringList.equalsSet(className_,new StringList(_exec.getStandards().getAliasNumber()))) {
             return NumParsers.convertToNumber(_arg);
         }
-        byte cast_ = getPrimitiveWrapCast(toPrimitive(format_,_exec).getSingleNameOrEmpty(), _exec.getStandards());
+        byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(className_), _exec.getStandards());
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
             return NumParsers.convertToBoolean(_arg);
         }
-        if (toPrimitive(format_,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+        if (cast_ == PrimitiveTypes.CHAR_WRAP) {
             return NumParsers.convertToChar(_arg);
         }
         if (cast_ > 0) {
@@ -56,17 +51,17 @@ public final class ExecClassArgumentMatching {
 
     public static Struct convertWide(PageEl _page, Struct _arg,
                                      ContextEl _exec, StringList _names) {
-        ExecClassArgumentMatching format_ = format(_page,_exec, _names);
-        return convertWide(format_, _arg, _exec);
+        StringList className_ = formatted(_page, _exec, _names);
+        return convertWide(_arg, _exec, className_);
     }
 
-    public static Struct convertWide(ExecClassArgumentMatching _dest, Struct _arg, ContextEl _exec) {
-        if (isPrimitive(_dest,_exec)) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_dest.getNames(), _exec.getStandards());
+    public static Struct convertWide(Struct _arg, ContextEl _exec, StringList _names) {
+        if (isPrimitive(_exec, _names)) {
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_names, _exec.getStandards());
             if (cast_ == PrimitiveTypes.BOOL_WRAP) {
                 return NumParsers.convertToBoolean(_arg);
             }
-            if (toPrimitive(_dest,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+            if (cast_ == PrimitiveTypes.CHAR_WRAP) {
                 return NumParsers.convertToChar(_arg);
             }
             return NumParsers.convertToNumber(cast_,_arg);
@@ -74,37 +69,21 @@ public final class ExecClassArgumentMatching {
         return _arg;
     }
 
-    public static boolean isPrimitive(ExecClassArgumentMatching _clMatchLeft,
-                                      ContextEl _conf) {
+    public static boolean isPrimitive(ContextEl _conf, StringList _names) {
         LgNames stds_ = _conf.getStandards();
-        return isPrimitive(_clMatchLeft, stds_);
+        return isPrimitive(stds_, _names);
     }
 
-    public static ExecClassArgumentMatching toPrimitive(ExecClassArgumentMatching _class, ContextEl _context) {
-        return toPrimitive(_class, _context.getStandards());
-    }
-
-    private static ExecClassArgumentMatching format(PageEl _page, ContextEl _exec, StringList _clNames) {
+    private static StringList formatted(PageEl _page, ContextEl _exec, StringList _clNames) {
         StringList className_ = new StringList();
         for (String s: _clNames) {
             className_.add(_page.formatVarType(s,_exec));
         }
-        return new ExecClassArgumentMatching(className_);
+        return className_;
     }
 
-    public static ExecClassArgumentMatching toPrimitive(ExecClassArgumentMatching _class, LgNames _stds) {
-        for (String w: _class.getNames()) {
-            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
-                if (StringList.quickEq(e.getValue().getWrapper(), w)) {
-                    return new ExecClassArgumentMatching(e.getKey(),e.getValue().getCastNb());
-                }
-            }
-        }
-        return _class;
-    }
-
-    public static boolean isPrimitive(ExecClassArgumentMatching _clMatchLeft, LgNames stds_) {
-        for (String n: _clMatchLeft.getNames()) {
+    public static boolean isPrimitive(LgNames stds_, StringList _names) {
+        for (String n: _names) {
             if (stds_.getPrimitiveTypes().contains(n)) {
                 return true;
             }
@@ -152,21 +131,8 @@ public final class ExecClassArgumentMatching {
         return StringList.equalsSet(className, l_);
     }
 
-    public String getName() {
-        return className.first();
-    }
-
     public StringList getNames() {
         return className;
-    }
-
-    public void setUnwrapObject(String _unwrapObject,LgNames _stds) {
-        unwrapObjectNb = (byte)-1;
-        for (EntryCust<String,PrimitiveType> p: _stds.getPrimitiveTypes().entryList()) {
-            if (StringList.quickEq(p.getKey(),_unwrapObject)) {
-                unwrapObjectNb = p.getValue().getCastNb();
-            }
-        }
     }
 
     public byte getUnwrapObjectNb() {

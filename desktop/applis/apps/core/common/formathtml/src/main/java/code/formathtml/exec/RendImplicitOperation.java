@@ -20,9 +20,9 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation impl
     private ExecRootBlock rootBlock;
     public RendImplicitOperation(ImplicitOperation _a, ExecNamedFunctionBlock _named,ExecRootBlock _rootBlock) {
         super(_a);
-        className = _a.getClassName();
-        classNameOwner = _a.getClassNameOwner();
-        offset = _a.getOffset();
+        className = _a.getExplicitContent().getClassName();
+        classNameOwner = _a.getExplicitContent().getClassNameOwner();
+        offset = _a.getExplicitContent().getOffset();
         named = _named;
         rootBlock = _rootBlock;
     }

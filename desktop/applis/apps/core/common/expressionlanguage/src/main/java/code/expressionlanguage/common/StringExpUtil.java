@@ -1022,4 +1022,23 @@ public final class StringExpUtil {
         }
         return ArrayResult.NONE;
     }
+
+    public static boolean customCast(String _type) {
+        boolean direct_ = false;
+        for (String p: getAllTypes(_type).mid(1)) {
+            if (p.startsWith(SUB_TYPE)) {
+                direct_ = true;
+            }
+            if (p.startsWith(SUP_TYPE)) {
+                direct_ = true;
+            }
+        }
+        if (direct_) {
+            return false;
+        }
+        if (_type.startsWith("#")) {
+            return false;
+        }
+        return !_type.startsWith("[");
+    }
 }

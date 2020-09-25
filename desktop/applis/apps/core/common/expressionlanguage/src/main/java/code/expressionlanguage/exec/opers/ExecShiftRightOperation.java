@@ -2,13 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.ShiftRightOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class ExecShiftRightOperation extends ExecStdNumericOperation {
 
-    public ExecShiftRightOperation(ShiftRightOperation _b) {
-        super(_b);
+    public ExecShiftRightOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
     @Override

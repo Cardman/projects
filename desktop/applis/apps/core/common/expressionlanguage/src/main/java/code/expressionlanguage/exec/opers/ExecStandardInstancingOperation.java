@@ -7,10 +7,10 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
+import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -18,26 +18,15 @@ import code.util.StringList;
 public final class ExecStandardInstancingOperation extends
         ExecInvokingOperation {
 
-    private String methodName;
+    private ExecInstancingCommonContent instancingCommonContent;
+    private ExecInstancingStdContent instancingStdContent;
 
-    private String className;
-
-    private String fieldName;
-    private int blockIndex;
-
-    private int naturalVararg;
-
-    private String lastType;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public ExecStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
-        super(_s);
-        methodName = _s.getMethodName();
-        className = _s.getClassName();
-        fieldName = _s.getFieldName();
-        blockIndex = _s.getBlockIndex();
-        naturalVararg = _s.getNaturalVararg();
-        lastType = _s.getLastType();
+    public ExecStandardInstancingOperation(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+        super(_opCont, _intermediateDottedOperation);
+        instancingCommonContent = _instancingCommonContent;
+        instancingStdContent = _instancingStdContent;
         rootBlock = _rootBlock;
         ctor = _ctor;
     }
@@ -50,31 +39,31 @@ public final class ExecStandardInstancingOperation extends
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        if (!fieldName.isEmpty()) {
+        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        if (!instancingStdContent.getFieldName().isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
-            off_ -= fieldName.length();
+            off_ -= instancingStdContent.getFieldName().length();
             off_ --;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl page_ = _conf.getLastPage();
         String className_ = page_.formatVarType(getClassName(), _conf);
-        if (fieldName.isEmpty()) {
+        if (instancingStdContent.getFieldName().isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
             if (ExecutingUtil.hasToExit(_conf,base_)) {
                 return Argument.createVoid();
             }
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, fieldName, blockIndex);
+        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_) {
-        return fectchInstFormattedArgs(_nodes,className_,rootBlock,lastType,naturalVararg);
+        return fectchInstFormattedArgs(_nodes,className_,rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
     }
 
     public String getClassName() {
-        return className;
+        return instancingCommonContent.getClassName();
     }
 
     public ExecNamedFunctionBlock getCtor() {
@@ -82,6 +71,6 @@ public final class ExecStandardInstancingOperation extends
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return instancingCommonContent.getNaturalVararg();
     }
 }

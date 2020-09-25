@@ -4,19 +4,18 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ParentInstanceOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecParentInstanceContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public class ExecParentInstanceOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private boolean intermediate;
-    private int off;
+    private ExecParentInstanceContent parentInstanceContent;
 
-    ExecParentInstanceOperation(ParentInstanceOperation _l) {
-        super(_l);
-        intermediate = _l.isIntermediate();
-        off = _l.getOff();
+    public ExecParentInstanceOperation(ExecOperationContent _opCont, ExecParentInstanceContent _parentInstanceContent) {
+        super(_opCont);
+        parentInstanceContent = _parentInstanceContent;
     }
 
     @Override
@@ -26,7 +25,7 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
     }
 
     Argument getCommonArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ parentInstanceContent.getOff(), _conf);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Struct struct_ = previous_.getStruct();
         return new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), struct_.getParent(),_conf, getResultClass().getNames()));
@@ -34,7 +33,7 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return parentInstanceContent.isIntermediate();
     }
 
 }

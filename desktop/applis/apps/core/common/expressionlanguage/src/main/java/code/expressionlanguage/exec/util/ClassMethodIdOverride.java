@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.util.StringMap;
 
 public class ClassMethodIdOverride {
@@ -25,8 +25,8 @@ public class ClassMethodIdOverride {
 
     public void put(String _cl, GeneStringOverridable _dest, AnalyzedPageEl _page) {
         int numberAll_ = _dest.getType().getNumberAll();
-        ExecRootBlock exec_ = ExecOperationNode.fetchType(numberAll_, _page);
-        ExecNamedFunctionBlock first_ = ExecOperationNode.fetchFunction(numberAll_, _dest.getBlock().getNameNumber(), _page);
+        ExecRootBlock exec_ = ForwardInfos.fetchType(numberAll_, _page);
+        ExecNamedFunctionBlock first_ = ForwardInfos.fetchFunction(numberAll_, _dest.getBlock().getNameNumber(), _page);
         redirections.put(_cl, new ExecOverrideInfo(_dest.getGeneString(),exec_,first_));
     }
 }

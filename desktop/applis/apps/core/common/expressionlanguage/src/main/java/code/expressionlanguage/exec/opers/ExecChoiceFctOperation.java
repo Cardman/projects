@@ -3,13 +3,13 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -17,24 +17,14 @@ import code.util.StringList;
 
 public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
-    private String methodName;
+    private ExecInstFctContent instFctContent;
 
-    private String className;
-
-    private String lastType;
-
-    private int naturalVararg;
-    private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
-        super(_choice);
-        methodName = _choice.getMethodName();
-        className = ExecOperationNode.getType(_choice.getClassMethodId());
-        lastType = _choice.getLastType();
-        naturalVararg = _choice.getNaturalVararg();
-        anc = _choice.getAnc();
+    public ExecChoiceFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+        super(_opCont, _intermediateDottedOperation);
+        instFctContent = _instFctContent;
         named = _named;
         rootBlock = _rootBloc;
     }
@@ -47,10 +37,10 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String classNameFound_ = getClassName();
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
@@ -59,7 +49,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes, _conf, _pr, getClassName(), rootBlock, lastType, naturalVararg);
+        return fetchFormattedArgs(_nodes, _conf, _pr, getClassName(), rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
     public ExecNamedFunctionBlock getNamed() {
@@ -67,11 +57,11 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
     }
 
     public String getClassName() {
-        return className;
+        return instFctContent.getClassName();
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return instFctContent.getNaturalVararg();
     }
 
 }

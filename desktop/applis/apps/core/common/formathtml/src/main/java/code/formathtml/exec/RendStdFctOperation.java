@@ -23,11 +23,11 @@ public class RendStdFctOperation extends RendInvokingOperation implements RendCa
 
     protected RendStdFctOperation(InvokingOperation _inv, AbstractCallFctOperation _fct) {
         super(_inv);
-        methodName = _fct.getMethodName();
-        classMethodId = _fct.getClassMethodId();
+        methodName = _fct.getCallFctContent().getMethodName();
+        classMethodId = _fct.getCallFctContent().getClassMethodId();
         staticMethod = _fct.isStaticMethod();
-        lastType = _fct.getLastType();
-        naturalVararg = _fct.getNaturalVararg();
+        lastType = _fct.getCallFctContent().getLastType();
+        naturalVararg = _fct.getCallFctContent().getNaturalVararg();
     }
 
     @Override

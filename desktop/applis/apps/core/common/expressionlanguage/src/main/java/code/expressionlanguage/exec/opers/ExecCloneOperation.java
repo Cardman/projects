@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -14,9 +14,9 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
 
     private String methodName;
 
-    protected ExecCloneOperation(FctOperation _fct) {
-        super(_fct);
-        methodName = _fct.getMethodName();
+    public ExecCloneOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, String _methodName) {
+        super(_opCont, _intermediateDottedOperation);
+        methodName = _methodName;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {

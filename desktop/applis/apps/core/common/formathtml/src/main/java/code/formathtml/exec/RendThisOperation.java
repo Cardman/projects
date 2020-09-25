@@ -14,7 +14,7 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
 
     public RendThisOperation(ThisOperation _t) {
         super(_t);
-        off = _t.getOff();
+        off = _t.getThisContent().getOff();
     }
 
     @Override

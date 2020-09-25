@@ -21,9 +21,9 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
     private ExecRootBlock rootBlock;
     public RendExplicitOperation(ExplicitOperation _a, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_a);
-        className = _a.getClassName();
-        classNameOwner = _a.getClassNameOwner();
-        offset = _a.getOffset();
+        className = _a.getExplicitContent().getClassName();
+        classNameOwner = _a.getExplicitContent().getClassNameOwner();
+        offset = _a.getExplicitContent().getOffset();
         named = _named;
         rootBlock = _rootBlock;
     }
@@ -32,7 +32,7 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
         super(_inv);
         className = _a.getClassMethodId().getClassName();
         classNameOwner = _a.getClassMethodId().getClassName();
-        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        offset = StringList.getFirstPrintableCharIndex(_a.getCallFctContent().getMethodName());
         named = _named;
         rootBlock = _rootBlock;
     }

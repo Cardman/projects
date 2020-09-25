@@ -18,6 +18,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.Ints;
@@ -148,6 +149,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             _page.addLocError(cast_);
             addNameErrors(cast_);
         }
+        if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
+            root.getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
+        }
         ReachOperationUtil.tryCalculate(root, _page);
     }
 
@@ -157,11 +161,11 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             return;
         }
         _page.getCoverage().putBlockOperationsField(_page, this);
-        CustList<ExecOperationNode> ops_ = ElUtil.getExecutableNodes(_page, root);
+        CustList<ExecOperationNode> ops_ = ForwardInfos.getExecutableNodes(_page, root);
         _exec.setOpValue(ops_);
-        if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
-            ops_.last().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
-        }
+//        if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
+//            ops_.last().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
+//        }
     }
 
 

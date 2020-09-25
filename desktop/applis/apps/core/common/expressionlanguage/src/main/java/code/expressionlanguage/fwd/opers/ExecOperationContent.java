@@ -1,0 +1,58 @@
+package code.expressionlanguage.fwd.opers;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+
+public final class ExecOperationContent {
+    private final int indexInEl;
+    private final int indexChild;
+    private final ExecClassArgumentMatching resultClass;
+    private final int indexBegin;
+    private final Argument argument;
+    private int order;
+    public ExecOperationContent(AnaOperationContent _cont) {
+        indexInEl = _cont.getIndexInEl();
+        indexChild = _cont.getIndexChild();
+        resultClass = PrimitiveTypeUtil.toExec(_cont.getResultClass());
+        indexBegin = _cont.getIndexBegin();
+        argument = _cont.getArgument();
+        order = _cont.getOrder();
+    }
+    public ExecOperationContent(int _indexChild, ExecClassArgumentMatching _res, int _order) {
+        indexInEl = 0;
+        indexChild = _indexChild;
+        resultClass = _res;
+        indexBegin = 0;
+        argument = null;
+        order = _order;
+    }
+
+    public int getIndexInEl() {
+        return indexInEl;
+    }
+
+    public int getIndexChild() {
+        return indexChild;
+    }
+
+    public ExecClassArgumentMatching getResultClass() {
+        return resultClass;
+    }
+
+    public int getIndexBegin() {
+        return indexBegin;
+    }
+
+    public Argument getArgument() {
+        return argument;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+}

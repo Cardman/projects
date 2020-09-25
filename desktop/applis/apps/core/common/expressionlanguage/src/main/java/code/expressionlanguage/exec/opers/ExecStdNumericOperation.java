@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.NumericOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -11,9 +11,9 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
 
     private String oper;
 
-    public ExecStdNumericOperation(NumericOperation _n) {
-        super(_n,_n);
-        oper = _n.getOp();
+    public ExecStdNumericOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset);
+        oper = _op;
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

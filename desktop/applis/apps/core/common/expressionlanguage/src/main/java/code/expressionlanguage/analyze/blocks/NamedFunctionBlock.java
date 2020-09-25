@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -139,7 +140,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void fwdAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         for (OperationNode r: roots) {
-            ops_.add(ElUtil.getExecutableNodes(_page, r));
+            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
@@ -171,7 +172,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             CustList<CustList<ExecOperationNode>> annotation_;
             annotation_ = new CustList<CustList<ExecOperationNode>>();
             for (OperationNode r: l) {
-                annotation_.add(ElUtil.getExecutableNodes(_page, r));
+                annotation_.add(ForwardInfos.getExecutableNodes(_page, r));
             }
             ops_.add(annotation_);
         }

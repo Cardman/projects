@@ -4,16 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.StaticInitOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public final class ExecStaticInitOperation extends ExecLeafOperation implements AtomicExecCalculableOperation {
 
     private boolean possibleInitClass;
 
-    public ExecStaticInitOperation(StaticInitOperation _s) {
-        super(_s);
-        possibleInitClass = _s.isPossibleInitClass();
+    public ExecStaticInitOperation(ExecOperationContent _opCont, boolean _possibleInitClass) {
+        super(_opCont);
+        possibleInitClass = _possibleInitClass;
     }
 
     @Override
@@ -21,7 +21,7 @@ public final class ExecStaticInitOperation extends ExecLeafOperation implements 
                           ContextEl _conf) {
         Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
-            String className_ = getResultClass().getName();
+            String className_ = getResultClass().getSingleNameOrEmpty();
             ExecutingUtil.hasToExit(_conf,className_);
         }
         setSimpleArgument(arg_, _conf, _nodes);

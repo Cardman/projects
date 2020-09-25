@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -175,7 +176,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _exec.setTrOffset(trOffset);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
+        _exec.setOpValue(ForwardInfos.getExecutableNodes(_page, root));
     }
 
     private int getIndex() {
@@ -206,7 +207,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         for (OperationNode r:roots) {
-            ops_.add(ElUtil.getExecutableNodes(_page, r));
+            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
     }

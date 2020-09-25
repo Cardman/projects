@@ -2,20 +2,21 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
+import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConstructor {
     private String className;
-    public ExecInterfaceFctConstructor(InterfaceFctConstructor _abs, AnalyzedPageEl _page) {
-        super(_abs, _page);
-        className = _abs.getClassName();
+    public ExecInterfaceFctConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, String _className) {
+        super(_opCont, _intermediateDottedOperation, _invokingConstructorContent, _rootBlock, _ctor);
+        className = _className;
     }
 
     @Override

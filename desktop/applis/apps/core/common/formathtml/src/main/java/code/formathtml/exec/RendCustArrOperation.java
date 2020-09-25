@@ -6,7 +6,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -14,6 +13,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -45,12 +45,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     public RendCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
-        variable = _arr.isVariable();
-        catString = _arr.isCatString();
-        classMethodId = _arr.getClassMethodId();
-        className = ExecOperationNode.getType(_arr.getClassMethodId());
-        lastType = _arr.getLastType();
-        naturalVararg = _arr.getNaturalVararg();
+        variable = _arr.getArrContent().isVariable();
+        catString = _arr.getArrContent().isCatString();
+        classMethodId = _arr.getCallFctContent().getClassMethodId();
+        className = ForwardInfos.getType(_arr.getCallFctContent().getClassMethodId());
+        lastType = _arr.getCallFctContent().getLastType();
+        naturalVararg = _arr.getCallFctContent().getNaturalVararg();
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
         previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());

@@ -11,6 +11,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -25,8 +26,7 @@ public final class StandardInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
     private boolean hasFieldName;
-    private String fieldName = EMPTY_STRING;
-    private int blockIndex = -1;
+    private AnaInstancingStdContent instancingStdContent;
 
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private int rootNumber = -1;
@@ -35,10 +35,11 @@ public final class StandardInstancingOperation extends
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        instancingStdContent = new AnaInstancingStdContent();
     }
 
     public void setFieldName(String _fieldName) {
-        fieldName = _fieldName;
+        instancingStdContent.setFieldName(_fieldName);
     }
 
     public void setHasFieldName(boolean _hasFieldName) {
@@ -238,8 +239,8 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
-        blockIndex = ContextUtil.getCurrentChildTypeIndex(this, g_,fieldName,_realClassName, _page);
-        if (blockIndex < -1) {
+        instancingStdContent.setBlockIndex(ContextUtil.getCurrentChildTypeIndex(this, g_, instancingStdContent.getFieldName(), _realClassName, _page));
+        if (instancingStdContent.getBlockIndex() < -1) {
             return;
         }
         ConstructorId feed_ = null;
@@ -272,16 +273,12 @@ public final class StandardInstancingOperation extends
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
 
-    public String getFieldName() {
-        return fieldName;
-    }
-
     public boolean isHasFieldName() {
         return hasFieldName;
     }
 
-    public int getBlockIndex() {
-        return blockIndex;
+    public AnaInstancingStdContent getInstancingStdContent() {
+        return instancingStdContent;
     }
 
     public CustList<ConstructorInfo> getCtors() {

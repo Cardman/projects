@@ -4,18 +4,17 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CmpOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecNbCmpOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
-    private String oper;
-    private int opOffset;
-    public ExecNbCmpOperation(CmpOperation _r) {
-        super(_r);
-        oper = _r.getOp();
-        opOffset = _r.getOpOffset();
+    private ExecOperatorContent operatorContent;
+    public ExecNbCmpOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent) {
+        super(_opCont);
+        operatorContent = _operatorContent;
     }
 
     @Override
@@ -24,10 +23,10 @@ public final class ExecNbCmpOperation extends ExecMethodOperation implements Ato
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode opOne_ = chidren_.first();
         ExecOperationNode opTwo_ = chidren_.last();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(), _conf);
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
-        Argument arg_ = new Argument(NumParsers.compareNb(oper, first_.getStruct(), second_.getStruct()));
+        Argument arg_ = new Argument(NumParsers.compareNb(operatorContent.getOper(), first_.getStruct(), second_.getStruct()));
         setSimpleArgument(arg_, _conf, _nodes);
     }
 

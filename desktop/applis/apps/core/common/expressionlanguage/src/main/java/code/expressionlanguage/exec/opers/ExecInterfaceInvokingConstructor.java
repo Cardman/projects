@@ -2,19 +2,20 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.opers.InterfaceInvokingConstructor;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    protected ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int, AnalyzedPageEl _page) {
-        super(_int, _page);
+    public ExecInterfaceInvokingConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+        super(_opCont, _intermediateDottedOperation, _invokingConstructorContent, _rootBlock, _ctor);
     }
 
     @Override

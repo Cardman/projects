@@ -16,8 +16,8 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -29,10 +29,10 @@ import code.util.*;
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
     private boolean intermediate;
 
-    public ExecInvokingOperation(
-            InvokingOperation _inter) {
-        super(_inter);
-        intermediate = _inter.isIntermediateDottedOperation();
+    protected ExecInvokingOperation(
+            ExecOperationContent _opCont, boolean _intermediateDottedOperation) {
+        super(_opCont);
+        intermediate = _intermediateDottedOperation;
     }
 
     public ExecInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
@@ -101,8 +101,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof ExecIdFctOperation
-                        || _children.get(i) instanceof ExecVarargOperation) {
+                if (ExecConstLeafOperation.isFilter(_children.get(i))) {
                     natVarArg_++;
                     continue;
                 }
@@ -125,8 +124,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
         for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof ExecIdFctOperation
-                    || _children.get(i) instanceof ExecVarargOperation) {
+            if (ExecConstLeafOperation.isFilter(_children.get(i))) {
                 continue;
             }
             Argument a_ = _nodes.get(i);

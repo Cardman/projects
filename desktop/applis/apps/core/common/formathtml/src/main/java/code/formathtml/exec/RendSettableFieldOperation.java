@@ -26,10 +26,10 @@ public final class RendSettableFieldOperation extends
     private ExecRootBlock rootBlock;
     public RendSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
         super(_s);
-        variable = _s.isVariable();
+        variable = _s.getSettableFieldContent().isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
-        catString = _s.isCatString();
-        anc = _s.getAnc();
+        catString = _s.getSettableFieldContent().isCatString();
+        anc = _s.getSettableFieldContent().getAnc();
         previous = PrimitiveTypeUtil.toExec(_s.getPreviousResultClass());
         rootBlock = _rootBlock;
     }

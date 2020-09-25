@@ -2,14 +2,14 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.IdOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecIdOperation extends ExecAbstractUnaryOperation {
 
-    public ExecIdOperation(IdOperation _i) {
-        super(_i);
+    public ExecIdOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
     @Override

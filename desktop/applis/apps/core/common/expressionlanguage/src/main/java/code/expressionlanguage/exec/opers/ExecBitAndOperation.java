@@ -2,13 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.BitAndOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class ExecBitAndOperation extends ExecStdNumericOperation {
 
-    public ExecBitAndOperation(BitAndOperation _b) {
-        super(_b);
+    public ExecBitAndOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
 

@@ -14,8 +14,8 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
 
     public RendAbstractArrayInstancingOperation(AbstractArrayInstancingOperation _abs) {
         super(_abs);
-        methodName = _abs.getMethodName();
-        className = _abs.getClassName();
+        methodName = _abs.getArrayInstancingContent().getMethodName();
+        className = _abs.getArrayInstancingContent().getClassName();
     }
 
     public final String getMethodName() {

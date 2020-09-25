@@ -2,13 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.BitShiftRightOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class ExecBitShiftRightOperation extends ExecStdNumericOperation {
 
-    public ExecBitShiftRightOperation(BitShiftRightOperation _b) {
-        super(_b);
+    public ExecBitShiftRightOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
 

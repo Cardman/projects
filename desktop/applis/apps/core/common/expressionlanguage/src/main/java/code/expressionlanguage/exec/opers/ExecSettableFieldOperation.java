@@ -1,13 +1,16 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.DefaultSetOffset;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
@@ -15,52 +18,45 @@ import code.util.IdMap;
 public final class ExecSettableFieldOperation extends
         ExecAbstractFieldOperation implements ExecSettableElResult {
 
-    private boolean variable;
-    private FieldInfo fieldMetaInfo;
+    private ExecSettableOperationContent settableFieldContent;
 
-    private boolean catString;
-
-    private int anc;
     private ExecRootBlock rootBlock;
 
-    public ExecSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
-        super(_s);
-        variable = _s.isVariable();
-        fieldMetaInfo = _s.getFieldMetaInfo();
-        catString = _s.isCatString();
-        anc = _s.getAnc();
+    public ExecSettableFieldOperation(ExecRootBlock _rootBlock, ExecOperationContent _opCont, ExecFieldOperationContent _fieldCont, ExecSettableOperationContent _setFieldCont) {
+        super(_opCont, _fieldCont);
+        settableFieldContent = _setFieldCont;
         rootBlock = _rootBlock;
     }
 
     public boolean resultCanBeSet() {
-        return variable;
+        return settableFieldContent.isVariable();
     }
 
     @Override
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
         int off_ = getOff();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        ClassField fieldId_ = settableFieldContent.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        boolean staticField_ = fieldMetaInfo.isStaticField();
+        boolean staticField_ = settableFieldContent.isStaticField();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
         Argument previous_;
         if (!staticField_) {
-            previous_ = new Argument(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_ = new Argument(ExecTemplates.getParent(settableFieldContent.getAnc(), className_, _previous.getStruct(), _conf));
         } else {
             previous_ = new Argument();
         }
         if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
-        String fieldType_ = fieldMetaInfo.getRealType();
+        String fieldType_ = settableFieldContent.getRealType();
         return ExecTemplates.getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
     
     public ClassField getFieldId() {
-        return fieldMetaInfo.getClassField();
+        return settableFieldContent.getClassField();
     }
 
 
@@ -91,15 +87,15 @@ public final class ExecSettableFieldOperation extends
     }
     private Argument getCommonSetting(Argument _previous, ContextEl _conf, Argument _right) {
         int off_ = getOff();
-        String fieldType_ = fieldMetaInfo.getRealType();
-        boolean isStatic_ = fieldMetaInfo.isStaticField();
-        boolean isFinal_ = fieldMetaInfo.isFinalField();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        String fieldType_ = settableFieldContent.getRealType();
+        boolean isStatic_ = settableFieldContent.isStaticField();
+        boolean isFinal_ = settableFieldContent.isFinalField();
+        ClassField fieldId_ = settableFieldContent.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
         Argument previous_;
         if (!isStatic_) {
-            previous_ = new Argument(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_ = new Argument(ExecTemplates.getParent(settableFieldContent.getAnc(), className_, _previous.getStruct(), _conf));
         } else {
             previous_ = new Argument();
         }
@@ -113,7 +109,7 @@ public final class ExecSettableFieldOperation extends
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _arg.getNames(), _cast);
         if (_conf.callsOrException()) {
             return res_;
         }
@@ -143,7 +139,7 @@ public final class ExecSettableFieldOperation extends
 
     private void endCalculateCommon(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument prev_ = Argument.createVoid();
-        if (!fieldMetaInfo.isStaticField()) {
+        if (!settableFieldContent.isStaticField()) {
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);

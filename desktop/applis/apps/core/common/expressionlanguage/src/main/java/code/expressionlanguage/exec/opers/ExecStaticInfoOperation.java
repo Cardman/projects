@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.StaticInfoOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public final class ExecStaticInfoOperation extends ExecLeafOperation implements
@@ -12,9 +12,9 @@ public final class ExecStaticInfoOperation extends ExecLeafOperation implements
 
     private String className;
 
-    public ExecStaticInfoOperation(StaticInfoOperation _s) {
-        super(_s);
-        className = _s.getClassName();
+    public ExecStaticInfoOperation(ExecOperationContent _opCont, String _className) {
+        super(_opCont);
+        className = _className;
     }
 
     @Override

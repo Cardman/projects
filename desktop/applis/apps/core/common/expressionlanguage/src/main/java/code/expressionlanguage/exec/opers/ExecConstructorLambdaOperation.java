@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -13,22 +11,19 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaConstructorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
 public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ConstructorId realId;
-    private ExecAnnotableParametersBlock functionBlock;
-    private ExecRootBlock rootBlock;
-    private ExecNamedFunctionBlock function;
+    private ExecLambdaConstructorContent lambdaConstructorContent;
 
-    public ExecConstructorLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
-        super(_l);
-        realId = _l.getRealId();
-        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
-        rootBlock = fetchType(_l.getRootNumber(), _page);
-        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
+    public ExecConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent) {
+        super(_opCont, _lamCont);
+        lambdaConstructorContent = _lambdaConstructorContent;
     }
 
     @Override
@@ -40,11 +35,11 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), realId, getReturnFieldType()));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaConstructorContent.getRealId(), getReturnFieldType()));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType) {
-        return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,rootBlock,function);
+        return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecAnnotableParametersBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {

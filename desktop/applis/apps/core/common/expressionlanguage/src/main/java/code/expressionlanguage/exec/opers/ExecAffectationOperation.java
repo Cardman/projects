@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 
@@ -14,9 +14,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
 
     private int opOffset;
 
-    public ExecAffectationOperation(AffectationOperation _a) {
-        super(_a);
-        opOffset = _a.getOpOffset();
+    public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset) {
+        super(_opCont);
+        opOffset = _opOffset;
     }
 
     public void setup() {

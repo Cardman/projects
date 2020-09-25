@@ -17,10 +17,10 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.*;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
@@ -482,10 +482,9 @@ public final class RenderExpUtil {
     }
 
     public static void setImplicits(RendDynOperationNode _ex, AnalyzedPageEl _page, OperationNode _ana){
-        ExecClassArgumentMatching ex_ = _ex.getResultClass();
         AnaClassArgumentMatching ana_ = _ana.getResultClass();
         ImplicitMethods implicits_ = _ex.getImplicits();
         ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        ElUtil.setImplicits(ex_,ana_,implicits_,implicitsTest_, _page);
+        ForwardInfos.setImplicits(ana_,implicits_,implicitsTest_, _page);
     }
 }

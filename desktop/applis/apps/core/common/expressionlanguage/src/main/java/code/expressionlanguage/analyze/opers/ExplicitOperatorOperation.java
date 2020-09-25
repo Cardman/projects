@@ -14,17 +14,12 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
-    private ClassMethodId classMethodId;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
-    private String methodName;
-    private String lastType = EMPTY_STRING;
-
-    private int naturalVararg = -1;
+    private AnaCallFctContent callFctContent;
 
     private int offsetOper;
     private String from;
@@ -35,13 +30,13 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public ExplicitOperatorOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName();
+        callFctContent = new AnaCallFctContent(getOperations().getFctName());
         offsetOper = getOperations().getOperators().firstKey();
     }
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        String cl_ = methodName;
+        String cl_ = callFctContent.getMethodName();
         setStaticAccess(_page.getStaticContext());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
@@ -51,7 +46,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (args_.size() > 1) {
             int off_ = StringList.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
-            from = ResolvingImportTypes.resolveCorrectTypeAccessible(off_+methodName.indexOf(',')+1,fromType_, _page);
+            from = ResolvingImportTypes.resolveCorrectTypeAccessible(off_+ callFctContent.getMethodName().indexOf(',')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         }
         if (from.isEmpty()) {
@@ -90,7 +85,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        String cl_ = methodName;
+        String cl_ = callFctContent.getMethodName();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(cl_);
@@ -155,31 +150,24 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
-        rootNumber = cust_.getRootNumber();
-        memberNumber = cust_.getMemberNumber();
-        classMethodId = new ClassMethodId(foundClass_, cust_.getRealId());
+        callFctContent.setRootNumber(cust_.getRootNumber());
+        callFctContent.setMemberNumber(cust_.getMemberNumber());
+        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, cust_.getRealId()));
         if (cust_.isVarArgToCall()) {
             StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
-            naturalVararg = paramtTypes_.size() - 1;
-            lastType = paramtTypes_.last();
+            callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
+            callFctContent.setLastType(paramtTypes_.last());
         }
-        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
+        unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
     }
 
 
     public int getOffsetOper() {
         return offsetOper;
     }
-    public int getNaturalVararg() {
-        return naturalVararg;
-    }
-
-    public String getLastType() {
-        return lastType;
-    }
 
     public ClassMethodId getClassMethodId() {
-        return classMethodId;
+        return callFctContent.getClassMethodId();
     }
 
     public String getFrom() {
@@ -199,10 +187,14 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     }
 
     public int getMemberNumber() {
-        return memberNumber;
+        return callFctContent.getMemberNumber();
     }
 
     public int getRootNumber() {
-        return rootNumber;
+        return callFctContent.getRootNumber();
+    }
+
+    public AnaCallFctContent getCallFctContent() {
+        return callFctContent;
     }
 }

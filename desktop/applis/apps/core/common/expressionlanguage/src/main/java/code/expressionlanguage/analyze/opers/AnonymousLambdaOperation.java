@@ -18,21 +18,22 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaLambdaAnoContent;
+import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
 
 public final class AnonymousLambdaOperation extends
         LeafOperation {
-    private ClassMethodId method;
-    private String foundClass;
-    private String fileName;
-    private String returnFieldType = "";
+    private AnaLambdaCommonContent lambdaCommonContent;
+    private AnaLambdaAnoContent lambdaAnoContent;
     private AnonymousFunctionBlock block;
     private ParsedFctHeader parse;
-    private int rootNumber = -1;
 
     public AnonymousLambdaOperation(int _index, int _indexChild,
                                     MethodOperation _m, OperationsSequence _op, AnonymousFunctionBlock _block, ParsedFctHeader _parse) {
         super(_index, _indexChild, _m, _op);
+        lambdaCommonContent = new AnaLambdaCommonContent();
+        lambdaAnoContent = new AnaLambdaAnoContent();
         block = _block;
         parse = _parse;
     }
@@ -206,10 +207,10 @@ public final class AnonymousLambdaOperation extends
                 candidates_.add(format_);
             }
         }
-        foundClass = _page.getGlobalClass();
-        fileName = _page.getLocalizer().getCurrentFileName();
+        lambdaCommonContent.setFoundClass(_page.getGlobalClass());
+        lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         RootBlock globalType_ = _page.getGlobalType();
-        rootNumber = globalType_.getNumberAll();
+        lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
         block.setParentType(globalType_);
         block.getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
@@ -286,9 +287,9 @@ public final class AnonymousLambdaOperation extends
         ParametersGroup p_ = new ParametersGroup();
         MethodId idC_ = block.getId();
         MethodInfo mloc_ = new MethodInfo();
-        returnFieldType = importedReturnType_;
+        lambdaCommonContent.setReturnFieldType(importedReturnType_);
         mloc_.setOriginalReturnType(importedReturnType_);
-        mloc_.setClassName(foundClass);
+        mloc_.setClassName(lambdaCommonContent.getFoundClass());
         mloc_.setConstraints(idC_);
         mloc_.setParameters(p_);
         mloc_.setReturnType(importedReturnType_);
@@ -311,33 +312,25 @@ public final class AnonymousLambdaOperation extends
         if (idCt_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
-        foundClass = res_.getId().getClassName();
-        method = new ClassMethodId(foundClass_, idCt_);
-        String fct_ = LambdaOperation.formatReturn(foundClass, res_, false, _page);
+        lambdaCommonContent.setFoundClass(res_.getId().getClassName());
+        lambdaAnoContent.setMethod(new ClassMethodId(foundClass_, idCt_));
+        String fct_ = LambdaOperation.formatReturn(lambdaCommonContent.getFoundClass(), res_, false, _page);
         setResultClass(new AnaClassArgumentMatching(fct_));
-    }
-
-    public ClassMethodId getMethod() {
-        return method;
-    }
-
-    public String getReturnFieldType() {
-        return returnFieldType;
     }
 
     public AnonymousFunctionBlock getBlock() {
         return block;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
     public int getRootNumber() {
-        return rootNumber;
+        return lambdaAnoContent.getRootNumber();
     }
 
-    public String getFoundClass() {
-        return foundClass;
+    public AnaLambdaCommonContent getLambdaCommonContent() {
+        return lambdaCommonContent;
+    }
+
+    public AnaLambdaAnoContent getLambdaAnoContent() {
+        return lambdaAnoContent;
     }
 }

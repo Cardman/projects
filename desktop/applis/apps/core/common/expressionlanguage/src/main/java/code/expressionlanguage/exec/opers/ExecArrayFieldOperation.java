@@ -3,17 +3,17 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.opers.ArrayFieldOperation;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.StringList;
 
 public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
 
-    public ExecArrayFieldOperation(ArrayFieldOperation _a) {
-        super(_a);
+    public ExecArrayFieldOperation(ExecOperationContent _opCont, ExecFieldOperationContent _fieldCont) {
+        super(_opCont, _fieldCont);
     }
 
     @Override

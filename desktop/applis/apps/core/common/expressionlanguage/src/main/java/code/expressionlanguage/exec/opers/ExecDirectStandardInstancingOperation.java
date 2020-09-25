@@ -2,10 +2,9 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -13,22 +12,11 @@ import code.util.StringList;
 public final class ExecDirectStandardInstancingOperation extends
         ExecInvokingOperation {
 
-    private String methodName;
+    private ExecInstancingCommonContent instancingCommonContent;
 
-    private ConstructorId constId;
-
-    private String className;
-
-    private int naturalVararg;
-
-    private String lastType;
-    public ExecDirectStandardInstancingOperation(StandardInstancingOperation _s) {
-        super(_s);
-        methodName = _s.getMethodName();
-        constId = _s.getConstId();
-        className = _s.getClassName();
-        naturalVararg = _s.getNaturalVararg();
-        lastType = _s.getLastType();
+    public ExecDirectStandardInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent) {
+        super(_opCont, _intermediateDottedOperation);
+        instancingCommonContent = _instancingCommonContent;
     }
 
     @Override
@@ -38,14 +26,14 @@ public final class ExecDirectStandardInstancingOperation extends
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_ = getArgs(_nodes);
-        return instancePrepareStd(_conf, className, constId, firstArgs_);
+        return instancePrepareStd(_conf, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        return fectchArgs(_nodes,lastType,naturalVararg);
+        return fectchArgs(_nodes, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
     }
 
 }

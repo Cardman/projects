@@ -2,35 +2,26 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
 public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation {
 
 
-    private ClassField fieldId;
-    private boolean staticField;
-    private boolean finalField;
-    private boolean affField;
-    private ExecRootBlock rootBlock;
-    private ExecAnnotableBlock infoBlock;
+    private ExecLambdaFieldContent lambdaFieldContent;
 
-    public ExecFieldLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
-        super(_l);
-        fieldId = _l.getFieldId();
-        staticField = _l.isStaticField();
-        finalField = _l.isFinalField();
-        affField = _l.isAffField();
-        rootBlock = fetchType(_l.getRootNumber(), _page);
-        infoBlock = fetchField(_l, _page);
+    public ExecFieldLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaFieldContent _lambdaFieldContent) {
+        super(_opCont, _lamCont);
+        lambdaFieldContent = _lambdaFieldContent;
     }
 
     @Override
@@ -42,11 +33,11 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), fieldId, getAncestor(), affField, staticField, finalField));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), lambdaFieldContent.getClassField(), getAncestor(), lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField()));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField) {
-        return newLambda(_previous, _conf, foundClass, returnFieldType, fieldId, ancestor, affField, staticField, finalField, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),rootBlock,infoBlock);
+        return newLambda(_previous, _conf, foundClass, returnFieldType, fieldId, ancestor, affField, staticField, finalField, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock());
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecRootBlock rootBlock,ExecAnnotableBlock infoBlock) {

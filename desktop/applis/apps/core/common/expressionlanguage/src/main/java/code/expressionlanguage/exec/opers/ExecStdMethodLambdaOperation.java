@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -11,6 +10,8 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -22,10 +23,10 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
     private ClassMethodId method;
     private StandardMethod function;
 
-    public ExecStdMethodLambdaOperation(LambdaOperation _l) {
-        super(_l);
-        method = _l.getMethod();
-        function = _l.getStandardMethod();
+    public ExecStdMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ClassMethodId _method, StandardMethod _standardMethod) {
+        super(_opCont, _lamCont);
+        method = _method;
+        function = _standardMethod;
     }
 
     @Override
@@ -41,7 +42,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType) {
-        return newLambda(_previous, _conf, foundClass, method, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), function);
+        return newLambda(_previous, _conf, foundClass, method, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), function);
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, StandardMethod function) {

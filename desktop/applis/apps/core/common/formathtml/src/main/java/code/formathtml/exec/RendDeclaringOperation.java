@@ -1,10 +1,10 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.analyze.opers.DeclaringOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 
 public final class RendDeclaringOperation extends RendMethodOperation {
 
-    public RendDeclaringOperation(DeclaringOperation _d) {
+    public RendDeclaringOperation(OperationNode _d) {
         super(_d);
     }
 

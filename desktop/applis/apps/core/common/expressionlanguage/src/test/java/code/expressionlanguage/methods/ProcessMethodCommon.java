@@ -22,6 +22,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -625,7 +626,7 @@ public abstract class ProcessMethodCommon {
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
         ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, context_.getAnalyzing());
-        ClassesUtil.processExecFile(fileBlock_,exFile_, context_.getAnalyzing());
+        ForwardInfos.processExecFile(fileBlock_,exFile_, context_.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {

@@ -3,24 +3,19 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.EnumValueOfOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.util.IdMap;
 
 public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
 
-    private String className;
-    private int argOffset;
-    private ExecRootBlock rootBlock;
+    private ExecValuesContent valuesContent;
 
-    public ExecEnumValueOfOperation(EnumValueOfOperation _e, AnalyzedPageEl _page) {
-        super(_e);
-        className = _e.getClassName();
-        argOffset = _e.getArgOffset();
-        rootBlock = fetchType(_e.getNumberEnum(), _page);
+    public ExecEnumValueOfOperation(ExecOperationContent _opCont, ExecValuesContent _valuesContent) {
+        super(_opCont);
+        valuesContent = _valuesContent;
     }
 
     @Override
@@ -32,8 +27,8 @@ public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(arg_, _conf, _nodes);
     }
     Argument getCommonArgument(Argument _argument, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.tryGetEnumValue(new DefaultExiting(_conf), _conf,rootBlock,ClassCategory.ENUM, _argument);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
+        return ExecInvokingOperation.tryGetEnumValue(new DefaultExiting(_conf), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM, _argument);
     }
 
 }

@@ -3,15 +3,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecSafeDotOperation extends ExecAbstractDotOperation {
 
-    public ExecSafeDotOperation(SafeDotOperation _d) {
-        super(_d);
+    public ExecSafeDotOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
 

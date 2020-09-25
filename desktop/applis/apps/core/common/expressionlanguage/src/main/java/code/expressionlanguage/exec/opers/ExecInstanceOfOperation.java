@@ -6,19 +6,18 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.InstanceOfOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
 
-    private String className;
-    private int offset;
-    public ExecInstanceOfOperation(InstanceOfOperation _i) {
-        super(_i);
-        className = _i.getClassName();
-        offset = _i.getOffset();
+    private ExecTypeCheckContent typeCheckContent;
+    public ExecInstanceOfOperation(ExecOperationContent _opCont, ExecTypeCheckContent _typeCheckContent) {
+        super(_opCont);
+        typeCheckContent = _typeCheckContent;
     }
 
     @Override
@@ -30,13 +29,13 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
     }
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _conf);
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
             return new Argument(BooleanStruct.of(false));
         }
         PageEl page_ = _conf.getLastPage();
-        String str_ = page_.formatVarType(className, _conf);
+        String str_ = page_.formatVarType(typeCheckContent.getClassName(), _conf);
         boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         return new Argument(BooleanStruct.of(res_));
     }

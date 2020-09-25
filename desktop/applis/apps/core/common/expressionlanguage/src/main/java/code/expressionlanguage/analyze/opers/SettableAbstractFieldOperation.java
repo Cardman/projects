@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 
+import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -19,15 +20,11 @@ import code.util.StringList;
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
 
-    private boolean variable;
-    private FieldInfo fieldMetaInfo;
+    private AnaSettableOperationContent settableFieldContent;
     private MethodAccessKind staticAccess;
     private int valueOffset = -1;
     private int fieldNameLength;
 
-    private boolean catString;
-
-    private int anc;
     private int indexBlock;
     private int rootNumber = -1;
     private boolean declare;
@@ -35,6 +32,7 @@ public abstract class SettableAbstractFieldOperation extends
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        settableFieldContent = new AnaSettableOperationContent();
     }
     @Override
     public final void analyze(AnalyzedPageEl _page) {
@@ -80,7 +78,7 @@ public abstract class SettableAbstractFieldOperation extends
         FieldResult r_;
         FieldInfo e_;
         r_ = getDeclaredCustField(this, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
-        anc = r_.getAnc();
+        settableFieldContent.setAnc(r_.getAnc());
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -88,8 +86,8 @@ public abstract class SettableAbstractFieldOperation extends
         rootNumber = r_.getRootNumber();
         e_ = r_.getId();
         valueOffset = e_.getValOffset();
-        fieldMetaInfo = e_;
-        String c_ = fieldMetaInfo.getType();
+        settableFieldContent.setFieldMetaInfo(e_);
+        String c_ = settableFieldContent.getFieldMetaInfo().getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getStandards()));
     }
 
@@ -102,12 +100,12 @@ public abstract class SettableAbstractFieldOperation extends
 
     @Override
     public final void setCatenizeStrings() {
-        catString = true;
+        settableFieldContent.setCatString(true);
     }
 
     @Override
     public final void setVariable(boolean _variable) {
-        variable = _variable;
+        settableFieldContent.setVariable(_variable);
     }
 
     public final void setStaticAccess(MethodAccessKind _staticAccess) {
@@ -123,10 +121,10 @@ public abstract class SettableAbstractFieldOperation extends
         setStaticAccess(_staticAccess);
     }
     public final ClassField getFieldId() {
-        if (fieldMetaInfo == null) {
+        if (settableFieldContent.getFieldMetaInfo() == null) {
             return null;
         }
-        return fieldMetaInfo.getClassField();
+        return settableFieldContent.getFieldMetaInfo().getClassField();
     }
     public final ClassField getFieldIdReadOnly() {
         ClassField fieldId_ = getFieldId();
@@ -157,30 +155,24 @@ public abstract class SettableAbstractFieldOperation extends
         return false;
     }
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        if (fieldMetaInfo == null) {
+        if (settableFieldContent.getFieldMetaInfo() == null) {
             return true;
         }
-        ClassField clField_ = fieldMetaInfo.getClassField();
+        ClassField clField_ = settableFieldContent.getFieldMetaInfo().getClassField();
         String gl_ = _page.getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
         return !StringList.quickEq(clField_.getClassName(), id_);
     }
     public final FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
+        return settableFieldContent.getFieldMetaInfo();
     }
 
     public boolean isDeclare() {
         return declare;
     }
 
-    public boolean isVariable() {
-        return variable;
-    }
-    public boolean isCatString() {
-        return catString;
-    }
-    public int getAnc() {
-        return anc;
+    public AnaSettableOperationContent getSettableFieldContent() {
+        return settableFieldContent;
     }
 
     public int getValueOffset() {

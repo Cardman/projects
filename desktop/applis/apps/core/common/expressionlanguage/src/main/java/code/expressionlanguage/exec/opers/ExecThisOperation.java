@@ -5,20 +5,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ThisOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecThisContent;
 import code.util.IdMap;
 
 public final class ExecThisOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private boolean intermediate;
-    private int nbAncestors;
-    private int off;
+    private ExecThisContent thisContent;
 
-    public ExecThisOperation(ThisOperation _t) {
-        super(_t);
-        intermediate = _t.isIntermediate();
-        nbAncestors = _t.getNbAncestors();
-        off = _t.getOff();
+    public ExecThisOperation(ExecOperationContent _opCont, ExecThisContent _thisContent) {
+        super(_opCont);
+        thisContent = _thisContent;
     }
 
     @Override
@@ -29,12 +26,12 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     }
 
     Argument getCommonArgument(ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ thisContent.getOff(), _conf);
         PageEl ip_ = _conf.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {
-            String c_ = getResultClass().getName();
-            a_ = new Argument(ExecTemplates.getParent(nbAncestors, c_, ip_.getGlobalStruct(), _conf));
+            String c_ = getResultClass().getSingleNameOrEmpty();
+            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), c_, ip_.getGlobalStruct(), _conf));
         } else {
             a_ = new Argument(ip_.getGlobalStruct());
         }
@@ -43,7 +40,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return thisContent.isIntermediate();
     }
 
 }

@@ -6,13 +6,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
@@ -34,13 +34,13 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     public RendSemiAffectationOperation(SemiAffectationOperation _s, AnalyzedPageEl _page) {
         super(_s);
         post = _s.isPost();
-        oper = _s.getOper();
-        kind = ExecOperationNode.getKind(_s.getClassMethodId());
-        className = ExecOperationNode.getType(_s.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
-        rootBlock = ExecOperationNode.fetchType(_s.getRootNumber(), _page);
-        converterFrom = ExecOperationNode.fetchImplicits(_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom(), _page);
-        converterTo = ExecOperationNode.fetchImplicits(_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo(), _page);
+        oper = _s.getOperatorContent().getOper();
+        kind = ForwardInfos.getKind(_s.getClassMethodId());
+        className = ForwardInfos.getType(_s.getClassMethodId());
+        named = ForwardInfos.fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _page);
+        rootBlock = ForwardInfos.fetchType(_s.getRootNumber(), _page);
+        converterFrom = ForwardInfos.fetchImplicits(_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom(), _page);
+        converterTo = ForwardInfos.fetchImplicits(_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo(), _page);
     }
 
     public void setup() {

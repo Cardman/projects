@@ -35,8 +35,8 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         super(_s);
         methodName = _s.getMethodName();
         className = _s.getClassName();
-        fieldName = _s.getFieldName();
-        blockIndex = _s.getBlockIndex();
+        fieldName = _s.getInstancingStdContent().getFieldName();
+        blockIndex = _s.getInstancingStdContent().getBlockIndex();
         naturalVararg = _s.getNaturalVararg();
         lastType = _s.getLastType();
         rootBlock = _rootBlock;

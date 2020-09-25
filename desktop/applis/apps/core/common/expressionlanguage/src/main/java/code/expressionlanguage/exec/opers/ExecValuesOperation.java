@@ -3,23 +3,20 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ValuesOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.util.IdMap;
 
 public final class ExecValuesOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation {
 
-    private int argOffset;
-    private ExecRootBlock rootBlock;
+    private ExecValuesContent valuesContent;
 
-    public ExecValuesOperation(ValuesOperation _v, AnalyzedPageEl _page) {
-        super(_v);
-        argOffset = _v.getArgOffset();
-        rootBlock = fetchType(_v.getNumberEnum(), _page);
+    public ExecValuesOperation(ExecOperationContent _opCont, ExecValuesContent _valuesContent) {
+        super(_opCont);
+        valuesContent = _valuesContent;
     }
 
 
@@ -30,8 +27,8 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
         setSimpleArgument(arg_, _conf, _nodes);
     }
     Argument getCommonArgument(ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.tryGetEnumValues(new DefaultExiting(_conf), _conf,rootBlock,ClassCategory.ENUM);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
+        return ExecInvokingOperation.tryGetEnumValues(new DefaultExiting(_conf), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM);
     }
 
 }

@@ -26,11 +26,11 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
 
     public RendStdVariableOperation(VariableOperation _v) {
         super(_v);
-        variable = _v.isVariable();
-        catString = _v.isCatString();
-        variableName  = _v.getVariableName();
-        off = _v.getOff();
-        deep = _v.getDeep();
+        variable = _v.getVariableContent().isVariable();
+        catString = _v.getVariableContent().isCatString();
+        variableName  = _v.getVariableContent().getVariableName();
+        off = _v.getVariableContent().getOff();
+        deep = _v.getVariableContent().getDeep();
     }
     public RendStdVariableOperation(int _indexChild, String _varName, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
@@ -39,11 +39,11 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     }
     public RendStdVariableOperation(MutableLoopVariableOperation _v) {
         super(_v);
-        variable = _v.isVariable();
-        catString = _v.isCatString();
-        variableName  = _v.getVariableName();
-        off = _v.getOff();
-        deep = _v.getDeep();
+        variable = _v.getVariableContent().isVariable();
+        catString = _v.getVariableContent().isCatString();
+        variableName  = _v.getVariableContent().getVariableName();
+        off = _v.getVariableContent().getOff();
+        deep = _v.getVariableContent().getDeep();
     }
 
     @Override

@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CallDynMethodOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -11,9 +11,9 @@ import code.util.StringList;
 public final class ExecCallDynMethodOperation extends ExecInvokingOperation {
 
     private String fctName;
-    public ExecCallDynMethodOperation(CallDynMethodOperation _call) {
-        super(_call);
-        fctName = _call.getFctName();
+    public ExecCallDynMethodOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, String _fctName) {
+        super(_opCont, _intermediateDottedOperation);
+        fctName = _fctName;
     }
 
     @Override

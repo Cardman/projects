@@ -10,6 +10,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
+import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -21,17 +22,15 @@ import code.util.StringList;
 public final class AnonymousInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation {
 
-    private AnonymousTypeBlock block;
+    private AnaInstancingAnonContent instancingAnonContent;
     private String glClass;
     private String base;
     private int index;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, AnonymousTypeBlock _block) {
         super(_index, _indexChild, _m, _op);
-        block = _block;
+        instancingAnonContent = new AnaInstancingAnonContent(_block);
     }
 
 
@@ -143,31 +142,31 @@ public final class AnonymousInstancingOperation extends
                 getErrs().add(call_.getBuiltError());
             }
         }
-        block.getDirectSuperTypes().add(_realClassName);
-        block.getExplicitDirectSuperTypes().put(-1, false);
-        block.getRowColDirectSuperTypes().put(-1, _realClassName);
-        block.setName(((ImmutableNameRootBlock)g_).getName());
-        block.setParentType(_page.getGlobalType());
+        instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
+        instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
+        instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
+        instancingAnonContent.getBlock().setName(((ImmutableNameRootBlock)g_).getName());
+        instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
-        block.getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
+        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
-            currentFct_.getAnonymous().add(block);
-            block.getMappings().putAllMap(currentFct_.getMappings());
-            block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
+            currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
+            instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getMappings());
+            instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(_page.getGlobalDirType().getMappings());
+            instancingAnonContent.getBlock().getMappings().putAllMap(_page.getGlobalDirType().getMappings());
         }
         Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock)currentBlock_).getAnonymous().add(block);
+            ((InfoBlock)currentBlock_).getAnonymous().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getAnonymous().add(block);
+            ((MemberCallingsBlock)currentBlock_).getAnonymous().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getAnonymousRoot().add(block);
+            ((RootBlock)currentBlock_).getAnonymousRoot().add(instancingAnonContent.getBlock());
         }
-        block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
-        block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
+        instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
+        instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
         setResultClass(new AnaClassArgumentMatching(_realClassName));
         glClass = _page.getGlobalClass();
     }
@@ -177,18 +176,18 @@ public final class AnonymousInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
-        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(block.getGenericString());
+        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(instancingAnonContent.getBlock().getGenericString());
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
             setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_, _page);
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, aClass_,instancingAnonContent.getBlock().getFullName(),instancingAnonContent.getBlock(), null, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
             return;
         }
-        rootNumber = ctorRes_.getRootNumber();
-        memberNumber = ctorRes_.getMemberNumber();
+        instancingAnonContent.setRootNumber(ctorRes_.getRootNumber());
+        instancingAnonContent.setMemberNumber(ctorRes_.getMemberNumber());
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
         if (ctorRes_.isVarArgToCall()) {
@@ -199,7 +198,7 @@ public final class AnonymousInstancingOperation extends
     }
 
     public AnonymousTypeBlock getBlock() {
-        return block;
+        return instancingAnonContent.getBlock();
     }
 
     public String getGlClass() {
@@ -215,10 +214,10 @@ public final class AnonymousInstancingOperation extends
     }
 
     public int getRootNumber() {
-        return rootNumber;
+        return instancingAnonContent.getRootNumber();
     }
 
     public int getMemberNumber() {
-        return memberNumber;
+        return instancingAnonContent.getMemberNumber();
     }
 }

@@ -6,15 +6,15 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.AnaParentInstanceContent;
 import code.util.StringList;
 
 public final class ParentInstanceOperation extends LeafOperation implements PossibleIntermediateDotted {
     private AnaClassArgumentMatching previousResultClass;
-    private boolean intermediate;
-    private int off;
+    private AnaParentInstanceContent parentInstanceContent;
     protected ParentInstanceOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        off = _op.getOffset();
+        parentInstanceContent = new AnaParentInstanceContent(_op.getOffset());
     }
 
     @Override
@@ -65,11 +65,11 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
 
     @Override
     public void setIntermediateDotted() {
-        intermediate = true;
+        parentInstanceContent.setIntermediate(true);
     }
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return parentInstanceContent.isIntermediate();
     }
 
     @Override
@@ -77,11 +77,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
         previousResultClass = _previousResultClass;
     }
 
-    public boolean isIntermediate() {
-        return intermediate;
-    }
-
-    public int getOff() {
-        return off;
+    public AnaParentInstanceContent getParentInstanceContent() {
+        return parentInstanceContent;
     }
 }

@@ -11,13 +11,14 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;
+    private AnaOperatorContent operatorContent;
     private boolean post;
-    private String oper;
     private ClassMethodId classMethodId;
     private int rootNumber = -1;
     private int memberNumber = -1;
@@ -28,14 +29,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private int rootNumberTo = -1;
     private int memberNumberTo = -1;
 
-    private int opOffset;
-
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
         super(_index, _indexChild, _m, _op);
         post = _post;
-        oper = _op.getOperators().firstValue();
-        opOffset = _op.getOperators().firstKey();
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(_op.getOperators().firstValue());
+        operatorContent.setOpOffset(_op.getOperators().firstKey());
     }
 
     @Override
@@ -50,7 +50,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //operator
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
-                    oper);
+                    operatorContent.getOper());
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
@@ -117,10 +117,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return post;
     }
 
-    public String getOper() {
-        return oper;
-    }
-
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -134,7 +130,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     }
 
     public int getOpOffset() {
-        return opOffset;
+        return operatorContent.getOpOffset();
     }
 
     public SettableElResult getSettable() {
@@ -163,5 +159,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public int getMemberNumberTo() {
         return memberNumberTo;
+    }
+
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 }

@@ -4,7 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ArrOperation;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
@@ -12,14 +13,11 @@ import code.util.IdMap;
 
 public final class ExecArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
 
-    private boolean variable;
+    private final ExecArrContent arrContent;
 
-    private boolean catString;
-
-    public ExecArrOperation(ArrOperation _arr) {
-        super(_arr);
-        variable = _arr.isVariable();
-        catString = _arr.isCatString();
+    public ExecArrOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrContent _arrContent) {
+        super(_opCont, _intermediateDottedOperation);
+        arrContent = _arrContent;
     }
 
     @Override
@@ -58,7 +56,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     }
 
     public boolean resultCanBeSet() {
-        return variable;
+        return arrContent.isVariable();
     }
 
     @Override
@@ -113,7 +111,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _arg.getNames(), _cast);
         if (_conf.callsOrException()) {
             return _stored;
         }

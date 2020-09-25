@@ -3,12 +3,12 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SymbolOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -22,8 +22,8 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
     private ExecRootBlock rootBlock;
     public RendCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_n,_op);
-        kind = ExecOperationNode.getKind(_n.getClassMethodId());
-        className = ExecOperationNode.getType(_n.getClassMethodId());
+        kind = ForwardInfos.getKind(_n.getClassMethodId());
+        className = ForwardInfos.getType(_n.getClassMethodId());
         named = _named;
         rootBlock = _rootBlock;
     }

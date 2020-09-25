@@ -13,6 +13,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
+import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -21,21 +23,13 @@ import code.util.StringList;
 
 public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
 
-    private boolean variable;
     private boolean getAndSet;
 
-    private boolean catString;
-
-    private ClassMethodId classMethodId;
-
-    private String lastType = EMPTY_STRING;
-
-    private int naturalVararg = -1;
-
+    private AnaArrContent arrContent;
+    private AnaCallFctContent callFctContent;
     private int anc;
 
     private boolean staticChoiceMethod;
-
     private String nbErr = "";
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
@@ -46,6 +40,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        callFctContent = new AnaCallFctContent("");
+        arrContent = new AnaArrContent();
     }
 
     @Override
@@ -184,14 +180,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             }
             MethodId id_ = clMeth_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
+            callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             MethodId realId_ = clMeth_.getRealId();
             if (clMeth_.isVarArgToCall()) {
                 StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
-                naturalVararg = paramtTypes_.size() - 1;
-                lastType = paramtTypes_.last();
+                callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
+                callFctContent.setLastType(paramtTypes_.last());
             }
-            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _page);
+            unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()));
             return;
         }
@@ -281,10 +277,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         return null;
     }
 
-    public boolean isVariable() {
-        return variable;
-    }
-
     public boolean isGetAndSet() {
         return getAndSet;
     }
@@ -292,32 +284,20 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void setVariable(boolean _variable) {
         getAndSet = true;
-        variable = _variable;
-    }
-
-    public boolean isCatString() {
-        return catString;
+        arrContent.setVariable(_variable);
     }
 
     @Override
     public void setCatenizeStrings() {
-        catString = true;
+        arrContent.setCatString(true);
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public AnaArrContent getArrContent() {
+        return arrContent;
     }
 
     public boolean isStaticChoiceMethod() {
         return staticChoiceMethod;
-    }
-
-    public int getNaturalVararg() {
-        return naturalVararg;
-    }
-
-    public String getLastType() {
-        return lastType;
     }
 
     public int getAnc() {
@@ -348,5 +328,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public int getMemberNumberSet() {
         return memberNumberSet;
+    }
+
+    public AnaCallFctContent getCallFctContent() {
+        return callFctContent;
     }
 }

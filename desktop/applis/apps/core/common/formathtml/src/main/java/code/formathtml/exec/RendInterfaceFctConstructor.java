@@ -7,11 +7,11 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -29,12 +29,12 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     public RendInterfaceFctConstructor(InterfaceFctConstructor _abs, AnalyzedPageEl _page) {
         super(_abs);
         className = _abs.getClassName();
-        lastType = _abs.getLastType();
-        naturalVararg = _abs.getNaturalVararg();
-        offsetOper = _abs.getOffsetOper();
-        classFromName = _abs.getClassFromName();
-        rootBlock = ExecOperationNode.fetchType(_abs.getRootNumber(), _page);
-        ctor = ExecOperationNode.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
+        lastType = _abs.getInvokingConstructorContent().getLastType();
+        naturalVararg = _abs.getInvokingConstructorContent().getNaturalVararg();
+        offsetOper = _abs.getInvokingConstructorContent().getOffsetOper();
+        classFromName = _abs.getInvokingConstructorContent().getClassFromName();
+        rootBlock = ForwardInfos.fetchType(_abs.getRootNumber(), _page);
+        ctor = ForwardInfos.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
 
     }
 

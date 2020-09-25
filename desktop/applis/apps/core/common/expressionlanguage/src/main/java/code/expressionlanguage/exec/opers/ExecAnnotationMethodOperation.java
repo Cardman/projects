@@ -2,10 +2,10 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
-import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -15,14 +15,11 @@ import code.util.StringList;
 
 public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
 
-    private String methodName;
+    private ExecCallFctAnnotContent callFctAnnotContent;
 
-    private String classMethodId;
-
-    protected ExecAnnotationMethodOperation(InvokingOperation _inv, AbstractCallFctOperation _fct) {
-        super(_inv);
-        methodName = _fct.getMethodName();
-        classMethodId = _fct.getClassMethodId().getConstraints().getName();
+    public ExecAnnotationMethodOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecCallFctAnnotContent _callFctAnnotContent) {
+        super(_opCont, _intermediateDottedOperation);
+        callFctAnnotContent = _callFctAnnotContent;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
@@ -32,9 +29,9 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        return getAnnotation(_previous,classMethodId, _conf);
+        return getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _conf);
     }
 
     public static Argument getAnnotation(Argument _previous, String _name, ContextEl _conf) {

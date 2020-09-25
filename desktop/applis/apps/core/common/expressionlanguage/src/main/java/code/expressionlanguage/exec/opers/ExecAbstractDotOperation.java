@@ -3,14 +3,14 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class ExecAbstractDotOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
-    public ExecAbstractDotOperation(OperationNode _m) {
-        super(_m);
+    protected ExecAbstractDotOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
     public ExecAbstractDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {

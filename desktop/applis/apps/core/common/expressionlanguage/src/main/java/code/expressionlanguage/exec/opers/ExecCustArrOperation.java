@@ -3,15 +3,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ArrOperation;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
@@ -19,33 +19,18 @@ import code.util.IdMap;
 
 public final class ExecCustArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
 
-    private boolean variable;
+    private final ExecArrContent arrContent;
 
-    private boolean catString;
+    private final ExecInstFctContent instFctContent;
 
-    private String className;
+    private final ExecNamedFunctionBlock get;
+    private final ExecNamedFunctionBlock set;
+    private final ExecRootBlock rootBlock;
 
-    private String lastType;
-
-    private int naturalVararg;
-
-    private int anc;
-
-    private boolean staticChoiceMethod;
-
-    private ExecNamedFunctionBlock get;
-    private ExecNamedFunctionBlock set;
-    private ExecRootBlock rootBlock;
-
-    public ExecCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
-        super(_arr);
-        variable = _arr.isVariable();
-        catString = _arr.isCatString();
-        className = ExecOperationNode.getType(_arr.getClassMethodId());
-        lastType = _arr.getLastType();
-        naturalVararg = _arr.getNaturalVararg();
-        anc = _arr.getAnc();
-        staticChoiceMethod = _arr.isStaticChoiceMethod();
+    public ExecCustArrOperation(ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrContent _arrContent, ExecInstFctContent _instFctContent) {
+        super(_opCont, _intermediateDottedOperation);
+        arrContent = _arrContent;
+        instFctContent = _instFctContent;
         get = _get;
         set = _set;
         rootBlock = _rootBlock;
@@ -77,7 +62,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
         if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
@@ -98,7 +83,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     @Override
     public boolean resultCanBeSet() {
-        return variable;
+        return arrContent.isVariable();
     }
 
     @Override
@@ -119,7 +104,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     private Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, className, argPrev_, _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getClassName(), argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
@@ -131,7 +116,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         }
         Struct pr_ = prev_.getStruct();
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(staticChoiceMethod,_conf,pr_,className,rootBlock,fct_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_, instFctContent.getClassName(),rootBlock,fct_);
         fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock dest_ = polymorph_.getRootBlock();
         String classNameFound_ = polymorph_.getClassName();
@@ -139,7 +124,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes,_conf,_pr,className,rootBlock,lastType,naturalVararg);
+        return fetchFormattedArgs(_nodes,_conf,_pr, instFctContent.getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
 }

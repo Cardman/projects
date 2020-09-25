@@ -4,11 +4,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.QuickOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
@@ -25,11 +25,11 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private ImplicitMethods converter;
     public RendQuickOperation(QuickOperation _q, AnalyzedPageEl _page) {
         super(_q);
-        kind = ExecOperationNode.getKind(_q.getClassMethodId());
-        className = ExecOperationNode.getType(_q.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _page);
-        rootBlock = ExecOperationNode.fetchType(_q.getRootNumber(), _page);
-        converter = ExecOperationNode.fetchImplicits(_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv(), _page);
+        kind = ForwardInfos.getKind(_q.getClassMethodId());
+        className = ForwardInfos.getType(_q.getClassMethodId());
+        named = ForwardInfos.fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _page);
+        rootBlock = ForwardInfos.fetchType(_q.getRootNumber(), _page);
+        converter = ForwardInfos.fetchImplicits(_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv(), _page);
     }
 
     @Override

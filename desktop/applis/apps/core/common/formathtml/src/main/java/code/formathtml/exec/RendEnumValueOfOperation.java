@@ -4,10 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.EnumValueOfOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -15,15 +15,13 @@ import code.util.IdMap;
 
 public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation implements RendCallable {
 
-    private String className;
     private int argOffset;
     private ExecRootBlock rootBlock;
 
     public RendEnumValueOfOperation(EnumValueOfOperation _e, AnalyzedPageEl _page) {
         super(_e);
-        className = _e.getClassName();
-        argOffset = _e.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_e.getNumberEnum(), _page);
+        argOffset = _e.getValuesContent().getArgOffset();
+        rootBlock = ForwardInfos.fetchType(_e.getValuesContent().getNumberEnum(), _page);
     }
 
 

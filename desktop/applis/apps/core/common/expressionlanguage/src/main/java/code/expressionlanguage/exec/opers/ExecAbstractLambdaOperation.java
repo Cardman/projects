@@ -1,62 +1,43 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private boolean intermediate;
-    private boolean safeInstance;
-    private String returnFieldType;
-    private String fileName;
-    private boolean shiftArgument;
-    private int ancestor;
-    private String foundClass;
+    private ExecLambdaCommonContent lambdaCommonContent;
 
-    public ExecAbstractLambdaOperation(LambdaOperation _l) {
-        super(_l);
-        safeInstance = _l.isSafeInstance();
-        intermediate = _l.isIntermediate();
-        foundClass = _l.getFoundClass();
-        ancestor = _l.getAncestor();
-        shiftArgument = _l.isShiftArgument();
-        returnFieldType = _l.getReturnFieldType();
-        fileName = _l.getFileName();
-    }
-
-    public ExecAbstractLambdaOperation(AnonymousLambdaOperation _l) {
-        super(_l);
-        foundClass = _l.getFoundClass();
-        returnFieldType = _l.getReturnFieldType();
-        fileName = _l.getFileName();
+    public ExecAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
+        super(_opCont);
+        lambdaCommonContent = _lamCont;
     }
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return lambdaCommonContent.isIntermediate();
     }
 
     public boolean isSafeInstance() {
-        return safeInstance;
+        return lambdaCommonContent.isSafeInstance();
     }
 
     public String getReturnFieldType() {
-        return returnFieldType;
+        return lambdaCommonContent.getReturnFieldType();
     }
 
     public boolean isShiftArgument() {
-        return shiftArgument;
+        return lambdaCommonContent.isShiftArgument();
     }
 
     public String getFileName() {
-        return fileName;
+        return lambdaCommonContent.getFileName();
     }
 
     public int getAncestor() {
-        return ancestor;
+        return lambdaCommonContent.getAncestor();
     }
 
     public String getFoundClass() {
-        return foundClass;
+        return lambdaCommonContent.getFoundClass();
     }
 }

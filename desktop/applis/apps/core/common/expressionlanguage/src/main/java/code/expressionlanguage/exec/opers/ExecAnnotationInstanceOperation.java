@@ -7,27 +7,21 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
-import code.expressionlanguage.common.AnnotationTypeInfo;
+import code.expressionlanguage.fwd.opers.ExecInstancingAnnotContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation {
 
-    private String methodName;
+    private ExecInstancingAnnotContent instancingAnnotContent;
 
-    private String className;
-    private StringMap<AnnotationTypeInfo> fieldNames;
-    private boolean array;
     private ExecRootBlock rootBlock;
 
-    protected ExecAnnotationInstanceOperation(
-            AnnotationInstanceOperation _ann, ExecRootBlock _rootBlock) {
-        super(_ann);
-        methodName = _ann.getMethodName();
-        fieldNames = _ann.getFieldNames();
-        className = _ann.getClassName();
-        array = _ann.isArray();
+    public ExecAnnotationInstanceOperation(
+            ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingAnnotContent _instancingAnnotContent) {
+        super(_opCont, _intermediateDottedOperation);
+        instancingAnnotContent = _instancingAnnotContent;
         rootBlock = _rootBlock;
     }
 
@@ -42,23 +36,23 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     Argument getArgument(CustList<Argument> _arguments,
                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        if (array) {
+        if (instancingAnnotContent.isArray()) {
             int nbCh_ = chidren_.size();
             Ints dims_;
             dims_ = new Ints();
             dims_.add(nbCh_);
-            String className_ = StringExpUtil.getQuickComponentType(className);
+            String className_ = StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName());
             Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
             ExecTemplates.setCheckedElements(_arguments,str_,_conf);
             return new Argument(str_);
         }
-        String base_ = StringExpUtil.getIdFromAllTypes(className);
+        String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
         if (ExecutingUtil.hasToExit(_conf,base_)) {
             return Argument.createVoid();
         }
-        return instancePrepareAnnotation(_conf, className,rootBlock, fieldNames, _arguments);
+        return instancePrepareAnnotation(_conf, instancingAnnotContent.getClassName(),rootBlock, instancingAnnotContent.getFieldNames(), _arguments);
     }
 
 }

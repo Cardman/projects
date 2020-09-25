@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -190,7 +191,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         for (OperationNode r: roots) {
-            ops_.add(ElUtil.getExecutableNodes(_page, r));
+            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
         }
         _ann.getAnnotationsOps().clear();
         _ann.getAnnotationsOps().addAllElts(ops_);

@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.CustList;
 import code.util.*;
 
@@ -18,13 +19,14 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int argOffset;
-    private int numberEnum=-1;
+    private AnaValuesContent valuesContent;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        valuesContent = new AnaValuesContent();
     }
 
     @Override
@@ -43,7 +45,8 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _page);
+        valuesContent.setArgOffset(argOffset);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ valuesContent.getArgOffset(), _page);
         CustList<AnaClassArgumentMatching> firstArgs_ = new CustList<AnaClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
         String glClass_ = _page.getGlobalClass();
@@ -64,7 +67,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
-        numberEnum = r_.getNumberAll();
+        valuesContent.setNumberEnum(r_.getNumberAll());
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
         if (!ContextUtil.canAccessType(curClassBase_,a_, _page)) {
@@ -98,15 +101,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         return partOffsets;
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public int getArgOffset() {
-        return argOffset;
-    }
-
-    public int getNumberEnum() {
-        return numberEnum;
+    public AnaValuesContent getValuesContent() {
+        return valuesContent;
     }
 }

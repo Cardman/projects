@@ -19,8 +19,8 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     private ExecClassArgumentMatching previous;
     public RendArrOperation(ArrOperation _arr) {
         super(_arr);
-        variable = _arr.isVariable();
-        catString = _arr.isCatString();
+        variable = _arr.getArrContent().isVariable();
+        catString = _arr.getArrContent().isCatString();
         previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
     }
     public RendArrOperation(RendArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,

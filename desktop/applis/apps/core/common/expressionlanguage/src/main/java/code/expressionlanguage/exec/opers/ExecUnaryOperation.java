@@ -3,8 +3,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.UnaryOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -12,9 +12,9 @@ import code.util.StringList;
 public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     private String oper;
 
-    public ExecUnaryOperation(UnaryOperation _u) {
-        super(_u);
-        oper = _u.getOper();
+    public ExecUnaryOperation(ExecOperationContent _opCont, String _oper) {
+        super(_opCont);
+        oper = _oper;
     }
 
     @Override

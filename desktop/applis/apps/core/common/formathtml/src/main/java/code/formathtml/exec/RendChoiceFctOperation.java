@@ -6,11 +6,11 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -31,10 +31,10 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
     private ExecRootBlock rootBlock;
     public RendChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_choice);
-        methodName = _choice.getMethodName();
-        className = ExecOperationNode.getType(_choice.getClassMethodId());
-        lastType = _choice.getLastType();
-        naturalVararg = _choice.getNaturalVararg();
+        methodName = _choice.getCallFctContent().getMethodName();
+        className = ForwardInfos.getType(_choice.getCallFctContent().getClassMethodId());
+        lastType = _choice.getCallFctContent().getLastType();
+        naturalVararg = _choice.getCallFctContent().getNaturalVararg();
         anc = _choice.getAnc();
         named = _named;
         rootBlock = _rootBlock;

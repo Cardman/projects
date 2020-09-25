@@ -3,15 +3,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ForwardOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public final class ExecForwardOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
     private boolean intermediate;
 
-    ExecForwardOperation(ForwardOperation _v) {
-        super(_v);
-        intermediate = _v.isIntermediate();
+    public ExecForwardOperation(ExecOperationContent _opCont, boolean _intermediate) {
+        super(_opCont);
+        intermediate = _intermediate;
     }
 
     @Override

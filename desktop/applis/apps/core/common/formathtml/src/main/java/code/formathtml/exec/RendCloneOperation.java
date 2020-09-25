@@ -14,7 +14,7 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
 
     protected RendCloneOperation(FctOperation _fct) {
         super(_fct);
-        methodName = _fct.getMethodName();
+        methodName = _fct.getCallFctContent().getMethodName();
     }
 
     @Override

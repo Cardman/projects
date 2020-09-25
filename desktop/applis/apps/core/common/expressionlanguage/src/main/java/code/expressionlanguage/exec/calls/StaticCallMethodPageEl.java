@@ -3,11 +3,11 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodId;
@@ -47,7 +47,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     }
     private static Argument prepareStaticCall(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,
                                               PageEl _page, ContextEl _conf) {
-        if (!ExplicitOperation.customCast(_className)) {
+        if (!StringExpUtil.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
             String null_;
             null_ = stds_.getAliasIllegalArg();

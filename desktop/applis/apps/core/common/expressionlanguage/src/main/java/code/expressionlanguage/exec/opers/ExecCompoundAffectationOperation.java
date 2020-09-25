@@ -3,14 +3,14 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
-import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
@@ -20,24 +20,20 @@ import code.util.StringList;
 public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
     private ExecSettableElResult settable;
-    private String oper;
-    private String className;
-    private MethodAccessKind kind;
+    private ExecOperatorContent operatorContent;
+    private ExecStaticEltContent staticEltContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
-    private int opOffset;
 
-    public ExecCompoundAffectationOperation(CompoundAffectationOperation _c, AnalyzedPageEl _page) {
-        super(_c);
-        oper = _c.getOper();
-        kind = getKind(_c.getClassMethodId());
-        className = getType(_c.getClassMethodId());
-        named = fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
-        rootBlock = fetchType(_c.getRootNumber(), _page);
-        converter = fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
-        opOffset = _c.getOpOffset();
+    public ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+        super(_opCont);
+        operatorContent = _operatorContent;
+        staticEltContent = _staticEltContent;
+        named = _named;
+        rootBlock = _rootBlock;
+        converter = _converter;
     }
 
     public void setup() {
@@ -68,7 +64,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(),_conf);
             Argument arg_ = settable.calculateSetting(_nodes, _conf, leftArg_);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes);
@@ -82,7 +78,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className,kind);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
@@ -93,12 +89,12 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             Argument res_;
             StringList arg = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
-            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, arg, cast_);
+            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_);
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
-        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(),_conf);
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
     }
@@ -106,7 +102,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(),_conf);
         ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
@@ -127,7 +123,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     }
 
     public String getOper() {
-        return oper;
+        return operatorContent.getOper();
     }
 
     public ImplicitMethods getConverter() {

@@ -5,13 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
@@ -33,11 +33,11 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     public RendCompoundAffectationOperation(CompoundAffectationOperation _c, AnalyzedPageEl _page) {
         super(_c);
         oper = _c.getOper();
-        kind = ExecOperationNode.getKind(_c.getClassMethodId());
-        className = ExecOperationNode.getType(_c.getClassMethodId());
-        named = ExecOperationNode.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
-        rootBlock = ExecOperationNode.fetchType(_c.getRootNumber(), _page);
-        converter = ExecOperationNode.fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
+        kind = ForwardInfos.getKind(_c.getClassMethodId());
+        className = ForwardInfos.getType(_c.getClassMethodId());
+        named = ForwardInfos.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
+        rootBlock = ForwardInfos.fetchType(_c.getRootNumber(), _page);
+        converter = ForwardInfos.fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
     }
 
     public void setup() {

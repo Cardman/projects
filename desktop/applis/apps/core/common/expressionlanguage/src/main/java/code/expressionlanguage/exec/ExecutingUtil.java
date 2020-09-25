@@ -662,7 +662,7 @@ public final class ExecutingUtil {
         if (ExecClassArgumentMatching.isPrimitive(_name, _context)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.PRIMITIVE,"");
         }
-        if (new ExecClassArgumentMatching(_name).isArray()) {
+        if (_name.startsWith(Templates.ARR_BEG_STRING)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, "");
         }
         String base_ = StringExpUtil.getIdFromAllTypes(_name);

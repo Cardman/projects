@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.EqOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -11,9 +11,9 @@ import code.util.StringList;
 public final class ExecEqOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private String oper;
-    public ExecEqOperation(EqOperation _e) {
-        super(_e);
-        oper = _e.getOper();
+    public ExecEqOperation(ExecOperationContent _opCont, String _oper) {
+        super(_opCont);
+        oper = _oper;
     }
 
     private static boolean calculateEq(Argument _a, Argument _b) {

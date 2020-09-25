@@ -47,7 +47,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             className_ = ((CastOperation)par_.getParent()).getClassName();
         }
         className = className_;
-        if (!ExplicitOperation.customCast(className_)) {
+        if (!StringExpUtil.customCast(className_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

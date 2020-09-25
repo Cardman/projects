@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -19,16 +20,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
 
     private boolean stringCompare;
     private ClassMethodId classMethodId;
-    private String op;
+    private AnaOperatorContent operatorContent;
     private boolean okNum;
-    private int opOffset;
     private int rootNumber = -1;
     private int memberNumber = -1;
 
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        op = _op.getOperators().firstValue().trim();
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(_op.getOperators().firstValue().trim());
     }
 
     @Override
@@ -49,7 +50,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(2),
                     Integer.toString(chidren_.size()),
-                    op
+                    operatorContent.getOper()
             );
             _page.getLocalizer().addError(badNb_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -59,7 +60,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        opOffset = getOperations().getOperators().firstKey();
+        operatorContent.setOpOffset(getOperations().getOperators().firstKey());
         OperationNode l_ = chidren_.first();
         AnaClassArgumentMatching first_ = l_.getResultClass();
         OperationNode r_ = chidren_.last();
@@ -119,7 +120,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-        err_.add(new PartOffset("</a>",index_+op.length()));
+        err_.add(new PartOffset("</a>",index_+ operatorContent.getOper().length()));
         getPartOffsetsChildren().add(err_);
         setResultClass(new AnaClassArgumentMatching(res_, _page.getStandards()));
     }
@@ -140,7 +141,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
 
     @Override
     public String getOp() {
-        return op;
+        return operatorContent.getOper();
     }
 
     @Override
@@ -150,7 +151,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
 
     @Override
     public int getOpOffset() {
-        return opOffset;
+        return operatorContent.getOpOffset();
     }
 
     @Override
@@ -161,5 +162,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     @Override
     public int getRootNumber() {
         return rootNumber;
+    }
+
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 }

@@ -1438,7 +1438,7 @@ public final class NumParsers {
     }
 
     public static String getSingleNameOrEmpty(StringList className) {
-        if (className.size() != 1) {
+        if (!className.onlyOneElt()) {
             return "";
         }
         return className.first();

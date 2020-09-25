@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -135,7 +136,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _exec.setTrOffset(trOffset);
         _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
         _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
+        _exec.setOpValue(ForwardInfos.getExecutableNodes(_page, root));
     }
 
 

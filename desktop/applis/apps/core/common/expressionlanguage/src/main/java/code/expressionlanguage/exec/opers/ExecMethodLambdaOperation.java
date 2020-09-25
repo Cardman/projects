@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -15,31 +13,20 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
 public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ClassMethodId method;
-    private boolean polymorph;
-    private boolean abstractMethod;
-    private boolean directCast;
-    private boolean expCast;
-    private ExecAnnotableParametersBlock functionBlock;
-    private ExecNamedFunctionBlock function;
-    private ExecRootBlock declaring;
+    private ExecLambdaMethodContent lambdaMethodContent;
 
-    public ExecMethodLambdaOperation(LambdaOperation _l, AnalyzedPageEl _page) {
-        super(_l);
-        method = _l.getMethod();
-        polymorph = _l.isPolymorph();
-        abstractMethod = _l.isAbstractMethod();
-        directCast = _l.isDirectCast();
-        expCast = _l.isExpCast();
-        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
-        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _page);
-        declaring = fetchType(_l.getRootNumber(), _page);
+    public ExecMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
+        super(_opCont, _lamCont);
+        lambdaMethodContent = _lambdaMethodContent;
     }
 
     @Override
@@ -51,12 +38,12 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), method, getReturnFieldType(), getAncestor(), directCast, polymorph));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaMethodContent.getMethod(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph()));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph) {
-        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, abstractMethod, expCast, isShiftArgument(), isSafeInstance(),
-                getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function,declaring);
+        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(),
+                getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaMethodContent.getFunctionBlock(), lambdaMethodContent.getFunction(), lambdaMethodContent.getDeclaring());
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType,

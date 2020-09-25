@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -16,24 +17,23 @@ import code.util.*;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
 
-    private String className;
-    private int offset;
+    private AnaTypeCheckContent typeCheckContent;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        offset = getOperations().getOperators().firstKey();
-        className = getOperations().getOperators().firstValue();
+        typeCheckContent = new AnaTypeCheckContent( getOperations().getOperators().firstKey());
+        typeCheckContent.setClassName(getOperations().getOperators().firstValue());
     }
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ typeCheckContent.getOffset(), _page);
         LgNames stds_ = _page.getStandards();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
-        int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
-        String sub_ = className.substring(begin_);
+        int begin_ = keyWordInstanceof_.length() + typeCheckContent.getClassName().indexOf(keyWordInstanceof_);
+        String sub_ = typeCheckContent.getClassName().substring(begin_);
         int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
@@ -46,7 +46,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            className = _page.getStandards().getAliasObject();
+            typeCheckContent.setClassName(_page.getStandards().getAliasObject());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -58,19 +58,19 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
                 sub_ = r_.getWildCardString();
             }
         }
-        className = sub_;
+        typeCheckContent.setClassName(sub_);
         setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public int getOffset() {
-        return offset;
+        return typeCheckContent.getOffset();
     }
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public AnaTypeCheckContent getTypeCheckContent() {
+        return typeCheckContent;
     }
 }

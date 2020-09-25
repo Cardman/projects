@@ -3,8 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -15,10 +13,8 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.util.PolymorphMethod;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -45,108 +41,21 @@ public abstract class ExecOperationNode {
 
     private ExecOperationNode nextSibling;
 
-    private Argument argument;
-
-    private int indexInEl;
-
-    private int order;
-
-    private final int indexChild;
-
-    private ExecClassArgumentMatching resultClass;
+    private ExecOperationContent content;
 
     private ExecPossibleIntermediateDotted siblingSet;
-
-    private int indexBegin;
 
     private ImplicitMethods implicits = new ImplicitMethods();
     private ImplicitMethods implicitsTest = new ImplicitMethods();
 
-    ExecOperationNode(OperationNode _oper) {
-        indexInEl = _oper.getIndexInEl();
-        indexBegin = _oper.getIndexBegin();
-        indexChild = _oper.getIndexChild();
-        resultClass = PrimitiveTypeUtil.toExec(_oper.getResultClass());
-        argument = _oper.getArgument();
-        order = _oper.getOrder();
+    ExecOperationNode(ExecOperationContent _content) {
+        content = _content;
     }
 
     ExecOperationNode(int _indexChild, ExecClassArgumentMatching _res, int _order) {
-        indexChild = _indexChild;
-        resultClass = _res;
-        order = _order;
+        this(new ExecOperationContent(_indexChild,_res,_order));
     }
 
-    public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, int _root, int _member, AnalyzedPageEl _page) {
-        ExecNamedFunctionBlock conv_ = null;
-        String converterClass = "";
-        if (_clMet != null) {
-            converterClass = _clMet.getClassName();
-            conv_ = fetchFunction(_root,_member, _page);
-        }
-        if (conv_ != null) {
-            ImplicitMethods converter = new ImplicitMethods();
-            ExecRootBlock classBody_ = fetchType(_root, _page);
-            converter.getConverter().add(conv_);
-            converter.setOwnerClass(converterClass);
-            converter.setRootBlock(classBody_);
-            return converter;
-        }
-        return null;
-    }
-    public static ExecRootBlock fetchType(int _nbRoot, AnalyzedPageEl _page) {
-        if (_page.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
-            return _page.getMapMembers().getValue(_nbRoot).getRootBlock();
-        }
-        return null;
-    }
-
-    public static ExecInfoBlock fetchField(LambdaOperation _l, AnalyzedPageEl _page) {
-        if (_page.getMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_page.getMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _page.getMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
-            }
-        }
-        return null;
-    }
-    public static MethodAccessKind getKind(ClassMethodId _cl) {
-        if (_cl == null) {
-            return MethodAccessKind.STATIC;
-        }
-        return _cl.getConstraints().getKind();
-    }
-    public static String getType(ClassMethodId _cl) {
-        if (_cl == null) {
-            return "";
-        }
-        return _cl.getClassName();
-    }
-    public static ExecNamedFunctionBlock fetchFunctionOp(int _rootNumber, int _memberNumber, AnalyzedPageEl _page) {
-        return fetchFunction(_rootNumber,_memberNumber,_memberNumber, _page);
-    }
-    public static ExecNamedFunctionBlock fetchFunction(int _rootNumber, int _memberNumber, int _operatorNumber, AnalyzedPageEl _page) {
-        if (_page.getMapMembers().getKeys().isValidIndex(_rootNumber)) {
-            if (_page.getMapMembers().getValue(_rootNumber).getAllNamed().getKeys().isValidIndex(_memberNumber)) {
-                return _page.getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
-            }
-            return null;
-        }
-        if (_page.getMapOperators().getKeys().isValidIndex(_operatorNumber)) {
-            return _page.getMapOperators().getValue(_operatorNumber);
-        }
-        return null;
-    }
-    public static ExecNamedFunctionBlock fetchFunction(AbstractCallFctOperation _l, AnalyzedPageEl _page) {
-        return fetchFunction(_l.getRootNumber(),_l.getMemberNumber(), _page);
-    }
-    public static ExecNamedFunctionBlock fetchFunction(int _nbRoot, int _nbMember, AnalyzedPageEl _page) {
-        if (_page.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
-            if (_page.getMapMembers().getValue(_nbRoot).getAllNamed().getKeys().isValidIndex(_nbMember)) {
-                return _page.getMapMembers().getValue(_nbRoot).getAllNamed().getValue(_nbMember);
-            }
-        }
-        return null;
-    }
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods implicits_, int indexImplicit_) {
         ExecNamedFunctionBlock c = implicits_.get(indexImplicit_);
         DefaultExiting ex_ = new DefaultExiting(_conf);
@@ -167,390 +76,7 @@ public abstract class ExecOperationNode {
     }
 
     public final int getIndexBegin() {
-        return indexBegin;
-    }
-    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, AnalyzedPageEl _page) {
-        if (_anaNode instanceof StaticInitOperation) {
-            StaticInitOperation c_ = (StaticInitOperation) _anaNode;
-            return new ExecStaticInitOperation(c_);
-        }
-        if (_anaNode instanceof ConstantOperation) {
-            ConstantOperation c_ = (ConstantOperation) _anaNode;
-            return new ExecConstantOperation(c_);
-        }
-        if (_anaNode instanceof AnnotationInstanceOperation) {
-            AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
-            return new ExecAnnotationInstanceOperation(n_,fetchType(n_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof FctOperation) {
-            FctOperation f_ = (FctOperation) _anaNode;
-            if (f_.isClonedMethod()) {
-                return new ExecCloneOperation(f_);
-            }
-        }
-        if (_anaNode instanceof InvokingOperation && _anaNode instanceof AbstractCallFctOperation) {
-            InvokingOperation i_ = (InvokingOperation) _anaNode;
-            AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
-            ClassMethodId classMethodId_ = a_.getClassMethodId();
-            if (classMethodId_ != null) {
-                if (a_.getStandardMethod() != null) {
-                    return new ExecStdFctOperation(i_,a_);
-                }
-                ExecRootBlock ex_ = fetchType(a_.getRootNumber(), _page);
-                if (ex_ instanceof ExecAnnotationBlock) {
-                    return new ExecAnnotationMethodOperation(i_,a_);
-                }
-                if (a_.isTrueFalse()) {
-                    return new ExecExplicitOperation(i_,a_,
-                            fetchFunction(a_, _page),
-                            fetchType(a_.getRootNumber(), _page));
-                }
-                if (a_.isStaticMethod()) {
-                    ExecNamedFunctionBlock fct_ = fetchFunction(a_, _page);
-                    return new ExecStaticFctOperation(i_,a_, fct_,ex_);
-                }
-            }
-        }
-        if (_anaNode instanceof InterfaceFctConstructor) {
-            InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
-            return new ExecInterfaceFctConstructor(n_, _page);
-        }
-        if (_anaNode instanceof InterfaceInvokingConstructor) {
-            InterfaceInvokingConstructor n_ = (InterfaceInvokingConstructor) _anaNode;
-            return new ExecInterfaceInvokingConstructor(n_, _page);
-        }
-        if (_anaNode instanceof CurrentInvokingConstructor) {
-            CurrentInvokingConstructor n_ = (CurrentInvokingConstructor) _anaNode;
-            return new ExecCurrentInvokingConstructor(n_, _page);
-        }
-        if (_anaNode instanceof SuperInvokingConstructor) {
-            SuperInvokingConstructor n_ = (SuperInvokingConstructor) _anaNode;
-            return new ExecSuperInvokingConstructor(n_, _page);
-        }
-        if (_anaNode instanceof CallDynMethodOperation) {
-            CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
-            return new ExecCallDynMethodOperation(c_);
-        }
-        if (_anaNode instanceof InferArrayInstancing) {
-            InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new ExecArrayElementOperation(i_);
-        }
-        if (_anaNode instanceof ElementArrayInstancing) {
-            ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new ExecArrayElementOperation(e_);
-        }
-        if (_anaNode instanceof DimensionArrayInstancing) {
-            DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;
-            return new ExecDimensionArrayInstancing(d_);
-        }
-        if (_anaNode instanceof StandardInstancingOperation) {
-            StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page);
-            ExecRootBlock rootBlock_ = fetchType(s_.getRootNumber(), _page);
-            if (rootBlock_ != null) {
-                return new ExecStandardInstancingOperation(s_,rootBlock_,ctor_);
-            }
-            return new ExecDirectStandardInstancingOperation(s_);
-        }
-        if (_anaNode instanceof AnonymousInstancingOperation) {
-            AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
-            ExecAnonymousInstancingOperation exec_ = new ExecAnonymousInstancingOperation(s_);
-            _page.getMapAnonymous().addEntry(s_,exec_);
-            return exec_;
-        }
-        if (_anaNode instanceof ArrOperation) {
-            ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(a_.getRootNumber(), _page);
-            ExecNamedFunctionBlock get_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _page);
-            ExecNamedFunctionBlock set_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _page);
-            if (a_.getClassMethodId() != null) {
-                return new ExecCustArrOperation(a_, get_,set_,ex_);
-            }
-            return new ExecArrOperation(a_);
-        }
-        if (_anaNode instanceof DeclaringOperation) {
-            DeclaringOperation d_ = (DeclaringOperation) _anaNode;
-            return new ExecDeclaringOperation(d_);
-        }
-        if (_anaNode instanceof IdOperation) {
-            IdOperation d_ = (IdOperation) _anaNode;
-            if (d_.isStandard()) {
-                return new ExecIdOperation(d_);
-            }
-            return new ExecMultIdOperation(d_);
-        }
-        if (_anaNode instanceof EnumValueOfOperation) {
-            EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new ExecEnumValueOfOperation(d_, _page);
-        }
-        if (_anaNode instanceof ValuesOperation) {
-            ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new ExecValuesOperation(d_, _page);
-        }
-        if (_anaNode instanceof AbstractTernaryOperation) {
-            AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
-            return new ExecTernaryOperation(t_);
-        }
-        if (_anaNode instanceof ChoiceFctOperation) {
-            ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(c_.getRootNumber(), _page);
-            if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = fetchFunction(c_, _page);
-                return new ExecChoiceFctOperation(c_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof SuperFctOperation) {
-            SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(s_.getRootNumber(), _page);
-            if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = fetchFunction(s_, _page);
-                return new ExecSuperFctOperation(s_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof FctOperation) {
-            FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = fetchFunction(f_, _page);
-            ExecRootBlock ex_ = fetchType(f_.getRootNumber(), _page);
-            if (ex_ != null) {
-                return new ExecFctOperation(f_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof NamedArgumentOperation) {
-            NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
-            return new ExecNamedArgumentOperation(f_);
-        }
-        if (_anaNode instanceof FirstOptOperation) {
-            FirstOptOperation f_ = (FirstOptOperation) _anaNode;
-            return new ExecFirstOptOperation(f_);
-        }
-        if (_anaNode instanceof StaticAccessOperation) {
-            LeafOperation f_ = (LeafOperation) _anaNode;
-            return new ExecStaticAccessOperation(f_);
-        }
-        if (_anaNode instanceof StaticCallAccessOperation) {
-            LeafOperation f_ = (LeafOperation) _anaNode;
-            return new ExecStaticAccessOperation(f_);
-        }
-        if (_anaNode instanceof VarargOperation) {
-            VarargOperation f_ = (VarargOperation) _anaNode;
-            return new ExecVarargOperation(f_);
-        }
-        if (_anaNode instanceof DefaultValueOperation) {
-            DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
-            return new ExecDefaultValueOperation(f_);
-        }
-        if (_anaNode instanceof DefaultOperation) {
-            DefaultOperation f_ = (DefaultOperation) _anaNode;
-            return new ExecDefaultOperation(f_);
-        }
-        if (_anaNode instanceof IdFctOperation) {
-            IdFctOperation f_ = (IdFctOperation) _anaNode;
-            return new ExecIdFctOperation(f_);
-        }
-        if (_anaNode instanceof AnonymousLambdaOperation) {
-            AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
-            ExecAnonymousLambdaOperation exec_ = new ExecAnonymousLambdaOperation(s_);
-            _page.getMapAnonymousLambda().addEntry(s_,exec_);
-            return exec_;
-        }
-        if (_anaNode instanceof LambdaOperation) {
-            LambdaOperation f_ = (LambdaOperation) _anaNode;
-            if (f_.getStandardMethod() != null) {
-                return new ExecStdMethodLambdaOperation(f_);
-            }
-            if (f_.getMethod() == null && f_.getRealId() == null) {
-                return new ExecFieldLambdaOperation(f_, _page);
-            }
-            if (f_.getMethod() == null) {
-                return new ExecConstructorLambdaOperation(f_, _page);
-            }
-            return new ExecMethodLambdaOperation(f_, _page);
-        }
-        if (_anaNode instanceof StaticInfoOperation) {
-            StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
-            return new ExecStaticInfoOperation(f_);
-        }
-        if (_anaNode instanceof ThisOperation) {
-            ThisOperation f_ = (ThisOperation) _anaNode;
-            return new ExecThisOperation(f_);
-        }
-        if (_anaNode instanceof ParentInstanceOperation) {
-            ParentInstanceOperation f_ = (ParentInstanceOperation) _anaNode;
-            return new ExecParentInstanceOperation(f_);
-        }
-        if (_anaNode instanceof ForwardOperation) {
-            ForwardOperation f_ = (ForwardOperation) _anaNode;
-            return new ExecForwardOperation(f_);
-        }
-        if (_anaNode instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
-            if (s_.getFieldId() == null) {
-                return new ExecErrorParentOperation(_anaNode);
-            }
-            return new ExecSettableFieldOperation(s_,fetchType(s_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof ArrayFieldOperation) {
-            ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
-            return new ExecArrayFieldOperation(s_);
-        }
-        if (_anaNode instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new ExecStdVariableOperation(m_);
-        }
-        if (_anaNode instanceof VariableOperation) {
-            VariableOperation m_ = (VariableOperation) _anaNode;
-            return new ExecStdVariableOperation(m_);
-        }
-        if (_anaNode instanceof FinalVariableOperation) {
-            FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
-            return new ExecFinalVariableOperation(m_);
-        }
-        if (_anaNode instanceof DotOperation) {
-            DotOperation m_ = (DotOperation) _anaNode;
-            return new ExecDotOperation(m_);
-        }
-        if (_anaNode instanceof SafeDotOperation) {
-            SafeDotOperation m_ = (SafeDotOperation) _anaNode;
-            return new ExecSafeDotOperation(m_);
-        }
-        if (_anaNode instanceof ExplicitOperatorOperation) {
-            ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new ExecExplicitOperatorOperation(m_, _page);
-        }
-        if (_anaNode instanceof SemiAffectationOperation) {
-            SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new ExecSemiAffectationOperation(m_, _page);
-        }
-        if (_anaNode instanceof SymbolOperation) {
-            SymbolOperation n_ = (SymbolOperation) _anaNode;
-            if (!n_.isOkNum()) {
-                return new ExecErrorParentOperation(_anaNode);
-            }
-            if (n_.getClassMethodId() != null) {
-                return new ExecCustNumericOperation(n_, _anaNode, fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _page),fetchType(n_.getRootNumber(), _page));
-            }
-        }
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
-            return new ExecUnaryBooleanOperation(m_);
-        }
-        if (_anaNode instanceof UnaryBinOperation) {
-            UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
-            return new ExecUnaryBinOperation(m_);
-        }
-        if (_anaNode instanceof UnaryOperation) {
-            UnaryOperation m_ = (UnaryOperation) _anaNode;
-            return new ExecUnaryOperation(m_);
-        }
-        if (_anaNode instanceof CastOperation) {
-            CastOperation m_ = (CastOperation) _anaNode;
-            return new ExecCastOperation(m_);
-        }
-        if (_anaNode instanceof ExplicitOperation) {
-            ExplicitOperation m_ = (ExplicitOperation) _anaNode;
-            return new ExecExplicitOperation(m_,
-                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    fetchType(m_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof ImplicitOperation) {
-            ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new ExecImplicitOperation(m_,
-                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    fetchType(m_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof MultOperation) {
-            MultOperation m_ = (MultOperation) _anaNode;
-            return new ExecMultOperation(m_);
-        }
-        if (_anaNode instanceof AddOperation) {
-            AddOperation m_ = (AddOperation) _anaNode;
-            if (m_.isCatString()) {
-                return new ExecCatOperation(m_);
-            }
-            return new ExecAddOperation(m_);
-        }
-        if (_anaNode instanceof ShiftLeftOperation) {
-            ShiftLeftOperation m_ = (ShiftLeftOperation) _anaNode;
-            return new ExecShiftLeftOperation(m_);
-        }
-        if (_anaNode instanceof ShiftRightOperation) {
-            ShiftRightOperation m_ = (ShiftRightOperation) _anaNode;
-            return new ExecShiftRightOperation(m_);
-        }
-        if (_anaNode instanceof BitShiftLeftOperation) {
-            BitShiftLeftOperation m_ = (BitShiftLeftOperation) _anaNode;
-            return new ExecBitShiftLeftOperation(m_);
-        }
-        if (_anaNode instanceof BitShiftRightOperation) {
-            BitShiftRightOperation m_ = (BitShiftRightOperation) _anaNode;
-            return new ExecBitShiftRightOperation(m_);
-        }
-        if (_anaNode instanceof RotateLeftOperation) {
-            RotateLeftOperation m_ = (RotateLeftOperation) _anaNode;
-            return new ExecRotateLeftOperation(m_);
-        }
-        if (_anaNode instanceof RotateRightOperation) {
-            RotateRightOperation m_ = (RotateRightOperation) _anaNode;
-            return new ExecRotateRightOperation(m_);
-        }
-        if (_anaNode instanceof CmpOperation) {
-            CmpOperation c_ = (CmpOperation) _anaNode;
-            if (!c_.isStringCompare()) {
-                return new ExecNbCmpOperation(c_);
-            }
-            return new ExecStrCmpOperation(c_);
-        }
-        if (_anaNode instanceof InstanceOfOperation) {
-            InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;
-            return new ExecInstanceOfOperation(c_);
-        }
-        if (_anaNode instanceof EqOperation) {
-            EqOperation c_ = (EqOperation) _anaNode;
-            return new ExecEqOperation(c_);
-        }
-        if (_anaNode instanceof BitAndOperation) {
-            BitAndOperation c_ = (BitAndOperation) _anaNode;
-            return new ExecBitAndOperation(c_);
-        }
-        if (_anaNode instanceof BitOrOperation) {
-            BitOrOperation c_ = (BitOrOperation) _anaNode;
-            return new ExecBitOrOperation(c_);
-        }
-        if (_anaNode instanceof BitXorOperation) {
-            BitXorOperation c_ = (BitXorOperation) _anaNode;
-            return new ExecBitXorOperation(c_);
-        }
-        if (_anaNode instanceof QuickOperation) {
-            QuickOperation q_ = (QuickOperation) _anaNode;
-            if (!q_.isOkNum()) {
-                return new ExecErrorParentOperation(q_);
-            }
-        }
-        if (_anaNode instanceof AndOperation) {
-            AndOperation c_ = (AndOperation) _anaNode;
-            return new ExecAndOperation(c_, _page);
-        }
-        if (_anaNode instanceof OrOperation) {
-            OrOperation c_ = (OrOperation) _anaNode;
-            return new ExecOrOperation(c_, _page);
-        }
-        if (_anaNode instanceof NullSafeOperation) {
-            NullSafeOperation c_ = (NullSafeOperation) _anaNode;
-            return new ExecNullSafeOperation(c_);
-        }
-        if (_anaNode instanceof AssocationOperation) {
-            AssocationOperation c_ = (AssocationOperation) _anaNode;
-            return new ExecAssocationOperation(c_);
-        }
-        if (_anaNode instanceof CompoundAffectationOperation) {
-            CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new ExecCompoundAffectationOperation(c_, _page);
-        }
-        if (_anaNode instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) _anaNode;
-            return new ExecAffectationOperation(a_);
-        }
-        return new ExecErrorParentOperation(_anaNode);
+        return content.getIndexBegin();
     }
 
     public abstract ExecOperationNode getFirstChild();
@@ -592,9 +118,9 @@ public abstract class ExecOperationNode {
         if (_cont.callsOrException()) {
             return;
         }
-        byte unwrapObjectNb_ = resultClass.getUnwrapObjectNb();
+        byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
         Argument last_ = Argument.getNullableValue(_nodes.getValue(getOrder()).getArgument());
-        if (resultClass.isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
+        if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (last_.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -690,23 +216,23 @@ public abstract class ExecOperationNode {
     }
 
     public final int getOrder() {
-        return order;
+        return content.getOrder();
     }
 
     public final void setOrder(int _order) {
-        order = _order;
+        content.setOrder(_order);
     }
 
     public final int getIndexInEl() {
-        return indexInEl;
+        return content.getIndexInEl();
     }
 
     public final int getIndexChild() {
-        return indexChild;
+        return content.getIndexChild();
     }
 
     public final Argument getArgument() {
-        return argument;
+        return content.getArgument();
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
@@ -790,7 +316,7 @@ public abstract class ExecOperationNode {
             return;
         }
         Argument arg_ = before_;
-        if (resultClass.isConvertToString()){
+        if (content.getResultClass().isConvertToString()){
             arg_ = processString(before_,_conf);
             if (_conf.getCallingState() != null) {
                 return;
@@ -835,7 +361,7 @@ public abstract class ExecOperationNode {
     }
 
     public final ExecClassArgumentMatching getResultClass() {
-        return resultClass;
+        return content.getResultClass();
     }
 
     public final ExecPossibleIntermediateDotted getSiblingSet() {

@@ -19,8 +19,8 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
     private String lastType;
     ReachInvokingOperation(AbstractCallFctOperation _meta, OperationNode _info) {
         super(_info);
-        naturalVararg = _meta.getNaturalVararg();
-        lastType = _meta.getLastType();
+        naturalVararg = _meta.getCallFctContent().getNaturalVararg();
+        lastType = _meta.getCallFctContent().getLastType();
     }
     ReachInvokingOperation(StandardInstancingOperation _meta) {
         super(_meta);

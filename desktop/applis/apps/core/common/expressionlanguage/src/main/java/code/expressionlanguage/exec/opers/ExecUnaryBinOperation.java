@@ -3,14 +3,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.UnaryBinOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
 
-    public ExecUnaryBinOperation(UnaryBinOperation _u) {
-        super(_u);
+    public ExecUnaryBinOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
     @Override

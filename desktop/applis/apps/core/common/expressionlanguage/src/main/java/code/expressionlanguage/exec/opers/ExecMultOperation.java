@@ -1,15 +1,15 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.MultOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.StringList;
 
 
 public final class ExecMultOperation extends ExecStdNumericOperation {
 
-    public ExecMultOperation(MultOperation _m) {
-        super(_m);
+    public ExecMultOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
     @Override

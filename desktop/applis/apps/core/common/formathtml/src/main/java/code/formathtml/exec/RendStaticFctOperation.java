@@ -6,9 +6,9 @@ import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -28,11 +28,11 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
     private ExecRootBlock rootBlock;
     public RendStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_inv);
-        methodName = _s.getMethodName();
-        kind = ExecOperationNode.getKind(_s.getClassMethodId());
-        className = ExecOperationNode.getType(_s.getClassMethodId());
-        lastType = _s.getLastType();
-        naturalVararg = _s.getNaturalVararg();
+        methodName = _s.getCallFctContent().getMethodName();
+        kind = ForwardInfos.getKind(_s.getClassMethodId());
+        className = ForwardInfos.getType(_s.getClassMethodId());
+        lastType = _s.getCallFctContent().getLastType();
+        naturalVararg = _s.getCallFctContent().getNaturalVararg();
         named = _named;
         rootBlock = _rootBlock;
     }

@@ -20,6 +20,7 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
@@ -247,7 +248,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     public void fwdExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
         processPutCoverage(_exec, _page);
-        _exec.setOpValue(ElUtil.getExecutableNodes(_page, root));
+        _exec.setOpValue(ForwardInfos.getExecutableNodes(_page, root));
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         AnalyzedPageEl page_ = _page;
@@ -280,7 +281,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         for (OperationNode r: roots) {
-            ops_.add(ElUtil.getExecutableNodes(_page, r));
+            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
     }

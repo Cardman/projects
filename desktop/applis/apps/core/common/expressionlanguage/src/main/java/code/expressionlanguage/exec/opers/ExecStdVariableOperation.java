@@ -2,11 +2,11 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
@@ -14,36 +14,15 @@ import code.util.IdMap;
 public final class ExecStdVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation,ExecSettableElResult {
 
-    private boolean variable;
+    private ExecVariableContent variableContent;
 
-    private boolean catString;
-
-    private String variableName;
-
-    private int off;
-
-    private int deep;
-
-    public ExecStdVariableOperation(VariableOperation _v) {
-        super(_v);
-        variable = _v.isVariable();
-        catString = _v.isCatString();
-        variableName  = _v.getVariableName();
-        off = _v.getOff();
-        deep = _v.getDeep();
-    }
-
-    public ExecStdVariableOperation(MutableLoopVariableOperation _v) {
-        super(_v);
-        variable = _v.isVariable();
-        catString = _v.isCatString();
-        variableName  = _v.getVariableName();
-        off = _v.getOff();
-        deep = _v.getDeep();
+    public ExecStdVariableOperation(ExecOperationContent _opCont, ExecVariableContent _variableContent) {
+        super(_opCont);
+        variableContent = _variableContent;
     }
 
     public boolean resultCanBeSet() {
-        return variable;
+        return variableContent.isVariable();
     }
 
 
@@ -58,12 +37,12 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         }
     }
     private Argument getCommonArgument(ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         PageEl ip_ = _conf.getLastPage();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getValue(_conf,variableName,ip_,deep);
+        return ExecTemplates.getValue(_conf, variableContent.getVariableName(),ip_, variableContent.getDeep());
     }
 
     @Override
@@ -95,15 +74,15 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        return ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
+        return ExecTemplates.setValue(_conf, variableContent.getVariableName(),ip_,_right, variableContent.getDeep());
     }
 
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         PageEl ip_ = _conf.getLastPage();
         Argument left_ = new Argument(_store);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
-        setVar(_conf,variableName, ip_, res_,deep);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast);
+        setVar(_conf, variableContent.getVariableName(), ip_, res_, variableContent.getDeep());
         return res_;
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
@@ -111,7 +90,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         Argument left_ = new Argument(_store);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        setVar(_conf, variableName,ip_, res_,deep);
+        setVar(_conf, variableContent.getVariableName(),ip_, res_, variableContent.getDeep());
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -121,7 +100,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
+        ExecTemplates.setValue(_conf, variableContent.getVariableName(),ip_,_right, variableContent.getDeep());
         return _right;
     }
 
@@ -130,7 +109,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
+        ExecTemplates.setValue(_conf, variableContent.getVariableName(),ip_,_right, variableContent.getDeep());
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 

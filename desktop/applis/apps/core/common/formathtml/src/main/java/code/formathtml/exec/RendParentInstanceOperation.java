@@ -13,8 +13,8 @@ public class RendParentInstanceOperation extends RendLeafOperation implements Re
     private int off;
     RendParentInstanceOperation(ParentInstanceOperation _l) {
         super(_l);
-        intermediate = _l.isIntermediate();
-        off = _l.getOff();
+        intermediate = _l.getParentInstanceContent().isIntermediate();
+        off = _l.getParentInstanceContent().getOff();
     }
 
     @Override

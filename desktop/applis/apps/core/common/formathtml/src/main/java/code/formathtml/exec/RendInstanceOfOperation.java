@@ -17,8 +17,8 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
     private int offset;
     public RendInstanceOfOperation(InstanceOfOperation _i) {
         super(_i);
-        className = _i.getClassName();
-        offset = _i.getOffset();
+        className = _i.getTypeCheckContent().getClassName();
+        offset = _i.getTypeCheckContent().getOffset();
     }
 
     @Override

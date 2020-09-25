@@ -2,13 +2,12 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.QuickOperation;
-import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -16,18 +15,16 @@ import code.util.IdMap;
 
 public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,CallExecSimpleOperation {
 
-    private MethodAccessKind kind;
-    private String className;
+    private ExecStaticEltContent staticEltContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
-    public ExecQuickOperation(QuickOperation _q, AnalyzedPageEl _page) {
-        super(_q);
-        kind = getKind(_q.getClassMethodId());
-        className = getType(_q.getClassMethodId());
-        named = fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _page);
-        rootBlock = fetchType(_q.getRootNumber(), _page);
-        converter = fetchImplicits(_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv(), _page);
+    protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+        super(_opCont);
+        staticEltContent = _staticEltContent;
+        named = _named;
+        rootBlock = _rootBlock;
+        converter = _converter;
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -44,7 +41,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className, kind);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

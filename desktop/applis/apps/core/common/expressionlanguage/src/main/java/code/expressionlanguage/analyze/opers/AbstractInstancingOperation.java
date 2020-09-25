@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
@@ -19,6 +18,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -29,15 +29,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class AbstractInstancingOperation extends InvokingOperation {
-    private String methodName;
 
-    private ConstructorId constId;
-
-    private String className;
-
-    private int naturalVararg = -1;
-
-    private String lastType = EMPTY_STRING;
+    private AnaInstancingCommonContent instancingCommonContent;
     private String typeInfer = EMPTY_STRING;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean newBefore = true;
@@ -47,16 +40,16 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName();
+        instancingCommonContent = new AnaInstancingCommonContent(getOperations().getFctName());
     }
 
     void tryAnalyze(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String afterNew_ = methodName.trim().substring(newKeyWord_.length());
+        String afterNew_ = instancingCommonContent.getMethodName().trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
         int delta_ = 0;
-        int offDelta_ = StringList.getFirstPrintableCharIndex(methodName);
+        int offDelta_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);
@@ -186,7 +179,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         if (!isIntermediateDottedOperation()) {
-            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());
@@ -194,7 +187,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 return;
             }
         } else {
-            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
@@ -385,39 +378,43 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     }
 
     public String getMethodName() {
-        return methodName;
+        return instancingCommonContent.getMethodName();
     }
 
     public ConstructorId getConstId() {
-        return constId;
+        return instancingCommonContent.getConstId();
     }
 
     public void setConstId(ConstructorId _constId) {
-        constId = _constId;
+        instancingCommonContent.setConstId(_constId);
     }
 
     public String getClassName() {
-        return className;
+        return instancingCommonContent.getClassName();
     }
 
     public void setClassName(String className) {
-        this.className = className;
+        this.instancingCommonContent.setClassName(className);
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return instancingCommonContent.getNaturalVararg();
     }
 
     public void setNaturalVararg(int naturalVararg) {
-        this.naturalVararg = naturalVararg;
+        this.instancingCommonContent.setNaturalVararg(naturalVararg);
     }
 
     public String getLastType() {
-        return lastType;
+        return instancingCommonContent.getLastType();
     }
 
     public void setLastType(String lastType) {
-        this.lastType = lastType;
+        this.instancingCommonContent.setLastType(lastType);
+    }
+
+    public AnaInstancingCommonContent getInstancingCommonContent() {
+        return instancingCommonContent;
     }
 
     public boolean isNewBefore() {

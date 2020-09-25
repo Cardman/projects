@@ -1,11 +1,11 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecAbstractUnaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
-    public ExecAbstractUnaryOperation(MethodOperation _a) {
-        super(_a);
+    protected ExecAbstractUnaryOperation(ExecOperationContent _opCont) {
+        super(_opCont);
     }
 
 }

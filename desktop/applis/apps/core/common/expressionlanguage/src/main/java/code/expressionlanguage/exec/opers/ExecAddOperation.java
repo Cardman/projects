@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.AddOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;
 
@@ -10,8 +10,8 @@ import code.util.StringList;
 
 public final class ExecAddOperation extends ExecStdNumericOperation {
 
-    public ExecAddOperation(AddOperation _a) {
-        super(_a);
+    public ExecAddOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
     static NumberStruct addOne(NumberStruct _arg, byte _cast) {

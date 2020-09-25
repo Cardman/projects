@@ -4,7 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -12,45 +12,33 @@ import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecExplicitContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
-    private String className;
-    private String classNameOwner;
-    private int offset;
+    private ExecExplicitContent explicitContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public ExecExplicitOperation(ExplicitOperation _a, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_a);
-        className = _a.getClassName();
-        classNameOwner = _a.getClassNameOwner();
-        offset = _a.getOffset();
-        named = _named;
-        rootBlock = _rootBlock;
-    }
-
-    public ExecExplicitOperation(InvokingOperation _inv,AbstractCallFctOperation _a, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_inv);
-        className = _a.getClassMethodId().getClassName();
-        classNameOwner = _a.getClassMethodId().getClassName();
-        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+    public ExecExplicitOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, ExecExplicitContent _explicitContent) {
+        super(_opCont);
+        explicitContent = _explicitContent;
         named = _named;
         rootBlock = _rootBlock;
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _conf);
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (ExecOperationNode o: getChildrenNodes()) {
-            if (o instanceof ExecIdFctOperation) {
+            if (ExecConstLeafOperation.isFilter(o)) {
                 continue;
             }
             arguments_.add(getArgument(_nodes, o));
         }
-        Argument argres_ =  prepare(new DefaultExiting(_conf),rootBlock,false,named,arguments_,className,classNameOwner,_conf.getLastPage(),_conf);
+        Argument argres_ =  prepare(new DefaultExiting(_conf),rootBlock,false,named,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getLastPage(),_conf);
         setSimpleArgument(argres_, _conf, _nodes);
     }
     public static Argument prepare(AbstractExiting _exit, ExecRootBlock _rootBlock, boolean _direct, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,
@@ -58,7 +46,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_direct) {
             return getArgument(_arguments, _className, _page, _conf);
         }
-        if (!ExplicitOperation.customCast(_className)) {
+        if (!StringExpUtil.customCast(_className)) {
             return getArgument(_arguments,_className, _page,_conf);
         }
         return checkCustomCast(_exit, _rootBlock,_castOpId, _arguments, _className,_classNameOwner, _page, _conf);

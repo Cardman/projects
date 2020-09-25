@@ -2760,13 +2760,13 @@ public final class LinkageUtil {
     private static void processLeftIndexer(VariablesOffsets _vars, CustList<RootBlock> _refFoundTypes, CustList<OperatorBlock> _refOperators, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof ArrOperation) {
             ArrOperation par_ = (ArrOperation) val_;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
+            ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
             if (classMethodId_ != null) {
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId methodId_ = classMethodId_.getConstraints();
                 MethodId id_;
-                if (par_.isVariable()) {
+                if (par_.getArrContent().isVariable()) {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                 } else {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
@@ -3103,7 +3103,7 @@ public final class LinkageUtil {
                     off_+sum_ + val_.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(),
                     val_.getErrs(),val_.getErrs(),_parts);
         } else if (realId_ != null) {
-            String cl_ = ((LambdaOperation) val_).getFoundClass();
+            String cl_ = ((LambdaOperation) val_).getLambdaCommonContent().getFoundClass();
             cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             addParts(_vars, _refFoundTypes,_refOperators,currentFileName_,cl_,realId_,
                     off_+sum_ + val_.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(),
@@ -3270,9 +3270,9 @@ public final class LinkageUtil {
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
-                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getClassMethodId() != null) {
+                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
-                    ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
+                    ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
                     String className_ = classMethodIdArr_.getClassName();
                     className_ = StringExpUtil.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
@@ -3338,7 +3338,7 @@ public final class LinkageUtil {
             }
             if (val_.getParent() instanceof ArrOperation) {
                 ArrOperation arr_ = (ArrOperation) val_.getParent();
-                if (arr_.isVariable()) {
+                if (arr_.getArrContent().isVariable()) {
                     cust_ = filterSet_;
                 } else if (!arr_.isGetAndSet()) {
                     cust_ = filterGet_;
@@ -3630,9 +3630,9 @@ public final class LinkageUtil {
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) parentOp_;
         int opDelta_ = par_.getOper().length() - 1;
         SettableElResult settable_ = par_.getSettable();
-        if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getClassMethodId() != null) {
+        if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
             ArrOperation parArr_ = (ArrOperation) settable_;
-            ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
+            ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
             String className_ = classMethodIdArr_.getClassName();
             className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodIdArr_.getConstraints();
@@ -3691,13 +3691,13 @@ public final class LinkageUtil {
     private static void processRightIndexer(VariablesOffsets _vars, CustList<RootBlock> _refFoundTypes, CustList<OperatorBlock> _refOperators, String currentFileName_, int offsetEnd_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (parentOp_ instanceof ArrOperation) {
             ArrOperation par_ = (ArrOperation) parentOp_;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
+            ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
             if (classMethodId_ != null) {
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId methodId_ = classMethodId_.getConstraints();
                 MethodId id_;
-                if (par_.isVariable()) {
+                if (par_.getArrContent().isVariable()) {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                 } else {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
@@ -3739,9 +3739,9 @@ public final class LinkageUtil {
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
-                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getClassMethodId() != null) {
+                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
-                    ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
+                    ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
                     String className_ = classMethodIdArr_.getClassName();
                     className_ = StringExpUtil.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();

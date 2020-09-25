@@ -2,13 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.RotateLeftOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class ExecRotateLeftOperation extends ExecStdNumericOperation {
 
-    public ExecRotateLeftOperation(RotateLeftOperation _r) {
-        super(_r);
+    public ExecRotateLeftOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+        super(_opCont, _opOffset, _op);
     }
 
 

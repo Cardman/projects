@@ -3,26 +3,25 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AbstractArrayInstancingOperation;
+import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class ExecAbstractArrayInstancingOperation extends ExecInvokingOperation {
-    private String methodName;
+    private ExecArrayInstancingContent arrayInstancingContent;
 
-    private String className;
 
-    protected ExecAbstractArrayInstancingOperation(AbstractArrayInstancingOperation _abs) {
-        super(_abs);
-        methodName = _abs.getMethodName();
-        className = _abs.getClassName();
+    protected ExecAbstractArrayInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent) {
+        super(_opCont, _intermediateDottedOperation);
+        arrayInstancingContent = _arrayInstancingContent;
     }
 
     public final String getMethodName() {
-        return methodName;
+        return arrayInstancingContent.getMethodName();
     }
     public final String getClassName() {
-        return className;
+        return arrayInstancingContent.getClassName();
     }
 
     @Override
