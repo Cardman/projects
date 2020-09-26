@@ -6,8 +6,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
-import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;

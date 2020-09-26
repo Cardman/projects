@@ -16,10 +16,6 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
         namedContent = _namedContent;
     }
 
-    public void setIndex(int index) {
-        namedContent.setIndex(index);
-    }
-
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {

@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -42,7 +41,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
         return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecAnnotableParametersBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecNamedFunctionBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);

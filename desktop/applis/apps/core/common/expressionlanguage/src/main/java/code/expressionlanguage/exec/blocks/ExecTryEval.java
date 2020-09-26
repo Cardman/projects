@@ -3,13 +3,12 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecTryEval extends ExecBracedBlock implements StackableBlock {
 
     private String label;
-    public ExecTryEval(OffsetsBlock _offset, String _label) {
-        super(_offset);
+    public ExecTryEval(String _label, int _offsetTrim) {
+        super(_offsetTrim);
         label= _label;
     }
 

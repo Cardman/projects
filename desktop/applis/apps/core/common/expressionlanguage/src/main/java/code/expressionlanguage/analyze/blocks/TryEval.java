@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecTryEval;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -38,11 +37,6 @@ public final class TryEval extends BracedBlock implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecTryEval exec_ = new ExecTryEval(getOffset(),label);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override

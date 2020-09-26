@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.*;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -24,17 +23,18 @@ public abstract class ExecBlock {
 
     private ExecFileBlock file;
 
-    private OffsetsBlock offset;
+    private int offsetTrim;
 
 
-    ExecBlock(OffsetsBlock _offset) {
-        offset = _offset;
+    ExecBlock(int _offsetTrim) {
+        offsetTrim = _offsetTrim;
     }
     protected final void setParent(ExecBracedBlock _b) {
         parent = _b;
     }
-    public final OffsetsBlock getOffset() {
-        return offset;
+
+    public final int getOffsetTrim() {
+        return offsetTrim;
     }
 
     public final void processBlockAndRemove(ContextEl _conf) {

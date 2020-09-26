@@ -4,13 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbstractStask;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally {
 
     private String label;
-    public ExecBreakBlock(OffsetsBlock _offset, String _label) {
-        super(_offset);
+    public ExecBreakBlock(String _label, int _offsetTrim) {
+        super(_offsetTrim);
         label = _label;
     }
 

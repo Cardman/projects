@@ -1,14 +1,13 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableParametersBlock {
+public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableBlock {
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
 
@@ -26,8 +25,8 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    ExecNamedFunctionBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames) {
-        super(_offset);
+    ExecNamedFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim) {
+        super(_offsetTrim);
         importedParametersTypes = new StringList();
         name = _name;
         varargs = _varargs;
@@ -62,7 +61,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         annotationsOps = annotationsOps_;
     }
 
-    @Override
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }

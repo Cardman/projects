@@ -6,10 +6,14 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
-import code.expressionlanguage.analyze.types.ParserType;
 import code.util.*;
 
 public final class ExecPartTypeUtil {
+    public static final int WILD_CARD_PRIO = 1;
+    public static final int ARR_PRIO = 2;
+    public static final int INT_PRIO = 3;
+    public static final int TMP_PRIO = 4;
+
     private ExecPartTypeUtil(){
     }
 
@@ -379,7 +383,7 @@ public final class ExecPartTypeUtil {
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUB_TYPE)) {
-            a_.setPrio(ParserType.WILD_CARD_PRIO);
+            a_.setPrio(WILD_CARD_PRIO);
             a_.setupWildCardValues(Templates.SUB_TYPE, _string);
             return a_;
         }
@@ -387,7 +391,7 @@ public final class ExecPartTypeUtil {
             if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
                 a_.setError(true);
             }
-            a_.setPrio(ParserType.WILD_CARD_PRIO);
+            a_.setPrio(WILD_CARD_PRIO);
             a_.setupWildCardValues(Templates.SUP_TYPE, _string);
             return a_;
         }
@@ -397,19 +401,19 @@ public final class ExecPartTypeUtil {
                 a_.getValues().put((int)CustList.FIRST_INDEX, _string);
                 a_.setError(true);
             } else {
-                a_.setPrio(ParserType.ARR_PRIO);
+                a_.setPrio(ARR_PRIO);
             }
             return a_;
         }
         if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
-            a_.setPrio(ParserType.ARR_PRIO);
+            a_.setPrio(ARR_PRIO);
             a_.setupArrayValuesExec(_string);
             return a_;
         }
         int count_ = 0;
         int len_ = _string.length();
         int i_ = 0;
-        int prio_ = ParserType.TMP_PRIO;
+        int prio_ = TMP_PRIO;
         IntTreeMap<String> operators_;
         operators_ = new IntTreeMap<String>();
         while (i_ < len_) {
@@ -419,26 +423,26 @@ public final class ExecPartTypeUtil {
                 continue;
             }
             if (curChar_ == Templates.LT) {
-                if (count_== 0 && prio_ == ParserType.TMP_PRIO) {
+                if (count_== 0 && prio_ == TMP_PRIO) {
                     operators_.clear();
                     operators_.put(i_,Templates.TEMPLATE_BEGIN);
                 }
                 count_++;
             }
-            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == ParserType.TMP_PRIO) {
+            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
                 operators_.put(i_, Templates.TEMPLATE_SEP);
             }
             if (curChar_ == Templates.GT) {
                 count_--;
-                if (count_ == 0 && prio_ == ParserType.TMP_PRIO) {
+                if (count_ == 0 && prio_ == TMP_PRIO) {
                     operators_.put(i_,Templates.TEMPLATE_END);
                 }
             }
             if (count_ == 0) {
                 if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
-                    if (prio_ > ParserType.INT_PRIO) {
+                    if (prio_ > INT_PRIO) {
                         operators_.clear();
-                        prio_ = ParserType.INT_PRIO;
+                        prio_ = INT_PRIO;
                     }
                     if (curChar_ == Templates.SEP_CLASS_CHAR){
                         operators_.put(i_,Templates.INNER_TYPE);

@@ -381,13 +381,6 @@ public final class ExecTemplates {
             }
         }
     }
-    public static void setElements(CustList<Argument> _args, ArrayStruct _arr) {
-        int len_ = _args.size();
-        Struct[] arr_ = _arr.getInstance();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            arr_[i] = _args.get(i).getStruct();
-        }
-    }
 
     public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
                                      Argument _previous, CustList<Argument> _firstArgs,
@@ -1640,4 +1633,14 @@ public final class ExecTemplates {
         }
         return _class;
     }
+
+    public static Struct[] getObjects(Argument... _args) {
+        int len_ = _args.length;
+        Struct[] classes_ = new Struct[len_];
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            classes_[i] = _args[i].getStruct();
+        }
+        return classes_;
+    }
+
 }

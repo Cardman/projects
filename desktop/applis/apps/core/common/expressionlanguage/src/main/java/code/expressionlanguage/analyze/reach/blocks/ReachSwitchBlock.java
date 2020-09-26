@@ -2,15 +2,9 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.exec.blocks.ExecBracedBlock;
-import code.expressionlanguage.exec.blocks.ExecEnumSwitchBlock;
-import code.expressionlanguage.exec.blocks.ExecInstanceSwitchBlock;
-import code.expressionlanguage.exec.blocks.ExecStdSwitchBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -20,7 +14,6 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
     private AnaClassArgumentMatching result;
     private int valueOffset;
     private OperationNode root;
-    private boolean enumTest;
     private String instanceTest;
 
     protected ReachSwitchBlock(SwitchBlock _info) {
@@ -30,7 +23,6 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
         valueOffset = _info.getValueOffset();
         root = _info.getRoot();
         instanceTest = _info.getInstanceTest();
-        enumTest = _info.isEnumTest();
     }
 
     @Override

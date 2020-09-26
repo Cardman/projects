@@ -1,11 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecInstanceBlock extends ExecInitBlock {
-    public ExecInstanceBlock(OffsetsBlock _offset) {
-        super(_offset);
+    public ExecInstanceBlock(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     @Override

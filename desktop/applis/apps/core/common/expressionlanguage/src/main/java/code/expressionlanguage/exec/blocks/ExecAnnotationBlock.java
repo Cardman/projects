@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.util.StringList;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
 public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInterfacable {
 
-    public ExecAnnotationBlock(RootBlock _offset) {
-        super(_offset);
+    public ExecAnnotationBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
+        super(_offsetTrim, _rootBlockContent, _access);
     }
 
     @Override

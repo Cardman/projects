@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecUnclassedBracedBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.*;
@@ -14,7 +13,6 @@ public abstract class Block implements AnalyzedBlock {
     public static final String NULL_EQ = "??=";
     public static final String XOR_EQ = "^=";
     public static final String PLUS_EQ = "+=";
-    public static final String INCR = "++";
 
     protected static final String VARARG = "...";
 

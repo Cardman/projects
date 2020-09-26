@@ -37,7 +37,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private String returnFieldType;
     private String fileName;
     private ExecAnnotableBlock annotableBlock;
-    private ExecAnnotableParametersBlock functionBlock;
+    private ExecNamedFunctionBlock functionBlock;
     private ExecNamedFunctionBlock function;
     private StandardMethod standardMethod;
     private ExecRootBlock declaring;

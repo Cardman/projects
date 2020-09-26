@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -18,7 +19,7 @@ public final class ApplyCoreMethodUtil {
     }
 
     public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument[] _args) {
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getClassName();
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
@@ -113,7 +114,7 @@ public final class ApplyCoreMethodUtil {
     }
 
     public static ResultErrorStd instanceBase(ContextEl _cont, ConstructorId _method, Argument[] _args) {
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();

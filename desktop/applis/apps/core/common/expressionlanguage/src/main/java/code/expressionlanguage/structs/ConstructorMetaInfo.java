@@ -19,7 +19,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private final String returnType;
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
-    private ExecAnnotableParametersBlock annotableBlock;
+    private ExecNamedFunctionBlock annotableBlock;
     private ExecNamedFunctionBlock callee;
     private ExecRootBlock declaring;
 
@@ -47,11 +47,11 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return getAnnotableBlockParam();
     }
 
-    public ExecAnnotableParametersBlock getAnnotableBlockParam() {
+    public ExecNamedFunctionBlock getAnnotableBlockParam() {
         return annotableBlock;
     }
 
-    public void setAnnotableBlock(ExecAnnotableParametersBlock annotableBlock) {
+    public void setAnnotableBlock(ExecNamedFunctionBlock annotableBlock) {
         this.annotableBlock = annotableBlock;
     }
 

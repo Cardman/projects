@@ -5,8 +5,6 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
@@ -18,15 +16,15 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.AnaFieldContent;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final StringList fieldName = new StringList();
 
+    private final AnaFieldContent fieldContent = new AnaFieldContent();
     private final String className;
 
     private int classNameOffset;
@@ -35,18 +33,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final String value;
 
-    private int valueOffset;
     private Ints valuesOffset = new Ints();
-
-    private final boolean staticField;
 
     private int staticFieldOffset;
 
-    private final boolean finalField;
-
     private int finalFieldOffset;
-
-    private final AccessEnum access;
 
     private int accessOffset;
 
@@ -67,21 +58,21 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
-        access = _access.getInfo();
+        fieldContent.setAccess(_access.getInfo());
         accessOffset = _access.getOffset();
-        staticField = _static.isInfo();
+        fieldContent.setStaticField(_static.isInfo());
         staticFieldOffset = _static.getOffset();
-        finalField = _final.isInfo();
+        fieldContent.setFinalField(_final.isInfo());
         finalFieldOffset = _final.getOffset();
         className = _type.getInfo();
         classNameOffset = _type.getOffset();
         value = _value.getInfo();
-        valueOffset = _value.getOffset();
+        fieldContent.setValueOffset(_value.getOffset());
     }
 
     @Override
     public int getFieldNameOffset() {
-        return valueOffset;
+        return fieldContent.getValueOffset();
     }
 
     public int getClassNameOffset() {
@@ -89,7 +80,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public int getValueOffset() {
-        return valueOffset;
+        return fieldContent.getValueOffset();
     }
 
     public int getStaticFieldOffset() {
@@ -105,16 +96,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public AccessEnum getAccess() {
-        return access;
+        return fieldContent.getAccess();
     }
 
     @Override
     public boolean isStaticField() {
-        return staticField;
+        return fieldContent.isStaticField();
     }
 
     public boolean isFinalField() {
-        return finalField;
+        return fieldContent.isFinalField();
     }
 
     public String getClassName() {
@@ -160,10 +151,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.setOffset(0);
-        Calculation calcul_ = Calculation.staticCalculation(staticField);
-        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, calcul_, _page);
+        Calculation calcul_ = Calculation.staticCalculation(fieldContent.isStaticField());
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(fieldContent.getValueOffset(),value, calcul_, _page);
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
@@ -193,15 +184,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
     }
 
-    static CustList<StringList> checkFieldsNames(Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
+    static void checkFieldsNames(Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList(_fieldNames);
         CustList<StringList> found_ = new CustList<StringList>();
-        AnalyzedPageEl page_ = _page;
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
             StringList err_ = new StringList();
-            TokenErrorMessage mess_ = ManageTokens.partField(page_).checkToken(trName_, page_);
+            TokenErrorMessage mess_ = ManageTokens.partField(_page).checkToken(trName_, _page);
             if (mess_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
@@ -231,7 +221,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             idsField_.add(trName_);
             _fieldNames.add(trName_);
         }
-        return found_;
     }
 
     public Ints getValuesOffset() {
@@ -240,27 +229,18 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.setOffset(0);
         _page.setIndexBlock(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(staticField), _page);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
         ReachOperationUtil.tryCalculate(root, _page);
     }
-    public void fwdExpressionLanguageReadOnly(ExecFieldBlock _exec, AnalyzedPageEl _page) {
-        processPutCoverage(_exec, _page);
-        _exec.setOpValue(ForwardInfos.getExecutableNodes(_page, root));
-    }
-    public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        page_.setIndexBlock(0);
-        return ElUtil.getAnalyzedOperationsQucikly(value, Calculation.staticCalculation(staticField), _page);
-    }
 
-    private void processPutCoverage(ExecFieldBlock _exec, AnalyzedPageEl _page) {
-        _page.getCoverage().putBlockOperations(_exec,this);
-        _page.getCoverage().putBlockOperations(this);
+    public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(fieldContent.getValueOffset());
+        _page.setOffset(0);
+        _page.setIndexBlock(0);
+        return ElUtil.getAnalyzedOperationsQucikly(value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
@@ -275,15 +255,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
-    }
-
-    @Override
-    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
-        for (OperationNode r: roots) {
-            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
-        }
-        _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {
@@ -344,5 +315,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    public AnaFieldContent getFieldContent() {
+        return fieldContent;
     }
 }

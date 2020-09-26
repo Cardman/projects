@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class ExecLeaf extends ExecBlock implements WithEl {
-    ExecLeaf(OffsetsBlock _offset) {
-        super(_offset);
+    ExecLeaf(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     @Override

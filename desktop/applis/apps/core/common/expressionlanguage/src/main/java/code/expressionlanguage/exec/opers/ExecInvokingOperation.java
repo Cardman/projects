@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -97,7 +96,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
+            CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
@@ -107,7 +106,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 Argument a_ = _nodes.get(i);
                 if (i >= natVarArg_) {
-                    optArgs_.add(a_);
+                    optArgs_.add(a_.getStruct());
                 } else {
                     firstArgs_.add(a_);
                 }
@@ -116,7 +115,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            ExecTemplates.setElements(optArgs_,str_);
+            NumParsers.setElements(str_, optArgs_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
@@ -565,7 +564,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Argument... _args) {
         CustList<MethodMetaInfo> candidates_;
         candidates_ = new CustList<MethodMetaInfo>();
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();

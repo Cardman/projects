@@ -13,19 +13,8 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecAffectationOperation;
-import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
-import code.expressionlanguage.exec.opers.ExecMethodOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecPossibleIntermediateDotted;
-import code.expressionlanguage.exec.opers.ExecSemiAffectationOperation;
-import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
 
 public final class ElUtil {

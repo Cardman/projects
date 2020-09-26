@@ -1,15 +1,15 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneInterface;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.util.StringList;
+import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
 public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInterface,ExecInterfacable {
 
     private final boolean staticType;
-    public ExecInterfaceBlock(RootBlock _offset) {
-        super(_offset);
-        staticType = _offset.isStaticType();
+    public ExecInterfaceBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, boolean _staticType) {
+        super(_offsetTrim, _rootBlockContent, _access);
+        staticType = _staticType;
     }
 
     @Override

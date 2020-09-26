@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.common.FileMetricsCore;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {
@@ -13,8 +15,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private static final char CARR_RETURN = '\r';
     private static final char TAB = '\t';
     private Ints binChars = new Ints();
-    private Ints lineReturns = new Ints();
-    private Ints tabulations = new Ints();
+    private final FileMetricsCore metricsCore;
 
     private Ints beginComments = new Ints();
     private Ints endComments = new Ints();
@@ -37,9 +38,15 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public FileBlock(OffsetsBlock _offset, boolean _predefined) {
         super(_offset);
+        metricsCore = new FileMetricsCore(new Ints(),new Ints());
         predefined = _predefined;
     }
-    public boolean processLinesTabsWithError(String _file, AnalyzedPageEl _page) {
+
+    public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
+        return LinkageUtil.errors(_analyzing);
+    }
+
+    public void processLinesTabsWithError(String _file, AnalyzedPageEl _page) {
         content = _file;
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
@@ -87,11 +94,10 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 errorsFiles.add(g_);
             }
         }
-        return foundBinChar_;
     }
 
     public FileMetrics getMetrics(int _tabWidth) {
-        return new FileMetrics(lineReturns,tabulations,_tabWidth);
+        return new FileMetrics(metricsCore,_tabWidth);
     }
     public GraphicErrorList getErrorsFiles() {
         return errorsFiles;
@@ -110,7 +116,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     public Ints getTabulations() {
-        return tabulations;
+        return metricsCore.getTabulations();
     }
 
     public Ints getBinChars() {
@@ -118,7 +124,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     public Ints getLineReturns() {
-        return lineReturns;
+        return metricsCore.getLineReturns();
+    }
+
+    public FileMetricsCore getMetricsCore() {
+        return metricsCore;
     }
 
     public StringList getImports() {

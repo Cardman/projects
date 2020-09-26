@@ -9,12 +9,11 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
-    public ExecInstanceSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset, _label, _valueOffset, _opValue);
+    public ExecInstanceSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+        super(_label, _valueOffset, _opValue, _offsetTrim);
     }
 
     @Override

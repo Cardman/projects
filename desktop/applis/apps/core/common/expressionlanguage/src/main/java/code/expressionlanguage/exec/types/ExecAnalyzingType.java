@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
-import code.expressionlanguage.analyze.types.ParserType;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.Ints;
@@ -82,7 +81,7 @@ public final class ExecAnalyzingType {
         }
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
-        if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
+        if (!str_.trim().isEmpty() && prio == ExecPartTypeUtil.TMP_PRIO) {
             values = new IntTreeMap<String>();
             values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
@@ -91,7 +90,7 @@ public final class ExecAnalyzingType {
         values.put(beginValuePart_, str_);
     }
     public boolean isRemovedEmptyFirstChild() {
-        return prio == ParserType.INT_PRIO && values.firstValue().trim().isEmpty();
+        return prio == ExecPartTypeUtil.INT_PRIO && values.firstValue().trim().isEmpty();
     }
     public KindPartType getKind() {
         return kind;

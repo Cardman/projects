@@ -5,9 +5,6 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -15,16 +12,15 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
-    private final String fieldName;
+    private final AnaElementContent elementContent = new AnaElementContent();
 
     private final String value;
 
@@ -33,8 +29,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int tempClassOffset;
 
     private String importedClassName;
-
-    private int fieldNameOffest;
 
     private int valueOffest;
 
@@ -56,9 +50,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
                         OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
         parentEnum = _m;
-        fieldNameOffest = _fieldName.getOffset();
+        elementContent.setFieldNameOffest(_fieldName.getOffset());
         valueOffest = _value.getOffset();
-        fieldName = _fieldName.getInfo();
+        elementContent.setFieldName(_fieldName.getInfo());
         value = _value.getInfo();
         tempClass = _type.getInfo();
         tempClassOffset = _type.getOffset();
@@ -66,7 +60,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public int getFieldNameOffset() {
-        return fieldNameOffest;
+        return elementContent.getFieldNameOffest();
     }
 
     public int getValueOffest() {
@@ -92,13 +86,13 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public String getUniqueFieldName() {
-        return fieldName;
+        return elementContent.getFieldName();
     }
 
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, new StringList()));
+        fields_.add(new PartOffsetAffect(new PartOffset(elementContent.getFieldName(),valueOffest),true, new StringList()));
         FieldBlock.checkFieldsNames(this,_fieldNames,fields_,_page);
         for (PartOffsetAffect n: fields_) {
             addNameErrors(n.getErrs());
@@ -156,27 +150,19 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(fieldNameOffest);
+        _page.setGlobalOffset(elementContent.getFieldNameOffest());
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
-        int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 1 - newKeyWord_.length();
+        String fullInstance_ = StringList.concat(elementContent.getFieldName(),"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
+        int tr_ = valueOffest -1 - elementContent.getFieldName().length() - elementContent.getFieldNameOffest() - 1 - newKeyWord_.length();
         trOffset = tr_;
         _page.setTranslatedOffset(tr_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(fieldName), _page);
+        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(elementContent.getFieldName()), _page);
         ReachOperationUtil.tryCalculate(root, _page);
         _page.setTranslatedOffset(0);
-    }
-
-    @Override
-    public void fwdExpressionLanguageReadOnly(ExecInnerTypeOrElement _exec, AnalyzedPageEl _page) {
-        _exec.setTrOffset(trOffset);
-        _page.getCoverage().putBlockOperations((ExecBlock) _exec,this);
-        _page.getCoverage().putBlockOperations(this);
-        _exec.setOpValue(ForwardInfos.getExecutableNodes(_page, root));
     }
 
     private int getIndex() {
@@ -203,15 +189,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         }
     }
 
-    @Override
-    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
-        for (OperationNode r:roots) {
-            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
-        }
-        _ann.getAnnotationsOps().addAllElts(ops_);
-    }
-
     public StringList getAnnotations() {
         return annotations;
     }
@@ -231,7 +208,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public int getFieldNameOffest() {
-        return fieldNameOffest;
+        return elementContent.getFieldNameOffest();
     }
 
     public int getTrOffset() {
@@ -278,5 +255,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    public AnaElementContent getElementContent() {
+        return elementContent;
     }
 }

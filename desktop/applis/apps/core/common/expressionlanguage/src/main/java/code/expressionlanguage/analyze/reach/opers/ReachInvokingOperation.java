@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.analyze.reach.opers.util.AnaArgumentList;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -81,7 +81,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
     public static CustList<Argument> quickListArguments(CustList<ReachOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
+            CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
@@ -91,7 +91,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
                 }
                 Argument a_ = _nodes.get(i);
                 if (i >= natVarArg_) {
-                    optArgs_.add(a_);
+                    optArgs_.add(a_.getStruct());
                 } else {
                     firstArgs_.add(a_);
                 }
@@ -100,7 +100,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
             Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            ExecTemplates.setElements(optArgs_,str_);
+            NumParsers.setElements(str_, optArgs_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;

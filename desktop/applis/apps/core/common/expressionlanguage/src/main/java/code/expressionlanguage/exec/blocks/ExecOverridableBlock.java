@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.analyze.blocks.MethodKind;
@@ -15,8 +14,8 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodModifier methodModifier;
 
     private final MethodKind kind;
-    public ExecOverridableBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, MethodKind _kind) {
-        super(_offset, _name, _varargs, _access, _parametersNames);
+    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, MethodKind _kind, int _offsetTrim) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
         methodModifier = _modifier;
         kind = _kind;
     }

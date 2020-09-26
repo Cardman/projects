@@ -1,11 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecEmptyInstruction extends ExecLeaf implements WithEl {
-    public ExecEmptyInstruction(OffsetsBlock _offset) {
-        super(_offset);
+    public ExecEmptyInstruction(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     @Override

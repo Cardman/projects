@@ -6,6 +6,8 @@ import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.util.*;
 
 public final class ExecRootBlockContent {
+    private String importedDirectSuperClass = "";
+    private StringList importedDirectSuperInterfaces = new StringList();
     private final int idRowCol;
     private StringList paramTypes;
     private StringList paramTypesValues = new StringList();
@@ -100,4 +102,19 @@ public final class ExecRootBlockContent {
         this.typeVarCounts = typeVarCounts;
     }
 
+    public StringList getImportedDirectSuperInterfaces() {
+        return importedDirectSuperInterfaces;
+    }
+
+    public void setImportedDirectSuperInterfaces(StringList importedDirectSuperInterfaces) {
+        this.importedDirectSuperInterfaces = importedDirectSuperInterfaces;
+    }
+
+    public String getImportedDirectSuperClass() {
+        return importedDirectSuperClass;
+    }
+
+    public void setImportedDirectSuperClass(String importedDirectSuperClass) {
+        this.importedDirectSuperClass = importedDirectSuperClass;
+    }
 }

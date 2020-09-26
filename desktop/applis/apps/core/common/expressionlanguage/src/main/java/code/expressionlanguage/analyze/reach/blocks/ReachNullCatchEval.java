@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbstractCatchEval;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.exec.blocks.ExecNullCatchEval;
 
 public final class ReachNullCatchEval extends ReachAbstractCatchEval {
     protected ReachNullCatchEval(AbstractCatchEval _info) {
@@ -12,12 +11,6 @@ public final class ReachNullCatchEval extends ReachAbstractCatchEval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        _page.getCoverage().putCatches(getInfo());
-//        ExecNullCatchEval exec_ = new ExecNullCatchEval(getOffset());
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

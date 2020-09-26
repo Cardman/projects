@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -19,7 +20,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     private final boolean staticMethod;
     private final boolean staticCallMethod;
     private int numberLambda;
-    private final AnaCache cache = new AnaCache();
+    private final AnaAnonFctContent anaAnonFctContent = new AnaAnonFctContent();
 
     public AnonymousFunctionBlock(int _fctName,
                                   OffsetsBlock _offset, AnalyzedPageEl _page) {
@@ -102,6 +103,10 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     }
 
     public AnaCache getCache() {
-        return cache;
+        return anaAnonFctContent.getCache();
+    }
+
+    public AnaAnonFctContent getAnaAnonFctContent() {
+        return anaAnonFctContent;
     }
 }

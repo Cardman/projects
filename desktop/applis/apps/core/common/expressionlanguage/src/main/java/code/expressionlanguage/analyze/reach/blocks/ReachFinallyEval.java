@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.exec.blocks.ExecFinallyEval;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -21,11 +20,6 @@ public final class ReachFinallyEval extends ReachBracedBlock implements ReachEva
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

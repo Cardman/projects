@@ -6,11 +6,10 @@ import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
-import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.fwd.blocks.AnaFieldContent;
+import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
 public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
@@ -19,24 +18,15 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private String importedClassName;
 
-    private int valueOffset;
-
-    private final boolean staticField;
-
-    private final boolean finalField;
-
-    private final AccessEnum access;
+    private ExecFieldContent fieldContent;
 
     private CustList<ExecOperationNode> opValue;
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    public ExecFieldBlock(FieldBlock _offset) {
-        super(_offset.getOffset());
-        valueOffset = _offset.getValueOffset();
-        staticField = _offset.isStaticField();
-        finalField = _offset.isFinalField();
-        access = _offset.getAccess();
+    public ExecFieldBlock(int _offsetTrim, AnaFieldContent _fieldContent) {
+        super(_offsetTrim);
+        fieldContent = new ExecFieldContent(_fieldContent);
     }
 
     @Override
@@ -49,14 +39,18 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return importedClassName;
     }
 
+    public void setImportedClassName(String importedClassName) {
+        this.importedClassName = importedClassName;
+    }
+
     @Override
     public boolean isStaticField() {
-        return staticField;
+        return fieldContent.isStaticField();
     }
 
     @Override
     public boolean isFinalField() {
-        return finalField;
+        return fieldContent.isFinalField();
     }
 
     @Override
@@ -65,18 +59,12 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     }
 
     public AccessEnum getAccess() {
-        return access;
+        return fieldContent.getAccess();
     }
 
     @Override
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
-    }
-
-    @Override
-    public void buildImportedTypes(InfoBlock _key) {
-        importedClassName = _key.getImportedClassName();
-        fieldName.addAllElts(_key.getFieldName());
     }
 
     @Override
@@ -108,7 +96,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
             in_ = true;
         }
         if (in_) {
-            ip_.setGlobalOffset(valueOffset);
+            ip_.setGlobalOffset(fieldContent.getValueOffset());
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,el_,0);

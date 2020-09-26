@@ -1,13 +1,11 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public final class ExecEnumCaseCondition extends ExecAbstractCaseCondition {
 
     private final String value;
 
-    public ExecEnumCaseCondition(OffsetsBlock _offset, String _value, int _valueOffset) {
-        super(_offset,_valueOffset);
+    public ExecEnumCaseCondition(String _value, int _valueOffset, int _offsetTrim) {
+        super(_valueOffset, _offsetTrim);
         value = _value;
     }
 

@@ -2,9 +2,7 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ElseCondition;
-import code.expressionlanguage.exec.blocks.ExecElseCondition;
 import code.util.CustList;
 
 public final class ReachElseCondition extends ReachBracedBlock implements ReachBlockCondition,ReachBuildableElMethod {
@@ -21,11 +19,6 @@ public final class ReachElseCondition extends ReachBracedBlock implements ReachB
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
 

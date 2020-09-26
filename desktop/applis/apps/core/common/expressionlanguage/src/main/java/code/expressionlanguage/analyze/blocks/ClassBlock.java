@@ -2,13 +2,12 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.fwd.blocks.AnaClassContent;
 import code.util.*;
 
 public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRootedBlock {
 
-    private final boolean finalType;
-    private final boolean abstractType;
-    private final boolean staticType;
+    private final AnaClassContent classContent;
 
     public ClassBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
                       String _templateDef, IntMap<String> _directSuperTypes,
@@ -16,14 +15,12 @@ public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRo
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {
         super(_idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
-        finalType = _finalType;
-        abstractType = _abstractType;
-        staticType = _staticType;
+        classContent = new AnaClassContent(_finalType,_abstractType,_staticType);
     }
 
     @Override
     public boolean isStaticType() {
-        return staticType;
+        return classContent.isStaticType();
     }
     @Override
     public void setupBasicOverrides(AnalyzedPageEl _page) {
@@ -31,11 +28,15 @@ public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRo
     }
 
     public boolean isFinalType() {
-        return finalType;
+        return classContent.isFinalType();
     }
 
     public boolean isAbstractType() {
-        return abstractType;
+        return classContent.isAbstractType();
+    }
+
+    public AnaClassContent getClassContent() {
+        return classContent;
     }
 
     @Override

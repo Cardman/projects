@@ -1,26 +1,22 @@
 package code.expressionlanguage.common;
 
-import code.util.Ints;
-
 public final class FileMetrics {
 
-    private Ints lineReturns;
-    private Ints tabulations;
+    private final FileMetricsCore metricsCore;
 
-    private int tabWidth;
+    private final int tabWidth;
 
-    public FileMetrics(Ints lineReturns, Ints tabulations, int tabWidth) {
-        this.lineReturns = lineReturns;
-        this.tabulations = tabulations;
+    public FileMetrics(FileMetricsCore _metricsCore, int tabWidth) {
+        metricsCore = _metricsCore;
         this.tabWidth = tabWidth;
     }
 
     public int getRowFile(int _sum) {
-        int len_ = lineReturns.size();
+        int len_ = metricsCore.getLineReturns().size();
         int i_ = 0;
         int s_ = Math.max(0,_sum);
         while (i_ < len_) {
-            if (s_ <= lineReturns.get(i_)) {
+            if (s_ <= metricsCore.getLineReturns().get(i_)) {
                 break;
             }
             i_++;
@@ -30,9 +26,9 @@ public final class FileMetrics {
     public int getColFile(int _sum, int _row) {
         int j_ = 0;
         int s_ = Math.max(0,_sum);
-        int begin_ = lineReturns.get(_row - 1)+1;
+        int begin_ = metricsCore.getLineReturns().get(_row - 1)+1;
         for (int j = begin_; j < s_; j++) {
-            if (tabulations.containsObj(j)) {
+            if (metricsCore.getTabulations().containsObj(j)) {
                 j_ += tabWidth;
                 j_ -= j_ % tabWidth;
             } else {

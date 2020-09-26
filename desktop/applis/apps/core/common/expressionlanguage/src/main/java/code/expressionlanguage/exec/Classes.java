@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.*;
@@ -83,7 +84,7 @@ public final class Classes {
         ClassesUtil.postValidation(_page);
         if (_page.isGettingErrors()) {
             ReportedMessages messages_ = _page.getMessages();
-            messages_.setErrors(ExecFileBlock.errors(_page));
+            messages_.setErrors(FileBlock.errors(_page));
         }
     }
 

@@ -1,12 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class ExecAbstractInstanceTypeCaseCondition extends ExecAbstractInstanceCaseCondition {
     private String importedClassName;
 
-    public ExecAbstractInstanceTypeCaseCondition(OffsetsBlock _offset, String _variableName, String _importedClassName, int _valueOffset) {
-        super(_offset,_variableName,_valueOffset);
+    protected ExecAbstractInstanceTypeCaseCondition(String _variableName, String _importedClassName, int _valueOffset, int _offsetTrim) {
+        super(_variableName,_valueOffset, _offsetTrim);
         importedClassName = _importedClassName;
     }
 

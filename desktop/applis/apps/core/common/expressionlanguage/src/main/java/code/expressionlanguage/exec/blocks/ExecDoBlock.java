@@ -4,13 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
 
     private String label;
-    public ExecDoBlock(OffsetsBlock _offset, String _label) {
-        super(_offset);
+    public ExecDoBlock(String _label, int _offsetTrim) {
+        super(_offsetTrim);
         label = _label;
     }
 

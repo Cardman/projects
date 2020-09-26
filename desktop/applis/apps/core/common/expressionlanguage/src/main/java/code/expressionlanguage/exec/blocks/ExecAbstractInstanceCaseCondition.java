@@ -1,14 +1,13 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class ExecAbstractInstanceCaseCondition extends ExecAbstractCaseCondition {
 
     private final String variableName;
 
-    public ExecAbstractInstanceCaseCondition(OffsetsBlock _offset, String _variableName, int _valueOffset) {
-        super(_offset, _valueOffset);
+    protected ExecAbstractInstanceCaseCondition(String _variableName, int _valueOffset, int _offsetTrim) {
+        super(_valueOffset, _offsetTrim);
         variableName = _variableName;
     }
 

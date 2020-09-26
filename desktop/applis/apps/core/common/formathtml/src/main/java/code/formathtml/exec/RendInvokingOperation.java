@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
@@ -60,7 +60,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
+            CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVararg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
@@ -71,7 +71,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
                 }
                 Argument a_ = _nodes.get(i);
                 if (i >= natVararg_) {
-                    optArgs_.add(a_);
+                    optArgs_.add(a_.getStruct());
                 } else {
                     firstArgs_.add(a_);
                 }
@@ -80,7 +80,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            ExecTemplates.setElements(optArgs_,str_);
+            NumParsers.setElements(str_, optArgs_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;

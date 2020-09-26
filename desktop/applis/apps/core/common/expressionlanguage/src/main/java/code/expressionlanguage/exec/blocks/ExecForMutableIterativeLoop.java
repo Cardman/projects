@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -40,8 +39,8 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
 
     private CustList<ExecOperationNode> opStep;
 
-    public ExecForMutableIterativeLoop(OffsetsBlock _offset, String label, String importedClassName, String importedClassIndexName, StringList variableNames, int initOffset, int expressionOffset, int stepOffset, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep) {
-        super(_offset);
+    public ExecForMutableIterativeLoop(String label, String importedClassName, String importedClassIndexName, StringList variableNames, int initOffset, int expressionOffset, int stepOffset, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep, int _offsetTrim) {
+        super(_offsetTrim);
         this.label = label;
         this.importedClassName = importedClassName;
         this.importedClassIndexName = importedClassIndexName;

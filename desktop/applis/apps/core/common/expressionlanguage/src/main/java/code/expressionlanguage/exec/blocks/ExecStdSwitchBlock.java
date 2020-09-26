@@ -2,13 +2,12 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public final class ExecStdSwitchBlock extends ExecEnumValueSwitchBlock {
 
-    public ExecStdSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset,_label,_valueOffset,_opValue);
+    public ExecStdSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+        super(_label,_valueOffset,_opValue, _offsetTrim);
     }
 
     @Override

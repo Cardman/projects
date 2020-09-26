@@ -6,14 +6,13 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public final class ExecWhileCondition extends ExecCondition implements ExecLoop {
 
     private String label;
-    public ExecWhileCondition(OffsetsBlock _offset, int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition) {
-        super(_offset, _conditionOffset, _opCondition);
+    public ExecWhileCondition(int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition, int _offsetTrim) {
+        super(_conditionOffset, _opCondition, _offsetTrim);
         label = _label;
     }
 

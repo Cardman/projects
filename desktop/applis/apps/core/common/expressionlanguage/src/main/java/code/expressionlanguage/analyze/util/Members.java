@@ -12,8 +12,10 @@ public final class Members {
     private IdMap<InitBlock,ExecInitBlock> allInits = new IdMap<InitBlock,ExecInitBlock>();
     private IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
     private IdMap<FieldBlock,ExecFieldBlock> allExplicitFields = new IdMap<FieldBlock,ExecFieldBlock>();
-    private IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
+    private IdMap<InnerElementBlock,ExecInnerElementBlock> allInnerElementFields = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
+    private IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
     private IdMap<AnnotableBlock,ExecAnnotableBlock> allAnnotables = new IdMap<AnnotableBlock,ExecAnnotableBlock>();
+    private IdMap<RootBlock,ExecRootBlock> allAnnotablesRoots = new IdMap<RootBlock,ExecRootBlock>();
     private IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
@@ -41,12 +43,20 @@ public final class Members {
         return allExplicitFields;
     }
 
-    public IdMap<InnerTypeOrElement, ExecInnerTypeOrElement> getAllElementFields() {
-        return allElementFields;
+    public IdMap<ElementBlock, ExecElementBlock> getAllSimpleElementFields() {
+        return allSimpleElementFields;
+    }
+
+    public IdMap<InnerElementBlock, ExecInnerElementBlock> getAllInnerElementFields() {
+        return allInnerElementFields;
     }
 
     public IdMap<AnnotableBlock, ExecAnnotableBlock> getAllAnnotables() {
         return allAnnotables;
+    }
+
+    public IdMap<RootBlock, ExecRootBlock> getAllAnnotablesRoots() {
+        return allAnnotablesRoots;
     }
 
     public IdMap<NamedFunctionBlock, ExecNamedFunctionBlock> getAllNamed() {

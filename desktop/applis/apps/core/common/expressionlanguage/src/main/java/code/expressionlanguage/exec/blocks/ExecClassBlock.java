@@ -1,32 +1,29 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.blocks.ClassBlock;
-import code.util.StringList;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.fwd.blocks.ExecClassContent;
+import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
 public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRootedBlock {
 
-    private final boolean finalType;
-    private final boolean abstractType;
-    private final boolean staticType;
+    private final ExecClassContent classContent;
 
-    public ExecClassBlock(ClassBlock _offset) {
-        super(_offset);
-        finalType = _offset.isFinalType();
-        abstractType = _offset.isAbstractType();
-        staticType = _offset.isStaticType();
+    public ExecClassBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecClassContent _classContent) {
+        super(_offsetTrim, _rootBlockContent, _access);
+        classContent = _classContent;
     }
 
     public boolean isFinalType() {
-        return finalType;
+        return classContent.isFinalType();
     }
 
     public boolean isAbstractType() {
-        return abstractType;
+        return classContent.isAbstractType();
     }
 
     @Override
     public boolean isStaticType() {
-        return staticType;
+        return classContent.isStaticType();
     }
 
 

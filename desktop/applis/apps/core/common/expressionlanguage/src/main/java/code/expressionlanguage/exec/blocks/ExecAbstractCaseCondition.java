@@ -4,15 +4,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implements
         StackableBlock {
 
     private int valueOffset;
 
-    public ExecAbstractCaseCondition(OffsetsBlock _offset, int _valueOffset) {
-        super(_offset);
+    protected ExecAbstractCaseCondition(int _valueOffset, int _offsetTrim) {
+        super(_offsetTrim);
         valueOffset = _valueOffset;
     }
 

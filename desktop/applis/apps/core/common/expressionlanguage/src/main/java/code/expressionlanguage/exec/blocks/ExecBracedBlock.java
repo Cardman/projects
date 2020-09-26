@@ -1,14 +1,13 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class ExecBracedBlock extends ExecBlock {
 
     private ExecBlock firstChild;
 
-    ExecBracedBlock(OffsetsBlock _offset) {
-        super(_offset);
+    ExecBracedBlock(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     static boolean isNextTryParts(ExecBlock _n) {

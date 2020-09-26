@@ -3,14 +3,13 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecEnumSwitchBlock extends ExecEnumValueSwitchBlock {
 
-    public ExecEnumSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset,_label,_valueOffset,_opValue);
+    public ExecEnumSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+        super(_label,_valueOffset,_opValue, _offsetTrim);
     }
 
     @Override

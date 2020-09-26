@@ -4,10 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecDeclareVariable extends ExecLeaf implements StackableBlock {
@@ -16,8 +13,8 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
 
     private String importedClassName;
 
-    public ExecDeclareVariable(OffsetsBlock _offset, String _importedClassName, StringList _variableNames) {
-        super(_offset);
+    public ExecDeclareVariable(String _importedClassName, StringList _variableNames, int _offsetTrim) {
+        super(_offsetTrim);
         importedClassName = _importedClassName;
         variableNames = _variableNames;
     }

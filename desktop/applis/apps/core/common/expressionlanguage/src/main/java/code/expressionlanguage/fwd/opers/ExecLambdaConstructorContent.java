@@ -1,7 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -9,7 +8,7 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 
 public final class ExecLambdaConstructorContent {
     private final ConstructorId realId;
-    private final ExecAnnotableParametersBlock functionBlock;
+    private final ExecNamedFunctionBlock functionBlock;
     private final ExecRootBlock rootBlock;
     private final ExecNamedFunctionBlock function;
     public ExecLambdaConstructorContent(ConstructorId _realId, AnaLambdaMemberNumberContent _cont, AnalyzedPageEl _page) {
@@ -31,7 +30,7 @@ public final class ExecLambdaConstructorContent {
         return function;
     }
 
-    public ExecAnnotableParametersBlock getFunctionBlock() {
+    public ExecNamedFunctionBlock getFunctionBlock() {
         return functionBlock;
     }
 }

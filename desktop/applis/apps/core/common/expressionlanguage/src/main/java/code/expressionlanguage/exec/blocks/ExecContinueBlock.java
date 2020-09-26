@@ -4,13 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbstractStask;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFinally {
 
     private String label;
-    public ExecContinueBlock(OffsetsBlock _offset, String _label) {
-        super(_offset);
+    public ExecContinueBlock(String _label, int _offsetTrim) {
+        super(_offsetTrim);
         label = _label;
     }
 

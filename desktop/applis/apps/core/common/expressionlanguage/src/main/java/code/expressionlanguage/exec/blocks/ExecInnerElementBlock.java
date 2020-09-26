@@ -1,43 +1,36 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.blocks.InfoBlock;
-import code.expressionlanguage.analyze.blocks.InnerElementBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.fwd.blocks.ExecElementContent;
+import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecInnerElementBlock extends ExecRootBlock implements ExecInnerTypeOrElement, ExecUniqueRootedBlock {
 
-    private final String fieldName;
+    private ExecElementContent elementContent;
 
     private String importedClassName;
     private String realImportedClassName;
 
     private CustList<ExecOperationNode> opValue;
 
-    private int fieldNameOffest;
-
     private int trOffset;
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    public ExecInnerElementBlock(InnerElementBlock _offset) {
-        super(_offset);
-        fieldName = _offset.getUniqueFieldName();
-        fieldNameOffest = _offset.getFieldNameOffset();
+    public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent) {
+        super(_offsetTrim, _rootBlockContent, _access);
+        elementContent = _elementContent;
     }
 
     @Override
-    public void buildImportedTypes(InfoBlock _key) {
-        importedClassName = _key.getImportedClassName();
-        realImportedClassName = _key.getRealImportedClassName();
-    }
-    @Override
     public String getUniqueFieldName() {
-        return fieldName;
+        return elementContent.getFieldName();
     }
 
     @Override
@@ -52,6 +45,14 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     @Override
     public String getImportedClassName() {
         return importedClassName;
+    }
+
+    public void setImportedClassName(String importedClassName) {
+        this.importedClassName = importedClassName;
+    }
+
+    public void setRealImportedClassName(String realImportedClassName) {
+        this.realImportedClassName = realImportedClassName;
     }
 
     @Override
@@ -71,7 +72,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
 
     @Override
     public StringList getFieldName() {
-        return new StringList(fieldName);
+        return new StringList(elementContent.getFieldName());
     }
 
     @Override
@@ -93,7 +94,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (ip_ instanceof StaticInitPageEl) {
-            ip_.setGlobalOffset(fieldNameOffest);
+            ip_.setGlobalOffset(elementContent.getFieldNameOffest());
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,el_, trOffset);

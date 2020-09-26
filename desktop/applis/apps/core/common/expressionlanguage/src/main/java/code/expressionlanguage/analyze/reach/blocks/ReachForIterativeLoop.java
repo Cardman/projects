@@ -3,12 +3,8 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ForIterativeLoop;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop {
     private ForIterativeLoop meta;
@@ -38,17 +34,6 @@ public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop
         _page.setOffset(0);
         OperationNode rStep_ = meta.getRootStep();
         ReachOperationUtil.tryCalculate(rStep_, _page);
-//        _page.getCoverage().putBlockOperationsLoops(getInfo());
-//        CustList<ExecOperationNode> init_ = ElUtil.getExecutableNodes(_page, rInit_);
-//        CustList<ExecOperationNode> exp_ = ElUtil.getExecutableNodes(_page, rExp_);
-//        CustList<ExecOperationNode> step_ = ElUtil.getExecutableNodes(_page, rStep_);
-//        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, meta.getImportedClassName(),
-//                meta.getImportedClassIndexName(), meta.getVariableName(), meta.getVariableNameOffset(), meta.getInitOffset(),
-//                meta.getExpressionOffset(), meta.getStepOffset(), meta.isEq(),init_,exp_,step_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getReachMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

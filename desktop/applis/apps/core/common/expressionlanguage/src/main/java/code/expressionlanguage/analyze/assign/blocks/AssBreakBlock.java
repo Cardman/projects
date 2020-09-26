@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.blocks.BreakBlock;
-import code.expressionlanguage.exec.blocks.ExecBreakBlock;
 import code.util.StringList;
 
 public final class AssBreakBlock extends AssAbruptBlock {

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
@@ -1687,14 +1688,14 @@ public final class AliasCharSequence {
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
         result_ = new ResultErrorStd();
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         calculateStrBuilder(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
     static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();

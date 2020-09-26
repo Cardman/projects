@@ -128,7 +128,7 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct invokeAnalyzisMathStdMethod(ClassMethodId _method, AnalyzedPageEl _page, Argument... _args) {
-        Struct[] args_ = AliasMath.getObjects(_args);
+        Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _page.getStandards();

@@ -1,7 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -13,7 +12,7 @@ public final class ExecLambdaMethodContent {
     private final boolean abstractMethod;
     private final boolean directCast;
     private final boolean expCast;
-    private final ExecAnnotableParametersBlock functionBlock;
+    private final ExecNamedFunctionBlock functionBlock;
     private final ExecNamedFunctionBlock function;
     private final ExecRootBlock declaring;
 
@@ -48,7 +47,7 @@ public final class ExecLambdaMethodContent {
         return polymorph;
     }
 
-    public ExecAnnotableParametersBlock getFunctionBlock() {
+    public ExecNamedFunctionBlock getFunctionBlock() {
         return functionBlock;
     }
 

@@ -6,7 +6,6 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -18,8 +17,8 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
 
     private CustList<ExecOperationNode> opCondition;
 
-    ExecCondition(OffsetsBlock _offset, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
-        super(_offset);
+    ExecCondition(int _conditionOffset, CustList<ExecOperationNode> _opCondition, int _offsetTrim) {
+        super(_offsetTrim);
         conditionOffset = _conditionOffset;
         opCondition = _opCondition;
     }

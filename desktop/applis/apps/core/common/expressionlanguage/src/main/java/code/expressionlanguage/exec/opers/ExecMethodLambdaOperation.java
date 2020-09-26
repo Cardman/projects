@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -48,7 +47,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType,
                                    int ancestor, boolean directCast, boolean polymorph, boolean abstractMethod, boolean expCast, boolean shiftArgument, boolean safeInstance,
-                                   String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecNamedFunctionBlock function, ExecRootBlock _rootBlock) {
+                                   String name, PageEl lastPage, String fileName,ExecNamedFunctionBlock functionBlock, ExecNamedFunctionBlock function, ExecRootBlock _rootBlock) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);

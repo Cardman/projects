@@ -5,12 +5,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ForEachTable;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.exec.blocks.ExecForEachTable;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ReachForEachTable extends ReachBracedBlock implements ReachLoop {
     private ForEachTable meta;

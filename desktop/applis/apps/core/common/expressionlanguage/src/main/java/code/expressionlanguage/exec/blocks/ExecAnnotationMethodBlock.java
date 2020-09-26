@@ -2,14 +2,12 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -24,8 +22,8 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     private int defaultValueOffset;
 
     private CustList<ExecOperationNode> opValue;
-    public ExecAnnotationMethodBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset) {
-        super(_offset, _name, _varargs, _access, _parametersNames);
+    public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
         defaultValueOffset = _defaultValueOffset;
     }
 
@@ -107,11 +105,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
 
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
-    }
-
-    public void buildImportedTypes(AnnotationMethodBlock _key) {
-        setImportedReturnType(_key.getImportedReturnType());
-        getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
 }

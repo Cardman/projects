@@ -1,11 +1,9 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public final class ExecNullInstanceCaseCondition extends ExecAbstractInstanceCaseCondition {
 
-    public ExecNullInstanceCaseCondition(OffsetsBlock _offset, int _valueOffset) {
-        super(_offset, "", _valueOffset);
+    public ExecNullInstanceCaseCondition(int _valueOffset, int _offsetTrim) {
+        super("", _valueOffset, _offsetTrim);
     }
 
 }

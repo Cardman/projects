@@ -1,8 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -12,7 +10,6 @@ import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
@@ -27,9 +24,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
     private final CustList<ExecFunctionalInfo> functionalBodies = new CustList<ExecFunctionalInfo>();
-    private String importedDirectSuperClass = "";
     private ExecRootBlock uniqueType;
-    private StringList importedDirectSuperInterfaces = new StringList();
     private final StringList allSuperTypes = new StringList();
     private ExecRootBlock parentType;
     private final CustList<ExecRootBlock> childrenTypes = new CustList<ExecRootBlock>();
@@ -40,10 +35,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
 
-    ExecRootBlock(RootBlock _offset) {
-        super(_offset.getOffset());
-        rootBlockContent = new ExecRootBlockContent(_offset.getRootBlockContent());
-        access = _offset.getAccess();
+    ExecRootBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
+        super(_offsetTrim);
+        rootBlockContent = _rootBlockContent;
+        access = _access;
     }
 
     @Override
@@ -128,12 +123,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return rootBlockContent.getGenericString();
     }
 
-    public void buildMapParamType(RootBlock _root) {
-        ForwardInfos.updateExec(this,_root);
-        importedDirectSuperClass = _root.getImportedDirectGenericSuperClass();
-        importedDirectSuperInterfaces = _root.getImportedDirectSuperInterfaces();
-    }
-
     public AccessEnum getAccess() {
         return access;
     }
@@ -155,37 +144,17 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return StringList.contains(getAllSuperTypes(),_fullName);
     }
 
-    public final void validateIds(RootBlock _key, IdMap<RootBlock, Members> _mapMembers) {
-        Members mem_ = _mapMembers.getVal(_key);
-        for (EntryCust<OverridableBlock,ExecOverridableBlock> e: mem_.getAllMethods().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
-            String returnTypeGet_ = e.getKey().getReturnTypeGet();
-            if (!returnTypeGet_.isEmpty()) {
-                e.getValue().setImportedReturnType(returnTypeGet_);
-            }
-        }
-        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: mem_.getAllCtors().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
-        }
-        for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: mem_.getAllAnnotMethods().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey());
-        }
-        for (EntryCust<InfoBlock,ExecInfoBlock> e: mem_.getAllFields().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey());
-        }
-    }
-
     public int getIdRowCol() {
         return rootBlockContent.getIdRowCol();
     }
 
 
     public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
+        return rootBlockContent.getImportedDirectSuperClass();
     }
 
     public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
+        return rootBlockContent.getImportedDirectSuperInterfaces();
     }
 
     public final StringList getAllSuperTypes() {

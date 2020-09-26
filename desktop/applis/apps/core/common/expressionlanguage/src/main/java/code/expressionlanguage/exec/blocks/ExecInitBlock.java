@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.StringList;
@@ -9,8 +8,8 @@ import code.util.StringList;
 public abstract class ExecInitBlock extends ExecMemberCallingsBlock implements ExecReturnableWithSignature {
 
     private int number;
-    ExecInitBlock(OffsetsBlock _offset) {
-        super(_offset);
+    ExecInitBlock(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     @Override

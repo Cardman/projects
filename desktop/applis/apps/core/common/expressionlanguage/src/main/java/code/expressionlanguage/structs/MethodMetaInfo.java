@@ -29,7 +29,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private String fileName = EMPTY_STRING;
     private boolean expCast;
     private boolean invokable;
-    private ExecAnnotableParametersBlock annotableBlock;
+    private ExecNamedFunctionBlock annotableBlock;
     private ExecMemberCallingsBlock callee;
     private ExecNamedFunctionBlock calleeInv;
     private StandardMethod stdCallee;
@@ -72,10 +72,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return getAnnotableBlockParam();
     }
 
-    public ExecAnnotableParametersBlock getAnnotableBlockParam() {
+    public ExecNamedFunctionBlock getAnnotableBlockParam() {
         return annotableBlock;
     }
-    public void setAnnotableBlock(ExecAnnotableParametersBlock annotableBlock) {
+    public void setAnnotableBlock(ExecNamedFunctionBlock annotableBlock) {
         this.annotableBlock = annotableBlock;
     }
 

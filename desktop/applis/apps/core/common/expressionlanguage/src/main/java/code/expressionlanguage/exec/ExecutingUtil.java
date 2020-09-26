@@ -45,7 +45,7 @@ public final class ExecutingUtil {
         ReadWrite rw_ = ip_.getReadWrite();
         ExecBlock en_ = rw_.getBlock();
         if (en_ != null) {
-            ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
+            ip_.setGlobalOffset(en_.getOffsetTrim());
             ip_.setOffset(0);
         }
         ip_.tryProcessEl(_context);

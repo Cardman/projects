@@ -2,16 +2,10 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Line;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
-import code.expressionlanguage.exec.blocks.ExecLine;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ReachLine extends ReachLeaf implements ReachBuildableElMethod {
-    private String importedClass;
     private int expressionOffset;
     private OperationNode root;
 
@@ -19,7 +13,6 @@ public final class ReachLine extends ReachLeaf implements ReachBuildableElMethod
         super(_info);
         expressionOffset = _info.getExpressionOffset();
         root = _info.getRoot();
-        importedClass = _info.getImportedClass();
     }
 
     @Override

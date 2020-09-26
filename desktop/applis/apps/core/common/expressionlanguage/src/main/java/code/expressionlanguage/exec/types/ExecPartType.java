@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.types.KindPartType;
-import code.expressionlanguage.analyze.types.ParserType;
 import code.util.IntTreeMap;
 
 abstract class ExecPartType {
@@ -32,13 +31,13 @@ abstract class ExecPartType {
             }
             return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_);
         }
-        if (_analyze.getPrio() == ParserType.TMP_PRIO) {
+        if (_analyze.getPrio() == ExecPartTypeUtil.TMP_PRIO) {
             return new ExecTemplatePartType(_parent, _index);
         }
-        if (_analyze.getPrio() == ParserType.INT_PRIO) {
+        if (_analyze.getPrio() == ExecPartTypeUtil.INT_PRIO) {
             return new ExecInnerPartType(_parent, _index, operators_.values());
         }
-        if (_analyze.getPrio() == ParserType.ARR_PRIO) {
+        if (_analyze.getPrio() == ExecPartTypeUtil.ARR_PRIO) {
             return new ExecArraryPartType(_parent, _index);
         }
         return new ExecWildCardPartType(_parent, _index, operators_.firstValue());

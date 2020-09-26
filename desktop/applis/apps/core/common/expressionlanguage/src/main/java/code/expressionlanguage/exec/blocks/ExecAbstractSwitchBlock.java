@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
@@ -16,8 +15,8 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     private CustList<ExecOperationNode> opValue;
 
-    ExecAbstractSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset);
+    ExecAbstractSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+        super(_offsetTrim);
         label = _label;
         valueOffset = _valueOffset;
         opValue = _opValue;

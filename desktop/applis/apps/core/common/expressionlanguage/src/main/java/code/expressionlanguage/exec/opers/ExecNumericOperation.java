@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -12,6 +11,7 @@ import code.expressionlanguage.structs.*;
 import code.util.StringList;
 
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
+    private static final String INCR = "++";
     private int opOffset;
 
     protected ExecNumericOperation(ExecOperationContent _opCont, int _opOffset) {
@@ -26,7 +26,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     }
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
         Argument o_;
-        if (StringList.quickEq(_op, Block.INCR)) {
+        if (StringList.quickEq(_op, INCR)) {
             o_ = new Argument(ExecAddOperation.addOne(NumParsers.convertToNumber(_left.getStruct()), _cast));
         } else {
             o_ = new Argument(ExecAddOperation.removeOne(NumParsers.convertToNumber(_left.getStruct()), _cast));

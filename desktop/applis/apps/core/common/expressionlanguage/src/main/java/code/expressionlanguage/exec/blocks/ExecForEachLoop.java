@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -32,8 +31,8 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
 
     private CustList<ExecOperationNode> opList;
 
-    public ExecForEachLoop(OffsetsBlock _offset, String _label, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, int expressionOffset, CustList<ExecOperationNode> _opList) {
-        super(_offset);
+    public ExecForEachLoop(String _label, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, int expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
+        super(_offsetTrim);
         label = _label;
         this.importedClassName = importedClassName;
         this.importedClassIndexName = importedClassIndexName;

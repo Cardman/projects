@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class ExecCatchEval extends ExecAbstractCatchEval {
 
@@ -9,8 +8,8 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
 
     private final String variableName;
 
-    public ExecCatchEval(OffsetsBlock _offset, String _variableName, String _importedClassName) {
-        super(_offset);
+    public ExecCatchEval(String _variableName, String _importedClassName, int _offsetTrim) {
+        super(_offsetTrim);
         variableName = _variableName;
         importedClassName = _importedClassName;
     }

@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -15,8 +14,8 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opThrow;
-    public ExecThrowing(OffsetsBlock _offset, int _expressionOffset, CustList<ExecOperationNode> _opThrow) {
-        super(_offset);
+    public ExecThrowing(int _expressionOffset, CustList<ExecOperationNode> _opThrow, int _offsetTrim) {
+        super(_offsetTrim);
         expressionOffset = _expressionOffset;
         opThrow = _opThrow;
     }

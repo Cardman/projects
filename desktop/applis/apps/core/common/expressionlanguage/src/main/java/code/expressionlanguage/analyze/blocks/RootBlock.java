@@ -14,19 +14,15 @@ import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
@@ -36,8 +32,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final StringList nameErrors = new StringList();
 
     private AnaRootBlockContent rootBlockContent = new AnaRootBlockContent();
-
-//    private final String packageName;
 
     private final AccessEnum access;
 
@@ -51,9 +45,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private CustList<OverridingMethodDto> allOverridingMethods;
 
-//    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
-
-//    private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
     private final CustList<AnaResultPartType> results = new CustList<AnaResultPartType>();
 
     private final StringList directSuperTypes = new StringList();
@@ -61,8 +52,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private IntMap< String> rowColDirectSuperTypes;
     private IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
-
-//    private int idRowCol;
 
     private StringList staticInitInterfaces = new StringList();
     private int templateDefOffset;
@@ -186,16 +175,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
-    }
-
-    @Override
-    public void fwdAnnotations(ExecAnnotableBlock _ann, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
-        for (OperationNode r: roots) {
-            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
-        }
-        _ann.getAnnotationsOps().clear();
-        _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     public StringList getAnnotations() {

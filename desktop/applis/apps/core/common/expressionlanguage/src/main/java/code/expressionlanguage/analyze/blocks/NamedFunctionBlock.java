@@ -4,19 +4,15 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -137,15 +133,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     @Override
-    public void fwdAnnotations(ExecAnnotableBlock _ex, AnalyzedPageEl _page) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
-        for (OperationNode r: roots) {
-            ops_.add(ForwardInfos.getExecutableNodes(_page, r));
-        }
-        _ex.getAnnotationsOps().addAllElts(ops_);
-    }
-
-    @Override
     public void buildAnnotationsParameters(AnalyzedPageEl _page) {
         int j_ = 0;
         rootsList = new CustList<CustList<OperationNode>>();
@@ -165,18 +152,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             rootsList.add(rootList_);
             j_++;
         }
-    }
-    public void fwdAnnotationsParameters(ExecAnnotableParametersBlock _ann, AnalyzedPageEl _page) {
-        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
-        for (CustList<OperationNode> l: rootsList) {
-            CustList<CustList<ExecOperationNode>> annotation_;
-            annotation_ = new CustList<CustList<ExecOperationNode>>();
-            for (OperationNode r: l) {
-                annotation_.add(ForwardInfos.getExecutableNodes(_page, r));
-            }
-            ops_.add(annotation_);
-        }
-        _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
 
     public Ints getParametersTypesOffset() {
@@ -222,10 +197,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public final void buildImportedTypes(AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        page_.setCurrentBlock(this);
-        page_.setCurrentAnaBlock(this);
-        page_.setCurrentFct(this);
+        _page.setCurrentBlock(this);
+        _page.setCurrentAnaBlock(this);
+        _page.setCurrentFct(this);
         buildInternImportedTypes(_page);
     }
 

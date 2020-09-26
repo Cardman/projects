@@ -1,15 +1,11 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
-import code.expressionlanguage.exec.blocks.ExecLine;
-import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class Line extends Leaf implements BuildableElMethod {
@@ -52,7 +48,6 @@ public final class Line extends Leaf implements BuildableElMethod {
             getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-//        root = _page.getCurrentRoot();
         if (root instanceof CurrentInvokingConstructor) {
             callFromCtorToCtor = true;
             callThis = true;
@@ -77,18 +72,9 @@ public final class Line extends Leaf implements BuildableElMethod {
             declaring_.setErrInf(err_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-//        ExecDeclareVariable ex_ = _page.getExecDeclareVariable();
-//        if (ex_ != null) {
-//            ex_.setImportedClassName(import_);
-//        }
-//        _page.setExecDeclareVariable(null);
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
         _page.setFinalVariable(false);
-//        ExecLine exec_ = new ExecLine(getOffset(), expressionOffset,op_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
 

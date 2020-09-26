@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecConstructorBlock;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -69,10 +68,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             return;
         }
         implicitCallSuper = true;
-    }
-
-    public void fwdInstancingStep(ExecConstructorBlock _exec, AnalyzedPageEl _page) {
-        _exec.setImplicitCallSuper(implicitCallSuper);
     }
 
     public boolean implicitConstr() {

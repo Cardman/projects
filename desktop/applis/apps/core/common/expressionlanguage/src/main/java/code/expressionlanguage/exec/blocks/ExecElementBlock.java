@@ -5,31 +5,27 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.blocks.ElementBlock;
-import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.fwd.blocks.ExecElementContent;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrElement{
 
-    private final String fieldName;
+    private ExecElementContent elementContent;
 
     private String importedClassName;
 
     private CustList<ExecOperationNode> opValue;
-
-    private int fieldNameOffest;
 
     private int trOffset;
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    public ExecElementBlock(ElementBlock _offset) {
-        super(_offset.getOffset());
-        fieldName = _offset.getUniqueFieldName();
-        fieldNameOffest = _offset.getFieldNameOffset();
+    public ExecElementBlock(int _offsetTrim, ExecElementContent _elementContent) {
+        super(_offsetTrim);
+        elementContent = _elementContent;
 
     }
 
@@ -38,14 +34,13 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
         return AccessEnum.PUBLIC;
     }
 
-    @Override
-    public void buildImportedTypes(InfoBlock _key) {
-        importedClassName = _key.getImportedClassName();
+    public void setImportedClassName(String importedClassName) {
+        this.importedClassName = importedClassName;
     }
 
     @Override
     public String getUniqueFieldName() {
-        return fieldName;
+        return elementContent.getFieldName();
     }
 
     @Override
@@ -80,7 +75,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
 
     @Override
     public StringList getFieldName() {
-        return new StringList(fieldName);
+        return new StringList(elementContent.getFieldName());
     }
 
     @Override
@@ -112,7 +107,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (ip_ instanceof StaticInitPageEl) {
-            ip_.setGlobalOffset(fieldNameOffest);
+            ip_.setGlobalOffset(elementContent.getFieldNameOffest());
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,el_, trOffset);

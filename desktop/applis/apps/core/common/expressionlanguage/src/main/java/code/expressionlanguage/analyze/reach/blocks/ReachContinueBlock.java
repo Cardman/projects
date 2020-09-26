@@ -3,8 +3,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ContinueBlock;
-import code.expressionlanguage.exec.blocks.ExecContinueBlock;
-import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -18,10 +16,6 @@ public final class ReachContinueBlock extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
     @Override

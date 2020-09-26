@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -15,7 +14,7 @@ import code.util.IdMap;
 
 public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperation {
     private ExecLambdaAnoContent lambdaAnoContent;
-    private ExecAnnotableParametersBlock functionBlock;
+    private ExecNamedFunctionBlock functionBlock;
     private ExecNamedFunctionBlock function;
     public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
         super(_opCont, _lamCont);

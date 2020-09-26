@@ -1,13 +1,10 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.blocks.ExecThrowing;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.util.CustList;
 
 public final class Throwing extends AbruptBlock {
 
@@ -40,11 +37,6 @@ public final class Throwing extends AbruptBlock {
             getErrorsBlock().add(_page.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-//        root = _page.getCurrentRoot();
-//        ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
     }
 
     public OperationNode getRoot() {

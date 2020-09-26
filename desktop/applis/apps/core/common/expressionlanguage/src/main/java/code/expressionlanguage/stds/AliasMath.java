@@ -279,7 +279,7 @@ public final class AliasMath {
     }
     public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = getObjects(_args);
+        Struct[] args_ = ExecTemplates.getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -537,14 +537,6 @@ public final class AliasMath {
         return _result;
     }
 
-    public static Struct[] getObjects(Argument... _args) {
-        int len_ = _args.length;
-        Struct[] classes_ = new Struct[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getStruct();
-        }
-        return classes_;
-    }
     public String getAliasAbs() {
         return aliasAbs;
     }

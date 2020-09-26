@@ -1,16 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.util.AnaCache;
-import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.util.CacheInfo;
-import code.expressionlanguage.exec.util.NameAndType;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -18,17 +14,12 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
 
     private final MethodModifier methodModifier;
     private ExecRootBlock parentType;
-    private final CacheInfo cacheInfo = new CacheInfo();
+    private final ExecAnonFctContent anonFctContent;
 
-    public ExecAnonymousFunctionBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, AnaCache _cache) {
-        super(_offset, _name, _varargs, _access, _parametersNames);
+    public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
         methodModifier = _modifier;
-        for (AnaNamedLocalVariable e: _cache.getLocalVariables()) {
-            cacheInfo.getCacheLocalNames().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
-        }
-        for (AnaNamedLoopVariable e: _cache.getLoopVariables()) {
-            cacheInfo.getCacheLoopNames().add(new NameAndType(e.getName(),e.getLocalVariable().getIndexClassName()));
-        }
+        anonFctContent = _anonFctContent;
     }
 
     @Override
@@ -65,6 +56,6 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     }
 
     public CacheInfo getCacheInfo() {
-        return cacheInfo;
+        return anonFctContent.getCacheInfo();
     }
 }

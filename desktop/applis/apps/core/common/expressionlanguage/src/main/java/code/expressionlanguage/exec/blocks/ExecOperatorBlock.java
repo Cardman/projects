@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -12,8 +11,8 @@ import code.util.StringList;
 
 public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,ExecReturnableWithSignature {
 
-    public ExecOperatorBlock(OffsetsBlock _offset, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames) {
-        super(_offset, _name, _varargs, _access, _parametersNames);
+    public ExecOperatorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
     }
 
     public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {

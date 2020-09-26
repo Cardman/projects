@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -16,11 +15,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -153,19 +149,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             root.getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
         }
         ReachOperationUtil.tryCalculate(root, _page);
-    }
-
-    public void fwd(ExecAnnotationMethodBlock _exec, AnalyzedPageEl _page) {
-        if (root == null) {
-            _exec.setOpValue(new CustList<ExecOperationNode>());
-            return;
-        }
-        _page.getCoverage().putBlockOperationsField(_page, this);
-        CustList<ExecOperationNode> ops_ = ForwardInfos.getExecutableNodes(_page, root);
-        _exec.setOpValue(ops_);
-//        if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
-//            ops_.last().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
-//        }
     }
 
 

@@ -2,18 +2,16 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.CustList;
 
 public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
 
-    ExecEnumValueSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset,_label,_valueOffset,_opValue);
+    ExecEnumValueSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+        super(_label,_valueOffset,_opValue, _offsetTrim);
     }
 
     @Override

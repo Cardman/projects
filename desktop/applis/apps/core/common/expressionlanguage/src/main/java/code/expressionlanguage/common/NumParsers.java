@@ -2005,4 +2005,12 @@ public final class NumParsers {
         }
         return new LongStruct(toLong(bitsLeft_));
     }
+
+    public static void setElements(ArrayStruct _arr,CustList<Struct> _args) {
+        int len_ = _args.size();
+        Struct[] arr_ = _arr.getInstance();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            arr_[i] = _args.get(i);
+        }
+    }
 }

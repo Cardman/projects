@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 
@@ -17,8 +16,8 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opExp;
-    public ExecLine(OffsetsBlock _offset, int _expressionOffset, CustList<ExecOperationNode> _opExp) {
-        super(_offset);
+    public ExecLine(int _expressionOffset, CustList<ExecOperationNode> _opExp, int _offsetTrim) {
+        super(_offsetTrim);
         expressionOffset = _expressionOffset;
         opExp = _opExp;
     }

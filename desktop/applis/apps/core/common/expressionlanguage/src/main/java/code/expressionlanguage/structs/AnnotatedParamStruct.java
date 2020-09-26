@@ -1,7 +1,7 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 
 public interface AnnotatedParamStruct extends AnnotatedStruct {
-    ExecAnnotableParametersBlock getAnnotableBlockParam();
+    ExecNamedFunctionBlock getAnnotableBlockParam();
 }

@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbstractStask;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 
@@ -18,8 +17,8 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
 
     private CustList<ExecOperationNode> opRet;
     private String returnMethod;
-    public ExecReturnMethod(OffsetsBlock _offset, boolean _empty, int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod) {
-        super(_offset);
+    public ExecReturnMethod(boolean _empty, int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod, int _offsetTrim) {
+        super(_offsetTrim);
         empty = _empty;
         expressionOffset = _expressionOffset;
         opRet = _opRet;

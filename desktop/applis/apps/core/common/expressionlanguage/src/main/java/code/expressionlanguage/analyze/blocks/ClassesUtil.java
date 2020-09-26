@@ -59,7 +59,6 @@ public final class ClassesUtil {
             }
         }
         _page.getToStringOwners().add(_page.getStandards().getAliasObject());
-        _page.getCoverage().putToStringOwner(_page.getStandards().getAliasObject());
         for (RootBlock e: _page.getAllFoundTypes()) {
             _page.setGlobalClass(e.getGenericString());
             _page.setGlobalType(e);
