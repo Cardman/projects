@@ -3,7 +3,6 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.EndCallValue;
-import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -16,7 +15,7 @@ import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
 
-public abstract class RendBlock implements AnalyzedBlock {
+public abstract class RendBlock {
     static final String SPACE = " ";
     static final String RETURN_LINE = "\n";
     static final String CALL_METHOD = "$";
@@ -31,12 +30,8 @@ public abstract class RendBlock implements AnalyzedBlock {
 
     static final String DOT = ".";
 
-    static final String AND_ERR = "&";
-    static final String OR_ERR = "|";
     static final String LEFT_PAR = "(";
     static final String RIGHT_PAR = ")";
-    static final String ZERO = "0";
-    static final String STR = "\"";
 
     private RendParentBlock parent;
 
