@@ -1,6 +1,6 @@
 package code.formathtml.stacks;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.RendParentBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
 
 
 public final class RendLoopBlockStack implements RendRemovableVars {

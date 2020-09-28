@@ -6,8 +6,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.LeafOperation;
 import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
 
 public final class InternGlobalOperation extends LeafOperation {
     private int off;
@@ -29,10 +27,10 @@ public final class InternGlobalOperation extends LeafOperation {
         if (_page.isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(analyzingDoc.getFileName());
-            static_.setIndexFile(Configuration.getCurrentLocationIndex(_page, analyzingDoc));
+            static_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, analyzingDoc));
             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                     _page.getKeyWords().getKeyWordThis());
-            Configuration.addError(static_, analyzingDoc, _page);
+            AnalyzingDoc.addError(static_, analyzingDoc, _page);
         }
         setResultClass(new AnaClassArgumentMatching(arg_));
     }

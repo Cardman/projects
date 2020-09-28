@@ -15,8 +15,6 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
-import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -36,7 +34,7 @@ public final class RenderAnalysis {
                     " ",
                     Integer.toString(badOffset_),
                     _el);
-            Configuration.addError(badEl_, _anaDoc, _page);
+            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -68,7 +66,7 @@ public final class RenderAnalysis {
                     " ",
                     Integer.toString(badOffset_),
                     _el);
-            Configuration.addError(badEl_, _anaDoc, _page);
+            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -157,9 +155,9 @@ public final class RenderAnalysis {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {
                     FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                     badNb_.setFileName(_anaDoc.getFileName());
-                    badNb_.setIndexFile(Configuration.getCurrentLocationIndex(_page, _anaDoc));
+                    badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
                     badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
-                    Configuration.addError(badNb_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badNb_, _anaDoc, _page);
                     return;
                 }
             }
@@ -173,14 +171,14 @@ public final class RenderAnalysis {
                         if (info_.isFinalField()) {
                             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                             badNb_.setFileName(_anaDoc.getFileName());
-                            badNb_.setIndexFile(Configuration.getCurrentLocationIndex(_page, _anaDoc));
+                            badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
                             StringBuilder id_ = new StringBuilder();
                             id_.append(info_.getClassField().getClassName());
                             id_.append(";");
                             id_.append(info_.getClassField().getFieldName());
                             badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     id_.toString());
-                            Configuration.addError(badNb_, _anaDoc, _page);
+                            AnalyzingDoc.addError(badNb_, _anaDoc, _page);
                         }
                     }
                 }
@@ -188,9 +186,9 @@ public final class RenderAnalysis {
         } else {
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_anaDoc.getFileName());
-            badNb_.setIndexFile(Configuration.getCurrentLocationIndex(_page, _anaDoc));
+            badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
             badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
-            Configuration.addError(badNb_, _anaDoc, _page);
+            AnalyzingDoc.addError(badNb_, _anaDoc, _page);
         }
     }
 

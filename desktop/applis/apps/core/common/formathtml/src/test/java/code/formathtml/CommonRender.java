@@ -17,8 +17,14 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.AdvancedFullStack;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
@@ -28,7 +34,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.*;
 import code.sml.Document;
@@ -104,7 +109,7 @@ public abstract class CommonRender {
     }
 
     protected static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl page_) {
-        Configuration.setupInts(page_, _analyzingDoc);
+        AnalyzingDoc.setupInts(page_, _analyzingDoc);
     }
 
     protected static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
@@ -177,12 +182,12 @@ public abstract class CommonRender {
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
-            badEl_.setIndexFile(Configuration.getCurrentLocationIndex(_conf.getAnalyzing(), _analyzingDoc));
+            badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_conf.getAnalyzing(), _analyzingDoc));
             badEl_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadExpression(),
                     " ",
                     Integer.toString(badOffset_),
                     _el);
-            Configuration.addError(badEl_, _analyzingDoc, _conf.getAnalyzing());
+            AnalyzingDoc.addError(badEl_, _analyzingDoc, _conf.getAnalyzing());
             return new CustList<RendDynOperationNode>();
         }
         String el_ = _el.substring(_index);
@@ -205,7 +210,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
-        return getExecutableNodes(_ops, _an.getAnalyzing(), new AnalyzingDoc());
+        return getExecutableNodes(_ops, _an.getAnalyzing());
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String el_, AnalyzedTestConfiguration ctx_, Delimiters d_) {
@@ -449,11 +454,11 @@ public abstract class CommonRender {
         setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -475,11 +480,11 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -500,11 +505,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -525,11 +530,11 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         return !isEmptyErrors(a_);
     }
 
@@ -540,11 +545,11 @@ public abstract class CommonRender {
         setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         return !isEmptyErrors(a_);
     }
 
@@ -557,11 +562,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
 
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         return !isEmptyErrors(a_);
     }
     protected static String getAncOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
@@ -574,11 +579,11 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -590,6 +595,20 @@ public abstract class CommonRender {
         assertEq(1, conf_.getHtmlPage().getAnchorsArgs().size());
         assertEq("2", conf_.getHtmlPage().getAnchorsArgs().last().last());
         return res_;
+    }
+
+    private static CustList<RendDynOperationNode> buildExecPart(AnalyzedTestConfiguration a_, AnalyzingDoc analyzingDoc_, String _bean_one, String _el) {
+        CustList<RendDynOperationNode> ops2_ = new CustList<RendDynOperationNode>();
+        int i_ = 0;
+        for (EntryCust<String,BeanInfo> e: a_.getConfiguration().getBeansInfos().entryList()) {
+            if (StringList.quickEq(e.getKey(),_bean_one)) {
+                BeanInfo b_ = a_.getConfiguration().getBeansInfos().getVal(_bean_one);
+                ops2_ = RendForwardInfos.getExecutableNodes(a_.getAnalyzing(), analyzingDoc_.getBeansInfos().getKey(i_));
+                b_.setExps(ops2_);
+            }
+            i_++;
+        }
+        return ops2_;
     }
 
     private static void setStack(Configuration conf_1, ContextEl cont_) {
@@ -611,11 +630,11 @@ public abstract class CommonRender {
         String firstUrl_ = "page1.html";
         setup(folder_, relative_, conf_, firstUrl_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        conf_.setNavigation(new StringMap<StringMap<String>>());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
         analyzeInner(conf_, a_, analyzingDoc_, html_);
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -636,11 +655,11 @@ public abstract class CommonRender {
 
         simpleSetup(folder_, relative_, conf_);
         setFiles(files_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1094,8 +1113,8 @@ public abstract class CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         setupAna(anaDoc_, _cont.getAnalyzing());
-        _nav.initInstancesPattern(_cont.getAnalyzing());
-        _nav.setupRenders(_cont.getAnalyzing(), _cont.getAdvStandards(), anaDoc_.getRendAnalysisMessages());
+        _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
+        _nav.setupRenders(_cont.getAnalyzing(), _cont.getAdvStandards(), anaDoc_.getRendAnalysisMessages(), anaDoc_);
     }
 
     private static void setupFirstUrl(String folder_, String relative_, Configuration conf_, String _firstUrl) {
@@ -1147,13 +1166,13 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_, htmlTwo_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        CustList<RendDynOperationNode> ops2_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1175,13 +1194,13 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_, htmlTwo_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        CustList<RendDynOperationNode> ops2_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1202,11 +1221,11 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_, htmlTwo_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1227,15 +1246,15 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanThree", "bean_three", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_, htmlTwo_, htmlThree_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        CustList<RendDynOperationNode> ops2_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
-        CustList<RendDynOperationNode> ops3_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_three"), analyzingDoc_, "$new pkg.BeanThree()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
+        CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, analyzingDoc_, "bean_three", "$new pkg.BeanThree()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1251,6 +1270,18 @@ public abstract class CommonRender {
     }
 
     protected static void analyzeInner(Configuration conf_, AnalyzedTestConfiguration a_, AnalyzingDoc analyzingDoc_, String..._html) {
+        StringMap<AnaRendDocumentBlock> d_ = analyze(conf_, a_, analyzingDoc_, _html);
+        putRenders(conf_, a_, d_);
+    }
+
+    private static void putRenders(Configuration conf_, AnalyzedTestConfiguration a_, StringMap<AnaRendDocumentBlock> d_) {
+        for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
+            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), a_.getConfiguration(),a_.getAnalyzing());
+            conf_.getRenders().put(v.getKey(), rendDoc_);
+        }
+    }
+
+    private static StringMap<AnaRendDocumentBlock> analyze(Configuration conf_, AnalyzedTestConfiguration a_, AnalyzingDoc analyzingDoc_, String... _html) {
         int c_ = 1;
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
@@ -1263,27 +1294,16 @@ public abstract class CommonRender {
         for (AnaRendDocumentBlock v: d_.values()) {
             v.buildFctInstructions(a_.getConfiguration(), analyzingDoc_, a_.getAnalyzing());
         }
-        for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
-            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), a_.getConfiguration(),a_.getAnalyzing(), analyzingDoc_);
-            conf_.getRenders().put(v.getKey(), rendDoc_);
-        }
+        return d_;
     }
-    private static void newBeanInfo(AnalyzedTestConfiguration a_, String className, String bean_two) {
+
+    private static void newBeanInfo(AnalyzedTestConfiguration a_, String className, String bean_two, AnalyzingDoc _anaDoc) {
         BeanInfo b2_ = new BeanInfo();
         b2_.setClassName(className);
         b2_.setResolvedClassName(className);
         a_.getConfiguration().getBeansInfos().addEntry(bean_two, b2_);
-    }
-
-    private static CustList<RendDynOperationNode> setBeanInfo(AnalyzedTestConfiguration a_, BeanInfo _b, AnalyzingDoc analyzingDoc_, String el) {
-        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, el);
-        _b.setExps(ops2_);
-        return ops2_;
-    }
-
-    private static CustList<RendDynOperationNode> getAnalyzedOperations(AnalyzingDoc analyzingDoc_, AnalyzedTestConfiguration conf_1, String _el) {
-        OperationNode ops_ = RenderAnalysis.getRootAnalyzedOperations(_el, 0, analyzingDoc_, conf_1.getAnalyzing());
-        return RendForwardInfos.getExecutableNodes(conf_1.getAnalyzing(),analyzingDoc_,ops_);
+        OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations("$new "+className+"()", 0, _anaDoc, a_.getAnalyzing());
+        _anaDoc.getBeansInfos().addEntry(root_,b2_);
     }
 
     protected static String getResThreeBean(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _currentUrl) {
@@ -1294,15 +1314,15 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
         AnalyzingDoc analyzingDoc_1 = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_1);
+        newBeanInfo(a_, "pkg.BeanThree", "bean_three", analyzingDoc_1);
         analyzeInner(conf_, a_, analyzingDoc_1, html_, htmlTwo_, htmlThree_);
         AnalyzingDoc analyzingDoc_ = analyzingDoc_1;
-        CustList<RendDynOperationNode> ops_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        CustList<RendDynOperationNode> ops2_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
-        CustList<RendDynOperationNode> ops3_ = setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_three"), analyzingDoc_, "$new pkg.BeanThree()");
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
+        CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, analyzingDoc_, "bean_three", "$new pkg.BeanThree()");
         assertTrue(isEmptyErrors(a_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1327,14 +1347,14 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_);
+        newBeanInfo(a_, "pkg.BeanThree", "bean_three", analyzingDoc_);
         analyzeInner(conf_, a_, analyzingDoc_, html_, htmlTwo_, htmlThree_);
-        setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
-        setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_three"), analyzingDoc_, "$new pkg.BeanThree()");
+        buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
+        buildExecPart(a_, analyzingDoc_, "bean_three", "$new pkg.BeanThree()");
         return !isEmptyErrors(a_);
     }
 
@@ -1346,18 +1366,18 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one", analyzingDoc_);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two", analyzingDoc_);
         analyzeInner(conf_, a_, analyzingDoc_, html_, htmlTwo_);
-        setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_one"), analyzingDoc_, "$new pkg.BeanOne()");
-        setBeanInfo(a_, a_.getConfiguration().getBeansInfos().getVal("bean_two"), analyzingDoc_, "$new pkg.BeanTwo()");
+        buildExecPart(a_, analyzingDoc_, "bean_one", "$new pkg.BeanOne()");
+        buildExecPart(a_, analyzingDoc_, "bean_two", "$new pkg.BeanTwo()");
         return !isEmptyErrors(a_);
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, AnalyzedPageEl _page) {
         OperationNode root_ = _list.last();
-        return RendForwardInfos.getExecutableNodes(_page, _anaDoc, root_);
+        return RendForwardInfos.getExecutableNodes(_page, root_);
     }
 
     public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {

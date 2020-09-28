@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -56,7 +55,7 @@ public final class ResultInput {
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _anaDoc, _page);
+                        AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     }
                     if (infoField_.isFinalField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -64,7 +63,7 @@ public final class ResultInput {
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _anaDoc, _page);
+                        AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     }
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
@@ -137,7 +136,7 @@ public final class ResultInput {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         } else {
             String type_ = _read.getAttribute(_cont.getRendKeyWords().getAttrType());
@@ -146,7 +145,7 @@ public final class ResultInput {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         if (_read.hasAttribute(_varValue)) {

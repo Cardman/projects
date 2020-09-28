@@ -1,7 +1,7 @@
 package code.formathtml.stacks;
 
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.RendCallingFinally;
+import code.formathtml.exec.blocks.RendCallingFinally;
 
 public final class RendExceptionCallingFinally extends RendAbruptCallingFinally {
     private final Struct exception;

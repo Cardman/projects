@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendClass  extends AnaRendParentBlock {
@@ -26,7 +26,7 @@ public final class AnaRendClass  extends AnaRendParentBlock {
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordClass(),
                     _cont.getRendKeyWords().getKeyWordPackage());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendPackage par_ = (AnaRendPackage) getParent();
             fullName = StringList.concat(par_.getName(),DOT,name);
@@ -37,7 +37,7 @@ public final class AnaRendClass  extends AnaRendParentBlock {
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         fullName);
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
         }
     }

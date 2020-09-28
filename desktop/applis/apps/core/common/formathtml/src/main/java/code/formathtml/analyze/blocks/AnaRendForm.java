@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -49,7 +49,7 @@ public final class AnaRendForm extends AnaRendElement {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),AND_ERR),
                             _page.getStandards().getAliasLong());
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
             int l_ = roots.size();

@@ -24,7 +24,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -82,7 +82,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getStandards().getAliasNullPe());
-            Configuration.addError(static_, _anaDoc, _page);
+            AnalyzingDoc.addError(static_, _anaDoc, _page);
         } else if (root_.getResultClass().isArray()) {
             inferArrayClass(_anaDoc, root_, _page);
         } else {
@@ -103,7 +103,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
@@ -112,7 +112,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
@@ -138,7 +138,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                 cast_.setIndexFile(expressionOffset);
                 cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         className.trim());
-                Configuration.addError(cast_, _anaDoc, _page);
+                AnalyzingDoc.addError(cast_, _anaDoc, _page);
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
@@ -152,7 +152,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),AND_ERR),
                             importedClassName);
-                    Configuration.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
             }
         }
@@ -187,7 +187,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    Configuration.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
             }
         } else {
@@ -197,7 +197,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getStandards().getAliasObject(),
                     _page.getStandards().getAliasIterable());
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
     }
     private boolean toInfer(AnalyzedPageEl _page) {

@@ -11,7 +11,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public abstract class AnaRendCondition extends AnaRendParentBlock {
@@ -58,7 +58,7 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
                     un_.setIndexFile(conditionOffset);
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(exp_.getNames(),AND_ERR));
-                    Configuration.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package code.formathtml.exec.blocks;
 
-import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
 

@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
 
@@ -33,7 +33,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                     _page.getKeyWords().getKeyWordDefault(),
                     EMPTY_STRING,
                     _page.getKeyWords().getKeyWordSwitch());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendSwitchBlock s_ = (AnaRendSwitchBlock) b_;
             String instanceTest_ = s_.getInstanceTest();
@@ -48,7 +48,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                                 _page.getKeyWords().getKeyWordDefault(),
                                 _page.getKeyWords().getKeyWordSwitch());
-                        Configuration.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _anaDoc, _page);
                         break;
                     }
                     first_ = first_.getNextSibling();
@@ -64,7 +64,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                         _page.getKeyWords().getKeyWordDefault(),
                         _page.getKeyWords().getKeyWordSwitch());
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(getVariableName(), _page);
             if (res_.isError()) {
@@ -73,7 +73,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                Configuration.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _anaDoc, _page);
                 return;
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();

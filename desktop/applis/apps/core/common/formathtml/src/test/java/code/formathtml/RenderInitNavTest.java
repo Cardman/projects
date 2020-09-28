@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.structs.NullStruct;
-import code.formathtml.util.AdvancedFullStack;
+import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;

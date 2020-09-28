@@ -2,7 +2,7 @@ package code.formathtml.util;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
 

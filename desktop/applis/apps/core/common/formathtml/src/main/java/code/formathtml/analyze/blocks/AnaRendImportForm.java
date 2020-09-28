@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendImportForm extends AnaRendParentBlock {
     private String name;
@@ -23,7 +23,7 @@ public final class AnaRendImportForm extends AnaRendParentBlock {
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordForm(),
                     _cont.getRendKeyWords().getKeyWordImport());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         }
     }
 

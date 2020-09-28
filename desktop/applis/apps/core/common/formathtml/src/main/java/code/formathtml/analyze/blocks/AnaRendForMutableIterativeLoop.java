@@ -17,7 +17,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
@@ -84,7 +84,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
@@ -151,7 +151,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                         un_.setIndexFile(expressionOffset);
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(exp_.getNames(),AND_ERR));
-                        Configuration.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _anaDoc, _page);
                     }
                 }
             }

@@ -17,8 +17,15 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.exec.*;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendImport;
+import code.formathtml.exec.blocks.RendImportForm;
+import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.exec.opers.RendInvokingOperation;
+import code.formathtml.exec.opers.RendSettableFieldOperation;
+import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
@@ -413,8 +420,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected abstract Struct newId(Object _obj, String _className);
 
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
-        _nav.initInstancesPattern(_page);
-        _nav.setupRenders(_page, this, _rend);
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        _nav.initInstancesPattern(_page, analyzingDoc_);
+        _nav.setupRenders(_page, this, _rend, analyzingDoc_);
         return _page.getMessages();
     }
     public abstract Struct wrapStd(Object _element);

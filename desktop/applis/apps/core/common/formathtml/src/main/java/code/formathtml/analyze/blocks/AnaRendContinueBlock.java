@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendContinueBlock extends AnaRendLeaf {
@@ -64,7 +64,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf {
                                 ),
                                 OR_ERR));
             }
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         }
     }
 

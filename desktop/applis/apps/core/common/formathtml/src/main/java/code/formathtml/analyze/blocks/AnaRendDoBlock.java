@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendLoop {
 
@@ -28,7 +28,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                     _page.getKeyWords().getKeyWordDo(),
                     _page.getKeyWords().getKeyWordWhile());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else if (!(pBlock_ instanceof AnaRendDoWhileCondition)) {
             if (!(pBlock_ instanceof AnaRendPossibleEmpty)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -37,7 +37,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             } else if (pBlock_.getNextSibling() == null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
@@ -45,7 +45,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             } else if (!(pBlock_.getNextSibling() instanceof AnaRendDoWhileCondition)){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
@@ -53,7 +53,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
         }
     }

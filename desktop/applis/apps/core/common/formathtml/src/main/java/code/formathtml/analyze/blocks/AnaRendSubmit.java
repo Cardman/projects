@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;

@@ -24,7 +24,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -64,7 +64,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     _page.getKeyWords().getKeyWordCase(),
                     value,
                     _page.getKeyWords().getKeyWordSwitch());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
             root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
             return;
         }
@@ -83,7 +83,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                Configuration.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _anaDoc, _page);
                 return;
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -131,7 +131,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
                         _page.getKeyWords().getKeyWordCase(),
                         value);
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
                 return;
             }
         }
@@ -146,7 +146,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
                     _page.getKeyWords().getKeyWordCase(),
                     value);
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             checkDuplicateCase(arg_, _anaDoc, _page);
             Mapping m_ = new Mapping();
@@ -160,7 +160,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                         _page.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(arg_, _page),
                         StringList.join(resSwitch_.getNames(),AND_ERR));
-                Configuration.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
         }
     }
@@ -181,7 +181,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                                 _page.getKeyWords().getKeyWordCase(),
                                 AnaApplyCoreMethodUtil.getString(_arg, _page),
                                 _page.getKeyWords().getKeyWordSwitch());
-                        Configuration.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _anaDoc, _page);
                         break;
                     }
                 }
@@ -204,7 +204,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                             _page.getKeyWords().getKeyWordCase(),
                             value.trim(),
                             _page.getKeyWords().getKeyWordSwitch());
-                    Configuration.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
                     break;
                 }
 

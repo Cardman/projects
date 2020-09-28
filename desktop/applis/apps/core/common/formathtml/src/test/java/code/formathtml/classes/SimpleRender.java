@@ -1,6 +1,6 @@
 package code.formathtml.classes;
 
-import code.formathtml.RendParentBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
 
 public final class SimpleRender extends RendParentBlock {
     public SimpleRender() {

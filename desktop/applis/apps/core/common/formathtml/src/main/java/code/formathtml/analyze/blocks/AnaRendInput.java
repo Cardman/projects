@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 
@@ -71,7 +71,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         } else {
@@ -85,7 +85,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             clName_,
                             clName_);
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (rootRead != null) {
                 if (!_cont.getAdvStandards().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
@@ -96,7 +96,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR),
                             clName_);
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         }
@@ -126,7 +126,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
                         _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
     }

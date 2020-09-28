@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.Ints;
@@ -80,7 +79,7 @@ public final class ResultText {
                             Character.toString(RIGHT_EL),
                             Integer.toString(i_),
                             _expression);
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     return;
                 }
                 OperationNode root_ = RenderAnalysis.getRootAnalyzedOperationsDel(_expression, i_, _anaDoc, _page);
@@ -97,7 +96,7 @@ public final class ResultText {
                         Character.toString(RIGHT_EL),
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;
             }
             str_.append(cur_);
@@ -140,7 +139,7 @@ public final class ResultText {
                         Character.toString(cur_),
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;
             }
             if (cur_ == ESCAPED) {
@@ -161,7 +160,7 @@ public final class ResultText {
                             " ",
                             Integer.toString(i_),
                             _expression);
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
@@ -180,7 +179,7 @@ public final class ResultText {
                         " ",
                         Integer.toString(i_),
                         _expression);
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;
             }
             str_.append(cur_);
@@ -212,7 +211,7 @@ public final class ResultText {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.getResultClass().getNames(),AnaRendBlock.AND_ERR),
                             _page.getStandards().getAliasLong());
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
             int l_ = opExpRoot_.size();

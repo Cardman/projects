@@ -23,7 +23,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 import code.util.StringMap;
@@ -109,7 +109,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getStandards().getAliasNullPe());
-            Configuration.addError(static_, _anaDoc, _page);
+            AnalyzingDoc.addError(static_, _anaDoc, _page);
         } else {
             StringList names_ = root.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _cont, _page);
@@ -132,7 +132,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         TokenErrorMessage resOne_ = ManageTokens.partVar(page_).checkTokenVar(variableNameFirst, page_);
         if (resOne_.isError()) {
@@ -140,7 +140,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setBuiltError(resOne_.getMessage());
-            Configuration.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _anaDoc, _page);
             okVarFirst = false;
         }
         TokenErrorMessage resTwo_ = ManageTokens.partVar(page_).checkTokenVar(variableNameSecond, page_);
@@ -149,7 +149,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setBuiltError(resTwo_.getMessage());
-            Configuration.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _anaDoc, _page);
             okVarSecond = false;
         }
         page_.setGlobalOffset(classNameOffsetFirst);
@@ -198,7 +198,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameFirst);
-                    Configuration.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
             }
             mapping_ = new Mapping();
@@ -224,7 +224,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameSecond);
-                    Configuration.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
             }
         } else {
@@ -234,7 +234,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getStandards().getAliasObject(),
                     _page.getStandards().getAliasIterableTable());
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
     }
 
@@ -246,7 +246,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 d_.setIndexFile(variableNameOffsetSecond);
                 d_.buildError(_page.getAnalysisMessages().getBadVariableName(),
                         variableNameFirst);
-                Configuration.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _anaDoc, _page);
                 return;
             }
         }

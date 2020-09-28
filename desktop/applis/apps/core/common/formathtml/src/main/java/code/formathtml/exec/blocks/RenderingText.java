@@ -2,8 +2,8 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
-import code.formathtml.RenderExpUtil;
-import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;

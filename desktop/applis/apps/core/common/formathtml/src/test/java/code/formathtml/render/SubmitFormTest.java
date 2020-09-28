@@ -1,6 +1,8 @@
 package code.formathtml.render;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.common.ClassField;
@@ -1014,9 +1016,9 @@ public final class SubmitFormTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         setupAna(anaDoc_, page_);
-        _nav.initInstancesPattern(page_);
+        _nav.initInstancesPattern(page_, anaDoc_);
         _nav.getSession().setPrefix("c:");
-        _nav.setupRenders(page_, _stds, anaDoc_.getRendAnalysisMessages());
+        _nav.setupRenders(page_, _stds, anaDoc_.getRendAnalysisMessages(), anaDoc_);
     }
 
 

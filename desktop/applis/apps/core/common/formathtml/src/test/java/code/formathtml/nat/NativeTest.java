@@ -19,18 +19,17 @@ import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.MyValidator;
 import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.LongMap;
@@ -1248,8 +1247,8 @@ public final class NativeTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setupAna(analyzingDoc_, _conf.getAnalyzing());
-        _nav.initInstancesPattern(_conf.getAnalyzing());
-        _nav.setupRenders(_conf.getAnalyzing(), standards_, analyzingDoc_.getRendAnalysisMessages());
+        _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
+        _nav.setupRenders(_conf.getAnalyzing(), standards_, analyzingDoc_.getRendAnalysisMessages(),analyzingDoc_);
         _nav.initializeRendSession();
     }
 

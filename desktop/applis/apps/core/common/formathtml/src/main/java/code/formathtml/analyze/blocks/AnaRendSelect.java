@@ -13,7 +13,7 @@ import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -86,7 +86,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.setIndexFile(getOffset().getOffsetTrim());
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _cont.getRendKeyWords().getAttrConvertValue());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
             String string_ = _page.getStandards().getAliasString();
             StringList varNames_ = new StringList();
@@ -113,7 +113,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setIndexFile(offConvValue_);
                     badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(candidates_,AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
                 Mapping m_ = new Mapping();
                 m_.setArg(rootConverter.getResultClass());
@@ -125,7 +125,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         } else if (rootRead != null){
@@ -139,7 +139,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             _cont.getRendKeyWords().getAttrConvertValue());
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
                 String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
@@ -164,7 +164,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (!converterValue_.trim().isEmpty()) {
                 String string_ = _page.getStandards().getAliasString();
@@ -190,7 +190,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         }
@@ -220,7 +220,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
                         _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         String converterFieldValue_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertFieldValue());
@@ -249,7 +249,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
                         _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         String default_ = elt.getAttribute(_cont.getRendKeyWords().getAttrDefault());
@@ -261,7 +261,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.setIndexFile(getOffset().getOffsetTrim());
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _cont.getRendKeyWords().getAttrConvert());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
             String concat_ = StringList.concat(mName_,LEFT_PAR,STR,default_,STR,RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvert());
@@ -277,7 +277,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootDefault.getResultClass().getNames(),AND_ERR),
                             _page.getStandards().getAliasCharSequence());
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else {
                 IterableAnalysisResult it_ = _page.getStandards().getCustomType(rootDefault.getResultClass().getNames(),"", _page);
@@ -288,7 +288,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setIndexFile(getAttributeDelimiter(_cont.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(candidates_,AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         }

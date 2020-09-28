@@ -1,6 +1,6 @@
 package code.formathtml.structs;
 
-import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 
 public final class ValidatorInfo {

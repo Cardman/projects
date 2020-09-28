@@ -13,7 +13,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements AnaRendLocBreakableBlock {
@@ -52,7 +52,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
             un_.setIndexFile(valueOffset);
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _page.getAnaGeneType(id_);
@@ -73,7 +73,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                             un_.setIndexFile(valueOffset);
                             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            Configuration.addError(un_, _anaDoc, _page);
+                            AnalyzingDoc.addError(un_, _anaDoc, _page);
                         }
                     } else {
                         enumTest = true;
@@ -109,7 +109,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                                     _page.getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
             first_ = first_.getNextSibling();
         }
     }

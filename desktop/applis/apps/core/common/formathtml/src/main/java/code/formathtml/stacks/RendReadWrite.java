@@ -1,7 +1,7 @@
 package code.formathtml.stacks;
 
 import code.formathtml.Configuration;
-import code.formathtml.RendBlock;
+import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.util.NodeContainer;
 import code.sml.Document;
 import code.sml.Node;

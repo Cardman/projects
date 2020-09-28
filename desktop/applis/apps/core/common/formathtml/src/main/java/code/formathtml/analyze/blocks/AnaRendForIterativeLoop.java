@@ -21,7 +21,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
@@ -97,7 +97,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
@@ -110,7 +110,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             cast_.setIndexFile(classNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
-            Configuration.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(variableNameOffset);
         _page.setOffset(0);
@@ -120,7 +120,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _anaDoc, _page);
         }
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
@@ -167,7 +167,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         _result,
                         StringList.join(_currentRoot.getResultClass().getNames(),AND_ERR));
-                Configuration.addError(cast_, _anaDoc, _page);
+                AnalyzingDoc.addError(cast_, _anaDoc, _page);
             }
         }
     }

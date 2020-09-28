@@ -11,7 +11,7 @@ import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,7 +63,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
                 String string_ = _page.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
@@ -88,7 +88,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
         }
@@ -118,7 +118,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
                         _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         String id_ = elt.getAttribute(_cont.getRendKeyWords().getAttrId());

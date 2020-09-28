@@ -1,6 +1,6 @@
 package code.formathtml.stacks;
 
-import code.formathtml.RendCallingFinally;
+import code.formathtml.exec.blocks.RendCallingFinally;
 
 public class RendAbruptCallingFinally {
     private final RendCallingFinally callingFinally;

@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 
@@ -60,7 +60,7 @@ public final class AnaRendRadio extends AnaRendInput {
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
                         _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
     }

@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -110,7 +110,7 @@ public final class AnaRendMessage extends AnaRendParentBlock {
                     badEl_.setIndexFile(offMessage_);
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
-                    Configuration.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
                 callsRoots.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);

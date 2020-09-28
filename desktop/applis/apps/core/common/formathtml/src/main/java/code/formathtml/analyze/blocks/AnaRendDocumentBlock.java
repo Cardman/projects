@@ -11,7 +11,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -177,14 +177,14 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 bad_.setFileName(_anaDoc.getFileName());
                 bad_.setIndexFile(((AnaRendLocBreakableBlock) _block).getRealLabelOffset());
                 bad_.buildError(_page.getAnalysisMessages().getBadLabel());
-                Configuration.addError(bad_, _anaDoc, _page);
+                AnalyzingDoc.addError(bad_, _anaDoc, _page);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(_anaDoc.getFileName());
                     dup_.setIndexFile(((AnaRendLocBreakableBlock) _block).getRealLabelOffset());
                     dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
-                    Configuration.addError(dup_, _anaDoc, _page);
+                    AnalyzingDoc.addError(dup_, _anaDoc, _page);
                 } else {
                     _labels.add(label_);
                 }

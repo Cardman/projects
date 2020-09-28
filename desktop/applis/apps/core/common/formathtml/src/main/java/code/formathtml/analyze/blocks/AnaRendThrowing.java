@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendThrowing extends AnaRendLeaf {
 

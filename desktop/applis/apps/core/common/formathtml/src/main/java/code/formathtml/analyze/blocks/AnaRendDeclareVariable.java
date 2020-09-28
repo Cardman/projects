@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.options.KeyWords;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendDeclareVariable extends AnaRendLeaf {

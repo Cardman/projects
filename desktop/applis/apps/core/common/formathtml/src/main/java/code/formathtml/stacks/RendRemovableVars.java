@@ -1,6 +1,6 @@
 package code.formathtml.stacks;
 
-import code.formathtml.RendParentBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
 
 public interface RendRemovableVars {
 

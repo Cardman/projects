@@ -1,5 +1,5 @@
 package code.formathtml.stacks;
-import code.formathtml.*;
+import code.formathtml.exec.blocks.RendParentBlock;
 
 public final class RendIfStack implements RendRemovableVars {
 

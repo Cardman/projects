@@ -10,13 +10,12 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.*;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 
 public abstract class AnaRendBlock implements AnalyzedBlock {
-    static final String SPACE = " ";
-    static final String RETURN_LINE = "\n";
     static final String CALL_METHOD = "$";
     public static final String COMMA = ",";
     static final String EMPTY_STRING = "";
@@ -43,6 +42,9 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     private static final char EQUALS = '=';
     private static final char QUOT = 34;
     private static final char APOS = 39;
+    private static final String LINE_RETURN = "\n";
+    private static final String TAB = "\t";
+    private static final String BEFORE_LINE_RETURN = "\r\n";
     private AnaRendParentBlock parent;
 
     private AnaRendBlock nextSibling;
@@ -428,14 +430,14 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
             badEl_.setIndexFile(_offset);
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                     var_);
-            Configuration.addError(badEl_, _analyzingDoc, _page);
+            AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
             return new StringMap<String>();
         }
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
             StringMap<String> files_ = _cont.getFiles();
-            String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
-            int index_ = RendExtractFromResources.indexCorrectMessages(content_);
+            String content_ = tryGetContent(_cont, l, fileName_, files_);
+            int index_ = indexCorrectMessages(content_);
             String cont_ = content_;
             if (cont_ == null) {
                 cont_ = EMPTY_STRING;
@@ -448,19 +450,19 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                         " ",
                         Integer.toString(index_),
                         cont_);
-                Configuration.addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = RendExtractFromResources.getMessages(cont_);
+            StringMap<String> messages_ = getMessages(cont_);
             String key_ = elts_.last();
-            String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
+            String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_analyzingDoc.getFileName());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                         key_);
-                Configuration.addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 return new StringMap<String>();
             }
             pres_.addEntry(l,format_);
@@ -494,6 +496,70 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
             i_++;
         }
     }
+
+    public static String getQuickFormat(StringMap<String> _messages, String _key) {
+        return _messages.getVal(_key);
+    }
+
+    public static String tryGetContent(Configuration _conf, String _loc, String _relative, StringMap<String> _files) {
+        String folder_ = _conf.getMessagesFolder();
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
+        return getContentFile(_files, fileName_);
+    }
+
+    public static int indexCorrectMessages(String _content) {
+        if (_content == null) {
+            return 0;
+        }
+        int line_ = CustList.FIRST_INDEX;
+        for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+            line_++;
+            if (l.isEmpty()) {
+                continue;
+            }
+            if (!l.startsWith(TAB)) {
+                int indexSep_ = l.indexOf(EQUALS);
+                if (indexSep_ < 0) {
+                    return line_;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static StringMap<String> getMessages(String _content) {
+        String lastKey_ = EMPTY_STRING;
+        StringMap<String> messages_ = new StringMap<String>();
+        for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+            if (l.isEmpty()) {
+                continue;
+            }
+            if (l.startsWith(TAB)) {
+                String text_ = messages_.getVal(lastKey_);
+                if (text_ != null) {
+                    text_ = StringList.concat(text_,l.substring(1));
+                    messages_.put(lastKey_, text_);
+                }
+            } else {
+                int indexSep_ = l.indexOf(EQUALS);
+                lastKey_ = l.substring(0,indexSep_);
+                messages_.put(lastKey_, l.substring(indexSep_+1));
+            }
+        }
+        return messages_;
+    }
+
+    private static String getContentFile(StringMap<String> _files, String _fileName) {
+        String content_ = null;
+        for (EntryCust<String, String> e: _files.entryList()) {
+            if (StringList.quickEq(e.getKey(),_fileName)) {
+                content_ = e.getValue();
+                break;
+            }
+        }
+        return content_;
+    }
+
     public abstract void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));

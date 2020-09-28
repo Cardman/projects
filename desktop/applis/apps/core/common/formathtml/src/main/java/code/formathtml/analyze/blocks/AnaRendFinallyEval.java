@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.Configuration;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaRendEval {
@@ -29,7 +29,7 @@ public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaR
                                             _page.getKeyWords().getKeyWordTry()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
                 } else if (!(pBlock_.getPreviousSibling() instanceof AnaRendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof AnaRendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -43,7 +43,7 @@ public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaR
                                                 _page.getKeyWords().getKeyWordTry()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _anaDoc, _page);
                     }
                 }
             }

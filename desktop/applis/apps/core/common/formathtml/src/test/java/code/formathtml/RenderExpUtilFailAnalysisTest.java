@@ -5,8 +5,8 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodId;
-import code.formathtml.util.AdvancedFullStack;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.exec.AdvancedFullStack;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -324,7 +324,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        Configuration.setupInts(page_, analyzingDoc_);
+        AnalyzingDoc.setupInts(page_, analyzingDoc_);
         page_.setGlobalClass(globalClass_);
         page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
         for (PairVar e: _vars) {

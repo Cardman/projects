@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendField extends AnaRendParentBlock {
     private String prepare;
@@ -28,7 +28,7 @@ public final class AnaRendField extends AnaRendParentBlock {
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordField(),
                     _cont.getRendKeyWords().getKeyWordClass());
-            Configuration.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendClass cl_ = (AnaRendClass) getParent();
             String intern_ = cl_.getFullName();

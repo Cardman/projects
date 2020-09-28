@@ -1,28 +1,24 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendLocalThrowing;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.*;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.*;
 
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -36,6 +32,8 @@ public final class Configuration {
     private static final String EMPTY_STRING = "";
 
     private static final int DEFAULT_TAB_WIDTH = 4;
+    private static final String SEPARATOR_PATH = "/";
+    private static final String IMPLICIT_LANGUAGE = "//";
 
     private String firstUrl = EMPTY_STRING;
 
@@ -98,29 +96,8 @@ public final class Configuration {
     private RendDocumentBlock rendDocumentBlock;
     private StringMap<String> files = new StringMap<String>();
 
-    public ArrayStruct newStackTraceElementArray() {
-        int count_ = importing.size();
-        int lenArrCtx_ = context.nbPages();
-        Struct[] arr_ = new Struct[count_+ lenArrCtx_];
-        for (int i = 0; i < count_; i++) {
-            arr_[i] = newStackTraceElement(i);
-        }
-        for (int i = 0; i < lenArrCtx_; i++) {
-            arr_[i+count_] = ExecutingUtil.newStackTraceElement(context,i);
-        }
-        String cl_ = context.getStandards().getAliasStackTraceElement();
-        cl_ = StringExpUtil.getPrettyArrayType(cl_);
-        return new ArrayStruct(arr_, cl_);
-    }
-
-    private StackTraceElementStruct newStackTraceElement(int _index) {
-        ImportingPage call_ = importing.get(_index);
-        int indexFileType_ = call_.getSum();
-        int row_ = call_.getRowFile(indexFileType_);
-        int col_ = call_.getColFile(indexFileType_,row_);
-        String fileName_ = call_.getReadUrl();
-        String currentClassName_ = call_.getGlobalClass();
-        return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
+    public static String getRealFilePath(String _lg, String _link) {
+        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
     public void init() {
@@ -135,22 +112,22 @@ public final class Configuration {
     public void setupRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         renders.clear();
         setFiles(_files);
-        setupInts(_page, _analyzingDoc);
+        AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String s: renderFiles) {
-            String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
+            String link_ = getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_analyzingDoc.getFileName());
-                badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
+                badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
                 badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
-                addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
             currentUrl = link_;
@@ -161,19 +138,19 @@ public final class Configuration {
             v.buildFctInstructions(this, _analyzingDoc, _page);
         }
         for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
-            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), this,_page, _analyzingDoc);
+            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), this,_page);
             renders.put(v.getKey(), rendDoc_);
         }
         String currentUrl_ = getFirstUrl();
-        String realFilePath_ = RendExtractFromResources.getRealFilePath(currentLanguage, currentUrl_);
+        String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
         rendDocumentBlock = getRenders().getVal(realFilePath_);
         if (rendDocumentBlock == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
-            badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
+            badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantFile(),
                     realFilePath_);
-            addError(badEl_, _analyzingDoc, _page);
+            AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
         }
     }
     public void initForms() {
@@ -363,16 +340,6 @@ public final class Configuration {
     }
 
 
-    public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
-        _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
-        _analyzing.addWarning(_warning);
-    }
-
-    public static void addError(FoundErrorInterpret _error, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
-        _error.setLocationFile(_analyzingDoc.getLocationFile(_error.getFileName(),_error.getIndexFile()));
-        _analyzing.addError(_error);
-    }
-
     public RendKeyWords getRendKeyWords() {
         return rendKeyWords;
     }
@@ -400,54 +367,12 @@ public final class Configuration {
         return getLastPage().getInternGlobal();
     }
 
-    public static int getCurrentLocationIndex(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {
-        int offset_ = _analyzing.getOffset();
-        return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
-    }
-
-    public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
-        _page.getMappingLocal().clear();
-        _page.setCurrentAnaBlock(null);
-        _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
-        _page.setHiddenTypes(new AdvancedHiddenTypes(_page));
-        _page.setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_page, _analyzingDoc));
-        _page.setCurrentConstraints(new AdvancedCurrentConstraints());
-        _page.setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        _page.setLoopDeclaring(new AdvancedLoopDeclaring(_analyzingDoc));
-        _page.setLocalDeclaring(new AdvancedLocalDeclaring(_analyzingDoc));
-        _page.setBuildingConstraints(new AdvancedBuildingConstraints(_page));
-        _page.setLocalizer(new AdvancedLocalizer(_page, _analyzingDoc));
-        _page.setTokenValidation(new AdvancedTokenValidation(_page));
-    }
-
     public StringList getAddedFiles() {
         return addedFiles;
     }
 
     public void setAddedFiles(StringList _addedFiles) {
         addedFiles = _addedFiles;
-    }
-
-    public boolean hasToExit(String _className) {
-        return hasToExit(_className,null);
-    }
-    public boolean hasToExit(String _className, Argument _arg) {
-        Classes classes_ = getClasses();
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock c_ = classes_.getClassBody(idCl_);
-        if (c_ != null) {
-            InitClassState res_ = context.getLocks().getState(getContext(), idCl_);
-            if (res_ == InitClassState.NOT_YET) {
-                getContext().setCallingState(new NotInitializedClass(idCl_,c_, _arg));
-                return true;
-            }
-            if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(idCl_,context);
-                setException(causing_);
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean hasPages() {
