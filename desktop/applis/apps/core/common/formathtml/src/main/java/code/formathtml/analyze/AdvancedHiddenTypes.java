@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.types.AbstractHiddenTypes;
+import code.expressionlanguage.analyze.AbstractHiddenTypes;
 
 public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
     private final AnalyzedPageEl configuration;

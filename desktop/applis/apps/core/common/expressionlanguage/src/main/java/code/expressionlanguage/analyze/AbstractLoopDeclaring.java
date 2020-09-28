@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
 public interface AbstractLoopDeclaring {
     boolean hasLoopDeclarator();

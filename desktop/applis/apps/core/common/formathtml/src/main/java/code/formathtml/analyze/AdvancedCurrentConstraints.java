@@ -1,6 +1,6 @@
 package code.formathtml.analyze;
 
-import code.expressionlanguage.types.AbstractCurrentConstraints;
+import code.expressionlanguage.analyze.AbstractCurrentConstraints;
 import code.util.StringList;
 import code.util.StringMap;
 

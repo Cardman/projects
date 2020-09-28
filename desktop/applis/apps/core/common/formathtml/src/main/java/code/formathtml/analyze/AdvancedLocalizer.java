@@ -3,7 +3,7 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.types.AbstractLocalizer;
+import code.expressionlanguage.analyze.AbstractLocalizer;
 
 public final class AdvancedLocalizer implements AbstractLocalizer {
     private final AnalyzedPageEl page;

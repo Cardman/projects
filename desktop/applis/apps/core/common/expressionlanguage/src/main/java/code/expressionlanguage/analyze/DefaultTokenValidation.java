@@ -1,8 +1,5 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ManageTokens;
-import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;

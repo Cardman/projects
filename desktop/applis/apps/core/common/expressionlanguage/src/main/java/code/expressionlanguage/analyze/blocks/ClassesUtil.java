@@ -632,8 +632,6 @@ public final class ClassesUtil {
         int c_ = _page.getCountTypes();
         _root.setNumberAll(c_);
         _page.setCountTypes(c_+1);
-        Members v_ = new Members();
-        _page.getMapMembers().put(_root, v_);
     }
 
     private static StringList getParamVarFromParent(RootBlock _root) {

@@ -1,6 +1,6 @@
 package code.formathtml.analyze;
 
-import code.expressionlanguage.types.AbstractLocalDeclaring;
+import code.expressionlanguage.analyze.AbstractLocalDeclaring;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDeclareVariable;
 

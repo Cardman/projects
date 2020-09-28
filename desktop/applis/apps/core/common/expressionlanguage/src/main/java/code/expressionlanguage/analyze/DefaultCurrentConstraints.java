@@ -1,6 +1,5 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.util.StringList;
 import code.util.StringMap;

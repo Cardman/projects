@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.types.AbstractCurrentGlobalBlock;
+import code.expressionlanguage.analyze.AbstractCurrentGlobalBlock;
 
 public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
     private final AnalyzedPageEl page;

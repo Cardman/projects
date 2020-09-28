@@ -1,6 +1,5 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.analyze.opers.AssocationOperation;

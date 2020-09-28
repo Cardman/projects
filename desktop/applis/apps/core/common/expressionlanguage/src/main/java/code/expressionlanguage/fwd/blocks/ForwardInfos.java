@@ -42,6 +42,10 @@ public final class ForwardInfos {
             _page.getErrors().putFile(content_, _page);
             files_.addEntry(file_,exFile_);
         }
+        for (RootBlock r: _page.getAllFoundTypes()) {
+            Members v_ = new Members();
+            _page.getMapMembers().put(r, v_);
+        }
         Classes classes_ = _page.getClasses();
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
@@ -426,7 +430,6 @@ public final class ForwardInfos {
         if (_page.getMapMembers().getKeys().isValidIndex(index_)) {
             execParentType_ = _page.getMapMembers().getValue(index_).getRootBlock();
         }
-        _page.getMapMembers().getValue(_root.getNumberAll());
         if (_root instanceof AnonymousTypeBlock) {
             ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess());
             e_.setParentType(execParentType_);

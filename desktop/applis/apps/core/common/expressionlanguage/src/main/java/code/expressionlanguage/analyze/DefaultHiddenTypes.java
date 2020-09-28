@@ -1,6 +1,5 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;

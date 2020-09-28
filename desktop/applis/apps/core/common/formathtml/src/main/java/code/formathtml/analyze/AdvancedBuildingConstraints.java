@@ -1,7 +1,7 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.types.AbstractBuildingConstraints;
+import code.expressionlanguage.analyze.AbstractBuildingConstraints;
 
 public final class AdvancedBuildingConstraints implements AbstractBuildingConstraints {
     private final AnalyzedPageEl configuration;

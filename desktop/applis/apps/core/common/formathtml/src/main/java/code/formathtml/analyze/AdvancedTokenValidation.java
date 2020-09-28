@@ -3,7 +3,7 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.types.AbstractTokenValidation;
+import code.expressionlanguage.analyze.AbstractTokenValidation;
 
 public final class AdvancedTokenValidation implements AbstractTokenValidation {
     private final AnalyzedPageEl context;

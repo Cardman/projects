@@ -1,7 +1,5 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 

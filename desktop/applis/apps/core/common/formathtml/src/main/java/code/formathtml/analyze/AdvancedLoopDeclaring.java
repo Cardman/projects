@@ -1,6 +1,6 @@
 package code.formathtml.analyze;
 
-import code.expressionlanguage.types.AbstractLoopDeclaring;
+import code.expressionlanguage.analyze.AbstractLoopDeclaring;
 import code.formathtml.analyze.blocks.AnaRendForMutableIterativeLoop;
 
 public final class AdvancedLoopDeclaring implements AbstractLoopDeclaring {

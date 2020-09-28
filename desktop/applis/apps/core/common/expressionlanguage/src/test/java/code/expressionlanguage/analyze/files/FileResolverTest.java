@@ -9922,7 +9922,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         return cont_;
     }
     private CustList<OperatorBlock> getOperators(AnalyzedTestContext context_) {
-        return context_.getAnalyzing().getMapOperators().getKeys();
+        return context_.getAnalyzing().getAllOperators();
     }
 
 }

@@ -34,7 +34,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.types.*;
 import code.util.*;
 
 public final class AnalyzedPageEl {
