@@ -144,7 +144,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()));
         String foundClass_ = cust_.getRealClass();
         MethodId realId_ = cust_.getRealId();
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {

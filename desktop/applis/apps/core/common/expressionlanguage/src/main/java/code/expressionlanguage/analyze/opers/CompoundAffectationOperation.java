@@ -128,12 +128,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     _page.getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                 }
-                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getStandards()));
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
             }
             setBool(right_,_page);
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
@@ -195,8 +195,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
+            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             return;
         }
         if (StringList.quickEq(operatorContent.getOper(), Block.AND_EQ) || StringList.quickEq(operatorContent.getOper(), Block.OR_EQ) || StringList.quickEq(operatorContent.getOper(), Block.XOR_EQ)) {
@@ -224,8 +224,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
+            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             setBool(right_,_page);
             return;
         }
@@ -246,8 +246,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
+            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             setBool(right_,_page);
             return;
         }
@@ -279,7 +279,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     getPartOffsetsChildren().add(err_);
                 }
             }
-            setResultClass(AnaClassArgumentMatching.copy(clMatchLeft_, _page.getStandards()));
+            setResultClass(AnaClassArgumentMatching.copy(clMatchLeft_, _page.getPrimitiveTypes()));
             return;
         }
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_, _page)
@@ -298,8 +298,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             getPartOffsetsChildren().add(err_);
         } else {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getStandards());
+            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
         }
     }
 

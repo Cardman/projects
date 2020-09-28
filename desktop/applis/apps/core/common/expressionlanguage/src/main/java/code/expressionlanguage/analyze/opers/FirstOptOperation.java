@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -95,7 +94,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             methodInfos_.addAllElts(newList_);
         }
         OperationNode child_ = getFirstChild();
-        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getPrimitiveTypes()));
     }
 
     public int getOffset() {

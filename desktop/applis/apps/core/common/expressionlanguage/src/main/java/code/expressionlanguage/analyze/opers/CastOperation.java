@@ -68,9 +68,9 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ typeCheckContent.getOffset(),_page);
         typeCheckContent.setClassName(ValidatorStandard.checkExactType(beginType, typeCheckContent.getClassName(), originalClassName, _page));
-        setResultClass(new AnaClassArgumentMatching(typeCheckContent.getClassName(), _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(typeCheckContent.getClassName(), _page.getPrimitiveTypes()));
         if (AnaTypeUtil.isPrimitive(typeCheckContent.getClassName(), _page)) {
-            getFirstChild().getResultClass().setUnwrapObject(typeCheckContent.getClassName(), _page.getStandards());
+            getFirstChild().getResultClass().setUnwrapObject(typeCheckContent.getClassName(), _page.getPrimitiveTypes());
         }
     }
 

@@ -1,8 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.types.AbstractLoopDeclaring;
-import code.formathtml.RendBlock;
-import code.formathtml.RendForMutableIterativeLoop;
+import code.formathtml.analyze.blocks.AnaRendForMutableIterativeLoop;
 
 public final class AdvancedLoopDeclaring implements AbstractLoopDeclaring {
     private final AnalyzingDoc configuration;
@@ -13,19 +12,16 @@ public final class AdvancedLoopDeclaring implements AbstractLoopDeclaring {
 
     @Override
     public boolean hasLoopDeclarator() {
-        RendBlock currentBlock_ = configuration.getCurrentBlock();
-        return currentBlock_ instanceof RendForMutableIterativeLoop;
+        return configuration.getCurrentBlock() instanceof AnaRendForMutableIterativeLoop;
     }
 
     @Override
     public void setupLoopDeclaratorClass(String _className) {
-        RendBlock currentBlock_ = configuration.getCurrentBlock();
-        ((RendForMutableIterativeLoop)currentBlock_).setImportedClassName(_className);
+        ((AnaRendForMutableIterativeLoop) configuration.getCurrentBlock()).setImportedClassName(_className);
     }
 
     @Override
     public String getIndexClassName() {
-        RendBlock currentBlock_ = configuration.getCurrentBlock();
-        return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
+        return ((AnaRendForMutableIterativeLoop) configuration.getCurrentBlock()).getImportedClassIndexName();
     }
 }

@@ -5,6 +5,8 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
@@ -134,6 +136,9 @@ public final class Configuration {
         renders.clear();
         setFiles(_files);
         setupInts(_page, _analyzingDoc);
+
+
+        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
@@ -149,10 +154,15 @@ public final class Configuration {
                 continue;
             }
             currentUrl = link_;
-            renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getStandards()));
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getStandards());
+            d_.addEntry(link_,anaDoc_);
         }
-        for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
-            d.getValue().buildFctInstructions(this, _analyzingDoc, _page);
+        for (AnaRendDocumentBlock v: d_.values()) {
+            v.buildFctInstructions(this, _analyzingDoc, _page);
+        }
+        for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
+            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), this,_page, _analyzingDoc);
+            renders.put(v.getKey(), rendDoc_);
         }
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = RendExtractFromResources.getRealFilePath(currentLanguage, currentUrl_);
@@ -551,6 +561,10 @@ public final class Configuration {
 
     public RendDocumentBlock getRendDocumentBlock() {
         return rendDocumentBlock;
+    }
+
+    public void setRendDocumentBlock(RendDocumentBlock rendDocumentBlock) {
+        this.rendDocumentBlock = rendDocumentBlock;
     }
 
     public void setFiles(StringMap<String> _files) {

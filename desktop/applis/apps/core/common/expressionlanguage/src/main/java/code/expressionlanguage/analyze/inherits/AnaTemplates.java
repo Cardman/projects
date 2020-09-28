@@ -112,10 +112,10 @@ public final class AnaTemplates {
             StringList prOne_ = new StringList();
             StringList prTwo_ = new StringList();
             for (String c: _first) {
-                prOne_.add(AnaTypeUtil.toPrimitive(c, stds_));
+                prOne_.add(AnaTypeUtil.toPrimitive(c, _page.getPrimitiveTypes()));
             }
             for (String c: _second) {
-                prTwo_.add(AnaTypeUtil.toPrimitive(c, stds_));
+                prTwo_.add(AnaTypeUtil.toPrimitive(c, _page.getPrimitiveTypes()));
             }
             StringList superTypesFirst_ = getSuperTypesSet(prOne_, _vars, _page);
             StringList superTypesSecond_ = getSuperTypesSet(prTwo_, _vars, _page);
@@ -166,10 +166,9 @@ public final class AnaTemplates {
     }
 
     private static CustList<AnaClassArgumentMatching> getAllSuperTypes(AnaClassArgumentMatching _class, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
         CustList<AnaClassArgumentMatching> gt_ = new CustList<AnaClassArgumentMatching>();
         String name_ = _class.getName();
-        StringMap<PrimitiveType> prs_ = stds_.getPrimitiveTypes();
+        StringMap<PrimitiveType> prs_ = _page.getPrimitiveTypes();
         PrimitiveType pr_ = prs_.getVal(name_);
         gt_.add(_class);
         for (String s: pr_.getAllSuperType(_page)) {
@@ -229,7 +228,7 @@ public final class AnaTemplates {
                 if (baseArrSup_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
                     continue;
                 }
-                AnaInheritedType pr_ = _page.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
+                AnaInheritedType pr_ = _page.getPrimitiveTypes().getVal(baseArrSub_.getComponent());
                 AnaInheritedType g_ = _page.getAnaGeneType(baseArrSub_.getComponent());
                 AnaInheritedType in_;
                 if (pr_ != null) {
@@ -764,9 +763,8 @@ public final class AnaTemplates {
             return !AnaTypeUtil.isPrimitive(p_, _page);
         }
         if (AnaTypeUtil.isPrimitive(p_, _page)) {
-            LgNames stds_ = _page.getStandards();
             Mapping m_ = new Mapping();
-            m_.setArg(AnaTypeUtil.toPrimitive(a_, stds_));
+            m_.setArg(AnaTypeUtil.toPrimitive(a_, _page.getPrimitiveTypes()));
             m_.setParam(p_);
             m_.setMapping(_m.getMapping());
             return isCorrect(m_, _page);
@@ -953,7 +951,7 @@ public final class AnaTemplates {
             return "";
         }
         if (AnaTypeUtil.isPrimitive(baseArr_,page_)) {
-            PrimitiveType pr_ = page_.getStandards().getPrimitiveTypes().getVal(baseArr_);
+            PrimitiveType pr_ = page_.getPrimitiveTypes().getVal(baseArr_);
             if (StringList.contains(pr_.getAllSuperType(page_), classParam_)) {
                 return _superType;
             }

@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.structs.BeanInfo;
@@ -460,7 +461,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                                                    String _res,
                                                    StringMap<String> _args, Classes _classes) {
         CustList<RendDynOperationNode> ops_ = new CustList<RendDynOperationNode>();
-        RendDotOperation dot_ = new RendDotOperation(0,new ExecClassArgumentMatching(_res),_args.size()+2);
+        final ExecClassArgumentMatching execClassArgumentMatching = new ExecClassArgumentMatching(_res);
+        RendDotOperation dot_ = new RendDotOperation(new ExecOperationContent(0, execClassArgumentMatching, _args.size()+2));
         RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
@@ -468,7 +470,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
         ExecNamedFunctionBlock fct_ = list_.first();
-        RendFctOperation f_ = new RendFctOperation(new ExecClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
+        final ExecClassArgumentMatching execClassArgumentMatching1 = new ExecClassArgumentMatching(_res);
+        RendFctOperation f_ = new RendFctOperation(fct_, classBody_, new ExecOperationContent(1, execClassArgumentMatching1, _args.size()+1), new ExecInstFctContent(_id), true);
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
             RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());
@@ -486,7 +489,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = getAliasStringMapObject();
         ExecRootBlock ex_ = _classes.getClassBody(aliasStringMapObject_);
-        opsMap.add(new RendStandardInstancingOperation(new ExecClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false),ex_));
+        ExecClassArgumentMatching execClassArgumentMatching = new ExecClassArgumentMatching(aliasStringMapObject_);
+        ConstructorId constructorId = new ConstructorId(aliasStringMapObject_, new StringList(), false);
+        AnaInstancingCommonContent cont_ = new AnaInstancingCommonContent(constructorId.getName());
+        cont_.setConstId(constructorId);
+        cont_.setClassName(constructorId.getName());
+        opsMap.add(new RendStandardInstancingOperation(ex_, new ExecOperationContent(0, execClassArgumentMatching, 0), new ExecInstancingCommonContent(cont_), new ExecInstancingStdContent(new AnaInstancingStdContent())));
     }
 
     @Override
@@ -828,7 +836,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
     private static String tr(String _var, AnalyzedPageEl analyzing) {
         CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.addAllElts(analyzing.getPrimitiveTypes().getKeys());
         allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
@@ -1124,17 +1132,17 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
         int off_ =_rend.getOff();
-        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        ClassField fieldId_ = _rend.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        boolean staticField_ = _rend.getFieldMetaInfo().isStaticField();
+        boolean staticField_ = _rend.isStaticField();
         Argument previous_;
         if (!staticField_) {
             previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
         } else {
             previous_ = new Argument();
         }
-        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
+        String fieldType_ = _rend.getRealType();
         Argument arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
         CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
@@ -1155,10 +1163,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
         int off_ = _rend.getOff();
-        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
-        boolean isStatic_ = _rend.getFieldMetaInfo().isStaticField();
-        boolean isFinal_ = _rend.getFieldMetaInfo().isFinalField();
-        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        String fieldType_ = _rend.getRealType();
+        boolean isStatic_ = _rend.isStaticField();
+        boolean isFinal_ = _rend.isFinalField();
+        ClassField fieldId_ = _rend.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
         Argument previous_;

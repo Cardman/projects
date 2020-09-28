@@ -1,67 +1,12 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendTryBlockStack;
-import code.formathtml.util.AnalyzingDoc;
-import code.util.StringList;
 
 public final class RendFinallyEval extends RendParentBlock implements RendEval {
-    RendFinallyEval(OffsetsBlock _offset) {
-        super(_offset);
-    }
-
-    @Override
-    public String getRealLabel() {
-        RendBlock p_ = getPreviousSibling();
-        while (!(p_ instanceof RendTryEval)) {
-            if (p_ == null) {
-                return EMPTY_STRING;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        return ((RendTryEval)p_).getLabel();
-    }
-
-    @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        RendBlock pBlock_ = getPreviousSibling();
-        if (!(pBlock_ instanceof RendAbstractCatchEval)) {
-            if (!(pBlock_ instanceof RendTryEval)) {
-                if (!(pBlock_ instanceof RendPossibleEmpty)) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
-                    un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _page.getKeyWords().getKeyWordFinally(),
-                            StringList.join(
-                                    new StringList(
-                                            _page.getKeyWords().getKeyWordCatch(),
-                                            _page.getKeyWords().getKeyWordTry()
-                                    ),
-                                    OR_ERR));
-                    Configuration.addError(un_, _anaDoc, _page);
-                } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
-                    if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
-                        un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _page.getKeyWords().getKeyWordFinally(),
-                                StringList.join(
-                                        new StringList(
-                                                _page.getKeyWords().getKeyWordCatch(),
-                                                _page.getKeyWords().getKeyWordTry()
-                                        ),
-                                        OR_ERR));
-                        Configuration.addError(un_, _anaDoc, _page);
-                    }
-                }
-            }
-        }
+    public RendFinallyEval(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
 

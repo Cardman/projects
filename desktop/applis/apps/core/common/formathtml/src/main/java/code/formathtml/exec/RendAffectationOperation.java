@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -12,11 +12,8 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
 
     private RendSettableElResult settable;
 
-    public RendAffectationOperation(AffectationOperation _a) {
-        super(_a);
-    }
-    public RendAffectationOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
-        super(_indexChild,_res,_order);
+    public RendAffectationOperation(ExecOperationContent _content) {
+        super(_content);
     }
 
     public void setup() {

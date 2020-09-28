@@ -30,7 +30,7 @@ public final class DefaultOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(res_,_page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(res_, _page.getPrimitiveTypes()));
     }
 
     public int getOffset() {

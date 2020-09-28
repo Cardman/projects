@@ -17,10 +17,8 @@ public final class PrimitiveTypeUtil {
 
 
     public static ExecClassArgumentMatching toExec(AnaClassArgumentMatching _cl) {
-        ExecClassArgumentMatching e_ = new ExecClassArgumentMatching(_cl.getNames());
-        e_.setCheckOnlyNullPe(_cl.isCheckOnlyNullPe());
-        e_.setConvertToString(_cl.isConvertToString());
-        e_.setUnwrapObjectNb(_cl.getUnwrapObjectNb());
+        ExecClassArgumentMatching e_ = new ExecClassArgumentMatching(_cl.getNames(),_cl.getUnwrapObjectNb(),
+                _cl.isCheckOnlyNullPe(),_cl.isConvertToString());
         return e_;
     }
 

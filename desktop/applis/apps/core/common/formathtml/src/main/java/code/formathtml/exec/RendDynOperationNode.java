@@ -1,10 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -17,14 +14,12 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -50,35 +45,15 @@ public abstract class RendDynOperationNode {
 
     private RendDynOperationNode nextSibling;
 
-    private Argument argument;
-
-    private int indexInEl;
-
-    private int order;
-
-    private final int indexChild;
-
-    private ExecClassArgumentMatching resultClass;
+    private ExecOperationContent content;
 
     private RendPossibleIntermediateDotted siblingSet;
 
-    private int indexBegin;
-
     private ImplicitMethods implicits = new ImplicitMethods();
     private ImplicitMethods implicitsTest = new ImplicitMethods();
-    RendDynOperationNode(OperationNode _oper) {
-        indexInEl = _oper.getIndexInEl();
-        indexBegin = _oper.getIndexBegin();
-        indexChild = _oper.getIndexChild();
-        resultClass = PrimitiveTypeUtil.toExec(_oper.getResultClass());
-        argument = _oper.getArgument();
-        order = _oper.getOrder();
-    }
 
-    RendDynOperationNode(int _indexChild, ExecClassArgumentMatching _res, int _order) {
-        indexChild = _indexChild;
-        resultClass = _res;
-        order = _order;
+    RendDynOperationNode(ExecOperationContent _content) {
+        content = _content;
     }
     public void setParent(RendMethodOperation _parent) {
         parent = _parent;
@@ -129,350 +104,11 @@ public abstract class RendDynOperationNode {
     }
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, Configuration _cont) {
-        _cont.setOpOffset(indexBegin+_offset);
+        _cont.setOpOffset(content.getIndexBegin() +_offset);
     }
 
     public int getIndexBegin() {
-        return indexBegin;
-    }
-
-    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, AnalyzedPageEl _page) {
-        if (_anaNode instanceof InternGlobalOperation) {
-            InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
-            return new RendInternGlobalOperation(m_);
-        }
-        if (_anaNode instanceof StaticInitOperation) {
-            StaticInitOperation c_ = (StaticInitOperation) _anaNode;
-            return new RendStaticInitOperation(c_);
-        }
-        if (_anaNode instanceof ForwardOperation) {
-            ForwardOperation c_ = (ForwardOperation) _anaNode;
-            return new RendForwardOperation(c_);
-        }
-        if (_anaNode instanceof ConstantOperation) {
-            ConstantOperation c_ = (ConstantOperation) _anaNode;
-            return new RendConstantOperation(c_);
-        }
-        if (_anaNode instanceof FctOperation) {
-            FctOperation f_ = (FctOperation) _anaNode;
-            if (f_.isClonedMethod()) {
-                return new RendCloneOperation(f_);
-            }
-        }
-        if (_anaNode instanceof InvokingOperation && _anaNode instanceof AbstractCallFctOperation) {
-            InvokingOperation i_ = (InvokingOperation) _anaNode;
-            AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
-            ClassMethodId classMethodId_ = a_.getClassMethodId();
-            if (classMethodId_ != null) {
-                if (a_.getStandardMethod() != null) {
-                    return new RendStdFctOperation(i_,a_);
-                }
-                ExecRootBlock rootBlock_ = ForwardInfos.fetchType(a_.getRootNumber(), _page);
-                if (a_.isTrueFalse()) {
-                    return new RendExplicitOperation(i_,a_,
-                            ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page),
-                            rootBlock_);
-                }
-                if (a_.isStaticMethod()) {
-                    return new RendStaticFctOperation(i_,a_, ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page),
-                            rootBlock_);
-                }
-                if (rootBlock_ instanceof ExecAnnotationBlock) {
-                    return new RendAnnotationMethodOperation(i_,a_);
-                }
-            }
-        }
-        if (_anaNode instanceof CallDynMethodOperation) {
-            CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
-            return new RendCallDynMethodOperation(c_);
-        }
-        if (_anaNode instanceof InferArrayInstancing) {
-            InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new RendArrayElementOperation(i_);
-        }
-        if (_anaNode instanceof ElementArrayInstancing) {
-            ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new RendArrayElementOperation(e_);
-        }
-        if (_anaNode instanceof DimensionArrayInstancing) {
-            DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;
-            return new RendDimensionArrayInstancing(d_);
-        }
-        if (_anaNode instanceof StandardInstancingOperation) {
-            StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = ForwardInfos.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page);
-            ExecRootBlock rootBlock_ = ForwardInfos.fetchType(s_.getRootNumber(), _page);
-            if (rootBlock_ == null) {
-                return new RendDirectStandardInstancingOperation(s_);
-            }
-            return new RendStandardInstancingOperation(s_,rootBlock_,ctor_);
-        }
-        if (_anaNode instanceof InterfaceFctConstructor) {
-            InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
-            return new RendInterfaceFctConstructor(s_, _page);
-        }
-        if (_anaNode instanceof ArrOperation) {
-            ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(a_.getRootNumber(), _page);
-            ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _page);
-            ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _page);
-            if (a_.getCallFctContent().getClassMethodId() != null) {
-                return new RendCustArrOperation(a_, get_,set_,ex_);
-            }
-            return new RendArrOperation(a_);
-        }
-        if (_anaNode instanceof IdOperation) {
-            IdOperation d_ = (IdOperation) _anaNode;
-            if (d_.isStandard()) {
-                return new RendIdOperation(d_);
-            }
-            return new RendMultIdOperation(d_);
-        }
-        if (_anaNode instanceof EnumValueOfOperation) {
-            EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new RendEnumValueOfOperation(d_, _page);
-        }
-        if (_anaNode instanceof ValuesOperation) {
-            ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new RendValuesOperation(d_, _page);
-        }
-        if (_anaNode instanceof AbstractTernaryOperation) {
-            AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
-            return new RendTernaryOperation(t_);
-        }
-        if (_anaNode instanceof ChoiceFctOperation) {
-            ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(c_.getRootNumber(), _page);
-            if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(c_, _page);
-                return new RendChoiceFctOperation(c_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof SuperFctOperation) {
-            SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(s_.getRootNumber(), _page);
-            if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(s_, _page);
-                return new RendSuperFctOperation(s_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof FctOperation) {
-            FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(f_, _page);
-            ExecRootBlock ex_ = ForwardInfos.fetchType(f_.getRootNumber(), _page);
-            if (ex_ != null) {
-                return new RendFctOperation(f_, fct_,ex_);
-            }
-        }
-        if (_anaNode instanceof NamedArgumentOperation) {
-            NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
-            return new RendNamedArgumentOperation(f_);
-        }
-        if (_anaNode instanceof FirstOptOperation) {
-            FirstOptOperation f_ = (FirstOptOperation) _anaNode;
-            return new RendFirstOptOperation(f_);
-        }
-        if (_anaNode instanceof StaticAccessOperation) {
-            LeafOperation f_ = (LeafOperation) _anaNode;
-            return new RendStaticAccessOperation(f_);
-        }
-        if (_anaNode instanceof StaticCallAccessOperation) {
-            LeafOperation f_ = (LeafOperation) _anaNode;
-            return new RendStaticAccessOperation(f_);
-        }
-        if (_anaNode instanceof VarargOperation) {
-            VarargOperation f_ = (VarargOperation) _anaNode;
-            return new RendVarargOperation(f_);
-        }
-        if (_anaNode instanceof IdFctOperation) {
-            IdFctOperation f_ = (IdFctOperation) _anaNode;
-            return new RendIdFctOperation(f_);
-        }
-        if (_anaNode instanceof LambdaOperation) {
-            LambdaOperation f_ = (LambdaOperation) _anaNode;
-            return new RendLambdaOperation(f_, _page);
-        }
-        if (_anaNode instanceof StaticInfoOperation) {
-            StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
-            return new RendStaticInfoOperation(f_);
-        }
-        if (_anaNode instanceof DefaultValueOperation) {
-            DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
-            return new RendDefaultValueOperation(f_);
-        }
-        if (_anaNode instanceof DefaultOperation) {
-            DefaultOperation f_ = (DefaultOperation) _anaNode;
-            return new RendDefaultOperation(f_);
-        }
-        if (_anaNode instanceof ThisOperation) {
-            ThisOperation f_ = (ThisOperation) _anaNode;
-            return new RendThisOperation(f_);
-        }
-        if (_anaNode instanceof ParentInstanceOperation) {
-            ParentInstanceOperation f_ = (ParentInstanceOperation) _anaNode;
-            return new RendParentInstanceOperation(f_);
-        }
-        if (_anaNode instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
-            if (s_.getFieldId() == null) {
-                return new RendDeclaringOperation(_anaNode);
-            }
-            return new RendSettableFieldOperation(s_, ForwardInfos.fetchType(s_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof ArrayFieldOperation) {
-            ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
-            return new RendArrayFieldOperation(s_);
-        }
-        if (_anaNode instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new RendStdVariableOperation(m_);
-        }
-        if (_anaNode instanceof VariableOperation) {
-            VariableOperation m_ = (VariableOperation) _anaNode;
-            return new RendStdVariableOperation(m_);
-        }
-        if (_anaNode instanceof FinalVariableOperation) {
-            FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
-            return new RendFinalVariableOperation(m_);
-        }
-        if (_anaNode instanceof DotOperation) {
-            DotOperation m_ = (DotOperation) _anaNode;
-            return new RendDotOperation(m_);
-        }
-        if (_anaNode instanceof SafeDotOperation) {
-            SafeDotOperation m_ = (SafeDotOperation) _anaNode;
-            return new RendSafeDotOperation(m_);
-        }
-        if (_anaNode instanceof ExplicitOperatorOperation) {
-            ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(m_, _page);
-        }
-        if (_anaNode instanceof SemiAffectationOperation) {
-            SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new RendSemiAffectationOperation(m_, _page);
-        }
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
-            return new RendUnaryBooleanOperation(m_);
-        }
-        if (_anaNode instanceof UnaryBinOperation) {
-            UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
-            return new RendUnaryBinOperation(m_);
-        }
-        if (_anaNode instanceof SymbolOperation) {
-            SymbolOperation n_ = (SymbolOperation) _anaNode;
-            if (!n_.isOkNum()) {
-                return new RendDeclaringOperation(_anaNode);
-            }
-            if (n_.getClassMethodId() != null) {
-                return new RendCustNumericOperation(n_, _anaNode,
-                        ForwardInfos.fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _page),
-                        ForwardInfos.fetchType(n_.getRootNumber(), _page));
-            }
-        }
-        if (_anaNode instanceof UnaryOperation) {
-            UnaryOperation m_ = (UnaryOperation) _anaNode;
-            return new RendUnaryOperation(m_);
-        }
-        if (_anaNode instanceof CastOperation) {
-            CastOperation m_ = (CastOperation) _anaNode;
-            return new RendCastOperation(m_);
-        }
-        if (_anaNode instanceof ExplicitOperation) {
-            ExplicitOperation m_ = (ExplicitOperation) _anaNode;
-            return new RendExplicitOperation(m_,
-                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    ForwardInfos.fetchType(m_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof ImplicitOperation) {
-            ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new RendImplicitOperation(m_,
-                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    ForwardInfos.fetchType(m_.getRootNumber(), _page));
-        }
-        if (_anaNode instanceof MultOperation) {
-            MultOperation m_ = (MultOperation) _anaNode;
-            return new RendMultOperation(m_);
-        }
-        if (_anaNode instanceof AddOperation) {
-            AddOperation m_ = (AddOperation) _anaNode;
-            return new RendAddOperation(m_);
-        }
-        if (_anaNode instanceof ShiftLeftOperation) {
-            ShiftLeftOperation m_ = (ShiftLeftOperation) _anaNode;
-            return new RendShiftLeftOperation(m_);
-        }
-        if (_anaNode instanceof ShiftRightOperation) {
-            ShiftRightOperation m_ = (ShiftRightOperation) _anaNode;
-            return new RendShiftRightOperation(m_);
-        }
-        if (_anaNode instanceof BitShiftLeftOperation) {
-            BitShiftLeftOperation m_ = (BitShiftLeftOperation) _anaNode;
-            return new RendBitShiftLeftOperation(m_);
-        }
-        if (_anaNode instanceof BitShiftRightOperation) {
-            BitShiftRightOperation m_ = (BitShiftRightOperation) _anaNode;
-            return new RendBitShiftRightOperation(m_);
-        }
-        if (_anaNode instanceof RotateLeftOperation) {
-            RotateLeftOperation m_ = (RotateLeftOperation) _anaNode;
-            return new RendRotateLeftOperation(m_);
-        }
-        if (_anaNode instanceof RotateRightOperation) {
-            RotateRightOperation m_ = (RotateRightOperation) _anaNode;
-            return new RendRotateRightOperation(m_);
-        }
-        if (_anaNode instanceof CmpOperation) {
-            CmpOperation c_ = (CmpOperation) _anaNode;
-            return new RendAbstractCmpOperation(c_);
-        }
-        if (_anaNode instanceof InstanceOfOperation) {
-            InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;
-            return new RendInstanceOfOperation(c_);
-        }
-        if (_anaNode instanceof EqOperation) {
-            EqOperation c_ = (EqOperation) _anaNode;
-            return new RendEqOperation(c_);
-        }
-        if (_anaNode instanceof BitAndOperation) {
-            BitAndOperation c_ = (BitAndOperation) _anaNode;
-            return new RendBitAndOperation(c_);
-        }
-        if (_anaNode instanceof BitOrOperation) {
-            BitOrOperation c_ = (BitOrOperation) _anaNode;
-            return new RendBitOrOperation(c_);
-        }
-        if (_anaNode instanceof BitXorOperation) {
-            BitXorOperation c_ = (BitXorOperation) _anaNode;
-            return new RendBitXorOperation(c_);
-        }
-        if (_anaNode instanceof NullSafeOperation) {
-            NullSafeOperation n_ = (NullSafeOperation) _anaNode;
-            return new RendNullSafeOperation(n_);
-        }
-        if (_anaNode instanceof QuickOperation) {
-            QuickOperation q_ = (QuickOperation) _anaNode;
-            if (!q_.isOkNum()) {
-                return new RendDeclaringOperation(q_);
-            }
-        }
-        if (_anaNode instanceof AndOperation) {
-            AndOperation c_ = (AndOperation) _anaNode;
-            return new RendAndOperation(c_, _page);
-        }
-        if (_anaNode instanceof OrOperation) {
-            OrOperation c_ = (OrOperation) _anaNode;
-            return new RendOrOperation(c_, _page);
-        }
-        if (_anaNode instanceof CompoundAffectationOperation) {
-            CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new RendCompoundAffectationOperation(c_, _page);
-        }
-        if (_anaNode instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) _anaNode;
-            return new RendAffectationOperation(a_);
-        }
-        return new RendDeclaringOperation(_anaNode);
+        return content.getIndexBegin();
     }
 
     public final RendDynOperationNode getNextSibling() {
@@ -487,8 +123,8 @@ public abstract class RendDynOperationNode {
         if (context_.hasException()) {
             return;
         }
-        byte unwrapObjectNb_ = resultClass.getUnwrapObjectNb();
-        if (resultClass.isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
+        byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
+        if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (_arg.isNull()) {
                 LgNames stds_ = context_.getStandards();
                 String null_;
@@ -607,19 +243,19 @@ public abstract class RendDynOperationNode {
     }
 
     public final int getOrder() {
-        return order;
+        return content.getOrder();
     }
 
     public final int getIndexInEl() {
-        return indexInEl;
+        return content.getIndexInEl();
     }
 
     public final int getIndexChild() {
-        return indexChild;
+        return content.getIndexChild();
     }
 
     public final Argument getArgument() {
-        return argument;
+        return content.getArgument();
     }
 
 
@@ -685,7 +321,7 @@ public abstract class RendDynOperationNode {
             }
             out_ = res_;
         }
-        if (resultClass.isConvertToString()){
+        if (content.getResultClass().isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();
             if (ctx_.hasException()) {
@@ -748,7 +384,7 @@ public abstract class RendDynOperationNode {
         return out_;
     }
     public final ExecClassArgumentMatching getResultClass() {
-        return resultClass;
+        return content.getResultClass();
     }
 
     public final RendPossibleIntermediateDotted getSiblingSet() {
@@ -762,7 +398,7 @@ public abstract class RendDynOperationNode {
     public abstract RendDynOperationNode getFirstChild();
 
     public void setOrder(int _order) {
-        order = _order;
+        content.setOrder(_order);
     }
 
     public ImplicitMethods getImplicits() {

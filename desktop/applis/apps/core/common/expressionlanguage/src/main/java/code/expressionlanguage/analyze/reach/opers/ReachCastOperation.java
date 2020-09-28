@@ -29,7 +29,7 @@ public final class ReachCastOperation extends ReachMethodOperation implements Re
         if (AnaTypeUtil.isPrimitive(className, _page)) {
             checkNull(arg_, _page);
         }
-        AnaClassArgumentMatching cl_ = new AnaClassArgumentMatching(className, _page.getStandards());
+        AnaClassArgumentMatching cl_ = new AnaClassArgumentMatching(className, _page.getPrimitiveTypes());
         Argument after_ = new Argument(NumParsers.convertObject(cl_.getUnwrapObjectNb(), arg_.getStruct()));
         Mapping m_= new Mapping();
         m_.setParam(className);

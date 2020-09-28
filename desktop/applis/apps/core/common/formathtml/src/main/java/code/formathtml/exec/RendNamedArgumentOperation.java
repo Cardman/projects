@@ -1,20 +1,19 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecNamedContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation {
 
-    private int offset;
-    private int index;
-    public RendNamedArgumentOperation(NamedArgumentOperation _f) {
-        super(_f);
-        offset = _f.getOffset();
-        index = _f.getIndex();
+    private ExecNamedContent namedContent;
+    public RendNamedArgumentOperation(ExecOperationContent _content, ExecNamedContent _namedContent) {
+        super(_content);
+        namedContent = _namedContent;
     }
 
     @Override
@@ -25,11 +24,11 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
     }
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _conf);
         return _arguments.first();
     }
 
     int getIndex() {
-        return index;
+        return namedContent.getIndex();
     }
 }

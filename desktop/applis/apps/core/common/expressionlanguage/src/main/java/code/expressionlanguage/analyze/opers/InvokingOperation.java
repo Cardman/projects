@@ -362,12 +362,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
-                        a_.getResultClass().setUnwrapObject(_lasttype, _page.getStandards());
+                        a_.getResultClass().setUnwrapObject(_lasttype, _page.getPrimitiveTypes());
                     }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
                     if (AnaTypeUtil.isPrimitive(param_, _page)) {
-                        a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
+                        a_.getResultClass().setUnwrapObject(param_, _page.getPrimitiveTypes());
                     }
                 }
             }
@@ -380,7 +380,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }
                 if (AnaTypeUtil.isPrimitive(param_, _page)) {
-                    a_.getResultClass().setUnwrapObject(param_, _page.getStandards());
+                    a_.getResultClass().setUnwrapObject(param_, _page.getPrimitiveTypes());
                 }
             }
         }

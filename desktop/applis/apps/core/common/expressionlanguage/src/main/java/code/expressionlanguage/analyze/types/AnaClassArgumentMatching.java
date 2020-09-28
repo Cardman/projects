@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.PrimitiveType;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class AnaClassArgumentMatching {
 
@@ -36,18 +37,18 @@ public final class AnaClassArgumentMatching {
         unwrapObjectNb = _conv;
     }
 
-    public AnaClassArgumentMatching(String _className, LgNames _stds) {
+    public AnaClassArgumentMatching(String _className, StringMap<PrimitiveType> _primitiveTypes) {
         className.add(_className);
-        setUnwrapObject(_className, _stds);
+        setUnwrapObject(_className, _primitiveTypes);
     }
 
     public AnaClassArgumentMatching(StringList _className) {
         className.addAllElts(_className);
     }
 
-    public static AnaClassArgumentMatching copy(AnaClassArgumentMatching _copy,LgNames _stds) {
+    public static AnaClassArgumentMatching copy(AnaClassArgumentMatching _copy, StringMap<PrimitiveType> _primitiveTypes) {
         AnaClassArgumentMatching cl_ = new AnaClassArgumentMatching(_copy.className);
-        cl_.setUnwrapObject(_copy,_stds);
+        cl_.setUnwrapObject(_copy, _primitiveTypes);
         return cl_;
     }
 
@@ -107,8 +108,7 @@ public final class AnaClassArgumentMatching {
     }
 
     public static byte getPrimitiveCast(StringList _className, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        return ClassArgumentMatching.getPrimitiveCast(_className, stds_);
+        return ClassArgumentMatching.getPrimitiveCast(_className, _page.getPrimTypes());
     }
 
     public boolean isBoolType(AnalyzedPageEl _context) {
@@ -144,18 +144,18 @@ public final class AnaClassArgumentMatching {
         return className;
     }
 
-    public void setUnwrapObject(String _unwrapObject,LgNames _stds) {
+    public void setUnwrapObject(String _unwrapObject, StringMap<PrimitiveType> _primitiveTypes) {
         unwrapObjectNb = (byte)-1;
-        for (EntryCust<String,PrimitiveType> p: _stds.getPrimitiveTypes().entryList()) {
+        for (EntryCust<String,PrimitiveType> p: _primitiveTypes.entryList()) {
             if (StringList.quickEq(p.getKey(),_unwrapObject)) {
                 unwrapObjectNb = p.getValue().getCastNb();
             }
         }
     }
 
-    public void setUnwrapObject(AnaClassArgumentMatching _other,LgNames _stds) {
+    public void setUnwrapObject(AnaClassArgumentMatching _other, StringMap<PrimitiveType> _primitiveTypes) {
         unwrapObjectNb = (byte)-1;
-        for (EntryCust<String,PrimitiveType> p: _stds.getPrimitiveTypes().entryList()) {
+        for (EntryCust<String,PrimitiveType> p: _primitiveTypes.entryList()) {
             if (_other.matchClass(p.getKey())) {
                 unwrapObjectNb = p.getValue().getCastNb();
             }

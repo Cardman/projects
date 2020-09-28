@@ -184,7 +184,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
                 if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
-                    o.getResultClass().setUnwrapObject(eltType_, _page.getStandards());
+                    o.getResultClass().setUnwrapObject(eltType_, _page.getPrimitiveTypes());
                 }
                 getPartOffsetsChildren().add(parts_);
             }

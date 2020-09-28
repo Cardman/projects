@@ -343,6 +343,27 @@ public final class RenderForEachTableTest extends CommonRender {
         assertEq("<html><body><table/></body></html>", getRes(files_, html_));
     }
 
+    @Test
+    public void process17Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"inst\" label='lab'>");
+        xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
+        xml_.append("<c:break label='lab'/>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        String html_ = xml_.toString();
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr></table></body></html>", getRes(files_, html_));
+    }
     private Struct getEx(StringMap<String> files_, String html_) {
         return getCommEx(html_,files_);
     }
@@ -538,6 +559,26 @@ public final class RenderForEachTableTest extends CommonRender {
         assertTrue(hasErr(files_, html_));
     }
 
+    @Test
+    public void process10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"inst\" label=','>");
+        xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        String html_ = xml_.toString();
+        assertTrue(hasErr(files_, html_));
+    }
     private boolean hasErr(StringMap<String> files_, String html_) {
         return hasCommErr(html_, files_);
     }

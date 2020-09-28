@@ -7,10 +7,10 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -19,23 +19,12 @@ import code.util.StringList;
 
 public final class RendSuperFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
-    private String methodName;
-
-    private String className;
-
-    private String lastType;
-
-    private int naturalVararg;
-    private int anc;
+    private ExecInstFctContent instFctContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_s);
-        methodName = _s.getCallFctContent().getMethodName();
-        className = ForwardInfos.getType(_s.getCallFctContent().getClassMethodId());
-        lastType = _s.getCallFctContent().getLastType();
-        naturalVararg = _s.getCallFctContent().getNaturalVararg();
-        anc = _s.getAnc();
+    public RendSuperFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+        super(_content, _intermediateDottedOperation);
+        instFctContent = _instFctContent;
         named = _named;
         rootBlock = _rootBlock;
     }
@@ -49,14 +38,14 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
+        String lastType_ = instFctContent.getLastType();
+        int naturalVararg_ = instFctContent.getNaturalVararg();
         String classNameFound_;
-        classNameFound_ = className;
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
+        classNameFound_ = instFctContent.getClassName();
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
             return new Argument();
         }

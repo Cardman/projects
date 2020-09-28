@@ -2,13 +2,13 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.BitOrOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendBitOrOperation extends RendStdNumericOperation {
 
-    public RendBitOrOperation(BitOrOperation _b) {
-        super(_b);
+    public RendBitOrOperation(ExecOperationContent _content, int _opOffset, String _op) {
+        super(_content, _opOffset, _op);
     }
 
     @Override

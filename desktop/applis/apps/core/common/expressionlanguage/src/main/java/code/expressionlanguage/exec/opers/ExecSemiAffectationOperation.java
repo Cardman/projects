@@ -113,7 +113,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         indexImplicit_ = pair_.getIndexImplicitSemiTo();
         if (implicits_.isValidIndex(indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(_right, operatorContent.getOper(), cast_);
             pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, implicits_,indexImplicit_));

@@ -1,6 +1,6 @@
 package code.expressionlanguage.inherits;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.StringList;
 
 public final class ClassArgumentMatching {
@@ -9,15 +9,15 @@ public final class ClassArgumentMatching {
 
     }
 
-    public static byte getPrimitiveCast(String _className, LgNames stds_) {
-        return getPrimitiveCast(new StringList(_className),stds_);
+    public static byte getPrimitiveCast(String _className, PrimitiveTypes _primTypes) {
+        return getPrimitiveCast(new StringList(_className), _primTypes);
     }
 
-    public static byte getPrimitiveCast(StringList _className, LgNames stds_) {
-        byte max_ = stds_.getMaxWrap();
+    public static byte getPrimitiveCast(StringList _className, PrimitiveTypes _primTypes) {
+        byte max_ = _primTypes.getMaxWrap();
         byte cast_ = max_;
         for (String b: _className) {
-            PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(b);
+            PrimitiveType pr_ = _primTypes.getPrimitiveTypes().getVal(b);
             if (pr_ != null) {
                 cast_ = (byte)Math.min(cast_,pr_.getCastNb());
             }

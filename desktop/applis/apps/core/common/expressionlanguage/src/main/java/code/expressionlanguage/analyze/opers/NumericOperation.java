@@ -80,7 +80,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         setCatenize(res_);
         okNum = _page.isOkNumOp();
         a_ = res_.getResult();
-        setResultClass(AnaClassArgumentMatching.copy(a_, _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(a_, _page.getPrimitiveTypes()));
     }
 
     abstract ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page);

@@ -591,7 +591,7 @@ public final class AnaTypeUtil {
     }
 
     private static int getFloatOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
-        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds);
+        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds.getPrimitiveTypes());
         if (class_.matchClass(_stds.getAliasPrimDouble())) {
             return DOUBLE_CASTING;
         }
@@ -622,7 +622,7 @@ public final class AnaTypeUtil {
     }
 
     private static int getIntOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
-        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds);
+        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds.getPrimitiveTypes());
         if (class_.matchClass(_stds.getAliasPrimLong())) {
             return LONG_CASTING;
         }
@@ -641,8 +641,8 @@ public final class AnaTypeUtil {
         return 0;
     }
 
-    public static String toPrimitive(String _class, LgNames _stds) {
-        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+    public static String toPrimitive(String _class, StringMap<PrimitiveType> _primitiveTypes) {
+        for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
             if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
             }
@@ -651,14 +651,14 @@ public final class AnaTypeUtil {
     }
 
     public static boolean isPrimitiveOrWrapper(String _className, AnalyzedPageEl _page) {
-        return isPrimitiveOrWrapper(_className, _page.getStandards());
+        return isPrimitiveOrWrapper(_className, _page.getPrimitiveTypes());
     }
 
-    public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
-        if (_stds.getPrimitiveTypes().contains(_className)) {
+    public static boolean isPrimitiveOrWrapper(String _className, StringMap<PrimitiveType> _primitiveTypes) {
+        if (_primitiveTypes.contains(_className)) {
             return true;
         }
-        return isWrapper(_className, _stds);
+        return isWrapper(_className, _primitiveTypes);
     }
 
     public static boolean isPrimitiveOrWrapper(AnaClassArgumentMatching _className, AnalyzedPageEl _page) {
@@ -670,8 +670,8 @@ public final class AnaTypeUtil {
         return false;
     }
 
-    public static boolean isWrapper(String _className, LgNames _stds) {
-        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+    public static boolean isWrapper(String _className, StringMap<PrimitiveType> _primitiveTypes) {
+        for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
             String wrap_ = e.getValue().getWrapper();
             if (StringList.quickEq(wrap_, _className)) {
                 return true;
@@ -681,25 +681,24 @@ public final class AnaTypeUtil {
     }
 
     public static boolean isPrimitive(String _className, AnalyzedPageEl _context) {
-        return _context.getStandards().getPrimitiveTypes().contains(_className);
+        return _context.getPrimitiveTypes().contains(_className);
     }
 
     public static boolean isPureNumberClass(AnaClassArgumentMatching _class, AnalyzedPageEl _context) {
-        return isPureNumberClass(_class, _context.getStandards());
+        return isPureNumberClass(_class, _context.getStandards(), _context.getPrimitiveTypes());
     }
 
     public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, AnalyzedPageEl _context) {
-        return toPrimitive(_class, _context.getStandards());
+        return toPrimitive(_class, _context.getPrimitiveTypes());
     }
 
     public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft,
                                       AnalyzedPageEl _conf) {
-        LgNames stds_ = _conf.getStandards();
-        return isPrimitive(_clMatchLeft, stds_);
+        return isPrimitive(_clMatchLeft, _conf.getPrimitiveTypes());
     }
 
-    public static boolean isPureNumberClass(AnaClassArgumentMatching _class, LgNames _stds) {
-        AnaClassArgumentMatching out_ = toPrimitive(_class, _stds);
+    public static boolean isPureNumberClass(AnaClassArgumentMatching _class, LgNames _stds, StringMap<PrimitiveType> _primitiveTypes) {
+        AnaClassArgumentMatching out_ = toPrimitive(_class, _primitiveTypes);
         if (out_.matchClass(_stds.getAliasPrimDouble())) {
             return true;
         }
@@ -721,9 +720,9 @@ public final class AnaTypeUtil {
         return out_.matchClass(_stds.getAliasPrimByte());
     }
 
-    public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, LgNames _stds) {
+    public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, StringMap<PrimitiveType> _primitiveTypes) {
         for (String w: _class.getNames()) {
-            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
                 if (StringList.quickEq(e.getValue().getWrapper(), w)) {
                     return new AnaClassArgumentMatching(e.getKey(),e.getValue().getCastNb());
                 }
@@ -732,9 +731,9 @@ public final class AnaTypeUtil {
         return _class;
     }
 
-    public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft, LgNames stds_) {
+    public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft, StringMap<PrimitiveType> _primitiveTypes) {
         for (String n: _clMatchLeft.getNames()) {
-            if (stds_.getPrimitiveTypes().contains(n)) {
+            if (_primitiveTypes.contains(n)) {
                 return true;
             }
         }

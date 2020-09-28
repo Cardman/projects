@@ -1,23 +1,18 @@
 package code.formathtml;
 
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.util.CustList;
 
 public final class RendIfCondition extends RendCondition implements RendBreakableBlock {
 
     private String label;
-    private int labelOffset;
-    RendIfCondition(OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_condition, _offset);
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-    }
 
-    public String getLabel() {
-        return label;
+    public RendIfCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset, String _label) {
+        super(_offsetTrim,_op,_offset);
+        label = _label;
     }
 
     @Override

@@ -107,8 +107,8 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         if (!type_.isEmpty()) {
             if (AnaTypeUtil.isPrimitive(type_, _page)) {
-                opTwo_.getResultClass().setUnwrapObject(type_, _page.getStandards());
-                opThree_.getResultClass().setUnwrapObject(type_, _page.getStandards());
+                opTwo_.getResultClass().setUnwrapObject(type_, _page.getPrimitiveTypes());
+                opThree_.getResultClass().setUnwrapObject(type_, _page.getPrimitiveTypes());
             }
             setResultClass(new AnaClassArgumentMatching(type_));
             return;

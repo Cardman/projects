@@ -276,7 +276,7 @@ public final class ElUtil {
     private static void unwrapPrimitive(MethodOperation par_, AnalyzedPageEl _page) {
         AnaClassArgumentMatching cl_ = par_.getResultClass();
         if (AnaTypeUtil.isPrimitive(cl_, _page)) {
-            cl_.setUnwrapObject(cl_, _page.getStandards());
+            cl_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
         }
     }
 

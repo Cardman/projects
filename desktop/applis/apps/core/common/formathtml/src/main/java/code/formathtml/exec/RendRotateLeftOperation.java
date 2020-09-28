@@ -2,13 +2,13 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.RotateLeftOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendRotateLeftOperation extends RendStdNumericOperation {
 
-    public RendRotateLeftOperation(RotateLeftOperation _r) {
-        super(_r);
+    public RendRotateLeftOperation(ExecOperationContent _content, int _opOffset, String _op) {
+        super(_content, _opOffset, _op);
     }
 
 

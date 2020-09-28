@@ -168,7 +168,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
             unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
-            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_,name_, _page);
@@ -207,7 +207,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
-        setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+        setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
     }
 
     public ClassMethodId getClassMethodId() {

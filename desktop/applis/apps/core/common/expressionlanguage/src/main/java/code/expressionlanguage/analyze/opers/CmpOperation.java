@@ -86,16 +86,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (AnaTypeUtil.isFloatOrderClass(first_,second_, _page)) {
             AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
-            l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
-            r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
+            l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
+            r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         if (AnaTypeUtil.isIntOrderClass(first_,second_, _page)) {
             AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
-            l_.getResultClass().setUnwrapObject(classFirst_, _page.getStandards());
-            r_.getResultClass().setUnwrapObject(classSecond_, _page.getStandards());
+            l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
+            r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -122,7 +122,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+ operatorContent.getOper().length()));
         getPartOffsetsChildren().add(err_);
-        setResultClass(new AnaClassArgumentMatching(res_, _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
     }
     public boolean isStringCompare() {
         return stringCompare;

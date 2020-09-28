@@ -2,9 +2,9 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -13,22 +13,13 @@ import code.util.IdMap;
 
 public final class RendArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
 
-    private boolean variable;
+    private ExecArrContent arrContent;
 
-    private boolean catString;
-    private ExecClassArgumentMatching previous;
-    public RendArrOperation(ArrOperation _arr) {
-        super(_arr);
-        variable = _arr.getArrContent().isVariable();
-        catString = _arr.getArrContent().isCatString();
-        previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
+    public RendArrOperation(boolean _intermediate, ExecOperationContent _content, ExecArrContent _arrContent) {
+        super(_content,_intermediate);
+        arrContent = _arrContent;
     }
-    public RendArrOperation(RendArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,
-                            boolean _intermediate) {
-        super(_indexChild,_res,_order, _intermediate);
-        previous = _arr.previous;
-        variable = true;
-    }
+
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
@@ -63,7 +54,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
 
     @Override
     public boolean resultCanBeSet() {
-        return variable;
+        return arrContent.isVariable();
     }
 
     @Override
@@ -113,7 +104,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
         if (_conf.getContext().hasException()) {
             return _stored;
         }
@@ -153,7 +144,4 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _conf.getContext());
     }
 
-    public ExecClassArgumentMatching getPrevious() {
-        return previous;
-    }
 }

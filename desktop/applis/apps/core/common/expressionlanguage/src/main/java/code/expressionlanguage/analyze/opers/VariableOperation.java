@@ -100,12 +100,12 @@ public final class VariableOperation extends LeafOperation implements
             lv_.setFinalVariable(_page.isFinalVariable());
             _page.getInfosVars().put(str_, lv_);
             _page.getVariablesNames().add(str_);
-            setResultClass(new AnaClassArgumentMatching(_page.getCurrentVarSetting(), _page.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(_page.getCurrentVarSetting(), _page.getPrimitiveTypes()));
             return;
         }
         variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
         realVariableName = str_;
-        setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
     }
 
     public boolean isDeclare() {

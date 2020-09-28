@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.exec.opers.ExecCloneOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 import code.util.StringList;
@@ -12,9 +12,9 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
 
     private String methodName;
 
-    protected RendCloneOperation(FctOperation _fct) {
-        super(_fct);
-        methodName = _fct.getCallFctContent().getMethodName();
+    public RendCloneOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, String _methodName) {
+        super(_content, _intermediateDottedOperation);
+        methodName = _methodName;
     }
 
     @Override

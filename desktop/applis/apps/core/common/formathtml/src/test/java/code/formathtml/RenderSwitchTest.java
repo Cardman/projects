@@ -779,7 +779,13 @@ public final class RenderSwitchTest extends CommonRender {
         files_.put("ex_enum",enum_.toString());
         assertTrue(hasErr(html_, files_));
     }
-
+    @Test
+    public void process20FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10' label=','><c:case value='8'/></c:switch></body></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
     private boolean hasErr(String html_, StringMap<String> files_) {
         return hasCommErr(html_, files_);
     }

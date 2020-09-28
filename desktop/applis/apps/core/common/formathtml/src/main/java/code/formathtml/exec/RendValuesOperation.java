@@ -1,26 +1,22 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.ClassCategory;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ValuesOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.IdMap;
 
 public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation,RendCallable {
 
-    private int argOffset;
-    private ExecRootBlock rootBlock;
+    private ExecValuesContent valuesContent;
 
-    public RendValuesOperation(ValuesOperation _v, AnalyzedPageEl _page) {
-        super(_v);
-        argOffset = _v.getValuesContent().getArgOffset();
-        rootBlock = ForwardInfos.fetchType(_v.getValuesContent().getNumberEnum(), _page);
+    public RendValuesOperation(ExecOperationContent _content, ExecValuesContent _valuesContent) {
+        super(_content);
+        valuesContent = _valuesContent;
     }
 
     @Override
@@ -30,8 +26,8 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
     }
 
     Argument getCommonArgument(Configuration _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.tryGetEnumValues(new AdvancedExiting(_conf), _conf.getContext(),rootBlock,ClassCategory.ENUM);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
+        return ExecInvokingOperation.tryGetEnumValues(new AdvancedExiting(_conf), _conf.getContext(), valuesContent.getRootBlock(),ClassCategory.ENUM);
     }
 
     @Override

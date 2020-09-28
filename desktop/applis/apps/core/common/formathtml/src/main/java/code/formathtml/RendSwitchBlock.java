@@ -1,47 +1,34 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.blocks.EnumBlock;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
-import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class RendSwitchBlock extends RendParentBlock implements RendBreakableBlock,RendReducableOperations,RendWithEl {
 
     private String label;
-    private int labelOffset;
 
-    private final String value;
     private int valueOffset;
 
     private CustList<RendDynOperationNode> opValue;
-    private AnaClassArgumentMatching result;
 
     private boolean enumTest;
-    private String instanceTest = "";
+    private String instanceTest;
 
-    RendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_offset);
-        value = _value.getInfo();
-        valueOffset = _value.getOffset();
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
+    public RendSwitchBlock(int _offsetTrim, String label, int valueOffset, CustList<RendDynOperationNode> opValue, boolean enumTest, String instanceTest) {
+        super(_offsetTrim);
+        this.label = label;
+        this.valueOffset = valueOffset;
+        this.opValue = opValue;
+        this.enumTest = enumTest;
+        this.instanceTest = instanceTest;
     }
 
     @Override
@@ -51,89 +38,6 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
 
     public String getLabel() {
         return label;
-    }
-
-    @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
-        _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opValue = RenderExpUtil.getAnalyzedOperations(value, 0, _anaDoc, _page);
-        result = _anaDoc.getCurrentRoot().getResultClass();
-        AnaClassArgumentMatching clArg_ = _anaDoc.getCurrentRoot().getResultClass();
-        String type_ = clArg_.getSingleNameOrEmpty();
-        if (type_.isEmpty()) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
-            un_.setIndexFile(valueOffset);
-            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
-                    type_);
-            Configuration.addError(un_, _anaDoc, _page);
-        } else {
-            String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _page.getAnaGeneType(id_);
-            boolean final_ = true;
-            if (classBody_ != null) {
-                final_ = ContextUtil.isFinalType(classBody_);
-            } else if (type_.startsWith("[")) {
-                final_ = false;
-            }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _page.getStandards().getAliasString())) {
-                    if (!(classBody_ instanceof EnumBlock)) {
-                        if (!final_) {
-                            instanceTest = type_;
-                        } else {
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_anaDoc.getFileName());
-                            un_.setIndexFile(valueOffset);
-                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                    id_);
-                            Configuration.addError(un_, _anaDoc, _page);
-                        }
-                    } else {
-                        enumTest = true;
-                    }
-                }
-            }
-        }
-        RendBlock first_ = getFirstChild();
-        while (first_ != null) {
-            RendBlock elt_ = first_;
-            if (elt_ instanceof RendCaseCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof RendPossibleEmpty) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof RendDefaultCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
-            _page.setOffset(0);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
-                    _page.getKeyWords().getKeyWordSwitch(),
-                    StringList.join(
-                            new StringList(
-                                    _page.getKeyWords().getKeyWordCase(),
-                                    _page.getKeyWords().getKeyWordDefault()
-                            ),
-                            OR_ERR));
-            Configuration.addError(un_, _anaDoc, _page);
-            first_ = first_.getNextSibling();
-        }
-    }
-
-    @Override
-    public void reduce(Configuration _context) {
-        RendDynOperationNode r_ = opValue.last();
-        opValue = RenderExpUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -222,7 +126,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
-                Argument argRes_ = c_.getOpValue().last().getArgument();
+                Argument argRes_ = c_.getArgument();
                 if (argRes_ == null) {
                     continue;
                 }
@@ -239,8 +143,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
-                RendDynOperationNode op_ = c_.getOpValue().last();
-                if (op_.getArgument() != null) {
+                if (c_.getArgument() != null) {
                     continue;
                 }
                 if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
@@ -255,7 +158,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
-                Argument argRes_ = c_.getOpValue().last().getArgument();
+                Argument argRes_ = c_.getArgument();
                 if (argRes_.getStruct().sameReference(arg_.getStruct())) {
                     found_ = c_;
                     break;
@@ -286,11 +189,4 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         return null;
     }
 
-    public String getInstanceTest() {
-        return instanceTest;
-    }
-
-    public AnaClassArgumentMatching getResult() {
-        return result;
-    }
 }

@@ -1274,7 +1274,7 @@ public abstract class OperationNode {
         ClassMethodIdReturn clMethImp_ = getCustResult(false, true, -1, listsUnary_, _op, "", single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             String foundClass_ = clMethImp_.getRealClass();
             MethodId id_ = clMethImp_.getRealId();
             MethodId realId_ = clMethImp_.getRealId();
@@ -1332,7 +1332,7 @@ public abstract class OperationNode {
             ClassMethodIdReturn clMeth_ = getCustResult(false, true, -1, lists_, _op, "", single_, _page);
             if (clMeth_.isFoundMethod()) {
                 CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-                _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+                _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 String foundClass_ = clMeth_.getRealClass();
                 MethodId id_ = clMeth_.getRealId();
                 MethodId realId_ = clMeth_.getRealId();
@@ -1364,7 +1364,7 @@ public abstract class OperationNode {
         ClassMethodIdReturn clMethImp_ = getCustResult(false, true, -1, listsUnary_, _op, "", single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return clMethImp_;
@@ -1430,7 +1430,7 @@ public abstract class OperationNode {
         ClassMethodIdReturn clMethImp_ = getCustResult(false, true, -1, listsBinary_, _op, "", pair_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             String foundClass_ = clMethImp_.getRealClass();
             MethodId id_ = clMethImp_.getRealId();
             MethodId realId_ = clMethImp_.getRealId();
@@ -1529,7 +1529,7 @@ public abstract class OperationNode {
             ClassMethodIdReturn clMeth_ = getCustResult(false, true, -1, lists_, _op, "", pair_, _page);
             if (clMeth_.isFoundMethod()) {
                 CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-                _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+                _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 String foundClass_ = clMeth_.getRealClass();
                 MethodId id_ = clMeth_.getRealId();
                 MethodId realId_ = clMeth_.getRealId();
@@ -1550,7 +1550,7 @@ public abstract class OperationNode {
                 true, bounds_, _op, false, false, false, null,
                 "",chidren_, _page);
         if (clMeth_.isFoundMethod()) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = clMeth_.getRealId();
             InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return clMeth_;
@@ -1558,7 +1558,7 @@ public abstract class OperationNode {
         //implicit use of operator key word
         ClassMethodIdReturn cust_ = getOperator(null, -1, true, _op, "", chidren_, _page);
         if (cust_.isFoundMethod()) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = cust_.getRealId();
             InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return cust_;
@@ -1571,14 +1571,14 @@ public abstract class OperationNode {
                 bounds_, _op,
                 _arg.getResultClass(), _page);
         if (clMeth_.isFoundMethod()) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = clMeth_.getRealId();
             InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, new CustList<OperationNode>(_arg), _page);
             return clMeth_;
         }
         ClassMethodIdReturn cust_ = getIncrDecrOperator(_op, _arg.getResultClass(), _page);
         if (cust_.isFoundMethod()) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getStandards()), _page));
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = cust_.getRealId();
             InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, new CustList<OperationNode>(_arg), _page);
             return cust_;

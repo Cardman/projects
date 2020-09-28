@@ -83,7 +83,7 @@ public final class MethodId implements Identifiable {
         return getSignature(_ana.getStandards().getDisplayedStrings());
     }
     public String getSignature(AnalyzedPageEl _ana) {
-        return getSignature(_ana.getStandards().getDisplayedStrings());
+        return getSignature(_ana.getDisplayedStrings());
     }
     @Override
     public String getSignature(DisplayedStrings _ana) {

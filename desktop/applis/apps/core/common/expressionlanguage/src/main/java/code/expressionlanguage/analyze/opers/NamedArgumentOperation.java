@@ -53,7 +53,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
             return;
         }
         OperationNode child_ = getFirstChild();
-        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getPrimitiveTypes()));
     }
 
     public int getOffset() {

@@ -340,28 +340,28 @@ public final class AliasMath {
                 return result_;
             }
             result_.setResult(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasMinus)) {
             if (paramList_.size() != 1) {
                 result_.setResult(NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
                 return result_;
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes());
             result_.setResult(NumParsers.opposite(b_,cast_));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasMult)) {
             result_.setResult(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasBinMod)) {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
@@ -371,7 +371,7 @@ public final class AliasMath {
         }
         if (StringList.quickEq(name_, am_.aliasBinQuot)) {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 _cont.setException(new ErrorStruct(_cont,divZero_));
                 return result_;
@@ -380,7 +380,7 @@ public final class AliasMath {
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasNegBin)) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes());
             result_.setResult(NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_));
             return result_;
         }
@@ -389,15 +389,15 @@ public final class AliasMath {
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasAnd)) {
-            result_.setResult(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasOr)) {
-            result_.setResult(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasXor)) {
-            result_.setResult(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasLt)) {
@@ -425,27 +425,27 @@ public final class AliasMath {
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasShiftLeft)) {
-            result_.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasShiftRight)) {
-            result_.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasBitShiftLeft)) {
-            result_.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasBitShiftRight)) {
-            result_.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasRotateLeft)) {
-            result_.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasRotateRight)) {
-            result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
         if (_cont.getInitializingTypeInfos().isInitEnums()) {

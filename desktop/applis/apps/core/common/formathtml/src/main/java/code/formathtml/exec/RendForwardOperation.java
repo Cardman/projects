@@ -2,16 +2,16 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ForwardOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
 public final class RendForwardOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
     private boolean intermediate;
 
-    RendForwardOperation(ForwardOperation _v) {
-        super(_v);
-        intermediate = _v.isIntermediate();
+    public RendForwardOperation(ExecOperationContent _content, boolean _intermediate) {
+        super(_content);
+        intermediate = _intermediate;
     }
 
     @Override

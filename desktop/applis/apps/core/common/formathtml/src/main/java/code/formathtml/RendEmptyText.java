@@ -1,10 +1,6 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;
@@ -14,30 +10,12 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
 
     private final String expression;
 
-    private boolean add = true;
+    private boolean add;
 
-    RendEmptyText(OffsetStringInfo _left, OffsetsBlock _offset) {
-        super(_offset);
-        expression = _left.getInfo();
-    }
-
-    @Override
-    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (getNextSibling() instanceof RendElseIfCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof RendElseCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof RendDoWhileCondition){
-            add = false;
-        } else if (getNextSibling() instanceof RendAbstractCatchEval) {
-            add = false;
-        } else if (getNextSibling() instanceof RendFinallyEval) {
-            add = false;
-        } else if (getNextSibling() instanceof RendCaseCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof RendDefaultCondition) {
-            add = false;
-        }
+    public RendEmptyText(int _offsetTrim, String expression, boolean add) {
+        super(_offsetTrim);
+        this.expression = expression;
+        this.add = add;
     }
 
     @Override

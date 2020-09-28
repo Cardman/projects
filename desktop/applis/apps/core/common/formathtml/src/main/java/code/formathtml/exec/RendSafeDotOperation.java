@@ -2,7 +2,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -10,7 +10,7 @@ import code.util.IdMap;
 
 public final class RendSafeDotOperation extends RendAbstractDotOperation {
 
-    public RendSafeDotOperation(SafeDotOperation _d) {
+    public RendSafeDotOperation(ExecOperationContent _d) {
         super(_d);
     }
     @Override

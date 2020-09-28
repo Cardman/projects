@@ -626,7 +626,7 @@ public abstract class ProcessMethodCommon {
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_.getOffset().getOffsetTrim(), fileBlock_.getMetricsCore(), fileBlock_.getFileName());
         ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, context_.getAnalyzing());
-        ForwardInfos.processExecFile(fileBlock_,exFile_, context_.getAnalyzing());
+        ForwardInfos.processExecFile(fileBlock_,exFile_, context_.getAnalyzing(), context_.getAnalyzing().getCoverage(), context_.getAnalyzing().getClasses());
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {

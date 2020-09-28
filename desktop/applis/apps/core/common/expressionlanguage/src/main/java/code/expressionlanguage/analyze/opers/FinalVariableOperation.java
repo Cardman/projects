@@ -49,7 +49,7 @@ public final class FinalVariableOperation extends LeafOperation {
         if (!className.isEmpty()) {
             variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
             realVariableName = str_;
-            setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
             return;
         }
         int deep_ = -1;
@@ -69,7 +69,7 @@ public final class FinalVariableOperation extends LeafOperation {
             ref = val_.getRef();
             variableContent.setVariableName(shortStr_);
             realVariableName = str_;
-            setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(), _page.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(), _page.getPrimitiveTypes()));
             return;
         }
         variableContent.setVariableName(str_);

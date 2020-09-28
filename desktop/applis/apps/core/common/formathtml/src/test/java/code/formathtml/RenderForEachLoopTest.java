@@ -258,6 +258,17 @@ public final class RenderForEachLoopTest extends CommonRender {
         assertNotNull(getEx(html_, files_));
     }
 
+    @Test
+    public void process23Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label='lab'><li>{s.length()}</li><c:break label='lab'/></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        assertEq("<html><body><ul><li>5</li></ul></body></html>", getRes(html_, new StringMap<String>()));
+    }
     private Struct getEx(String html_, StringMap<String> _files) {
         return getCommEx(html_, _files);
     }
@@ -385,6 +396,14 @@ public final class RenderForEachLoopTest extends CommonRender {
         assertTrue(hasErrOneBean(html_, filesSec_));
     }
 
+    @Test
+    public void process10FailTest() {
+        String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label=','><li>{s.length()}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        assertTrue(hasErr(html_,files_));
+    }
     private boolean hasErr(String html_, StringMap<String> files_) {
         return hasCommErr(html_, files_);
     }

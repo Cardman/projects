@@ -2,19 +2,18 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.opers.ArrayFieldOperation;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.util.StringList;
 
 public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
 
-    public RendArrayFieldOperation(ArrayFieldOperation _a) {
-        super(_a);
+    public RendArrayFieldOperation(ExecOperationContent _content, ExecFieldOperationContent _fieldOperationContent) {
+        super(_content, _fieldOperationContent);
     }
 
     @Override

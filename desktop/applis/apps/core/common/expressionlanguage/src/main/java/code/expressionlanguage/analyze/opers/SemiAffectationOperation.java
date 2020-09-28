@@ -71,7 +71,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 getErrs().add(un_.getBuiltError());
             }
         }
-        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
@@ -110,7 +110,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             }
             return;
         }
-        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getStandards());
+        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
     }
 
     public boolean isPost() {

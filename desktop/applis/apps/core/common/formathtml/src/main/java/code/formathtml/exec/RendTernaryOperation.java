@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AbstractTernaryOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -12,9 +12,9 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
 
     private int offsetLocal;
 
-    public RendTernaryOperation(AbstractTernaryOperation _t) {
-        super(_t);
-        offsetLocal = _t.getOffsetLocal();
+    public RendTernaryOperation(ExecOperationContent _content, int _offsetLocal) {
+        super(_content);
+        offsetLocal = _offsetLocal;
     }
 
     @Override

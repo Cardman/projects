@@ -1,12 +1,13 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -15,36 +16,18 @@ import code.util.IdMap;
 public final class RendSettableFieldOperation extends
         RendAbstractFieldOperation implements RendSettableElResult {
 
-    private boolean variable;
-    private FieldInfo fieldMetaInfo;
+    private ExecSettableOperationContent settableFieldContent;
 
-    private boolean catString;
-
-    private int anc;
-
-    private ExecClassArgumentMatching previous;
     private ExecRootBlock rootBlock;
-    public RendSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
-        super(_s);
-        variable = _s.getSettableFieldContent().isVariable();
-        fieldMetaInfo = _s.getFieldMetaInfo();
-        catString = _s.getSettableFieldContent().isCatString();
-        anc = _s.getSettableFieldContent().getAnc();
-        previous = PrimitiveTypeUtil.toExec(_s.getPreviousResultClass());
+
+    public RendSettableFieldOperation(ExecOperationContent _opCont, ExecFieldOperationContent _fieldCont, ExecSettableOperationContent _setFieldCont,ExecRootBlock _rootBlock) {
+        super(_opCont,_fieldCont);
+        settableFieldContent = _setFieldCont;
         rootBlock = _rootBlock;
-    }
-    public RendSettableFieldOperation(RendSettableFieldOperation _s, int _indexChild, ExecClassArgumentMatching _res, int _order, boolean _int) {
-        super(_indexChild,_res,_order,_int);
-        variable = _s.variable;
-        rootBlock = _s.rootBlock;
-        fieldMetaInfo = _s.getFieldMetaInfo();
-        catString = _s.catString;
-        anc = _s.anc;
-        previous = _s.previous;
     }
     @Override
     public boolean resultCanBeSet() {
-        return variable;
+        return settableFieldContent.isVariable();
     }
 
     @Override
@@ -85,7 +68,7 @@ public final class RendSettableFieldOperation extends
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast);
         return getCommonSetting(_previous,_conf,res_);
     }
     private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast) {
@@ -115,22 +98,30 @@ public final class RendSettableFieldOperation extends
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument prev_ = Argument.createVoid();
-        if (!fieldMetaInfo.isStaticField()) {
+        if (!settableFieldContent.isStaticField()) {
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
     }
 
-    public FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
+    public boolean isFinalField() {
+        return settableFieldContent.isFinalField();
+    }
+
+    public boolean isStaticField() {
+        return settableFieldContent.isStaticField();
+    }
+
+    public String getRealType() {
+        return settableFieldContent.getRealType();
+    }
+
+    public ClassField getClassField() {
+        return settableFieldContent.getClassField();
     }
 
     public int getAnc() {
-        return anc;
-    }
-
-    public ExecClassArgumentMatching getPrevious() {
-        return previous;
+        return settableFieldContent.getAnc();
     }
 
     @Override

@@ -1,24 +1,11 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
 
 public abstract class RendAbstractCatchEval extends RendParentBlock implements RendEval {
-    RendAbstractCatchEval(OffsetsBlock _offset) {
-        super(_offset);
-    }
-
-    @Override
-    public String getRealLabel() {
-        RendBlock p_ = getPreviousSibling();
-        while (!(p_ instanceof RendTryEval)) {
-            if (p_ == null) {
-                return EMPTY_STRING;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        return ((RendTryEval)p_).getLabel();
+    RendAbstractCatchEval(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     @Override

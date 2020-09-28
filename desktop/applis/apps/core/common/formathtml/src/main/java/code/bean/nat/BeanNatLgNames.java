@@ -171,7 +171,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     @Override
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
-        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        ClassField fieldId_ = _rend.getClassField();
         Struct default_ = _previous.getStruct();
         ContextEl _cont = _conf.getContext();
         ResultErrorStd res_ = getOtherResult(_cont, fieldId_, default_);
@@ -180,7 +180,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     @Override
     public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
-        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        ClassField fieldId_ = _rend.getClassField();
         ContextEl _cont = _conf.getContext();
         Object value_ = adaptedArg(_right.getStruct());
         setOtherResult(_cont, fieldId_, _previous.getStruct(), value_);

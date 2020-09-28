@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.util.IdMap;
@@ -13,7 +14,7 @@ public final class RendInternVariableOperation extends RendLeafOperation impleme
     private String variableName;
 
     public RendInternVariableOperation(int _indexChild, ExecClassArgumentMatching _res, int _order, String _varName) {
-        super(_indexChild,_res,_order);
+        super(new ExecOperationContent(_indexChild, _res, _order));
         variableName = _varName;
     }
     @Override

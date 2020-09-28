@@ -17,7 +17,7 @@ public final class NullStruct extends WithoutParentIdStruct implements Displayab
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
-        return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
+        return new StringStruct(_an.getDisplayedStrings().getNullString());
     }
 
     @Override

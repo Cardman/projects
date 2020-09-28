@@ -154,7 +154,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getPrimitiveTypes()));
     }
 
     private static void checkInherits(OperationNode _op, StringList _previousInts, String _cl, AnalyzedPageEl _page) {

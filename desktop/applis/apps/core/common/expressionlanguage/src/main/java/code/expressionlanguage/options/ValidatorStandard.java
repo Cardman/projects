@@ -637,7 +637,7 @@ public final class ValidatorStandard {
 
     public static String tr(StringList _list, AnalyzedPageEl _analyzing) {
         CustList<String> allKeysWords_ = _analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.addAllElts(_analyzing.getPrimitiveTypes().getKeys());
         allKeysWords_.add(_analyzing.getStandards().getAliasVoid());
         allKeysWords_.addAllElts(_list);
         String candidate_ = "tmp";

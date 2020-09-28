@@ -17,17 +17,23 @@ public final class ExecClassArgumentMatching {
 
     private final StringList className = new StringList();
 
-    private byte unwrapObjectNb = (byte)-1;
+    private final byte unwrapObjectNb;
 
-    private boolean checkOnlyNullPe;
-    private boolean convertToString;
+    private final boolean checkOnlyNullPe;
+    private final boolean convertToString;
 
     public ExecClassArgumentMatching(String _className) {
         className.add(_className);
+        unwrapObjectNb = (byte)-1;
+        checkOnlyNullPe = false;
+        convertToString = false;
     }
 
-    public ExecClassArgumentMatching(StringList _className) {
+    public ExecClassArgumentMatching(StringList _className, byte _unwrapObjectNb, boolean _checkOnlyNullPe, boolean _convertToString) {
         className.addAllElts(_className);
+        unwrapObjectNb = _unwrapObjectNb;
+        checkOnlyNullPe = _checkOnlyNullPe;
+        convertToString = _convertToString;
     }
 
     public static Struct convert(PageEl _page, Struct _arg,
@@ -55,9 +61,9 @@ public final class ExecClassArgumentMatching {
         return convertWide(_arg, _exec, className_);
     }
 
-    public static Struct convertWide(Struct _arg, ContextEl _exec, StringList _names) {
+    private static Struct convertWide(Struct _arg, ContextEl _exec, StringList _names) {
         if (isPrimitive(_exec, _names)) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_names, _exec.getStandards());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_names, _exec.getStandards().getPrimTypes());
             if (cast_ == PrimitiveTypes.BOOL_WRAP) {
                 return NumParsers.convertToBoolean(_arg);
             }
@@ -69,7 +75,7 @@ public final class ExecClassArgumentMatching {
         return _arg;
     }
 
-    public static boolean isPrimitive(ContextEl _conf, StringList _names) {
+    private static boolean isPrimitive(ContextEl _conf, StringList _names) {
         LgNames stds_ = _conf.getStandards();
         return isPrimitive(stds_, _names);
     }
@@ -82,7 +88,7 @@ public final class ExecClassArgumentMatching {
         return className_;
     }
 
-    public static boolean isPrimitive(LgNames stds_, StringList _names) {
+    private static boolean isPrimitive(LgNames stds_, StringList _names) {
         for (String n: _names) {
             if (stds_.getPrimitiveTypes().contains(n)) {
                 return true;
@@ -92,10 +98,10 @@ public final class ExecClassArgumentMatching {
     }
 
     public static byte getPrimitiveWrapCast(String _className, LgNames stds_) {
-        return ClassArgumentMatching.getPrimitiveCast(new StringList(toPrimitive(_className,stds_)),stds_);
+        return ClassArgumentMatching.getPrimitiveCast(new StringList(toPrimitive(_className,stds_)), stds_.getPrimTypes());
     }
 
-    public static String toPrimitive(String _class, LgNames _stds) {
+    private static String toPrimitive(String _class, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
@@ -109,7 +115,7 @@ public final class ExecClassArgumentMatching {
     }
 
     public static Struct defaultValue(String _class, ContextEl _context) {
-        byte cast_ = ClassArgumentMatching.getPrimitiveCast(_class, _context.getStandards());
+        byte cast_ = ClassArgumentMatching.getPrimitiveCast(_class, _context.getStandards().getPrimTypes());
         return NumParsers.convert(cast_);
     }
 
@@ -139,24 +145,12 @@ public final class ExecClassArgumentMatching {
         return unwrapObjectNb;
     }
 
-    public void setUnwrapObjectNb(byte unwrapObjectNb) {
-        this.unwrapObjectNb = unwrapObjectNb;
-    }
-
     public boolean isCheckOnlyNullPe() {
         return checkOnlyNullPe;
     }
 
-    public void setCheckOnlyNullPe(boolean _checkOnlyNullPe) {
-        checkOnlyNullPe = _checkOnlyNullPe;
-    }
-
     public boolean isConvertToString() {
         return convertToString;
-    }
-
-    public void setConvertToString(boolean _convertToString) {
-        convertToString = _convertToString;
     }
 
 }

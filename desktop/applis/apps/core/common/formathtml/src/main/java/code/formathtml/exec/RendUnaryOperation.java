@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.UnaryOperation;
 import code.expressionlanguage.exec.opers.ExecUnaryOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -11,9 +11,9 @@ import code.util.IdMap;
 public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     private String oper;
 
-    public RendUnaryOperation(UnaryOperation _u) {
-        super(_u);
-        oper = _u.getOper();
+    public RendUnaryOperation(ExecOperationContent _content, String _oper) {
+        super(_content);
+        oper = _oper;
     }
 
     @Override

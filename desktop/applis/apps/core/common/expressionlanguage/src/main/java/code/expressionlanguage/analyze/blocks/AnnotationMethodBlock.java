@@ -146,7 +146,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             addNameErrors(cast_);
         }
         if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
-            root.getResultClass().setUnwrapObject(getImportedReturnType(), _page.getStandards());
+            root.getResultClass().setUnwrapObject(getImportedReturnType(), _page.getPrimitiveTypes());
         }
         ReachOperationUtil.tryCalculate(root, _page);
     }

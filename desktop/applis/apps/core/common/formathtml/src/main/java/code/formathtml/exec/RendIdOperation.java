@@ -1,15 +1,15 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.IdOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendIdOperation extends RendAbstractUnaryOperation {
 
-    public RendIdOperation(IdOperation _i) {
-        super(_i);
+    public RendIdOperation(ExecOperationContent _content) {
+        super(_content);
     }
 
     @Override

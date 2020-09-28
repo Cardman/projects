@@ -6,7 +6,8 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.opers.DimensionArrayInstancing;
+import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -20,9 +21,9 @@ public final class RendDimensionArrayInstancing extends
         RendAbstractArrayInstancingOperation {
     private int countArrayDims;
 
-    public RendDimensionArrayInstancing(DimensionArrayInstancing _d) {
-        super(_d);
-        countArrayDims = _d.getCountArrayDims();
+    public RendDimensionArrayInstancing(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent, int _countArrayDims) {
+        super(_content, _intermediateDottedOperation, _arrayInstancingContent);
+        countArrayDims = _countArrayDims;
     }
 
     @Override

@@ -257,7 +257,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
     private static String tr(String _var, AnalyzedPageEl analyzing) {
         CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.addAllElts(analyzing.getPrimitiveTypes().getKeys());
         allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         String candidate_ = _var;
         int index_ = 0;

@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.FirstOptOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -10,9 +10,9 @@ import code.util.IdMap;
 public final class RendFirstOptOperation extends RendAbstractUnaryOperation {
 
     private int offset;
-    public RendFirstOptOperation(FirstOptOperation _f) {
-        super(_f);
-        offset = _f.getOffset();
+    public RendFirstOptOperation(ExecOperationContent _content, int _offset) {
+        super(_content);
+        offset = _offset;
     }
 
     @Override

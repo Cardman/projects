@@ -1350,12 +1350,13 @@ public abstract class LgNames {
         return standards;
     }
     public StringMap<PrimitiveType> getPrimitiveTypes() {
-        return primTypes.getPrimitiveTypes();
+        return getPrimTypes().getPrimitiveTypes();
     }
 
-    public byte getMaxWrap() {
-        return primTypes.getMaxWrap();
+    public PrimitiveTypes getPrimTypes() {
+        return primTypes;
     }
+
     public String getAliasObject() {
         return coreNames.getAliasObject();
     }

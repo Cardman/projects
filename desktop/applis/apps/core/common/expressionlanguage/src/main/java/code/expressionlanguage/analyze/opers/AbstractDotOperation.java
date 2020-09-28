@@ -14,7 +14,7 @@ public abstract class AbstractDotOperation extends MethodOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setResultClass(AnaClassArgumentMatching.copy(chidren_.last().getResultClass(),_page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(chidren_.last().getResultClass(), _page.getPrimitiveTypes()));
     }
     @Override
     void calculateChildren() {

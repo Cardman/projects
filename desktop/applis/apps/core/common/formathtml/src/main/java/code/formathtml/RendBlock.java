@@ -1,21 +1,15 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.EndCallValue;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.*;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.formathtml.stacks.RendParentElement;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
@@ -26,7 +20,6 @@ public abstract class RendBlock implements AnalyzedBlock {
     static final String SPACE = " ";
     static final String RETURN_LINE = "\n";
     static final String CALL_METHOD = "$";
-    static final String COMMA = ",";
     static final String EMPTY_STRING = "";
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
@@ -37,7 +30,6 @@ public abstract class RendBlock implements AnalyzedBlock {
     static final char LT_BEGIN_TAG = '<';
 
     static final String DOT = ".";
-    static final String TMP_LOC = "tmpLoc";
 
     static final String AND_ERR = "&";
     static final String OR_ERR = "|";
@@ -46,33 +38,21 @@ public abstract class RendBlock implements AnalyzedBlock {
     static final String ZERO = "0";
     static final String STR = "\"";
 
-    private static final char END_ESCAPED = ';';
-    private static final char ENCODED = '&';
-    private static final char EQUALS = '=';
-    private static final char QUOT = 34;
-    private static final char APOS = 39;
     private RendParentBlock parent;
 
     private RendBlock nextSibling;
 
     private RendBlock previousSibling;
 
-    private OffsetsBlock offset;
+
+    private int offsetTrim;
 
     private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
-    private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
-    RendBlock(OffsetsBlock _offset) {
-        offset = _offset;
+    RendBlock(int _offsetTrim) {
+        offsetTrim = _offsetTrim;
     }
 
-    static String inferOrObject(String _type, AnalyzedPageEl _page) {
-        String t_ = _type;
-        if (StringList.quickEq(_type, _page.getKeyWords().getKeyWordVar())) {
-            t_ = _page.getStandards().getAliasObject();
-        }
-        return t_;
-    }
     public static String getRes(RendDocumentBlock _rend, Configuration _conf) {
         _conf.initForms();
         String beanName_ = _rend.getBeanName();
@@ -157,7 +137,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         ImportingPage ip_ = _context.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock en_ = rw_.getRead();
-        ip_.setOffset(en_.getOffset().getOffsetTrim());
+        ip_.setOffset(en_.getOffsetTrim());
         tryProcessEl(_context);
     }
 
@@ -172,401 +152,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         parent = _b;
     }
 
-    public static RendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText, LgNames _stds) {
-        Element documentElement_ = _doc.getDocumentElement();
-        Node curNode_ = documentElement_;
-        int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        RendDocumentBlock out_ = new RendDocumentBlock(documentElement_,_docText,new OffsetsBlock(),_conf.getCurrentUrl());
-        RendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText, _stds);
-        out_.appendChild(curWrite_);
-        while (curWrite_ != null) {
-            MutableNode firstChild_ = curNode_.getFirstChild();
-            if (firstChild_ != null) {
-                indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
-                RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(RendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText, _stds);
-                ((RendParentBlock) curWrite_).appendChild(rendBlock_);
-                curWrite_ = rendBlock_;
-                curNode_ = firstChild_;
-                continue;
-            }
-            while (true) {
-                MutableNode nextSibling_ = curNode_.getNextSibling();
-                RendParentBlock par_ = curWrite_.getParent();
-                if (nextSibling_ != null) {
-                    indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
-                    RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText, _stds);
-                    par_.appendChild(rendBlock_);
-                    curWrite_ = rendBlock_;
-                    curNode_ = nextSibling_;
-                    break;
-                }
-                Element parentNode_ = curNode_.getParentNode();
-                if (parentNode_ == null) {
-                    curWrite_ = null;
-                    break;
-                }
-                if (parentNode_ == documentElement_) {
-                    curWrite_ = null;
-                    break;
-                }
-                curWrite_ = par_;
-                curNode_ = parentNode_;
-            }
-        }
-        return out_;
-    }
-
-    private static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
-        int begin_ = _att.getBegin();
-        int end_ = _att.getEnd();
-        int i_ = begin_;
-        int delta_ = 0;
-        if (_realAttr) {
-            delta_ = begin_ - _beginNode;
-        }
-        IntTreeMap< Integer> indexes_;
-        indexes_ = new IntTreeMap< Integer>();
-        while (i_ < end_) {
-            if (_html.charAt(i_) == ENCODED) {
-                int beginEscaped_ = i_;
-                i_++;
-                while (i_ < _html.length()&&_html.charAt(i_) != END_ESCAPED) {
-                    i_++;
-                }
-                indexes_.put(beginEscaped_ - _beginNode - delta_, i_ - beginEscaped_);
-            }
-            i_++;
-        }
-        return indexes_;
-    }
-    private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
-        StringMap<AttributePart> attributes_;
-        attributes_ = new StringMap<AttributePart>();
-        StringBuilder str_ = new StringBuilder();
-        int beginToken_ = _from;
-        int delimiter_ = -1;
-        for (int i = _from; i < _to; i++) {
-            char ch_ = _html.charAt(i);
-            if (delimiter_ == -1) {
-                if (ch_ == APOS) {
-                    delimiter_ = ch_;
-                    beginToken_ = i + 1;
-                } else if (ch_ == QUOT) {
-                    delimiter_ = ch_;
-                    beginToken_ = i + 1;
-                }
-            } else {
-                if (ch_ == delimiter_) {
-                    AttributePart attrPart_ = new AttributePart();
-                    attrPart_.setBegin(beginToken_);
-                    attrPart_.setEnd(i);
-                    attributes_.put(str_.toString(), attrPart_);
-                    str_ = new StringBuilder();
-                    delimiter_ = -1;
-                    continue;
-                }
-            }
-            if (delimiter_ == -1) {
-                if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
-                    continue;
-                }
-                str_.append(ch_);
-            }
-        }
-        return attributes_;
-    }
-    private static int indexOfBeginNode(Node _node, String _html, int _from) {
-        if (_node instanceof Element) {
-            return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
-        }
-        int indexText_ = _html.indexOf(GT_TAG, _from);
-        while (_html.charAt(indexText_ + 1) == LT_BEGIN_TAG) {
-            indexText_ = _html.indexOf(GT_TAG, indexText_ + 1);
-        }
-        return indexText_ + 1;
-    }
-    private static RendBlock newRendBlockEsc(int _begin, RendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
-        RendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText, _stds);
-        if (_elt instanceof Text) {
-            int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
-            AttributePart attrPart_ = new AttributePart();
-            attrPart_.setBegin(_begin);
-            attrPart_.setEnd(endHeader_);
-            IntTreeMap<Integer> esc_ = getIndexesSpecChars(_docText, false, attrPart_, _begin);
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            infos_.addEntry(EMPTY_STRING,esc_);
-            bl_.escapedChars = infos_;
-        } else {
-            Element elt_ = (Element) _elt;
-            String tagName_ = elt_.getTagName();
-            int endHeader_ = _docText.indexOf(GT_TAG, _begin);
-            int beginHeader_ = _begin + tagName_.length();
-            StringMap<AttributePart> attr_;
-            attr_ = getAttributes(_docText, beginHeader_, endHeader_);
-            bl_.attributeDelimiters = attr_;
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            for (EntryCust<String, AttributePart> e: attr_.entryList()) {
-                infos_.put(e.getKey(), getIndexesSpecChars(_docText, true, e.getValue(), _begin));
-            }
-            bl_.escapedChars = infos_;
-        }
-        return bl_;
-    }
-    private static RendBlock newRendBlock(int _begin, RendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
-        if (_elt instanceof Text) {
-            Text t_ = (Text) _elt;
-            if (t_.getTextContent().trim().isEmpty()) {
-                return new RendEmptyText(new OffsetStringInfo(_begin,t_.getTextContent()),new OffsetsBlock(_begin,_begin));
-            }
-            return new RendText(new OffsetStringInfo(_begin,t_.getTextContent()),new OffsetsBlock(_begin,_begin));
-        }
-        Element elt_ = (Element) _elt;
-        String tagName_ = elt_.getTagName();
-        int endHeader_ = _docText.indexOf(GT_TAG, _begin);
-        int beginHeader_ = _begin + tagName_.length();
-        StringMap<AttributePart> attr_;
-        attr_ = getAttributes(_docText, beginHeader_, endHeader_);
-        RendKeyWords rendKeyWords_ = _conf.getRendKeyWords();
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordFor()))) {
-            if (elt_.hasAttribute(rendKeyWords_.getAttrList())) {
-                return new RendForEachLoop(
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrList(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
-                );
-            }
-            if (elt_.hasAttribute(rendKeyWords_.getAttrMap())) {
-                return new RendForEachTable(
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrKeyClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrKey(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVarClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrMap(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
-                );
-            }
-            if (elt_.hasAttribute(rendKeyWords_.getAttrVar())) {
-                return new RendForIterativeLoop(
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrFrom(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrTo(), attr_),
-                        newOffsetBooleanInfo(elt_,rendKeyWords_.getAttrEq()),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
-                );
-            }
-            return new RendForMutableIterativeLoop(
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrInit(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_)
-                    ,newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin), _stds);
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordWhile()))) {
-            MutableNode previousSibling_ = elt_.getPreviousSibling();
-            if (previousSibling_ instanceof Text && previousSibling_.getTextContent().trim().isEmpty()) {
-                previousSibling_ = previousSibling_.getPreviousSibling();
-            }
-            if (previousSibling_ instanceof Element
-                    && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix,rendKeyWords_.getKeyWordDo()))) {
-                return new RendDoWhileCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
-                        new OffsetsBlock(_begin,_begin));
-            }
-            return new RendWhileCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordDo()))) {
-            return new RendDoBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordReturn()))) {
-            return new RendReturnMehod(new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordBreak()))) {
-            return new RendBreakBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordContinue()))) {
-            return new RendContinueBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordThrow()))) {
-            return new RendThrowing(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSet()))) {
-            if (elt_.hasAttribute(rendKeyWords_.getAttrClassName())) {
-                _curParent.appendChild(new RendDeclareVariable(newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
-                        new OffsetsBlock(_begin,_begin)));
-            }
-            return new RendLine(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordIf()))) {
-            return new RendIfCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordElseif()))) {
-            return new RendElseIfCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordElse()))) {
-            return new RendElseCondition(new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordTry()))) {
-            return new RendTryEval(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordCatch()))) {
-            if (elt_.hasAttribute(rendKeyWords_.getAttrClassName())) {
-                return new RendCatchEval(newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
-                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
-                        new OffsetsBlock(_begin,_begin));
-            }
-            return new RendNullCatchEval(new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordFinally()))) {
-            return new RendFinallyEval(new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSwitch()))) {
-            return new RendSwitchBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordCase()))) {
-            return new RendCaseCondition(newOffsetStringInfo(elt_, rendKeyWords_.getAttrClassName(), attr_),
-                    newOffsetStringInfo(elt_, rendKeyWords_.getAttrVar(), attr_),
-                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordDefault()))) {
-            return new RendDefaultCondition(newOffsetStringInfo(elt_, rendKeyWords_.getAttrVar(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordImport()))) {
-            return new RendImport(elt_,newOffsetStringInfo(elt_,rendKeyWords_.getAttrPage(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSubmit()))) {
-            return new RendSubmit(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordAnchor())) {
-            return new RendAnchor(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordImg())) {
-            return new RendImg(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordLink())) {
-            return new RendLink(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordStyle())) {
-            return new RendStyle(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordImg()))) {
-            return new RendEscImg(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordPackage()))) {
-            return new RendPackage(newOffsetStringInfo(elt_,rendKeyWords_.getAttrName(), attr_),
-                    new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordForm())) {
-            return new RendForm(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordForm()))) {
-            return new RendImportForm(newOffsetStringInfo(elt_,rendKeyWords_.getAttrForm(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordClass()))) {
-            return new RendClass(newOffsetStringInfo(elt_,rendKeyWords_.getAttrName(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordField()))) {
-            return new RendField(newOffsetStringInfo(elt_,rendKeyWords_.getAttrPrepare(), attr_),new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordMessage()))) {
-            return new RendMessage(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSelect()))) {
-            return new RendSelect(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordInput())) {
-            if (StringList.quickEq(elt_.getAttribute(rendKeyWords_.getAttrType()),rendKeyWords_.getValueRadio())) {
-                return new RendRadio(elt_,new OffsetsBlock(_begin,_begin));
-            }
-            return new RendStdInput(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordTextarea())) {
-            return new RendTextArea(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordSpan())) {
-            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),rendKeyWords_.getAttrFor())).isEmpty()) {
-                return new RendSpan(elt_,new OffsetsBlock(_begin,_begin));
-            }
-        }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordAnchor()))) {
-            return new RendTitledAnchor(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
-    }
-
-    static StringMap<String> getPre(Configuration _cont, String _value, int _offset, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        StringList elts_ = StringList.splitStrings(_value, COMMA);
-        String var_ = elts_.first();
-        String fileName_ = getProperty(_cont, var_);
-        if (fileName_ == null) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_analyzingDoc.getFileName());
-            badEl_.setIndexFile(_offset);
-            badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
-                    var_);
-            Configuration.addError(badEl_, _analyzingDoc, _page);
-            return new StringMap<String>();
-        }
-        StringMap<String> pres_ = new StringMap<String>();
-        for (String l: _analyzingDoc.getLanguages()) {
-            StringMap<String> files_ = _cont.getFiles();
-            String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
-            int index_ = RendExtractFromResources.indexCorrectMessages(content_);
-            String cont_ = content_;
-            if (cont_ == null) {
-                cont_ = EMPTY_STRING;
-            }
-            if (index_ >= 0) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_analyzingDoc.getFileName());
-                badEl_.setIndexFile(_offset);
-                badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
-                        " ",
-                        Integer.toString(index_),
-                        cont_);
-                Configuration.addError(badEl_, _analyzingDoc, _page);
-                return new StringMap<String>();
-            }
-            StringMap<String> messages_ = RendExtractFromResources.getMessages(cont_);
-            String key_ = elts_.last();
-            String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
-            if (format_ == null) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_analyzingDoc.getFileName());
-                badEl_.setIndexFile(_offset);
-                badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
-                        key_);
-                Configuration.addError(badEl_, _analyzingDoc, _page);
-                return new StringMap<String>();
-            }
-            pres_.addEntry(l,format_);
-        }
-        return pres_;
-    }
-
-    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts, CustList<RendDynOperationNode> _anc) {
+    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc) {
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _cont.getCallsExps().add(_anc);
         _cont.getAnchorsVars().add(_varNames);
@@ -578,7 +164,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             incrAncNb(_cont, _nextWrite);
             return;
         }
-        StringList alt_ = ResultText.renderAltList(_opExp, _texts, _cont);
+        StringList alt_ = RenderingText.renderAltList(_textPart, _cont);
         StringList arg_ = new StringList();
         int len_ = alt_.size();
         for (int i = 1; i < len_; i += 2) {
@@ -606,24 +192,6 @@ public abstract class RendBlock implements AnalyzedBlock {
             _cont.getIndexes().setAnchor(currentAnchor_);
         }
     }
-    private static OffsetStringInfo newOffsetStringInfo(Element _elt, String _key, StringMap<AttributePart> _attr) {
-        AttributePart val_ = _attr.getVal(_key);
-        int begin_;
-        if (val_ == null) {
-            begin_ = 0;
-        } else {
-            begin_ = val_.getBegin();
-        }
-        return new OffsetStringInfo(begin_,_elt.getAttribute(_key));
-    }
-
-    static void removeUseLess(Configuration _cont,Element _read, StringList _list) {
-        int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
-            _list.removeAllString(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            i_++;
-        }
-    }
 
     protected static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
         CustList<Node> chNode_ = _eltStyle.getChildNodes();
@@ -643,13 +211,6 @@ public abstract class RendBlock implements AnalyzedBlock {
             return null;
         }
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
-    }
-    public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
-    private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
-        return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
-    }
-    protected static void tryBuildExpressionLanguage(RendBlock _block, Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        _block.buildExpressionLanguage(_cont,_doc, _analyzingDoc, _page);
     }
 
     static void appendChild(Document _doc, Node _parent, Element _read) {
@@ -823,12 +384,6 @@ public abstract class RendBlock implements AnalyzedBlock {
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
         return arg_;
     }
-    static CustList<RendDynOperationNode> reduceList(CustList<RendDynOperationNode> _list) {
-        if (_list.isEmpty()) {
-            return _list;
-        }
-        return RenderExpUtil.getReducedNodes(_list.last());
-    }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv,CustList<RendDynOperationNode> _opsConv) {
 //        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
@@ -903,9 +458,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return new Argument(o_);
     }
-    protected static String getProperty(Configuration _conf, String _key) {
-        return _conf.getProperties().getVal(_key);
-    }
+
     static String escapeParam(Configuration _conf, Argument _arg) {
         String str_ = _conf.getAdvStandards().processString(_arg,_conf);
         if (_conf.getContext().hasException()) {
@@ -918,14 +471,6 @@ public abstract class RendBlock implements AnalyzedBlock {
         rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
         return StringList.replaceMultiple(str_, rep_);
     }
-    protected static String escapeParam(String _arg) {
-        StringMap<String> rep_ = new StringMap<String>();
-        String quote_ = String.valueOf(QUOTE);
-        rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
-        rep_.put(String.valueOf(RIGHT_EL), StringList.concat(quote_,String.valueOf(RIGHT_EL),quote_));
-        rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
-        return StringList.replaceMultiple(_arg, rep_);
-    }
 
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
         CustList<RendBlock> l_ = new CustList<RendBlock>();
@@ -936,8 +481,9 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return l_;
     }
-    public final OffsetsBlock getOffset() {
-        return offset;
+
+    public final int getOffsetTrim() {
+        return offsetTrim;
     }
 
     public final RendBlock getPreviousSibling() {
@@ -959,15 +505,6 @@ public abstract class RendBlock implements AnalyzedBlock {
         return parent;
     }
 
-    protected static String lookForVar(StringList _varNames, AnalyzedPageEl _page) {
-        String varLoc_ = TMP_LOC;
-        int indexLoc_ = 0;
-        while (!ContextUtil.isNotVar(varLoc_, _page) || StringList.contains(_varNames,varLoc_)) {
-            varLoc_ = StringList.concatNbs(TMP_LOC,indexLoc_);
-            indexLoc_++;
-        }
-        return varLoc_;
-    }
     public final void processBlockAndRemove(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         ip_.removeRendLastBlock();
@@ -1021,14 +558,4 @@ public abstract class RendBlock implements AnalyzedBlock {
         return escapedChars;
     }
 
-    public int getAttributeDelimiter(String _type) {
-        AttributePart del_ = getAttributeDelimiters().getVal(_type);
-        if (del_ == null) {
-            return getOffset().getOffsetTrim();
-        }
-        return del_.getBegin();
-    }
-    public StringMap<AttributePart> getAttributeDelimiters() {
-        return attributeDelimiters;
-    }
 }

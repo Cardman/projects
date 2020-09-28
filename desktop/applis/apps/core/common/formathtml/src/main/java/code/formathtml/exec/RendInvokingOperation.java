@@ -2,10 +2,9 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
@@ -14,16 +13,11 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     private boolean intermediate;
 
     public RendInvokingOperation(
-            InvokingOperation _inter) {
-        super(_inter);
-        intermediate = _inter.isIntermediateDottedOperation();
+            ExecOperationContent _content, boolean _intermediateDottedOperation) {
+        super(_content);
+        intermediate = _intermediateDottedOperation;
     }
 
-    public RendInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
-                                 boolean _intermediate) {
-        super(_indexChild,_res,_order);
-        intermediate = _intermediate;
-    }
     public static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
         RendArgumentList out_ = new RendArgumentList();
         CustList<Argument> args_ = out_.getArguments();
@@ -64,8 +58,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             int lenCh_ = _children.size();
             int natVararg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof RendIdFctOperation
-                        || _children.get(i) instanceof RendVarargOperation) {
+                if (RendConstLeafOperation.isFilter(_children.get(i))) {
                     natVararg_++;
                     continue;
                 }
@@ -88,8 +81,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
         for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof RendIdFctOperation
-                    || _children.get(i) instanceof RendVarargOperation) {
+            if (RendConstLeafOperation.isFilter(_children.get(i))) {
                 continue;
             }
             Argument a_ = _nodes.get(i);

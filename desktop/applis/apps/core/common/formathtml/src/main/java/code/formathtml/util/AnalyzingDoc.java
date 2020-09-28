@@ -1,8 +1,8 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.RendBlock;
-import code.formathtml.RendDocumentBlock;
+import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.util.EntryCust;
 import code.util.IntTreeMap;
@@ -12,22 +12,21 @@ import code.util.StringMap;
 public final class AnalyzingDoc {
     private StringList languages = new StringList();
 
-    private RendBlock currentBlock;
+    private AnaRendBlock currentBlock;
     private String internGlobalClass="";
     private String attribute="";
     private String fileName="";
-    private RendDocumentBlock currentDoc;
+    private AnaRendDocumentBlock currentDoc;
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
 
     private int nextIndex;
-    private OperationNode currentRoot;
 
     public String getLocationFile(String _fileName, int _sum) {
         return StringList.concat(Integer.toString(_sum));
     }
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
-        int delta_ = getDelta(_offset, _currentBlock, _attribute);
+        int delta_ = getDelta(_offset, _attribute, _currentBlock.getEscapedChars());
         return _glOffset+_offset+delta_;
     }
 
@@ -35,13 +34,13 @@ public final class AnalyzingDoc {
         if (currentBlock == null) {
             return 0;
         }
-        int delta_ = getDelta(_offset, currentBlock, attribute);
+        int delta_ = getDelta(_offset, attribute, currentBlock.getEscapedChars());
         return _offset+delta_;
     }
 
-    private static int getDelta(int _offset, RendBlock _currentBlock, String _attribute) {
+    private static int getDelta(int _offset, String _attribute, StringMap<IntTreeMap<Integer>> _escapedChars) {
         int delta_ = 0;
-        IntTreeMap< Integer> esc_ = getEscapedChars(_currentBlock, _attribute);
+        IntTreeMap< Integer> esc_ = getEscapedChars(_attribute, _escapedChars);
         if (esc_ != null) {
             int nbIndexes_ = getIndexesCount(esc_, _offset);
             for (int i = 0; i < nbIndexes_; i++) {
@@ -63,9 +62,8 @@ public final class AnalyzingDoc {
         }
         return count_;
     }
-    private static IntTreeMap<Integer> getEscapedChars(RendBlock _currentBlock, String _attribute) {
-        StringMap<IntTreeMap<Integer>> escapedChars_ = _currentBlock.getEscapedChars();
-        for (EntryCust<String, IntTreeMap< Integer>> t: escapedChars_.entryList()) {
+    private static IntTreeMap<Integer> getEscapedChars(String _attribute, StringMap<IntTreeMap<Integer>> _escapedChars) {
+        for (EntryCust<String, IntTreeMap< Integer>> t: _escapedChars.entryList()) {
             String c_ = t.getKey();
             if (!StringList.quickEq(c_, _attribute)) {
                 continue;
@@ -91,12 +89,12 @@ public final class AnalyzingDoc {
         languages = _languages;
     }
 
-    public RendBlock getCurrentBlock() {
+    public AnaRendBlock getCurrentBlock() {
         return currentBlock;
     }
 
-    public void setCurrentBlock(RendBlock _currentBlock) {
-        currentBlock = _currentBlock;
+    public void setCurrentBlock(AnaRendBlock currentBlock) {
+        this.currentBlock = currentBlock;
     }
 
     public String getInternGlobalClass() {
@@ -115,12 +113,12 @@ public final class AnalyzingDoc {
         fileName = _fileName;
     }
 
-    public RendDocumentBlock getCurrentDoc() {
+    public AnaRendDocumentBlock getCurrentDoc() {
         return currentDoc;
     }
 
-    public void setCurrentDoc(RendDocumentBlock _currentDoc) {
-        currentDoc = _currentDoc;
+    public void setCurrentDoc(AnaRendDocumentBlock current) {
+        this.currentDoc = current;
     }
 
     public int getNextIndex() {
@@ -139,11 +137,4 @@ public final class AnalyzingDoc {
         this.rendAnalysisMessages = rendAnalysisMessages;
     }
 
-    public OperationNode getCurrentRoot() {
-        return currentRoot;
-    }
-
-    public void setCurrentRoot(OperationNode currentRoot) {
-        this.currentRoot = currentRoot;
-    }
 }

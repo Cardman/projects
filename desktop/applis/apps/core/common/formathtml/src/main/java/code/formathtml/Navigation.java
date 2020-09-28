@@ -1,7 +1,10 @@
 package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -142,13 +145,15 @@ public final class Navigation {
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
-            info_.setResolvedClassName(anaDoc_.getCurrentRoot().getResultClass().getSingleNameOrEmpty());
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
+            CustList<RendDynOperationNode> exps_ = RendForwardInfos.getExecutableNodes(_page,anaDoc_,root_);
+            info_.setResolvedClassName(root_.getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), RendBlock.LEFT_PAR, RendBlock.RIGHT_PAR), 0, anaDoc_, _page);
+            CustList<RendDynOperationNode> exps_ = RendForwardInfos.getExecutableNodes(_page,anaDoc_,root_);
             v_.setExps(exps_);
         }
     }

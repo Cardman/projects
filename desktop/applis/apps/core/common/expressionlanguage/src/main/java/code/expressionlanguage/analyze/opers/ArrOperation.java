@@ -188,7 +188,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 callFctContent.setLastType(paramtTypes_.last());
             }
             unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
-            setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getStandards()));
+            setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
         }
         if (chidren_.size() != 1) {
@@ -249,9 +249,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(class_);
             return;
         }
-        indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getStandards());
+        indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getPrimitiveTypes());
         class_ = AnaTypeUtil.getQuickComponentType(class_);
-        class_.setUnwrapObject(class_,stds_);
+        class_.setUnwrapObject(class_, _page.getPrimitiveTypes());
         setResultClass(class_);
     }
 

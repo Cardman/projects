@@ -2,15 +2,16 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
 public final class RendInternGlobalOperation extends RendLeafOperation implements RendCalculableOperation {
     private int off;
-    public RendInternGlobalOperation(InternGlobalOperation _i) {
-        super(_i);
-        off = _i.getOff();
+    public RendInternGlobalOperation(ExecOperationContent _content, int _off) {
+        super(_content);
+        off = _off;
     }
 
 

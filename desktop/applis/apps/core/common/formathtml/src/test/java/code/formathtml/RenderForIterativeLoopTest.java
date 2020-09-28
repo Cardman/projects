@@ -280,7 +280,6 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         assertNotNull(getEx(html_, new StringMap<String>()));
     }
-
     private Struct getEx(String html_, StringMap<String> _files) {
 
         return getCommEx(html_, _files);
@@ -307,6 +306,17 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         xml_.append("}");
         filesSec_.put("pkg/Ex", xml_.toString());
         assertEq("<html><body>0 - 0 - 0 - 0 -<br/>1 - 1 -<br/>+<br/>1 - 1 - 0 - 0 -<br/>1 - 1 -<br/>+<br/></body></html>", getRes(html_, filesSec_));
+    }
+    @Test
+    public void process26Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\" label='lab'>{k} - {([k])}<br/><c:break label='lab'/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        assertEq("<html><body>0 - 0<br/></body></html>", getRes(html_, new StringMap<String>()));
     }
 
     @Test
@@ -364,7 +374,17 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process6FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\" label=','>{k} - {([k])}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
     private boolean hasErr(String html_, StringMap<String> _files) {
         return hasCommErr(html_, _files);
     }

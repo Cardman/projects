@@ -1,22 +1,15 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.AnalyzingDoc;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
     private String label;
-    private int labelOffset;
 
-    RendDoBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_offset);
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
+    public RendDoBlock(int _offsetTrim, String _label) {
+        super(_offsetTrim);
+        label = _label;
     }
 
     public String getLabel() {
@@ -69,43 +62,4 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
         rw_.setRead(nextSibling_);
     }
 
-    @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        RendBlock pBlock_ = getNextSibling();
-        if (pBlock_ == null) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
-                    _page.getKeyWords().getKeyWordDo(),
-                    _page.getKeyWords().getKeyWordWhile());
-            Configuration.addError(un_, _anaDoc, _page);
-        } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
-            if (!(pBlock_ instanceof RendPossibleEmpty)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
-                un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
-                        _page.getKeyWords().getKeyWordDo(),
-                        _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
-            } else if (pBlock_.getNextSibling() == null){
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
-                un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
-                        _page.getKeyWords().getKeyWordDo(),
-                        _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
-            } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
-                un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
-                        _page.getKeyWords().getKeyWordDo(),
-                        _page.getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _anaDoc, _page);
-            }
-        }
-    }
 }

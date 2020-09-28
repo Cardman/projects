@@ -1,46 +1,23 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;
 import code.sml.Text;
-import code.util.CustList;
-import code.util.StringList;
 
 public final class RendText extends RendLeaf implements RendWithEl, RendReducableOperations {
 
-    private final String expression;
-
     private int expressionOffset;
 
-    private CustList<CustList<RendDynOperationNode>> opExp;
+    private ExecTextPart textPart;
 
-    private StringList texts = new StringList();
-
-    RendText(OffsetStringInfo _left, OffsetsBlock _offset) {
-        super(_offset);
-        expression = _left.getInfo();
-        expressionOffset = _left.getOffset();
-    }
-
-    @Override
-    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setOffset(expressionOffset);
-        ResultText res_ = new ResultText();
-        res_.build(expression, expressionOffset,_doc, _anaDoc, _page);
-        opExp = res_.getOpExp();
-        texts = res_.getTexts();
-    }
-
-    @Override
-    public void reduce(Configuration _context) {
-        ResultText.reduce(opExp);
+    public RendText(int _offsetTrim, ExecTextPart _textPart, int _offset) {
+        super(_offsetTrim);
+        expressionOffset = _offset;
+        textPart = _textPart;
     }
 
     @Override
@@ -51,7 +28,7 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
         Document doc_ = write_.getOwnerDocument();
         Text t_ = doc_.createTextNode(EMPTY_STRING);
         ((MutableNode)write_).appendChild(t_);
-        t_.appendData(ResultText.render(opExp,texts,_cont));
+        t_.appendData(RenderingText.render(textPart,_cont));
         if (_cont.getContext().hasException()) {
             return;
         }

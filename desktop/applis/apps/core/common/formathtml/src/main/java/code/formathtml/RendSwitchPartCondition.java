@@ -1,28 +1,22 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class RendSwitchPartCondition extends RendParentBlock {
 
     private String importedClassName = "";
     private String variableName;
-    RendSwitchPartCondition(OffsetsBlock _offset) {
-        super(_offset);
+
+    public RendSwitchPartCondition(int _offsetTrim, String importedClassName, String variableName) {
+        super(_offsetTrim);
+        this.importedClassName = importedClassName;
+        this.variableName = variableName;
     }
 
     public String getImportedClassName() {
         return importedClassName;
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
-    }
-
     public String getVariableName() {
         return variableName;
     }
 
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
-    }
 }

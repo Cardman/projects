@@ -127,7 +127,7 @@ public final class ReturnMethod extends AbruptBlock {
 
         }
         if (AnaTypeUtil.isPrimitive(_retType, _page)) {
-            ret_.setUnwrapObject(_retType, _page.getStandards());
+            ret_.setUnwrapObject(_retType, _page.getPrimitiveTypes());
         }
     }
 

@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -30,12 +29,9 @@ import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.*;
@@ -213,6 +209,18 @@ public final class AnalyzedPageEl {
 
     public LgNames getStandards() {
         return standards;
+    }
+
+    public StringMap<PrimitiveType> getPrimitiveTypes() {
+        return getPrimTypes().getPrimitiveTypes();
+    }
+
+    public PrimitiveTypes getPrimTypes() {
+        return standards.getPrimTypes();
+    }
+
+    public DisplayedStrings getDisplayedStrings() {
+        return standards.getDisplayedStrings();
     }
 
     public void setStandards(LgNames standards) {

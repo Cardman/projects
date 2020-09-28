@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ThisOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.IdMap;
@@ -12,9 +12,9 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
 
     private int off;
 
-    public RendThisOperation(ThisOperation _t) {
-        super(_t);
-        off = _t.getThisContent().getOff();
+    public RendThisOperation(ExecOperationContent _content, int _off) {
+        super(_content);
+        off = _off;
     }
 
     @Override

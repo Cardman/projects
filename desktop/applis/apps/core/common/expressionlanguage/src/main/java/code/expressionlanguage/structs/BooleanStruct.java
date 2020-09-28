@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 
 public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
@@ -27,21 +28,20 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
-        LgNames stds_ = _an.getStandards();
-        return getDisplayedString(stds_);
+        return getDisplayedString(_an.getDisplayedStrings());
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         LgNames stds_ = _an.getStandards();
-        return getDisplayedString(stds_);
+        return getDisplayedString(stds_.getDisplayedStrings());
     }
 
-    private StringStruct getDisplayedString(LgNames stds_) {
+    private StringStruct getDisplayedString(DisplayedStrings _displayedStrings) {
         if (this == TRUE) {
-            return new StringStruct(stds_.getDisplayedStrings().getTrueString());
+            return new StringStruct(_displayedStrings.getTrueString());
         }
-        return new StringStruct(stds_.getDisplayedStrings().getFalseString());
+        return new StringStruct(_displayedStrings.getFalseString());
     }
 
     public StringStruct exportValue() {

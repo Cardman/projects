@@ -8,12 +8,10 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -22,42 +20,17 @@ import code.util.StringList;
 
 public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
-    private String methodName;
+    private ExecInstFctContent instFctContent;
 
-    private String className;
-
-    private boolean staticChoiceMethod;
-
-    private String lastType;
-
-    private int naturalVararg;
-
-    private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendFctOperation(FctOperation _fct, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_fct);
-        methodName = _fct.getCallFctContent().getMethodName();
-        className = ForwardInfos.getType(_fct.getClassMethodId());
-        staticChoiceMethod = _fct.isStaticChoiceMethod();
-        lastType = _fct.getCallFctContent().getLastType();
-        naturalVararg = _fct.getCallFctContent().getNaturalVararg();
-        anc = _fct.getAnc();
+    public RendFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstFctContent _instFctContent, boolean _intermediateDottedOperation) {
+        super(_content, _intermediateDottedOperation);
+        instFctContent = _instFctContent;
         named = _named;
         rootBlock = _rootBlock;
     }
 
-    public RendFctOperation(ExecClassArgumentMatching _res,
-                            ClassMethodId _classMethodId,
-                            int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_child,_res,_order,true);
-        className = _classMethodId.getClassName();
-        methodName = _classMethodId.getConstraints().getName();
-        naturalVararg = -1;
-        lastType = "";
-        named = _named;
-        rootBlock = _rootBlock;
-    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
@@ -73,7 +46,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
-        classNameFound_ =className;
+        classNameFound_ = instFctContent.getClassName();
         ContextEl ctx_ = _conf.getContext();
         Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), ctx_));
         if (ctx_.hasException()) {
@@ -94,23 +67,23 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return instFctContent.getNaturalVararg();
     }
 
     public int getAnc() {
-        return anc;
+        return instFctContent.getAnc();
     }
 
     public String getLastType() {
-        return lastType;
+        return instFctContent.getLastType();
     }
 
     public String getMethodName() {
-        return methodName;
+        return instFctContent.getMethodName();
     }
 
     public boolean isStaticChoiceMethod() {
-        return staticChoiceMethod;
+        return instFctContent.isStaticChoiceMethod();
     }
 
 }

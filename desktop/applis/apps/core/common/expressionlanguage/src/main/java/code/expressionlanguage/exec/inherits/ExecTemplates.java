@@ -1148,7 +1148,7 @@ public final class ExecTemplates {
         if (cache_ != null) {
             LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
             if (loopVar_ != null) {
-                byte cast_ = ClassArgumentMatching.getPrimitiveCast(loopVar_.getIndexClassName(), _context.getStandards());
+                byte cast_ = ClassArgumentMatching.getPrimitiveCast(loopVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
                 LongStruct str_ = new LongStruct(loopVar_.getIndex());
                 Struct value_ = NumParsers.convertToInt(cast_, str_);
                 return new Argument(value_);
@@ -1160,7 +1160,7 @@ public final class ExecTemplates {
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
         }
-        byte cast_ = ClassArgumentMatching.getPrimitiveCast(locVar_.getIndexClassName(), _context.getStandards());
+        byte cast_ = ClassArgumentMatching.getPrimitiveCast(locVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
         LongStruct str_ = new LongStruct(locVar_.getIndex());
         Struct value_ = NumParsers.convertToInt(cast_, str_);
         return new Argument(value_);

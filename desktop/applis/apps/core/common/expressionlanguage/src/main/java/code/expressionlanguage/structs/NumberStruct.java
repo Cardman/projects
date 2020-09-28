@@ -32,7 +32,7 @@ public abstract class NumberStruct extends WithoutParentStruct implements Displa
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
-        DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
+        DisplayedStrings dis_ = _an.getDisplayedStrings();
         return NumParsers.getStringValue(this,dis_.getInfinity(),
                 dis_.getNan(),
                 dis_.getExponent());

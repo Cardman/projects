@@ -76,7 +76,23 @@ public final class RenderWhileTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>", getResOneBean(html_, filesSec_));
     }
-
+    @Test
+    public void process9Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;=2' label='lab'>{i}<br/><c:set value='i++'/><c:break label='lab'/></c:while></body></html>";
+        assertEq("<html><body>0<br/></body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void processFailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;=2' label=','>{i}<br/><c:set value='i++'/></c:while></body></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
+    private boolean hasErr(String html_, StringMap<String> _files) {
+        return hasCommErr(html_, _files);
+    }
     private Struct getEx(String html_, StringMap<String> _files) {
         return getCommEx(html_, _files);
     }

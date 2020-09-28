@@ -1,18 +1,13 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.exec.*;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -27,119 +22,23 @@ public abstract class RendInput extends RendElement {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    RendInput(Element _elt, OffsetsBlock _offset) {
-        super(_elt, _offset);
+
+    public RendInput(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, String varName, String varNameConverter, String varNameConverterField, String id, String idClass, String idName, String className) {
+        super(_offsetTrim, read, execAttributes, execAttributesText);
+        this.opsRead = opsRead;
+        this.opsValue = opsValue;
+        this.opsWrite = opsWrite;
+        this.opsConverter = opsConverter;
+        this.opsConverterField = opsConverterField;
+        this.varName = varName;
+        this.varNameConverter = varNameConverter;
+        this.varNameConverterField = varNameConverterField;
+        this.id = id;
+        this.idClass = idClass;
+        this.idName = idName;
+        this.className = className;
     }
 
-    protected void processAnaInput(Configuration _cont, RendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultInput r_ = new ResultInput();
-        r_.build(_cont, this,_doc,_read,StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
-        opsRead = r_.getOpsRead();
-        opsValue = r_.getOpsValue();
-        opsWrite = r_.getOpsWrite();
-        varName = r_.getVarName();
-        id = r_.getId();
-        idClass = r_.getIdClass();
-        idName = r_.getIdName();
-        className = r_.getClassName();
-        String converterValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-        if (!converterValue_.trim().isEmpty()) {
-            Mapping m_ = new Mapping();
-            m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
-                String string_ = _page.getStandards().getAliasString();
-                StringList varNames_ = new StringList();
-                String varLoc_ = RendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
-                varNameConverter = varLoc_;
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(string_);
-                _page.getInfosVars().addEntry(varLoc_,lv_);
-                String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
-                int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertValue()));
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
-                for (String v:varNames_) {
-                    _page.getInfosVars().removeKey(v);
-                }
-                m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
-                m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
-                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                    Configuration.addError(badEl_, _anaDoc, _page);
-                }
-            }
-        } else {
-            String clName_ = _read.getAttribute(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
-            if (!clName_.isEmpty()) {
-                if (!_cont.getAdvStandards().isConveritble(clName_)) {
-                    int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            clName_,
-                            clName_);
-                    Configuration.addError(badEl_, _anaDoc, _page);
-                }
-            } else if (!opsRead.isEmpty()) {
-                if (!_cont.getAdvStandards().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
-                    int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR),
-                            clName_);
-                    Configuration.addError(badEl_, _anaDoc, _page);
-                }
-            }
-        }
-        String converterField_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
-        if (!converterField_.trim().isEmpty()) {
-            String object_ = _page.getStandards().getAliasObject();
-            StringList varNames_ = new StringList();
-            String varLoc_ = RendBlock.lookForVar(varNames_, _page);
-            varNames_.add(varLoc_);
-            varNameConverterField = varLoc_;
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(object_);
-            _page.getInfosVars().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
-            int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
-            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_, 0, _anaDoc, _page);
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
-            Mapping m_ = new Mapping();
-            m_.setArg(_anaDoc.getCurrentRoot().getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(attr_);
-                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
-                        _page.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _anaDoc, _page);
-            }
-        }
-    }
-
-    @Override
-    public void reduce(Configuration _context) {
-        super.reduce(_context);
-        opsRead = reduceList(opsRead);
-        opsValue = reduceList(opsValue);
-        opsWrite = reduceList(opsWrite);
-        opsConverter = reduceList(opsConverter);
-        opsConverterField = reduceList(opsConverterField);
-    }
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
         FieldUpdates f_ = new FieldUpdates();
         f_.setId(id);

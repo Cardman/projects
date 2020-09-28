@@ -3,8 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CallDynMethodOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -13,9 +13,9 @@ import code.util.StringList;
 public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
     private String fctName;
-    public RendCallDynMethodOperation(CallDynMethodOperation _call) {
-        super(_call);
-        fctName = _call.getFctName();
+    public RendCallDynMethodOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, String _fctName) {
+        super(_content, _intermediateDottedOperation);
+        fctName = _fctName;
     }
 
     @Override

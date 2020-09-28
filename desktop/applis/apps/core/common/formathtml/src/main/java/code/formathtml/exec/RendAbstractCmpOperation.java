@@ -2,7 +2,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CmpOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -10,12 +11,12 @@ import code.util.IdMap;
 public final class RendAbstractCmpOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private boolean stringCompare;
-    private String op;
+    private ExecOperatorContent operatorContent;
 
-    public RendAbstractCmpOperation(CmpOperation _a) {
-        super(_a);
-        stringCompare = _a.isStringCompare();
-        op = _a.getOp();
+    public RendAbstractCmpOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _stringCompare) {
+        super(_content);
+        operatorContent = _operatorContent;
+        stringCompare = _stringCompare;
     }
 
     @Override
@@ -38,7 +39,7 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
     }
 
     public String getOp() {
-        return op;
+        return operatorContent.getOper();
     }
 
 }

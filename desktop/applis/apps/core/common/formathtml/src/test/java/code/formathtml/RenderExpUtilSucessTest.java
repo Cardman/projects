@@ -2818,7 +2818,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_1 = getSortedDescNodes(context_, new AnalyzingDoc(), op_1);
         CustList<RendDynOperationNode> out_1 = getExecutableNodes(context_, all_1);
         assertTrue(isEmptyErrors(context_));
-        out_1 = RenderExpUtil.getReducedNodes(out_1.last());
+        out_1 = CommonRender.getReducedNodes(out_1.last());
         caculateReuse(context_, out_1);
         assertNull(getException(context_));
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
@@ -2833,7 +2833,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_1 = caculateReuse(context_, out_);
         assertNull(getException(context_));
         Argument arg_ = arg_1;
@@ -2865,7 +2865,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_1 = caculateReuse(context_, out_);
         assertNull(getException(context_));
         Argument arg_ = arg_1;
@@ -5738,7 +5738,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_cont.getContext(), name_), c);
         }
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
         assertNull(getException(context_));
         return arg_;
@@ -5813,7 +5813,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(_an, out_);
         assertNull(getException(_an));
         return arg_;

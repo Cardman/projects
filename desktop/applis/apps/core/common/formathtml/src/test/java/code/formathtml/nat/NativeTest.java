@@ -1257,13 +1257,10 @@ public final class NativeTest extends CommonRender {
         AnalyzedTestConfiguration context_ = contextElSec();
 
         setupNative(folder_, relative_, context_.getConfiguration());
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         putBean(bean_, "bean_one", context_.getAnaStandards());
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_.getConfiguration(), "c:", doc_, html_, context_.getAnaStandards());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setLocalFiles(context_, analyzingDoc_);
-        buildFctInstructions(context_,rendDocumentBlock_, analyzingDoc_);
+        analyzeInner(context_.getConfiguration(),context_,analyzingDoc_,html_);
         return !context_.isEmptyErrors();
     }
 
@@ -1271,16 +1268,14 @@ public final class NativeTest extends CommonRender {
         AnalyzedTestConfiguration conf_ = contextElSec();
 
         setupNative(folder_, relative_, conf_.getConfiguration());
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         putBean(bean_, "bean_one", conf_.getAnaStandards());
         addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_.getConfiguration(), "c:", doc_, html_, conf_.getAnaStandards());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        buildFctInstructions(conf_,rendDocumentBlock_, analyzingDoc_);
+        analyzeInner(conf_.getConfiguration(),conf_,analyzingDoc_,html_);
+        setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        conf_.getConfiguration().setDocument(doc_);
-        String res = getSampleRes(conf_.getConfiguration(), rendDocumentBlock_);
+        String res = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"));
         assertNull(getException(conf_));
         return res;
     }
@@ -1295,18 +1290,10 @@ public final class NativeTest extends CommonRender {
         Configuration c_ = conf_.getConfiguration();
         addBeanInfo(conf_,"bean_one", new BeanStruct(bean_));
         addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(c_, "c:", doc_, html_, conf_.getAnalyzing().getStandards());
-        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(c_, "c:", docSec_, htmlTwo_, conf_.getAnalyzing().getStandards());
-        c_.getRenders().put("page1.html",rendDocumentBlock_);
-        c_.getRenders().put("page2.html",rendDocumentBlockSec_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setLocalFiles(conf_, analyzingDoc_);
-        buildFctInstructions(conf_,rendDocumentBlock_,analyzingDoc_);
-        buildFctInstructions(conf_,rendDocumentBlockSec_,analyzingDoc_);
-        c_.setDocument(doc_);
-        return rendDocumentBlock_;
+        analyzeInner(c_,conf_,analyzingDoc_,html_,htmlTwo_);
+        setFirst(conf_);
+        return conf_.getConfiguration().getRenders().getVal("page1.html");
     }
 
     private static AnalyzedTestContext buildStdOne(Options _opt) {

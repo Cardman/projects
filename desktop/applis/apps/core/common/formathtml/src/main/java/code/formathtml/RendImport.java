@@ -1,48 +1,28 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private Element elt;
 
-    private CustList<CustList<RendDynOperationNode>> opExp;
-
-    private StringList texts = new StringList();
+    private ExecTextPart textPart;
 
     private int pageOffset;
-    RendImport(Element _elt, OffsetStringInfo _page, OffsetsBlock _offset) {
-        super(_offset);
-        pageOffset = _page.getOffset();
-        elt = _elt;
-    }
 
-    @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultText res_ = new ResultText();
-        _page.setGlobalOffset(pageOffset);
-        _page.setOffset(0);
-        String pageName_ = elt.getAttribute(_cont.getRendKeyWords().getAttrPage());
-        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrPage());
-        res_.build(pageName_, rowsGrId_,_doc, _anaDoc, _page);
-        opExp = res_.getOpExp();
-        texts = res_.getTexts();
-    }
-
-    @Override
-    public void reduce(Configuration _context) {
-        ResultText.reduce(opExp);
+    public RendImport(int _offsetTrim, Element elt, ExecTextPart textPart, int pageOffset) {
+        super(_offsetTrim);
+        this.elt = elt;
+        this.textPart = textPart;
+        this.pageOffset = pageOffset;
     }
 
     @Override
@@ -58,7 +38,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
-        String pageName_ = ResultText.render(opExp,texts,_cont);
+        String pageName_ = RenderingText.render(textPart,_cont);
         if (_cont.getContext().hasException()) {
             return;
         }

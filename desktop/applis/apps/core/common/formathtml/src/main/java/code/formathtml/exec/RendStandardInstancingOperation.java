@@ -7,10 +7,8 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
 import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
@@ -19,35 +17,23 @@ import code.util.StringList;
 
 public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
-    private String methodName;
+    private ExecInstancingCommonContent instancingCommonContent;
+    private ExecInstancingStdContent instancingStdContent;
 
-    private String className;
-
-    private String fieldName = EMPTY_STRING;
-    private int blockIndex = -1;
-
-    private int naturalVararg = -1;
-
-    private String lastType = EMPTY_STRING;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public RendStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
-        super(_s);
-        methodName = _s.getMethodName();
-        className = _s.getClassName();
-        fieldName = _s.getInstancingStdContent().getFieldName();
-        blockIndex = _s.getInstancingStdContent().getBlockIndex();
-        naturalVararg = _s.getNaturalVararg();
-        lastType = _s.getLastType();
+    public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+        super(_content, _intermediateDottedOperation);
+        instancingCommonContent = _instancingCommonContent;
+        instancingStdContent = _instancingStdContent;
         rootBlock = _rootBlock;
         ctor = _ctor;
     }
 
-    public RendStandardInstancingOperation(ExecClassArgumentMatching _res,
-                                 ConstructorId _constId, ExecRootBlock _rootBlock) {
-        super(0,_res,0,false);
-        className = _constId.getName();
-        methodName = _constId.getName();
+    public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+        super(_content,false);
+        instancingCommonContent = _instancingCommonContent;
+        instancingStdContent = _instancingStdContent;
         rootBlock = _rootBlock;
     }
     @Override
@@ -60,21 +46,21 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                                 Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
         PageEl page_ = _conf.getPageEl();
-        className_ = page_.formatVarType(className, _conf.getContext());
+        className_ = page_.formatVarType(instancingCommonContent.getClassName(), _conf.getContext());
         String base_ = StringExpUtil.getIdFromAllTypes(className_);
         if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }
-        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
+        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, instancingCommonContent.getLastType());
         RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_all, chidren_);
         CustList<Argument> first_ = args_.getArguments();
         CustList<RendDynOperationNode> filter_ = args_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, first_);
-        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
+        CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), lastType_, first_);
+        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_,rootBlock,ctor, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
 }

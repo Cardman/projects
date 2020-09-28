@@ -24,8 +24,8 @@ public final class RotateLeftOperation extends NumericOperation {
         ResultOperand res_ = new ResultOperand();
         if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
             AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
-            _a.setUnwrapObject(out_, _page.getStandards());
-            _b.setUnwrapObject(out_, _page.getStandards());
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
             res_.setResult(out_);
             return res_;
         }

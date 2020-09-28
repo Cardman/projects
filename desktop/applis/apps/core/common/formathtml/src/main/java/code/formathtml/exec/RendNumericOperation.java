@@ -1,8 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.SymbolOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.formathtml.Configuration;
 import code.util.StringList;
@@ -10,9 +9,9 @@ import code.util.StringList;
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
     private int opOffset;
 
-    public RendNumericOperation(SymbolOperation _n, OperationNode _op) {
-        super(_op);
-        opOffset = _n.getOpOffset();
+    public RendNumericOperation(ExecOperationContent _content, int _opOffset) {
+        super(_content);
+        opOffset = _opOffset;
     }
 
     static Argument calculateAffect(Argument _left, Configuration _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {

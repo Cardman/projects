@@ -177,24 +177,24 @@ public final class AnaApplyCoreMethodUtil {
                 return(args_[0]);
             }
             return(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_)));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasMinus())) {
             if (paramList_.size() != 1) {
                 return (NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_)));
+                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
             return NumParsers.opposite(b_,cast_);
         }
         if (StringList.quickEq(name_, am_.getAliasMult())) {
             return(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasBinMod())) {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
@@ -202,27 +202,27 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringList.quickEq(name_, am_.getAliasBinQuot())) {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
             return(arg_);
         }
         if (StringList.quickEq(name_, am_.getAliasNegBin())) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
             return NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_);
         }
         if (StringList.quickEq(name_, am_.getAliasNeg())) {
             return(NumParsers.convertToBoolean(_args[0].getStruct()).neg());
         }
         if (StringList.quickEq(name_, am_.getAliasAnd())) {
-            return(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasOr())) {
-            return(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasXor())) {
-            return(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasLt())) {
             return(NumParsers.quickCalculateLowerNb(args_[0], args_[1]));
@@ -243,22 +243,22 @@ public final class AnaApplyCoreMethodUtil {
             return(NumParsers.quickCalculateGreaterNb(args_[0], args_[1]));
         }
         if (StringList.quickEq(name_, am_.getAliasShiftLeft())) {
-            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasShiftRight())) {
-            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasBitShiftLeft())) {
-            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasBitShiftRight())) {
-            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasRotateLeft())) {
-            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringList.quickEq(name_, am_.getAliasRotateRight())) {
-            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
+            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         return null;
     }
@@ -278,7 +278,7 @@ public final class AnaApplyCoreMethodUtil {
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-                if (StringList.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
+                if (StringList.quickEq(one_, _page.getDisplayedStrings().getTrueString())) {
                     return(BooleanStruct.of(true));
                 }
                 return(BooleanStruct.of(false));
@@ -492,7 +492,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
                 StringStruct disp_ = NumParsers.getString(_args[0]);
-                if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
+                if (StringList.quickEq(disp_.getInstance(),_page.getDisplayedStrings().getTrueString())) {
                     return(BooleanStruct.of(true));
                 }
                 return(BooleanStruct.of(false));
@@ -508,7 +508,7 @@ public final class AnaApplyCoreMethodUtil {
                 return (_args[0]);
             }
             StringStruct disp_ = NumParsers.getString(_args[0]);
-            if (StringList.quickEq(disp_.getInstance(), lgNames_.getDisplayedStrings().getTrueString())) {
+            if (StringList.quickEq(disp_.getInstance(), _page.getDisplayedStrings().getTrueString())) {
                 return (BooleanStruct.of(true));
             }
             return (BooleanStruct.of(false));
@@ -649,7 +649,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (BooleanStruct.of(Float.isInfinite(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
+                    DisplayedStrings dis_ = _page.getDisplayedStrings();
                     NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                     return NumParsers.getFloatString(nb_,dis_.getInfinity(),
                             dis_.getNan(),
@@ -667,7 +667,7 @@ public final class AnaApplyCoreMethodUtil {
                 return (BooleanStruct.of(Double.isInfinite(one_)));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
+                DisplayedStrings dis_ = _page.getDisplayedStrings();
                 NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                 return NumParsers.getDoubleString(nb_,dis_.getInfinity(),
                         dis_.getNan(),

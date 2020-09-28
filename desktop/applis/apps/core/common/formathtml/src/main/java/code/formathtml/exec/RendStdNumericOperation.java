@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.NumericOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -11,9 +11,9 @@ import code.util.IdMap;
 public abstract class RendStdNumericOperation extends RendNumericOperation {
     private String op;
 
-    public RendStdNumericOperation(NumericOperation _n) {
-        super(_n,_n);
-        op = _n.getOp();
+    public RendStdNumericOperation(ExecOperationContent _content, int _opOffset, String _op) {
+        super(_content, _opOffset);
+        op = _op;
 
     }
 

@@ -88,7 +88,7 @@ public abstract class SettableAbstractFieldOperation extends
         valueOffset = e_.getValOffset();
         settableFieldContent.setFieldMetaInfo(e_);
         String c_ = settableFieldContent.getFieldMetaInfo().getType();
-        setResultClass(new AnaClassArgumentMatching(c_, _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);

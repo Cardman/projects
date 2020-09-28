@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.AddOperation;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.StringList;
 
 
@@ -12,9 +12,9 @@ public final class RendAddOperation extends RendStdNumericOperation {
 
     private boolean catString;
 
-    public RendAddOperation(AddOperation _a) {
-        super(_a);
-        catString = _a.isCatString();
+    public RendAddOperation(ExecOperationContent _content, int _opOffset, String _op, boolean _catString) {
+        super(_content, _opOffset, _op);
+        catString = _catString;
     }
 
     @Override

@@ -2,13 +2,13 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.BitXorOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendBitXorOperation extends RendStdNumericOperation {
 
-    public RendBitXorOperation(BitXorOperation _b) {
-        super(_b);
+    public RendBitXorOperation(ExecOperationContent _content, int _opOffset, String _op) {
+        super(_content, _opOffset, _op);
     }
 
 

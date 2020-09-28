@@ -306,7 +306,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 }
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
-                o.getResultClass().setUnwrapObject(eltType_, _page.getStandards());
+                o.getResultClass().setUnwrapObject(eltType_, _page.getPrimitiveTypes());
             }
             getPartOffsetsChildren().add(parts_);
         }

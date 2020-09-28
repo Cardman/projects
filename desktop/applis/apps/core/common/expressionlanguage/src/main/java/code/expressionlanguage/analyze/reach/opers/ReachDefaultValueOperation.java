@@ -21,7 +21,7 @@ public final class ReachDefaultValueOperation extends ReachMethodOperation imple
         if (className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
             return;
         }
-        byte cast_ = ClassArgumentMatching.getPrimitiveCast(className, _page.getStandards());
+        byte cast_ = ClassArgumentMatching.getPrimitiveCast(className, _page.getPrimTypes());
         Argument a_ = new Argument(NumParsers.convert(cast_));
         setSimpleArgumentAna(a_);
     }

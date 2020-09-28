@@ -2,13 +2,13 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.ShiftRightOperation;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendShiftRightOperation extends RendStdNumericOperation {
 
-    public RendShiftRightOperation(ShiftRightOperation _b) {
-        super(_b);
+    public RendShiftRightOperation(ExecOperationContent _content, int _opOffset, String _op) {
+        super(_content, _opOffset, _op);
     }
 
     @Override

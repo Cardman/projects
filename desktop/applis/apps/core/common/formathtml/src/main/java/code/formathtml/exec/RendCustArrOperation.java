@@ -7,14 +7,11 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -24,54 +21,20 @@ import code.util.IdMap;
 
 public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult,RendCallable {
 
-    private boolean variable;
+    private ExecArrContent arrContent;
+    private ExecInstFctContent instFctContent;
 
-    private boolean catString;
-
-    private ClassMethodId classMethodId;
-    private String className;
-
-    private String lastType;
-
-    private int naturalVararg;
-
-    private int anc;
-
-    private boolean staticChoiceMethod;
-    private ExecClassArgumentMatching previous;
     private ExecNamedFunctionBlock get;
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
 
-    public RendCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
-        super(_arr);
-        variable = _arr.getArrContent().isVariable();
-        catString = _arr.getArrContent().isCatString();
-        classMethodId = _arr.getCallFctContent().getClassMethodId();
-        className = ForwardInfos.getType(_arr.getCallFctContent().getClassMethodId());
-        lastType = _arr.getCallFctContent().getLastType();
-        naturalVararg = _arr.getCallFctContent().getNaturalVararg();
-        anc = _arr.getAnc();
-        staticChoiceMethod = _arr.isStaticChoiceMethod();
-        previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
+    public RendCustArrOperation(boolean _intermediate, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock, ExecOperationContent _content, ExecArrContent _arrContent, ExecInstFctContent _instFctContent) {
+        super(_content,_intermediate);
+        arrContent = _arrContent;
+        instFctContent = _instFctContent;
         get = _get;
         set = _set;
         rootBlock = _rootBlock;
-    }
-    public RendCustArrOperation(RendCustArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,
-                                boolean _intermediate) {
-        super(_indexChild,_res,_order, _intermediate);
-        className = _arr.className;
-        previous = _arr.previous;
-        classMethodId = _arr.classMethodId;
-        lastType = _arr.lastType;
-        naturalVararg = _arr.naturalVararg;
-        anc = _arr.anc;
-        staticChoiceMethod = _arr.staticChoiceMethod;
-        variable = true;
-        get = _arr.get;
-        set = _arr.set;
-        rootBlock = _arr.rootBlock;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -87,7 +50,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     @Override
     public boolean resultCanBeSet() {
-        return variable;
+        return arrContent.isVariable();
     }
 
     @Override
@@ -102,7 +65,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
         if (_conf.getContext().hasException()) {
             return res_;
         }
@@ -139,13 +102,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         CustList<Argument> firstArgs_;
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
+        String lastType_ = instFctContent.getLastType();
+        int naturalVararg_ = instFctContent.getNaturalVararg();
         String classNameFound_;
-        classNameFound_ = className;
+        classNameFound_ = instFctContent.getClassName();
         Struct argPrev_ = _previous.getStruct();
         ContextEl ctx_ = _conf.getContext();
-        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, ctx_));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, ctx_));
         if (ctx_.hasException()) {
             return new Argument();
         }
@@ -162,19 +125,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, ctx_);
         lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(staticChoiceMethod,ctx_,pr_,classNameFound_,rootBlock,fct_);
+        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(),ctx_,pr_,classNameFound_,rootBlock,fct_);
         fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock dest_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
         return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
-    }
-
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
-
-    public ExecClassArgumentMatching getPrevious() {
-        return previous;
     }
 
 }

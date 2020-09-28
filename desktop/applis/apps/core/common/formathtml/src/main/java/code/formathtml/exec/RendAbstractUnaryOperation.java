@@ -1,11 +1,11 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class RendAbstractUnaryOperation extends RendMethodOperation implements RendCalculableOperation {
 
-    public RendAbstractUnaryOperation(MethodOperation _a) {
-        super(_a);
+    public RendAbstractUnaryOperation(ExecOperationContent _content) {
+        super(_content);
     }
 
 }

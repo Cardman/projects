@@ -2,26 +2,20 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.FinalVariableOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.util.IdMap;
 
 public final class RendFinalVariableOperation extends RendLeafOperation implements RendCalculableOperation {
 
-    private String variableName;
-    private int off;
-    private ConstType type;
-    private int deep;
+    private ExecVariableContent variableContent;
 
-    public RendFinalVariableOperation(FinalVariableOperation _f) {
-        super(_f);
-        off = _f.getOff();
-        type = _f.getType();
-        variableName = _f.getVariableContent().getVariableName();
-        deep = _f.getVariableContent().getDeep();
+    public RendFinalVariableOperation(ExecOperationContent _content, ExecVariableContent _variableContent) {
+        super(_content);
+        variableContent = _variableContent;
     }
 
     @Override
@@ -31,12 +25,9 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     }
 
     Argument getCommonArgument(Configuration _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         ImportingPage ip_ = _conf.getLastPage();
-        if (type == ConstType.LOOP_INDEX) {
-            return ExecTemplates.getIndexLoop(_conf.getContext(),variableName, ip_.getPageEl(),deep);
-        }
-        return ExecTemplates.getValue(_conf.getContext(),variableName,ip_.getPageEl(),deep);
+        return ExecTemplates.getIndexLoop(_conf.getContext(), variableContent.getVariableName(), ip_.getPageEl(), variableContent.getDeep());
     }
 
 }

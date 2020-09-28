@@ -2,16 +2,15 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,22 +18,16 @@ import code.util.IdMap;
 public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
     private String className;
 
-    private String lastType;
+    private ExecInvokingConstructorContent invokingConstructorContent;
 
-    private int naturalVararg;
-    private int offsetOper;
-    private String classFromName;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public RendInterfaceFctConstructor(InterfaceFctConstructor _abs, AnalyzedPageEl _page) {
-        super(_abs);
-        className = _abs.getClassName();
-        lastType = _abs.getInvokingConstructorContent().getLastType();
-        naturalVararg = _abs.getInvokingConstructorContent().getNaturalVararg();
-        offsetOper = _abs.getInvokingConstructorContent().getOffsetOper();
-        classFromName = _abs.getInvokingConstructorContent().getClassFromName();
-        rootBlock = ForwardInfos.fetchType(_abs.getRootNumber(), _page);
-        ctor = ForwardInfos.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _page);
+    public RendInterfaceFctConstructor(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+        super(_content, _intermediateDottedOperation);
+        invokingConstructorContent = _invokingConstructorContent;
+        className = _className;
+        rootBlock = _rootBlock;
+        ctor = _ctor;
 
     }
 
@@ -67,9 +60,9 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _conf);
         CustList<Argument> firstArgs_;
-        String superClass_ = _conf.getPageEl().formatVarType(classFromName,_conf.getContext());
+        String superClass_ = _conf.getPageEl().formatVarType(invokingConstructorContent.getClassFromName(),_conf.getContext());
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(rootBlock,superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
@@ -80,11 +73,11 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
 
     public String getLastType() {
-        return lastType;
+        return invokingConstructorContent.getLastType();
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return invokingConstructorContent.getNaturalVararg();
     }
 
     @Override

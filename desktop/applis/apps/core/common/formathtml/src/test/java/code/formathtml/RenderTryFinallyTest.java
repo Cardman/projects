@@ -116,7 +116,13 @@ public final class RenderTryFinallyTest extends CommonRender {
         String html_ = "<html><body><c:try>Text</c:try>\n<c:finally>Finally</c:finally></body></html>";
         assertEq("<html><body>TextFinally</body></html>", getRes(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process16Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:try label='lab'>Text</c:try><c:catch className='java.lang.Object' var='ex'/><c:finally>Finally<c:break label='lab'/></c:finally></body></html>";
+        assertEq("<html><body>TextFinally</body></html>", getRes(html_, new StringMap<String>()));
+    }
     private String getRes(String html_, StringMap<String> _files) {
         return getCommRes(html_,_files);
     }
@@ -135,7 +141,20 @@ public final class RenderTryFinallyTest extends CommonRender {
         String html_ = "<html><body><c:finally>Finally</c:finally></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process3FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:catch className='java.lang.Object' var='ex'/><c:finally>Finally<c:break label='lab'/></c:finally></body></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process4FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:try label=','>NOT EMPTY</c:try></body></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
     private boolean hasErr(String html_, StringMap<String> _files) {
         return hasCommErr(html_, _files);
     }

@@ -165,7 +165,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     }
                 }
                 if (AnaTypeUtil.isPrimitive(pa_, _page)) {
-                    a_.setUnwrapObject(pa_, _page.getStandards());
+                    a_.setUnwrapObject(pa_, _page.getPrimitiveTypes());
                 }
                 getPartOffsetsChildren().add(parts_);
             }

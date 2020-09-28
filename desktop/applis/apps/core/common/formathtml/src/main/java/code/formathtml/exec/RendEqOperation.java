@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.EqOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -11,9 +11,9 @@ import code.util.StringList;
 public final class RendEqOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private String oper;
-    public RendEqOperation(EqOperation _e) {
-        super(_e);
-        oper = _e.getOper();
+    public RendEqOperation(ExecOperationContent _content, String _oper) {
+        super(_content);
+        oper = _oper;
     }
 
     private static boolean calculateEq(Argument _a, Argument _b) {

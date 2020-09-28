@@ -1008,7 +1008,7 @@ public class LgNamesUtils extends LgNames {
     }
     protected static String tr(String _var, AnalyzedPageEl analyzing, String... _args) {
         CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.addAllElts(analyzing.getPrimitiveTypes().getKeys());
         allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         for (String p:_args) {
             allKeysWords_.add(p);

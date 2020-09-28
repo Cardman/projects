@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.StaticInitOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -12,9 +12,9 @@ public final class RendStaticInitOperation extends RendLeafOperation implements 
 
     private boolean possibleInitClass;
 
-    public RendStaticInitOperation(StaticInitOperation _s) {
-        super(_s);
-        possibleInitClass = _s.isPossibleInitClass();
+    public RendStaticInitOperation(ExecOperationContent _content, boolean _possibleInitClass) {
+        super(_content);
+        possibleInitClass = _possibleInitClass;
     }
 
     @Override

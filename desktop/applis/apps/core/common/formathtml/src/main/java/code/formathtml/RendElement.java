@@ -1,72 +1,24 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.AnalyzingDoc;
 import code.sml.*;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private Element read;
-    private StringMap<ResultText> attributes = new StringMap<ResultText>();
-    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
-    RendElement(Element _elt, OffsetsBlock _offset) {
-        super(_offset);
-        read = _elt;
-    }
+    private StringMap<ExecTextPart> execAttributes = new StringMap<ExecTextPart>();
+    private StringMap<ExecTextPart> execAttributesText = new StringMap<ExecTextPart>();
 
-    @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String prefixWrite_ = _cont.getPrefix();
-//        String beanName_ = _ip.getBeanName();
-        StringList attributesNames_ = new StringList();
-        NamedNodeMap mapAttr_ = read.getAttributes();
-        int nbAttrs_ = mapAttr_.getLength();
-        for (int i = 0; i < nbAttrs_; i++) {
-            attributesNames_.add(mapAttr_.item(i).getName());
-        }
-        attributesNames_.removeAllString(_cont.getRendKeyWords().getAttrId());
-        String id_ = read.getAttribute(_cont.getRendKeyWords().getAttrId());
-        if (!id_.isEmpty()) {
-            ResultText r_ = new ResultText();
-            int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
-            r_.buildId(id_, off_,_doc, _anaDoc, _page);
-            attributesText.put(_cont.getRendKeyWords().getAttrId(),r_);
-        }
-        String prefGr_ = StringList.concat(prefixWrite_, _cont.getRendKeyWords().getAttrGroupId());
-        attributesNames_.removeAllString(prefGr_);
-        String groupId_ = read.getAttribute(prefGr_);
-        if (!groupId_.isEmpty()) {
-            ResultText r_ = new ResultText();
-            int off_ = getAttributeDelimiter(prefGr_);
-            r_.buildId(groupId_, off_,_doc, _anaDoc, _page);
-            attributesText.put(prefGr_,r_);
-        }
-        processAttributes(_cont,_doc,read,attributesNames_, _anaDoc, _page);
-        for (String a: attributesNames_) {
-            String attr_ = read.getAttribute(a);
-            if (attr_.trim().isEmpty()) {
-                continue;
-            }
-            ResultText r_ = new ResultText();
-            int rowsGrId_ = getAttributeDelimiter(a);
-            r_.build(attr_, rowsGrId_,_doc, _anaDoc, _page);
-            attributes.addEntry(a,r_);
-        }
+    public RendElement(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText) {
+        super(_offsetTrim);
+        this.read = read;
+        this.execAttributes = execAttributes;
+        this.execAttributesText = execAttributesText;
     }
-
-    @Override
-    public void reduce(Configuration _context) {
-        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
-            ResultText.reduce(e.getValue().getOpExp());
-        }
-    }
-
-    protected abstract void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
 
     public final Element getRead() {
         return read;
@@ -84,9 +36,9 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         Document ownerDocument_ = rw_.getDocument();
         appendChild(ownerDocument_, write_,read);
         MutableNode nextWrite_ = write_.getLastChild();
-        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
-            ResultText res_ = e.getValue();
-            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+        for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
+            ExecTextPart res_ = e.getValue();
+            String txt_ = RenderingText.render(res_, _cont);
             if (_cont.getContext().hasException()) {
                 return;
             }
@@ -96,9 +48,9 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         if (_cont.getContext().hasException()) {
             return;
         }
-        for (EntryCust<String,ResultText> e: attributes.entryList()) {
-            ResultText res_ = e.getValue();
-            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+        for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
+            ExecTextPart res_ = e.getValue();
+            String txt_ = RenderingText.render(res_, _cont);
             if (_cont.getContext().hasException()) {
                 return;
             }

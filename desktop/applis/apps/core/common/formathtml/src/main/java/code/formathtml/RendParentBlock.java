@@ -1,16 +1,10 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.DeclareVariable;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class RendParentBlock extends RendBlock {
 
     private RendBlock firstChild;
-    protected RendParentBlock(OffsetsBlock _offset) {
-        super(_offset);
+    protected RendParentBlock(int _offsetTrim) {
+        super(_offsetTrim);
     }
 
     public final void appendChild(RendBlock _child) {
@@ -41,20 +35,6 @@ public abstract class RendParentBlock extends RendBlock {
             if (s instanceof RendDeclareVariable) {
                 for (String v: ((RendDeclareVariable)s).getVariableNames()) {
                     _ip.removeLocalVar(v);
-                }
-            }
-        }
-    }
-
-    public void removeAllVars(AnalyzedPageEl _ip) {
-        removeLocalVars(_ip);
-    }
-
-    public final void removeLocalVars(AnalyzedPageEl _ip) {
-        for (RendBlock s: getDirectChildren(this)) {
-            if (s instanceof RendDeclareVariable) {
-                for (String v: ((RendDeclareVariable)s).getVariableNames()) {
-                    _ip.getInfosVars().removeKey(v);
                 }
             }
         }

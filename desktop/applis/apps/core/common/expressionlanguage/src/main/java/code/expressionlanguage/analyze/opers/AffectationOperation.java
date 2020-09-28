@@ -77,7 +77,7 @@ public final class AffectationOperation extends MethodOperation {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getStandards());
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getPrimitiveTypes());
                     AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     _page.getVariablesNamesToInfer().removeString(inf_);
@@ -95,7 +95,7 @@ public final class AffectationOperation extends MethodOperation {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getStandards());
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getPrimitiveTypes());
                     AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     _page.getVariablesNamesToInfer().removeString(inf_);
@@ -125,13 +125,13 @@ public final class AffectationOperation extends MethodOperation {
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+1));
                 getPartOffsetsChildren().add(err_);
-                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getStandards()));
+                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getPrimitiveTypes()));
                 elt_.setVariable(true);
                 return;
             }
         }
 
-        setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getPrimitiveTypes()));
         elt_.setVariable(true);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
@@ -193,7 +193,7 @@ public final class AffectationOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         foundOffset = _page.getLocalizer().getCurrentLocationIndex();
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
-            right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getStandards());
+            right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }
     }
 
@@ -220,8 +220,12 @@ public final class AffectationOperation extends MethodOperation {
         }
         return "";
     }
-    static SettableElResult tryGetSettable(MethodOperation _operation) {
+    public static SettableElResult tryGetSettable(MethodOperation _operation) {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);
+        return castDottedTo(root_);
+    }
+
+    public static SettableElResult castDottedTo(OperationNode root_) {
         SettableElResult elt_;
         if (!(root_ instanceof AbstractDotOperation)) {
             elt_ = castTo(root_);
@@ -231,6 +235,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         return elt_;
     }
+
     public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
         OperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof IdOperation) {
@@ -238,7 +243,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         return root_;
     }
-    private static SettableElResult castTo(OperationNode _op) {
+    public static SettableElResult castTo(OperationNode _op) {
         if (_op instanceof SettableElResult) {
             return (SettableElResult) _op;
         }

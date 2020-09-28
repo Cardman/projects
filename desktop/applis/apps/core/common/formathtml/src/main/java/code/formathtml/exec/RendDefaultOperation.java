@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.DefaultOperation;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -12,9 +12,9 @@ public final class RendDefaultOperation extends RendAbstractUnaryOperation {
 
     private int offset;
 
-    public RendDefaultOperation(DefaultOperation _f) {
-        super(_f);
-        offset = _f.getOffset();
+    public RendDefaultOperation(ExecOperationContent _content, int _offset) {
+        super(_content);
+        offset = _offset;
     }
 
     @Override

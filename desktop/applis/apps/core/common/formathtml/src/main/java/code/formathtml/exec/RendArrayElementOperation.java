@@ -3,7 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.analyze.opers.AbstractArrayInstancingOperation;
+import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -13,8 +14,8 @@ import code.util.StringList;
 public final class RendArrayElementOperation extends
         RendAbstractArrayInstancingOperation {
 
-    public RendArrayElementOperation(AbstractArrayInstancingOperation _abs) {
-        super(_abs);
+    public RendArrayElementOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent) {
+        super(_content, _intermediateDottedOperation, _arrayInstancingContent);
     }
 
     @Override

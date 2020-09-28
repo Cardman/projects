@@ -1,16 +1,16 @@
 package code.formathtml;
 
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.util.CustList;
 
 public final class RendDoWhileCondition extends RendCondition {
-    RendDoWhileCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_condition, _offset);
-    }
 
+    public RendDoWhileCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset) {
+        super(_offsetTrim,_op,_offset);
+    }
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();

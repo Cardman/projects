@@ -1,11 +1,11 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendDeclaringOperation extends RendMethodOperation {
 
-    public RendDeclaringOperation(OperationNode _d) {
-        super(_d);
+    public RendDeclaringOperation(ExecOperationContent _content) {
+        super(_content);
     }
 
 }

@@ -88,7 +88,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
             Argument res_;
             StringList arg = new StringList(tres_);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_);
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
             return;

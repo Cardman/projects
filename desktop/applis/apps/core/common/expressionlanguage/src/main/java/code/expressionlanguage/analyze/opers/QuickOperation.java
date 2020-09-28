@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -13,8 +12,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -92,7 +89,7 @@ public abstract class QuickOperation extends MethodOperation {
                     errFirst.add(new PartOffset("</a>",index_+1));
                     okNum = false;
                 }
-                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_, _page), _page.getStandards()));
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_, _page), _page.getPrimitiveTypes()));
             }
             return;
         }
@@ -127,7 +124,7 @@ public abstract class QuickOperation extends MethodOperation {
         }
         leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         rightRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getStandards()));
+        setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getPrimitiveTypes()));
     }
 
     public boolean isOkNum() {

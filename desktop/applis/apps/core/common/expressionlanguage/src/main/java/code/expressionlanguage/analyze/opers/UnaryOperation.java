@@ -4,17 +4,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
@@ -53,13 +50,13 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             Argument arg_ = child_.getArgument();
             Struct instance_ = arg_.getStruct();
             if (instance_ instanceof ByteStruct) {
-                clMatch_.setUnwrapObject(cl_, _page.getStandards());
-                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
+                clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
+                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
                 return;
             }
             if (instance_ instanceof ShortStruct) {
-                clMatch_.setUnwrapObject(cl_, _page.getStandards());
-                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
+                clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
+                setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
                 return;
             }
         }
@@ -89,8 +86,8 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
                 cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
             }
         }
-        clMatch_.setUnwrapObject(cl_, _page.getStandards());
-        setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getStandards()));
+        clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
+        setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
     }
 
     @Override

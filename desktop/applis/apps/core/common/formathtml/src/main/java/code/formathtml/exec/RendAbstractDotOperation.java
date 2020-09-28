@@ -1,18 +1,14 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class RendAbstractDotOperation extends RendMethodOperation implements RendCalculableOperation {
-    public RendAbstractDotOperation(OperationNode _op) {
-        super(_op);
-    }
-    public RendAbstractDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
-        super(_indexChild,_res,_order);
+    public RendAbstractDotOperation(ExecOperationContent _content) {
+        super(_content);
     }
 
     public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {

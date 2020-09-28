@@ -144,7 +144,13 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>{$Class.getClass(ex).getName()}</c:catch></body></html>";
         assertEq("<html><body>code.expressionlanguage.exceptions.DivideZeroException</body></html>", getRes(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process20Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:try label='lab'>{1/0}</c:try><c:catch/><c:catch className='java.lang.Object' var='ex'>Exc<c:break label='lab'/></c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
     private String getRes(String html_, StringMap<String> _files) {
         return getCommRes(html_,_files);
     }
@@ -205,7 +211,13 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:try>1</c:try><c:catch className='java.lang.Object' var='ex'><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>{1/0}</c:catch></c:catch></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process9FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:catch className='java.lang.Object' var='ex'>Exc<c:break label='lab'/></c:catch></body></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
     private boolean hasErr(String html_, StringMap<String> _files) {
         return hasCommErr(html_, _files);
     }

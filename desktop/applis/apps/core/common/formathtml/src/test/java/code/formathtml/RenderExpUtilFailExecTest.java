@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
@@ -14,7 +13,6 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendDynOperationNode;
@@ -2311,7 +2309,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         RenderExpUtil.calculateReuse(out_, _an.getConfiguration());
         assertNotNull(getException(_an));
     }
@@ -2339,7 +2337,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
         }
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        out_ = CommonRender.getReducedNodes(out_.last());
         RenderExpUtil.calculateReuse(out_, _conf.getConfiguration());
     }
 

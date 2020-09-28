@@ -148,7 +148,7 @@ public abstract class BeanLgNames extends LgNames {
             return true;
         }
 
-        return AnaTypeUtil.isPrimitiveOrWrapper(_className, this);
+        return AnaTypeUtil.isPrimitiveOrWrapper(_className, getPrimitiveTypes());
     }
     public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend);
     protected static Struct wrapStd(String _element) {

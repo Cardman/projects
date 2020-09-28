@@ -207,7 +207,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                 }
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {
-                o.getResultClass().setUnwrapObject(classNameFinal_, _page.getStandards());
+                o.getResultClass().setUnwrapObject(classNameFinal_, _page.getPrimitiveTypes());
             }
             getPartOffsetsChildren().add(parts_);
         }

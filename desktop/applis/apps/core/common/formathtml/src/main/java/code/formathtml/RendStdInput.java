@@ -1,30 +1,16 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.blocks.ExecTextPart;
 import code.sml.Element;
 import code.sml.MutableNode;
-import code.util.StringList;
+import code.util.CustList;
+import code.util.StringMap;
 
 public final class RendStdInput extends RendInput {
-    RendStdInput(Element _elt, OffsetsBlock _offset) {
-        super(_elt, _offset);
-    }
 
-    @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        processAnaInput(_cont,_doc,_read, _anaDoc, _page);
-        _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
-        _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
-        _list.removeAllString(_cont.getRendKeyWords().getAttrName());
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrClassName()));
-        _list.removeAllString(_cont.getRendKeyWords().getAttrNi());
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()));
-        _list.removeAllString(_cont.getRendKeyWords().getAttrType());
+    public RendStdInput(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, String varName, String varNameConverter, String varNameConverterField, String id, String idClass, String idName, String className) {
+        super(_offsetTrim, read, execAttributes, execAttributesText, opsRead, opsValue, opsWrite, opsConverter, opsConverterField, varName, varNameConverter, varNameConverterField, id, idClass, idName, className);
     }
 
     @Override

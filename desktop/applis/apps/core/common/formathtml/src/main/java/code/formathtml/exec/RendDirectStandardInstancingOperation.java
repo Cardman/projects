@@ -1,10 +1,10 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
@@ -13,22 +13,11 @@ import code.util.StringList;
 
 public final class RendDirectStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
 
-    private String methodName;
+    private ExecInstancingCommonContent instancingCommonContent;
 
-    private ConstructorId constId;
-
-    private String className;
-
-    private int naturalVararg;
-
-    private String lastType;
-    public RendDirectStandardInstancingOperation(StandardInstancingOperation _s) {
-        super(_s);
-        methodName = _s.getMethodName();
-        constId = _s.getConstId();
-        className = _s.getClassName();
-        naturalVararg = _s.getNaturalVararg();
-        lastType = _s.getLastType();
+    public RendDirectStandardInstancingOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent) {
+        super(_content, _intermediateDottedOperation);
+        instancingCommonContent = _instancingCommonContent;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -38,12 +27,12 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
                          Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_nodes, chidren_);
         CustList<Argument> first_ = args_.getArguments();
         CustList<RendDynOperationNode> filter_ = args_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, first_);
-        return ExecInvokingOperation.instancePrepareStd(_conf.getContext(), className, constId, firstArgs_);
+        CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), instancingCommonContent.getLastType(), first_);
+        return ExecInvokingOperation.instancePrepareStd(_conf.getContext(), instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);
     }
 }

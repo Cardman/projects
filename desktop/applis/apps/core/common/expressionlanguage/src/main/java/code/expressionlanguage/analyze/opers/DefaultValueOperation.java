@@ -31,7 +31,7 @@ public final class DefaultValueOperation extends LeafOperation  {
         classStr_ = ResolvingImportTypes.resolveCorrectType(afterLeftPar_ + offLoc_, realCl_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         className = classStr_;
-        setResultClass(new AnaClassArgumentMatching(className, _page.getStandards()));
+        setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
     }
 
     public String getClassName() {

@@ -20,17 +20,17 @@ public final class RendExtractFromResources {
         return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
-    static String getQuickFormat(StringMap<String> _messages, String _key) {
+    public static String getQuickFormat(StringMap<String> _messages, String _key) {
         return _messages.getVal(_key);
     }
 
-    static String tryGetContent(Configuration _conf, String _loc, String _relative, StringMap<String> _files) {
+    public static String tryGetContent(Configuration _conf, String _loc, String _relative, StringMap<String> _files) {
         String folder_ = _conf.getMessagesFolder();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
         return getContentFile(_files, fileName_);
     }
 
-    static int indexCorrectMessages(String _content) {
+    public static int indexCorrectMessages(String _content) {
         if (_content == null) {
             return 0;
         }
@@ -50,7 +50,7 @@ public final class RendExtractFromResources {
         return -1;
     }
 
-    static StringMap<String> getMessages(String _content) {
+    public static StringMap<String> getMessages(String _content) {
         String lastKey_ = EMPTY_STRING;
         StringMap<String> messages_ = new StringMap<String>();
         for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {

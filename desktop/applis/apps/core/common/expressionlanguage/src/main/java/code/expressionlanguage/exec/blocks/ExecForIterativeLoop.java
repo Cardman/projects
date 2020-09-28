@@ -227,7 +227,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         if (finished_) {
             return l_;
         }
-        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards()), new LongStruct(fromValue_));
+        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards().getPrimTypes()), new LongStruct(fromValue_));
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(var_, lv_);
@@ -252,7 +252,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         String var_ = getVariableName();
         Argument struct_ = ExecTemplates.getValue(_conf,var_,_conf.getLastPage(),-1);
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
-        Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards()), new LongStruct(o_));
+        Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards().getPrimTypes()), new LongStruct(o_));
         ExecTemplates.setValue(_conf,var_,_conf.getLastPage(),new Argument(element_),-1);
         ExecTemplates.incrIndexLoop(_conf,var_,_conf.getLastPage(), -1);
     }

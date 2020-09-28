@@ -1,33 +1,20 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
-import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecStdFctContent;
 import code.formathtml.Configuration;
-import code.util.CustList;
 import code.util.IdMap;
 
-public class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
-    private String methodName;
+    private ExecStdFctContent stdFctContent;
 
-    private ClassMethodId classMethodId;
-
-    private boolean staticMethod;
-
-    private String lastType;
-
-    private int naturalVararg;
-
-    protected RendStdFctOperation(InvokingOperation _inv, AbstractCallFctOperation _fct) {
-        super(_inv);
-        methodName = _fct.getCallFctContent().getMethodName();
-        classMethodId = _fct.getCallFctContent().getClassMethodId();
-        staticMethod = _fct.isStaticMethod();
-        lastType = _fct.getCallFctContent().getLastType();
-        naturalVararg = _fct.getCallFctContent().getNaturalVararg();
+    public RendStdFctOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStdFctContent _stdFctContent) {
+        super(_content, _intermediateDottedOperation);
+        stdFctContent = _stdFctContent;
     }
 
     @Override
@@ -38,23 +25,23 @@ public class RendStdFctOperation extends RendInvokingOperation implements RendCa
     }
 
     public ClassMethodId getClassMethodId() {
-        return classMethodId;
+        return stdFctContent.getClassMethodId();
     }
 
     public int getNaturalVararg() {
-        return naturalVararg;
+        return stdFctContent.getNaturalVararg();
     }
 
     public String getLastType() {
-        return lastType;
+        return stdFctContent.getLastType();
     }
 
     public String getMethodName() {
-        return methodName;
+        return stdFctContent.getMethodName();
     }
 
     public boolean isStaticMethod() {
-        return staticMethod;
+        return stdFctContent.isStaticMethod();
     }
 
     @Override

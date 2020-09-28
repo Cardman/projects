@@ -281,7 +281,11 @@ public final class RenderMutableLoopTest extends CommonRender {
         String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i&lt;4\" step=\"i++\" label='t'><c:for className=\"$var\" init=\"j=0\" condition=\"j;&lt;4\" step=\"j;++\" label='t'>{i}-</c:for></c:for></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-
+    @Test
+    public void process7FailTest() {
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i++\" label=','><c:if condition='i&gt;=4'><c:break label='lab'/></c:if>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        assertTrue(hasErr(html_, new StringMap<String>()));
+    }
     private boolean hasErr(String html_, StringMap<String> _files) {
         return hasCommErr(html_, _files);
     }

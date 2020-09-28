@@ -1,8 +1,7 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -11,31 +10,12 @@ import code.util.StringMap;
 
 public final class RendLink extends RendElement {
     private String content;
-    private StringMap<ResultText> opExpTitle;
-    RendLink(Element _elt, OffsetsBlock _offset) {
-        super(_elt, _offset);
-    }
+    private StringMap<ExecTextPart> execOpExpTitle;
 
-    @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(_cont.getRendKeyWords().getAttrHref());
-        _list.removeAllString(_cont.getRendKeyWords().getAttrRel());
-        String href_ = getCssHref(_cont,_read);
-        opExpTitle = new StringMap<ResultText>();
-        if (href_ != null) {
-            StringMap<String> files_ = _cont.getFiles();
-            content = files_.getVal(href_);
-            int i_ = CustList.FIRST_INDEX;
-            while (_read.hasAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
-                _list.removeAllString(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-                String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-                int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-                ResultText r_ = new ResultText();
-                r_.build(attribute_, rowsGrId_,_doc, _anaDoc, _page);
-                opExpTitle.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
-                i_++;
-            }
-        }
+    public RendLink(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, String content, StringMap<ExecTextPart> execOpExpTitle) {
+        super(_offsetTrim, read, execAttributes, execAttributesText);
+        this.content = content;
+        this.execOpExpTitle = execOpExpTitle;
     }
 
     @Override
@@ -43,11 +23,11 @@ public final class RendLink extends RendElement {
         String fileContent_ = content;
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
-        if (!opExpTitle.isEmpty()) {
+        if (!execOpExpTitle.isEmpty()) {
             StringList objects_ = new StringList();
-            for (EntryCust<String,ResultText> e:opExpTitle.entryList()) {
-                ResultText r_ = e.getValue();
-                objects_.add(ResultText.render(r_.getOpExp(), r_.getTexts(),_cont));
+            for (EntryCust<String, ExecTextPart> e:execOpExpTitle.entryList()) {
+                ExecTextPart r_ = e.getValue();
+                objects_.add(RenderingText.render(r_,_cont));
                 if (_cont.getContext().hasException()) {
                     return;
                 }

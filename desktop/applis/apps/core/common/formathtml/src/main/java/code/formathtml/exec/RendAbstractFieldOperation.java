@@ -2,29 +2,22 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.AbstractFieldOperation;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
 public abstract class RendAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted,RendCallable {
 
-    private boolean intermediate;
+    private ExecFieldOperationContent fieldOperationContent;
 
-    private int off;
-
-    public RendAbstractFieldOperation(AbstractFieldOperation _a) {
-        super(_a);
-        intermediate = _a.isIntermediateDottedOperation();
-        off = _a.getOff();
-    }
-    RendAbstractFieldOperation(int _indexChild, ExecClassArgumentMatching _res, int _order, boolean _int) {
-        super(_indexChild,_res,_order);
-        intermediate = _int;
+    public RendAbstractFieldOperation(ExecOperationContent _content, ExecFieldOperationContent _fieldOperationContent) {
+        super(_content);
+        fieldOperationContent = _fieldOperationContent;
     }
 
     public int getOff() {
-        return off;
+        return fieldOperationContent.getOff();
     }
 
     @Override
@@ -50,7 +43,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return fieldOperationContent.isIntermediate();
     }
     abstract Argument getCommonArgument(Argument _previous, Configuration _conf);
 

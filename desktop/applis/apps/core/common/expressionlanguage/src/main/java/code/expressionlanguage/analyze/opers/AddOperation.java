@@ -29,15 +29,15 @@ public final class AddOperation extends NumericOperation {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
                 AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
-                _a.setUnwrapObject(out_, _page.getStandards());
-                _b.setUnwrapObject(out_, _page.getStandards());
+                _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+                _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
                 res_.setResult(out_);
                 return res_;
             }
             if (AnaTypeUtil.isFloatOrderClass(_a,_b, _page)) {
                 AnaClassArgumentMatching out_ = getFloatResultClass(_a, _b, _page);
-                _a.setUnwrapObject(out_, _page.getStandards());
-                _b.setUnwrapObject(out_, _page.getStandards());
+                _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+                _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
                 res_.setResult(out_);
                 return res_;
             }
@@ -79,15 +79,15 @@ public final class AddOperation extends NumericOperation {
         }
         if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
             AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
-            _a.setUnwrapObject(out_, _page.getStandards());
-            _b.setUnwrapObject(out_, _page.getStandards());
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
             res_.setResult(out_);
             return res_;
         }
         if (AnaTypeUtil.isFloatOrderClass(_a,_b, _page)) {
             AnaClassArgumentMatching out_ = getFloatResultClass(_a, _b, _page);
-            _a.setUnwrapObject(out_, _page.getStandards());
-            _b.setUnwrapObject(out_, _page.getStandards());
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
             res_.setResult(out_);
             return res_;
         }

@@ -1,17 +1,13 @@
 package code.formathtml.exec;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.DotOperation;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
 public final class RendDotOperation extends RendAbstractDotOperation {
 
-    public RendDotOperation(DotOperation _d) {
-        super(_d);
-    }
-    public RendDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
-        super(_indexChild,_res,_order);
+    public RendDotOperation(ExecOperationContent _content) {
+        super(_content);
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {

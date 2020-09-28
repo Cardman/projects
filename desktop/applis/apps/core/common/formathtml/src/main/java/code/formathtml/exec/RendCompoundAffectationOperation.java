@@ -2,16 +2,15 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
@@ -23,21 +22,19 @@ import code.util.StringList;
 public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation,RendCallable {
 
     private RendSettableElResult settable;
-    private String oper;
-    private MethodAccessKind kind;
-    private String className;
+    private ExecOperatorContent operatorContent;
+    private ExecStaticEltContent staticEltContent;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
-    public RendCompoundAffectationOperation(CompoundAffectationOperation _c, AnalyzedPageEl _page) {
-        super(_c);
-        oper = _c.getOper();
-        kind = ForwardInfos.getKind(_c.getClassMethodId());
-        className = ForwardInfos.getType(_c.getClassMethodId());
-        named = ForwardInfos.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _page);
-        rootBlock = ForwardInfos.fetchType(_c.getRootNumber(), _page);
-        converter = ForwardInfos.fetchImplicits(_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv(), _page);
+    public RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+        super(_content);
+        operatorContent = _operatorContent;
+        staticEltContent = _staticEltContent;
+        named = _named;
+        rootBlock = _rootBlock;
+        converter = _converter;
     }
 
     public void setup() {
@@ -88,8 +85,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             String tres_ = converter.get(0).getImportedParametersTypes().get(0);
             Argument res_;
             StringList arg = new StringList(tres_);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, context_.getStandards());
-            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, arg, cast_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, context_.getStandards().getPrimTypes());
+            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_);
             Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
@@ -99,19 +96,19 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _conf,_nodes);
             return;
         }
-        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
         setSimpleArgument(arg_, _conf,_nodes);
     }
 
     public String getOper() {
-        return oper;
+        return operatorContent.getOper();
     }
 
     @Override
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, className, kind);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

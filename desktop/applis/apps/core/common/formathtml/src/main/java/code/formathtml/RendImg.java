@@ -1,38 +1,23 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RenderingText;
 import code.sml.Element;
 import code.sml.MutableNode;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.StringMap;
 
 public final class RendImg extends RendElement {
 
-    private CustList<CustList<RendDynOperationNode>> opExp;
+    private ExecTextPart textPart;
 
-    private StringList texts = new StringList();
-
-    RendImg(Element _elt, OffsetsBlock _offset) {
-        super(_elt, _offset);
-    }
-
-    @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultText res_ = new ResultText();
-        String pageName_ = _read.getAttribute(_cont.getRendKeyWords().getAttrSrc());
-        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrSrc());
-        res_.build(pageName_, rowsGrId_,_doc, _anaDoc, _page);
-        opExp = res_.getOpExp();
-        texts = res_.getTexts();
-        _list.removeAllString(_cont.getRendKeyWords().getAttrSrc());
+    public RendImg(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, ExecTextPart textPart) {
+        super(_offsetTrim, read, execAttributes, execAttributesText);
+        this.textPart = textPart;
     }
 
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        String pageName_ = ResultText.render(opExp,texts,_cont);
+        String pageName_ = RenderingText.render(textPart,_cont);
         if (_cont.getContext().hasException()) {
             return;
         }
