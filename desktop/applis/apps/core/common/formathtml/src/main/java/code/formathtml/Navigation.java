@@ -2,12 +2,13 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -134,14 +135,12 @@ public final class Navigation {
         return _stds.setupAll(this,session,files, _page, _rend);
     }
 
-    public void setupRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend, AnalyzingDoc _analyzingDoc) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend, AnalyzingDoc _analyzingDoc) {
         _stds.preInitBeans(session);
         _analyzingDoc.setRendAnalysisMessages(_rend);
         _analyzingDoc.setLanguages(languages);
         session.setCurrentLanguage(language);
-        session.setupRenders(files, _analyzingDoc, _page);
-        RendForwardInfos.initBeansInstances(_page, _analyzingDoc);
-        RendForwardInfos.initValidatorsInstance(_page, _analyzingDoc);
+        return session.analyzedRenders(files, _analyzingDoc, _page);
     }
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
@@ -155,8 +154,6 @@ public final class Navigation {
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
             OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page);
-            CustList<RendDynOperationNode> exps_ = RendForwardInfos.getExecutableNodes(_page, root_);
-            v_.setExps(exps_);
             _anaDoc.getLateValidators().addEntry(root_,v_);
         }
     }

@@ -46,10 +46,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     }
 
     private static RendSettableElResult castTo(RendDynOperationNode _op) {
-        if (_op instanceof RendSettableElResult) {
-            return (RendSettableElResult) _op;
-        }
-        return null;
+        return (RendSettableElResult) _op;
     }
     public RendSettableElResult getSettable() {
         return settable;

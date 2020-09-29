@@ -34,10 +34,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         return elt_;
     }
     private static ExecSettableElResult castTo(ExecOperationNode _op) {
-        if (_op instanceof ExecSettableElResult) {
-            return (ExecSettableElResult) _op;
-        }
-        return null;
+        return (ExecSettableElResult) _op;
     }
     public static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
         ExecOperationNode root_ = _operation.getFirstChild();

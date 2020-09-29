@@ -7,6 +7,8 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -90,7 +92,8 @@ public abstract class ContextEl {
         importing.add(_page);
     }
 
-    public void forwardAndClear(AnalyzedPageEl _ana) {
+    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
+        ForwardInfos.generalForward(_ana,_forwards);
         for (ClassMetaInfo c: _ana.getClassMetaInfos()) {
             _ana.getClasses().getClassMetaInfos().add(c);
         }

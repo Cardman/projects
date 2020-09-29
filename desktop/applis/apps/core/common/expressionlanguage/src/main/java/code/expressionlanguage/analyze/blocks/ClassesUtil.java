@@ -29,7 +29,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -58,7 +57,6 @@ public final class ClassesUtil {
                 _page.getToStr().addEntry(e,resDyn_);
             }
         }
-        _page.getToStringOwners().add(_page.getStandards().getAliasObject());
         for (RootBlock e: _page.getAllFoundTypes()) {
             _page.setGlobalClass(e.getGenericString());
             _page.setGlobalType(e);
@@ -119,7 +117,6 @@ public final class ClassesUtil {
                 }
             }
         }
-        ForwardInfos.generalForward(_page);
     }
 
     private static ClassMethodIdReturn tryGetDeclaredToString(RootBlock _class, AnalyzedPageEl _page) {

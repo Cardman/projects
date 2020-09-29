@@ -14,10 +14,12 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.AdvancedExiting;
 import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.AdvancedSetOffset;
@@ -26,6 +28,7 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.blocks.RendImportForm;
 import code.formathtml.exec.opers.*;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -870,15 +873,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
+        Forwards forwards_ = new Forwards();
         setupRendClasses(_conf,_files, _page);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         _nav.initInstancesPattern(_page, analyzingDoc_);
-        _nav.setupRenders(_page, this, _rend, analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
         ReportedMessages messages_ = _page.getMessages();
         if (!messages_.isAllEmptyErrors()) {
             return messages_;
         }
-        forwardAndClear(_conf, _page);
+        forwardAndClear(_conf, _page, analyzingDoc_, forwards_, d_);
         AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
@@ -887,8 +891,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return messages_;
     }
 
-    public void forwardAndClear(Configuration _conf, AnalyzedPageEl _page) {
-        Classes.forwardAndClear(_conf.getContext(), _page);
+    public void forwardAndClear(Configuration _conf, AnalyzedPageEl _page, AnalyzingDoc _anaDoc, Forwards _forward, StringMap<AnaRendDocumentBlock> _analyzed) {
+        Classes.forwardAndClear(_conf.getContext(), _page, _forward);
+        RendForwardInfos.buildExec(_anaDoc, _analyzed, _forward, _conf);
         buildIterables(_page.getClasses());
     }
 

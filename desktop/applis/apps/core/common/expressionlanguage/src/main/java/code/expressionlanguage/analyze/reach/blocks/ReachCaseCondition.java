@@ -56,7 +56,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 return;
             }
             meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
-            if (!Argument.isNullValue(meta.getArgument())) {
+            if (Argument.isNullValue(meta.getArgument())) {
                 meta.setBuiltEnum(true);
                 meta.setNullCaseEnum(true);
             }

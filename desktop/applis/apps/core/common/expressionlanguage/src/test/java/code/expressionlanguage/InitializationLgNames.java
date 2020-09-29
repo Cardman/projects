@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
@@ -63,7 +64,7 @@ public final class InitializationLgNames {
         ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_);
+        return new AnalyzedTestContext(out_,page_, new Forwards());
     }
 
     public static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt) {
@@ -76,7 +77,7 @@ public final class InitializationLgNames {
         ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_);
+        return new AnalyzedTestContext(out_,page_, new Forwards());
     }
 
     private static AnalyzedTestContext buildLgAna(String _lang, LgNames _lgNames, Options _opt) {
@@ -97,7 +98,7 @@ public final class InitializationLgNames {
         ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, _lgNames, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_);
+        return new AnalyzedTestContext(out_,page_, new Forwards());
     }
 
     public static void basicStandards(LgNames _lgNames) {
@@ -431,6 +432,6 @@ public final class InitializationLgNames {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, _undefinedLgNames, _tabWidth, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options, com_);
-        return new AnalyzedTestContext(contextEl_,page_);
+        return new AnalyzedTestContext(contextEl_,page_, new Forwards());
     }
 }

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
 
@@ -31,7 +32,7 @@ public final class InitializationLgNames {
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(contextEl_, page_);
+        return new AnalyzedTestContext(contextEl_, page_, new Forwards());
     }
 
     private static BeanCustLgNames getBeanCustLgNames() {

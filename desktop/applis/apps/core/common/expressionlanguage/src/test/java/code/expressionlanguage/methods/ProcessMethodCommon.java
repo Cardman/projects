@@ -22,6 +22,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
@@ -45,8 +46,8 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static ReportedMessages validate(StringMap<String> _files, ContextEl _contextEl, AnalyzedPageEl _page) {
-        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src", _page);
+    protected static ReportedMessages validate(StringMap<String> _files, ContextEl _contextEl, AnalyzedPageEl _page, Forwards _forwards) {
+        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src", _page, _forwards);
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -292,7 +293,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ReportedMessages validateAll(StringMap<String> files_, AnalyzedTestContext cont_) {
-        return Classes.validateAll(files_, cont_.getContext(), cont_.getAnalyzing());
+        return Classes.validateAll(files_, cont_.getContext(), cont_.getAnalyzing(), cont_.getForwards());
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> files_) {
@@ -390,7 +391,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void forwardAndClear(AnalyzedTestContext cont_) {
-        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing());
+        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing(), cont_.getForwards());
     }
 
     protected static void validateWithoutInit(StringMap<String> files_, AnalyzedTestContext cont_) {
@@ -420,6 +421,7 @@ public abstract class ProcessMethodCommon {
 
     protected static void postValidation(AnalyzedTestContext ctx_) {
         ClassesUtil.postValidation(ctx_.getAnalyzing());
+        ForwardInfos.generalForward(ctx_.getAnalyzing(), ctx_.getForwards());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {
@@ -696,7 +698,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
-        return validate(_f,_c.getContext(), _c.getAnalyzing());
+        return validate(_f,_c.getContext(), _c.getAnalyzing(), _c.getForwards());
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();

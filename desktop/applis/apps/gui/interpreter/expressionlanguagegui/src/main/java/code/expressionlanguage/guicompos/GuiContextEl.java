@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
@@ -135,8 +136,8 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     @Override
-    public void forwardAndClear(AnalyzedPageEl _ana) {
-        super.forwardAndClear(_ana);
+    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
+        super.forwardAndClear(_ana, _forwards);
         LgNamesGui standards_ = (LgNamesGui) _ana.getStandards();
         String aliasActListener_ = standards_.getAliasActionListener();
         actionListener = _ana.getClasses().getClassBody(aliasActListener_);

@@ -33,7 +33,7 @@ public final class LinkageUtil {
         LgNames standards_ = _analyzing.getStandards();
         CustList<RootBlock> refFoundTypes_ = _analyzing.getRefFoundTypes();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
-        CustList<OperatorBlock> operators_ = _analyzing.getMapOperators().getKeys();
+        CustList<OperatorBlock> operators_ = _analyzing.getAllOperators();
         for (FileBlock f: _analyzing.getErrors().getFiles()) {
             if (f.isPredefined()) {
                 continue;

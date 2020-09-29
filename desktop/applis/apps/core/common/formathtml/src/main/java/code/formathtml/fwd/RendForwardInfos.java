@@ -1,6 +1,5 @@
 package code.formathtml.fwd;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ConstType;
@@ -11,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -32,12 +32,12 @@ import code.util.StringMap;
 public final class RendForwardInfos {
     private RendForwardInfos() {
     }
-    public static RendDocumentBlock build(AnaRendDocumentBlock _ana, Configuration _cont, AnalyzedPageEl _page) {
+    public static RendDocumentBlock build(AnaRendDocumentBlock _ana, Configuration _cont, Forwards _forwards) {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset().getOffsetTrim(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendParentBlock curPar_ = rendDoc_;
         AnaRendBlock en_ = _ana;
         while (en_ != null) {
-            RendBlock loc_ = newRendBlock(_page, en_);
+            RendBlock loc_ = newRendBlock(en_, _forwards);
             if (loc_ != null) {
                 if (loc_ instanceof RendStdElement) {
                     if (StringList.quickEq(((RendStdElement) loc_).getRead().getTagName(), _cont.getRendKeyWords().getKeyWordBody())) {
@@ -72,33 +72,33 @@ public final class RendForwardInfos {
         }
         return rendDoc_;
     }
-    private static RendBlock newRendBlock(AnalyzedPageEl _page, AnaRendBlock _current) {
+    private static RendBlock newRendBlock(AnaRendBlock _current, Forwards _forwards) {
         if (_current instanceof AnaRendEmptyText){
             return new RendEmptyText(_current.getOffset().getOffsetTrim(),((AnaRendEmptyText)_current).getExpression(),((AnaRendEmptyText)_current).isAdd());
         }
         if (_current instanceof AnaRendText){
             AnaRendText t_ = (AnaRendText) _current;
-            ExecTextPart part_ = toExecPartExt(_page, t_.getRoots(),t_.getTexts());
+            ExecTextPart part_ = toExecPartExt(t_.getRoots(),t_.getTexts(), _forwards);
             return new RendText(_current.getOffset().getOffsetTrim(),part_,t_.getExpressionOffset());
         }
         if (_current instanceof AnaRendForEachLoop){
             AnaRendForEachLoop f_ = (AnaRendForEachLoop) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendForEachLoop(f_.getImportedClassName(),f_.getVariableName(),
                     f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
         }
         if (_current instanceof AnaRendForEachTable){
             AnaRendForEachTable f_ = (AnaRendForEachTable) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendForEachTable(f_.getImportedClassNameFirst(),f_.getVariableNameFirst(),
                     f_.getImportedClassNameSecond(),f_.getVariableNameSecond(),
                     f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
         }
         if (_current instanceof AnaRendForIterativeLoop){
             AnaRendForIterativeLoop f_ = (AnaRendForIterativeLoop) _current;
-            CustList<RendDynOperationNode> opInit_ = getExecutableNodes(_page, f_.getRootInit());
-            CustList<RendDynOperationNode> opExp_ = getExecutableNodes(_page, f_.getRootExp());
-            CustList<RendDynOperationNode> opStep_ = getExecutableNodes(_page, f_.getRootStep());
+            CustList<RendDynOperationNode> opInit_ = getExecutableNodes(f_.getRootInit(), _forwards);
+            CustList<RendDynOperationNode> opExp_ = getExecutableNodes(f_.getRootExp(), _forwards);
+            CustList<RendDynOperationNode> opStep_ = getExecutableNodes(f_.getRootStep(), _forwards);
             return new RendForIterativeLoop(f_.getImportedClassName(),f_.getVariableName(),
                     f_.getInitOffset(),f_.getExpressionOffset(),f_.isEq(),f_.getStepOffset(),
                     f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),
@@ -106,9 +106,9 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendForMutableIterativeLoop){
             AnaRendForMutableIterativeLoop f_ = (AnaRendForMutableIterativeLoop) _current;
-            CustList<RendDynOperationNode> opInit_ = getExecutableNodes(_page, f_.getRootInit());
-            CustList<RendDynOperationNode> opExp_ = getExecutableNodes(_page, f_.getRootExp());
-            CustList<RendDynOperationNode> opStep_ = getExecutableNodes(_page, f_.getRootStep());
+            CustList<RendDynOperationNode> opInit_ = getExecutableNodes(f_.getRootInit(), _forwards);
+            CustList<RendDynOperationNode> opExp_ = getExecutableNodes(f_.getRootExp(), _forwards);
+            CustList<RendDynOperationNode> opStep_ = getExecutableNodes(f_.getRootStep(), _forwards);
             return new RendForMutableIterativeLoop(f_.getImportedClassName(),
                     f_.getInitOffset(),f_.getExpressionOffset(),f_.getStepOffset(),
                     f_.getVariableNames(),
@@ -117,7 +117,7 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendWhileCondition){
             AnaRendWhileCondition f_ = (AnaRendWhileCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendWhileCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset(),f_.getRealLabel());
         }
         if (_current instanceof AnaRendDoBlock){
@@ -126,7 +126,7 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendDoWhileCondition){
             AnaRendDoWhileCondition f_ = (AnaRendDoWhileCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendDoWhileCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset());
         }
         if (_current instanceof AnaRendReturnMehod){
@@ -142,7 +142,7 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendThrowing){
             AnaRendThrowing f_ = (AnaRendThrowing) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendThrowing(_current.getOffset().getOffsetTrim(),op_,f_.getExpressionOffset());
         }
         if (_current instanceof AnaRendDeclareVariable){
@@ -151,17 +151,17 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendLine){
             AnaRendLine f_ = (AnaRendLine) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendLine(_current.getOffset().getOffsetTrim(),op_,f_.getExpressionOffset());
         }
         if (_current instanceof AnaRendIfCondition){
             AnaRendIfCondition f_ = (AnaRendIfCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendIfCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset(),f_.getRealLabel());
         }
         if (_current instanceof AnaRendElseIfCondition){
             AnaRendElseIfCondition f_ = (AnaRendElseIfCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendElseIfCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset());
         }
         if (_current instanceof AnaRendElseCondition){
@@ -183,7 +183,7 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendSwitchBlock){
             AnaRendSwitchBlock f_ = (AnaRendSwitchBlock) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendSwitchBlock(_current.getOffset().getOffsetTrim(),f_.getRealLabel(),f_.getValueOffset(),op_,f_.isEnumTest(),f_.getInstanceTest());
         }
         if (_current instanceof AnaRendCaseCondition){
@@ -196,48 +196,48 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendImport){
             AnaRendImport f_ = (AnaRendImport) _current;
-            ExecTextPart part_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
+            ExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             return new RendImport(_current.getOffset().getOffsetTrim(),f_.getElt(),part_,f_.getPageOffset());
         }
         if (_current instanceof AnaRendSubmit){
             AnaRendSubmit f_ = (AnaRendSubmit) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            StringMap<ExecTextPart> partSub_ = toExecPartExt(_page, f_.getOpExp());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            StringMap<ExecTextPart> partSub_ = toExecPartExt(f_.getOpExp(), _forwards);
             return new RendSubmit(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,partSub_,f_.getPreformatted());
         }
         if (_current instanceof AnaRendAnchor){
             AnaRendAnchor f_ = (AnaRendAnchor) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            ExecTextPart partSub_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendAnchor(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
         }
         if (_current instanceof AnaRendImg){
             AnaRendImg f_ = (AnaRendImg) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            ExecTextPart partSub_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             return new RendImg(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_, partSub_);
         }
         if (_current instanceof AnaRendLink){
             AnaRendLink f_ = (AnaRendLink) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            StringMap<ExecTextPart> partSub_ = toExecPartExt(_page, f_.getOpExpTitle());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            StringMap<ExecTextPart> partSub_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
             return new RendLink(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,f_.getContent(),partSub_);
         }
         if (_current instanceof AnaRendStyle){
             AnaRendStyle f_ = (AnaRendStyle) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendStyle(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_);
         }
         if (_current instanceof AnaRendEscImg){
             AnaRendEscImg f_ = (AnaRendEscImg) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendEscImg(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_);
         }
         if (_current instanceof AnaRendPackage){
@@ -245,10 +245,10 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendForm){
             AnaRendForm f_ = (AnaRendForm) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            CustList<RendDynOperationNode> opForm_ = getExecutableNodes(_page, f_.getRoot());
-            ExecTextPart partSub_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            CustList<RendDynOperationNode> opForm_ = getExecutableNodes(f_.getRoot(), _forwards);
+            ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             return new RendForm(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
         }
         if (_current instanceof AnaRendImportForm){
@@ -261,13 +261,13 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendField){
             AnaRendField f_ = (AnaRendField) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(_page, f_.getRoot());
+            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendField(_current.getOffset().getOffsetTrim(),op_,f_.getPrepareOffset());
         }
         if (_current instanceof AnaRendMessage){
             AnaRendMessage f_ = (AnaRendMessage) _current;
-            CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(_page, f_.getRoots());
-            StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(_page, f_.getCallsRoots());
+            CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getRoots(), _forwards);
+            StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots(), _forwards);
             return new RendMessage(_current.getOffset().getOffsetTrim(),f_.getElt(),partSub_,
                     f_.getPreformatted(),f_.getQuoted(),f_.getEscaped(),map_,
                     f_.getArgs(),f_.getLocDoc(),
@@ -276,16 +276,16 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendSelect){
             AnaRendSelect f_ = (AnaRendSelect) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(_page, resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(_page, f_.getRootRead());
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(_page, f_.getRootConverter());
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(_page, f_.getRootConverterField());
-            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(_page, f_.getRootConverterFieldValue());
-            CustList<RendDynOperationNode> opDefault_ = getExecutableNodes(_page, f_.getRootDefault());
-            CustList<RendDynOperationNode> opMap_ = getExecutableNodes(_page, f_.getRootMap());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(_page, f_.getRootValue());
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
+            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(f_.getRootConverterFieldValue(), _forwards);
+            CustList<RendDynOperationNode> opDefault_ = getExecutableNodes(f_.getRootDefault(), _forwards);
+            CustList<RendDynOperationNode> opMap_ = getExecutableNodes(f_.getRootMap(), _forwards);
+            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendSelect(_current.getOffset().getOffsetTrim(),opRead_,opValue_,opsWrite_,opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
             ,partText_,part_,f_.getVarName(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),f_.getVarNameConverter(),f_.getVarNameConverterField(),
                     f_.getVarNameConverterFieldValue(),f_.getClassName(),f_.isArrayConverter());
@@ -293,14 +293,14 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendRadio){
             AnaRendRadio f_ = (AnaRendRadio) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(_page, resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(_page, f_.getRootRead());
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(_page, f_.getRootConverter());
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(_page, f_.getRootConverterField());
-            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(_page, f_.getRootConverterFieldValue());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(_page, f_.getRootValue());
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
+            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(f_.getRootConverterFieldValue(), _forwards);
+            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendRadio(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,f_.getVarName(),f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),opConverterFieldValue_,
                     f_.getVarNameConverterFieldValue());
@@ -308,43 +308,43 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendStdInput){
             AnaRendStdInput f_ = (AnaRendStdInput) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(_page, resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(_page, f_.getRootRead());
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(_page, f_.getRootConverter());
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(_page, f_.getRootConverterField());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(_page, f_.getRootValue());
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
+            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendStdInput(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,f_.getVarName(),f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName());
         }
         if (_current instanceof AnaRendTextArea){
             AnaRendTextArea f_ = (AnaRendTextArea) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(_page, resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(_page, f_.getRootRead());
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(_page, f_.getRootConverter());
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(_page, f_.getRootConverterField());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(_page, f_.getRootValue());
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
+            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendTextArea(_current.getOffset().getOffsetTrim(),opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,partText_,part_,f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getVarName(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
         }
         if (_current instanceof AnaRendSpan){
             AnaRendSpan f_ = (AnaRendSpan) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            ExecTextPart partSub_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             return new RendSpan(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,partSub_,f_.getFormatted());
         }
         if (_current instanceof AnaRendTitledAnchor){
             AnaRendTitledAnchor f_ = (AnaRendTitledAnchor) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
-            ExecTextPart partSub_ = toExecPartExt(_page, f_.getRoots(),f_.getTexts());
-            StringMap<ExecTextPart> title_ = toExecPartExt(_page, f_.getOpExpTitle());
-            CustList<RendDynOperationNode> opAnc_ = getExecutableNodes(_page, f_.getRoot());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
+            ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
+            StringMap<ExecTextPart> title_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
+            CustList<RendDynOperationNode> opAnc_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendTitledAnchor(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(),title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
@@ -352,23 +352,23 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendStdElement) {
             AnaRendStdElement f_ = (AnaRendStdElement) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(_page, f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(_page, f_.getAttributesText());
+            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
+            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendStdElement(_current.getOffset().getOffsetTrim(), f_.getRead(), part_, partText_);
         }
         return null;
     }
 
-    private static CustList<RendDynOperationNode> buildWritePart(AnalyzedPageEl _page, ResultInput resultInput_) {
+    private static CustList<RendDynOperationNode> buildWritePart(ResultInput resultInput_, Forwards _forwards) {
         SettableElResult settable_ = resultInput_.getSettable();
         CustList<RendDynOperationNode> l_ = new CustList<RendDynOperationNode>();
         if (settable_ instanceof SettableAbstractFieldOperation) {
-            l_ = buildWritePartField(resultInput_, _page, (SettableAbstractFieldOperation) settable_);
+            l_ = buildWritePartField(resultInput_, (SettableAbstractFieldOperation) settable_, _forwards);
         }
         if (settable_ instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) settable_;
             if (a_.getCallFctContent().getClassMethodId() != null) {
-                l_ = buildWritePartCustArr(resultInput_, a_,_page);
+                l_ = buildWritePartCustArr(resultInput_, a_, _forwards);
             } else {
                 l_ = buildWritePartArr(resultInput_, a_);
             }
@@ -376,60 +376,52 @@ public final class RendForwardInfos {
         return l_;
     }
 
-    private static StringMap<ExecTextPart> toExecPartExt(AnalyzedPageEl _page, StringMap<ResultText> _texts) {
+    private static StringMap<ExecTextPart> toExecPartExt(StringMap<ResultText> _texts, Forwards _forwards) {
         StringMap<ExecTextPart> m_ = new StringMap<ExecTextPart>();
         for (EntryCust<String,ResultText> e: _texts.entryList()) {
             ResultText value_ = e.getValue();
-            m_.addEntry(e.getKey(),toExecPartExt(_page, value_.getOpExpRoot(),value_.getTexts()));
+            m_.addEntry(e.getKey(),toExecPartExt(value_.getOpExpRoot(),value_.getTexts(), _forwards));
         }
         return m_;
     }
-    private static ExecTextPart toExecPartExt(AnalyzedPageEl _page, CustList<OperationNode> _roots, StringList _texts) {
-        CustList<CustList<RendDynOperationNode>> parts_;
-        parts_ = new CustList<CustList<RendDynOperationNode>>();
-        for (OperationNode r: _roots) {
-            parts_.add(getExecutableNodes(_page, r));
-        }
+    private static ExecTextPart toExecPartExt(CustList<OperationNode> _roots, StringList _texts, Forwards _forwards) {
+        CustList<CustList<RendDynOperationNode>> parts_ = toExecPartExt(_roots, _forwards);
         ExecTextPart part_ = new ExecTextPart();
         part_.getTexts().addAllElts(_texts);
         part_.setOpExp(parts_);
         return part_;
     }
-    private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(AnalyzedPageEl _page, StringMap<CustList<OperationNode>> _roots) {
+    private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(StringMap<CustList<OperationNode>> _roots, Forwards _forwards) {
         StringMap<CustList<CustList<RendDynOperationNode>>> m_ = new StringMap<CustList<CustList<RendDynOperationNode>>>();
         for (EntryCust<String, CustList<OperationNode>> e:_roots.entryList()) {
-            CustList<CustList<RendDynOperationNode>> parts_;
-            parts_ = new CustList<CustList<RendDynOperationNode>>();
-            for (OperationNode r: e.getValue()) {
-                parts_.add(getExecutableNodes(_page, r));
-            }
+            CustList<CustList<RendDynOperationNode>> parts_ = toExecPartExt(e.getValue(), _forwards);
             m_.addEntry(e.getKey(),parts_);
         }
 
         return m_;
     }
-    private static CustList<CustList<RendDynOperationNode>> toExecPartExt(AnalyzedPageEl _page, CustList<OperationNode> _roots) {
+    private static CustList<CustList<RendDynOperationNode>> toExecPartExt(CustList<OperationNode> _roots, Forwards _forwards) {
         CustList<CustList<RendDynOperationNode>> parts_;
         parts_ = new CustList<CustList<RendDynOperationNode>>();
         for (OperationNode r: _roots) {
-            parts_.add(getExecutableNodes(_page, r));
+            parts_.add(getExecutableNodes(r, _forwards));
         }
         return parts_;
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedPageEl _page, OperationNode root_) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(OperationNode root_, Forwards _forwards) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         if (root_ == null){
             return out_;
         }
         OperationNode current_ = root_;
-        RendDynOperationNode exp_ = createExecOperationNode(current_, _page);
-        setImplicits(exp_, _page, current_);
+        RendDynOperationNode exp_ = createExecOperationNode(current_, _forwards);
+        setImplicits(exp_, current_, _forwards);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof RendMethodOperation &&op_ != null) {
-                RendDynOperationNode loc_ = createExecOperationNode(op_, _page);
-                setImplicits(loc_, _page, op_);
+                RendDynOperationNode loc_ = createExecOperationNode(op_, _forwards);
+                setImplicits(loc_, op_, _forwards);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -448,8 +440,8 @@ public final class RendForwardInfos {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    RendDynOperationNode loc_ = createExecOperationNode(op_, _page);
-                    setImplicits(loc_, _page, op_);
+                    RendDynOperationNode loc_ = createExecOperationNode(op_, _forwards);
+                    setImplicits(loc_, op_, _forwards);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
@@ -486,7 +478,7 @@ public final class RendForwardInfos {
         return out_;
     }
 
-    private static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, AnalyzedPageEl _page) {
+    private static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(new ExecOperationContent(m_.getContent()), m_.getOff());
@@ -517,12 +509,12 @@ public final class RendForwardInfos {
                 if (a_.getStandardMethod() != null) {
                     return new RendStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
                 }
-                ExecRootBlock rootBlock_ = ForwardInfos.fetchType(a_.getRootNumber(), _page);
+                ExecRootBlock rootBlock_ = ForwardInfos.fetchType(a_.getRootNumber(), _forwards);
                 if (a_.isTrueFalse()) {
-                    return new RendExplicitOperation(ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page), rootBlock_, new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
+                    return new RendExplicitOperation(ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _forwards), rootBlock_, new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
                 }
                 if (a_.isStaticMethod()) {
-                    return new RendStaticFctOperation(ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page),
+                    return new RendStaticFctOperation(ForwardInfos.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _forwards),
                             rootBlock_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent()));
                 }
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
@@ -548,8 +540,8 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = ForwardInfos.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page);
-            ExecRootBlock rootBlock_ = ForwardInfos.fetchType(s_.getRootNumber(), _page);
+            ExecNamedFunctionBlock ctor_ = ForwardInfos.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _forwards);
+            ExecRootBlock rootBlock_ = ForwardInfos.fetchType(s_.getRootNumber(), _forwards);
             if (rootBlock_ == null) {
                 return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()));
             }
@@ -557,13 +549,13 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
-            return new RendInterfaceFctConstructor(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(s_.getInvokingConstructorContent()), s_.getClassName(), ForwardInfos.fetchType(s_.getRootNumber(), _page), ForwardInfos.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page));
+            return new RendInterfaceFctConstructor(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(s_.getInvokingConstructorContent()), s_.getClassName(), ForwardInfos.fetchType(s_.getRootNumber(), _forwards), ForwardInfos.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(a_.getRootNumber(), _page);
-            ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _page);
-            ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _page);
+            ExecRootBlock ex_ = ForwardInfos.fetchType(a_.getRootNumber(), _forwards);
+            ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _forwards);
+            ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _forwards);
             if (a_.getCallFctContent().getClassMethodId() != null) {
                 return new RendCustArrOperation(a_.isIntermediateDottedOperation(), get_,set_,ex_, new ExecOperationContent(a_.getContent()), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod()));
             }
@@ -578,11 +570,11 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new RendEnumValueOfOperation(new ExecOperationContent(d_.getContent()), new ExecValuesContent(d_.getValuesContent(), _page));
+            return new RendEnumValueOfOperation(new ExecOperationContent(d_.getContent()), new ExecValuesContent(d_.getValuesContent(), _forwards));
         }
         if (_anaNode instanceof ValuesOperation) {
             ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new RendValuesOperation(new ExecOperationContent(d_.getContent()), new ExecValuesContent(d_.getValuesContent(), _page));
+            return new RendValuesOperation(new ExecOperationContent(d_.getContent()), new ExecValuesContent(d_.getValuesContent(), _forwards));
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
@@ -590,24 +582,24 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(c_.getRootNumber(), _page);
+            ExecRootBlock ex_ = ForwardInfos.fetchType(c_.getRootNumber(), _forwards);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(c_, _page);
+                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(c_, _forwards);
                 return new RendChoiceFctOperation(fct_,ex_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true));
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = ForwardInfos.fetchType(s_.getRootNumber(), _page);
+            ExecRootBlock ex_ = ForwardInfos.fetchType(s_.getRootNumber(), _forwards);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(s_, _page);
+                ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(s_, _forwards);
                 return new RendSuperFctOperation(fct_,ex_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true));
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(f_, _page);
-            ExecRootBlock ex_ = ForwardInfos.fetchType(f_.getRootNumber(), _page);
+            ExecNamedFunctionBlock fct_ = ForwardInfos.fetchFunction(f_, _forwards);
+            ExecRootBlock ex_ = ForwardInfos.fetchType(f_.getRootNumber(), _forwards);
             if (ex_ != null) {
                 return new RendFctOperation(fct_,ex_, new ExecOperationContent(f_.getContent()), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod()), f_.isIntermediateDottedOperation());
             }
@@ -638,7 +630,7 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
-            return new RendLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), f_.getLambdaMemberNumberContent(), _page), new ExecLambdaConstructorContent(f_.getRealId(), f_.getLambdaMemberNumberContent(), _page), new ExecLambdaFieldContent(f_.getFieldId(), f_.getLambdaFieldContent(), f_.getLambdaMemberNumberContent(), _page), f_.getStandardMethod());
+            return new RendLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), f_.getLambdaMemberNumberContent(), _forwards), new ExecLambdaConstructorContent(f_.getRealId(), f_.getLambdaMemberNumberContent(), _forwards), new ExecLambdaFieldContent(f_.getFieldId(), f_.getLambdaFieldContent(), f_.getLambdaMemberNumberContent(), _forwards), f_.getStandardMethod());
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
@@ -665,7 +657,7 @@ public final class RendForwardInfos {
             if (s_.getFieldId() == null) {
                 return new RendDeclaringOperation(new ExecOperationContent(_anaNode.getContent()));
             }
-            return new RendSettableFieldOperation(new ExecOperationContent(s_.getContent()), new ExecFieldOperationContent(s_.getFieldContent()), new ExecSettableOperationContent(s_.getSettableFieldContent()),ForwardInfos.fetchType(s_.getRootNumber(), _page));
+            return new RendSettableFieldOperation(new ExecOperationContent(s_.getContent()), new ExecFieldOperationContent(s_.getFieldContent()), new ExecSettableOperationContent(s_.getSettableFieldContent()),ForwardInfos.fetchType(s_.getRootNumber(), _forwards));
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -696,11 +688,11 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent()), ForwardInfos.fetchFunctionOp(m_.getRootNumber(), m_.getMemberNumber(), _page), ForwardInfos.fetchType(m_.getRootNumber(), _page), m_.getOffsetOper());
+            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent()), ForwardInfos.fetchFunctionOp(m_.getRootNumber(), m_.getMemberNumber(), _forwards), ForwardInfos.fetchType(m_.getRootNumber(), _forwards), m_.getOffsetOper());
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new RendSemiAffectationOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getClassMethodId(), m_.isPost()), new ExecOperatorContent(m_.getOperatorContent()), ForwardInfos.fetchFunctionOp(m_.getRootNumber(), m_.getMemberNumber(), _page), ForwardInfos.fetchType(m_.getRootNumber(), _page), ForwardInfos.fetchImplicits(m_.getConverterFrom(), m_.getRootNumberFrom(), m_.getMemberNumberFrom(), _page), ForwardInfos.fetchImplicits(m_.getConverterTo(), m_.getRootNumberTo(), m_.getMemberNumberTo(), _page));
+            return new RendSemiAffectationOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getClassMethodId(), m_.isPost()), new ExecOperatorContent(m_.getOperatorContent()), ForwardInfos.fetchFunctionOp(m_.getRootNumber(), m_.getMemberNumber(), _forwards), ForwardInfos.fetchType(m_.getRootNumber(), _forwards), ForwardInfos.fetchImplicits(m_.getConverterFrom(), m_.getRootNumberFrom(), m_.getMemberNumberFrom(), _forwards), ForwardInfos.fetchImplicits(m_.getConverterTo(), m_.getRootNumberTo(), m_.getMemberNumberTo(), _forwards));
         }
         if (_anaNode instanceof UnaryBooleanOperation) {
             UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
@@ -717,8 +709,8 @@ public final class RendForwardInfos {
             }
             if (n_.getClassMethodId() != null) {
                 return new RendCustNumericOperation(
-                        ForwardInfos.fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _page),
-                        ForwardInfos.fetchType(n_.getRootNumber(), _page), new ExecOperationContent(_anaNode.getContent()), n_.getOpOffset(), new ExecStaticEltContent(n_.getClassMethodId()));
+                        ForwardInfos.fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _forwards),
+                        ForwardInfos.fetchType(n_.getRootNumber(), _forwards), new ExecOperationContent(_anaNode.getContent()), n_.getOpOffset(), new ExecStaticEltContent(n_.getClassMethodId()));
             }
         }
         if (_anaNode instanceof UnaryOperation) {
@@ -732,14 +724,14 @@ public final class RendForwardInfos {
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new RendExplicitOperation(
-                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    ForwardInfos.fetchType(m_.getRootNumber(), _page), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _forwards),
+                    ForwardInfos.fetchType(m_.getRootNumber(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
             return new RendImplicitOperation(
-                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
-                    ForwardInfos.fetchType(m_.getRootNumber(), _page), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+                    ForwardInfos.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _forwards),
+                    ForwardInfos.fetchType(m_.getRootNumber(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
@@ -809,15 +801,15 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
-            return new RendAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _page), ForwardInfos.fetchType(c_.getRootNumber(), _page), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _page));
+            return new RendAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), ForwardInfos.fetchType(c_.getRootNumber(), _forwards), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards));
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
-            return new RendOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _page), ForwardInfos.fetchType(c_.getRootNumber(), _page), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _page));
+            return new RendOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), ForwardInfos.fetchType(c_.getRootNumber(), _forwards), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards));
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new RendCompoundAffectationOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _page), ForwardInfos.fetchType(c_.getRootNumber(), _page), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _page));
+            return new RendCompoundAffectationOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(c_.getClassMethodId()), ForwardInfos.fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), ForwardInfos.fetchType(c_.getRootNumber(), _forwards), ForwardInfos.fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards));
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
@@ -868,11 +860,11 @@ public final class RendForwardInfos {
         return w_;
     }
 
-    private static CustList<RendDynOperationNode> buildWritePartCustArr(ResultInput _resultInput, ArrOperation settable_, AnalyzedPageEl _page) {
+    private static CustList<RendDynOperationNode> buildWritePartCustArr(ResultInput _resultInput, ArrOperation settable_, Forwards _forwards) {
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
-        ExecRootBlock ex_ = ForwardInfos.fetchType(settable_.getRootNumber(), _page);
-        ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(settable_.getRootNumber(), settable_.getMemberNumber(), _page);
-        ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(settable_.getRootNumber(), settable_.getMemberNumberSet(), _page);
+        ExecRootBlock ex_ = ForwardInfos.fetchType(settable_.getRootNumber(), _forwards);
+        ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(settable_.getRootNumber(), settable_.getMemberNumber(), _forwards);
+        ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(settable_.getRootNumber(), settable_.getMemberNumberSet(), _forwards);
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
         ExecClassArgumentMatching pr_ = PrimitiveTypeUtil.toExec(_resultInput.getPreviousResult());
         CustList<OperationNode> childrenNodes_ = settable_.getChildrenNodes();
@@ -914,18 +906,15 @@ public final class RendForwardInfos {
         return cont_;
     }
 
-    private static CustList<RendDynOperationNode> buildWritePartField(ResultInput _resultInput, AnalyzedPageEl _page, SettableAbstractFieldOperation settable_) {
+    private static CustList<RendDynOperationNode> buildWritePartField(ResultInput _resultInput, SettableAbstractFieldOperation settable_, Forwards _forwards) {
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
-        if (settable_.getSettableFieldContent().getFieldMetaInfo() == null) {
-            return w_;
-        }
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
         ExecClassArgumentMatching pr_ = PrimitiveTypeUtil.toExec(_resultInput.getPreviousResult());
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 2));
         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
-        ExecRootBlock rootBlock_ = ForwardInfos.fetchType(settable_.getRootNumber(), _page);
+        ExecRootBlock rootBlock_ = ForwardInfos.fetchType(settable_.getRootNumber(), _forwards);
         AnaFieldOperationContent cont = new AnaFieldOperationContent(0);
         cont.setIntermediate(true);
         RendSettableFieldOperation rendField_ = new RendSettableFieldOperation(new ExecOperationContent(1,pr_,1),
@@ -946,27 +935,43 @@ public final class RendForwardInfos {
         return w_;
     }
 
-    private static void setImplicits(RendDynOperationNode _ex, AnalyzedPageEl _page, OperationNode _ana){
+    private static void setImplicits(RendDynOperationNode _ex, OperationNode _ana, Forwards _forwards){
         AnaClassArgumentMatching ana_ = _ana.getResultClass();
         ImplicitMethods implicits_ = _ex.getImplicits();
         ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        ForwardInfos.setImplicits(ana_,implicits_,implicitsTest_, _page);
+        ForwardInfos.setImplicits(ana_,implicits_,implicitsTest_, _forwards);
     }
 
-    public static void initValidatorsInstance(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
+    private static void initValidatorsInstance(AnalyzingDoc _anaDoc, Forwards _forwards) {
         for (EntryCust<OperationNode, ValidatorInfo> e: _anaDoc.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
             OperationNode root_ = e.getKey();
-            CustList<RendDynOperationNode> exps_ = getExecutableNodes(_page, root_);
+            CustList<RendDynOperationNode> exps_ = getExecutableNodes(root_, _forwards);
             v_.setExps(exps_);
         }
     }
 
-    public static void initBeansInstances(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
+    private static void initBeansInstances(AnalyzingDoc _anaDoc, Forwards _forwards) {
         for (EntryCust<OperationNode, BeanInfo> e: _anaDoc.getBeansInfos().entryList()) {
             OperationNode root_ = e.getKey();
-            CustList<RendDynOperationNode> exps_ = getExecutableNodes(_page, root_);
+            CustList<RendDynOperationNode> exps_ = getExecutableNodes(root_, _forwards);
             e.getValue().setExps(exps_);
         }
+    }
+
+    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> d_, Forwards _forwards, Configuration _conf) {
+        buildExec(d_, _forwards, _conf);
+        initBeansInstances(_analyzingDoc, _forwards);
+        initValidatorsInstance(_analyzingDoc, _forwards);
+    }
+
+    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
+        for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
+            RendDocumentBlock rendDoc_ = build(v.getValue(), _conf, _forwards);
+            _conf.getRenders().put(v.getKey(), rendDoc_);
+        }
+        String currentUrl2_ = _conf.getFirstUrl();
+        String realFilePath2_ = Configuration.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
+        _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
     }
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.*;
@@ -353,7 +354,7 @@ public final class RendKeyWordsTest {
     private static AnalyzedTestConfiguration build(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        return new AnalyzedTestConfiguration(conf_,s_);
+        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards());
     }
 
     private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
@@ -361,7 +362,7 @@ public final class RendKeyWordsTest {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);
-        return new AnalyzedTestContext(s_, page_);
+        return new AnalyzedTestContext(s_, page_, new Forwards());
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {

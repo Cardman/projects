@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -57,7 +58,8 @@ public final class RenderInitStdsTest extends CommonRender {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, options_, b_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, am_, k_, b_, new CustList<CommentDelimiters>(), options_, com_);
-        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, new AnalyzedTestContext(contextEl_, page_));
+        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards());
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards());
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         BeanLgNames standards_ = (BeanLgNames) contextEl_.getStandards();
         CommonRender.getHeaders(new StringMap<String>(), a_);
@@ -79,7 +81,8 @@ public final class RenderInitStdsTest extends CommonRender {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _opt, _beanLgNames, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, _mess, _kw, _beanLgNames, new CustList<CommentDelimiters>(), _opt, com_);
-        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,new AnalyzedTestContext(contextEl_, page_));
+        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards());
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards());
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         CommonRender.getHeaders(_files, a_);
         contextEl_.setFullStack(new AdvancedFullStack(conf_));

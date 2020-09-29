@@ -17,7 +17,9 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendImport;
@@ -26,6 +28,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendInvokingOperation;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
@@ -422,7 +425,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         _nav.initInstancesPattern(_page, analyzingDoc_);
-        _nav.setupRenders(_page, this, _rend, analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
+        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return _page.getMessages();
     }
     public abstract Struct wrapStd(Object _element);

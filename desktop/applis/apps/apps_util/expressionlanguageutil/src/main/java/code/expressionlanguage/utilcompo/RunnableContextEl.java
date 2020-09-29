@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.threads.Locking;
@@ -52,8 +53,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public void forwardAndClear(AnalyzedPageEl _ana) {
-        super.forwardAndClear(_ana);
+    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
+        super.forwardAndClear(_ana, _forwards);
         LgNamesUtils standards_ = (LgNamesUtils) _ana.getStandards();
         String aliasExecute_ = standards_.getAliasExecute();
         executeType = _ana.getClasses().getClassBody(aliasExecute_);

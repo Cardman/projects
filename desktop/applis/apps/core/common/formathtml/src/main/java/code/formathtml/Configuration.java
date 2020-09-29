@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RenderExpUtil;
@@ -109,7 +110,7 @@ public final class Configuration {
         renderFiles.add(firstUrl);
     }
 
-    public void setupRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         renders.clear();
         setFiles(_files);
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
@@ -137,14 +138,9 @@ public final class Configuration {
         for (AnaRendDocumentBlock v: d_.values()) {
             v.buildFctInstructions(this, _analyzingDoc, _page);
         }
-        for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
-            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), this,_page);
-            renders.put(v.getKey(), rendDoc_);
-        }
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
-        rendDocumentBlock = getRenders().getVal(realFilePath_);
-        if (rendDocumentBlock == null) {
+        if (d_.getVal(realFilePath_) == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
             badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
@@ -152,7 +148,9 @@ public final class Configuration {
                     realFilePath_);
             AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
         }
+        return d_;
     }
+
     public void initForms() {
         callsExps = new CustList<CustList<RendDynOperationNode>>();
         anchorsArgs = new CustList<StringList>();

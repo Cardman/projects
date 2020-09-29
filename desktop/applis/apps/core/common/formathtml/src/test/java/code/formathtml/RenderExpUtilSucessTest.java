@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -2806,32 +2807,32 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processDoubleDelimiters(String s, int i, int i2) {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
+        setupAnalyzing(context_);
         Delimiters d_1 = checkDel(s, 2, context_);
         assertTrue(d_1.getBadOffset() < 0);
         int beg_1 = d_1.getIndexBegin();
         int end_1 = d_1.getIndexEnd();
         analyzingDoc_.setNextIndex(end_1 +2);
         String el_1 = s.substring(beg_1, end_1 +1);
-        OperationsSequence opTwo_1 = rendOpSeq(context_, analyzingDoc_, d_1, el_1, 2);
+        OperationsSequence opTwo_1 = rendOpSeq(context_, d_1, el_1, 2);
         OperationNode op_1 = rendOp(context_, analyzingDoc_, opTwo_1);
-        CustList<OperationNode> all_1 = getSortedDescNodes(context_, new AnalyzingDoc(), op_1);
+        CustList<OperationNode> all_1 = getSortedDescNodes(context_, op_1);
         CustList<RendDynOperationNode> out_1 = getExecutableNodes(context_, all_1);
         assertTrue(isEmptyErrors(context_));
         out_1 = CommonRender.getReducedNodes(out_1.last());
         caculateReuse(context_, out_1);
         assertNull(getException(context_));
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         Delimiters d_ = checkDel(s, i, context_);
         assertTrue(d_.getBadOffset() < 0);
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = s.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = rendOpSeq(i, context_, analyzingDoc_, d_, el_);
+        OperationsSequence opTwo_ = rendOpSeq(i, context_, d_, el_);
         OperationNode op_ = rendOp(i, context_, analyzingDoc_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
@@ -2853,17 +2854,17 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processDelimiters(String s, int i) {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
+        setupAnalyzing(context_);
         Delimiters d_ = checkDel(s, 2, context_);
         assertTrue(d_.getBadOffset() < 0);
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = s.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = rendOpSeq(context_, analyzingDoc_, d_, el_, 2);
+        OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
         OperationNode op_ = rendOp(context_, analyzingDoc_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
@@ -2874,8 +2875,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return arg_;
     }
 
-    private static OperationsSequence rendOpSeq(AnalyzedTestConfiguration context_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_, int _off) {
-        return rendOpSeq(_off, context_, analyzingDoc_, d_, el_);
+    private static OperationsSequence rendOpSeq(AnalyzedTestConfiguration context_, Delimiters d_, String el_, int _off) {
+        return rendOpSeq(_off, context_, d_, el_);
     }
 
     protected static OperationNode rendOp(AnalyzedTestConfiguration context_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
@@ -5296,7 +5297,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v+=1i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5304,7 +5305,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -5331,7 +5332,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v==1i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5339,7 +5340,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertTrue(arg_.isFalse());
@@ -5354,7 +5355,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5362,7 +5363,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -5378,7 +5379,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "++v";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5386,7 +5387,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -5404,7 +5405,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v[0i]++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5412,7 +5413,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -5430,7 +5431,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "++v[0i]";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5438,7 +5439,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -5454,7 +5455,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v+=2i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5462,7 +5463,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -5480,7 +5481,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v[0i]+=3i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5488,7 +5489,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(8, ((NumberStruct) in_[0]).intStruct());
@@ -5508,7 +5509,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v+++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5516,13 +5517,18 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
         assertEq(15, getNumber(arg_));
     }
+
+    public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
+    }
+
     @Test
     public void processEl194Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
@@ -5537,7 +5543,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v---v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5545,7 +5551,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -5566,7 +5572,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v=++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5574,7 +5580,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -5595,7 +5601,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v= ++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5603,7 +5609,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -5614,7 +5620,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl197Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        setupAna(new AnalyzingDoc(), context_.getAnalyzing());
+        setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5622,7 +5628,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(1, getNumber(arg_));
@@ -5642,7 +5648,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = "v=v2=4i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5650,7 +5656,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -5730,10 +5736,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         if (context_.hasPages() && context_.getAnalyzing() != null) {
             context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalClass());
         }
-        CustList<RendDynOperationNode> out_ = getAnalyzed(s, 0, context_, new AnalyzingDoc());
+        CustList<RendDynOperationNode> out_ = getAnalyzed(s, 0, context_, context_.getAnalyzingDoc());
         AnalyzedPageEl page_ = context_.getAnalyzing();
         assertTrue(context_.isEmptyErrors());
-        Classes.forwardAndClear(context_.getContext(), page_);
+        Classes.forwardAndClear(context_.getContext(), page_, context_.getForwards());
         Configuration _cont = context_.getConfiguration();
         for (ClassMetaInfo c: _cont.getContext().getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
@@ -5860,7 +5866,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        setupAnalyzing(context_);
         String elr_ = s;
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5868,7 +5874,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
         OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         return lv_;
@@ -5883,6 +5889,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(a_));
         AnalysisMessages analysisMessages_ = a_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = a_.getAnalyzing().getMessages();
+        ForwardInfos.generalForward(a_.getAnalyzing(),a_.getForwards());
         Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, a_.getAnalyzing().getOptions());
         return a_;
     }

@@ -7,11 +7,13 @@ import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.*;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanTwo;
@@ -20,6 +22,7 @@ import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.MyValidator;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
@@ -302,7 +305,7 @@ public final class NativeTest extends CommonRender {
     private static AnalyzedTestConfiguration buildNat(Configuration conf_) {
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = buildStdOne(opt_);
-        return new AnalyzedTestConfiguration(conf_,cont_);
+        return new AnalyzedTestConfiguration(conf_,cont_, cont_.getForwards());
     }
 
     @Test
@@ -1245,10 +1248,13 @@ public final class NativeTest extends CommonRender {
         }
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
-        _nav.setupRenders(_conf.getAnalyzing(), standards_, analyzingDoc_.getRendAnalysisMessages(),analyzingDoc_);
+        AnalyzedPageEl _page = _conf.getAnalyzing();
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_.getRendAnalysisMessages(), analyzingDoc_);
+        _conf.setAnalyzed(d_);
+        RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
         _nav.initializeRendSession();
     }
 
@@ -1258,8 +1264,7 @@ public final class NativeTest extends CommonRender {
         setupNative(folder_, relative_, context_.getConfiguration());
         putBean(bean_, "bean_one", context_.getAnaStandards());
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzeInner(context_.getConfiguration(),context_,analyzingDoc_,html_);
+        analyzeInner(context_.getConfiguration(),context_, html_);
         return !context_.isEmptyErrors();
     }
 
@@ -1269,9 +1274,10 @@ public final class NativeTest extends CommonRender {
         setupNative(folder_, relative_, conf_.getConfiguration());
         putBean(bean_, "bean_one", conf_.getAnaStandards());
         addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        analyzeInner(conf_.getConfiguration(),conf_,analyzingDoc_,html_);
+        analyzeInner(conf_.getConfiguration(),conf_, html_);
+        RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
         String res = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"));
@@ -1289,8 +1295,8 @@ public final class NativeTest extends CommonRender {
         Configuration c_ = conf_.getConfiguration();
         addBeanInfo(conf_,"bean_one", new BeanStruct(bean_));
         addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzeInner(c_,conf_,analyzingDoc_,html_,htmlTwo_);
+        analyzeInner(c_,conf_, html_,htmlTwo_);
+        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         return conf_.getConfiguration().getRenders().getVal("page1.html");
     }
@@ -1305,7 +1311,7 @@ public final class NativeTest extends CommonRender {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
-        return new AnalyzedTestContext(contextEl_, page_);
+        return new AnalyzedTestContext(contextEl_, page_, new Forwards());
     }
 
     private static void addBeanInfo(AnalyzedTestConfiguration _conf, String _id, Struct _str) {

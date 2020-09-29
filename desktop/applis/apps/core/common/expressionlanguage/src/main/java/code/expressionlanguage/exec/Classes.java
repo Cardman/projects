@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.*;
@@ -12,6 +14,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -57,22 +60,22 @@ public final class Classes {
 	}
 
     /**Resources are possibly added before analyzing file types*/
-    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page) {
+    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page, Forwards _forwards) {
         validateWithoutInit(_files, _page);
         ReportedMessages messages_ = _page.getMessages();
         if (!_page.isEmptyErrors()) {
             //all errors are logged here
             return messages_;
         }
-        forwardAndClear(_context, _page);
+        forwardAndClear(_context, _page, _forwards);
         AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
         tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
         return messages_;
     }
 
-    public static void forwardAndClear(ContextEl _context, AnalyzedPageEl _analyzing) {
-        _context.forwardAndClear(_analyzing);
+    public static void forwardAndClear(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards) {
+        _context.forwardAndClear(_analyzing, _forwards);
     }
 
     public static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
@@ -83,6 +86,15 @@ public final class Classes {
         ClassesUtil.buildAllBracesBodies(_files, _page);
         ClassesUtil.postValidation(_page);
         if (_page.isGettingErrors()) {
+            _page.getToStringOwners().add(_page.getStandards().getAliasObject());
+            for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
+                String fullName_ = e.getKey().getFullName();
+                _page.getToStringOwners().add(fullName_);
+            }
+            for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
+                FileBlock content_ = f.getValue();
+                _page.getErrors().putFile(content_, _page);
+            }
             ReportedMessages messages_ = _page.getMessages();
             messages_.setErrors(FileBlock.errors(_page));
         }

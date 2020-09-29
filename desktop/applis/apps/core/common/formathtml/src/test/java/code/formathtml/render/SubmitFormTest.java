@@ -2,6 +2,7 @@ package code.formathtml.render;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -977,7 +978,10 @@ public final class SubmitFormTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        analyze(nav_, a_.getAnalyzing(), a_.getAdvStandards());
+        AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc);
+        a_.setAnalyzed(d_);
+        tryForward(a_);
         tryInitStaticlyTypes(a_);
         nav_.initializeRendSession();
         return nav_;
@@ -1006,19 +1010,21 @@ public final class SubmitFormTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
-        analyze(nav_, a_.getAnalyzing(), a_.getAdvStandards());
+        AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc);
+        a_.setAnalyzed(d_);
+        tryForward(a_);
         tryInitStaticlyTypes(a_);
         nav_.initializeRendSession();
         return nav_;
     }
 
-    private static void analyze(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds) {
+    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        AnalyzingDoc anaDoc_ = new AnalyzingDoc();
-        setupAna(anaDoc_, page_);
-        _nav.initInstancesPattern(page_, anaDoc_);
+        setupAna(_anaDoc, page_);
+        _nav.initInstancesPattern(page_, _anaDoc);
         _nav.getSession().setPrefix("c:");
-        _nav.setupRenders(page_, _stds, anaDoc_.getRendAnalysisMessages(), anaDoc_);
+        return _nav.analyzedRenders(page_, _stds, _anaDoc.getRendAnalysisMessages(), _anaDoc);
     }
 
 

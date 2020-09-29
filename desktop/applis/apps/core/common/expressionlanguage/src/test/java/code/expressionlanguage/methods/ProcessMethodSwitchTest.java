@@ -1044,6 +1044,36 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         assertEq(3, getNumber(ret_));
     }
     @Test
+    public void calculateArgument84Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo t;\n");
+        xml_.append("  t=$null;\n");
+        xml_.append("  $int o=0;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("    o=11;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    o=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(11, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument2FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

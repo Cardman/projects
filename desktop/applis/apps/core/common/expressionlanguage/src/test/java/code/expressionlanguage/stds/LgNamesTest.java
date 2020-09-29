@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -2334,7 +2335,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setStandards(lgName_);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
-        return new AnalyzedTestContext(ctx_,page_);
+        return new AnalyzedTestContext(ctx_,page_, new Forwards());
     }
 
     public static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {

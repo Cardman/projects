@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -24,10 +25,10 @@ public final class ContextFactory {
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
                                             CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com) {
         AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options, _com);
-        return addResourcesAndValidate(_files, _contextEl, _folder, page_);
+        return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
 
-    public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder, AnalyzedPageEl _page) {
+    public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -37,7 +38,7 @@ public final class ContextFactory {
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
         _page.addResources(_files);
-        return Classes.validateAll(srcFiles_, _contextEl, _page);
+        return Classes.validateAll(srcFiles_, _contextEl, _page, _forwards);
     }
 
     public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, LgNames _definedLgNames, int _tabWidth, ClassesCommon _com) {

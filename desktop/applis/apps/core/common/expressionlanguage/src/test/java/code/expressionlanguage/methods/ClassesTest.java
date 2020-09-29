@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -55,7 +56,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
-        Classes.validateAll(new StringMap<String>(),out_, page_);
+        Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -76,7 +77,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
-        Classes.validateAll(new StringMap<String>(),out_, page_);
+        Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
     }
 
@@ -94,7 +95,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
-        Classes.validateAll(new StringMap<String>(),out_, page_);
+        Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -111,7 +112,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ClassesCommon com_ = new ClassesCommon();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, 4, com_);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_);
-        Classes.validateAll(new StringMap<String>(),out_, page_);
+        Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }
