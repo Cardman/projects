@@ -30,7 +30,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         GeneType type_ = _context.getClassBody(id_);
         if (ExecutingUtil.isAbstractType(type_)) {
             String null_;
-            null_ = stds_.getAliasIllegalArg();
+            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
@@ -38,7 +38,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;
-            null_ = stds_.getAliasIllegalArg();
+            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
@@ -57,7 +57,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
@@ -69,7 +69,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getAliasIllegalArg();
+                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
@@ -77,7 +77,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getAliasIllegalArg();
+                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }

@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -24,9 +23,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansMovesEffectsStd {
     public static final String TYPE_EFFECT_ALLY_BEAN = "aiki.beans.moves.effects.EffectAllyBean";
@@ -333,7 +330,7 @@ public final class AikiBeansMovesEffectsStd {
     private static final String DELETE_PP = "deletePp";
     private static final String WINNING_RATE_BY_SUM_TARGET_USER = "winningRateBySumTargetUser";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildEffectAllyBean(_std);
         buildEffectBatonPassBean(_std);
         buildEffectBean(_std);
@@ -368,7 +365,7 @@ public final class AikiBeansMovesEffectsStd {
         buildEffectVarPPBean(_std);
         buildEffectWinMoneyBean(_std);
     }
-    private static void buildEffectAllyBean(BeanLgNames _std) {
+    private static void buildEffectAllyBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -380,7 +377,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(MULT_ALLY_DAMAGE,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_ALLY_BEAN, type_);
     }
-    private static void buildEffectBatonPassBean(BeanLgNames _std) {
+    private static void buildEffectBatonPassBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -400,7 +397,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_BATON_PASS_BEAN, type_);
     }
-    private static void buildEffectBean(BeanLgNames _std) {
+    private static void buildEffectBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -455,7 +452,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_BEAN, type_);
     }
-    private static void buildEffectCloneBean(BeanLgNames _std) {
+    private static void buildEffectCloneBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -490,7 +487,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_CLONE_BEAN, type_);
     }
-    private static void buildEffectCommonStatisticsBean(BeanLgNames _std) {
+    private static void buildEffectCommonStatisticsBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -508,7 +505,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COMMON_STATISTICS_BEAN, type_);
     }
-    private static void buildEffectCopyFighterBean(BeanLgNames _std) {
+    private static void buildEffectCopyFighterBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -520,7 +517,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(PP_FOR_MOVES,_std.getAliasPrimShort(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_COPY_FIGHTER_BEAN, type_);
     }
-    private static void buildEffectCopyMoveBean(BeanLgNames _std) {
+    private static void buildEffectCopyMoveBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -559,7 +556,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COPY_MOVE_BEAN, type_);
     }
-    private static void buildEffectCounterAttackBean(BeanLgNames _std) {
+    private static void buildEffectCounterAttackBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -586,7 +583,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COUNTER_ATTACK_BEAN, type_);
     }
-    private static void buildEffectDamageBean(BeanLgNames _std) {
+    private static void buildEffectDamageBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -641,7 +638,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_DAMAGE_BEAN, type_);
     }
-    private static void buildEffectDamageRateBean(BeanLgNames _std) {
+    private static void buildEffectDamageRateBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -654,7 +651,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(RATE_DAMAGE,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_DAMAGE_RATE_BEAN, type_);
     }
-    private static void buildEffectEndRoundMoveBean(BeanLgNames _std) {
+    private static void buildEffectEndRoundMoveBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -668,7 +665,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_MOVE_BEAN, type_);
     }
-    private static void buildEffectFullHpRateBean(BeanLgNames _std) {
+    private static void buildEffectFullHpRateBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -683,7 +680,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(CLOSEST_FOE_DAMAGE_RATE_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_FULL_HP_RATE_BEAN, type_);
     }
-    private static void buildEffectGlobalBean(BeanLgNames _std) {
+    private static void buildEffectGlobalBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -783,7 +780,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_GLOBAL_BEAN, type_);
     }
-    private static void buildEffectInvokeBean(BeanLgNames _std) {
+    private static void buildEffectInvokeBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -840,7 +837,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_INVOKE_BEAN, type_);
     }
-    private static void buildEffectMultSufferedMovePowerBean(BeanLgNames _std) {
+    private static void buildEffectMultSufferedMovePowerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -857,7 +854,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, type_);
     }
-    private static void buildEffectMultUsedMovePowerBean(BeanLgNames _std) {
+    private static void buildEffectMultUsedMovePowerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -874,7 +871,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, type_);
     }
-    private static void buildEffectOrderBean(BeanLgNames _std) {
+    private static void buildEffectOrderBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -886,7 +883,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(TARGET_ATTACKS_LAST,_std.getAliasPrimBoolean(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_ORDER_BEAN, type_);
     }
-    private static void buildEffectProtectFromTypesBean(BeanLgNames _std) {
+    private static void buildEffectProtectFromTypesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -903,7 +900,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN, type_);
     }
-    private static void buildEffectProtectionBean(BeanLgNames _std) {
+    private static void buildEffectProtectionBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -920,7 +917,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(PROT_TEAM_AGAINST_DAMAGE_MOVES,_std.getAliasPrimBoolean(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_PROTECTION_BEAN, type_);
     }
-    private static void buildEffectRemainedHpRateBean(BeanLgNames _std) {
+    private static void buildEffectRemainedHpRateBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -933,7 +930,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(RATE_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_REMAINED_HP_RATE_BEAN, type_);
     }
-    private static void buildEffectRestrictionBean(BeanLgNames _std) {
+    private static void buildEffectRestrictionBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -965,7 +962,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_RESTRICTION_BEAN, type_);
     }
-    private static void buildEffectStatisticBean(BeanLgNames _std) {
+    private static void buildEffectStatisticBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1005,7 +1002,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_STATISTIC_BEAN, type_);
     }
-    private static void buildEffectStatusBean(BeanLgNames _std) {
+    private static void buildEffectStatusBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1041,7 +1038,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_STATUS_BEAN, type_);
     }
-    private static void buildEffectSwitchAbilitiesBean(BeanLgNames _std) {
+    private static void buildEffectSwitchAbilitiesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1075,7 +1072,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_ABILITIES_BEAN, type_);
     }
-    private static void buildEffectSwitchItemsBean(BeanLgNames _std) {
+    private static void buildEffectSwitchItemsBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1109,7 +1106,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_ITEMS_BEAN, type_);
     }
-    private static void buildEffectSwitchMoveTypesBean(BeanLgNames _std) {
+    private static void buildEffectSwitchMoveTypesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1130,7 +1127,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN, type_);
     }
-    private static void buildEffectSwitchPointViewBean(BeanLgNames _std) {
+    private static void buildEffectSwitchPointViewBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1152,7 +1149,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_POINT_VIEW_BEAN, type_);
     }
-    private static void buildEffectSwitchTypesBean(BeanLgNames _std) {
+    private static void buildEffectSwitchTypesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1205,7 +1202,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_TYPES_BEAN, type_);
     }
-    private static void buildEffectTeamBean(BeanLgNames _std) {
+    private static void buildEffectTeamBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1256,7 +1253,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_TEAM_BEAN, type_);
     }
-    private static void buildEffectTeamWhileSendFoeBean(BeanLgNames _std) {
+    private static void buildEffectTeamWhileSendFoeBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1288,7 +1285,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_TEAM_WHILE_SEND_FOE_BEAN, type_);
     }
-    private static void buildEffectUnprotectFromTypesBean(BeanLgNames _std) {
+    private static void buildEffectUnprotectFromTypesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1323,7 +1320,7 @@ public final class AikiBeansMovesEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_UNPROTECT_FROM_TYPES_BEAN, type_);
     }
-    private static void buildEffectVarPPBean(BeanLgNames _std) {
+    private static void buildEffectVarPPBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1335,7 +1332,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(DELETE_PP,_std.getAliasPrimShort(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_VAR_P_P_BEAN, type_);
     }
-    private static void buildEffectWinMoneyBean(BeanLgNames _std) {
+    private static void buildEffectWinMoneyBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

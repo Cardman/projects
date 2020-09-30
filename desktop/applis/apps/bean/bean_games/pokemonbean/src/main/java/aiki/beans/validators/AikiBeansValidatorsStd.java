@@ -1,4 +1,5 @@
 package aiki.beans.validators;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
@@ -18,13 +19,13 @@ public final class AikiBeansValidatorsStd {
     public static final String TYPE_UNSELECTED_RADIO = "aiki.beans.validators.UnselectedRadio";
 
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildPositiveRateValidator(_std);
         buildRateValidator(_std);
         buildShortValidator(_std);
         buildUnselectedRadio(_std);
     }
-    private static void buildPositiveRateValidator(BeanLgNames _std) {
+    private static void buildPositiveRateValidator(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -35,7 +36,7 @@ public final class AikiBeansValidatorsStd {
         type_ = new StandardClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
     }
-    private static void buildRateValidator(BeanLgNames _std) {
+    private static void buildRateValidator(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -46,7 +47,7 @@ public final class AikiBeansValidatorsStd {
         type_ = new StandardClass(TYPE_RATE_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_RATE_VALIDATOR, type_);
     }
-    private static void buildShortValidator(BeanLgNames _std) {
+    private static void buildShortValidator(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -57,7 +58,7 @@ public final class AikiBeansValidatorsStd {
         type_ = new StandardClass(TYPE_SHORT_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_SHORT_VALIDATOR, type_);
     }
-    private static void buildUnselectedRadio(BeanLgNames _std) {
+    private static void buildUnselectedRadio(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

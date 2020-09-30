@@ -31,7 +31,7 @@ public final class AdvancedFullStack implements AbstractFullStack {
         for (int i = 0; i < lenArrCtx_; i++) {
             arr_[i+count_] = ExecutingUtil.newStackTraceElement(_configuration.getContext(),i);
         }
-        String cl_ = _configuration.getContext().getStandards().getAliasStackTraceElement();
+        String cl_ = _configuration.getContext().getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         return new ArrayStruct(arr_, cl_);
     }

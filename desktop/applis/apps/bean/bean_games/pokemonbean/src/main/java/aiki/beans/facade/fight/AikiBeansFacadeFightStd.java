@@ -3,7 +3,6 @@ import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -17,12 +16,9 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeFightStd {
     public static final String TYPE_KEY_HYPOTHESIS = "aiki.beans.facade.fight.KeyHypothesis";
@@ -48,13 +44,13 @@ public final class AikiBeansFacadeFightStd {
     private static final String GET_ROUND = "getRound";
     private static final String GET_USING = "getUsing";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildKeyHypothesis(_std);
         buildMultPowerMoves(_std);
         buildStatisticInfo(_std);
         buildSufferedDamageCategory(_std);
     }
-    private static void buildKeyHypothesis(BeanLgNames _std) {
+    private static void buildKeyHypothesis(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -86,7 +82,7 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_KEY_HYPOTHESIS, type_);
     }
-    private static void buildMultPowerMoves(BeanLgNames _std) {
+    private static void buildMultPowerMoves(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -105,7 +101,7 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MULT_POWER_MOVES, type_);
     }
-    private static void buildStatisticInfo(BeanLgNames _std) {
+    private static void buildStatisticInfo(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -139,7 +135,7 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STATISTIC_INFO, type_);
     }
-    private static void buildSufferedDamageCategory(BeanLgNames _std) {
+    private static void buildSufferedDamageCategory(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

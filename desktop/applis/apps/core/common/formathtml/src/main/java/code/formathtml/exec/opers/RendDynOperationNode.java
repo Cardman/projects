@@ -129,7 +129,7 @@ public abstract class RendDynOperationNode {
             if (_arg.isNull()) {
                 LgNames stds_ = context_.getStandards();
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
                 _cont.setException(new ErrorStruct(context_,null_));
                 return;

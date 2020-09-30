@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -89,7 +88,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_));
         assertNotNull(getException(c_));
     }
@@ -103,7 +102,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_));
         assertNotNull(getException(c_));
     }
@@ -117,8 +116,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+c_.getStandards().getAliasObject(),arr_,c_));
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
         assertNotNull(getException(c_));
     }
 
@@ -131,8 +130,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(arr_, ExecTemplates.getParent(0,"["+c_.getStandards().getAliasObject(),arr_,c_));
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(arr_, ExecTemplates.getParent(0,"["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
         assertNull(getException(c_));
     }
 
@@ -716,7 +715,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new Cache();
         LoopVariable loopVariable = new LoopVariable();
         loopVariable.setIndex(2);
-        loopVariable.setIndexClassName(cont_.getStandards().getAliasPrimInteger());
+        loopVariable.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         cache_.addLoop("myvar", loopVariable);
         cache_.setClassLoopValue(-1,"");
         instancingClass_.setCache(cache_);
@@ -860,7 +859,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Cache cache_ = new Cache();
         LoopVariable loopVariable = new LoopVariable();
         loopVariable.setIndex(2);
-        loopVariable.setIndexClassName(cont_.getStandards().getAliasPrimInteger());
+        loopVariable.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         cache_.addLoop("myvar", loopVariable);
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);

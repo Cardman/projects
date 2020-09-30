@@ -1253,7 +1253,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), getException(cont_).getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument93Test() {

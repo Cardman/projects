@@ -38,7 +38,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             int order_ = getParent().getFirstChild().getOrder();
             Argument lda_ = new Argument(Argument.getNullableValue(_nodes.getValue(order_).getArgument()).getStruct());
             ContextEl context_ = _conf.getContext();
-            if (!ExecTemplates.checkObject(context_.getStandards().getAliasFct(), lda_, context_)) {
+            if (!ExecTemplates.checkObject(context_.getStandards().getContent().getReflect().getAliasFct(), lda_, context_)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }

@@ -12,7 +12,7 @@ public final class DoubleStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasDouble();
+        return _context.getStandards().getContent().getNbAlias().getAliasDouble();
     }
 
     @Override

@@ -1,9 +1,9 @@
 package aiki.beans.pokemon.evolutions;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -16,11 +16,8 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansPokemonEvolutionsStd {
     public static final String TYPE_EVOLUTION_BEAN = "aiki.beans.pokemon.evolutions.EvolutionBean";
@@ -53,7 +50,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     private static final String OTHER = "other";
     private static final String TYPE = "type";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildEvolutionBean(_std);
         buildEvolutionHappinessBean(_std);
         buildEvolutionItemBean(_std);
@@ -65,7 +62,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         buildEvolutionStoneGenderBean(_std);
         buildEvolutionTeamBean(_std);
     }
-    private static void buildEvolutionBean(BeanLgNames _std) {
+    private static void buildEvolutionBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -86,7 +83,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }
-    private static void buildEvolutionHappinessBean(BeanLgNames _std) {
+    private static void buildEvolutionHappinessBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -98,7 +95,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_.add(new StandardField(MIN,_std.getAliasPrimLong(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
     }
-    private static void buildEvolutionItemBean(BeanLgNames _std) {
+    private static void buildEvolutionItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -115,7 +112,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
     }
-    private static void buildEvolutionLevelBean(BeanLgNames _std) {
+    private static void buildEvolutionLevelBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -127,7 +124,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
-    private static void buildEvolutionLevelGenderBean(BeanLgNames _std) {
+    private static void buildEvolutionLevelGenderBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -139,7 +136,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
     }
-    private static void buildEvolutionMoveBean(BeanLgNames _std) {
+    private static void buildEvolutionMoveBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -156,7 +153,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
     }
-    private static void buildEvolutionMoveTypeBean(BeanLgNames _std) {
+    private static void buildEvolutionMoveTypeBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -168,7 +165,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_.add(new StandardField(TYPE,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
     }
-    private static void buildEvolutionStoneBean(BeanLgNames _std) {
+    private static void buildEvolutionStoneBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -185,7 +182,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
     }
-    private static void buildEvolutionStoneGenderBean(BeanLgNames _std) {
+    private static void buildEvolutionStoneGenderBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -197,7 +194,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
     }
-    private static void buildEvolutionTeamBean(BeanLgNames _std) {
+    private static void buildEvolutionTeamBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

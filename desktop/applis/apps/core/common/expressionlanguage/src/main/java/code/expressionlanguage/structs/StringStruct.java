@@ -21,7 +21,7 @@ public final class StringStruct extends CharSequenceStruct implements AnaDisplay
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasString();
+        return _contextEl.getStandards().getContent().getCharSeq().getAliasString();
     }
 
     public String getInstance() {

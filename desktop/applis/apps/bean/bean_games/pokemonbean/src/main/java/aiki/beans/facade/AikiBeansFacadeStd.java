@@ -1,23 +1,20 @@
 package aiki.beans.facade;
-import code.expressionlanguage.functionid.MethodId;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeStd {
     public static final String TYPE_FORMATTING = "aiki.beans.facade.Formatting";
 
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildFormatting(_std);
     }
-    private static void buildFormatting(BeanLgNames _std) {
+    private static void buildFormatting(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

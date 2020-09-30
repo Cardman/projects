@@ -58,12 +58,12 @@ public final class AliasMath {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        String aliasObject_ = _stds.getAliasObject();
-        String aliasPrimInteger_ = _stds.getAliasPrimInteger();
-        String aliasPrimLong_ = _stds.getAliasPrimLong();
-        String aliasPrimFloat_ = _stds.getAliasPrimFloat();
-        String aliasPrimDouble_ = _stds.getAliasPrimDouble();
-        String aliasPrimBoolean_ = _stds.getAliasPrimBoolean();
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasPrimInteger_ = _stds.getContent().getPrimTypes().getAliasPrimInteger();
+        String aliasPrimLong_ = _stds.getContent().getPrimTypes().getAliasPrimLong();
+        String aliasPrimFloat_ = _stds.getContent().getPrimTypes().getAliasPrimFloat();
+        String aliasPrimDouble_ = _stds.getContent().getPrimTypes().getAliasPrimDouble();
+        String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
         StandardClass std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Abs0()));
@@ -271,7 +271,7 @@ public final class AliasMath {
         method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasSeed, params_, _stds.getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()));
+        method_ = new StandardMethod(aliasSeed, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSeed, params_, aliasObject_, false, MethodModifier.STATIC);
@@ -284,9 +284,9 @@ public final class AliasMath {
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
-        String divZero_ = lgNames_.getAliasDivisionZero();
-        String aliasPrimLong_ = lgNames_.getAliasPrimLong();
-        if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
+        String divZero_ = lgNames_.getContent().getCoreNames().getAliasDivisionZero();
+        String aliasPrimLong_ = lgNames_.getContent().getPrimTypes().getAliasPrimLong();
+        if (StringList.quickEq(name_, lgNames_.getContent().getMathRef().getAliasAbs())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
                 return result_;
@@ -294,7 +294,7 @@ public final class AliasMath {
             result_.setResult(new IntStruct(Math.abs(NumParsers.convertToNumber(args_[0]).intStruct())));
             return result_;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasMod())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMod())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
@@ -314,7 +314,7 @@ public final class AliasMath {
             result_.setResult(new IntStruct(Numbers.mod(num_, den_)));
             return result_;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasQuot())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getMathRef().getAliasQuot())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
@@ -452,7 +452,7 @@ public final class AliasMath {
             _cont.getInitializingTypeInfos().failInitEnums();
             return result_;
         }
-        if (StringList.quickEq(_method.getConstraints().getName(), lgNames_.getAliasSeed())) {
+        if (StringList.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeed())) {
             if (paramList_.isEmpty()) {
                 Struct seed_ = _cont.getSeed();
                 result_.setResult(seed_);
@@ -477,7 +477,7 @@ public final class AliasMath {
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
-                && ExecTemplates.safeObject(lgNames_.getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+                && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick());
@@ -511,7 +511,7 @@ public final class AliasMath {
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
-                && ExecTemplates.safeObject(lgNames_.getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+                && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGenerator(), classes_.getSeedPick());

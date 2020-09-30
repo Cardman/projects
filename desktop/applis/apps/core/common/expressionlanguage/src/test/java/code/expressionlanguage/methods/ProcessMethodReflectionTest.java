@@ -2731,7 +2731,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), cause_.getClassName(cont_));
     }
     @Test
     public void processEl296Test() {
@@ -2775,7 +2775,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), cause_.getClassName(cont_));
     }
     @Test
     public void processEl2961Test() {
@@ -2820,7 +2820,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), getString(arg_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), getString(arg_));
     }
     @Test
     public void processEl2962Test() {
@@ -2910,7 +2910,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), getString(arg_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), getString(arg_));
     }
     @Test
     public void processEl297Test() {
@@ -2956,7 +2956,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), cause_.getClassName(cont_));
     }
     @Test
     public void processEl298Test() {
@@ -3030,7 +3030,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
-        assertEq(cont_.getStandards().getAliasClassNotFoundError(), exc_.getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getReflect().getAliasClassNotFoundError(), exc_.getClassName(cont_));
     }
     @Test
     public void processEl304Test() {
@@ -3058,7 +3058,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_));
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), exc_.getClassName(cont_));
     }
     @Test
     public void processEl306Test() {

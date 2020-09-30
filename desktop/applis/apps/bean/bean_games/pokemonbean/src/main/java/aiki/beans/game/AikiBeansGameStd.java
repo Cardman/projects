@@ -4,7 +4,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -22,9 +21,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansGameStd {
     public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
@@ -102,12 +99,12 @@ public final class AikiBeansGameStd {
     private static final String MOVES = "moves";
     private static final String STATISTICS = "statistics";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildDifficultyBean(_std);
         buildGameProgressionBean(_std);
         buildPokemonPlayerBean(_std);
     }
-    private static void buildDifficultyBean(BeanLgNames _std) {
+    private static void buildDifficultyBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -144,7 +141,7 @@ public final class AikiBeansGameStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
-    private static void buildGameProgressionBean(BeanLgNames _std) {
+    private static void buildGameProgressionBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -205,7 +202,7 @@ public final class AikiBeansGameStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
-    private static void buildPokemonPlayerBean(BeanLgNames _std) {
+    private static void buildPokemonPlayerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -251,7 +248,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDiffWinningExpPtsFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -315,7 +312,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRatePlayer()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -323,7 +320,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRateLawFoe()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {

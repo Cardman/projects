@@ -100,7 +100,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
     }
     public static String formatReturn(String _foundClass, ContextEl _an, boolean _demand, String _returnType, MethodId _shortId, boolean _staticMethod) {
         LgNames stds_ = _an.getStandards();
-        String fctBase_ = stds_.getAliasFct();
+        String fctBase_ = stds_.getContent().getReflect().getAliasFct();
         StringList paramsReturn_ = new StringList();
         IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, _shortId, _staticMethod);
         paramsReturn_.add(_returnType);

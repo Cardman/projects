@@ -27,7 +27,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         if (getIndexChild() == 1) {
             //init and test
             Argument lda_ = new Argument(mainArgument_.getStruct());
-            if (!ExecTemplates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf)) {
+            if (!ExecTemplates.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), lda_, _conf)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }

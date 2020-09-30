@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -51,12 +52,12 @@ public final class ClassesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        lgName_.setAliasVoid("");
+        lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_,null, null, lgName_.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_,null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
@@ -70,15 +71,15 @@ public final class ClassesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        lgName_.setAliasPrimBoolean("$byte");
-        lgName_.setAliasMaxValueField("MIN_VALUE");
-        lgName_.setAliasLe("ge");
-        lgName_.setAliasBoolean("java.lang.Byte");
+        lgName_.getContent().getPrimTypes().setAliasPrimBoolean("$byte");
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
+        lgName_.getContent().getMathRef().setAliasLe("ge");
+        lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_, null, null, lgName_.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_, null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
     }
@@ -92,7 +93,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        lgName_.setAliasVoid("");
+        lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;

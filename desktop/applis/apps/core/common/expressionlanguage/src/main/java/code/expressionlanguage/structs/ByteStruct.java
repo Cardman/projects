@@ -12,7 +12,7 @@ public final class ByteStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasByte();
+        return _context.getStandards().getContent().getNbAlias().getAliasByte();
     }
 
     @Override

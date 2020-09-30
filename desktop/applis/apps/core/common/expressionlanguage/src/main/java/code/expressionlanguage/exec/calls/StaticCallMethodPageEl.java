@@ -38,7 +38,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
-            null_ = _context.getStandards().getAliasIllegalArg();
+            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
             return Argument.createVoid();
         }
@@ -50,7 +50,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         if (!StringExpUtil.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
             String null_;
-            null_ = stds_.getAliasIllegalArg();
+            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             _conf.setException(new ErrorStruct(_conf,null_));
             return Argument.createVoid();
         }

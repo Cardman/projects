@@ -495,8 +495,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasPrimInteger("");
+
+        lgName_.getContent().getPrimTypes().setAliasPrimInteger("");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -506,7 +506,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -517,8 +517,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasPrimInteger("<");
+
+        lgName_.getContent().getPrimTypes().setAliasPrimInteger("<");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -528,7 +528,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -539,8 +539,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasPrimInteger("$if");
+
+        lgName_.getContent().getPrimTypes().setAliasPrimInteger("$if");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -550,7 +550,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -561,8 +561,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasPrimInteger("0a");
+
+        lgName_.getContent().getPrimTypes().setAliasPrimInteger("0a");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -572,7 +572,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -583,8 +583,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("$if");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("$if");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -594,9 +594,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -607,8 +607,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("<");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("<");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -618,9 +618,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -631,8 +631,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("ab");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("ab");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -642,9 +642,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -655,8 +655,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("0a");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("0a");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -666,9 +666,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -679,8 +679,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("a..b");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("a..b");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -690,9 +690,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -703,8 +703,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("$int");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("$int");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -714,9 +714,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -727,8 +727,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setDefaultPkg("pkg");
+
+        lgName_.getContent().setDefaultPkg("pkg");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -738,9 +738,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -751,8 +751,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("java");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("java");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -762,9 +762,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -775,8 +775,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasLength("");
+
+        lgName_.getContent().getCharSeq().setAliasLength("");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -786,11 +786,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -801,8 +801,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasLength("<");
+
+        lgName_.getContent().getCharSeq().setAliasLength("<");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -812,11 +812,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -827,8 +827,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasLength("0a");
+
+        lgName_.getContent().getCharSeq().setAliasLength("0a");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -838,11 +838,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -853,8 +853,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasLength("$if");
+
+        lgName_.getContent().getCharSeq().setAliasLength("$if");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -864,11 +864,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -879,8 +879,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasLength("$int");
+
+        lgName_.getContent().getCharSeq().setAliasLength("$int");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -890,11 +890,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -905,8 +905,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasMaxValueField("");
+
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -916,13 +916,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -933,8 +933,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasMaxValueField("<");
+
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("<");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -944,13 +944,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -961,8 +961,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasMaxValueField("0a");
+
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("0a");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -972,13 +972,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -989,8 +989,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasMaxValueField("$int");
+
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("$int");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1000,13 +1000,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1017,8 +1017,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasMaxValueField("$if");
+
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("$if");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1028,13 +1028,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1056,13 +1056,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
@@ -1085,13 +1085,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1115,13 +1115,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1145,13 +1145,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1175,13 +1175,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1206,13 +1206,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1236,13 +1236,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1266,13 +1266,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1300,13 +1300,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1324,11 +1324,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasPrimBoolean("$byte");
-        lgName_.setAliasMaxValueField("MIN_VALUE");
-        lgName_.setAliasLe("ge");
-        lgName_.setAliasBoolean("java.lang.Byte");
+
+        lgName_.getContent().getPrimTypes().setAliasPrimBoolean("$byte");
+        lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
+        lgName_.getContent().getMathRef().setAliasLe("ge");
+        lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1338,13 +1338,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1366,8 +1366,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("<");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("<");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1377,9 +1377,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1390,8 +1390,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasInteger("");
+
+        lgName_.getContent().getNbAlias().setAliasInteger("");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1401,9 +1401,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1414,12 +1414,12 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasIterableTableVarFirst(",E");
-        lgName_.setAliasIterableTableVarSecond("0E");
-        lgName_.setAliasEnumParamVar("");
-        lgName_.setAliasIteratorTypeVar("$if");
-        lgName_.setAliasIterableVar("$int");
+
+        lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst(",E");
+        lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("0E");
+        lgName_.getContent().getPredefTypes().setAliasEnumParamVar("");
+        lgName_.getContent().getPredefTypes().setAliasIteratorTypeVar("$if");
+        lgName_.getContent().getPredefTypes().setAliasIterableVar("$int");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1429,15 +1429,15 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = lgName_.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = allTableTypeVarTypes(s_);
         validateVarTypesContents(s_, prims_, varTypes_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1460,9 +1460,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasIterableTableVarFirst("E");
-        lgName_.setAliasIterableTableVarSecond("E");
+
+        lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst("E");
+        lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("E");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1472,15 +1472,15 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = lgName_.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = allTableTypeVarTypes(s_);
         validateVarTypesContents(s_, prims_, varTypes_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1514,11 +1514,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1540,11 +1540,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1566,11 +1566,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1592,11 +1592,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1618,11 +1618,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -1633,8 +1633,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        
-        lgName_.setAliasHasNextPair("hasNext");
+
+        lgName_.getContent().getPredefTypes().setAliasHasNextPair("hasNext");
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -1644,15 +1644,15 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = lgName_.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = allTableTypeVarTypes(s_);
         validateVarTypesContents(s_, prims_, varTypes_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -1666,7 +1666,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        CustList<CustList<KeyValueMemberName>> merge_ = lgName_.allMergeTableTypeMethodNames();
+        CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -2181,17 +2181,17 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        StringMap<String> prims_ = lgName_.allPrimitives();
+        StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        StringMap<String> refTypes_ = lgName_.allRefTypes();
+        StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        CustList<CustList<KeyValueMemberName>> params_ = lgName_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> params_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, params_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = lgName_.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = allTableTypeVarTypes(s_);
         validateVarTypesContents(s_, prims_, varTypes_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
@@ -2206,7 +2206,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateParamtersDuplicates(s_, params_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        CustList<CustList<KeyValueMemberName>> merge_ = lgName_.allMergeTableTypeMethodNames();
+        CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
@@ -2284,7 +2284,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()), lgName_.getContent());
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_,DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2320,7 +2320,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()), lgName_.getContent());
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2337,6 +2337,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
+        page_.setFileBuilder(DefaultFileBuilder.newInstance(lgName_.getContent()));
         page_.setStandards(lgName_.getContent());
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
@@ -2344,8 +2345,67 @@ public class LgNamesTest extends ProcessMethodCommon {
         return new AnalyzedTestContext(ctx_,page_, new Forwards());
     }
 
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
+    }
+
+    private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
+    }
+
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
+    }
+
+    private static StringMap<String> allPrimitives(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allPrimitives();
+    }
+
+    private static StringMap<String> allRefTypes(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allRefTypes();
+    }
+
+    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
+    }
+
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedTestContext lgName_) {
+        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
+    }
+
+
     public static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
         return getCtx(lk_, di_, kw_, lgName_, new Options(), new ClassesCommon(), null);
+    }
+    @Test
+    public void getAlias1() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("key","value");
+        assertEq("value",LgNamesContent.get(def_,new StringMap<String>(),"key"));
+    }
+    @Test
+    public void getAlias2() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("key","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("key","value2");
+        assertEq("value2",LgNamesContent.get(def_, cust_,"key"));
+    }
+    @Test
+    public void getAlias3() {
+        StringMap<String> def_ = new StringMap<String>();
+        StringMap<String> cust_ = new StringMap<String>();
+        assertEq("",LgNamesContent.get(def_, cust_,"key"));
+    }
+    @Test
+    public void getAlias4() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        LgNamesContent lgNamesContent_ = new LgNamesContent();
+        lgNamesContent_.build(def_, cust_);
+        assertEq("",lgNamesContent_.getDefaultPkg());
     }
     @Test
     public void parseLineArg1Test() {

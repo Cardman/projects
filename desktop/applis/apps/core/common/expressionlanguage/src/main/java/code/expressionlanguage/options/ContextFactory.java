@@ -23,7 +23,7 @@ public final class ContextFactory {
     private ContextFactory(){}
 
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, DefaultFileBuilder _fileBuilder, LgNamesContent _content) {
+                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content) {
         AnalyzedPageEl page_ = validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth());
         return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
@@ -72,7 +72,8 @@ public final class ContextFactory {
         StringMap<String> nbWords_ = _definedKw.allNbWords(_definedKw.allNbWordsBasic());
         _definedKw.validateNbWordContents(nbWords_, page_);
         _definedKw.validateBinarySeparators(page_);
-        StringMap<String> prims_ = _definedLgNames.allPrimitives();
+        DefaultAliasGroups defaultAliasGroups_ = _fileBuilder.getDefaultAliasGroups();
+        StringMap<String> prims_ = defaultAliasGroups_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(prims_, page_);
         ValidatorStandard.validatePrimitiveDuplicates(prims_, page_);
         _definedKw.validateKeyWordDuplicates(keyWords_, page_);
@@ -84,26 +85,26 @@ public final class ContextFactory {
         StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_definedKw.allNbWordsPreBin());
         _definedKw.validateNbWordDuplicates(nbWordsPreBin_, page_);
         _definedKw.validateStartsPrefixesDuplicates(page_);
-        StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
+        StringMap<String> refTypes_ = defaultAliasGroups_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(refTypes_, prims_, page_);
         boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(refTypes_, page_);
         if (dup_) {
             return page_;
         }
-        StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = defaultAliasGroups_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(methods_, prims_, page_);
-        CustList<CustList<KeyValueMemberName>> params_ = _definedLgNames.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> params_ = defaultAliasGroups_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(params_, prims_, page_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = defaultAliasGroups_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(fields_, prims_, page_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = defaultAliasGroups_.allTableTypeVarTypes();
         ValidatorStandard.validateVarTypesContents(varTypes_, prims_, page_);
         //duplicates
         ValidatorStandard.validateMethodsDuplicates(methods_, page_);
         ValidatorStandard.validateParamtersDuplicates(params_, page_);
         ValidatorStandard.validateFieldsDuplicates(fields_, page_);
         ValidatorStandard.validateVarTypesDuplicates(varTypes_, page_);
-        CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
+        CustList<CustList<KeyValueMemberName>> merge_ = defaultAliasGroups_.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(merge_, page_);
         if (!page_.isEmptyStdError()) {
             return page_;

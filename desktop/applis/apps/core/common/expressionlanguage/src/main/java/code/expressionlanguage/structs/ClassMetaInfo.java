@@ -83,7 +83,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
                     access = g_.getAccess();
                 }
                 abstractType = false;
-                superClass = _context.getStandards().getAliasObject();
+                superClass = _context.getStandards().getContent().getCoreNames().getAliasObject();
             }
         } else {
             abstractType = true;
@@ -427,7 +427,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasClassType();
+        return _contextEl.getStandards().getContent().getReflect().getAliasClassType();
     }
 
     @Override

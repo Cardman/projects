@@ -23,7 +23,7 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasBoolean();
+        return _context.getStandards().getContent().getNbAlias().getAliasBoolean();
     }
 
     @Override

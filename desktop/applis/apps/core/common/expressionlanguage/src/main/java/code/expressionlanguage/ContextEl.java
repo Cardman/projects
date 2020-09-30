@@ -47,66 +47,66 @@ public abstract class ContextEl {
         LgNames stds_ = _context.getStandards();
         analyzing.setCurrentBlock(null);
         analyzing.setCurrentAnaBlock(null);
-        String next_ = stds_.getAliasNext();
-        String hasNext_ = stds_.getAliasHasNext();
-        String nextPair_ = stds_.getAliasNextPair();
-        String hasNextPair_ = stds_.getAliasHasNextPair();
+        String next_ = stds_.getContent().getPredefTypes().getAliasNext();
+        String hasNext_ = stds_.getContent().getPredefTypes().getAliasHasNext();
+        String nextPair_ = stds_.getContent().getPredefTypes().getAliasNextPair();
+        String hasNextPair_ = stds_.getContent().getPredefTypes().getAliasHasNextPair();
         StringList l_ = new StringList();
         String locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setIteratorVarCust(locName_);
-        String iterator_ = stds_.getAliasIterator();
-        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
-                new ClassMethodId(stds_.getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorType(),"<?>"), _classes));
+        String iterator_ = stds_.getContent().getPredefTypes().getAliasIterator();
+        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIterable(),"<?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
+                StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setHasNextVarCust(locName_);
-        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
-                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
-                stds_.getAliasPrimBoolean(), _classes));
+        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
+                stds_.getContent().getPrimTypes().getAliasPrimBoolean(), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setNextVarCust(locName_);
-        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
-                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
-                stds_.getAliasObject(), _classes));
+        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
+                stds_.getContent().getCoreNames().getAliasObject(), _classes));
 
         _classes.setIteratorTableVarCust(locName_);
-        String iteratorTable_ = stds_.getAliasIteratorTable();
-        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"), _classes));
+        String iteratorTable_ = stds_.getContent().getPredefTypes().getAliasIteratorTable();
+        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
+                StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setHasNextPairVarCust(locName_);
-        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
-                stds_.getAliasPrimBoolean(), _classes));
+        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
+                stds_.getContent().getPrimTypes().getAliasPrimBoolean(), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setNextPairVarCust(locName_);
-        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
-                StringList.concat(stds_.getAliasPairType(),"<?,?>"), _classes));
+        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
+                StringList.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setFirstVarCust(locName_);
-        String first_ = stds_.getAliasGetFirst();
-        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
-                stds_.getAliasObject(), _classes));
+        String first_ = stds_.getContent().getPredefTypes().getAliasGetFirst();
+        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
+                stds_.getContent().getCoreNames().getAliasObject(), _classes));
         locName_ = ValidatorStandard.tr(l_, analyzing);
         _classes.setSecondVarCust(locName_);
-        String second_ = stds_.getAliasGetSecond();
-        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
-                stds_.getAliasObject(), _classes));
-        String id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedDoubleGenerator());
+        String second_ = stds_.getContent().getPredefTypes().getAliasGetSecond();
+        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(),StringList.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+                new ClassMethodId(stds_.getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
+                stds_.getContent().getCoreNames().getAliasObject(), _classes));
+        String id_ = StringExpUtil.getIdFromAllTypes(stds_.getContent().getPredefTypes().getAliasSeedDoubleGenerator());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         _classes.setSeedDoubleGenerator(classBody_);
-        String nameToCall_ = stds_.getAliasSeedGet();
+        String nameToCall_ = stds_.getContent().getPredefTypes().getAliasSeedGet();
         MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
         _classes.setSeedDoublePick(fct_);
-        id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedGenerator());
+        id_ = StringExpUtil.getIdFromAllTypes(stds_.getContent().getPredefTypes().getAliasSeedGenerator());
         classBody_ = _classes.getClassBody(id_);
         _classes.setSeedGenerator(classBody_);
-        idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getAliasPrimLong()));
+        idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getContent().getPrimTypes().getAliasPrimLong()));
         fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
         _classes.setSeedPick(fct_);
     }

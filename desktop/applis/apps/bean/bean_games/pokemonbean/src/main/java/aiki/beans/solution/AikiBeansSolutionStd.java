@@ -1,10 +1,10 @@
 package aiki.beans.solution;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -17,9 +17,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansSolutionStd {
     public static final String TYPE_SOLUTION_BEAN = "aiki.beans.solution.SolutionBean";
@@ -27,10 +25,10 @@ public final class AikiBeansSolutionStd {
     private static final String GET_PLACE = "getPlace";
     private static final String STEPS = "steps";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildSolutionBean(_std);
     }
-    private static void buildSolutionBean(BeanLgNames _std) {
+    private static void buildSolutionBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

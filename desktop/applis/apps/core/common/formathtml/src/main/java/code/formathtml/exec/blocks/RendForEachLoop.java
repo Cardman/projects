@@ -77,7 +77,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             }
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
-                String npe_ = context_.getStandards().getAliasNullPe();
+                String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();
                 _cont.setException(new ErrorStruct(context_, npe_));
                 return;
             }
@@ -111,7 +111,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return ((ArrayStruct)_str).getInstance().length;
         }
         ContextEl context_ = _cont.getContext();
-        String npe_ = context_.getStandards().getAliasNullPe();
+        String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();
         _cont.setException(new ErrorStruct(context_, npe_));
         return -1;
     }

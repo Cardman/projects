@@ -116,7 +116,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         Struct ito_ = arg_.getStruct();
         if (ito_ == NullStruct.NULL_VALUE) {
-            String npe_ = context_.getStandards().getAliasNullPe();
+            String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();
             _conf.setException(new ErrorStruct(context_, npe_));
         }
         return ito_;

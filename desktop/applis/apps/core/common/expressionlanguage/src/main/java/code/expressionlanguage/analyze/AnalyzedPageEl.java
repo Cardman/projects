@@ -250,9 +250,10 @@ public final class AnalyzedPageEl {
     }
 
     public StringMap<String> buildFiles(){
-        StringMap<String> m_ = fileBuilder.buildFiles(keyWords);
-        predefinedClasses.addAllElts(fileBuilder.getPredefinedClasses());
-        predefinedInterfacesInitOrder.addAllElts(fileBuilder.getPredefinedInterfacesInitOrder());
+        AbstractFileBuilder fileBuilder_ = getFileBuilder();
+        StringMap<String> m_ = fileBuilder_.buildFiles(keyWords);
+        predefinedClasses.addAllElts(fileBuilder_.getPredefinedClasses());
+        predefinedInterfacesInitOrder.addAllElts(fileBuilder_.getPredefinedInterfacesInitOrder());
         return m_;
     }
     public StringMap<StandardType> getStandardsTypes() {
@@ -1189,6 +1190,10 @@ public final class AnalyzedPageEl {
 
     public void setCalculator(AbstractConstantsCalculator calculator) {
         this.calculator = calculator;
+    }
+
+    public AbstractFileBuilder getFileBuilder() {
+        return fileBuilder;
     }
 
     public void setFileBuilder(AbstractFileBuilder fileBuilder) {

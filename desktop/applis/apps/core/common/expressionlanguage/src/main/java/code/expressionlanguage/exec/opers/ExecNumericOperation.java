@@ -140,7 +140,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     private static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
         LgNames stds_ = _an.getStandards();
         String div_;
-        div_ = stds_.getAliasDivisionZero();
+        div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateDiv(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,div_));
@@ -151,7 +151,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     private static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
         LgNames stds_ = _an.getStandards();
         String div_;
-        div_ = stds_.getAliasDivisionZero();
+        div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateMod(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,div_));

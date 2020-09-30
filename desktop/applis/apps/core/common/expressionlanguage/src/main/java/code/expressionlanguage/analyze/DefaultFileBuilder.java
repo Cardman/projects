@@ -12,13 +12,18 @@ public class DefaultFileBuilder implements AbstractFileBuilder {
     private LgNamesContent content;
     private StringList predefinedClasses;
     private StringList predefinedInterfacesInitOrder;
+    private DefaultAliasGroups defaultAliasGroups;
 
-    public DefaultFileBuilder(LgNamesContent _content) {
+    public DefaultFileBuilder(LgNamesContent _content, DefaultAliasGroups _defaultAliasGroups) {
         content = _content;
+        defaultAliasGroups = _defaultAliasGroups;
         predefinedClasses = new StringList();
         predefinedInterfacesInitOrder =  new StringList();
     }
 
+    public static DefaultFileBuilder newInstance(LgNamesContent _content) {
+        return new DefaultFileBuilder(_content, new DefaultAliasGroups(_content));
+    }
     @Override
     public StringMap<String> buildFiles(KeyWords _keyWords) {
         StringMap<String> files_ = new StringMap<String>();
@@ -75,6 +80,10 @@ public class DefaultFileBuilder implements AbstractFileBuilder {
         predefinedInterfacesInitOrder_.add(predefTypes.getAliasSeedDoubleGenerator());
         predefinedInterfacesInitOrder_.add(predefTypes.getAliasSeedGenerator());
         return files_;
+    }
+
+    public DefaultAliasGroups getDefaultAliasGroups() {
+        return defaultAliasGroups;
     }
 
     public LgNamesContent getContent() {

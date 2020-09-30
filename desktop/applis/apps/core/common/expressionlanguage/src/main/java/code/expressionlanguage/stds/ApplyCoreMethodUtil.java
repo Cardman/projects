@@ -1,8 +1,8 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -18,18 +18,18 @@ public final class ApplyCoreMethodUtil {
     private ApplyCoreMethodUtil() {
     }
 
-    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument[] _args) {
+    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument[] _args) {
         Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getClassName();
         LgNames lgNames_ = _cont.getStandards();
-        String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String mathType_ = lgNames_.getAliasMath();
-        String stringType_ = lgNames_.getAliasString();
-        String replType_ = lgNames_.getAliasReplacement();
-        if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
+        String stringBuilderType_ = lgNames_.getContent().getCharSeq().getAliasStringBuilder();
+        String mathType_ = lgNames_.getContent().getMathRef().getAliasMath();
+        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
+        String replType_ = lgNames_.getContent().getCharSeq().getAliasReplacement();
+        if (StringList.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasResources())) {
             return processResources(_cont, _method, args_);
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasObjectsUtil())) {
             return processObjectsUtil(_cont, _method, args_);
         }
         if (StringList.quickEq(type_, replType_)) {
@@ -38,44 +38,44 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)
-                || StringList.quickEq(type_, lgNames_.getAliasCharSequence())) {
+                || StringList.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
             return AliasCharSequence.invokeStdMethod(_cont, _method, _struct, _args);
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasStackTraceElement())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getStackElt().getAliasStackTraceElement())) {
             return AliasStackTraceElement.invokeMethod(_cont, _method, _struct);
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasError())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasError())) {
             return processError(_cont, _method, _struct, args_);
         }
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _args);
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasBoolean())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasBoolean())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumber.processBoolean(_cont, result_, _method, _struct, args_);
             return result_;
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasCharacter())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasCharacter())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumber.processCharacter(_cont, result_, _method, _struct, args_);
             return result_;
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasByte())
-                || StringList.quickEq(type_, lgNames_.getAliasShort())
-                || StringList.quickEq(type_, lgNames_.getAliasInteger())
-                || StringList.quickEq(type_, lgNames_.getAliasLong())
-                || StringList.quickEq(type_, lgNames_.getAliasFloat())
-                || StringList.quickEq(type_, lgNames_.getAliasDouble())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasByte())
+                || StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasShort())
+                || StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasInteger())
+                || StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasLong())
+                || StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
+                || StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumber.processNumbers(_cont, result_, _method, _struct, type_, args_);
             return result_;
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasNumber())) {
+        if (StringList.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumber.processNumber(_cont, result_, _method, _struct, args_);
             return result_;
         }
-        String stringUtil_ = lgNames_.getAliasStringUtil();
+        String stringUtil_ = lgNames_.getContent().getCoreNames().getAliasStringUtil();
         if (StringList.quickEq(type_, stringUtil_)) {
             ResultErrorStd result_ = new ResultErrorStd();
             Argument a_ = new Argument(args_[0]);
@@ -98,17 +98,47 @@ public final class ApplyCoreMethodUtil {
                     dis_.getExponent(),args_[0])));
             return result_;
         }
+        String aliasAnnotated_ = lgNames_.getContent().getReflect().getAliasAnnotated();
+        if (StringList.quickEq(aliasAnnotated_, type_)) {
+            return AliasReflection.invokeAnnotated(_cont, _method, _struct, args_);
+        }
+        String aliasFct_ = lgNames_.getContent().getReflect().getAliasFct();
+        if (StringList.quickEq(aliasFct_, type_)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            if (args_.length == 0) {
+                if (StringList.quickEq(_method.getConstraints().getName(), _cont.getStandards().getContent().getReflect().getAliasMetaInfo())) {
+                    res_.setResult(ExecInvokingOperation.getMetaInfo(new Argument(_struct), _cont).getStruct());
+                    return res_;
+                }
+                res_.setResult(ExecInvokingOperation.getInstanceCall(new Argument(_struct), _cont).getStruct());
+                return res_;
+            }
+            Argument instance_ = new Argument(args_[0]);
+            Struct inst_ = instance_.getStruct();
+            if (!(inst_ instanceof ArrayStruct)) {
+                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                return res_;
+            }
+            ArrayStruct arr_ = (ArrayStruct) inst_;
+            Struct[] real_ = arr_.getInstance();
+            CustList<Argument> ar_ = new CustList<Argument>();
+            for (Struct str_ : real_) {
+                ar_.add(new Argument(str_));
+            }
+            res_.setResult(ExecInvokingOperation.prepareCallDyn(new Argument(_struct), ar_, _cont).getStruct());
+            return res_;
+        }
         if (StringList.quickEq(type_, ref_.getAliasField())) {
-            return AliasReflection.invokeFieldInfo(_cont, _method, _struct);
+            return AliasReflection.invokeFieldInfo(_cont, _method, _struct,args_);
         }
         if (StringList.quickEq(type_, ref_.getAliasMethod())) {
             return AliasReflection.invokeMethodInfo(_cont, _method, _struct, args_);
         }
         if (StringList.quickEq(type_, ref_.getAliasClassType())) {
-            return AliasReflection.invokeClassInfo(_cont, _method, _struct, args_);
+            return AliasReflection.invokeClassInfo(_cont, _method, _struct, _exit, args_);
         }
         if (StringList.quickEq(type_, ref_.getAliasConstructor())) {
-            return AliasReflection.invokeCtorInfo(_cont, _struct, _method);
+            return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_);
         }
         return lgNames_.getOtherResult(_cont, _struct, _method, args_);
     }
@@ -117,18 +147,18 @@ public final class ApplyCoreMethodUtil {
         Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
-        String stringBuilderType_ = lgNames_.getAliasStringBuilder();
+        String stringBuilderType_ = lgNames_.getContent().getCharSeq().getAliasStringBuilder();
         ResultErrorStd result_ = new ResultErrorStd();
-        String booleanType_ = lgNames_.getAliasBoolean();
-        String charType_ = lgNames_.getAliasCharacter();
-        String stringType_ = lgNames_.getAliasString();
-        String byteType_ = lgNames_.getAliasByte();
-        String shortType_ = lgNames_.getAliasShort();
-        String intType_ = lgNames_.getAliasInteger();
-        String longType_ = lgNames_.getAliasLong();
-        String floatType_ = lgNames_.getAliasFloat();
-        String doubleType_ = lgNames_.getAliasDouble();
-        String replType_ = lgNames_.getAliasReplacement();
+        String booleanType_ = lgNames_.getContent().getNbAlias().getAliasBoolean();
+        String charType_ = lgNames_.getContent().getNbAlias().getAliasCharacter();
+        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
+        String byteType_ = lgNames_.getContent().getNbAlias().getAliasByte();
+        String shortType_ = lgNames_.getContent().getNbAlias().getAliasShort();
+        String intType_ = lgNames_.getContent().getNbAlias().getAliasInteger();
+        String longType_ = lgNames_.getContent().getNbAlias().getAliasLong();
+        String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
+        String doubleType_ = lgNames_.getContent().getNbAlias().getAliasDouble();
+        String replType_ = lgNames_.getContent().getCharSeq().getAliasReplacement();
         if (StringList.quickEq(type_, replType_)) {
             ReplacementStruct.instantiate(result_, args_);
             return result_;
@@ -161,10 +191,10 @@ public final class ApplyCoreMethodUtil {
 
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        if (StringList.quickEq(name_, lgNames_.getAliasName())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setException(new ErrorStruct(_cont,lgNames_.getAliasNullPe()));
+                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new StringStruct(en_.getName()));
@@ -172,7 +202,7 @@ public final class ApplyCoreMethodUtil {
         } else {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setException(new ErrorStruct(_cont,lgNames_.getAliasNullPe()));
+                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new IntStruct(en_.getOrdinal()));
@@ -180,14 +210,14 @@ public final class ApplyCoreMethodUtil {
         }
         return result_;
     }
-    public static Struct defaultMeta(ContextEl _conf, String _id, CustList<Argument> _firstArgs) {
+    public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] args_) {
         LgNames stds_ = _conf.getStandards();
-        String aliasField_ = stds_.getAliasField();
-        String aliasMethod_ = stds_.getAliasMethod();
-        String aliasConstructor_ = stds_.getAliasConstructor();
+        String aliasField_ = stds_.getContent().getReflect().getAliasField();
+        String aliasMethod_ = stds_.getContent().getReflect().getAliasMethod();
+        String aliasConstructor_ = stds_.getContent().getReflect().getAliasConstructor();
         Struct previous_ = NullStruct.NULL_VALUE;
-        if (!_firstArgs.isEmpty()) {
-            previous_ = _firstArgs.first().getStruct();
+        if (args_.length > 0) {
+            previous_ = args_[0];
         }
         if (StringList.quickEq(_id,aliasMethod_)) {
             return NumParsers.getMethod(previous_);
@@ -205,11 +235,11 @@ public final class ApplyCoreMethodUtil {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
-        if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNamesLength())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNamesLength())) {
             result_.setResult(ResourcesStruct.getResourceNamesLength(_cont));
-        } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
+        } else if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesIndex())) {
             result_.setResult(ResourcesStruct.getResourceIndex(_cont,args_[0]));
-        } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
+        } else if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNames())) {
             result_.setResult(ResourcesStruct.getResourceNames(_cont));
         } else {
             result_.setResult(ResourcesStruct.getResource(_cont, NumParsers.getString(args_[0])));
@@ -221,11 +251,11 @@ public final class ApplyCoreMethodUtil {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
-        if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasSameRef())) {
             result_.setResult(BooleanStruct.of(args_[0].sameReference(args_[1])));
             return result_;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetParent())) {
             Struct arg_ = args_[0];
             Struct par_ = arg_.getParent();
             _cont.getInitializingTypeInfos().addSensibleField(arg_, par_);
@@ -256,7 +286,7 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
-        if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getStackElt().getAliasCurrentStack())) {
             ErroneousStruct err_;
             if (args_.length == 0) {
                 err_ = getError(_struct,_cont);
@@ -267,12 +297,12 @@ public final class ApplyCoreMethodUtil {
             result_.setResult(err_.getFullStack());
             return result_;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasGetMessage())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetMessage())) {
             ErroneousStruct err_ = getError(_struct,_cont);
             result_.setResult(err_.getMessage());
             return result_;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasGetCause())) {
+        if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetCause())) {
             ErroneousStruct err_ = getError(_struct,_cont);
             result_.setResult(err_.getCause());
             return result_;
@@ -293,29 +323,29 @@ public final class ApplyCoreMethodUtil {
         return lgNames_.instance(_cont,_method,_args);
     }
 
-    public static Struct defaultInstance(ContextEl _conf, String _id, CustList<Argument> _firstArgs) {
+    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] args_) {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = NullStruct.NULL_VALUE;
-        if (!_firstArgs.isEmpty()) {
-            previous_ = _firstArgs.first().getStruct();
+        if (args_.length > 0) {
+            previous_ = args_[0];
         }
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_id, stds_);
         if (cast_ > 0) {
             return NumParsers.convertToNumber(cast_,previous_);
         }
-        String aliasBoolean_ = stds_.getAliasBoolean();
+        String aliasBoolean_ = stds_.getContent().getNbAlias().getAliasBoolean();
         if (StringList.quickEq(aliasBoolean_, _id)) {
             return NumParsers.convertToBoolean(previous_);
         }
-        String aliasString_ = stds_.getAliasString();
-        String aliasStringBuilder_ = stds_.getAliasStringBuilder();
+        String aliasString_ = stds_.getContent().getCharSeq().getAliasString();
+        String aliasStringBuilder_ = stds_.getContent().getCharSeq().getAliasStringBuilder();
         if (StringList.quickEq(aliasString_, _id)) {
             return NumParsers.getString(previous_);
         }
         if (StringList.quickEq(aliasStringBuilder_, _id)) {
             return NumParsers.getStrBuilder(previous_);
         }
-        String aliasRepl_ = stds_.getAliasReplacement();
+        String aliasRepl_ = stds_.getContent().getCharSeq().getAliasReplacement();
         if (StringList.quickEq(aliasRepl_, _id)) {
             return NumParsers.getReplacement(previous_);
         }
@@ -326,7 +356,7 @@ public final class ApplyCoreMethodUtil {
         if (_err instanceof ErroneousStruct) {
             return (ErroneousStruct) _err;
         }
-        String null_ = _cont.getStandards().getAliasNullPe();
+        String null_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
         return new ErrorStruct(_cont,null_);
     }
 

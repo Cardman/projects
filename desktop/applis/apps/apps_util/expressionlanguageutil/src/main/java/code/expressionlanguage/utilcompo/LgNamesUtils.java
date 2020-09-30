@@ -1,8 +1,8 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.*;
@@ -11,8 +11,6 @@ import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
@@ -56,8 +54,8 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return custAliases.instance(_cont, _method, _args);
     }
 
-    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
-        return custAliases.invoke(_cont, _method, _struct, _args);
+    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+        return custAliases.invoke(_cont, _method, _struct, _exit, _args);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -69,55 +67,6 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return infos;
     }
 
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
-        StringMap<CustList<KeyValueMemberName>> t_ = super.allTableTypeVarTypes();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: custAliases.allTableTypeVarTypes().entryList()) {
-            t_.addEntry(o.getKey(),o.getValue());
-        }
-        return t_;
-    }
-
-    @Override
-    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
-        CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
-        list_.addAllElts(custAliases.allMergeTableTypeMethodNames(getContent()));
-        return list_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: custAliases.allTableTypeFieldNames().entryList()) {
-            f_.addEntry(o.getKey(),o.getValue());
-        }
-        return f_;
-    }
-
-    @Override
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
-        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames();
-        m_.addAllElts(custAliases.allTableTypeMethodParamNames());
-        return m_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: custAliases.allTableTypeMethodNames(getContent()).entryList()) {
-            m_.addEntry(o.getKey(),o.getValue());
-        }
-        return m_;
-    }
-
-    @Override
-    public StringMap<String> allRefTypes() {
-        StringMap<String> ref_ =  super.allRefTypes();
-        for (EntryCust<String,String> o: custAliases.allRefTypes().entryList()) {
-            ref_.addEntry(o.getKey(),o.getValue());
-        }
-        return ref_;
-    }
     public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl){
         return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
     }

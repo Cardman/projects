@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -23,9 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansPokemonStd {
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";
@@ -94,11 +91,11 @@ public final class AikiBeansPokemonStd {
     private static final String IS_LEG = "isLeg";
     private static final String POKEDEX = "pokedex";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildPokedexBean(_std);
         buildPokemonBean(_std);
     }
-    private static void buildPokedexBean(BeanLgNames _std) {
+    private static void buildPokedexBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -129,7 +126,7 @@ public final class AikiBeansPokemonStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEDEX_BEAN, type_);
     }
-    private static void buildPokemonBean(BeanLgNames _std) {
+    private static void buildPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -274,11 +271,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {

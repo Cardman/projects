@@ -4,14 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AliasStackTraceElement {
 
@@ -30,9 +27,9 @@ public final class AliasStackTraceElement {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        String aliasObject_ = _stds.getAliasObject();
-        String aliasString_ = _stds.getAliasString();
-        String aliasToString_ = _stds.getAliasToStringMethod();
+        String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
+        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
+        String aliasToString_ = _stds.getContent().getNbAlias().getAliasToStringMethod();
         stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);

@@ -99,7 +99,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         arg_ = new Argument();
         arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
+        ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
@@ -132,7 +132,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         arg_ = new Argument();
         arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
+        ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);

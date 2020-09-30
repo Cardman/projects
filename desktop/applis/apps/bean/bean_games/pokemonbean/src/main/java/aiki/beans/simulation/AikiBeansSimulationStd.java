@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -23,9 +22,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansSimulationStd {
     public static final String TYPE_ADD_POKEMON_BEAN = "aiki.beans.simulation.AddPokemonBean";
@@ -261,7 +258,7 @@ public final class AikiBeansSimulationStd {
     private static final String NO_FIGHT = "noFight";
     private static final String TILES = "tiles";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildAddPokemonBean(_std);
         buildEditPokemonBean(_std);
         buildEditPokemonMovesBean(_std);
@@ -272,7 +269,7 @@ public final class AikiBeansSimulationStd {
         buildSimulationBean(_std);
         buildSimulationLevelBean(_std);
     }
-    private static void buildAddPokemonBean(BeanLgNames _std) {
+    private static void buildAddPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -314,7 +311,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ADD_POKEMON_BEAN, type_);
     }
-    private static void buildEditPokemonBean(BeanLgNames _std) {
+    private static void buildEditPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -361,7 +358,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EDIT_POKEMON_BEAN, type_);
     }
-    private static void buildEditPokemonMovesBean(BeanLgNames _std) {
+    private static void buildEditPokemonMovesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -391,7 +388,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EDIT_POKEMON_MOVES_BEAN, type_);
     }
-    private static void buildEditTrainerPokemonBean(BeanLgNames _std) {
+    private static void buildEditTrainerPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -440,7 +437,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EDIT_TRAINER_POKEMON_BEAN, type_);
     }
-    private static void buildSelectAbilityBean(BeanLgNames _std) {
+    private static void buildSelectAbilityBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -467,7 +464,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SELECT_ABILITY_BEAN, type_);
     }
-    private static void buildSelectItemBean(BeanLgNames _std) {
+    private static void buildSelectItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -499,7 +496,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SELECT_ITEM_BEAN, type_);
     }
-    private static void buildSelectPokemonBean(BeanLgNames _std) {
+    private static void buildSelectPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -532,7 +529,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SELECT_POKEMON_BEAN, type_);
     }
-    private static void buildSimulationBean(BeanLgNames _std) {
+    private static void buildSimulationBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -904,7 +901,7 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SIMULATION_BEAN, type_);
     }
-    private static void buildSimulationLevelBean(BeanLgNames _std) {
+    private static void buildSimulationLevelBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -960,7 +957,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(std_.wrapStd(instance_.getGender()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getGender()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -984,15 +981,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getHasEvo()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getHasEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
@@ -1101,7 +1098,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(std_.wrapStd(instance_.getGender()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getGender()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -1178,15 +1175,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getHasEvo()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getHasEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
@@ -1205,7 +1202,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDiffWinningExpPtsFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -1269,7 +1266,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRatePlayer()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -1277,7 +1274,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRateLawFoe()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
@@ -1297,7 +1294,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENVIRONMENT)) {
-            res_.setResult(std_.wrapStd(instance_.getEnvironment()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getEnvironment()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
@@ -1309,7 +1306,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_FOE_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedFoeAction()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getSelectedFoeAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY_TEAM)) {
@@ -1321,7 +1318,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ALLY_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedAllyAction()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getSelectedAllyAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
@@ -1341,7 +1338,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedAction()));
+            res_.setResult(BeanLgNames.wrapStd(instance_.getSelectedAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AVAILABLE_EVOS)) {

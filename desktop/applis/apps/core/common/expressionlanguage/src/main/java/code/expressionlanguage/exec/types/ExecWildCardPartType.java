@@ -38,7 +38,7 @@ final class ExecWildCardPartType extends ExecParentPartType {
         }
         ExecPartType prev_ = getParent().getFirstChild();
         String base_ = ((ExecNamePartType)prev_).getTypeName();
-        if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+        if (StringList.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct())) {
             return false;
         }
         String ch_ = getFirstChild().getAnalyzedType();

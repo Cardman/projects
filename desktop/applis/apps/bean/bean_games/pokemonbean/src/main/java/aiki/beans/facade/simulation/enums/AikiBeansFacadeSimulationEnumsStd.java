@@ -1,23 +1,20 @@
 package aiki.beans.facade.simulation.enums;
-import code.expressionlanguage.functionid.MethodId;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeSimulationEnumsStd {
     public static final String TYPE_SIMULATION_STEPS = "aiki.beans.facade.simulation.enums.SimulationSteps";
 
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildSimulationSteps(_std);
     }
-    private static void buildSimulationSteps(BeanLgNames _std) {
+    private static void buildSimulationSteps(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

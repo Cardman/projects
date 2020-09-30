@@ -12,7 +12,7 @@ public final class FloatStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasFloat();
+        return _context.getStandards().getContent().getNbAlias().getAliasFloat();
     }
 
     @Override

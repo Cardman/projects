@@ -200,7 +200,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasMethod();
+        return _contextEl.getStandards().getContent().getReflect().getAliasMethod();
     }
 
     @Override

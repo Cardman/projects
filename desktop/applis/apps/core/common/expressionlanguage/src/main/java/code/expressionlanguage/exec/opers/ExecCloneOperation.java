@@ -33,7 +33,7 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
 
     public static Argument cloneArray(Argument _previous, ContextEl _conf) {
         Struct argPrev_ = _previous.getStruct();
-        String npe_ = _conf.getStandards().getAliasNullPe();
+        String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof ArrayStruct)) {
             _conf.setException(new ErrorStruct(_conf,npe_));
             return new Argument();

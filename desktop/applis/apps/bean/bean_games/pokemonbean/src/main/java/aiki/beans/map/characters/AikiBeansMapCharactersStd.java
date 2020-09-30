@@ -6,7 +6,6 @@ import aiki.map.characters.Ally;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -20,9 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansMapCharactersStd {
     public static final String TYPE_ALLY_BEAN = "aiki.beans.map.characters.AllyBean";
@@ -57,7 +54,7 @@ public final class AikiBeansMapCharactersStd {
     private static final String TRAINER = "trainer";
     private static final String MOVE = "move";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildAllyBean(_std);
         buildDealerBean(_std);
         buildDualFightBean(_std);
@@ -65,7 +62,7 @@ public final class AikiBeansMapCharactersStd {
         buildTrainerBean(_std);
         buildTrainerOneFightBean(_std);
     }
-    private static void buildAllyBean(BeanLgNames _std) {
+    private static void buildAllyBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -107,7 +104,7 @@ public final class AikiBeansMapCharactersStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ALLY_BEAN, type_);
     }
-    private static void buildDealerBean(BeanLgNames _std) {
+    private static void buildDealerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -138,7 +135,7 @@ public final class AikiBeansMapCharactersStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_DEALER_BEAN, type_);
     }
-    private static void buildDualFightBean(BeanLgNames _std) {
+    private static void buildDualFightBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -156,7 +153,7 @@ public final class AikiBeansMapCharactersStd {
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER,false,false,type_));
         _std.getStandards().addEntry(TYPE_DUAL_FIGHT_BEAN, type_);
     }
-    private static void buildSellerBean(BeanLgNames _std) {
+    private static void buildSellerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -187,7 +184,7 @@ public final class AikiBeansMapCharactersStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SELLER_BEAN, type_);
     }
-    private static void buildTrainerBean(BeanLgNames _std) {
+    private static void buildTrainerBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -217,7 +214,7 @@ public final class AikiBeansMapCharactersStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_TRAINER_BEAN, type_);
     }
-    private static void buildTrainerOneFightBean(BeanLgNames _std) {
+    private static void buildTrainerOneFightBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

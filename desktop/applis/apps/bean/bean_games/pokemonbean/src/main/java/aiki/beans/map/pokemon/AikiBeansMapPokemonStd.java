@@ -6,7 +6,6 @@ import aiki.map.characters.Trainer;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -22,9 +21,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansMapPokemonStd {
     public static final String TYPE_POKEMON_TEAM_BEAN = "aiki.beans.map.pokemon.PokemonTeamBean";
@@ -44,10 +41,10 @@ public final class AikiBeansMapPokemonStd {
     private static final String TEAM = "team";
     private static final String NO_FIGHT = "noFight";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildPokemonTeamBean(_std);
     }
-    private static void buildPokemonTeamBean(BeanLgNames _std) {
+    private static void buildPokemonTeamBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

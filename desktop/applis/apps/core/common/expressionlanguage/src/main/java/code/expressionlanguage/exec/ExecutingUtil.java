@@ -346,7 +346,7 @@ public final class ExecutingUtil {
             }
             return getCustomClassMetaInfo(c, _name, _context);
         }
-        return new ClassMetaInfo(_context.getStandards().getAliasVoid(),_context, ClassCategory.VOID,"");
+        return new ClassMetaInfo(_context.getStandards().getContent().getCoreNames().getAliasVoid(),_context, ClassCategory.VOID,"");
     }
     public static ClassMetaInfo getCustomClassMetaInfo(ExecRootBlock _type,String _name, ContextEl _context) {
         CustList<MethodMetaInfo> infos_;
@@ -453,7 +453,7 @@ public final class ExecutingUtil {
             if (b instanceof ExecInitBlock) {
                 ExecInitBlock method_ = (ExecInitBlock) b;
                 MethodId id_ = method_.getId();
-                String ret_ = _context.getStandards().getAliasVoid();
+                String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
                 MethodId fid_ = tryFormatId(_name, _context, id_);
                 String idType_ = _type.getFullName();
                 String formCl_ = tryFormatType(idType_, _name, _context);
@@ -511,7 +511,7 @@ public final class ExecutingUtil {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             AccessEnum acc_ = _type.getAccess();
             ConstructorId fid_;
-            String ret_ = _context.getStandards().getAliasVoid();
+            String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
             fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             met_.setFileName(fileName_);
@@ -519,9 +519,9 @@ public final class ExecutingUtil {
             infosConst_.add(met_);
         }
         if (_type instanceof ExecEnumBlock) {
-            String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
-            String values_ = _context.getStandards().getAliasEnumValues();
-            String string_ = _context.getStandards().getAliasString();
+            String valueOf_ = _context.getStandards().getContent().getPredefTypes().getAliasEnumPredValueOf();
+            String values_ = _context.getStandards().getContent().getPredefTypes().getAliasEnumValues();
+            String string_ = _context.getStandards().getContent().getCharSeq().getAliasString();
             MethodId id_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
             String ret_ = _type.getWildCardString();
             MethodId fid_;
@@ -720,7 +720,7 @@ public final class ExecutingUtil {
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             ConstructorId fid_;
-            String ret_ = _context.getStandards().getAliasVoid();
+            String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
             fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, fid_, _name);
             infosConst_.add(met_);
@@ -747,7 +747,7 @@ public final class ExecutingUtil {
         for (int i = 0; i < count_; i++) {
             arr_[i] = newStackTraceElement(_cont,i);
         }
-        String cl_ = _cont.getStandards().getAliasStackTraceElement();
+        String cl_ = _cont.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         return new ArrayStruct(arr_, cl_);
     }
@@ -781,7 +781,7 @@ public final class ExecutingUtil {
 
     public static void addPage(ContextEl _cont,AbstractPageEl _page) {
         LgNames stds_ = _cont.getStandards();
-        String sof_ = stds_.getAliasSof();
+        String sof_ = stds_.getContent().getCoreNames().getAliasSof();
         if (_cont.getStackOverFlow() >= CustList.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
             _cont.setCallingState( new ErrorStruct(_cont,sof_));
         } else {

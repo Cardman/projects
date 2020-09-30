@@ -2816,24 +2816,24 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[1] instanceof CustComponentStruct)) {
-                _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasNullPe()));
+                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[2] instanceof CustComponentStruct)) {
-                _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasNullPe()));
+                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             CustComponentStruct first_ = (CustComponentStruct) _args[1];
             CustComponentStruct second_ = (CustComponentStruct) _args[2];
             if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasIllegalArg()));
+                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasIllegalArg()));
+                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2952,7 +2952,7 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[0] instanceof TreeNodeStruct)) {
-                _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasNullPe()));
+                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 return r_;
             }
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
@@ -3261,7 +3261,7 @@ public final class GuiAliases {
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
                 ins_.add(_args[0],true);
                 if (!(_args[0] instanceof WindowStruct)) {
-                    _cont.setException(new ErrorStruct(_cont,_cont.getStandards().getAliasNullPe()));
+                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -3359,7 +3359,7 @@ public final class GuiAliases {
                 return res_;
             }
             StringList mainArgs_ = ((GuiContextEl) _cont).getMainArgs();
-            String typeStr_ = _cont.getStandards().getAliasString();
+            String typeStr_ = _cont.getStandards().getContent().getCharSeq().getAliasString();
             typeStr_ = StringExpUtil.getPrettyArrayType(typeStr_);
             int len_ = mainArgs_.size();
             Struct[] struct_ = new Struct[len_];
@@ -3628,7 +3628,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.getComponent(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
-            if (StringList.quickEq(_cont.getStandards().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                 res_.setResult(strPan_.remove(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
@@ -3709,7 +3709,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.index((CustComponentStruct)_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(_cont.getStandards().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                 res_.setResult(strPan_.remove(_args[0]));
                 return res_;
             }
@@ -4136,7 +4136,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasTreeNodeRemove)) {
-                if (StringList.quickEq(_cont.getStandards().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+                if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                     inst_.remove(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;

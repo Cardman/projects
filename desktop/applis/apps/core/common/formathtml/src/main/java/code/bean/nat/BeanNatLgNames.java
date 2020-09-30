@@ -212,7 +212,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             a.setStruct(NumParsers.convertToInt(cast_, NumParsers.convertToNumber(cast_,a.getStruct())));
             i_++;
         }
-        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), null, Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }
 
@@ -270,19 +270,19 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
-        getIterables().put(TYPE_LIST,getAliasObject());
+        getIterables().put(TYPE_LIST, getAliasObject());
         getStandards().addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<StandardMethod>();
         cl_ = new StandardClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
-        getIterables().put(TYPE_MAP,getAliasObject());
+        getIterables().put(TYPE_MAP, getAliasObject());
         getStandards().addEntry(TYPE_MAP, cl_);
         params_ = new StringList();
         methods_ = new CustList<StandardMethod>();
         StandardInterface stdi_ = new StandardInterface(TYPE_COUNTABLE, methods_, params_);
         params_ = new StringList();
-        method_ = new StandardMethod(getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         getStandards().addEntry(TYPE_COUNTABLE, stdi_);
         methods_ = new CustList<StandardMethod>();
@@ -462,7 +462,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), new DefaultFileBuilder(getContent()), getContent(),tabWidth_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_);
         _conf.setContext(contextEl_);
         return page_;
     }

@@ -124,7 +124,7 @@ public abstract class ExecOperationNode {
             if (last_.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
                 _cont.setException(new ErrorStruct(_cont,null_));
                 return;

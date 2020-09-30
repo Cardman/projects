@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.CustList;
@@ -30,7 +29,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
+        MethodId id_ = getMethodId("factrec", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         Argument v_ = new Argument();
         v_.setStruct(new IntStruct(5));
         args_.add(v_);

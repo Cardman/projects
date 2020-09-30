@@ -590,7 +590,7 @@ public final class DefaultBeanAliases {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
         String type_ = _method.getClassName();
-        if (StringList.quickEq(type_, _cont.getStandards().getAliasEnums())) {
+        if (StringList.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
             return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
         }
         String name_ = _method.getConstraints().getName();
@@ -610,7 +610,7 @@ public final class DefaultBeanAliases {
         }
         if (StringList.quickEq(name_, aliasMessageGetArgs)) {
             StringList resArgs_ = instance_.getArgs();
-            String arrStr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getAliasString());
+            String arrStr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString());
             int len_ = resArgs_.size();
             ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
             for (int i = 0; i < len_; i++){

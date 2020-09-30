@@ -440,7 +440,7 @@ public abstract class RendBlock {
     private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_,_cont.getContext().getStandards().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _cont.getContext().getStandards().getContent().getCoreNames().getAliasObject());
             _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
             _cont.getLastPage().removeLocalVar(_varNameConv);

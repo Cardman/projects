@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -23,9 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansItemsStd {
     public static final String TYPE_BALL_BEAN = "aiki.beans.items.BallBean";
@@ -181,7 +178,7 @@ public final class AikiBeansItemsStd {
     private static final String ITEMS = "items";
     private static final String STEPS = "steps";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildBallBean(_std);
         buildBerryBean(_std);
         buildBoostBean(_std);
@@ -198,7 +195,7 @@ public final class AikiBeansItemsStd {
         buildRepelBean(_std);
         buildSellingItemBean(_std);
     }
-    private static void buildBallBean(BeanLgNames _std) {
+    private static void buildBallBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -211,7 +208,7 @@ public final class AikiBeansItemsStd {
         fields_.add(new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         _std.getStandards().addEntry(TYPE_BALL_BEAN, type_);
     }
-    private static void buildBerryBean(BeanLgNames _std) {
+    private static void buildBerryBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -259,7 +256,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_BERRY_BEAN, type_);
     }
-    private static void buildBoostBean(BeanLgNames _std) {
+    private static void buildBoostBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -288,7 +285,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_BOOST_BEAN, type_);
     }
-    private static void buildEvolvingItemBean(BeanLgNames _std) {
+    private static void buildEvolvingItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -308,7 +305,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLVING_ITEM_BEAN, type_);
     }
-    private static void buildEvolvingStoneBean(BeanLgNames _std) {
+    private static void buildEvolvingStoneBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -328,7 +325,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLVING_STONE_BEAN, type_);
     }
-    private static void buildFossilBean(BeanLgNames _std) {
+    private static void buildFossilBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -348,7 +345,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FOSSIL_BEAN, type_);
     }
-    private static void buildHealingHpBean(BeanLgNames _std) {
+    private static void buildHealingHpBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -361,7 +358,7 @@ public final class AikiBeansItemsStd {
         _std.getStandards().addEntry(TYPE_HEALING_HP_BEAN, type_);
     }
 
-    private static void buildHealingItemBean(BeanLgNames _std) {
+    private static void buildHealingItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -386,7 +383,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_HEALING_ITEM_BEAN, type_);
     }
-    private static void buildHealingPpBean(BeanLgNames _std) {
+    private static void buildHealingPpBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -409,7 +406,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_HEALING_PP_BEAN, type_);
     }
-    private static void buildHealingStatusBean(BeanLgNames _std) {
+    private static void buildHealingStatusBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -437,7 +434,7 @@ public final class AikiBeansItemsStd {
         type_ = new StandardClass(TYPE_HEALING_HP_STATUS_BEAN, fields_, constructors_, methods_, AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_HEALING_HP_STATUS_BEAN, type_);
     }
-    private static void buildItemBean(BeanLgNames _std) {
+    private static void buildItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -459,7 +456,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ITEM_BEAN, type_);
     }
-    private static void buildItemForBattleBean(BeanLgNames _std) {
+    private static void buildItemForBattleBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -611,7 +608,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ITEM_FOR_BATTLE_BEAN, type_);
     }
-    private static void buildItemsBean(BeanLgNames _std) {
+    private static void buildItemsBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -637,7 +634,7 @@ public final class AikiBeansItemsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ITEMS_BEAN, type_);
     }
-    private static void buildRepelBean(BeanLgNames _std) {
+    private static void buildRepelBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -649,7 +646,7 @@ public final class AikiBeansItemsStd {
         fields_.add(new StandardField(STEPS,_std.getAliasPrimLong(),false,false,type_));
         _std.getStandards().addEntry(TYPE_REPEL_BEAN, type_);
     }
-    private static void buildSellingItemBean(BeanLgNames _std) {
+    private static void buildSellingItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

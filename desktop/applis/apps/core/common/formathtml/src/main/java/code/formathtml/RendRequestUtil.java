@@ -32,7 +32,7 @@ final class RendRequestUtil {
         int s_ = varNames_.size();
         ContextEl context_ = _conf.getContext();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), context_.getStandards().getAliasPrimLong());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), _conf.getAdvStandards().getAliasPrimLong());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);

@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -19,9 +18,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansMapElementsStd {
     public static final String TYPE_AREA_BEAN = "aiki.beans.map.elements.AreaBean";
@@ -52,11 +49,11 @@ public final class AikiBeansMapElementsStd {
     private static final String AREA = "area";
     private static final String POKEMON = "pokemon";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildAreaBean(_std);
         buildLegendaryPokemonBean(_std);
     }
-    private static void buildAreaBean(BeanLgNames _std) {
+    private static void buildAreaBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -133,7 +130,7 @@ public final class AikiBeansMapElementsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_AREA_BEAN, type_);
     }
-    private static void buildLegendaryPokemonBean(BeanLgNames _std) {
+    private static void buildLegendaryPokemonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

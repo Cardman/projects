@@ -4,7 +4,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -20,9 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFightStd {
     public static final String TYPE_COMMON_FIGHT_BEAN = "aiki.beans.fight.CommonFightBean";
@@ -141,14 +138,14 @@ public final class AikiBeansFightStd {
     private static final String MOVES_ANTICIPATION = "movesAnticipation";
     private static final String PLAYER_FIGHTERS_AGAINST_FOE = "playerFightersAgainstFoe";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildCommonFightBean(_std);
         buildFightBean(_std);
         buildFightCalculationBean(_std);
         buildFighterBean(_std);
         buildTeamBean(_std);
     }
-    private static void buildCommonFightBean(BeanLgNames _std) {
+    private static void buildCommonFightBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -159,7 +156,7 @@ public final class AikiBeansFightStd {
         type_ = new StandardClass(TYPE_COMMON_FIGHT_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMMON_FIGHT_BEAN, type_);
     }
-    private static void buildFightBean(BeanLgNames _std) {
+    private static void buildFightBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -186,7 +183,7 @@ public final class AikiBeansFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHT_BEAN, type_);
     }
-    private static void buildFightCalculationBean(BeanLgNames _std) {
+    private static void buildFightCalculationBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -240,7 +237,7 @@ public final class AikiBeansFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHT_CALCULATION_BEAN, type_);
     }
-    private static void buildFighterBean(BeanLgNames _std) {
+    private static void buildFighterBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -351,7 +348,7 @@ public final class AikiBeansFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHTER_BEAN, type_);
     }
-    private static void buildTeamBean(BeanLgNames _std) {
+    private static void buildTeamBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

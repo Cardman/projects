@@ -22,12 +22,12 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         ContextEl context_ = _conf.getContext();
-        if (StringList.quickEq(fctName,context_.getStandards().getAliasMetaInfo())) {
+        if (StringList.quickEq(fctName, context_.getStandards().getContent().getReflect().getAliasMetaInfo())) {
             Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, context_);
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }
-        if (StringList.quickEq(fctName,context_.getStandards().getAliasInstance())) {
+        if (StringList.quickEq(fctName, context_.getStandards().getContent().getReflect().getAliasInstance())) {
             Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, context_);
             setSimpleArgument(res_, _conf, _nodes);
             return;

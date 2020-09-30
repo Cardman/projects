@@ -1,14 +1,11 @@
 package aiki.beans.facade.comparators;
-import code.expressionlanguage.functionid.MethodId;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeComparatorsStd {
     public static final String TYPE_COMPARATOR_CATEGORY_MULT = "aiki.beans.facade.comparators.ComparatorCategoryMult";
@@ -41,7 +38,7 @@ public final class AikiBeansFacadeComparatorsStd {
     public static final String TYPE_COMPARATOR_WILD_POKEMON_DTO = "aiki.beans.facade.comparators.ComparatorWildPokemonDto";
 
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildComparatorCategoryMult(_std);
         buildComparatorDirection(_std);
         buildComparatorLanguageEnvType(_std);
@@ -71,7 +68,7 @@ public final class AikiBeansFacadeComparatorsStd {
         buildComparatorWeatherType(_std);
         buildComparatorWildPokemonDto(_std);
     }
-    private static void buildComparatorCategoryMult(BeanLgNames _std) {
+    private static void buildComparatorCategoryMult(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -82,7 +79,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_CATEGORY_MULT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_CATEGORY_MULT, type_);
     }
-    private static void buildComparatorDirection(BeanLgNames _std) {
+    private static void buildComparatorDirection(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -93,7 +90,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_DIRECTION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_DIRECTION, type_);
     }
-    private static void buildComparatorLanguageEnvType(BeanLgNames _std) {
+    private static void buildComparatorLanguageEnvType(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -104,7 +101,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, type_);
     }
-    private static void buildComparatorLanguageGender(BeanLgNames _std) {
+    private static void buildComparatorLanguageGender(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -115,7 +112,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_GENDER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_GENDER, type_);
     }
-    private static void buildComparatorLanguageSelectedBoolean(BeanLgNames _std) {
+    private static void buildComparatorLanguageSelectedBoolean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -126,7 +123,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, type_);
     }
-    private static void buildComparatorLanguageStatisic(BeanLgNames _std) {
+    private static void buildComparatorLanguageStatisic(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -137,7 +134,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_STATISIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_STATISIC, type_);
     }
-    private static void buildComparatorLanguageString(BeanLgNames _std) {
+    private static void buildComparatorLanguageString(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -148,7 +145,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_STRING, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_STRING, type_);
     }
-    private static void buildComparatorLanguageTargetChoice(BeanLgNames _std) {
+    private static void buildComparatorLanguageTargetChoice(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -159,7 +156,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, type_);
     }
-    private static void buildComparatorMiniMapCoords(BeanLgNames _std) {
+    private static void buildComparatorMiniMapCoords(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -170,7 +167,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_MINI_MAP_COORDS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_MINI_MAP_COORDS, type_);
     }
-    private static void buildComparatorMoves(BeanLgNames _std) {
+    private static void buildComparatorMoves(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -181,7 +178,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_MOVES, type_);
     }
-    private static void buildComparatorMoveTarget(BeanLgNames _std) {
+    private static void buildComparatorMoveTarget(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -192,7 +189,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_MOVE_TARGET, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_MOVE_TARGET, type_);
     }
-    private static void buildComparatorMoveTeamPosition(BeanLgNames _std) {
+    private static void buildComparatorMoveTeamPosition(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -203,7 +200,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_MOVE_TEAM_POSITION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_MOVE_TEAM_POSITION, type_);
     }
-    private static void buildComparatorPlaceIndex(BeanLgNames _std) {
+    private static void buildComparatorPlaceIndex(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -214,7 +211,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_PLACE_INDEX, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_PLACE_INDEX, type_);
     }
-    private static void buildComparatorPlaceNumber(BeanLgNames _std) {
+    private static void buildComparatorPlaceNumber(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -225,7 +222,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_PLACE_NUMBER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_PLACE_NUMBER, type_);
     }
-    private static void buildComparatorPoint(BeanLgNames _std) {
+    private static void buildComparatorPoint(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -236,7 +233,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_POINT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_POINT, type_);
     }
-    private static void buildComparatorRadioLineMoves(BeanLgNames _std) {
+    private static void buildComparatorRadioLineMoves(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -247,7 +244,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_RADIO_LINE_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_RADIO_LINE_MOVES, type_);
     }
-    private static void buildComparatorStatistic(BeanLgNames _std) {
+    private static void buildComparatorStatistic(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -258,7 +255,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC, type_);
     }
-    private static void buildComparatorStatisticCategory(BeanLgNames _std) {
+    private static void buildComparatorStatisticCategory(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -269,7 +266,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_CATEGORY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_CATEGORY, type_);
     }
-    private static void buildComparatorStatisticInfo(BeanLgNames _std) {
+    private static void buildComparatorStatisticInfo(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -280,7 +277,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_INFO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_INFO, type_);
     }
-    private static void buildComparatorStatisticInfoPkPlayer(BeanLgNames _std) {
+    private static void buildComparatorStatisticInfoPkPlayer(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -291,7 +288,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, type_);
     }
-    private static void buildComparatorStatisticPokemon(BeanLgNames _std) {
+    private static void buildComparatorStatisticPokemon(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -302,7 +299,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_POKEMON, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_POKEMON, type_);
     }
-    private static void buildComparatorStatisticTr(BeanLgNames _std) {
+    private static void buildComparatorStatisticTr(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -313,7 +310,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_TR, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_TR, type_);
     }
-    private static void buildComparatorStatisticType(BeanLgNames _std) {
+    private static void buildComparatorStatisticType(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -324,7 +321,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_TYPE, type_);
     }
-    private static void buildComparatorStatusStatistic(BeanLgNames _std) {
+    private static void buildComparatorStatusStatistic(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -335,7 +332,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STATUS_STATISTIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STATUS_STATISTIC, type_);
     }
-    private static void buildComparatorStringList(BeanLgNames _std) {
+    private static void buildComparatorStringList(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -346,7 +343,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_STRING_LIST, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_STRING_LIST, type_);
     }
-    private static void buildComparatorTypesDuo(BeanLgNames _std) {
+    private static void buildComparatorTypesDuo(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -357,7 +354,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_TYPES_DUO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_TYPES_DUO, type_);
     }
-    private static void buildComparatorWeatherType(BeanLgNames _std) {
+    private static void buildComparatorWeatherType(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -368,7 +365,7 @@ public final class AikiBeansFacadeComparatorsStd {
         type_ = new StandardClass(TYPE_COMPARATOR_WEATHER_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMPARATOR_WEATHER_TYPE, type_);
     }
-    private static void buildComparatorWildPokemonDto(BeanLgNames _std) {
+    private static void buildComparatorWildPokemonDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

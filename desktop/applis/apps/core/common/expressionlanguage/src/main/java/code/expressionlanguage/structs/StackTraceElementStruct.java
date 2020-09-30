@@ -24,7 +24,7 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasStackTraceElement();
+        return _contextEl.getStandards().getContent().getStackElt().getAliasStackTraceElement();
     }
 
     @Override

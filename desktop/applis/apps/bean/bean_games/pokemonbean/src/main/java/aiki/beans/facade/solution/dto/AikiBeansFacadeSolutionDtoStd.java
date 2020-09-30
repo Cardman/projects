@@ -1,9 +1,9 @@
 package aiki.beans.facade.solution.dto;
 import aiki.beans.DefaultStruct;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -16,9 +16,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeSolutionDtoStd {
     public static final String TYPE_PLACE_TRAINER_DTO = "aiki.beans.facade.solution.dto.PlaceTrainerDto";
@@ -33,12 +31,12 @@ public final class AikiBeansFacadeSolutionDtoStd {
     private static final String TRAINER = "trainer";
     private static final String PLACE = "place";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildPlaceTrainerDto(_std);
         buildStepDto(_std);
         buildWildPokemonDto(_std);
     }
-    private static void buildPlaceTrainerDto(BeanLgNames _std) {
+    private static void buildPlaceTrainerDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -51,7 +49,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
         fields_.add(new StandardField(PLACE,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_PLACE_TRAINER_DTO, type_);
     }
-    private static void buildStepDto(BeanLgNames _std) {
+    private static void buildStepDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -70,7 +68,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STEP_DTO, type_);
     }
-    private static void buildWildPokemonDto(BeanLgNames _std) {
+    private static void buildWildPokemonDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

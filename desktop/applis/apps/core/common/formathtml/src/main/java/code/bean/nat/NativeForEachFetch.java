@@ -23,7 +23,7 @@ public final class NativeForEachFetch implements AbstractForEachFetch {
 
     @Override
     public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second) {
-        String type_ = StringList.concat(stds.getAliasIterableTable(), "<", _first, "," + _second + ">");
+        String type_ = StringList.concat(stds.getContent().getPredefTypes().getAliasIterableTable(), "<", _first, "," + _second + ">");
         return new IterableAnalysisResult(new StringList(type_));
     }
 
@@ -35,6 +35,6 @@ public final class NativeForEachFetch implements AbstractForEachFetch {
         if (StringList.quickEq(it_, stds.getAliasObject())) {
             it_ = _first;
         }
-        return StringList.concat(stds.getAliasIterable(),"<",it_,">");
+        return StringList.concat(stds.getContent().getPredefTypes().getAliasIterable(),"<",it_,">");
     }
 }

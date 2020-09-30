@@ -4,14 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
@@ -62,13 +56,13 @@ public final class CustLgNames extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        params_ = new StringList(getAliasInteger());
+        params_ = new StringList(getContent().getNbAlias().getAliasInteger());
         stdcl_ = new StandardClass(aliasInts, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasAdd, params_, getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAdd, params_, getContent().getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         std_ = stdcl_;
         getStandards().addEntry(aliasInts, std_);
-        getIterables().put(aliasInts,getAliasInteger());
+        getIterables().put(aliasInts, getContent().getNbAlias().getAliasInteger());
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
@@ -76,7 +70,7 @@ public final class CustLgNames extends BeanNatLgNames {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetList, params_, aliasGeneObjects, false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimInteger());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasRemoveAndExistAfter, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         std_ = stdcl_;
@@ -86,25 +80,25 @@ public final class CustLgNames extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasGeneObjects, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(getAliasObject());
-        method_ = new StandardMethod(aliasAdd, params_, getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAdd, params_, getContent().getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSize, params_, getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSize, params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
 //        params_ = new StringList(aliasSimpleIteratorType);
 //        method_ = new StandardMethod(aliasSimpleIterator, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, aliasGeneObjects);
 //        methods_.add( method_);
         std_ = stdcl_;
         getStandards().addEntry(aliasGeneObjects, std_);
-        getIterables().put(aliasGeneObjects,getAliasObject());
+        getIterables().put(aliasGeneObjects, getAliasObject());
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
 //        params_ = new StringList();
-//        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
+//        method_ = new StandardMethod(getAliasNext(), params_, getObj(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
 //        methods_.add( method_);
 //        params_ = new StringList();
-//        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
+//        method_ = new StandardMethod(getAliasHasNext(), params_, getPrimBool(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
 //        methods_.add( method_);
         stdcl_ = new StandardClass(aliasStringList, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
@@ -119,7 +113,7 @@ public final class CustLgNames extends BeanNatLgNames {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasGetOverridenOne, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasNumber());
+        params_ = new StringList(getContent().getNbAlias().getAliasNumber());
         method_ = new StandardMethod(aliasGetOverridenOne, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(getAliasObject());
@@ -128,52 +122,52 @@ public final class CustLgNames extends BeanNatLgNames {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasGetOverridenTwo, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimDouble());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimDouble());
         method_ = new StandardMethod(aliasGetOverridenThree, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimLong());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasGetOverridenThree, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasDouble());
+        params_ = new StringList(getContent().getNbAlias().getAliasDouble());
         method_ = new StandardMethod(aliasGetOverridenThree, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new StandardMethod(aliasGetOverridenThree, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimLong());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasGetOverridenFour, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new StandardMethod(aliasGetOverridenFour, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimDouble());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimDouble());
         method_ = new StandardMethod(aliasGetOverridenFive, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new StandardMethod(aliasGetOverridenFive, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasDouble());
+        params_ = new StringList(getContent().getNbAlias().getAliasDouble());
         method_ = new StandardMethod(aliasGetOverridenSix, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimLong());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasGetOverridenSix, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new StandardMethod(aliasGetOverridenSix, params_, getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSetPrivateInt, params_, getAliasVoid(), false, MethodModifier.FINAL);
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSetPrivateInt, params_, getContent().getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetPrivateInt, params_, getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetPrivateInt, params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetInteger, params_, getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetInteger, params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         //aliasGetOverridenOne
-        field_ = new StandardField(aliasIntegerField, getAliasPrimInteger(), false, false, stdcl_);
+        field_ = new StandardField(aliasIntegerField, getContent().getPrimTypes().getAliasPrimInteger(), false, false, stdcl_);
         fields_.add( field_);
-        field_ = new StandardField(aliasObjIntegerField, getAliasInteger(), false, false, stdcl_);
+        field_ = new StandardField(aliasObjIntegerField, getContent().getNbAlias().getAliasInteger(), false, false, stdcl_);
         fields_.add( field_);
         field_ = new StandardField(aliasCompositeField, aliasCompositeSec, false, false, stdcl_);
         fields_.add( field_);
@@ -183,7 +177,7 @@ public final class CustLgNames extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasCompositeSec, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        field_ = new StandardField(aliasIntegerField, getAliasPrimInteger(), false, false, stdcl_);
+        field_ = new StandardField(aliasIntegerField, getContent().getPrimTypes().getAliasPrimInteger(), false, false, stdcl_);
         fields_.add( field_);
         std_ = stdcl_;
         getStandards().addEntry(aliasCompositeSec, std_);
@@ -198,7 +192,7 @@ public final class CustLgNames extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasFailMethods, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFail, params_, getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasFail, params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
         methods_.add( method_);
         std_ = stdcl_;
         getStandards().addEntry(aliasFailMethods, std_);
@@ -207,7 +201,7 @@ public final class CustLgNames extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasStrangeInit, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFail, params_, getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasFail, params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
         methods_.add( method_);
         fields_.add( new StandardField(aliasNotRead, getAliasString(), true, true, stdcl_));
         std_ = stdcl_;
@@ -270,7 +264,7 @@ public final class CustLgNames extends BeanNatLgNames {
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasNumber())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasNumber())) {
                     Object arg_ = _args[0];
                     String resLoc_ = ((Composite)instance_).getOverridenOne(arg_);
                     res_.setResult(new StringStruct(resLoc_));
@@ -303,25 +297,25 @@ public final class CustLgNames extends BeanNatLgNames {
                 }
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenThree)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasDouble())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimDouble())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
@@ -329,7 +323,7 @@ public final class CustLgNames extends BeanNatLgNames {
                 }
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenFour)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     if (_args[0] == NullStruct.NULL_VALUE) {
                         String resLoc_ = ((Composite)instance_).getOverridenFour(null);
                         res_.setResult(new StringStruct(resLoc_));
@@ -340,7 +334,7 @@ public final class CustLgNames extends BeanNatLgNames {
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFour(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
@@ -348,13 +342,13 @@ public final class CustLgNames extends BeanNatLgNames {
                 }
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenFive)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimDouble())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
@@ -362,19 +356,19 @@ public final class CustLgNames extends BeanNatLgNames {
                 }
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenSix)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasDouble())) {
+                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));

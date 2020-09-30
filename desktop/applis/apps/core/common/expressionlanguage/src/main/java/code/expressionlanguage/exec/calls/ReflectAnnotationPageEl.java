@@ -79,7 +79,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             }
             if (onParameters) {
                 int len_ = annotationsParams.size();
-                String annot_ = stds_.getAliasAnnotationType();
+                String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
                 annot_ = StringExpUtil.getPrettyArrayType(annot_);
                 String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annotArr_);
@@ -92,7 +92,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else {
                 int len_ = annotations.size();
-                String annot_ = stds_.getAliasAnnotationType();
+                String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
                 annot_ = StringExpUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annot_);
             }

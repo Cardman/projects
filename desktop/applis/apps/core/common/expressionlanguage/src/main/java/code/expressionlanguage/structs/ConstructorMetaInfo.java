@@ -135,7 +135,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasConstructor();
+        return _contextEl.getStandards().getContent().getReflect().getAliasConstructor();
     }
 
     @Override

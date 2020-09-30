@@ -100,7 +100,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     void processLoop(Configuration _conf) {
         ContextEl context_ = _conf.getContext();
         LgNames stds_ = context_.getStandards();
-        String null_ = stds_.getAliasNullPe();
+        String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();

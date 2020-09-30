@@ -69,7 +69,7 @@ public final class RendDimensionArrayInstancing extends
         String size_;
         ContextEl ctx_ = _cont.getContext();
         LgNames lgNames_ = ctx_.getStandards();
-        size_ = lgNames_.getAliasBadSize();
+        size_ = lgNames_.getContent().getCoreNames().getAliasBadSize();
         if (_dims.isEmpty()) {
             return new ErrorStruct(ctx_,size_);
         }

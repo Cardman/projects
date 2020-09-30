@@ -39,7 +39,7 @@ public final class ExecClassArgumentMatching {
     public static Struct convert(PageEl _page, Struct _arg,
                                  ContextEl _exec, StringList _names) {
         StringList className_ = formatted(_page, _exec, _names);
-        if (StringList.equalsSet(className_,new StringList(_exec.getStandards().getAliasNumber()))) {
+        if (StringList.equalsSet(className_,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
             return NumParsers.convertToNumber(_arg);
         }
         byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(className_), _exec.getStandards());

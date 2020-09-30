@@ -37,7 +37,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
@@ -47,7 +46,6 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.structs.MessageStruct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
 import code.sml.Element;
@@ -134,58 +132,58 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         StringList l_ = new StringList();
         String locName_ = tr(l_);
         iteratorVar = locName_;
-        String simpleIterator_ = getAliasIterator();
-        expsIterator= newCall(iteratorVar,StringList.concat(getAliasIterable(),"<?>"),
-                new ClassMethodId(getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
+        String simpleIterator_ = getContent().getPredefTypes().getAliasIterator();
+        expsIterator= newCall(iteratorVar,StringList.concat(getContent().getPredefTypes().getAliasIterable(),"<?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
                 ))),
-                StringList.concat(getAliasIteratorType(),"<?>"), args_, _classes);
+                StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"), args_, _classes);
         locName_ = tr(l_);
         hasNextVar = locName_;
-        String hasNext_ = getAliasHasNext();
-        expsHasNext= newCall(hasNextVar,StringList.concat(getAliasIteratorType(),"<?>"),
-                new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
+        String hasNext_ = getContent().getPredefTypes().getAliasHasNext();
+        expsHasNext= newCall(hasNextVar,StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextVar = locName_;
-        String next_ = getAliasNext();
-        expsNext= newCall(nextVar,StringList.concat(getAliasIteratorType(),"<?>"),
-                new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
+        String next_ = getContent().getPredefTypes().getAliasNext();
+        expsNext= newCall(nextVar,StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
 
-        String nextPair_ = getAliasNextPair();
-        String hasNextPair_ = getAliasHasNextPair();
+        String nextPair_ = getContent().getPredefTypes().getAliasNextPair();
+        String hasNextPair_ = getContent().getPredefTypes().getAliasHasNextPair();
         iteratorTableVarCust= locName_;
-        String iteratorTable_ = getAliasIteratorTable();
-        expsIteratorTableCust= newCall(iteratorTableVarCust,StringList.concat(getAliasIterableTable(),"<?,?>"),
-                new ClassMethodId(getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
+        String iteratorTable_ = getContent().getPredefTypes().getAliasIteratorTable();
+        expsIteratorTableCust= newCall(iteratorTableVarCust,StringList.concat(getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
                 ))),
-                StringList.concat(getAliasIteratorTableType(),"<?,?>"), args_, _classes);
+                StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), args_, _classes);
         locName_ = tr(l_);
         hasNextPairVarCust= locName_;
-        expsHasNextPairCust= newCall(hasNextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
+        expsHasNextPairCust= newCall(hasNextPairVarCust,StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextPairVarCust= locName_;
-        expsNextPairCust= newCall(nextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
+        expsNextPairCust= newCall(nextPairVarCust,StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
                 ))),
-                StringList.concat(getAliasPairType(),"<?,?>"), args_, _classes);
+                StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"), args_, _classes);
         locName_ = tr(l_);
         firstVarCust= locName_;
-        String first_ = getAliasGetFirst();
-        expsFirstCust= newCall(firstVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
-                new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
+        String first_ = getContent().getPredefTypes().getAliasGetFirst();
+        expsFirstCust= newCall(firstVarCust,StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
         locName_ = tr(l_);
         secondVarCust= locName_;
-        String second_ = getAliasGetSecond();
-        expsSecondCust= newCall(secondVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
-                new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
+        String second_ = getContent().getPredefTypes().getAliasGetSecond();
+        expsSecondCust= newCall(secondVarCust,StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+                new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
 
@@ -205,8 +203,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         putVarCustValue = locName_;
         String put_ = getAliasMapPut();
         args_ = new StringMap<String>();
-        args_.addEntry(putVarCustKey,getAliasString());
-        args_.addEntry(putVarCustValue,getAliasObject());
+        args_.addEntry(putVarCustKey, getAliasString());
+        args_.addEntry(putVarCustValue, getAliasObject());
         expsPut= newCall(putVarCust,getAliasStringMapObject(),
                 new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,put_,new StringList(
                         getAliasString(),
@@ -233,7 +231,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         getValVarArg = locName_;
         String getVal_ = getAliasMapGetVal();
         args_ = new StringMap<String>();
-        args_.addEntry(getValVarArg,getAliasString());
+        args_.addEntry(getValVarArg, getAliasString());
         expsGetVal= newCall(getValVar,getAliasStringMapObject(),
                 new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,getVal_,new StringList(
                         getAliasString()
@@ -268,7 +266,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setDataBaseVarArg = locName_;
         String setDataBase_ = getAliasSetDataBase();
         args_ = new StringMap<String>();
-        args_.addEntry(setDataBaseVarArg,getAliasObject());
+        args_.addEntry(setDataBaseVarArg, getAliasObject());
         expsSetDataBase= newCall(setDataBaseVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setDataBase_,new StringList(
                         getAliasObject()
@@ -290,7 +288,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setScopeVarArg = locName_;
         String setScope_ = getAliasSetScope();
         args_ = new StringMap<String>();
-        args_.addEntry(setScopeVarArg,getAliasString());
+        args_.addEntry(setScopeVarArg, getAliasString());
         expsSetScope= newCall(setScopeVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setScope_,new StringList(
                         getAliasString()
@@ -312,7 +310,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setLanguageVarArg = locName_;
         String setLanguage_ = getAliasSetLanguage();
         args_ = new StringMap<String>();
-        args_.addEntry(setLanguageVarArg,getAliasString());
+        args_.addEntry(setLanguageVarArg, getAliasString());
         expsSetLanguage= newCall(setLanguageVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setLanguage_,new StringList(
                         getAliasString()
@@ -336,12 +334,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
         String validate_ = beanAliases.getAliasValidate();
         args_ = new StringMap<String>();
-        args_.addEntry(validateVarArgNewValue,getAliasObject());
-        args_.addEntry(validateVarArgOldValue,getAliasObject());
-        args_.addEntry(validateVarArgBean,getAliasObject());
+        args_.addEntry(validateVarArgNewValue, getAliasObject());
+        args_.addEntry(validateVarArgOldValue, getAliasObject());
+        args_.addEntry(validateVarArgBean, getAliasObject());
         args_.addEntry(validateVarArgForm,StringExpUtil.getPrettyArrayType(getAliasObject()));
-        args_.addEntry(validateVarArgClassField,getAliasString());
-        args_.addEntry(vlidateVarArgNameField,getAliasString());
+        args_.addEntry(validateVarArgClassField, getAliasString());
+        args_.addEntry(vlidateVarArgNameField, getAliasString());
         expsValidate = newCall(validateVar, beanAliases.getAliasValidator(),
                 new ClassMethodId(beanAliases.getAliasValidator(),new MethodId(MethodAccessKind.INSTANCE,validate_,new StringList(
                         getAliasObject(),
@@ -487,11 +485,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             ExecRootBlock rootBlock_ = _conf.getContext().getClasses().getClassBody(getAliasBean());
             ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasForms(),getAliasStringMapObject(),
                     new Argument(strBean_),mapArg_, _conf.getContext());
-            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasDataBaseField(),getAliasObject(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasDataBaseField(), getAliasObject(),
                     new Argument(strBean_),new Argument(_db), _conf.getContext());
-            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasLanguage(),getAliasString(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasLanguage(), getAliasString(),
                     new Argument(strBean_),new Argument(new StringStruct(_language)), _conf.getContext());
-            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasScope(),getAliasString(),
+            ExecTemplates.setInstanceField(rootBlock_,getAliasBean(),getAliasScope(), getAliasString(),
                     new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _conf.getContext());
             _conf.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
@@ -826,9 +824,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().putInternVars(validateVar, _validator,_conf.getContext());
         locVar_ = newLocVar(_cont,_conf);
         _conf.getLastPage().putInternVars(validateVarArgNewValue, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(_cont.getTypedStruct(),getAliasObject());
+        locVar_ = LocalVariable.newLocalVariable(_cont.getTypedStruct(), getAliasObject());
         _conf.getLastPage().putInternVars(validateVarArgOldValue, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(_cont.getBean(),getAliasObject());
+        locVar_ = LocalVariable.newLocalVariable(_cont.getBean(), getAliasObject());
         _conf.getLastPage().putInternVars(validateVarArgBean, locVar_);
         CustList<Struct> params_ = _cont.getStructParam();
         int size_ = params_.size();
@@ -998,33 +996,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         return NumParsers.getString(arg_.getStruct()).getInstance();
-    }
-
-    @Override
-    public StringMap<String> allRefTypes() {
-        StringMap<String> types_ = super.allRefTypes();
-        for (EntryCust<String,String> e: beanAliases.allRefTypes().entryList()) {
-            types_.addEntry(e.getKey(),e.getValue());
-        }
-        return types_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames().entryList()) {
-            methods_.addEntry(e.getKey(),e.getValue());
-        }
-        return methods_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames().entryList()) {
-            fields_.addEntry(e.getKey(),e.getValue());
-        }
-        return fields_;
     }
 
 

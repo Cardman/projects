@@ -12,7 +12,7 @@ public final class LongStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasLong();
+        return _context.getStandards().getContent().getNbAlias().getAliasLong();
     }
 
     @Override

@@ -129,7 +129,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
     private LoopBlockStack processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
-        String null_ = stds_.getAliasNullPe();
+        String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
         AbstractPageEl ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();

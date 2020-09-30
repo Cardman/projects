@@ -52,7 +52,7 @@ public final class ExecTemplates {
         Ints dims_ = new Ints();
         String size_;
         LgNames lgNames_ = _cont.getStandards();
-        size_ = lgNames_.getAliasBadSize();
+        size_ = lgNames_.getContent().getCoreNames().getAliasBadSize();
         if (_dims.isEmpty()) {
             return new ErrorStruct(_cont,size_);
         }
@@ -125,13 +125,13 @@ public final class ExecTemplates {
         String id_ = StringExpUtil.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
         Struct arg_ = _current;
-        String cast_ = lgNames_.getAliasCastType();
+        String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
         if (_current != NullStruct.NULL_VALUE) {
             String className_ = _current.getClassName(_an);
             String cl_ = StringExpUtil.getIdFromAllTypes(className_);
             DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
             DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
-            if (StringList.quickEq(dimReq_.getComponent(),_an.getStandards().getAliasObject())) {
+            if (StringList.quickEq(dimReq_.getComponent(), _an.getStandards().getContent().getCoreNames().getAliasObject())) {
                 if (dimReq_.getDim() > dimCurrent_.getDim()) {
                     _an.setException(new ErrorStruct(_an,cast_));
                     return NullStruct.NULL_VALUE;
@@ -172,7 +172,7 @@ public final class ExecTemplates {
                 arg_=par_;
             }
         }
-        String npe_ = lgNames_.getAliasNullPe();
+        String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         if (arg_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,npe_));
             return arg_;
@@ -309,8 +309,8 @@ public final class ExecTemplates {
         DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
         String baseArrayArg_ = dArg_.getComponent();
         String baseArrayParam_ = dParam_.getComponent();
-        String fct_ = _context.getStandards().getAliasFct();
-        String obj_ = _context.getStandards().getAliasObject();
+        String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
+        String obj_ = _context.getStandards().getContent().getCoreNames().getAliasObject();
         String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
         String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
         if (StringList.quickEq(idBaseArrayArg_, fct_)) {
@@ -361,11 +361,11 @@ public final class ExecTemplates {
         LgNames stds_ = _context.getStandards();
         ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
-            String cast_ = stds_.getAliasCastType();
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             return new ErrorStruct(_context,cast_);
         }
         if (err_ == ErrorType.NPE) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             return new ErrorStruct(_context,npe_);
         }
         return null;
@@ -387,7 +387,7 @@ public final class ExecTemplates {
                                      Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCastType();
+        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
@@ -408,7 +408,7 @@ public final class ExecTemplates {
                                                   Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCastType();
+        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
         FormattedParameters f_ = new FormattedParameters();
         if (!(_methodId instanceof GeneMethod) || !((GeneMethod)_methodId).getId().isStaticMethod()) {
@@ -439,7 +439,7 @@ public final class ExecTemplates {
         }
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
-            String npe_ = stds_.getAliasIllegalArg();
+            String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             return new ErrorStruct(_conf,npe_);
         }
         int i_ = 0;
@@ -453,7 +453,7 @@ public final class ExecTemplates {
         }
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
-            String cast_ = stds_.getAliasBadIndex();
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = new StringBuilder();
             mess_.append(_firstArgs.size());
             mess_.append(">=");
@@ -493,7 +493,7 @@ public final class ExecTemplates {
         Parameters p_ = new Parameters();
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
-            String npe_ = stds_.getAliasIllegalArg();
+            String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             p_.setError(new ErrorStruct(_conf,npe_));
             return p_;
         }
@@ -509,7 +509,7 @@ public final class ExecTemplates {
         if (_id == null) {
             if (_firstArgs.size() != 0) {
                 LgNames stds_ = _conf.getStandards();
-                String cast_ = stds_.getAliasBadIndex();
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
                 StringBuilder mess_ = new StringBuilder();
                 mess_.append(_firstArgs.size());
                 mess_.append(">=");
@@ -522,7 +522,7 @@ public final class ExecTemplates {
         StringList params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, hasFormat_);
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
-            String cast_ = stds_.getAliasBadIndex();
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = new StringBuilder();
             mess_.append(_firstArgs.size());
             mess_.append(">=");
@@ -623,13 +623,13 @@ public final class ExecTemplates {
     private static Struct processError(ContextEl _conf, ArrayStruct arr_, Struct s, ErrorType state_) {
         LgNames stds_ = _conf.getStandards();
         if (state_ == ErrorType.NPE) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             return new ErrorStruct(_conf,npe_);
         } else {
             String arrType_ = arr_.getClassName();
             String param_ = StringExpUtil.getQuickComponentType(arrType_);
             String arg_ = s.getClassName(_conf);
-            String cast_ = stds_.getAliasStore();
+            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
             StringBuilder mess_ = new StringBuilder();
             mess_.append(arg_);
             mess_.append("!=");
@@ -696,12 +696,12 @@ public final class ExecTemplates {
             return;
         }
         if (err_ == ErrorType.NPE) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return;
         }
         if (err_ == ErrorType.BAD_INDEX) {
-            String cast_ = stds_.getAliasBadIndex();
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
@@ -718,7 +718,7 @@ public final class ExecTemplates {
             return;
         }
         if (err_ == ErrorType.CAST) {
-            String cast_ = stds_.getAliasCastType();
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             String type_ = _array.getClassName(_context);
             _context.setException(new ErrorStruct(_context,type_,cast_));
             return;
@@ -727,7 +727,7 @@ public final class ExecTemplates {
         String arrType_ = arr_.getClassName();
         String param_ = StringExpUtil.getQuickComponentType(arrType_);
         String arg_ = _value.getClassName(_context);
-        String cast_ = stds_.getAliasStore();
+        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);
         mess_.append("!=");
@@ -794,12 +794,12 @@ public final class ExecTemplates {
             return inst_[index_];
         }
         if (err_ == ErrorType.NPE) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return NullStruct.NULL_VALUE;
         }
         if (err_ == ErrorType.BAD_INDEX) {
-            String cast_ = stds_.getAliasBadIndex();
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
@@ -815,7 +815,7 @@ public final class ExecTemplates {
             _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
             return NullStruct.NULL_VALUE;
         }
-        String cast_ = stds_.getAliasCastType();
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String type_ = _array.getClassName(_context);
         _context.setException(new ErrorStruct(_context,type_,cast_));
         return NullStruct.NULL_VALUE;
@@ -844,7 +844,7 @@ public final class ExecTemplates {
 
     public static String getMadeVarTypes(String _className, StringList _classNames,ContextEl _context) {
         String type_ = StringExpUtil.getIdFromAllTypes(_className);
-        String fct_ = _context.getStandards().getAliasFct();
+        String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
         if (StringList.quickEq(type_, fct_)) {
             if (_classNames.isEmpty()) {
                 return null;
@@ -852,7 +852,7 @@ public final class ExecTemplates {
             StringList parts_ = new StringList();
             for (String s: _classNames) {
                 if (StringList.quickEq(s, Templates.SUB_TYPE)) {
-                    parts_.add(_context.getStandards().getAliasObject());
+                    parts_.add(_context.getStandards().getContent().getCoreNames().getAliasObject());
                     continue;
                 }
                 if (s.startsWith(Templates.SUB_TYPE)) {
@@ -924,7 +924,7 @@ public final class ExecTemplates {
         int dim_ = dBaseParam_.getDim();
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
-        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+        if (StringList.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
                 return "";
             }
@@ -1156,7 +1156,7 @@ public final class ExecTemplates {
         }
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         if (locVar_ == null) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
         }
@@ -1181,7 +1181,7 @@ public final class ExecTemplates {
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return;
         }
@@ -1199,7 +1199,7 @@ public final class ExecTemplates {
         }
         LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         if (locVar_ == null) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();
         }
@@ -1220,7 +1220,7 @@ public final class ExecTemplates {
         }
         LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         if (locVar_ == null) {
-            String npe_ = stds_.getAliasNullPe();
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();
         }
@@ -1259,7 +1259,7 @@ public final class ExecTemplates {
         String classParam_ = dBaseParam_.getComponent();
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+        if (StringList.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
                 return "";
             }
@@ -1275,10 +1275,10 @@ public final class ExecTemplates {
             }
             return "";
         }
-        if (StringList.quickEq(_subType, _context.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_subType, _context.getStandards().getContent().getCoreNames().getAliasVoid())) {
             return "";
         }
-        if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_superType, _context.getStandards().getContent().getCoreNames().getAliasVoid())) {
             return "";
         }
         GeneType classBody_ = _context.getClassBody(baseArr_);
@@ -1301,7 +1301,7 @@ public final class ExecTemplates {
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof ExecAnnotationBlock) {
-            if (StringList.quickEq(param_,_context.getStandards().getAliasAnnotationType())) {
+            if (StringList.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
                 return StringExpUtil.getPrettyArrayType(param_,_dim);
             }
         }
@@ -1446,9 +1446,9 @@ public final class ExecTemplates {
             if (ExecClassArgumentMatching.isPrimitive(compo_,_context)) {
                 return true;
             }
-            return StringList.quickEq(compo_, _context.getStandards().getAliasVoid());
+            return StringList.quickEq(compo_, _context.getStandards().getContent().getCoreNames().getAliasVoid());
         }
-        String fct_ = _context.getStandards().getAliasFct();
+        String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
         Ints rep_ = info_.getTypeVarCounts();
         StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
         int len_ = inners_.size();
@@ -1489,14 +1489,14 @@ public final class ExecTemplates {
     public static Argument getInstanceField(String _className, String _fieldName, Argument _previous, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCastType();
+        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         Struct previous_ = _previous.getStruct();
         String argClassName_ = previous_.getClassName(_conf);
         if (!(previous_ instanceof FieldableStruct)) {
             if (previous_ == NullStruct.NULL_VALUE) {
                 String npe_;
-                npe_ = stds_.getAliasNullPe();
+                npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _conf.setException(new ErrorStruct(_conf,npe_));
                 return Argument.createVoid();
             }
@@ -1555,11 +1555,11 @@ public final class ExecTemplates {
         Struct previous_ = _previous.getStruct();
         String argClassName_ = previous_.getClassName(_conf);
         String cast_;
-        cast_ = stds_.getAliasCastType();
+        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         if (!(previous_ instanceof FieldableStruct)) {
             if (previous_ == NullStruct.NULL_VALUE) {
                 String npe_;
-                npe_ = stds_.getAliasNullPe();
+                npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _conf.setException(new ErrorStruct(_conf,npe_));
                 return Argument.createVoid();
             }
@@ -1595,7 +1595,7 @@ public final class ExecTemplates {
         LgNames stds_ = _conf.getStandards();
         if (_finalField && _failIfFinal) {
             String npe_;
-            npe_ = stds_.getAliasIllegalArg();
+            npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             _conf.setException(new ErrorStruct(_conf,npe_));
             return Argument.createVoid();
         }
@@ -1643,4 +1643,12 @@ public final class ExecTemplates {
         return classes_;
     }
 
+    public static CustList<Argument> getArgs(Struct... _args) {
+        int len_ = _args.length;
+        CustList<Argument> classes_ = new CustList<Argument>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            classes_.add(new Argument(_args[i]));
+        }
+        return classes_;
+    }
 }

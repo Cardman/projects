@@ -1,9 +1,9 @@
 package aiki.beans.facade.dto;
 import aiki.beans.DefaultStruct;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -19,9 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeDtoStd {
     public static final String TYPE_ITEM_LINE = "aiki.beans.facade.dto.ItemLine";
@@ -43,7 +41,7 @@ public final class AikiBeansFacadeDtoStd {
     private static final String CATEGORY = "category";
     private static final String PRIORITY = "priority";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildItemLine(_std);
         buildItemTypeLine(_std);
         buildKeptMovesAfterFight(_std);
@@ -51,7 +49,7 @@ public final class AikiBeansFacadeDtoStd {
         buildPokemonLine(_std);
         buildWeatherTypeLine(_std);
     }
-    private static void buildItemLine(BeanLgNames _std) {
+    private static void buildItemLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -65,7 +63,7 @@ public final class AikiBeansFacadeDtoStd {
         fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_ITEM_LINE, type_);
     }
-    private static void buildItemTypeLine(BeanLgNames _std) {
+    private static void buildItemTypeLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -76,7 +74,7 @@ public final class AikiBeansFacadeDtoStd {
         type_ = new StandardClass(TYPE_ITEM_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_ITEM_TYPE_LINE, type_);
     }
-    private static void buildKeptMovesAfterFight(BeanLgNames _std) {
+    private static void buildKeptMovesAfterFight(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -87,7 +85,7 @@ public final class AikiBeansFacadeDtoStd {
         type_ = new StandardClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
     }
-    private static void buildMoveLine(BeanLgNames _std) {
+    private static void buildMoveLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -113,7 +111,7 @@ public final class AikiBeansFacadeDtoStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MOVE_LINE, type_);
     }
-    private static void buildPokemonLine(BeanLgNames _std) {
+    private static void buildPokemonLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -127,7 +125,7 @@ public final class AikiBeansFacadeDtoStd {
         fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_POKEMON_LINE, type_);
     }
-    private static void buildWeatherTypeLine(BeanLgNames _std) {
+    private static void buildWeatherTypeLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

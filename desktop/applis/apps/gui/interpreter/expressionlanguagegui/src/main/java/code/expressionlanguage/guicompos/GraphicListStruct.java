@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.util.CustList;
@@ -37,8 +36,8 @@ public class GraphicListStruct extends InputStruct {
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         this(_ctx,_className,_simple,
-                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger())),
-                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject())));
+                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger())),
+                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject())));
     }
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple, Struct _selectedIndexes, Struct _objects) {
@@ -114,7 +113,7 @@ public class GraphicListStruct extends InputStruct {
     }
     public ArrayStruct getListView(ContextEl _ctx) {
         int len_ = list.size();
-        String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject());
+        String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject());
         ArrayStruct arr_ = new ArrayStruct(new Struct[len_], obj_);
         for (int i = 0; i < len_; i++) {
             arr_.getInstance()[i] = list.get(i);
@@ -142,7 +141,7 @@ public class GraphicListStruct extends InputStruct {
 
     public ArrayStruct getSelectedIndexes(ContextEl _ctx) {
         int len_ = selectedIndexes.size();
-        String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger());
+        String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         ArrayStruct arr_ = new ArrayStruct(new Struct[len_], obj_);
         for (int i = 0; i < len_; i++) {
             arr_.getInstance()[i] = new IntStruct(selectedIndexes.get(i));

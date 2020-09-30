@@ -4,7 +4,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -14,11 +13,8 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeMapDtoStd {
     public static final String TYPE_PLACE_INDEX = "aiki.beans.facade.map.dto.PlaceIndex";
@@ -26,10 +22,10 @@ public final class AikiBeansFacadeMapDtoStd {
     private static final String GET_PLACE = "getPlace";
     private static final String INDEX = "index";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildPlaceIndex(_std);
     }
-    private static void buildPlaceIndex(BeanLgNames _std) {
+    private static void buildPlaceIndex(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

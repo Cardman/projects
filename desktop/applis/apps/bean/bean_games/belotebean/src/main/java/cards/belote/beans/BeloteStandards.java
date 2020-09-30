@@ -7,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -111,7 +110,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_SUM_DECLARING_PLAYER, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(DECLARING, TYPE_LIST, false, false, std_));
-        fields_.add( new StandardField(SUM, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(SUM, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
         fields_.add( new StandardField(STATUT, getAliasString(), false, false, std_));
         getStandards().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
@@ -120,7 +119,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_DECLARING_PLAYER_VALUE, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(DECLARING, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(VALUE, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(VALUE, getPrimInt(), false, false, std_));
         getStandards().addEntry(TYPE_DECLARING_PLAYER_VALUE, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -148,15 +147,15 @@ public final class BeloteStandards extends BeanNatLgNames {
         method_ = new StandardMethod(SLAM, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(ABSOLUTE_DIFF, params_, getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(ABSOLUTE_DIFF, params_, getPrimInt(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        fields_.add( new StandardField(POINTS_ATTAQUE_SANS_PRIME, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(POINTS_ATTAQUE_TEMPORAIRE, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(POINTS_ATTAQUE_DEFINITIF, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(POINTS_DEFENSE_SANS_PRIME, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(POINTS_DEFENSE_TEMPORAIRE, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(POINTS_DEFENSE_DEFINITIF, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(POINTS_ATTAQUE_SANS_PRIME, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POINTS_ATTAQUE_TEMPORAIRE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POINTS_ATTAQUE_DEFINITIF, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POINTS_DEFENSE_SANS_PRIME, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POINTS_DEFENSE_TEMPORAIRE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POINTS_DEFENSE_DEFINITIF, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(TAKER_NICKNAME, getAliasString(), false, false, std_));
         fields_.add( new StandardField(BID_STRING, getAliasString(), false, false, std_));
         fields_.add( new StandardField(CALLED_PLAYERS_LIST, TYPE_LIST, false, false, std_));
@@ -166,7 +165,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        fields_.add( new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(NUMBER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
@@ -503,4 +502,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
 
+    public String getPrimInt() {
+        return getContent().getPrimTypes().getAliasPrimInteger();
+    }
 }

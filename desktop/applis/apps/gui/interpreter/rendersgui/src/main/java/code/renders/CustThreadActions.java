@@ -101,7 +101,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                 if (fileNames != null) {
                     ContextEl ctx_ = conf_.getContext();
                     LgNames stds_ = ctx_.getStandards();
-                    String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
+                    String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
                     MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                     ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
                     CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);

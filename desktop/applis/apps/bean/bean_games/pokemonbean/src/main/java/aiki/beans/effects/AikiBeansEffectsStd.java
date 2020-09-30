@@ -6,7 +6,6 @@ import aiki.fight.effects.EffectWhileSending;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -24,9 +23,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansEffectsStd {
     public static final String TYPE_COMBO_DTO = "aiki.beans.effects.ComboDto";
@@ -76,13 +73,13 @@ public final class AikiBeansEffectsStd {
     private static final String CANCEL_CHGT_STAT = "cancelChgtStat";
     private static final String COPY_BOOST = "copyBoost";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildComboDto(_std);
         buildCombosBean(_std);
         buildEffectComboBean(_std);
         buildEffectWhileSendingBean(_std);
     }
-    private static void buildComboDto(BeanLgNames _std) {
+    private static void buildComboDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -93,7 +90,7 @@ public final class AikiBeansEffectsStd {
         type_ = new StandardClass(TYPE_COMBO_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMBO_DTO, type_);
     }
-    private static void buildCombosBean(BeanLgNames _std) {
+    private static void buildCombosBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -111,7 +108,7 @@ public final class AikiBeansEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_COMBOS_BEAN, type_);
     }
-    private static void buildEffectComboBean(BeanLgNames _std) {
+    private static void buildEffectComboBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -141,7 +138,7 @@ public final class AikiBeansEffectsStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COMBO_BEAN, type_);
     }
-    private static void buildEffectWhileSendingBean(BeanLgNames _std) {
+    private static void buildEffectWhileSendingBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

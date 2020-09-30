@@ -35,7 +35,7 @@ public final class RendRadio extends RendInput {
         }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), context_.getStandards().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), context_.getStandards().getContent().getCoreNames().getAliasObject());
             _cont.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
             Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont);
             _cont.getLastPage().removeLocalVar(varNameConverterFieldValue);

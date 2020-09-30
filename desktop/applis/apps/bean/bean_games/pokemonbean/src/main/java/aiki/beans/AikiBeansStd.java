@@ -1,7 +1,6 @@
 package aiki.beans;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -11,12 +10,9 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansStd {
     public static final String TYPE_COMMON_BEAN = "aiki.beans.CommonBean";
@@ -31,11 +27,11 @@ public final class AikiBeansStd {
     private static final String CLICK_STATUS = "clickStatus";
     private static final String CLICK_SIMULATION = "clickSimulation";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildCommonBean(_std);
         buildWelcomeBean(_std);
     }
-    private static void buildCommonBean(BeanLgNames _std) {
+    private static void buildCommonBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -46,7 +42,7 @@ public final class AikiBeansStd {
         type_ = new StandardClass(TYPE_COMMON_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMMON_BEAN, type_);
     }
-    private static void buildWelcomeBean(BeanLgNames _std) {
+    private static void buildWelcomeBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

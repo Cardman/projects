@@ -1,12 +1,12 @@
 package aiki.beans.moves;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.MoveLine;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -24,9 +24,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansMovesStd {
     public static final String TYPE_MOVE_BEAN = "aiki.beans.moves.MoveBean";
@@ -139,12 +137,12 @@ public final class AikiBeansMovesStd {
     private static final String MOVES_BEAN = "movesBean";
     private static final String SORTED_MOVES = "sortedMoves";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildMoveBean(_std);
         buildMoveLineBean(_std);
         buildMovesBean(_std);
     }
-    private static void buildMoveBean(BeanLgNames _std) {
+    private static void buildMoveBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -359,7 +357,7 @@ public final class AikiBeansMovesStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MOVE_BEAN, type_);
     }
-    private static void buildMoveLineBean(BeanLgNames _std) {
+    private static void buildMoveLineBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -385,7 +383,7 @@ public final class AikiBeansMovesStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MOVE_LINE_BEAN, type_);
     }
-    private static void buildMovesBean(BeanLgNames _std) {
+    private static void buildMovesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

@@ -8,7 +8,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -171,14 +170,14 @@ public final class TarotStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_DETAILS_RESULTS_TAROT_BEAN, fields_, constructors_, methods_, TYPE_TAROT_BEAN, MethodModifier.NORMAL);
-        fields_.add( new StandardField(RATE, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(MULTIPLIED_TMP, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(SUM_PLAYERS, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(DIFF_ATTACK_DEFENSE_BONUSES, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(BASE_POINTS, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(RATE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(MULTIPLIED_TMP, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(SUM_PLAYERS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(DIFF_ATTACK_DEFENSE_BONUSES, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(BASE_POINTS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimShort(), false, false, std_));
         fields_.add( new StandardField(PLAYER_SMALL, getAliasString(), false, false, std_));
         fields_.add( new StandardField(SMALL, getAliasString(), false, false, std_));
         fields_.add( new StandardField(LINES_DECLARING, TYPE_LIST, false, false, std_));
@@ -195,7 +194,7 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(STATUS, getAliasString(), false, false, std_));
         fields_.add( new StandardField(HANDFULS, TYPE_MAP, false, false, std_));
         fields_.add( new StandardField(MISERES, TYPE_MAP, false, false, std_));
-        fields_.add( new StandardField(SUM, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(SUM, getPrimInt(), false, false, std_));
         getStandards().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -203,27 +202,27 @@ public final class TarotStandards extends BeanNatLgNames {
         std_ = new StandardClass(TYPE_SCORES_PLAYERS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
         fields_.add( new StandardField(RATE, TYPE_RATE, false, false, std_));
-        fields_.add( new StandardField(SCORE, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(SCORE, getPrimShort(), false, false, std_));
         getStandards().addEntry(TYPE_SCORES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_RANKING_PLAYER_VARIANT_GAME, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(POSITION_DIFF, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_OUDLERS, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_CHARACTERS, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(FINAL_POSITION, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(POSITION_DIFF, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(POSITION_OUDLERS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(POSITION_CHARACTERS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(FINAL_POSITION, getPrimShort(), false, false, std_));
         getStandards().addEntry(TYPE_RANKING_PLAYER_VARIANT_GAME, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_POINTS_PLAYER_VARIANT_GAME, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(RATE, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MINIMUM_POINTS, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(RATE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(MINIMUM_POINTS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(SCORE, getPrimShort(), false, false, std_));
         fields_.add( new StandardField(DIFFERENCE_SCORE, TYPE_RATE, false, false, std_));
         fields_.add( new StandardField(POINTS_TRICKS, TYPE_RATE, false, false, std_));
         getStandards().addEntry(TYPE_POINTS_PLAYER_VARIANT_GAME, std_);
@@ -232,7 +231,7 @@ public final class TarotStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_BONUSES_PLAYERS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(BONUS, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(BONUS, getPrimShort(), false, false, std_));
         getStandards().addEntry(TYPE_BONUSES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -275,22 +274,22 @@ public final class TarotStandards extends BeanNatLgNames {
         method_ = new StandardMethod(NO_SLAM_DEFENSE, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(ABSOLUTE_DIFF, params_, getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(ABSOLUTE_DIFF, params_, getPrimInt(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(BID_STRING, params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, getAliasPrimByte(), false, false, std_));
-        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE_TAKER, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MAX_DIFFERENCE, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(INITIAL_USER_POSITION, getAliasPrimShort(), false, false, std_));
-        fields_.add( new StandardField(FINAL_USER_POSITION, getAliasPrimShort(), false, false, std_));
+        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, getPrimByte(), false, false, std_));
+        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(SCORE_TAKER, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(MAX_DIFFERENCE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(INITIAL_USER_POSITION, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(FINAL_USER_POSITION, getPrimShort(), false, false, std_));
         fields_.add( new StandardField(TAKER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false, std_));
@@ -302,7 +301,7 @@ public final class TarotStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        fields_.add( new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(NUMBER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
@@ -841,6 +840,18 @@ public final class TarotStandards extends BeanNatLgNames {
     }
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         return new ResultErrorStd();
+    }
+
+    public String getPrimInt() {
+        return getContent().getPrimTypes().getAliasPrimInteger();
+    }
+
+    public String getPrimShort() {
+        return getContent().getPrimTypes().getAliasPrimShort();
+    }
+
+    public String getPrimByte() {
+        return getContent().getPrimTypes().getAliasPrimByte();
     }
 
 }

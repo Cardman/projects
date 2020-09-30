@@ -55,7 +55,7 @@ public final class ThreadActions extends AbstractThreadActions {
         }
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
         AbstractFileBuilder fileBuilder_;
-        fileBuilder_ = new DefaultFileBuilder(stds.getContent());
+        fileBuilder_ = DefaultFileBuilder.newInstance(stds.getContent());
         AnalyzedPageEl page_ = getPage().getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_);
         if (!getPage().getNavigation().isError()) {
             HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();

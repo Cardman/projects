@@ -113,7 +113,7 @@ public final class CustContextFactory {
         _definedLgNames.setExecutingOptions(_exec);
         RunnableContextEl r_ = new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, _definedLgNames, new Classes(com_), new Coverage(_options.isCovering()), cl_, ci_));
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_,
-                new DefaultConstantsCalculator(_definedLgNames.getNbAlias()), new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
+                new DefaultConstantsCalculator(_definedLgNames.getNbAlias()), CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsRunnableContext(r_,reportedMessages_);
     }
 }

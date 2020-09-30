@@ -24,7 +24,7 @@ public final class CharStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasCharacter();
+        return _context.getStandards().getContent().getNbAlias().getAliasCharacter();
     }
 
     public char getChar() {

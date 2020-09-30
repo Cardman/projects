@@ -10,7 +10,7 @@ import code.util.StringMap;
 public class CustBeanFileBuilder extends BeanFileBuilder {
     private CustRenderAliases custRenderAliases;
     public CustBeanFileBuilder(LgNamesContent _content, DefaultBeanAliases _beanAliases, CustRenderAliases _custRenderAliases) {
-        super(_content, _beanAliases);
+        super(_content, _beanAliases,new CustBeanAliasGroups(_custRenderAliases,_beanAliases,_content));
         custRenderAliases = _custRenderAliases;
     }
 

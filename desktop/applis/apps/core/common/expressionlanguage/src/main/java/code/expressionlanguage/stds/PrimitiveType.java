@@ -38,7 +38,7 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
     public StringList getAllSuperType(ContextEl _cont) {
         StringList all_ = new StringList();
         LgNames stds_ = _cont.getStandards();
-        return getAllSuperType(all_, stds_.getPrimitiveTypes(), stds_.getAliasNumber(), stds_.getAliasObject());
+        return getAllSuperType(all_, stds_.getPrimitiveTypes(), stds_.getContent().getNbAlias().getAliasNumber(), stds_.getContent().getCoreNames().getAliasObject());
     }
     public StringList getAllSuperType(AnalyzedPageEl _cont) {
         StringList all_ = new StringList();

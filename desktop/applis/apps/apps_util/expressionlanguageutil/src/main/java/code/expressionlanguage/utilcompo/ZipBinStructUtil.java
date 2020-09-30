@@ -48,7 +48,7 @@ public final class ZipBinStructUtil {
 
     public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] bytes_, RunnableContextEl _ctx) {
         try {
-            String cont_ = _ctx.getStandards().getAliasPrimByte();
+            String cont_ = _ctx.getStandards().getContent().getPrimTypes().getAliasPrimByte();
             cont_ = StringExpUtil.getPrettyArrayType(cont_);
             ByteArrayInputStream bais_ = new ByteArrayInputStream(bytes_);
             ZipInputStream zis_ = new ZipInputStream(bais_);
@@ -90,7 +90,7 @@ public final class ZipBinStructUtil {
             return NullStruct.NULL_VALUE;
         }
         int lengthFile_ = exp_.length;
-        String cont_ = _ctx.getStandards().getAliasPrimByte();
+        String cont_ = _ctx.getStandards().getContent().getPrimTypes().getAliasPrimByte();
         cont_ = StringExpUtil.getPrettyArrayType(cont_);
         ArrayStruct bs_ = new ArrayStruct(new Struct[lengthFile_],cont_);
         for (int j = 0; j < lengthFile_; j++) {

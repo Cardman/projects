@@ -25,7 +25,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
             return new Argument(new IntStruct(len_));
         }
         String npe_;
-        npe_ = _conf.getStandards().getAliasNullPe();
+        npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         _conf.setException(new ErrorStruct(_conf, npe_));
         return new Argument();
@@ -39,7 +39,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         if (_str instanceof ArrayStruct) {
             return (ArrayStruct) _str;
         }
-        String arr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getAliasObject());
+        String arr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCoreNames().getAliasObject());
         return new ArrayStruct(new Struct[0], arr_);
     }
 }

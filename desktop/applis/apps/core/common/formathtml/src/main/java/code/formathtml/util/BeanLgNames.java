@@ -99,9 +99,9 @@ public abstract class BeanLgNames extends LgNames {
             return LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasString()));
         }
         if (!values_.isEmpty()) {
-            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),getAliasString());
+            return LocalVariable.newLocalVariable(new StringStruct(values_.first()), getAliasString());
         }
-        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,getAliasString());
+        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE, getAliasString());
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -131,7 +131,7 @@ public abstract class BeanLgNames extends LgNames {
         if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
-                _context.getContext().setException(new ErrorStruct(_context.getContext(),getAliasCastType()));
+                _context.getContext().setException(new ErrorStruct(_context.getContext(), getContent().getCoreNames().getAliasCastType()));
                 return res_;
             }
             res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
@@ -139,12 +139,28 @@ public abstract class BeanLgNames extends LgNames {
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
-            _context.getContext().setException(new ErrorStruct(_context.getContext(),getAliasCastType()));
+            _context.getContext().setException(new ErrorStruct(_context.getContext(), getContent().getCoreNames().getAliasCastType()));
             return res_;
         }
         res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
         return res_;
     }
+
+    public String getAliasPrimBoolean() {
+        return getContent().getPrimTypes().getAliasPrimBoolean();
+    }
+
+    public String getAliasPrimLong() {
+        return getContent().getPrimTypes().getAliasPrimLong();
+    }
+
+    public String getAliasObject() {
+        return getContent().getCoreNames().getAliasObject();
+    }
+    public String getAliasString() {
+        return getContent().getCharSeq().getAliasString();
+    }
+
     public static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;

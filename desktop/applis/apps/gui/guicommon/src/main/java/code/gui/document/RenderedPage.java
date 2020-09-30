@@ -91,7 +91,7 @@ public final class RenderedPage implements ProcessingSession {
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_, new DefaultFileBuilder(_stds.getContent()));
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()));
         if (navigation.isError()) {
             setupText();
             return;

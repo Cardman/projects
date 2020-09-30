@@ -68,7 +68,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             }
             String from_ = className_;
             if (className_.startsWith("[")) {
-                from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getAliasObject());
+                from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
             }
             String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
             String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);

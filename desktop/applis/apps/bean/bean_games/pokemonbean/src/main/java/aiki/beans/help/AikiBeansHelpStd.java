@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -23,9 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansHelpStd {
     public static final String TYPE_FIGHT_HELP_BEAN = "aiki.beans.help.FightHelpBean";
@@ -654,14 +651,14 @@ public final class AikiBeansHelpStd {
     private static final String VAR_FLEEING_FORMULA = "varFleeingFormula";
     private static final String STATISTIC_ANIM = "statisticAnim";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildFightHelpBean(_std);
         buildGeneralHelpBean(_std);
         buildLangsBean(_std);
         buildLanguageElementKey(_std);
         buildLanguageElementStringKey(_std);
     }
-    private static void buildFightHelpBean(BeanLgNames _std) {
+    private static void buildFightHelpBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -1994,7 +1991,7 @@ public final class AikiBeansHelpStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHT_HELP_BEAN, type_);
     }
-    private static void buildGeneralHelpBean(BeanLgNames _std) {
+    private static void buildGeneralHelpBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -2107,7 +2104,7 @@ public final class AikiBeansHelpStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_GENERAL_HELP_BEAN, type_);
     }
-    private static void buildLangsBean(BeanLgNames _std) {
+    private static void buildLangsBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -2208,7 +2205,7 @@ public final class AikiBeansHelpStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_LANGS_BEAN, type_);
     }
-    private static void buildLanguageElementKey(BeanLgNames _std) {
+    private static void buildLanguageElementKey(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -2219,7 +2216,7 @@ public final class AikiBeansHelpStd {
         type_ = new StandardClass(TYPE_LANGUAGE_ELEMENT_KEY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_LANGUAGE_ELEMENT_KEY, type_);
     }
-    private static void buildLanguageElementStringKey(BeanLgNames _std) {
+    private static void buildLanguageElementStringKey(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

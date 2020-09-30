@@ -17,7 +17,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasStringBuilder();
+        return _contextEl.getStandards().getContent().getCharSeq().getAliasStringBuilder();
     }
 
     public StringBuilder getInstance() {

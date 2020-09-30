@@ -35,7 +35,7 @@ public final class CausingErrorStruct extends WithoutParentIdStruct implements E
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasErrorInitClass();
+        return _contextEl.getStandards().getContent().getCoreNames().getAliasErrorInitClass();
     }
 
     @Override

@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -68,7 +67,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        fields_.add( new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
+        fields_.add( new StandardField(NUMBER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
@@ -82,10 +81,10 @@ public final class PresidentStandards extends BeanNatLgNames {
         fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, getAliasPrimBoolean(), false, false, std_));
         fields_.add( new StandardField(SWITCH_CARDS, getAliasPrimBoolean(), false, false, std_));
         fields_.add( new StandardField(LOOSER_STARTS_FIRST, getAliasPrimBoolean(), false, false, std_));
-        fields_.add( new StandardField(NB_PLAYERS, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(NB_STACKS, getAliasPrimInteger(), false, false, std_));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getAliasPrimByte(), false, false, std_));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getAliasPrimByte(), false, false, std_));
+        fields_.add( new StandardField(NB_PLAYERS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(NB_STACKS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getPrimByte(), false, false, std_));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getPrimByte(), false, false, std_));
         params_ = new StringList();
         method_ = new StandardMethod(SAME_AMOUNT, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add(method_);
@@ -275,6 +274,14 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         return new ResultErrorStd();
+    }
+
+    public String getPrimInt() {
+        return getContent().getPrimTypes().getAliasPrimInteger();
+    }
+
+    public String getPrimByte() {
+        return getContent().getPrimTypes().getAliasPrimByte();
     }
 
 }

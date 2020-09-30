@@ -6,7 +6,7 @@ public final class SimpleObjectStruct extends WithoutParentIdStruct implements S
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasObject();
+        return _contextEl.getStandards().getContent().getCoreNames().getAliasObject();
     }
 
 }

@@ -17,7 +17,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -187,14 +186,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String param_ = StringList.join(parts_.sub(0, parts_.size()-2), "");
         if (_previous.isNull()) {
             String npe_;
-            npe_ = stds_.getAliasNullPe();
+            npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _conf.setException(new ErrorStruct(_conf,npe_));
             return;
         }
         String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
-            cast_ = stds_.getAliasCastType();
+            cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             _conf.setException(new ErrorStruct(_conf,cast_));
         }
     }
@@ -221,327 +220,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
     public static Argument callStd(AbstractExiting _exit,ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right) {
         checkParameters(_cont, _classNameFound, _methodId, _previous, _firstArgs, _right);
-        LgNames stds_ = _cont.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCastType();
         if (_cont.callsOrException()) {
             return Argument.createVoid();
         }
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-        Classes classes_ = _cont.getClasses();
-        String aliasForName_ = stds_.getAliasForName();
-        String aliasValueOf_ = stds_.getAliasEnumValueOf();
-        String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
-        String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
-        String aliasInit_ = stds_.getAliasInit();
-        String aliasAnnotated_ = stds_.getAliasAnnotated();
-        String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
-        String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
-        String aliasGetDeclaredAnonymousLambda_ = stds_.getAliasGetDeclaredAnonymousLambda();
-        if (StringList.quickEq(aliasAnnotated_, idClassNameFound_)) {
-            if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
-                return new Argument();
-            }
-            if (StringList.quickEq(aliasGetAnnotationsParam_, _methodId.getName())) {
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
-                return new Argument();
-            }
-            AnnotatedStruct annotated_ = NumParsers.getAnnotated(_previous.getStruct());
-            if (StringList.quickEq(aliasGetDeclaredAnonymousLambda_, _methodId.getName())) {
-                return new Argument(fetchAnonLambdaCallee(_cont,annotated_,Argument.toArgArray(_firstArgs)));
-            }
-            String fileName_ = annotated_.getFileName();
-            return new Argument(new StringStruct(fileName_));
-        }
-        String aliasField_ = stds_.getAliasField();
-        String aliasMethod_ = stds_.getAliasMethod();
-        String aliasConstructor_ = stds_.getAliasConstructor();
-        String aliasClass_ = stds_.getAliasClassType();
-        if (StringList.quickEq(aliasClass_, idClassNameFound_)) {
-            if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
-                String enumName_ = cl_.getName();
-                ExecRootBlock r_ = classes_.getClassBody(enumName_);
-                ClassCategory category_ = cl_.getCategory();
-                Argument clArg_ = _firstArgs.first();
-                return tryGetEnumValue(_exit, _cont, r_, category_, clArg_);
-            }
-            if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
-                String enumName_ = cl_.getName();
-                ExecRootBlock r_ = classes_.getClassBody(enumName_);
-                ClassCategory category_ = cl_.getCategory();
-                return tryGetEnumValues(_exit, _cont, r_, category_);
-            }
-            if (StringList.quickEq(aliasForName_, _methodId.getName())) {
-                Argument clArg_ = _firstArgs.first();
-                Struct struct_ = clArg_.getStruct();
-                if (!(struct_ instanceof StringStruct)) {
-                    _cont.setException(new ErrorStruct(_cont,stds_.getAliasNullPe()));
-                    return new Argument();
-                }
-                String clDyn_ = ((StringStruct) struct_).getInstance();
-                if (StringList.quickEq(clDyn_.trim(), _cont.getStandards().getAliasVoid())) {
-                    return new Argument(ExecutingUtil.getClassMetaInfo(_cont,clDyn_));
-                }
-                String res_ = ExecTemplates.correctClassPartsDynamic(clDyn_, _cont);
-                if (res_.isEmpty()) {
-                    _cont.setException(new ErrorStruct(_cont,clDyn_,stds_.getAliasClassNotFoundError()));
-                    return new Argument();
-                }
-                if (BooleanStruct.isTrue(_firstArgs.last().getStruct())) {
-                    if (_exit.hasToExit(res_)) {
-                        return Argument.createVoid();
-                    }
-                }
-                return new Argument(ExecutingUtil.getClassMetaInfo(_cont,res_));
-            }
-            if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
-                String className_ = cl_.getName();
-                String id_ = StringExpUtil.getIdFromAllTypes(className_);
-                GeneType type_ = _cont.getClassBody(id_);
-                if (type_ == null) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return Argument.createVoid();
-                }
-                if (StringList.quickEq(id_,aliasMethod_)
-                        ||StringList.quickEq(id_,aliasConstructor_)
-                        ||StringList.quickEq(id_,aliasField_)
-                        ||StringList.quickEq(id_,aliasClass_)) {
-                    return new Argument(ApplyCoreMethodUtil.defaultMeta(_cont,id_,_firstArgs));
-                }
-                if (ExecutingUtil.isAbstractType(type_)) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return Argument.createVoid();
-                }
-                String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_cont);
-                if (res_.isEmpty()) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return Argument.createVoid();
-                }
-                className_ = res_;
-                String first_;
-                if (!(type_ instanceof ExecRootBlock)) {
-                    return new Argument(ApplyCoreMethodUtil.defaultInstance(_cont,id_,_firstArgs));
-                }
-                ExecRootBlock root_ = (ExecRootBlock) type_;
-                CustList<ExecRootBlock> needRoot_;
-                needRoot_ = root_.getSelfAndParentTypes();
-                ExecRootBlock firstType_ = needRoot_.first();
-                first_ = firstType_.getFullName();
-                CustList<ExecRootBlock> need_ = new CustList<ExecRootBlock>();
-                for (ExecRootBlock r: needRoot_) {
-                    need_.add(r);
-                }
-                if (!_firstArgs.isEmpty()) {
-                    Struct par_ = _firstArgs.first().getStruct();
-                    if (root_.withoutInstance()) {
-                        if (_exit.hasToExit(first_)) {
-                            return Argument.createVoid();
-                        }
-                        par_ = NullStruct.NULL_VALUE;
-                    } else {
-                        if (par_ == NullStruct.NULL_VALUE) {
-                            String null_;
-                            null_ = stds_.getAliasNullPe();
-                            _cont.setException(new ErrorStruct(_cont,null_));
-                            return Argument.createVoid();
-                        }
-                        String argCl_ = par_.getClassName(_cont);
-                        //From analyze
-                        StringList inners_ = StringExpUtil.getAllPartInnerTypes(className_);
-                        String param_ = StringList.join(inners_.mid(0, inners_.size() - 2), "");
-                        if (!ExecTemplates.isCorrectExecute(argCl_, param_, _cont)) {
-                            _cont.setException(new ErrorStruct(_cont,cast_));
-                            return Argument.createVoid();
-                        }
-                    }
-                    Initializer in_ = _cont.getInit();
-                    String genStr_ = root_.getGenericString();
-                    String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
-                    par_ = in_.processInit(_cont, par_, form_,root_, EMPTY_STRING, 0);
-                    return new Argument(par_);
-                }
-                Struct parent_ = NullStruct.NULL_VALUE;
-                int start_ = 0;
-                if (root_.withoutInstance()) {
-                    if (_exit.hasToExit(first_)) {
-                        return Argument.createVoid();
-                    }
-                } else {
-                    if (firstType_ instanceof ExecInnerElementBlock) {
-                        ExecInnerElementBlock i_ = (ExecInnerElementBlock) firstType_;
-                        String classFieldName_ = i_.getRealImportedClassName();
-                        String idCl_ = StringExpUtil.getIdFromAllTypes(classFieldName_);
-                        if (_exit.hasToExit(idCl_)) {
-                            return Argument.createVoid();
-                        }
-                        String fieldName_ = i_.getUniqueFieldName();
-                        StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
-                        Struct staticField_ = Classes.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
-                        parent_ = Argument.getNull(staticField_);
-                        start_ = 1;
-                    }
-                }
-                Initializer in_ = _cont.getInit();
-                for (ExecRootBlock r: need_.mid(start_)) {
-                    String genStr_ = r.getGenericString();
-                    String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
-                    parent_ = in_.processInit(_cont, parent_, form_,r, EMPTY_STRING, 0);
-                }
-                return new Argument(parent_);
-            }
-            if (StringList.quickEq(aliasInit_, _methodId.getName())) {
-                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
-                String clDyn_ = cl_.getName();
-                _exit.hasToExit(clDyn_);
-                return Argument.createVoid();
-            }
-        }
-        String aliasGetField_ = stds_.getAliasGetField();
-        String aliasSetField_ = stds_.getAliasSetField();
-        String aliasInvoke_ = stds_.getAliasInvoke();
-        String aliasInvokeDirect_ = stds_.getAliasInvokeDirect();
-        String aliasGetDefaultValue_ = stds_.getAliasGetDefaultValue();
-        String aliasNewInstance_ = stds_.getAliasNewInstance();
-        if (StringList.quickEq(aliasMethod_, idClassNameFound_)) {
-            if (StringList.quickEq(aliasGetDefaultValue_, _methodId.getName())) {
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
-                return new Argument();
-            }
-            boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
-            boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
-            if (invoke_ || invokeDirect_) {
-                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
-                if (m_.isInvokable()) {
-                    if (m_.getStdCallee() != null) {
-                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _previous, _firstArgs, false));
-                        return new Argument();
-                    }
-                    ExecRootBlock e_ = m_.getDeclaring();
-                    if (e_ instanceof ExecAnnotationBlock) {
-                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _previous, _firstArgs, false));
-                        return new Argument();
-                    }
-                }
-            }
-            if (invoke_) {
-                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
-                if (!m_.isInvokable()) {
-                    String null_;
-                    null_ = stds_.getAliasIllegalArg();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return new Argument();
-                }
-                if (m_.isExpCast()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
-                    return new Argument();
-                }
-                if (m_.getCalleeInv() != null) {
-                    if (m_.isStaticCall()) {
-                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _previous, _firstArgs, false));
-                        return new Argument();
-                    }
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
-                    return new Argument();
-                }
-            }
-            if (invokeDirect_) {
-                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
-                if (!m_.isInvokable()) {
-                    String null_;
-                    null_ = stds_.getAliasIllegalArg();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return new Argument();
-                }
-                if (m_.isExpCast()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
-                    return new Argument();
-                }
-                if (m_.getCalleeInv() != null) {
-                    if (m_.isStaticCall()) {
-                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _previous, _firstArgs, false));
-                        return new Argument();
-                    }
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _previous, _firstArgs, false));
-                    return new Argument();
-                }
-            }
-            if (invoke_ || invokeDirect_) {
-                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
-                redirectGenerated(_cont,m_,_previous, _firstArgs,false);
-                return new Argument();
-            }
-        }
-        String aliasFct_ = stds_.getAliasFct();
-        if (StringList.quickEq(aliasFct_, idClassNameFound_)) {
-            if (_firstArgs.isEmpty()) {
-                if (StringList.quickEq(_methodId.getName(),_cont.getStandards().getAliasMetaInfo())) {
-                    return getMetaInfo(_previous, _cont);
-                }
-                return getInstanceCall(_previous, _cont);
-            }
-            Argument instance_ = _firstArgs.first();
-            Struct inst_ = instance_.getStruct();
-            if (!(inst_ instanceof ArrayStruct)) {
-                _cont.setException(new ErrorStruct(_cont,stds_.getAliasNullPe()));
-                return new Argument();
-            }
-            ArrayStruct arr_ = (ArrayStruct) inst_;
-            Struct[] real_ = arr_.getInstance();
-            CustList<Argument> ar_ = new CustList<Argument>();
-            for (Struct str_ : real_) {
-                ar_.add(new Argument(str_));
-            }
-            return prepareCallDyn(_previous, ar_, _cont);
-        }
-        if (StringList.quickEq(aliasConstructor_, idClassNameFound_)) {
-            if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
-                ConstructorMetaInfo meta_ = NumParsers.getCtor(_previous.getStruct());
-                if(!meta_.isInvokable()) {
-                    String null_;
-                    null_ = stds_.getAliasIllegalArg();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return new Argument();
-                }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs, false));
-                return new Argument();
-            }
-        }
-        if (StringList.quickEq(aliasField_, idClassNameFound_)) {
-            if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
-                FieldMetaInfo meta_ = NumParsers.getField(_previous.getStruct());
-                if (!meta_.isInvokable()) {
-                    String null_;
-                    null_ = stds_.getAliasIllegalArg();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return new Argument();
-                }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs, false));
-                return new Argument();
-            }
-            if (StringList.quickEq(aliasSetField_, _methodId.getName())) {
-                FieldMetaInfo meta_ = NumParsers.getField(_previous.getStruct());
-                if (!meta_.isInvokable()) {
-                    String null_;
-                    null_ = stds_.getAliasIllegalArg();
-                    _cont.setException(new ErrorStruct(_cont,null_));
-                    return new Argument();
-                }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs, false));
-                return new Argument();
-            }
-        }
+
         ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _methodId);
-        ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), Argument.toArgArray(_firstArgs));
+        ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), _exit, Argument.toArgArray(_firstArgs));
         return new Argument(res_.getResult());
     }
 
@@ -561,51 +246,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return getEnumValue(_exit,enumName_,r_, clArg_, _cont);
     }
 
-    private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Argument... _args) {
-        CustList<MethodMetaInfo> candidates_;
-        candidates_ = new CustList<MethodMetaInfo>();
-        Struct[] args_ = ExecTemplates.getObjects(_args);
-        LgNames standards_ = _cont.getStandards();
-        String aliasMethod_ = standards_.getAliasMethod();
-        CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
-        String declaringClass_ = _annot.getDeclaringClass();
-        for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
-            MethodId id_ = f.getId();
-            ExecRootBlock _type = f.getParentType();
-            String ret_ = f.getImportedReturnType();
-            boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
-            MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
-            String idType_ = _type.getFullName();
-            String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
-            String idCl_ = _type.getFullName();
-            if (param_) {
-                idCl_ = declaringClass_;
-            }
-            MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-            met_.setCache(new Cache(f,standards_.getAliasObject()));
-            met_.setAnnotableBlock(f);
-            met_.setCallee(f);
-            met_.setCalleeInv(f);
-            met_.setDeclaring(_type);
-            met_.setFileName(f.getFile().getFileName());
-            methods_.add(met_);
-        }
-        if (args_.length == 0) {
-            for (MethodMetaInfo e: methods_) {
-                candidates_.add(e);
-            }
-        } else {
-            AliasReflection.filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
-        }
-        String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-        Struct[] methodsArr_ = new Struct[candidates_.size()];
-        int index_ = 0;
-        for (MethodMetaInfo c: candidates_) {
-            methodsArr_[index_] = c;
-            index_++;
-        }
-        return new ArrayStruct(methodsArr_, className_);
-    }
     public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
         return callPrepare(_exit,_cont,_classNameFound,_rootBlock, _previous,null,_firstArgs,_right,_named, _kind, _name);
     }
@@ -625,7 +265,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return tryGetEnumValues(_exit,_cont,_rootBlock,  ClassCategory.ENUM);
             }
             Argument arg_ = _firstArgs.first();
-            Struct ex_ = ExecTemplates.checkObjectEx(stds_.getAliasString(), arg_, _cont);
+            Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont);
             if (ex_ != null) {
                 _cont.setException(ex_);
                 return Argument.createVoid();
@@ -723,7 +363,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         LgNames lgNames_ = _conf.getStandards();
         String null_;
-        null_ = lgNames_.getAliasNullPe();
+        null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _conf.setException(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
@@ -734,7 +374,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         LgNames lgNames_ = _conf.getStandards();
         String null_;
-        null_ = lgNames_.getAliasNullPe();
+        null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _conf.setException(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
@@ -748,7 +388,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int valuesSize_ = _values.size();
             if (valuesSize_ != paramsFct_.size()) {
                 String null_;
-                null_ = lgNames_.getAliasIllegalArg();
+                null_ = lgNames_.getContent().getCoreNames().getAliasIllegalArg();
                 _conf.setException(new ErrorStruct(_conf,null_));
                 return new Argument();
             }
@@ -783,7 +423,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
-            String obj_ = _conf.getStandards().getAliasObject();
+            String obj_ = _conf.getStandards().getContent().getCoreNames().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
                 ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
@@ -821,7 +461,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     realInstance_ = _values.first();
                 }
-                if (StringList.quickEq(l_.getReturnFieldType(),lgNames_.getAliasPrimBoolean())) {
+                if (StringList.quickEq(l_.getReturnFieldType(), lgNames_.getContent().getPrimTypes().getAliasPrimBoolean())) {
                     String ownerType_ = l_.getOwnerType();
                     boolean res_ = ExecTemplates.safeObject(ownerType_,realInstance_,_conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
@@ -885,7 +525,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
-            String obj_ = _conf.getStandards().getAliasObject();
+            String obj_ = _conf.getStandards().getContent().getCoreNames().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
                 ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
@@ -938,7 +578,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return redirect(_conf, l_, pr_, nList_);
         }
         String null_;
-        null_ = lgNames_.getAliasNullPe();
+        null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _conf.setException(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
@@ -1010,7 +650,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         redirectGenerated(_conf,m_,_pr,_nList,true);
         return new Argument();
     }
-    private static void redirectGenerated(ContextEl _conf, Struct _l, Argument _pr, CustList<Argument> _nList, boolean _lambda) {
+    public static void redirectGenerated(ContextEl _conf, Struct _l, Argument _pr, CustList<Argument> _nList, boolean _lambda) {
         MethodMetaInfo m_ = NumParsers.getMethod(_l);
         ExecRootBlock e_ = m_.getDeclaring();
         if (e_ != null) {

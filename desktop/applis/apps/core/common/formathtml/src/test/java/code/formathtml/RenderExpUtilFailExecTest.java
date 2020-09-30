@@ -90,7 +90,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static String getAliasDivisionZero(AnalyzedTestConfiguration context_) {
-        return context_.getStandards().getAliasDivisionZero();
+        return context_.getStandards().getContent().getCoreNames().getAliasDivisionZero();
     }
 
     @Test
@@ -155,7 +155,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static String getAliasCastType(AnalyzedTestConfiguration context_) {
-        return context_.getStandards().getAliasCastType();
+        return context_.getStandards().getContent().getCoreNames().getAliasCastType();
     }
 
     private static String getClassName2(AnalyzedTestConfiguration context_) {
@@ -1436,7 +1436,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static String getAliasClassNotFoundError(AnalyzedTestConfiguration cont_) {
-        return cont_.getStandards().getAliasClassNotFoundError();
+        return cont_.getStandards().getContent().getReflect().getAliasClassNotFoundError();
     }
 
     @Test
@@ -1468,7 +1468,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static String getAliasNullPe(AnalyzedTestConfiguration cont_) {
-        return cont_.getStandards().getAliasNullPe();
+        return cont_.getStandards().getContent().getCoreNames().getAliasNullPe();
     }
 
     @Test

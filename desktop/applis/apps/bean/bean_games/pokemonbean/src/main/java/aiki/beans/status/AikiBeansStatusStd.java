@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -21,9 +20,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansStatusStd {
     public static final String TYPE_STATUS_BEAN = "aiki.beans.status.StatusBean";
@@ -65,11 +62,11 @@ public final class AikiBeansStatusStd {
     private static final String TYPED_STATUS = "typedStatus";
     private static final String SORTED_STATUS = "sortedStatus";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildStatusBean(_std);
         buildStatusSetBean(_std);
     }
-    private static void buildStatusBean(BeanLgNames _std) {
+    private static void buildStatusBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -122,7 +119,7 @@ public final class AikiBeansStatusStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STATUS_BEAN, type_);
     }
-    private static void buildStatusSetBean(BeanLgNames _std) {
+    private static void buildStatusSetBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

@@ -204,7 +204,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             }
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
-                String npe_ = _cont.getStandards().getAliasNullPe();
+                String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
                 _cont.setException(new ErrorStruct(_cont, npe_));
                 return;
             }
@@ -249,7 +249,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         if (_str instanceof ArrayStruct) {
             return ((ArrayStruct)_str).getInstance().length;
         }
-        String npe_ = _cont.getStandards().getAliasNullPe();
+        String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
         _cont.setException(new ErrorStruct(_cont, npe_));
         return -1;
     }

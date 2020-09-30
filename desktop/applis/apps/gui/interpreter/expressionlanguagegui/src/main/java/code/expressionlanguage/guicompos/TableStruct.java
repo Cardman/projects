@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
 import code.gui.TableGui;
@@ -40,7 +39,7 @@ public final class TableStruct extends CustComponentStruct {
     }
 
     public ArrayStruct getSelectedRows(ContextEl _cont) {
-        String int_ = _cont.getStandards().getAliasPrimInteger();
+        String int_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger();
         int_ = StringExpUtil.getPrettyArrayType(int_);
         int[] rows_ = table.getSelectedRows();
         int len_ = rows_.length;

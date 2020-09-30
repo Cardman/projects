@@ -12,7 +12,7 @@ public final class ShortStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasShort();
+        return _context.getStandards().getContent().getNbAlias().getAliasShort();
     }
 
     @Override

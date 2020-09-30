@@ -5,7 +5,6 @@ import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -21,9 +20,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansAbilitiesStd {
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";
@@ -219,11 +216,11 @@ public final class AikiBeansAbilitiesStd {
     private static final String HEALED_HP_RATE_BY_SWITCH = "healedHpRateBySwitch";
     private static final String POKEMON = "pokemon";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildAbilitiesBean(_std);
         buildAbilityBean(_std);
     }
-    private static void buildAbilitiesBean(BeanLgNames _std) {
+    private static void buildAbilitiesBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -247,7 +244,7 @@ public final class AikiBeansAbilitiesStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ABILITIES_BEAN, type_);
     }
-    private static void buildAbilityBean(BeanLgNames _std) {
+    private static void buildAbilityBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

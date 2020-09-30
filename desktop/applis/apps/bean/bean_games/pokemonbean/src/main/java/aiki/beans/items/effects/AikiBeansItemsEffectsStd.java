@@ -1,5 +1,6 @@
 package aiki.beans.items.effects;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonStandards;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
@@ -15,10 +16,10 @@ public final class AikiBeansItemsEffectsStd {
     public static final String TYPE_EFFECT_END_ROUND_ITEM_BEAN = "aiki.beans.items.effects.EffectEndRoundItemBean";
 
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildEffectEndRoundItemBean(_std);
     }
-    private static void buildEffectEndRoundItemBean(BeanLgNames _std) {
+    private static void buildEffectEndRoundItemBean(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

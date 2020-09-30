@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
@@ -17,8 +16,6 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -54,49 +51,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         return custRenderAliases.getOtherResult(_cont, _instance, _method, _args);
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
-        StringMap<CustList<KeyValueMemberName>> t_ = super.allTableTypeVarTypes();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: custRenderAliases.allTableTypeVarTypes().entryList()) {
-            t_.addEntry(o.getKey(),o.getValue());
-        }
-        return t_;
-    }
-
-    @Override
-    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
-        CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
-        list_.addAllElts(custRenderAliases.allMergeTableTypeMethodNames(getContent()));
-        return list_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: custRenderAliases.allTableTypeFieldNames().entryList()) {
-            f_.addEntry(o.getKey(),o.getValue());
-        }
-        return f_;
-    }
-
-    @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: custRenderAliases.allTableTypeMethodNames(getContent()).entryList()) {
-            m_.addEntry(e.getKey(),e.getValue());
-        }
-        return m_;
-    }
-
-    @Override
-    public StringMap<String> allRefTypes() {
-        StringMap<String> ref_ =  super.allRefTypes();
-        for (EntryCust<String,String> o: custRenderAliases.allRefTypes().entryList()) {
-            ref_.addEntry(o.getKey(),o.getValue());
-        }
-        return ref_;
     }
 
     @Override

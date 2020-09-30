@@ -26,7 +26,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         }
         ContextEl _context = _conf.getContext();
         String npe_;
-        npe_ = _context.getStandards().getAliasNullPe();
+        npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         _conf.setException(new ErrorStruct(_conf.getContext(),npe_));
         return new Argument();

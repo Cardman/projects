@@ -32,7 +32,7 @@ public final class InvokeTargetErrorStruct extends WithoutParentIdStruct impleme
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasInvokeTarget();
+        return _contextEl.getStandards().getContent().getReflect().getAliasInvokeTarget();
     }
 
     @Override

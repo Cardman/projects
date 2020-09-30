@@ -116,7 +116,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return _contextEl.getStandards().getAliasField();
+        return _contextEl.getStandards().getContent().getReflect().getAliasField();
     }
 
     @Override

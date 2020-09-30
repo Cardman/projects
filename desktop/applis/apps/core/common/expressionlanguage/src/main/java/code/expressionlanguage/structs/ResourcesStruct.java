@@ -13,7 +13,7 @@ public final class ResourcesStruct {
 	private ResourcesStruct() {
 	}
 	public static Struct getResourceNames(ContextEl _contextEl) {
-		String cl_ = _contextEl.getStandards().getAliasString();
+        String cl_ = _contextEl.getStandards().getContent().getCharSeq().getAliasString();
 		cl_ = StringExpUtil.getPrettyArrayType(cl_);
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
 		Struct[] arr_ = new Struct[res_.size()];

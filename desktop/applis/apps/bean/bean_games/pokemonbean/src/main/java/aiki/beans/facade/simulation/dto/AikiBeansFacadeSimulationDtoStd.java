@@ -1,8 +1,8 @@
 package aiki.beans.facade.simulation.dto;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -15,11 +15,8 @@ import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class AikiBeansFacadeSimulationDtoStd {
     public static final String TYPE_EV_LINE = "aiki.beans.facade.simulation.dto.EvLine";
@@ -32,14 +29,14 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static final String EV = "ev";
     private static final String INDEX = "index";
 
-    public static void build(BeanLgNames _std) {
+    public static void build(PokemonStandards _std) {
         buildEvLine(_std);
         buildPokemonPlayerDto(_std);
         buildPokemonTrainerDto(_std);
         buildRadioLineMove(_std);
         buildSelectLineMove(_std);
     }
-    private static void buildEvLine(BeanLgNames _std) {
+    private static void buildEvLine(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -51,7 +48,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         fields_.add(new StandardField(EV,_std.getAliasPrimShort(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EV_LINE, type_);
     }
-    private static void buildPokemonPlayerDto(BeanLgNames _std) {
+    private static void buildPokemonPlayerDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -63,7 +60,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_POKEMON_PLAYER_DTO, type_);
     }
-    private static void buildPokemonTrainerDto(BeanLgNames _std) {
+    private static void buildPokemonTrainerDto(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -75,7 +72,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_POKEMON_TRAINER_DTO, type_);
     }
-    private static void buildRadioLineMove(BeanLgNames _std) {
+    private static void buildRadioLineMove(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
@@ -87,7 +84,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_RADIO_LINE_MOVE, type_);
     }
-    private static void buildSelectLineMove(BeanLgNames _std) {
+    private static void buildSelectLineMove(PokemonStandards _std) {
         StandardClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;

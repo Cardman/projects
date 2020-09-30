@@ -23,14 +23,14 @@ public final class PrimitiveTypes {
     private String aliasPrimDouble;
     private byte maxWrap;
     public void buildPrimitiveTypes(LgNames _lgNames) {
-        primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getAliasBoolean(), EMPTY_STRING,false,BOOL_WRAP));
-        primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getAliasCharacter(), aliasPrimInteger,true,CHAR_WRAP));
-        primitiveTypes.put(aliasPrimByte, new PrimitiveType(aliasPrimByte, _lgNames.getAliasByte(), aliasPrimShort,true,BYTE_WRAP));
-        primitiveTypes.put(aliasPrimShort, new PrimitiveType(aliasPrimShort, _lgNames.getAliasShort(), aliasPrimInteger,true,SHORT_WRAP));
-        primitiveTypes.put(aliasPrimInteger, new PrimitiveType(aliasPrimInteger, _lgNames.getAliasInteger(), aliasPrimLong,true,INT_WRAP));
-        primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getAliasLong(), EMPTY_STRING,true,LONG_WRAP));
-        primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getAliasFloat(), aliasPrimDouble,true,FLOAT_WRAP));
-        primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getAliasDouble(), EMPTY_STRING,true,DOUBLE_WRAP));
+        primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getContent().getNbAlias().getAliasBoolean(), EMPTY_STRING,false,BOOL_WRAP));
+        primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getContent().getNbAlias().getAliasCharacter(), aliasPrimInteger,true,CHAR_WRAP));
+        primitiveTypes.put(aliasPrimByte, new PrimitiveType(aliasPrimByte, _lgNames.getContent().getNbAlias().getAliasByte(), aliasPrimShort,true,BYTE_WRAP));
+        primitiveTypes.put(aliasPrimShort, new PrimitiveType(aliasPrimShort, _lgNames.getContent().getNbAlias().getAliasShort(), aliasPrimInteger,true,SHORT_WRAP));
+        primitiveTypes.put(aliasPrimInteger, new PrimitiveType(aliasPrimInteger, _lgNames.getContent().getNbAlias().getAliasInteger(), aliasPrimLong,true,INT_WRAP));
+        primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getContent().getNbAlias().getAliasLong(), EMPTY_STRING,true,LONG_WRAP));
+        primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getContent().getNbAlias().getAliasFloat(), aliasPrimDouble,true,FLOAT_WRAP));
+        primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getContent().getNbAlias().getAliasDouble(), EMPTY_STRING,true,DOUBLE_WRAP));
         maxWrap = (byte)Math.max(BOOL_WRAP,CHAR_WRAP);
         maxWrap = (byte)Math.max(maxWrap,BYTE_WRAP);
         maxWrap = (byte)Math.max(maxWrap,SHORT_WRAP);

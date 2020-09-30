@@ -56,14 +56,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
                     String null_;
-                    null_ = stds_.getAliasNullPe();
+                    null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             }
             if (isAbstract(_context)) {
                 String null_;
-                null_ = stds_.getAliasIllegalArg();
+                null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
@@ -93,7 +93,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
@@ -104,21 +104,21 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (method_.isExpCast()) {
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getAliasIllegalArg();
+                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             } else if (!StringList.quickEq(mid_.getName(),"[]=")) {
                 if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getAliasIllegalArg();
+                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             } else {
                 if (args.size() != mid_.getParametersTypes().size() + 1) {
                     String null_;
-                    null_ = stds_.getAliasIllegalArg();
+                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }

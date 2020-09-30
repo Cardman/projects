@@ -12,7 +12,7 @@ public final class IntStruct extends NumberStruct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return _context.getStandards().getAliasInteger();
+        return _context.getStandards().getContent().getNbAlias().getAliasInteger();
     }
 
     @Override
