@@ -41,7 +41,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         MethodAccessKind st_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        String import_ = _page.getStandards().getAliasObject();
+        String import_ = _page.getAliasObject();
         importedClass = import_;
         root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(st_), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
@@ -23,16 +24,16 @@ public final class CustContextFactory {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         if (StringList.quickEq(_lang, "en")) {
-            _undefinedLgNames.messages(mess_,_lang,_exec.getMessages());
-            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
+            _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
-            _undefinedLgNames.messages(mess_,_lang,_exec.getMessages());
-            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
+            _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else {
-            _undefinedLgNames.messages(mess_,_exec.getMessages(), new StringMap<String>());
-            _undefinedLgNames.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
+            _undefinedLgNames.getCustAliases().messages(mess_, _exec.getMessages(), new StringMap<String>());
+            _undefinedLgNames.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
@@ -43,16 +44,16 @@ public final class CustContextFactory {
         KeyWords kwl_ = new KeyWords();
         LgNamesUtils stds_ = new LgNamesUtils(_infos);
         if (StringList.quickEq(_lang, "en")) {
-            stds_.messages(mess_,_lang,_exec.getMessages());
-            stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
+            stds_.getCustAliases().messages(mess_, _lang, _exec.getMessages());
+            stds_.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
-            stds_.messages(mess_,_lang,_exec.getMessages());
-            stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
+            stds_.getCustAliases().messages(mess_, _lang, _exec.getMessages());
+            stds_.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());
         } else {
-            stds_.messages(mess_,_exec.getMessages(), new StringMap<String>());
-            stds_.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
+            stds_.getCustAliases().messages(mess_, _exec.getMessages(), new StringMap<String>());
+            stds_.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             stds_.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         execute(-1,_options,_exec,mess_,kwl_,stds_,_files,_progressingTests);
@@ -72,7 +73,7 @@ public final class CustContextFactory {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
             return;
         }
-        String infoTest_ = _definedLgNames.getAliasInfoTest();
+        String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
                 NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);
         Argument argGlLoc_ = new Argument();
@@ -81,13 +82,13 @@ public final class CustContextFactory {
         new Thread(showUpdates_).start();
         ExecNamedFunctionBlock fctBody_ = rCont_.getExecuteMethod();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                _definedLgNames.getAliasExecute(), rCont_.getExecuteType(), fctBody_,
+                _definedLgNames.getCustAliases().getAliasExecute(), rCont_.getExecuteType(), fctBody_,
                 new CustList<Argument>(argMethod_), rCont_);
         showUpdates_.stop();
         if (_options.isCovering()) {
             String exp_ = _exec.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
-                _definedLgNames.coverFile(exp_,f.getKey(),f.getValue(),rCont_);
+                _definedLgNames.getInfos().getReporter().coverFile(exp_, f.getKey(), f.getValue(), rCont_);
             }
         }
         _progressingTests.setResults(rCont_,arg_);
@@ -96,7 +97,7 @@ public final class CustContextFactory {
         if (_exec.isErrors()) {
             String exp_ = _exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
-                _definedLgNames.errorFile(exp_,f.getKey(),f.getValue(),_ctx);
+                _definedLgNames.getInfos().getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);
             }
         }
     }
@@ -106,7 +107,8 @@ public final class CustContextFactory {
         CustInitializer ci_ = new CustInitializer();
         ClassesCommon com_ = new ClassesCommon();
         RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth, com_);
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options, com_);
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_,
+                new DefaultConstantsCalculator(_definedLgNames.getNbAlias()), new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases()));
         return new ResultsRunnableContext(r_,reportedMessages_);
     }
 }

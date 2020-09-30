@@ -2,7 +2,9 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
@@ -14,6 +16,8 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanFileBuilder;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.Ints;
@@ -27,26 +31,26 @@ import static org.junit.Assert.assertTrue;
 public final class RenderInitStdsTest extends CommonRender {
     @Test
     public void process1Test() {
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        assertTrue(contextEl(b_,a_,k_));
+        assertTrue(contextEl(b_,a_,k_, null));
     }
     @Test
     public void process5Test() {
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
         k_.setKeyWordIf("i");
         k_.setKeyWordElseif("m");
         k_.setKeyWordElse("indexe");
-        assertTrue(contextEl(b_,a_,k_));
+        assertTrue(contextEl(b_,a_,k_, null));
     }
     @Test
     public void process6Test() {
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages am_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -57,9 +61,9 @@ public final class RenderInitStdsTest extends CommonRender {
         Options options_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, options_, b_, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, am_, k_, b_, new CustList<CommentDelimiters>(), options_, com_);
-        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards());
-        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards());
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, am_, k_, b_, new CustList<CommentDelimiters>(), options_, com_, null, new BeanFileBuilder(b_.getContent(),b_.getBeanAliases()));
+        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards(), b_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards(), b_);
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         BeanLgNames standards_ = (BeanLgNames) contextEl_.getStandards();
         CommonRender.getHeaders(new StringMap<String>(), a_);
@@ -70,19 +74,19 @@ public final class RenderInitStdsTest extends CommonRender {
         assertEq(standards_.getAliasBadSize(),err_);
         new Navigation().initializeRendSession(null);
     }
-    private boolean contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
-        return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw);
+    private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
+        return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);
     }
-    private boolean contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
+    private boolean contextEl(StringMap<String> _files, Options _opt, BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _opt, _beanLgNames, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, _mess, _kw, _beanLgNames, new CustList<CommentDelimiters>(), _opt, com_);
-        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards());
-        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards());
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, _mess, _kw, _beanLgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new BeanFileBuilder(_beanLgNames.getContent(),_beanLgNames.getBeanAliases()));
+        AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards(), _beanLgNames);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards(), _beanLgNames);
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         CommonRender.getHeaders(_files, a_);
         contextEl_.setFullStack(new AdvancedFullStack(conf_));

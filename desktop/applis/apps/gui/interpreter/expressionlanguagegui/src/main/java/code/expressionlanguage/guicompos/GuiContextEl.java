@@ -138,7 +138,7 @@ public final class GuiContextEl extends RunnableContextEl {
     @Override
     public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
         super.forwardAndClear(_ana, _forwards);
-        LgNamesGui standards_ = (LgNamesGui) _ana.getStandards();
+        LgNamesGui standards_ = (LgNamesGui) getStandards();
         String aliasActListener_ = standards_.getAliasActionListener();
         actionListener = _ana.getClasses().getClassBody(aliasActListener_);
         String actionEvent_ = standards_.getAliasActionEvent();

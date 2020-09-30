@@ -65,8 +65,7 @@ public final class ReturnMethod extends AbruptBlock {
     }
 
     private String processReturnValue(AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        String retType_ = stds_.getAliasVoid();
+        String retType_ = _page.getAliasVoid();
         BracedBlock par_ = getParent();
         while (par_ != null) {
             if (par_ instanceof NamedFunctionBlock) {
@@ -77,7 +76,7 @@ public final class ReturnMethod extends AbruptBlock {
             }
             par_ = par_.getParent();
         }
-        if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
+        if (StringList.quickEq(retType_, _page.getAliasVoid())) {
             if (isEmpty()) {
                 return EMPTY_STRING;
             }
@@ -86,13 +85,12 @@ public final class ReturnMethod extends AbruptBlock {
     }
     private void checkTypes(String _retType, OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching ret_ = _root.getResultClass();
-        LgNames stds_ = _page.getStandards();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(ret_);
         mapping_.setParam(_retType);
-        if (StringList.quickEq(_retType, stds_.getAliasVoid())) {
+        if (StringList.quickEq(_retType, _page.getAliasVoid())) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);

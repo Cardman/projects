@@ -55,18 +55,18 @@ public class RunnableContextEl extends ContextEl implements Locking {
     @Override
     public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
         super.forwardAndClear(_ana, _forwards);
-        LgNamesUtils standards_ = (LgNamesUtils) _ana.getStandards();
-        String aliasExecute_ = standards_.getAliasExecute();
+        LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
+        String aliasExecute_ = standards_.getCustAliases().getAliasExecute();
         executeType = _ana.getClasses().getClassBody(aliasExecute_);
-        String infoTest_ = standards_.getAliasInfoTest();
+        String infoTest_ = standards_.getCustAliases().getAliasInfoTest();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
-                standards_.getAliasExecuteTests(),new StringList(infoTest_));
+                standards_.getCustAliases().getAliasExecuteTests(),new StringList(infoTest_));
         executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
-        formatType = _ana.getClasses().getClassBody(standards_.getAliasFormatType());
-        formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasObject()))).first();
-        formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasString(),standards_.getAliasObject()),true)).first();
-        runnableType = _ana.getClasses().getClassBody(standards_.getAliasRunnable());
-        runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getAliasRun(),new StringList())).first();
+        formatType = _ana.getClasses().getClassBody(standards_.getCustAliases().getAliasFormatType());
+        formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getCustAliases().getAliasPrint(),new StringList(getStandards().getAliasObject()))).first();
+        formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getCustAliases().getAliasPrint(),new StringList(getStandards().getAliasString(),getStandards().getAliasObject()),true)).first();
+        runnableType = _ana.getClasses().getClassBody(standards_.getCustAliases().getAliasRunnable());
+        runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getCustAliases().getAliasRun(),new StringList())).first();
     }
 
     public ExecRootBlock getExecuteType() {

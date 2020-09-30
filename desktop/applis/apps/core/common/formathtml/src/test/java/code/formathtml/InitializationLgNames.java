@@ -1,11 +1,13 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanFileBuilder;
 import org.junit.Assert;
 
 import code.expressionlanguage.ContextEl;
@@ -30,9 +32,9 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), new BeanFileBuilder(lgNames_.getContent(),lgNames_.getBeanAliases()));
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(contextEl_, page_, new Forwards());
+        return new AnalyzedTestContext(contextEl_, page_, new Forwards(),lgNames_);
     }
 
     private static BeanCustLgNames getBeanCustLgNames() {

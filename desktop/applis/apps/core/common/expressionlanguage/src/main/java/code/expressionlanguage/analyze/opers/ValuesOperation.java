@@ -49,7 +49,7 @@ public final class ValuesOperation extends LeafOperation {
                     clName_);
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            String argClName_ = _page.getStandards().getAliasObject();
+            String argClName_ = _page.getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }

@@ -1466,7 +1466,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
-        m_.setParam(context_.getStandards().getAliasObject());
+        m_.setParam(context_.getAliasObject());
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("H", new StringList());
         m_.setMapping(t_);
@@ -2922,7 +2922,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put("T", new StringList(c_.getStandards().getAliasObject()));
+        map_.put("T", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<?T>"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo<?T>"));
@@ -2943,7 +2943,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put("U", new StringList(c_.getStandards().getAliasObject()));
+        map_.put("U", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<#U>"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo<#U>"));
@@ -5074,8 +5074,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        String first_ = context_.getStandards().getAliasString();
-        String second_ = context_.getStandards().getAliasInteger();
+        String first_ = context_.getAliasString();
+        String second_ = context_.getAliasInteger();
         assertEq(second_, wildCardFormatReturn(context_, first_, second_));
     }
 
@@ -6282,7 +6282,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, cont_.getStandards().getAliasPrimInteger()));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, cont_.getAliasPrimInteger()));
     }
 
     @Test
@@ -6416,8 +6416,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     private static AnalyzedTestContext simpleContextEl() {
         AnalyzedTestContext cont_ = ctxAna();
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(page_);
+        StringMap<String> files_ = page_.buildFiles();
         buildFilesBodies(cont_, files_);
         parseFiles(cont_);
         validateInheritingClasses(cont_);

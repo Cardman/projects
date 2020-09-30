@@ -25,7 +25,7 @@ public final class StaticInitOperation extends LeafOperation {
     void setInit(String _base, boolean _staticType, AnalyzedPageEl _page) {
         if (!_staticType) {
             possibleInitClass = false;
-            String argClName_ = _page.getStandards().getAliasObject();
+            String argClName_ = _page.getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }

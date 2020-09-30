@@ -226,7 +226,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
-        String void_ = _page.getStandards().getAliasVoid();
+        String void_ = _page.getAliasVoid();
         if (StringList.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
             return;

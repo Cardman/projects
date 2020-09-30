@@ -1,7 +1,7 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.AliasCore;
+import code.expressionlanguage.stds.AliasPredefinedTypes;
 
 
 public final class PredefinedClasses {
@@ -9,150 +9,151 @@ public final class PredefinedClasses {
     private static final String SPACE = " ";
     private PredefinedClasses() {
     }
-    public static String getBracedIterableType(AnalyzedPageEl analyzing) {
+    public static String getBracedIterableType(KeyWords _keyWords, AliasPredefinedTypes _predefTypes) {
         char endLine_ = ';';
-        KeyWords keyWords_ = analyzing.getKeyWords();
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = analyzing.getStandards();
-        String var_ = stds_.getAliasIterableVar();
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        String var_ = predefTypes_.getAliasIterableVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasIterable()).append("<").append(var_).append(">{\n");
+        iterable_.append(predefTypes_.getAliasIterable()).append("<").append(var_).append(">{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasIteratorType()).append("<").append(var_).append(">").append(SPACE);
-        iterable_.append(stds_.getAliasIterator()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasIteratorType()).append("<").append(var_).append(">").append(SPACE);
+        iterable_.append(predefTypes_.getAliasIterator()).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
 
-    public static String getBracedIteratorType(AnalyzedPageEl analyzing) {
+    public static String getBracedIteratorType(KeyWords _keyWords, AliasPredefinedTypes _predefTypes, String _aliasPrimBoolean) {
         char endLine_ = ';';
-        KeyWords keyWords_ = analyzing.getKeyWords();
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = analyzing.getStandards();
-        String var_ = stds_.getAliasIteratorTypeVar();
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        String var_ = predefTypes_.getAliasIteratorTypeVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasIteratorType()).append("<").append(var_).append(">{\n");
+        iterable_.append(predefTypes_.getAliasIteratorType()).append("<").append(var_).append(">{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
         iterable_.append(var_).append(SPACE);
-        iterable_.append(stds_.getAliasNext()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasNext()).append("()").append(endLine_).append("\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasPrimBoolean()).append(SPACE);
-        iterable_.append(stds_.getAliasHasNext()).append("()").append(endLine_).append("\n");
+        iterable_.append(_aliasPrimBoolean).append(SPACE);
+        iterable_.append(predefTypes_.getAliasHasNext()).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
 
-    public static String getBracedIterableTableType(AnalyzedPageEl analyzing) {
+    public static String getBracedIterableTableType(KeyWords _keyWords, AliasPredefinedTypes _predefTypes) {
         char endLine_ = ';';
-        KeyWords keyWords_ = analyzing.getKeyWords();
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = analyzing.getStandards();
-        String first_ = stds_.getAliasIterableTableVarFirst();
-        String second_ = stds_.getAliasIterableTableVarSecond();
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        String first_ = predefTypes_.getAliasIterableTableVarFirst();
+        String second_ = predefTypes_.getAliasIterableTableVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasIterableTable()).append("<").append(first_).append(",").append(second_).append(">{\n");
+        iterable_.append(predefTypes_.getAliasIterableTable()).append("<").append(first_).append(",").append(second_).append(">{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasIteratorTableType()).append("<").append(first_).append(",").append(second_).append(">").append(SPACE);
-        iterable_.append(stds_.getAliasIteratorTable()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasIteratorTableType()).append("<").append(first_).append(",").append(second_).append(">").append(SPACE);
+        iterable_.append(predefTypes_.getAliasIteratorTable()).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
 
-    public static String getBracedIteratorTableType(AnalyzedPageEl analyzing) {
+    public static String getBracedIteratorTableType(KeyWords _keyWords, AliasPredefinedTypes _predefTypes, String _aliasPrimBoolean) {
         char endLine_ = ';';
-        KeyWords keyWords_ = analyzing.getKeyWords();
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = analyzing.getStandards();
-        String first_ = stds_.getAliasIteratorTableTypeVarFirst();
-        String second_ = stds_.getAliasIteratorTableTypeVarSecond();
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        String first_ = predefTypes_.getAliasIteratorTableTypeVarFirst();
+        String second_ = predefTypes_.getAliasIteratorTableTypeVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasIteratorTableType()).append("<").append(first_).append(",").append(second_).append(">{\n");
+        iterable_.append(predefTypes_.getAliasIteratorTableType()).append("<").append(first_).append(",").append(second_).append(">{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasPairType());
+        iterable_.append(predefTypes_.getAliasPairType());
         iterable_.append("<").append(first_).append(",").append(second_).append(">").append(SPACE);
-        iterable_.append(stds_.getAliasNextPair()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasNextPair()).append("()").append(endLine_).append("\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasPrimBoolean()).append(SPACE);
-        iterable_.append(stds_.getAliasHasNextPair()).append("()").append(endLine_).append("\n");
+        iterable_.append(_aliasPrimBoolean).append(SPACE);
+        iterable_.append(predefTypes_.getAliasHasNextPair()).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
 
-    public static String getBracedPairType(AnalyzedPageEl analyzing) {
+    public static String getBracedPairType(KeyWords _keyWords, AliasPredefinedTypes _predefTypes) {
         char endLine_ = ';';
-        KeyWords keyWords_ = analyzing.getKeyWords();
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = analyzing.getStandards();
-        String first_ = stds_.getAliasPairTypeVarFirst();
-        String second_ = stds_.getAliasPairTypeVarSecond();
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        String first_ = predefTypes_.getAliasPairTypeVarFirst();
+        String second_ = predefTypes_.getAliasPairTypeVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasPairType()).append("<").append(first_).append(",").append(second_).append(">{\n");
+        iterable_.append(predefTypes_.getAliasPairType()).append("<").append(first_).append(",").append(second_).append(">{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
         iterable_.append(first_).append(SPACE);
-        iterable_.append(stds_.getAliasGetFirst()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasGetFirst()).append("()").append(endLine_).append("\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
         iterable_.append(second_).append(SPACE);
-        iterable_.append(stds_.getAliasGetSecond()).append("()").append(endLine_).append("\n");
+        iterable_.append(predefTypes_.getAliasGetSecond()).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
-    public static String getBracedEnumType(AnalyzedPageEl analyzing) {
-        LgNames stds_ = analyzing.getStandards();
-        KeyWords keyWords_ = analyzing.getKeyWords();
+    public static String getBracedEnumType(AliasPredefinedTypes _predefTypes, AliasCore _coreNames, KeyWords _keyWords, String _aliasString, String _aliasPrimInteger) {
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        AliasCore coreNames_ = _coreNames;
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasEnumType()).append("{\n");
+        iterable_.append(predefTypes_.getAliasEnumType()).append("{\n");
         char endLine_ = ';';
         String final_ = keyWords_.getKeyWordFinal();
         String static_ = keyWords_.getKeyWordStatic();
         String this_ = keyWords_.getKeyWordThis();
         String return_ = keyWords_.getKeyWordReturn();
-        String string_ = stds_.getAliasString();
-        String name_ = stds_.getAliasEnumName();
+        String string_ = _aliasString;
+        String name_ = predefTypes_.getAliasEnumName();
         iterable_.append(public_).append(SPACE);
         iterable_.append(final_).append(SPACE);
         iterable_.append(string_).append(SPACE);
         iterable_.append(name_).append("()").append("{").append("\n");
         iterable_.append(return_).append(" ").append(static_).append("(");
-        iterable_.append(stds_.getAliasEnums());
-        iterable_.append(").").append(stds_.getAliasName());
+        iterable_.append(coreNames_.getAliasEnums());
+        iterable_.append(").").append(coreNames_.getAliasName());
         iterable_.append("(").append(this_).append(")");
         iterable_.append(endLine_).append("\n");
         iterable_.append("}").append("\n");
-        String int_ = stds_.getAliasPrimInteger();
-        String ordinal_ = stds_.getAliasEnumOrdinal();
+        String int_ = _aliasPrimInteger;
+        String ordinal_ = predefTypes_.getAliasEnumOrdinal();
         iterable_.append(public_).append(SPACE);
         iterable_.append(final_).append(SPACE);
         iterable_.append(int_).append(SPACE);
         iterable_.append(ordinal_).append("()").append("{").append("\n");
         iterable_.append(return_).append(" ").append(static_).append("(");
-        iterable_.append(stds_.getAliasEnums());
-        iterable_.append(").").append(stds_.getAliasOrdinal());
+        iterable_.append(coreNames_.getAliasEnums());
+        iterable_.append(").").append(coreNames_.getAliasOrdinal());
         iterable_.append("(").append(this_).append(")");
         iterable_.append(endLine_).append("\n");
         iterable_.append("}").append("\n");
@@ -160,14 +161,14 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedEnumParamType(AnalyzedPageEl analyzing) {
-        LgNames stds_ = analyzing.getStandards();
-        KeyWords keyWords_ = analyzing.getKeyWords();
+    public static String getBracedEnumParamType(AliasPredefinedTypes _predefTypes, KeyWords _keyWords) {
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
-        String type_ = stds_.getAliasEnumParam();
-        String typeSup_ = stds_.getAliasEnumType();
-        String var_ = stds_.getAliasEnumParamVar();
+        String type_ = predefTypes_.getAliasEnumParam();
+        String typeSup_ = predefTypes_.getAliasEnumType();
+        String var_ = predefTypes_.getAliasEnumParamVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(type_).append("<").append(var_).append(":").append(type_).append("<").append(var_).append(">>:").append(typeSup_).append("{\n");
@@ -175,38 +176,38 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedSeedGeneratorType(AnalyzedPageEl analyzing) {
-        LgNames stds_ = analyzing.getStandards();
-        KeyWords keyWords_ = analyzing.getKeyWords();
+    public static String getBracedSeedGeneratorType(AliasPredefinedTypes _predefTypes, KeyWords _keyWords, String _aliasPrimLong) {
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        String type_ = stds_.getAliasSeedGenerator();
+        String type_ = predefTypes_.getAliasSeedGenerator();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(type_).append("{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        String tr_ = stds_.getPredefTypes().getParams().getAliasSeedGenerator0Get0();
-        iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(stds_.getAliasSeedGet()).append("(");
-        iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(tr_).append(");\n");
+        String tr_ = predefTypes_.getParams().getAliasSeedGenerator0Get0();
+        iterable_.append(_aliasPrimLong).append(SPACE).append(predefTypes_.getAliasSeedGet()).append("(");
+        iterable_.append(_aliasPrimLong).append(SPACE).append(tr_).append(");\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }
 
-    public static String getBracedSeedDoubleGeneratorType(AnalyzedPageEl analyzing) {
-        LgNames stds_ = analyzing.getStandards();
-        KeyWords keyWords_ = analyzing.getKeyWords();
+    public static String getBracedSeedDoubleGeneratorType(AliasPredefinedTypes _predefTypes, KeyWords _keyWords, String _aliasPrimDouble) {
+        AliasPredefinedTypes predefTypes_ = _predefTypes;
+        KeyWords keyWords_ = _keyWords;
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        String type_ = stds_.getAliasSeedDoubleGenerator();
+        String type_ = predefTypes_.getAliasSeedDoubleGenerator();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(type_).append("{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        iterable_.append(stds_.getAliasPrimDouble()).append(SPACE).append(stds_.getAliasSeedGet()).append("();\n");
+        iterable_.append(_aliasPrimDouble).append(SPACE).append(predefTypes_.getAliasSeedGet()).append("();\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }

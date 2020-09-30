@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
@@ -24,8 +23,7 @@ public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     }
 
     private void checkReturnFct(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        if (!StringList.quickEq(meta.getImportedReturnType(), stds_.getAliasVoid())) {
+        if (!StringList.quickEq(meta.getImportedReturnType(), _page.getAliasVoid())) {
             if (!abstractMethod&&_anEl.canCompleteNormally(this)) {
                 //error
                 FoundErrorInterpret miss_ = new FoundErrorInterpret();

@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumberInfos;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.common.NumParsers;
@@ -14,7 +15,7 @@ public final class ParsedArgument {
 
     private String type = UNEXPECTED_TYPE;
 
-    public static ParsedArgument parse(NumberInfos _infosNb, LgNames _context) {
+    public static ParsedArgument parse(NumberInfos _infosNb, AnalyzedPageEl _context) {
         String doubleType_ = _context.getAliasDouble();
         String doublePrimType_ = _context.getAliasPrimDouble();
         String floatType_ = _context.getAliasFloat();

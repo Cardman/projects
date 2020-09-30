@@ -12,7 +12,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.*;
 
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.IntStruct;
@@ -45,7 +44,6 @@ public final class AnaTemplates {
         if (StringList.equalsSet(_first, _second)) {
             return ResultTernary.noUnwrap(_first);
         }
-        LgNames stds_ = _page.getStandards();
         AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_first);
         AnaClassArgumentMatching second_ = new AnaClassArgumentMatching(_second);
         if (_page.matchPrimWrap(_first,_second)) {
@@ -61,12 +59,12 @@ public final class AnaTemplates {
             return ResultTernary.noUnwrap(_page.getTernary(_first));
         }
         if (AnaTypeUtil.isPrimitiveOrWrapper(first_, _page) && AnaTypeUtil.isPrimitiveOrWrapper(second_, _page)) {
-            String primShort_ = stds_.getAliasPrimShort();
-            String primChar_ = stds_.getAliasPrimChar();
-            String primByte_ = stds_.getAliasPrimByte();
-            String short_ = stds_.getAliasShort();
-            String char_ = stds_.getAliasCharacter();
-            String byte_ = stds_.getAliasByte();
+            String primShort_ = _page.getAliasPrimShort();
+            String primChar_ = _page.getAliasPrimChar();
+            String primByte_ = _page.getAliasPrimByte();
+            String short_ = _page.getAliasShort();
+            String char_ = _page.getAliasCharacter();
+            String byte_ = _page.getAliasByte();
             if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
                 int value_ = NumParsers.convertToNumber(_secondArg.getStruct()).intStruct();
                 if (StringList.contains(_first, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
@@ -181,8 +179,7 @@ public final class AnaTemplates {
     }
     static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, AnalyzedPageEl _page) {
         StringList types_ = new StringList();
-        LgNames stds_ = _page.getStandards();
-        String obj_ = stds_.getAliasObject();
+        String obj_ = _page.getAliasObject();
         Mapping m_ = new Mapping();
         m_.setMapping(_map);
         for (String i: _classNames) {
@@ -215,7 +212,7 @@ public final class AnaTemplates {
                     }
                     continue;
                 }
-                if (StringList.quickEq(baseArrSup_.getComponent(), _page.getStandards().getAliasObject())) {
+                if (StringList.quickEq(baseArrSup_.getComponent(), _page.getAliasObject())) {
                     if (baseArrSub_.getDim() >= baseArrSup_.getDim()) {
                         sub_ = false;
                         break;
@@ -251,9 +248,8 @@ public final class AnaTemplates {
     }
     static StringList getSuperTypesSet(StringList _first, StringMap<StringList> _mapping, AnalyzedPageEl _page) {
         StringList superTypes_ = new StringList();
-        LgNames stds_ = _page.getStandards();
-        String obj_ = stds_.getAliasObject();
-        String bool_ = stds_.getAliasPrimBoolean();
+        String obj_ = _page.getAliasObject();
+        String bool_ = _page.getAliasPrimBoolean();
         for (String c: _first) {
             DimComp dc_ = StringExpUtil.getQuickComponentBaseType(c);
             String base_ = dc_.getComponent();
@@ -281,12 +277,6 @@ public final class AnaTemplates {
                 continue;
             }
             if (StringList.quickEq(base_, bool_)) {
-//                String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-//                AnaGeneType g_ = _page.getAnaGeneType(w_);
-//                superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
-//                for (String t: g_.getAllGenericSuperTypes()) {
-//                    superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
-//                }
                 superTypes_.add(StringExpUtil.getPrettyArrayType(base_, d_));
                 superTypes_.addAllElts(_page.getAllGenericSuperTypesWrapper(base_,d_));
                 for (int d = 1; d <= d_; d++) {
@@ -300,12 +290,6 @@ public final class AnaTemplates {
                     for (String p: s.getNames()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(p, d_));
                         superTypes_.addAllElts(_page.getAllGenericSuperTypesWrapper(p,d_));
-//                        String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-//                        AnaGeneType g_ = _page.getAnaGeneType(w_);
-//                        superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
-//                        for (String t: g_.getAllGenericSuperTypes()) {
-//                            superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
-//                        }
                     }
                 }
                 for (int d = 1; d <= d_; d++) {
@@ -336,7 +320,7 @@ public final class AnaTemplates {
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         AnaGeneType root_ = _page.getAnaGeneType(className_);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _page.getStandards().getAliasObject();
+        String objType_ = _page.getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
@@ -382,7 +366,7 @@ public final class AnaTemplates {
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         AnaGeneType root_ = _page.getAnaGeneType(className_);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _page.getStandards().getAliasObject();
+        String objType_ = _page.getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
@@ -557,7 +541,7 @@ public final class AnaTemplates {
                     realClassName_);
             _page.getLocalizer().addError(un_);
             _errs.add(un_.getBuiltError());
-            res_ = _page.getStandards().getAliasObject();
+            res_ = _page.getAliasObject();
         }
         return res_;
     }
@@ -626,7 +610,7 @@ public final class AnaTemplates {
                 }
             }
         } else {
-            if (StringList.quickEq(_erased, _page.getStandards().getAliasFct())) {
+            if (StringList.quickEq(_erased, _page.getAliasFct())) {
                 return _declaring;
             }
             type_ = gene_;
@@ -739,7 +723,7 @@ public final class AnaTemplates {
                 return false;
             }
         }
-        String void_ = _page.getStandards().getAliasVoid();
+        String void_ = _page.getAliasVoid();
         if (StringList.quickEq(_p, void_)) {
             return StringList.quickEq(_a, void_);
         }
@@ -847,7 +831,7 @@ public final class AnaTemplates {
     }
 
     public static String getGeneric(String _arg, String _param, Mapping map_, AnalyzedPageEl _page) {
-        String objType_ = _page.getStandards().getAliasObject();
+        String objType_ = _page.getAliasObject();
         DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
         String baseArrayArg_ = dArg_.getComponent();
         String generic_ = "";
@@ -895,8 +879,8 @@ public final class AnaTemplates {
             }
             return null;
         }
-        String fct_ = _page.getStandards().getAliasFct();
-        String obj_ = _page.getStandards().getAliasObject();
+        String fct_ = _page.getAliasFct();
+        String obj_ = _page.getAliasObject();
         String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
         String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
         if (StringList.quickEq(idBaseArrayArg_, fct_)) {
@@ -941,7 +925,7 @@ public final class AnaTemplates {
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
         AnalyzedPageEl page_ = _page;
-        if (StringList.quickEq(classParam_, page_.getStandards().getAliasObject())) {
+        if (StringList.quickEq(classParam_, page_.getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
                 return "";
             }
@@ -957,10 +941,10 @@ public final class AnaTemplates {
             }
             return "";
         }
-        if (StringList.quickEq(_subType, page_.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_subType, page_.getAliasVoid())) {
             return "";
         }
-        if (StringList.quickEq(_superType, page_.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_superType, page_.getAliasVoid())) {
             return "";
         }
         String generic_ = getSuperGeneric(_typeSub, dim_, classParam_, _page);
@@ -999,7 +983,7 @@ public final class AnaTemplates {
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof AnnotationBlock) {
-            if (StringList.quickEq(param_, _page.getStandards().getAliasAnnotationType())) {
+            if (StringList.quickEq(param_, _page.getAliasAnnotationType())) {
                 return StringExpUtil.getPrettyArrayType(param_,_dim);
             }
         }
@@ -1051,9 +1035,9 @@ public final class AnaTemplates {
             if (AnaTypeUtil.isPrimitive(compo_, _page)) {
                 return true;
             }
-            return StringList.quickEq(compo_, _page.getStandards().getAliasVoid());
+            return StringList.quickEq(compo_, _page.getAliasVoid());
         }
-        String fct_ = _page.getStandards().getAliasFct();
+        String fct_ = _page.getAliasFct();
         Ints rep_ = _info.getTypeVarCounts();
         StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
         int len_ = inners_.size();

@@ -1,10 +1,13 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.AdvancedFullStack;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanFileBuilder;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
@@ -197,9 +200,9 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        
-        
-        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+
+
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -246,7 +249,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_);
+        AnalyzedPageEl page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, page_, lgNames_, rend_));
         n_.initializeRendSession();
@@ -278,7 +281,7 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -334,7 +337,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_);
+        AnalyzedPageEl page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, page_, lgNames_, rend_));
         n_.initializeRendSession();
@@ -370,7 +373,7 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -427,12 +430,17 @@ public final class RenderInitNavTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_);
+        AnalyzedPageEl page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, page_, lgNames_, rend_));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
+
+    private static AnalyzedPageEl loadConfiguration(BeanCustLgNames lgNames_, String xmlConf_, Navigation n_, RendAnalysisMessages rend_) {
+        return n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, new BeanFileBuilder(lgNames_.getContent(),lgNames_.getBeanAliases()));
+    }
+
     @Test
     public void process8Test() {
         String locale_ = "en";
@@ -506,9 +514,9 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        
-        
-        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+
+
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -554,7 +562,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_, new RendAnalysisMessages());
+        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
         assertTrue(n_.isError());
     }
     @Test
@@ -581,16 +589,16 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        
-        
-        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+
+
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_, new RendAnalysisMessages());
+        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
         assertTrue(n_.isError());
     }
     @Test
@@ -617,7 +625,7 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        BeanLgNames lgNames_ = new BeanCustLgNamesFailImpl();
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesFailImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -672,7 +680,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_, new RendAnalysisMessages());
+        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
         assertTrue(n_.isError());
     }
     @Test
@@ -699,7 +707,7 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        BeanLgNames lgNames_ = new BeanCustLgNamesFailMessImpl();
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesFailMessImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -754,7 +762,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_, new RendAnalysisMessages());
+        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
         assertTrue(n_.isError());
     }
     private static void basicStandards(BeanLgNames _lgNames) {

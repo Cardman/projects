@@ -975,7 +975,7 @@ public abstract class CommonRender {
 
     protected static AnalyzedTestConfiguration build(Configuration conf_) {
         AnalyzedTestContext cont_ = buildStd();
-        return new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards());
+        return new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
     }
 
     protected static Navigation initSession56(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
@@ -1315,7 +1315,7 @@ public abstract class CommonRender {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(conf_, "c:", doc_, h, a_.getAnalyzing().getStandards());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(conf_, "c:", doc_, h, a_.getAnalyzing().getPrimTypes());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }

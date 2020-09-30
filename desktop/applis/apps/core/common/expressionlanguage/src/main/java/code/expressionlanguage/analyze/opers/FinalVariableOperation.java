@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
 public final class FinalVariableOperation extends LeafOperation {
@@ -45,7 +44,6 @@ public final class FinalVariableOperation extends LeafOperation {
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
-        LgNames stds_ = _page.getStandards();
         if (!className.isEmpty()) {
             variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
             realVariableName = str_;
@@ -82,7 +80,7 @@ public final class FinalVariableOperation extends LeafOperation {
                 variableContent.getVariableName());
         _page.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
-        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
     public String getRealVariableName() {

@@ -70,7 +70,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getStandards().getAliasPrimInteger();
+            classIndex_ = _page.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -141,7 +141,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_page.getStandards().getAliasLong());
+            mapping_.setParam(_page.getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -258,7 +258,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     }
 
     public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
-        IterableAnalysisResult it_ = _page.getStandards().getCustomType(_types,"", _page);
+        IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(_types,"");
         return it_.getClassName();
     }
 
@@ -268,11 +268,11 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             }
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -301,8 +301,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setIndexFile(expressionOffset);
             //separator char
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    _page.getStandards().getAliasObject(),
-                    _page.getStandards().getAliasIterable());
+                    _page.getAliasObject(),
+                    _page.getAliasIterable());
             _page.addLocError(cast_);
             sepErrors.add(cast_.getBuiltError());
         }
@@ -317,7 +317,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(_page.getStandards().getAliasObject());
+            lInfo_.setClassName(_page.getAliasObject());
         }
         lInfo_.setRef(variableNameOffset);
         lInfo_.setConstType(ConstType.FIX_VAR);

@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -53,11 +52,10 @@ public final class AnaClassArgumentMatching {
     }
 
     public boolean isNumericInt(AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        String intPr_ = stds_.getAliasPrimInteger();
-        String shortPr_ = stds_.getAliasPrimShort();
-        String charPr_ = stds_.getAliasPrimChar();
-        String bytePr_ = stds_.getAliasPrimByte();
+        String intPr_ = _page.getAliasPrimInteger();
+        String shortPr_ = _page.getAliasPrimShort();
+        String charPr_ = _page.getAliasPrimChar();
+        String bytePr_ = _page.getAliasPrimByte();
         AnaClassArgumentMatching prim_ = AnaTypeUtil.toPrimitive(this, _page);
         if (prim_.matchClass(intPr_)) {
             return true;
@@ -80,8 +78,7 @@ public final class AnaClassArgumentMatching {
         return false;
     }
     public boolean matchVoid(AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        StringList l_ = new StringList(stds_.getAliasVoid());
+        StringList l_ = new StringList(_page.getAliasVoid());
         return StringList.equalsSet(className, l_);
     }
 
@@ -112,12 +109,8 @@ public final class AnaClassArgumentMatching {
     }
 
     public boolean isBoolType(AnalyzedPageEl _context) {
-        LgNames lgNames_ = _context.getStandards();
-        return isBoolType(lgNames_);
-    }
-    public boolean isBoolType(LgNames _lgNames) {
-        String aliasBoolean_ = _lgNames.getAliasBoolean();
-        String aliasPrBoolean_ = _lgNames.getAliasPrimBoolean();
+        String aliasBoolean_ = _context.getAliasBoolean();
+        String aliasPrBoolean_ = _context.getAliasPrimBoolean();
         for (String b: className) {
             if (b.isEmpty()) {
                 return true;

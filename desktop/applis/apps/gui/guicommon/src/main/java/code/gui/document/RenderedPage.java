@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -90,7 +91,7 @@ public final class RenderedPage implements ProcessingSession {
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_);
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_, new DefaultFileBuilder(_stds.getContent()));
         if (navigation.isError()) {
             setupText();
             return;
@@ -117,18 +118,16 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    public void initializeOnlyConf(String _conf, String _lgCode,BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName) {
+    public void initializeOnlyConf(BeanCustLgNames _stds, AbstractThreadActions _inst) {
         if (processing.get()) {
             return;
         }
         standards = _stds;
-        ThreadActions actions_ = ThreadActions.inst(this, _stds, _lgCode,"", _conf, _files);
-        actions_.setClassDbName(_clName);
-        actions_.setMethodName(_methodName);
-        threadAction = CustComponent.newThread(actions_);
+        threadAction = CustComponent.newThread(_inst);
         threadAction.start();
         animateProcess();
     }
+
     void animateProcess() {
         if (!process.isEmpty()) {
             LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);
@@ -151,12 +150,12 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    public void reset(BeanLgNames _lgNames) {
+    public void reset(BeanNatLgNames _lgNames) {
         if (processing.get()) {
             return;
         }
         standards = _lgNames;
-        threadAction = CustComponent.newThread(ThreadActions.inst(this, _lgNames, "", navigation.getSession().getFirstUrl(), false, true));
+        threadAction = CustComponent.newThread(ThreadActions.inst(this, _lgNames, navigation.getSession().getFirstUrl()));
         threadAction.start();
         animateProcess();
     }
@@ -180,7 +179,7 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setFiles(files_);
     }
 
-    void start() {
+    public void start() {
         processing.set(true);
     }
 
@@ -224,7 +223,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         finish();
     }
-    TextArea getArea() {
+    public TextArea getArea() {
         return area;
     }
     @Override
@@ -241,7 +240,7 @@ public final class RenderedPage implements ProcessingSession {
     IdMap<MetaComponent, DualComponent> getRefs() {
         return refs;
     }
-    Navigation getNavigation() {
+    public Navigation getNavigation() {
         return navigation;
     }
     public ScrollPane getScroll() {

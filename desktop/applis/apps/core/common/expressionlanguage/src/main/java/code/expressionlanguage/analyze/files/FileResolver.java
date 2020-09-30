@@ -2031,7 +2031,7 @@ public final class FileResolver {
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
                 } else if (StringList.quickEq(trimMeth_, _page.getKeyWords().getKeyWordThis())) {
-                    boolean get_ = !StringList.quickEq(retType_, _page.getStandards().getAliasVoid());
+                    boolean get_ = !StringList.quickEq(retType_, _page.getAliasVoid());
                     if (!get_) {
                         kind_ = MethodKind.SET_INDEX;
                         trimMeth_ = "[]=";

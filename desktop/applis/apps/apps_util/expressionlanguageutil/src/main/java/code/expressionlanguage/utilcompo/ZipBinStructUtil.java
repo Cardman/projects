@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -36,7 +35,7 @@ public final class ZipBinStructUtil {
             return NullStruct.NULL_VALUE;
         }
 
-        String arr_ = ((LgNamesUtils)_ctx.getStandards()).getAliasEntryBinary();
+        String arr_ = ((LgNamesWithNewAliases)_ctx.getStandards()).getCustAliases().getAliasEntryBinary();
         arr_ = StringExpUtil.getPrettyArrayType(arr_);
         ArrayStruct files_ = new ArrayStruct(new Struct[filesMap_.size()],arr_);
         int i_ = 0;

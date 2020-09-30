@@ -33,7 +33,6 @@ public final class IdOperation extends AbstractUnaryOperation {
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                LgNames stds_ = _page.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
@@ -45,7 +44,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             String base_ = ((CastOperation) par_).getClassName();
@@ -56,7 +55,6 @@ public final class IdOperation extends AbstractUnaryOperation {
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                LgNames stds_ = _page.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
@@ -68,7 +66,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             int len_ = children_.size();
@@ -82,7 +80,6 @@ public final class IdOperation extends AbstractUnaryOperation {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 OperationNode op_ = children_.get(i);
                 if (!(op_ instanceof InterfaceFctConstructor)){
-                    LgNames stds_ = _page.getStandards();
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     un_.setIndexFile(i_);
@@ -91,7 +88,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                             Integer.toString(1),
                             Integer.toString(children_.size()));
                     _page.getLocalizer().addError(un_);
-                    setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                    setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                     getPartOffsetsChildren().add(parts_);
@@ -110,15 +107,13 @@ public final class IdOperation extends AbstractUnaryOperation {
                 getPartOffsetsChildren().add(parts_);
             }
             if (!existAll_) {
-                LgNames stds_ = _page.getStandards();
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             StringList all_ = new StringList(rBase_.getAllSuperTypes());
             all_.add(id_);
-            all_.removeAllString(_page.getStandards().getAliasObject());
+            all_.removeAllString(_page.getAliasObject());
             if (!StringList.equalsSet(all_,previousInts_)) {
-                LgNames stds_ = _page.getStandards();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -132,16 +127,14 @@ public final class IdOperation extends AbstractUnaryOperation {
                 _page.getLocalizer().addError(un_);
                 getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                 getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             standard = false;
-            LgNames stds_ = _page.getStandards();
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (children_.isEmpty()) {
-            LgNames stds_ = _page.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -151,7 +144,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                     Integer.toString(0));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getPrimitiveTypes()));

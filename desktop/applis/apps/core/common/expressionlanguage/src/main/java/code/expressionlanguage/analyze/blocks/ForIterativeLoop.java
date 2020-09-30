@@ -73,7 +73,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getStandards().getAliasPrimInteger();
+            classIndex_ = _page.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.*;
@@ -33,10 +32,9 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _page);
         int max_ = Math.max(oa_, ob_);
         AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
-        LgNames stds_ = _page.getStandards();
-        int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _page);
+        int intOrder_ = AnaTypeUtil.getIntOrderClass(_page.getAliasPrimInteger(), _page);
         if (max_ < intOrder_) {
-            arg_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
+            arg_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
         return AnaTypeUtil.toPrimitive(arg_, _page);
     }

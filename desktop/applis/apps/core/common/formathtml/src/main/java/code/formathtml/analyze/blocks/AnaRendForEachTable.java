@@ -20,11 +20,10 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -67,7 +66,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
 
     AnaRendForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
+                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
@@ -81,7 +80,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _stds.getAliasPrimInteger();
+            classIndex_ = _primTypes.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -108,19 +107,18 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
+                    _page.getAliasNullPe());
             AnalyzingDoc.addError(static_, _anaDoc, _page);
         } else {
             StringList names_ = root.getResultClass().getNames();
-            StringList out_ = getCustomType(names_, _cont, _page);
+            StringList out_ = getCustomType(names_, _page);
             checkIterableCandidates(out_, _cont, _anaDoc, _page);
         }
         putVariable(_anaDoc, _page);
     }
 
-    private StringList getCustomType(StringList _names, Configuration _context, AnalyzedPageEl _page) {
-        BeanLgNames stds_ = _context.getAdvStandards();
-        return stds_.getCustomTableType(_names, importedClassNameFirst,importedClassNameSecond, _page).getClassName();
+    private StringList getCustomType(StringList _names, AnalyzedPageEl _page) {
+        return _page.getForEachFetch().getCustomTableType(_names, importedClassNameFirst,importedClassNameSecond).getClassName();
     }
 
     public void buildEl(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -178,11 +176,11 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             }
             if (toInferFirst(_page)) {
                 importedClassNameFirst = paramArg_;
@@ -204,11 +202,11 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             mapping_ = new Mapping();
             paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             }
             if (toInferSecond(_page)) {
                 importedClassNameSecond = paramArg_;
@@ -232,8 +230,8 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    _page.getStandards().getAliasObject(),
-                    _page.getStandards().getAliasIterableTable());
+                    _page.getAliasObject(),
+                    _page.getAliasIterableTable());
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
     }
@@ -258,7 +256,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
             } else {
-                lInfo_.setClassName(_page.getStandards().getAliasObject());
+                lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableNameFirst, lInfo_);
@@ -270,7 +268,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             if (!importedClassNameSecond.isEmpty()) {
                 lInfo_.setClassName(importedClassNameSecond);
             } else {
-                lInfo_.setClassName(_page.getStandards().getAliasObject());
+                lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
             _page.getInfosVars().put(variableNameSecond, lInfo_);

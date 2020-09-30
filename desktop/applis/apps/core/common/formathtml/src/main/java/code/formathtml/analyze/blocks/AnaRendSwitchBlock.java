@@ -63,7 +63,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _page.getStandards().getAliasString())) {
+                if (!StringList.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;

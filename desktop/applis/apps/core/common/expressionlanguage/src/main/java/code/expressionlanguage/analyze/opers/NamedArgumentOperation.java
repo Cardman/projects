@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -38,7 +37,6 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     public void analyzeUnary(AnalyzedPageEl _page) {
         namedContent.setOffset(offset);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ namedContent.getOffset(), _page);
-        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
@@ -49,7 +47,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
                     name);
             _page.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         OperationNode child_ = getFirstChild();

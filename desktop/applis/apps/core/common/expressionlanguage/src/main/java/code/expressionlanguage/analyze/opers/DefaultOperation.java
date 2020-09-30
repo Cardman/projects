@@ -27,7 +27,7 @@ public final class DefaultOperation extends AbstractUnaryOperation {
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching res_ = child_.getResultClass();
         if (res_.isVariable()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(res_, _page.getPrimitiveTypes()));

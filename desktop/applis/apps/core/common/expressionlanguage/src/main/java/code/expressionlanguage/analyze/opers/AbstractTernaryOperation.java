@@ -41,7 +41,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         OperationNode opOne_ = chidren_.first();
         AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), clMatch_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);

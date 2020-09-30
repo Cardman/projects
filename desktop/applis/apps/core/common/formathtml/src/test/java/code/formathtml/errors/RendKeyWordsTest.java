@@ -354,7 +354,7 @@ public final class RendKeyWordsTest {
     private static AnalyzedTestConfiguration build(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards());
+        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), lgName_);
     }
 
     private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
@@ -362,7 +362,7 @@ public final class RendKeyWordsTest {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);
-        return new AnalyzedTestContext(s_, page_, new Forwards());
+        return new AnalyzedTestContext(s_, page_, new Forwards(), lgName_);
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {

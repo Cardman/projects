@@ -55,7 +55,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
         if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -65,7 +65,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                             StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
-                String string_ = _page.getStandards().getAliasString();
+                String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -94,7 +94,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
         }
         String converterField_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         if (!converterField_.trim().isEmpty()) {
-            String object_ = _page.getStandards().getAliasObject();
+            String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -110,14 +110,14 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
-                        _page.getStandards().getAliasCharSequence());
+                        _page.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }

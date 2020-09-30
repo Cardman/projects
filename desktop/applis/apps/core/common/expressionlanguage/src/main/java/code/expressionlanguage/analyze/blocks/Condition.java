@@ -52,7 +52,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     private void processBoolean(OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching resultClass_ = _root.getResultClass();
         if (!resultClass_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), resultClass_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), resultClass_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resultClass_.getImplicits().add(cl_);

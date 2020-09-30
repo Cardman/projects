@@ -84,7 +84,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     @Override
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
-        String void_ = _page.getStandards().getAliasVoid();
+        String void_ = _page.getAliasVoid();
         setImportedReturnType(void_);
     }
 

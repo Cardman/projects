@@ -24,7 +24,7 @@ public final class BitAndOperation extends NumericOperation {
                               AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         ResultOperand res_ = new ResultOperand();
         if (_a.isBoolType(_page) && _b.isBoolType(_page)) {
-            String bool_ = _page.getStandards().getAliasPrimBoolean();
+            String bool_ = _page.getAliasPrimBoolean();
             _a.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             _b.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
@@ -38,7 +38,7 @@ public final class BitAndOperation extends NumericOperation {
             return res_;
         }
         _page.setOkNumOp(false);
-        String exp_ = _page.getStandards().getAliasNumber();
+        String exp_ = _page.getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);

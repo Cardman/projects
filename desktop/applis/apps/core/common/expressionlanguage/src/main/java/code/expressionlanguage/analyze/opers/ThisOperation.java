@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaThisContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -24,7 +23,6 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
         if (isIntermediateDottedOperation()) {
             MethodOperation m_ = getParent();
             OperationNode o_ = m_.getFirstChild();
@@ -55,7 +53,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         _page.getKeyWords().getKeyWordThis());
                 _page.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
-                setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             for (RootBlock r: g_.getSelfAndParentTypes().getReverse()) {
@@ -95,7 +93,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 }
                 thisContent.setNbAncestors(thisContent.getNbAncestors()+1);
             }
-            String arg_ = stds_.getAliasObject();
+            String arg_ = _page.getAliasObject();
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

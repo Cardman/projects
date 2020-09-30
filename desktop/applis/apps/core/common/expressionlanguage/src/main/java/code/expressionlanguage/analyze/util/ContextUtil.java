@@ -331,9 +331,8 @@ public final class ContextUtil {
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        LgNames stds_ = _page.getStandards();
         for (String f: _names) {
-            String iterable_ = stds_.getAliasIterable();
+            String iterable_ = _page.getAliasIterable();
             String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);
@@ -344,12 +343,11 @@ public final class ContextUtil {
 
     public static IterableAnalysisResult getCustomTableType(StringList _names, AnalyzedPageEl _page) {
         StringList out_ = new StringList();
-        LgNames stds_ = _page.getStandards();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         for (String f: _names) {
-            String iterable_ = stds_.getAliasIterableTable();
+            String iterable_ = _page.getAliasIterableTable();
             String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);

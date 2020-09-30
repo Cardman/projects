@@ -7,7 +7,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -27,18 +26,17 @@ public final class ConstantOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_;
-        LgNames stds_ = _page.getStandards();
         String stringType_;
-        stringType_ = stds_.getAliasString();
+        stringType_ = _page.getAliasString();
         if (op_.getConstType() == ConstType.TRUE_CST) {
-            argClName_ = stds_.getAliasPrimBoolean();
+            argClName_ = _page.getAliasPrimBoolean();
             Argument a_ = new Argument(BooleanStruct.of(true));
             setSimpleArgument(a_);
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
-            argClName_ = stds_.getAliasPrimBoolean();
+            argClName_ = _page.getAliasPrimBoolean();
             Argument a_ = new Argument(BooleanStruct.of(false));
             setSimpleArgument(a_);
             setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -67,7 +65,7 @@ public final class ConstantOperation extends LeafOperation {
             return;
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
-            argClName_ = stds_.getAliasPrimChar();
+            argClName_ = _page.getAliasPrimChar();
             Argument a_;
             if (op_.getStrInfo().isKo()) {
                 a_ = new Argument();
@@ -105,7 +103,7 @@ public final class ConstantOperation extends LeafOperation {
                     str_);
             _page.getLocalizer().addError(badFormat_);
             getErrs().add(badFormat_.getBuiltError());
-            argClassName_ = stds_.getAliasPrimDouble();
+            argClassName_ = _page.getAliasPrimDouble();
         }
         Argument arg_ = new Argument(parsed_.getStruct());
         setSimpleArgument(arg_);
@@ -113,7 +111,7 @@ public final class ConstantOperation extends LeafOperation {
     }
 
     private static ParsedArgument parse(OperationsSequence _op, AnalyzedPageEl _page) {
-        return ParsedArgument.parse(_op.getNbInfos(), _page.getStandards());
+        return ParsedArgument.parse(_op.getNbInfos(), _page);
     }
 
     public int getLength() {

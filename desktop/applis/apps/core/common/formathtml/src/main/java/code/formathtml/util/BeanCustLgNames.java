@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
@@ -38,7 +39,6 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
@@ -54,48 +54,7 @@ import code.sml.Element;
 import code.util.*;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
-    protected static final String BEAN = "Bean";
-    protected static final String MAP_KEYS = "MapKeys";
-    protected static final String MAP_VALUES = "MapValues";
-    protected static final String MAP_INDEX_OF_ENTRY = "MapIndexOfEntry";
-    protected static final String MAP_ADD_ENTRY = "MapAddEntry";
-    protected static final String MAP_GET_VALUE = "MapGetValue";
-    protected static final String MAP_FIRST_VALUE = "MapFirstValue";
-    protected static final String MAP_LAST_VALUE = "MapLastValue";
-    protected static final String MAP_SET_VALUE = "MapSetValue";
-    protected static final String MAP_PUT = "MapPut";
-    protected static final String MAP_CONTAINS = "MapContains";
-    protected static final String MAP_PUT_ALL = "MapPutAll";
-    protected static final String MAP_GET_VAL = "MapGetVal";
-    protected static final String MAP_REMOVE_KEY = "MapRemoveKey";
-    protected static final String MAP_GET_KEY = "MapGetKey";
-    protected static final String MAP_FIRST_KEY = "MapFirstKey";
-    protected static final String MAP_LAST_KEY = "MapLastKey";
-    protected static final String MAP_SET_KEY = "MapSetKey";
-    protected static final String MAP_SIZE = "MapSize";
-    protected static final String MAP_IS_EMPTY = "MapIsEmpty";
-    protected static final String MAP_CLEAR = "MapClear";
-    protected static final String VALIDATOR = "Validator";
-    protected static final String VALIDATE = "Validate";
-    protected static final String DATA_BASE_FIELD = "DataBaseField";
-    protected static final String FORMS = "Forms";
-    protected static final String SET_FORMS = "SetForms";
-    protected static final String GET_FORMS = "GetForms";
-    protected static final String LANGUAGE = "Language";
-    protected static final String SET_LANGUAGE = "SetLanguage";
-    protected static final String GET_LANGUAGE = "GetLanguage";
-    protected static final String SCOPE = "Scope";
-    protected static final String SET_SCOPE = "SetScope";
-    protected static final String GET_SCOPE = "GetScope";
-    protected static final String SET_DATA_BASE = "SetDataBase";
-    protected static final String GET_DATA_BASE = "GetDataBase";
-    protected static final String BEFORE_DISPLAYING = "BeforeDisplaying";
-    protected static final String STRING_MAP_OBJECT = "StringMapObject";
-    protected static final String MESSAGE = "Message";
-    protected static final String NEW_MESSAGE = "NewMessage";
-    protected static final String MESSAGE_FORMAT = "MessageFormat";
-    protected static final String MESSAGE_GET_ARGS = "MessageGetArgs";
-    protected static final String MESSAGE_SET_ARGS = "MessageSetArgs";
+    private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
     private static final String RETURN_LINE = "\n";
 
@@ -151,30 +110,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsSetLanguage;
     private CustList<RendDynOperationNode> expsValidate;
     private CustList<RendDynOperationNode> opsMap;
-    private String aliasBean = "code.bean.Bean";
-    private String aliasMapKeys = "keys";
-    private String aliasMapValues = "values";
-    private String aliasMapIndexOfEntry = "indexOfEntry";
-    private String aliasMapAddEntry = "addEntry";
-    private String aliasMapGetValue = "getValue";
-    private String aliasMapFirstValue = "firstValue";
-    private String aliasMapLastValue = "lastValue";
-    private String aliasMapSetValue = "setValue";
-    private String aliasMapPut = "put";
-    private String aliasMapContains = "contains";
-    private String aliasMapPutAll = "putAll";
-    private String aliasMapGetVal = "getVal";
-    private String aliasMapRemoveKey = "removeKey";
-    private String aliasMapGetKey = "getKey";
-    private String aliasMapFirstKey = "firstKey";
-    private String aliasMapLastKey = "lastKey";
-    private String aliasMapSetKey = "setKey";
-    private String aliasMapSize = "size";
-    private String aliasMapIsEmpty = "isEmpty";
-    private String aliasMapClear = "clear";
-
-    private String aliasValidator="code.bean.Validator";
-    private String aliasValidate="validate";
     private String validateVar;
     private String validateVarArgNewValue;
     private String validateVarArgOldValue;
@@ -185,60 +120,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     private Struct storedForms = NullStruct.NULL_VALUE;
 
-
-    private String aliasDataBaseField= "dataBase";
-
-    private String aliasForms= "forms";
-    private String aliasSetForms= "setForms";
-    private String aliasGetForms= "getForms";
-    private String aliasLanguage= "language";
-    private String aliasSetLanguage= "setLanguage";
-    private String aliasGetLanguage= "getLanguage";
-    private String aliasScope= "scope";
-    private String aliasSetScope= "setScope";
-    private String aliasGetScope= "getScope";
-    private String aliasSetDataBase= "setDataBase";
-    private String aliasGetDataBase= "getDataBase";
-    private String aliasBeforeDisplaying= "beforeDisplaying";
-    private String aliasStringMapObject="code.util.StringMapObject";
-    private String aliasMessage="code.bean.Message";
-    private String aliasNewMessage="newStandardMessage";
-    private String aliasMessageFormat="format";
-    private String aliasMessageGetArgs="getArgs";
-    private String aliasMessageSetArgs="setArgs";
-
     public BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
 
     @Override
     public void buildOther() {
-        CustList<StandardField> fields_;
-        StringList params_;
-        StandardMethod method_;
-        StandardType std_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
-        std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);
-        methods_.add( method_);
-        params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL);
-        methods_.add( method_);
-        getStandards().addEntry(aliasMessage, std_);
+        beanAliases.buildOther(getContent());
     }
 
     public void buildIterables(Classes _classes) {
@@ -446,7 +334,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         locName_ = tr(l_);
         vlidateVarArgNameField = locName_;
 
-        String validate_ = aliasValidate;
+        String validate_ = beanAliases.getAliasValidate();
         args_ = new StringMap<String>();
         args_.addEntry(validateVarArgNewValue,getAliasObject());
         args_.addEntry(validateVarArgOldValue,getAliasObject());
@@ -454,8 +342,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         args_.addEntry(validateVarArgForm,StringExpUtil.getPrettyArrayType(getAliasObject()));
         args_.addEntry(validateVarArgClassField,getAliasString());
         args_.addEntry(vlidateVarArgNameField,getAliasString());
-        expsValidate = newCall(validateVar,aliasValidator,
-                new ClassMethodId(aliasValidator,new MethodId(MethodAccessKind.INSTANCE,validate_,new StringList(
+        expsValidate = newCall(validateVar, beanAliases.getAliasValidator(),
+                new ClassMethodId(beanAliases.getAliasValidator(),new MethodId(MethodAccessKind.INSTANCE,validate_,new StringList(
                         getAliasObject(),
                         getAliasObject(),
                         getAliasObject(),
@@ -508,333 +396,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         opsMap.add(new RendStandardInstancingOperation(ex_, new ExecOperationContent(0, execClassArgumentMatching, 0), new ExecInstancingCommonContent(cont_), new ExecInstancingStdContent(new AnaInstancingStdContent())));
     }
 
-    @Override
-    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
-        StringMap<String> files_ = super.buildFiles(_page);
-        KeyWords keyWords_ = _page.getKeyWords();
-        String public_ = keyWords_.getKeyWordPublic();
-        String private_ = keyWords_.getKeyWordPrivate();
-        String interface_ = keyWords_.getKeyWordInterface();
-        String class_ = keyWords_.getKeyWordClass();
-        String return_ = keyWords_.getKeyWordReturn();
-        String if_ = keyWords_.getKeyWordIf();
-        String for_ = keyWords_.getKeyWordFor();
-        String null_ = keyWords_.getKeyWordNull();
-        String new_ = keyWords_.getKeyWordNew();
-        String int_ = getAliasPrimInteger();
-        String endLine_ = String.valueOf(';');
-        String suffixParam_ = "";
-        StringBuilder file_ = new StringBuilder();
-        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasBean()).append("{");
-        String string_ = getAliasString();
-        String language_ = getAliasLanguage();
-        String scope_ = getAliasScope();
-        String dataBase_ = getAliasDataBaseField();
-        String this_ = keyWords_.getKeyWordThis();
-        String object_ = getAliasObject();
-        String forms_ = getAliasForms();
-        String boolean_ = getAliasPrimBoolean();
-        String length_ = getAliasLength();
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
-                .append(language_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
-                .append(scope_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(object_).append(" ")
-                .append(dataBase_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(getAliasStringMapObject()).append(" ")
-                .append(forms_).append(endLine_);
-        String void_ = getAliasVoid();
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasBeforeDisplaying()).append("(){");
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
-                .append(getAliasGetLanguage()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(language_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetLanguage()).append("(").append(string_).append(" ").append(language_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(language_).append("=")
-                .append(language_).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
-                .append(getAliasGetScope()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(scope_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetScope()).append("(").append(string_).append(" ").append(scope_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(scope_).append("=")
-                .append(scope_).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(object_).append(" ")
-                .append(getAliasGetDataBase()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(dataBase_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetDataBase()).append("(").append(object_).append(" ")
-                .append(dataBase_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(dataBase_).append("=")
-                .append(dataBase_).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(getAliasStringMapObject())
-                .append(" ").append(getAliasGetForms()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(forms_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetForms()).append("(").append(getAliasStringMapObject())
-                .append(" ").append(forms_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(forms_).append("=")
-                .append(forms_).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append("}");
-        files_.put(getAliasBean(), file_.toString());
-        getPredefinedInterfacesInitOrder().add(getAliasBean());
-        file_ = new StringBuilder();
-        String keys_ = getAliasMapKeys();
-        String values_ = getAliasMapValues();
-        String indexOfEntry_ = getAliasMapIndexOfEntry();
-        String addEntry_ = getAliasMapAddEntry();
-        String getValue_ = getAliasMapGetValue();
-        String setValue_ = getAliasMapSetValue();
-        String put_ = getAliasMapPut();
-        String putAll_ = getAliasMapPutAll();
-        String getVal_ = getAliasMapGetVal();
-        String removeKey_ = getAliasMapRemoveKey();
-        String getKey_ = getAliasMapGetKey();
-        String setKey_ = getAliasMapSetKey();
-        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasStringMapObject())
-                .append("{");
-        file_.append(private_).append(" ").append(string_).append("[] ").append(keys_)
-                .append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
-        file_.append(private_).append(" ").append(object_).append("[] ").append(values_)
-                .append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
-        file_.append(public_).append(" ").append(string_).append("[] ").append(keys_).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(aliasMapFirstKey).append("(){");
-        file_.append(return_).append(" ").append(keys_).append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(aliasMapLastKey).append("(){");
-        file_.append(return_).append(" ").append(keys_).append("[").append(keys_).append(".")
-                .append(length_).append("-1]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append("[] ").append(values_).append("(){");
-        file_.append(return_).append(" ").append(values_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(aliasMapFirstValue).append("(){");
-        file_.append(return_).append(" ").append(values_).append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(aliasMapLastValue).append("(){");
-        file_.append(return_).append(" ").append(values_).append("[").append(values_)
-                .append(".").append(length_).append("-1]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setKey_).append("(")
-                .append(int_).append(" ").append(trLoc("i", _page)).append(",").append(string_)
-                .append(" ").append(trLoc("k", _page)).append("){");
-        file_.append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page))
-                .append("]=").append(trLoc("k", _page)).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(getKey_)
-                .append("(").append(int_).append(" ").append(trLoc("i", _page)).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(keys_).append("[")
-                .append(trLoc("i", _page)).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setValue_)
-                .append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append(",").append(object_).append(" ").append(trLoc("v", _page)).append("){");
-        file_.append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
-                .append("]=").append(trLoc("v", _page)).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(getValue_).append("(")
-                .append(int_).append(" ").append(trLoc("i", _page)).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(values_)
-                .append("[").append(trLoc("i", _page)).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(aliasMapClear).append("(){");
-        file_.append(keys_).append("=").append(new_).append(" ").append(string_)
-                .append("[0]").append(endLine_);
-        file_.append(values_).append("=").append(new_).append(" ").append(object_)
-                .append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapIsEmpty).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(".").append(length_)
-                .append("==0").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(int_).append(" ").append(aliasMapSize).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(".").append(length_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ")
-                .append(put_).append("(").append(string_).append(" ")
-                .append(trLoc("k", _page)).append(",").append(object_)
-                .append(" ").append(trLoc("v", _page)).append("){");
-        file_.append(int_).append(" ").append(trLoc("index", _page)).append("=")
-                .append(indexOfEntry_).append("(").append(trLoc("k", _page)).append(")")
-                .append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
-        file_.append(addEntry_).append("(").append(trLoc("k", _page)).append(", ")
-                .append(trLoc("v", _page)).append(")").append(endLine_);
-        file_.append(return_).append(endLine_);
-        file_.append("}");
-        file_.append(setValue_).append("(").append(trLoc("index", _page)).append(", ")
-                .append(trLoc("v", _page)).append(")").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapContains)
-                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
-        file_.append(return_).append(" ").append(indexOfEntry_).append("(")
-                .append(trLoc("k", _page)).append(") != -1").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(getVal_).append("(")
-                .append(string_).append(" ").append(trLoc("k", _page)).append("){");
-        file_.append(int_).append(" ").append(trLoc("index", _page)).append("=").append(indexOfEntry_)
-                .append("(").append(trLoc("k", _page)).append(")").append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
-        file_.append(return_).append(" ").append(null_).append(endLine_);
-        file_.append("}");
-        file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index", _page))
-                .append(")").append(endLine_);
-        file_.append("}");
-
-        file_.append(public_).append(" ").append(void_).append(" ")
-                .append(addEntry_).append("(").append(string_).append(" ")
-                .append(trLoc("k", _page)).append(",").append(object_)
-                .append(" ").append(trLoc("v", _page)).append("){");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
-                .append(" ").append(string_).append("[").append(this_)
-                .append(".").append(keys_).append(".").append(length_)
-                .append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
-                .append(this_).append(".")
-                .append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoc("i", _page)).append("++){");
-        file_.append(trLoc(keys_, _page)).append("[").append(trLoc("i", _page))
-                .append("]=").append(this_).append(".").append(keys_).append("[")
-                .append(trLoc("i", _page)).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(trLoc(keys_, _page)).append("[").append(this_).append(".").append(keys_)
-                .append(".").append(length_).append("]=").append(trLoc("k", _page)).append(endLine_);
-        file_.append(this_).append(".").append(keys_).append("=").append(trLoc(keys_, _page)).append(endLine_);
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
-                .append(object_).append("[").append(this_).append(".").append(values_).append(".")
-                .append(length_).append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
-                .append(this_).append(".").append(values_).append(".").append(length_).append(endLine_)
-                .append(trLoc("i", _page)).append("++){");
-        file_.append(trLoc(values_, _page)).append("[").append(trLoc("i", _page))
-                .append("]=").append(this_).append(".").append(values_).append("[")
-                .append(trLoc("i", _page)).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(trLoc(values_, _page)).append("[").append(this_).append(".").append(values_)
-                .append(".").append(length_).append("]=").append(trLoc("v", _page)).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_, _page))
-                .append(endLine_);
-        file_.append("}");
-
-        file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_)
-                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
-        file_.append(for_).append("(").append(int_)
-                .append(" ").append(trLoc("i", _page)).append("=0")
-                .append(endLine_).append(trLoc("i", _page)).append("<").append(this_)
-                .append(".").append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoc("i", _page)).append("++){");
-        file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page)).append("]==").append(trLoc("k", _page)).append("){");
-        file_.append(return_).append(" ").append(trLoc("i", _page)).append(endLine_);
-        file_.append("}");
-        file_.append("}");
-        file_.append(return_).append(" -1").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(")
-                .append(getAliasStringMapObject()).append(" ").append(trLoc("m", _page)).append("){");
-        file_.append(int_).append(" ").append(trLoc("len", _page)).append("=").append("(")
-                .append(trLoc("m", _page)).append(").").append(keys_).append(".")
-                .append(length_).append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
-                .append(trLoc("len", _page)).append(endLine_).append(trLoc("i", _page)).append("++){");
-        file_.append(" ").append(put_).append("(").append("(")
-                .append(trLoc("m", _page)).append(").")
-                .append(keys_).append("[").append(trLoc("i", _page))
-                .append("], ").append("(").append(trLoc("m", _page))
-                .append(").").append(values_).append("[").append(trLoc("i", _page))
-                .append("])").append(endLine_);
-        file_.append("}");
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_)
-                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
-        file_.append(int_).append(" ").append(trLoc("index", _page))
-                .append("=").append(indexOfEntry_).append("(").append(trLoc("k", _page))
-                .append(")").append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
-        file_.append(return_).append(endLine_);
-        file_.append("}");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
-                .append(" ").append(string_).append("[").append(this_).append(".").append(keys_)
-                .append(".").append(length_).append("-1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page)).append("=0")
-                .append(endLine_).append(trLoc("i", _page))
-                .append("<").append(trLoc("index", _page))
-                .append(endLine_).append(trLoc("i", _page))
-                .append("++){");
-        file_.append(keys_).append("[").append(trLoc("i", _page)).append("]=")
-                .append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page))
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append("=").append(trLoc("index", _page)).append("+1").append(endLine_)
-                .append(trLoc("i", _page)).append("<").append(this_).append(".")
-                .append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoc("i", _page)).append("++){");
-        file_.append(keys_).append("[").append(trLoc("i", _page)).append("-1]=").append(this_)
-                .append(".").append(keys_).append("[").append(trLoc("i", _page)).append("]")
-                .append(endLine_);
-        file_.append("}");
-        file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
-
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
-                .append(object_).append("[").append(this_).append(".")
-                .append(values_).append(".").append(length_).append("-1]")
-                .append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page)).append("=0")
-                .append(endLine_).append(trLoc("i", _page))
-                .append("<").append(trLoc("index", _page))
-                .append(endLine_).append(trLoc("i", _page))
-                .append("++){");
-        file_.append(values_).append("[").append(trLoc("i", _page)).append("]=")
-                .append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
-                .append("=").append(trLoc("index", _page)).append("+1").append(endLine_)
-                .append(trLoc("i", _page)).append("<").append(this_).append(".").append(values_)
-                .append(".").append(length_).append(endLine_).append(trLoc("i", _page)).append("++){");
-        file_.append(values_).append("[").append(trLoc("i", _page)).append("-1]=")
-                .append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
-        file_.append("}");
-        file_.append("}");
-        files_.put(getAliasStringMapObject(), file_.toString());
-        getPredefinedInterfacesInitOrder().add(getAliasStringMapObject());
-        file_ = new StringBuilder();
-        file_.append(public_).append(" ").append(interface_).append(" ")
-                .append(aliasValidator).append("{");
-        file_.append(public_).append(" ").append(getAliasMessage()).append(" ")
-                .append(aliasValidate).append("(");
-        file_.append(object_).append(" ").append(trLoc("newValue", _page)).append(",");
-        file_.append(object_).append(" ").append(trLoc("oldValue", _page)).append(",");
-        file_.append(object_).append(" ").append(trLoc("bean", _page)).append(",");
-        file_.append(object_).append("[] ").append(trLoc("form", _page)).append(",");
-        file_.append(string_).append(" ").append(trLoc("className", _page)).append(",");
-        file_.append(string_).append(" ").append(trLoc("fieldName", _page));
-        file_.append(")");
-        file_.append(endLine_);
-        file_.append("}");
-        files_.put(aliasValidator, file_.toString());
-        getPredefinedInterfacesInitOrder().add(aliasValidator);
-        return files_;
-    }
-
     private static String tr(StringList _list) {
         String candidate_ = "tmp";
         int index_ = 0;
@@ -843,31 +404,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             index_++;
         }
         _list.add(candidate_);
-        return candidate_;
-    }
-    private static String tr(String _var, AnalyzedPageEl analyzing) {
-        CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(analyzing.getPrimitiveTypes().getKeys());
-        allKeysWords_.add(analyzing.getStandards().getAliasVoid());
-        return getCandidate(_var, allKeysWords_);
-    }
-    private static String trLoop(String _var, AnalyzedPageEl analyzing) {
-        return tr(_var, analyzing);
-    }
-    private static String trParam(String _var, AnalyzedPageEl analyzing) {
-        return trLoop(_var, analyzing);
-    }
-    private static String trLoc(String _var, AnalyzedPageEl analyzing) {
-        return trParam(_var, analyzing);
-    }
-
-    private static String getCandidate(String _var, CustList<String> allKeysWords_) {
-        String candidate_ = _var;
-        int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
-            index_++;
-        }
         return candidate_;
     }
 
@@ -979,58 +515,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        StringList list_ = _method.getConstraints().getParametersTypes();
-        String type_ = _method.getClassName();
-        if (StringList.quickEq(type_, getAliasEnums())) {
-            return super.getOtherResult(_cont,_instance,_method,_args);
-        }
-        String name_ = _method.getConstraints().getName();
-        MessageStruct instance_ = getMessageStruct(_instance);
-        if (StringList.quickEq(name_, aliasNewMessage)) {
-            if (list_.isEmpty()) {
-                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
-            } else {
-                String value_ = NumParsers.getString(_args[0]).getInstance();
-                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
-            }
-            return res_;
-        }
-        if (StringList.quickEq(name_, aliasMessageFormat)) {
-            res_.setResult(wrapStd(instance_.getMessage()));
-            return res_;
-        }
-        if (StringList.quickEq(name_, aliasMessageGetArgs)) {
-            StringList resArgs_ = instance_.getArgs();
-            String arrStr_ = StringExpUtil.getPrettyArrayType(getAliasString());
-            int len_ = resArgs_.size();
-            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
-            for (int i = 0; i < len_; i++){
-                arr_.getInstance()[i] = wrapStd(resArgs_.get(i));
-            }
-            res_.setResult(arr_);
-            return res_;
-        }
-        Struct[] argsInst_ = ExecArrayFieldOperation.getArray(_args[0],_cont).getInstance();
-        int len_ = argsInst_.length;
-        String[] resArgs_ = new String[len_];
-        for (int i = 0; i < len_; i++){
-            Struct argInst_ = argsInst_[i];
-            if (argInst_ instanceof StringStruct) {
-                resArgs_[i] = ((StringStruct)argInst_).getInstance();
-            } else {
-                resArgs_[i] = _cont.getStandards().getDisplayedStrings().getNullString();
-            }
-        }
-        instance_.setArgs(resArgs_);
-        res_.setResult(NullStruct.NULL_VALUE);
-        return res_;
-    }
-    private MessageStruct getMessageStruct(Struct _str) {
-        if (_str instanceof MessageStruct) {
-            return (MessageStruct) _str;
-        }
-        return MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage);
+        return beanAliases.getOtherResult(_cont, _instance, _method, _args);
     }
 
     @Override
@@ -1120,7 +605,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend) {
+    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
         AnalyzedPageEl page_ = null;
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
@@ -1137,10 +622,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
-                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend);
+                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder);
             }
         }
         return page_;
+    }
+
+    public DefaultBeanAliases getBeanAliases() {
+        return beanAliases;
     }
 
     @Override
@@ -1362,7 +851,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (arg_.isNull()) {
             return null;
         }
-        return getMessageStruct(arg_.getStruct()).getInstance();
+        return DefaultBeanAliases.getMessageStruct(arg_.getStruct(), beanAliases.getAliasMessage()).getInstance();
     }
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {
@@ -1514,405 +1003,264 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> types_ = super.allRefTypes();
-        types_.addEntry(MESSAGE,getAliasMessage());
-        types_.addEntry(VALIDATOR,getAliasValidator());
-        types_.addEntry(STRING_MAP_OBJECT,getAliasStringMapObject());
-        types_.addEntry(BEAN,getAliasBean());
+        for (EntryCust<String,String> e: beanAliases.allRefTypes().entryList()) {
+            types_.addEntry(e.getKey(),e.getValue());
+        }
         return types_;
     }
 
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        methods_.addEntry(getAliasMessage(),
-                new CustList<KeyValueMemberName>(new KeyValueMemberName(NEW_MESSAGE,getAliasNewMessage()),
-                        new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
-                        new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
-                        new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
-        methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(VALIDATE,getAliasValidate())));
-        methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(MAP_GET_VAL,getAliasMapGetVal()),
-                new KeyValueMemberName(MAP_PUT,getAliasMapPut()),
-                new KeyValueMemberName(MAP_PUT_ALL,getAliasMapPutAll()),
-                new KeyValueMemberName(MAP_INDEX_OF_ENTRY,getAliasMapIndexOfEntry()),
-                new KeyValueMemberName(MAP_ADD_ENTRY,getAliasMapAddEntry()),
-                new KeyValueMemberName(MAP_CONTAINS,getAliasMapContains()),
-                new KeyValueMemberName(MAP_SIZE,getAliasMapSize()),
-                new KeyValueMemberName(MAP_IS_EMPTY,getAliasMapIsEmpty()),
-                new KeyValueMemberName(MAP_CLEAR,getAliasMapClear()),
-                new KeyValueMemberName(MAP_REMOVE_KEY,getAliasMapRemoveKey()),
-                new KeyValueMemberName(MAP_FIRST_VALUE,getAliasMapFirstValue()),
-                new KeyValueMemberName(MAP_LAST_VALUE,getAliasMapLastValue()),
-                new KeyValueMemberName(MAP_GET_VALUE,getAliasMapGetValue()),
-                new KeyValueMemberName(MAP_SET_VALUE,getAliasMapSetValue()),
-                new KeyValueMemberName(MAP_FIRST_KEY,getAliasMapFirstKey()),
-                new KeyValueMemberName(MAP_LAST_KEY,getAliasMapLastKey()),
-                new KeyValueMemberName(MAP_GET_KEY,getAliasMapGetKey()),
-                new KeyValueMemberName(MAP_SET_KEY,getAliasMapSetKey())
-        ));
-        methods_.addEntry(getAliasBean(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(BEFORE_DISPLAYING,getAliasBeforeDisplaying()),
-                new KeyValueMemberName(GET_DATA_BASE,getAliasGetDataBase()),
-                new KeyValueMemberName(GET_LANGUAGE,getAliasGetLanguage()),
-                new KeyValueMemberName(GET_SCOPE,getAliasGetScope()),
-                new KeyValueMemberName(GET_FORMS,getAliasGetForms()),
-                new KeyValueMemberName(SET_DATA_BASE,getAliasSetDataBase()),
-                new KeyValueMemberName(SET_LANGUAGE,getAliasSetLanguage()),
-                new KeyValueMemberName(SET_SCOPE,getAliasSetScope()),
-                new KeyValueMemberName(SET_FORMS,getAliasSetForms())
-        ));
+        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames().entryList()) {
+            methods_.addEntry(e.getKey(),e.getValue());
+        }
         return methods_;
     }
 
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
-        fields_.addEntry(getAliasMessage(),
-                new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName(MAP_KEYS,getAliasMapKeys()),
-                        new KeyValueMemberName(MAP_VALUES,getAliasMapValues())));
-        fields_.addEntry(getAliasBean(),
-                new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName(FORMS,getAliasForms()),
-                        new KeyValueMemberName(LANGUAGE,getAliasLanguage()),
-                        new KeyValueMemberName(DATA_BASE_FIELD,getAliasDataBaseField()),
-                        new KeyValueMemberName(SCOPE,getAliasScope())));
+        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames().entryList()) {
+            fields_.addEntry(e.getKey(),e.getValue());
+        }
         return fields_;
     }
 
-    public String getAliasMapKeys() {
-        return aliasMapKeys;
-    }
 
     public void setAliasMapKeys(String _aliasMapKeys) {
-        aliasMapKeys = _aliasMapKeys;
-    }
-
-    public String getAliasMapValues() {
-        return aliasMapValues;
+        beanAliases.setAliasMapKeys(_aliasMapKeys);
     }
 
     public void setAliasMapValues(String _aliasMapValues) {
-        aliasMapValues = _aliasMapValues;
-    }
-
-    public String getAliasMapIndexOfEntry() {
-        return aliasMapIndexOfEntry;
+        beanAliases.setAliasMapValues(_aliasMapValues);
     }
 
     public void setAliasMapIndexOfEntry(String _aliasMapIndexOfEntry) {
-        aliasMapIndexOfEntry = _aliasMapIndexOfEntry;
-    }
-
-    public String getAliasMapAddEntry() {
-        return aliasMapAddEntry;
+        beanAliases.setAliasMapIndexOfEntry(_aliasMapIndexOfEntry);
     }
 
     public void setAliasMapAddEntry(String _aliasMapAddEntry) {
-        aliasMapAddEntry = _aliasMapAddEntry;
-    }
-
-    public String getAliasMapGetValue() {
-        return aliasMapGetValue;
+        beanAliases.setAliasMapAddEntry(_aliasMapAddEntry);
     }
 
     public void setAliasMapGetValue(String _aliasMapGetValue) {
-        aliasMapGetValue = _aliasMapGetValue;
-    }
-
-    public String getAliasMapFirstValue() {
-        return aliasMapFirstValue;
+        beanAliases.setAliasMapGetValue(_aliasMapGetValue);
     }
 
     public void setAliasMapFirstValue(String _aliasMapFirstValue) {
-        aliasMapFirstValue = _aliasMapFirstValue;
-    }
-
-    public String getAliasMapLastValue() {
-        return aliasMapLastValue;
+        beanAliases.setAliasMapFirstValue(_aliasMapFirstValue);
     }
 
     public void setAliasMapLastValue(String _aliasMapLastValue) {
-        aliasMapLastValue = _aliasMapLastValue;
-    }
-
-    public String getAliasMapSetValue() {
-        return aliasMapSetValue;
+        beanAliases.setAliasMapLastValue(_aliasMapLastValue);
     }
 
     public void setAliasMapSetValue(String _aliasMapSetValue) {
-        aliasMapSetValue = _aliasMapSetValue;
+        beanAliases.setAliasMapSetValue(_aliasMapSetValue);
     }
 
     public String getAliasMapPut() {
-        return aliasMapPut;
+        return beanAliases.getAliasMapPut();
     }
 
     public void setAliasMapPut(String _aliasMapPut) {
-        aliasMapPut = _aliasMapPut;
-    }
-
-    public String getAliasMapContains() {
-        return aliasMapContains;
+        beanAliases.setAliasMapPut(_aliasMapPut);
     }
 
     public void setAliasMapContains(String _aliasMapContains) {
-        aliasMapContains = _aliasMapContains;
+        beanAliases.setAliasMapContains(_aliasMapContains);
     }
 
     public String getAliasMapPutAll() {
-        return aliasMapPutAll;
+        return beanAliases.getAliasMapPutAll();
     }
 
     public void setAliasMapPutAll(String _aliasMapPutAll) {
-        aliasMapPutAll = _aliasMapPutAll;
+        beanAliases.setAliasMapPutAll(_aliasMapPutAll);
     }
 
     public String getAliasMapGetVal() {
-        return aliasMapGetVal;
+        return beanAliases.getAliasMapGetVal();
     }
 
     public void setAliasMapGetVal(String _aliasMapGetVal) {
-        aliasMapGetVal = _aliasMapGetVal;
-    }
-
-    public String getAliasMapRemoveKey() {
-        return aliasMapRemoveKey;
+        beanAliases.setAliasMapGetVal(_aliasMapGetVal);
     }
 
     public void setAliasMapRemoveKey(String _aliasMapRemoveKey) {
-        aliasMapRemoveKey = _aliasMapRemoveKey;
-    }
-
-    public String getAliasMapGetKey() {
-        return aliasMapGetKey;
+        beanAliases.setAliasMapRemoveKey(_aliasMapRemoveKey);
     }
 
     public void setAliasMapGetKey(String _aliasMapGetKey) {
-        aliasMapGetKey = _aliasMapGetKey;
-    }
-
-    public String getAliasMapFirstKey() {
-        return aliasMapFirstKey;
+        beanAliases.setAliasMapGetKey(_aliasMapGetKey);
     }
 
     public void setAliasMapFirstKey(String _aliasMapFirstKey) {
-        aliasMapFirstKey = _aliasMapFirstKey;
-    }
-
-    public String getAliasMapLastKey() {
-        return aliasMapLastKey;
+        beanAliases.setAliasMapFirstKey(_aliasMapFirstKey);
     }
 
     public void setAliasMapLastKey(String _aliasMapLastKey) {
-        aliasMapLastKey = _aliasMapLastKey;
-    }
-
-    public String getAliasMapSetKey() {
-        return aliasMapSetKey;
+        beanAliases.setAliasMapLastKey(_aliasMapLastKey);
     }
 
     public void setAliasMapSetKey(String _aliasMapSetKey) {
-        aliasMapSetKey = _aliasMapSetKey;
-    }
-
-    public String getAliasMapSize() {
-        return aliasMapSize;
+        beanAliases.setAliasMapSetKey(_aliasMapSetKey);
     }
 
     public void setAliasMapSize(String _aliasMapSize) {
-        aliasMapSize = _aliasMapSize;
-    }
-
-    public String getAliasMapIsEmpty() {
-        return aliasMapIsEmpty;
+        beanAliases.setAliasMapSize(_aliasMapSize);
     }
 
     public void setAliasMapIsEmpty(String _aliasMapIsEmpty) {
-        aliasMapIsEmpty = _aliasMapIsEmpty;
-    }
-
-    public String getAliasMapClear() {
-        return aliasMapClear;
+        beanAliases.setAliasMapIsEmpty(_aliasMapIsEmpty);
     }
 
     public void setAliasMapClear(String _aliasMapClear) {
-        aliasMapClear = _aliasMapClear;
-    }
-
-    public String getAliasValidator() {
-        return aliasValidator;
+        beanAliases.setAliasMapClear(_aliasMapClear);
     }
 
     public void setAliasValidator(String _aliasValidator) {
-        aliasValidator = _aliasValidator;
-    }
-
-    public String getAliasValidate() {
-        return aliasValidate;
+        beanAliases.setAliasValidator(_aliasValidator);
     }
 
     public void setAliasValidate(String _aliasValidate) {
-        aliasValidate = _aliasValidate;
+        beanAliases.setAliasValidate(_aliasValidate);
     }
 
     public String getAliasBean() {
-        return aliasBean;
+        return beanAliases.getAliasBean();
     }
 
     public void setAliasBean(String _aliasBean) {
-        aliasBean = _aliasBean;
+        beanAliases.setAliasBean(_aliasBean);
     }
 
     public String getAliasBeforeDisplaying() {
-        return aliasBeforeDisplaying;
+        return beanAliases.getAliasBeforeDisplaying();
     }
 
     public void setAliasBeforeDisplaying(String _aliasBeforeDisplaying) {
-        aliasBeforeDisplaying = _aliasBeforeDisplaying;
+        beanAliases.setAliasBeforeDisplaying(_aliasBeforeDisplaying);
     }
 
     public String getAliasDataBaseField() {
-        return aliasDataBaseField;
+        return beanAliases.getAliasDataBaseField();
     }
 
     public void setAliasDataBaseField(String _aliasDataBaseField) {
-        aliasDataBaseField = _aliasDataBaseField;
+        beanAliases.setAliasDataBaseField(_aliasDataBaseField);
     }
 
     public String getAliasGetDataBase() {
-        return aliasGetDataBase;
+        return beanAliases.getAliasGetDataBase();
     }
 
     public void setAliasGetDataBase(String _aliasGetDataBase) {
-        aliasGetDataBase = _aliasGetDataBase;
+        beanAliases.setAliasGetDataBase(_aliasGetDataBase);
     }
 
     public String getAliasSetDataBase() {
-        return aliasSetDataBase;
+        return beanAliases.getAliasSetDataBase();
     }
 
     public void setAliasSetDataBase(String _aliasSetDataBase) {
-        aliasSetDataBase = _aliasSetDataBase;
+        beanAliases.setAliasSetDataBase(_aliasSetDataBase);
     }
 
     public String getAliasForms() {
-        return aliasForms;
+        return beanAliases.getAliasForms();
     }
 
     public void setAliasForms(String _aliasForms) {
-        aliasForms = _aliasForms;
+        beanAliases.setAliasForms(_aliasForms);
     }
 
     public String getAliasGetForms() {
-        return aliasGetForms;
+        return beanAliases.getAliasGetForms();
     }
 
     public void setAliasGetForms(String _aliasGetForms) {
-        aliasGetForms = _aliasGetForms;
+        beanAliases.setAliasGetForms(_aliasGetForms);
     }
 
     public String getAliasSetForms() {
-        return aliasSetForms;
+        return beanAliases.getAliasSetForms();
     }
 
     public void setAliasSetForms(String _aliasSetForms) {
-        aliasSetForms = _aliasSetForms;
+        beanAliases.setAliasSetForms(_aliasSetForms);
     }
 
     public String getAliasLanguage() {
-        return aliasLanguage;
+        return beanAliases.getAliasLanguage();
     }
 
     public void setAliasLanguage(String _aliasLanguage) {
-        aliasLanguage = _aliasLanguage;
-    }
-    public String getAliasGetLanguage() {
-        return aliasGetLanguage;
+        beanAliases.setAliasLanguage(_aliasLanguage);
     }
 
     public void setAliasGetLanguage(String _aliasGetLanguage) {
-        aliasGetLanguage = _aliasGetLanguage;
+        beanAliases.setAliasGetLanguage(_aliasGetLanguage);
     }
 
     public String getAliasSetLanguage() {
-        return aliasSetLanguage;
+        return beanAliases.getAliasSetLanguage();
     }
 
     public void setAliasSetLanguage(String _aliasSetLanguage) {
-        aliasSetLanguage = _aliasSetLanguage;
+        beanAliases.setAliasSetLanguage(_aliasSetLanguage);
     }
 
     public String getAliasScope() {
-        return aliasScope;
+        return beanAliases.getAliasScope();
     }
 
     public void setAliasScope(String _aliasScope) {
-        aliasScope = _aliasScope;
+        beanAliases.setAliasScope(_aliasScope);
     }
 
     public String getAliasGetScope() {
-        return aliasGetScope;
+        return beanAliases.getAliasGetScope();
     }
 
     public void setAliasGetScope(String _aliasGetScope) {
-        aliasGetScope = _aliasGetScope;
+        beanAliases.setAliasGetScope(_aliasGetScope);
     }
 
     public String getAliasSetScope() {
-        return aliasSetScope;
+        return beanAliases.getAliasSetScope();
     }
 
     public void setAliasSetScope(String _aliasSetScope) {
-        aliasSetScope = _aliasSetScope;
+        beanAliases.setAliasSetScope(_aliasSetScope);
     }
     public String getAliasStringMapObject() {
-        return aliasStringMapObject;
+        return beanAliases.getAliasStringMapObject();
     }
 
     public void setAliasStringMapObject(String _aliasStringMapObject) {
-        aliasStringMapObject = _aliasStringMapObject;
-    }
-
-    public String getAliasMessage() {
-        return aliasMessage;
+        beanAliases.setAliasStringMapObject(_aliasStringMapObject);
     }
 
     public void setAliasMessage(String _aliasMessage) {
-        aliasMessage = _aliasMessage;
-    }
-
-    public String getAliasNewMessage() {
-        return aliasNewMessage;
+        beanAliases.setAliasMessage(_aliasMessage);
     }
 
     public void setAliasNewMessage(String _aliasNewMessage) {
-        aliasNewMessage = _aliasNewMessage;
-    }
-
-    public String getAliasMessageFormat() {
-        return aliasMessageFormat;
+        beanAliases.setAliasNewMessage(_aliasNewMessage);
     }
 
     public void setAliasMessageFormat(String _aliasMessageFormat) {
-        aliasMessageFormat = _aliasMessageFormat;
-    }
-
-    public String getAliasMessageGetArgs() {
-        return aliasMessageGetArgs;
+        beanAliases.setAliasMessageFormat(_aliasMessageFormat);
     }
 
     public void setAliasMessageGetArgs(String _aliasMessageGetArgs) {
-        aliasMessageGetArgs = _aliasMessageGetArgs;
-    }
-
-    public String getAliasMessageSetArgs() {
-        return aliasMessageSetArgs;
+        beanAliases.setAliasMessageGetArgs(_aliasMessageGetArgs);
     }
 
     public void setAliasMessageSetArgs(String _aliasMessageSetArgs) {
-        aliasMessageSetArgs = _aliasMessageSetArgs;
+        beanAliases.setAliasMessageSetArgs(_aliasMessageSetArgs);
     }
 
     public abstract void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess);

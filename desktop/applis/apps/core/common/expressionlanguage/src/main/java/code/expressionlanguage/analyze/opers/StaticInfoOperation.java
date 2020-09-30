@@ -29,9 +29,9 @@ public final class StaticInfoOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset_, _page);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
-        if (StringList.quickEq(realCl_.trim(), _page.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(realCl_.trim(), _page.getAliasVoid())) {
             className = realCl_.trim();
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasClassType()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasClassType()));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
@@ -39,7 +39,7 @@ public final class StaticInfoOperation extends LeafOperation {
         classStr_ = ResolvingImportTypes.resolveCorrectType(afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN), _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         className = classStr_;
-        setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasClassType()));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasClassType()));
     }
 
     public String getClassName() {

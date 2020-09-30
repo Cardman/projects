@@ -78,7 +78,7 @@ public final class AnaRendMessage extends AnaRendParentBlock {
             varNames = varNames_;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(_page.getStandards().getAliasPrimInteger());
+                lv_.setClassName(_page.getAliasPrimInteger());
                 _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
             }

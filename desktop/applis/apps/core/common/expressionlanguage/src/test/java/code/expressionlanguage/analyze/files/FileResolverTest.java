@@ -9846,7 +9846,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static int countCustomTypes(AnalyzedTestContext _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (!StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
+            if (!StringList.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
                 count_++;
             }
         }
@@ -9875,7 +9875,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static RootBlock getCustomTypes(AnalyzedTestContext _cont, int _i) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
+            if (StringList.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
                 continue;
             }
             if (count_ == _i) {
@@ -9889,8 +9889,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         AnalyzedTestContext cont_ = ctxLgAna("en");
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_,name_, true, content_);
@@ -9901,8 +9900,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         AnalyzedTestContext cont_ = getEnContextElComment();
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_,name_,  true, content_);
@@ -9913,8 +9911,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         AnalyzedTestContext cont_ = ctxLgAna("fr");
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);

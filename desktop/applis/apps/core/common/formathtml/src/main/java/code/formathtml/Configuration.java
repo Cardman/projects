@@ -5,14 +5,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendLocalThrowing;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -132,7 +130,7 @@ public final class Configuration {
                 continue;
             }
             currentUrl = link_;
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getStandards());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getPrimTypes());
             d_.addEntry(link_,anaDoc_);
         }
         for (AnaRendDocumentBlock v: d_.values()) {

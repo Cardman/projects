@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class CompoundAffectationOperation extends MethodOperation {
@@ -52,7 +51,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
-        LgNames stds_ = _page.getStandards();
         if (!(elt_ instanceof OperationNode)) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -69,7 +67,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+ operatorContent.getOper().length()));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         settable = elt_;
@@ -135,7 +133,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
         elt_.setVariable(false);
-        String stringType_ = stds_.getAliasString();
+        String stringType_ = _page.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         if (isString_&&!StringList.quickEq(operatorContent.getOper(), Block.NULL_EQ)) {
             settable.setCatenizeStrings();

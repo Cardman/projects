@@ -11,7 +11,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -32,7 +31,6 @@ public final class VarargOperation extends LeafOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
-        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -46,7 +44,7 @@ public final class VarargOperation extends LeafOperation {
             _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
@@ -62,7 +60,7 @@ public final class VarargOperation extends LeafOperation {
             _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }

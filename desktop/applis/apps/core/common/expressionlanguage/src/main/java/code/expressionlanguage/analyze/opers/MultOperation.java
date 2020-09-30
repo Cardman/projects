@@ -35,7 +35,7 @@ public final class MultOperation extends NumericOperation {
             res_.setResult(out_);
             return res_;
         }
-        String exp_ = _page.getStandards().getAliasNumber();
+        String exp_ = _page.getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);

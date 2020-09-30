@@ -30,7 +30,7 @@ public final class RotateRightOperation extends NumericOperation {
             return res_;
         }
         _page.setOkNumOp(false);
-        String exp_ = _page.getStandards().getAliasNumber();
+        String exp_ = _page.getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);

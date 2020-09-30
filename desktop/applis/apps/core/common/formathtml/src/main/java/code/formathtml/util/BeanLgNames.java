@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -144,7 +145,12 @@ public abstract class BeanLgNames extends LgNames {
         res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
         return res_;
     }
-
+    public static Struct wrapStd(String _element) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(_element);
+    }
     public boolean isConveritble(String _className) {
         if (StringList.quickEq(_className, getAliasString())) {
             return true;
@@ -153,12 +159,7 @@ public abstract class BeanLgNames extends LgNames {
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, getPrimitiveTypes());
     }
     public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend);
-    protected static Struct wrapStd(String _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new StringStruct(_element);
-    }
+
     public void setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName) {
         if (_mainBean == null) {
@@ -171,7 +172,7 @@ public abstract class BeanLgNames extends LgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
 
-    public AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend) {
+    public AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "firstUrl")) {
@@ -207,9 +208,9 @@ public abstract class BeanLgNames extends LgNames {
                 _configuration.setRenderFiles(ReadConfiguration.getStringList(c));
             }
         }
-        return specificLoad(_configuration,_lgCode,_document, _rend);
+        return specificLoad(_configuration,_lgCode,_document, _rend, _fileBuilder);
     }
-    protected abstract AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend);
+    protected abstract AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder);
 
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);

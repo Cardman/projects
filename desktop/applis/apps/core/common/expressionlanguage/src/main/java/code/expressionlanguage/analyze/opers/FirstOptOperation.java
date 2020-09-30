@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
 
@@ -29,7 +28,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
-        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
@@ -40,7 +38,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
                     _page.getKeyWords().getKeyWordFirstopt());
             _page.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (isFirstChildInParent()) {
@@ -52,7 +50,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
                     _page.getKeyWords().getKeyWordFirstopt());
             _page.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (m_ instanceof RetrieveMethod) {

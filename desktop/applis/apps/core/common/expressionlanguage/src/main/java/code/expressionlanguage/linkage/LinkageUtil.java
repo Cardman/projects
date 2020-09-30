@@ -30,7 +30,7 @@ public final class LinkageUtil {
     public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
         StringMap<String> files_ = new StringMap<String>();
         KeyWords keyWords_ = _analyzing.getKeyWords();
-        LgNames standards_ = _analyzing.getStandards();
+        DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         CustList<RootBlock> refFoundTypes_ = _analyzing.getRefFoundTypes();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
         CustList<OperatorBlock> operators_ = _analyzing.getAllOperators();
@@ -40,7 +40,7 @@ public final class LinkageUtil {
             }
             String value_ = _analyzing.getResources().getVal(f.getFileName());
             String fileExp_ = f.getFileName() + ".html";
-            CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, keyWords_, standards_);
+            CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, keyWords_, displayedStrings_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_,"css/style.css");
             String cssPart_ = "<head>" +
@@ -146,14 +146,14 @@ public final class LinkageUtil {
         }
         return Character.toString(_ch);
     }
-    private static CustList<PartOffset> processError(CustList<RootBlock> _refFound, CustList<OperatorBlock> _refOperators, StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, LgNames _standards){
+    private static CustList<PartOffset> processError(CustList<RootBlock> _refFound, CustList<OperatorBlock> _refOperators, StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         VariablesOffsets vars_ = new VariablesOffsets();
         vars_.getStack().add(new LinkageStackElement());
         vars_.setRefFoundTypes(_refFound);
         vars_.setRefOperators(_refOperators);
         vars_.setKeyWords(_keyWords);
-        vars_.setDisplayedStrings(_standards.getDisplayedStrings());
+        vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
         vars_.setCurrentFileName(_fileExp);
         if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().isEmpty()) {

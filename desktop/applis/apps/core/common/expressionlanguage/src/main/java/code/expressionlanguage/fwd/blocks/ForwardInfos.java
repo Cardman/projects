@@ -33,7 +33,7 @@ public final class ForwardInfos {
     }
     public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
         Coverage coverage_ = _page.getCoverage();
-        coverage_.putToStringOwner(_page.getStandards().getAliasObject());
+        coverage_.putToStringOwner(_page.getAliasObject());
         StringMap<ExecFileBlock> files_ = new StringMap<ExecFileBlock>();
         for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
             String file_ = f.getKey();

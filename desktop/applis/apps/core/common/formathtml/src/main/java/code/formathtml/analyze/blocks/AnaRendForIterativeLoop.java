@@ -18,7 +18,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -59,7 +59,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
     private OperationNode rootStep;
     AnaRendForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
                             OffsetStringInfo _from,
-                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
+                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -75,7 +75,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _stds.getAliasPrimInteger();
+            classIndex_ = _primTypes.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -91,7 +91,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_page.getStandards().getAliasLong());
+            mapping_.setParam(_page.getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);

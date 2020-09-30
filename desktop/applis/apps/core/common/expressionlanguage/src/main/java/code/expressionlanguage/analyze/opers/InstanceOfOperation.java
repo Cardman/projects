@@ -10,7 +10,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
@@ -29,7 +28,6 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ typeCheckContent.getOffset(), _page);
-        LgNames stds_ = _page.getStandards();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         int begin_ = keyWordInstanceof_.length() + typeCheckContent.getClassName().indexOf(keyWordInstanceof_);
@@ -46,8 +44,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            typeCheckContent.setClassName(_page.getStandards().getAliasObject());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            typeCheckContent.setClassName(_page.getAliasObject());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         sub_ = ResolvingImportTypes.resolveCorrectType(begin_ + off_, sub_, exact_, _page);
@@ -59,7 +57,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             }
         }
         typeCheckContent.setClassName(sub_);
-        setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
     public int getOffset() {

@@ -29,9 +29,9 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.addLocError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_page.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(_page.getAliasObject(),null);
         }
-        String void_ = _page.getStandards().getAliasVoid();
+        String void_ = _page.getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -41,7 +41,7 @@ public final class ResolvingSuperTypes {
                     void_);
             _page.addLocError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_page.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(_page.getAliasObject(),null);
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
@@ -75,7 +75,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
             _page.addLocError(un_);
-            return new AnaResultPartType(_page.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(_page.getAliasObject(),null);
         }
         return resType_;
     }
@@ -84,7 +84,7 @@ public final class ResolvingSuperTypes {
                                                         int _location, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
         AnaResultPartType resType_ = typeArguments(_in, _ana, _location, _partOffsets, _page);
         if (resType_ == null) {
-            return new AnaResultPartType(_page.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(_page.getAliasObject(),null);
         }
         for (String p:StringExpUtil.getAllTypes(resType_.getResult()).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
@@ -125,7 +125,7 @@ public final class ResolvingSuperTypes {
             _ana.addNameErrors(un_);
             return null;
         }
-        String void_ = _page.getStandards().getAliasVoid();
+        String void_ = _page.getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());

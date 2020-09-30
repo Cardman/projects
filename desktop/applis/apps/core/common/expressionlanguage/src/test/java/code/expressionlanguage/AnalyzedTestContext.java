@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {
@@ -27,7 +28,38 @@ public final class AnalyzedTestContext {
         return forwards;
     }
 
-    public LgNames getStandards() {
-        return analyzing.getStandards();
+    public DisplayedStrings getDisplayedStrings() {
+        return analyzing.getDisplayedStrings();
+    }
+    public String getAliasVoid() {
+        return analyzing.getAliasVoid();
+    }
+
+    public String getAliasBoolean() {
+        return analyzing.getAliasBoolean();
+    }
+
+    public String getAliasPrimBoolean() {
+        return analyzing.getAliasPrimBoolean();
+    }
+
+    public String getAliasObject() {
+        return analyzing.getAliasObject();
+    }
+
+    public String getAliasNumber() {
+        return analyzing.getAliasNumber();
+    }
+
+    public String getAliasString() {
+        return analyzing.getAliasString();
+    }
+
+    public String getAliasInteger() {
+        return analyzing.getAliasInteger();
+    }
+
+    public String getAliasPrimInteger() {
+        return analyzing.getAliasPrimInteger();
     }
 }

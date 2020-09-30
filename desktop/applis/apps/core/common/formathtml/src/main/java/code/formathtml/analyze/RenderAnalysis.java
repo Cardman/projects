@@ -38,7 +38,7 @@ public final class RenderAnalysis {
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _page.getStandards().getAliasObject();
+            String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             int end_ = d_.getIndexEnd();
@@ -70,7 +70,7 @@ public final class RenderAnalysis {
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _page.getStandards().getAliasObject();
+            String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             return e_;

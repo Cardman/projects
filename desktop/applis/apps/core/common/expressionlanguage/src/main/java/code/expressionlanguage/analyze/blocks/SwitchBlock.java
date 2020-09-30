@@ -97,7 +97,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _page.getStandards().getAliasString())) {
+                if (!StringList.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;

@@ -39,8 +39,8 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     @Test
     public void cmpTypes1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        String int_ = context_.getStandards().getAliasInteger();
-        String nb_ = context_.getStandards().getAliasNumber();
+        String int_ = context_.getAliasInteger();
+        String nb_ = context_.getAliasNumber();
         assertEq(CustList.SWAP_SORT, cmpTypes(context_, int_, nb_));
     }
 
@@ -51,29 +51,29 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     @Test
     public void getSubclasses1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getStandards().getAliasInteger(), context_.getStandards().getAliasNumber());
+        StringList classes_ = new StringList(context_.getAliasInteger(), context_.getAliasNumber());
         StringList sub_ = getSubclasses(context_, classes_);
         assertEq(1, sub_.size());
-        assertEq(context_.getStandards().getAliasInteger(), sub_.get(0));
+        assertEq(context_.getAliasInteger(), sub_.get(0));
     }
 
     @Test
     public void getSubclasses2Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getStandards().getAliasString(), context_.getStandards().getAliasNumber());
+        StringList classes_ = new StringList(context_.getAliasString(), context_.getAliasNumber());
         StringList sub_ = getSubclasses(context_, classes_);
         assertEq(2, sub_.size());
-        assertEq(context_.getStandards().getAliasString(), sub_.get(0));
-        assertEq(context_.getStandards().getAliasNumber(), sub_.get(1));
+        assertEq(context_.getAliasString(), sub_.get(0));
+        assertEq(context_.getAliasNumber(), sub_.get(1));
     }
 
     @Test
     public void getSubclasses3Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getStandards().getAliasVoid(), context_.getStandards().getAliasVoid());
+        StringList classes_ = new StringList(context_.getAliasVoid(), context_.getAliasVoid());
         StringList sub_ = getSubclasses(context_, classes_);
         assertTrue(sub_.onlyOneElt());
-        assertEq(context_.getStandards().getAliasVoid(), sub_.get(0));
+        assertEq(context_.getAliasVoid(), sub_.get(0));
     }
 
     private static StringList getSubclasses(AnalyzedTestContext context_, StringList classes_) {

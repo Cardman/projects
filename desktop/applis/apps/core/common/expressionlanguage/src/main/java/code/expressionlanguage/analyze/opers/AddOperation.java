@@ -25,7 +25,7 @@ public final class AddOperation extends NumericOperation {
     @Override
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         ResultOperand res_ = new ResultOperand();
-        String stringType_ = _page.getStandards().getAliasString();
+        String stringType_ = _page.getAliasString();
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
                 AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
@@ -56,7 +56,7 @@ public final class AddOperation extends NumericOperation {
                 return res_;
             }
             _page.setOkNumOp(false);
-            String exp_ = _page.getStandards().getAliasNumber();
+            String exp_ = _page.getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int index_ = _page.getLocalizer().getCurrentLocationIndex();
             un_.setIndexFile(index_);
@@ -92,7 +92,7 @@ public final class AddOperation extends NumericOperation {
             return res_;
         }
         _page.setOkNumOp(false);
-        String exp_ = _page.getStandards().getAliasNumber();
+        String exp_ = _page.getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);

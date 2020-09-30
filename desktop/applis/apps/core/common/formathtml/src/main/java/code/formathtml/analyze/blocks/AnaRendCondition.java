@@ -39,7 +39,7 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
         root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page);
         AnaClassArgumentMatching exp_ = root.getResultClass();
         if (!exp_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);

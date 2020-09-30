@@ -161,10 +161,10 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
-        String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
-        String infoTestDone_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestDone();
-        String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
-        String curMethodName_ = ((LgNamesUtils) _ctx.getStandards()).getAliasInfoTestCurrentMethod();
+        String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getCustAliases().getAliasInfoTest();
+        String infoTestDone_ = ((LgNamesUtils)_ctx.getStandards()).getCustAliases().getAliasInfoTestDone();
+        String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getCustAliases().getAliasInfoTestCount();
+        String curMethodName_ = ((LgNamesUtils) _ctx.getStandards()).getCustAliases().getAliasInfoTestCurrentMethod();
         Struct done_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct method_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
@@ -181,8 +181,8 @@ public final class MainWindow extends GroupFrame {
         }
     }
     public void finish(RunnableContextEl _ctx, Struct _infos) {
-        String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
-        String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
+        String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getCustAliases().getAliasInfoTest();
+        String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getCustAliases().getAliasInfoTestCount();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         doneTestsCount.setText(((NumberStruct)count_).longStruct()+"/"+((NumberStruct)count_).longStruct());
         progressBar.setValue(progressBar.getMaximum());
@@ -192,19 +192,19 @@ public final class MainWindow extends GroupFrame {
         LgNamesUtils stds_ = (LgNamesUtils) _ctx.getStandards();
         if (!_res.isNull()) {
             Struct results_ = _res.getStruct();
-            String tableCl_ = stds_.getAliasTable();
-            String listTable_ = stds_.getAliasListTa();
+            String tableCl_ = stds_.getCustAliases().getAliasTable();
+            String listTable_ = stds_.getCustAliases().getAliasListTa();
             Struct list_ = ((FieldableStruct)results_).getEntryStruct(new ClassField(tableCl_,listTable_)).getStruct();
-            String listCl_ = stds_.getAliasList();
-            String arrList_ = stds_.getAliasArrayLi();
+            String listCl_ = stds_.getCustAliases().getAliasList();
+            String arrList_ = stds_.getCustAliases().getAliasArrayLi();
             Struct array_ = ((FieldableStruct)list_).getEntryStruct(new ClassField(listCl_,arrList_)).getStruct();
-            String pairCl_ = stds_.getAliasCustPair();
-            String pairFirst_ = stds_.getAliasFirst();
-            String pairSecond_ = stds_.getAliasSecond();
-            String aliasResult_ = stds_.getAliasResult();
-            String aliasSuccess_ = stds_.getAliasResultSuccess();
-            String aliasFailMessage_ = stds_.getAliasResultFailMessage();
-            String aliasParams_ = stds_.getAliasResultParams();
+            String pairCl_ = stds_.getCustAliases().getAliasCustPair();
+            String pairFirst_ = stds_.getCustAliases().getAliasFirst();
+            String pairSecond_ = stds_.getCustAliases().getAliasSecond();
+            String aliasResult_ = stds_.getCustAliases().getAliasResult();
+            String aliasSuccess_ = stds_.getCustAliases().getAliasResultSuccess();
+            String aliasFailMessage_ = stds_.getCustAliases().getAliasResultFailMessage();
+            String aliasParams_ = stds_.getCustAliases().getAliasResultParams();
             int i =0;
             resultsTable.setRowCount(((ArrayStruct)array_).getInstance().length);
             for (Struct t: ((ArrayStruct)array_).getInstance()) {

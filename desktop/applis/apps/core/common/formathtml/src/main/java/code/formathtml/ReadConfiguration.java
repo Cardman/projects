@@ -1,6 +1,8 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.formathtml.structs.BeanInfo;
@@ -25,10 +27,10 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend) {
-        return _stds.load(_configuration,_lgCode,_document, _rend);
+    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
+        return _stds.load(_configuration,_lgCode,_document, _rend, _fileBuilder);
     }
-    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend) {
+    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -57,7 +59,7 @@ public final class ReadConfiguration {
         }
         ClassesCommon com_ = new ClassesCommon();
         ContextEl context_ = ContextFactory.simpleBuild(stack_, lk_, di_, opt_, _stds, tab_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, com_, new DefaultConstantsCalculator(_stds.getNbAlias()), _fileBuilder);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(_rend.allMessages(), page_);
         if (!page_.isEmptyMessageError()) {

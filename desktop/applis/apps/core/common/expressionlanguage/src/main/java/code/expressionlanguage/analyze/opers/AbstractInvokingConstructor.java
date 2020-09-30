@@ -61,10 +61,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        LgNames stds_ = _page.getStandards();
         String varargParam_ = getVarargParam(chidren_);
         if (from == null) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);
             return;
         }
@@ -82,13 +81,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         RootBlock type_ = _page.getAnaClassBody(id_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, from,id_,type_, feed_, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);
             return;
         }
@@ -106,8 +105,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             invokingConstructorContent.setLastType(constId.getParametersTypes().last());
         }
         unwrapArgsFct(constId, invokingConstructorContent.getNaturalVararg(), invokingConstructorContent.getLastType(), _args.getAll(), _page);
-        LgNames stds_ = _page.getStandards();
-        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
     void checkPositionBasis(AnalyzedPageEl _page) {

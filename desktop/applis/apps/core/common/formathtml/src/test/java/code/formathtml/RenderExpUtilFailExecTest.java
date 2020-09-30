@@ -43,7 +43,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(false));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -72,7 +72,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(true));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -101,7 +101,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -130,7 +130,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -169,7 +169,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         String el_ = "!v";
@@ -184,7 +184,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasByte());
+        lv_.setClassName(context_.getAliasByte());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         String el_ = "$($byte)v";
@@ -198,7 +198,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -221,7 +221,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -1586,11 +1586,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(true));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -1603,11 +1603,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(true));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -1620,7 +1620,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasString()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasString()));
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -2223,10 +2223,10 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v2", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v=v2", context_);
@@ -2251,7 +2251,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(cont_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
         processEl("$classchoice(pkg.Ex)inst=v", cont_);
@@ -2261,19 +2261,18 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processAffect12FailTest() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
-        LgNames custLgNames_ = context_.getAnaStandards();
-        String stringType_ = custLgNames_.getAliasString();
+        String stringType_ = context_.getAliasString();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] exp_ = new Struct[1];
         exp_[0] = NullStruct.NULL_VALUE;
         lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(stringType_)));
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasObject()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasObject()));
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v2", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v[0i]=v2", context_);
@@ -2283,8 +2282,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processAffect16FailTest() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
-        LgNames custLgNames_ = context_.getAnaStandards();
-        String primIntType_ = custLgNames_.getAliasPrimInteger();
+        String primIntType_ = context_.getAliasPrimInteger();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();

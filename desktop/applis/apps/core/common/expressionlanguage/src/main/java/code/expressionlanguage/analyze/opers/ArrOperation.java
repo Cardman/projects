@@ -16,7 +16,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -145,7 +144,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
@@ -210,15 +209,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+ 1));
             getPartOffsetsChildren().add(list_);
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         OperationNode right_ = chidren_.last();
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _page);
-        LgNames stds_ = _page.getStandards();
         if (!indexClass_.isNumericInt(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimInteger(), indexClass_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
@@ -245,7 +243,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     StringList.join(class_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            class_ = new AnaClassArgumentMatching(_page.getStandards().getAliasObject());
+            class_ = new AnaClassArgumentMatching(_page.getAliasObject());
             setResultClass(class_);
             return;
         }

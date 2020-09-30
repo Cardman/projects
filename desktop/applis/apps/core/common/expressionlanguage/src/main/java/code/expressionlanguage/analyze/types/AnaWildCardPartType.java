@@ -45,7 +45,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
         AnaPartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
         base_ = StringExpUtil.getIdFromAllTypes(base_);
-        if (StringList.quickEq(base_.trim(), _page.getStandards().getAliasFct())) {
+        if (StringList.quickEq(base_.trim(), _page.getAliasFct())) {
             return;
         }
         ch_ = StringList.concat(getBegin(),ch_);

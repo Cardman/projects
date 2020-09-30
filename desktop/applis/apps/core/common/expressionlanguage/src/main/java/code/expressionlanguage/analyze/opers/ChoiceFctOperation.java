@@ -123,7 +123,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {

@@ -2,7 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -17,7 +16,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct implements Stru
         for (Thread s: elementSet.keySet()) {
             instantKeys_.add(new ThreadStruct(s));
         }
-        String thClass_ = ((LgNamesUtils)_contextEl.getStandards()).getAliasThread();
+        String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
         int len_ = instantKeys_.size();
         Struct[] innArr_ = new Struct[len_];
         ArrayStruct arr_ = new ArrayStruct(innArr_,StringExpUtil.getPrettyArrayType(thClass_));
@@ -48,7 +47,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct implements Stru
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getAliasThreadSet();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThreadSet();
     }
 
 }

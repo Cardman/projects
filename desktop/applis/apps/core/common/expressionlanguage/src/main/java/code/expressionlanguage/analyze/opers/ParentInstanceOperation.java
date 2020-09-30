@@ -37,7 +37,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     static StringList getParentTypeList(StringList _converted, AnalyzedPageEl _page) {
         StringList rs_ = getParentType(_converted);
         if (rs_.isEmpty()) {
-            return new StringList(_page.getStandards().getAliasObject());
+            return new StringList(_page.getAliasObject());
         }
         return rs_;
     }

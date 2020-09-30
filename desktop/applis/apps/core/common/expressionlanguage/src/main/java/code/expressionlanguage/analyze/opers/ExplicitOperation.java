@@ -48,7 +48,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             );
             _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         String res_;

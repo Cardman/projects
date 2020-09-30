@@ -24,7 +24,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
@@ -491,7 +490,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<Block> bl_;
         bl_ = ClassesUtil.getDirectChildren(this);
         KeyWords keyWords_ = _page.getKeyWords();
-        LgNames stds_ = _page.getStandards();
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 continue;
@@ -627,7 +625,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_page));
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasPrimBoolean())) {
+                    } else if (!StringList.quickEq(m_.getImportedReturnType(),_page.getAliasPrimBoolean())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -738,7 +736,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         }
                     }
                 } else if (m_.getKind() == MethodKind.TO_STRING) {
-                    if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
+                    if (!StringList.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -746,7 +744,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
                                 name_,
-                                stds_.getAliasString());
+                                _page.getAliasString());
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
                     } else if (m_.getAccess() != AccessEnum.PUBLIC) {
@@ -838,9 +836,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         || m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
                     MethodId id_ = m_.getId();
                     if (ContextUtil.isEnumType(this)) {
-                        String valueOf_ = stds_.getAliasEnumPredValueOf();
-                        String values_ = stds_.getAliasEnumValues();
-                        String string_ = stds_.getAliasString();
+                        String valueOf_ = _page.getAliasEnumPredValueOf();
+                        String values_ = _page.getAliasEnumValues();
+                        String string_ = _page.getAliasString();
                         if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
                             int r_ = m_.getOffset().getOffsetTrim();
                             FoundErrorInterpret duplicate_;
@@ -1141,7 +1139,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (ok_) {
                     res_ = AnaTemplates.getRealClassName(allTypes_.first(), j_);
                 } else {
-                    res_ = _page.getStandards().getAliasObject();
+                    res_ = _page.getAliasObject();
                 }
                 s_ = new AnaResultPartType(res_,null);
             } else if (index_ < 0){
@@ -1164,7 +1162,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (importedDirectSuperClass.isEmpty()) {
-            importedDirectSuperClass = _page.getStandards().getAliasObject();
+            importedDirectSuperClass = _page.getAliasObject();
 
         }
     }
@@ -1235,8 +1233,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        LgNames stds_ = _page.getStandards();
-        String objectClassName_ = stds_.getAliasObject();
+        String objectClassName_ = _page.getAliasObject();
         for (TypeVar t: getParamTypesMapValues()) {
             CustList<MethodIdAncestors> signatures_;
             signatures_ = new CustList<MethodIdAncestors>();

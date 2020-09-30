@@ -1,10 +1,6 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.util.IterableAnalysisResult;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -12,21 +8,9 @@ import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.stds.ErrorCat;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecDotOperation;
-import code.expressionlanguage.exec.opers.ExecFctOperation;
-import code.expressionlanguage.exec.opers.ExecInternVariableOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -88,7 +72,6 @@ public final class ValidatorStandard {
 
     public static void validateRefTypeContents(StringMap<String> _list, StringMap<String> _prims, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
-        LgNames stds_ = _page.getStandards();
         StringList allPkgs_ = new StringList();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
@@ -147,21 +130,21 @@ public final class ValidatorStandard {
         }
         boolean exNonEmpty_ = false;
         for (String p: allPkgs_) {
-            if (StringList.quickEq(stds_.getDefaultPkg(), p)) {
+            if (StringList.quickEq(_page.getDefaultPkg(), p)) {
                 exNonEmpty_ = true;
             }
         }
         if (!exNonEmpty_) {
             //ERROR
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(), stds_.getDefaultPkg()));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(), _page.getDefaultPkg()));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
             _page.addStdError(err_);
         }
         for (String k: _list.values()) {
-            if (stds_.getDefaultPkg().contains(k)) {
+            if (_page.getDefaultPkg().contains(k)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k, stds_.getDefaultPkg()));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k, _page.getDefaultPkg()));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _page.addStdError(err_);
             }
@@ -416,7 +399,7 @@ public final class ValidatorStandard {
         StringList pkgs_ = new StringList();
         StringList pkgsBase_ = new StringList();
         AnalyzedPageEl page_ = _page;
-        for (StandardType r: page_.getStandards().getStandards().values()) {
+        for (StandardType r: page_.getStandardsTypes().values()) {
             String pkg_ = r.getPackageName();
             int until_ = Math.max(0, pkg_.indexOf('.'));
             pkgsBase_.add(pkg_.substring(0,until_));
@@ -435,7 +418,7 @@ public final class ValidatorStandard {
     }
 
     public static void buildInherits(AnalyzedPageEl _page){
-        for (EntryCust<String, StandardType> s: _page.getStandards().getStandards().entryList()) {
+        for (EntryCust<String, StandardType> s: _page.getStandardsTypes().entryList()) {
             buildInherits(s.getValue(), _page);
         }
     }
@@ -450,7 +433,7 @@ public final class ValidatorStandard {
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                StandardType st_ = _page.getStandards().getStandards().getVal(c);
+                StandardType st_ = _page.getStandardsTypes().getVal(c);
                 for (String s: st_.getDirectSuperTypes()) {
                     newSuperTypes_.add(s);
                     _types.add(s);
@@ -476,169 +459,79 @@ public final class ValidatorStandard {
         un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                 _orig);
         _page.getLocalizer().addError(un_);
-        return _page.getStandards().getAliasObject();
+        return _page.getAliasObject();
     }
 
-    public static ResultErrorStd getSimpleResultBase(ClassField _classField, LgNames lgNames_) {
-        ResultErrorStd result_ = new ResultErrorStd();
+    public static Struct getSimpleResultBase(ClassField _classField, AliasNumber _nbAlias) {
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();
-        String charType_ = lgNames_.getAliasCharacter();
-        String byteType_ = lgNames_.getAliasByte();
-        String shortType_ = lgNames_.getAliasShort();
-        String intType_ = lgNames_.getAliasInteger();
-        String longType_ = lgNames_.getAliasLong();
-        String floatType_ = lgNames_.getAliasFloat();
+        String charType_ = _nbAlias.getAliasCharacter();
+        String byteType_ = _nbAlias.getAliasByte();
+        String shortType_ = _nbAlias.getAliasShort();
+        String intType_ = _nbAlias.getAliasInteger();
+        String longType_ = _nbAlias.getAliasLong();
+        String floatType_ = _nbAlias.getAliasFloat();
         if (StringList.quickEq(type_, charType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new CharStruct(Character.MIN_VALUE));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new CharStruct(Character.MIN_VALUE));
             } else {
-                result_.setResult(new CharStruct(Character.MAX_VALUE));
+                return(new CharStruct(Character.MAX_VALUE));
             }
         } else if (StringList.quickEq(type_, byteType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new ByteStruct(Byte.MIN_VALUE));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new ByteStruct(Byte.MIN_VALUE));
             } else {
-                result_.setResult(new ByteStruct(Byte.MAX_VALUE));
+                return(new ByteStruct(Byte.MAX_VALUE));
             }
         } else if (StringList.quickEq(type_, shortType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new ShortStruct(Short.MIN_VALUE));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new ShortStruct(Short.MIN_VALUE));
             } else {
-                result_.setResult(new ShortStruct(Short.MAX_VALUE));
+                return(new ShortStruct(Short.MAX_VALUE));
             }
         } else if (StringList.quickEq(type_, intType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new IntStruct(Integer.MIN_VALUE));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new IntStruct(Integer.MIN_VALUE));
             } else {
-                result_.setResult(new IntStruct(Integer.MAX_VALUE));
+                return(new IntStruct(Integer.MAX_VALUE));
             }
         } else if (StringList.quickEq(type_, longType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new LongStruct(Long.MIN_VALUE));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new LongStruct(Long.MIN_VALUE));
             } else {
-                result_.setResult(new LongStruct(Long.MAX_VALUE));
+                return(new LongStruct(Long.MAX_VALUE));
             }
         } else if (StringList.quickEq(type_, floatType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new FloatStruct(Float.MIN_VALUE));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasMinusInfinityField())) {
-                result_.setResult(new FloatStruct(Float.NEGATIVE_INFINITY));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasPlusInfinityField())) {
-                result_.setResult(new FloatStruct(Float.POSITIVE_INFINITY));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasNanField())) {
-                result_.setResult(new FloatStruct(Float.NaN));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return(new FloatStruct(Float.MIN_VALUE));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
+                return(new FloatStruct(Float.NEGATIVE_INFINITY));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
+                return(new FloatStruct(Float.POSITIVE_INFINITY));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasNanField())) {
+                return(new FloatStruct(Float.NaN));
             } else {
-                result_.setResult(new FloatStruct(Float.MAX_VALUE));
+                return(new FloatStruct(Float.MAX_VALUE));
             }
         } else {
-            if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
-                result_.setResult(new DoubleStruct(Double.MIN_VALUE));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasMinusInfinityField())) {
-                result_.setResult(new DoubleStruct(Double.NEGATIVE_INFINITY));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasPlusInfinityField())) {
-                result_.setResult(new DoubleStruct(Double.POSITIVE_INFINITY));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasNanField())) {
-                result_.setResult(new DoubleStruct(Double.NaN));
+            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+                return (new DoubleStruct(Double.MIN_VALUE));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
+                return (new DoubleStruct(Double.NEGATIVE_INFINITY));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
+                return (new DoubleStruct(Double.POSITIVE_INFINITY));
+            } else if (StringList.quickEq(name_, _nbAlias.getAliasNanField())) {
+                return (new DoubleStruct(Double.NaN));
             } else {
-                result_.setResult(new DoubleStruct(Double.MAX_VALUE));
+                return (new DoubleStruct(Double.MAX_VALUE));
             }
         }
-        return result_;
-    }
-
-    public static void buildIterable(AnalyzedPageEl analyzing, Classes _classes) {
-        //local names
-        LgNames stds_ = analyzing.getStandards();
-        analyzing.setCurrentBlock(null);
-        analyzing.setCurrentAnaBlock(null);
-        String next_ = stds_.getAliasNext();
-        String hasNext_ = stds_.getAliasHasNext();
-        String nextPair_ = stds_.getAliasNextPair();
-        String hasNextPair_ = stds_.getAliasHasNextPair();
-        StringList l_ = new StringList();
-        String locName_ = tr(l_, analyzing);
-        _classes.setIteratorVarCust(locName_);
-        String iterator_ = stds_.getAliasIterator();
-        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
-                new ClassMethodId(stds_.getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorType(),"<?>"), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setHasNextVarCust(locName_);
-        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
-                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
-                stds_.getAliasPrimBoolean(), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setNextVarCust(locName_);
-        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
-                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
-                stds_.getAliasObject(), _classes));
-
-        _classes.setIteratorTableVarCust(locName_);
-        String iteratorTable_ = stds_.getAliasIteratorTable();
-        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setHasNextPairVarCust(locName_);
-        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
-                stds_.getAliasPrimBoolean(), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setNextPairVarCust(locName_);
-        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
-                StringList.concat(stds_.getAliasPairType(),"<?,?>"), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setFirstVarCust(locName_);
-        String first_ = stds_.getAliasGetFirst();
-        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
-                stds_.getAliasObject(), _classes));
-        locName_ = tr(l_, analyzing);
-        _classes.setSecondVarCust(locName_);
-        String second_ = stds_.getAliasGetSecond();
-        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
-                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
-                stds_.getAliasObject(), _classes));
-        String id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedDoubleGenerator());
-        ExecRootBlock classBody_ = _classes.getClassBody(id_);
-        _classes.setSeedDoubleGenerator(classBody_);
-        String nameToCall_ = stds_.getAliasSeedGet();
-        MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
-        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
-        _classes.setSeedDoublePick(fct_);
-        id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedGenerator());
-        classBody_ = _classes.getClassBody(id_);
-        _classes.setSeedGenerator(classBody_);
-        idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getAliasPrimLong()));
-        fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
-        _classes.setSeedPick(fct_);
-    }
-
-    private static CustList<ExecOperationNode> newCall(String _varPrevious, String _previous,
-                                                       ClassMethodId _id,
-                                                       String _res, Classes _classes) {
-        CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-        ExecDotOperation dot_ = new ExecDotOperation(0,new ExecClassArgumentMatching(_res),2);
-        ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
-        ops_.add(r_);
-        dot_.appendChild(r_);
-        String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _classes.getClassBody(id_);
-        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
-        dot_.appendChild(f_);
-        r_.setSiblingSet(f_);
-        ops_.add(f_);
-        ops_.add(dot_);
-        return ops_;
     }
 
     public static String tr(StringList _list, AnalyzedPageEl _analyzing) {
         CustList<String> allKeysWords_ = _analyzing.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_analyzing.getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_analyzing.getStandards().getAliasVoid());
+        allKeysWords_.add(_analyzing.getAliasVoid());
         allKeysWords_.addAllElts(_list);
         String candidate_ = "tmp";
         int index_ = 0;

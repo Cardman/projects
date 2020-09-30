@@ -19,10 +19,10 @@ public final class ShowUpdates implements Runnable {
     }
     @Override
     public void run() {
-        String infoTest_ = ((LgNamesUtils)ctx.getStandards()).getAliasInfoTest();
-        String infoTestDone_ = ((LgNamesUtils)ctx.getStandards()).getAliasInfoTestDone();
-        String curMethodName_ = ((LgNamesUtils) ctx.getStandards()).getAliasInfoTestCurrentMethod();
-        String infoTestCount_ = ((LgNamesUtils)ctx.getStandards()).getAliasInfoTestCount();
+        String infoTest_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTest();
+        String infoTestDone_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTestDone();
+        String curMethodName_ = ((LgNamesUtils) ctx.getStandards()).getCustAliases().getAliasInfoTestCurrentMethod();
+        String infoTestCount_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTestCount();
         Struct doneBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct countBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct methodBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();

@@ -12,7 +12,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
@@ -41,7 +40,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         OperationNode leftEl_ = getFirstChild();
-        LgNames stds_ = _page.getStandards();
         settable = AffectationOperation.tryGetSettable(this);
         if (!(settable instanceof OperationNode)) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _page);
@@ -53,7 +51,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                     operatorContent.getOper());
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (settable instanceof SettableAbstractFieldOperation) {
@@ -98,7 +96,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
-                mapping_.setParam(_page.getStandards().getAliasLong());
+                mapping_.setParam(_page.getAliasLong());
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

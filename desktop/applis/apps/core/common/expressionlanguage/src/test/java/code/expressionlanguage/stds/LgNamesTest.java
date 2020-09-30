@@ -1,7 +1,10 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -2278,9 +2281,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
-        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_);
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_);
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()));
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2313,9 +2317,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         ClassesCommon com_ = new ClassesCommon();
-        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_);
+        AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
+        AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_);
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()));
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2326,20 +2331,21 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
-    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options, ClassesCommon _com) {
+    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator) {
         AnalysisMessages mess_ = new AnalysisMessages();
         SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, lgName_, 4, _com);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
         page_.setStandards(lgName_);
+        page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         return new AnalyzedTestContext(ctx_,page_, new Forwards());
     }
 
     public static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
-        return getCtx(lk_, di_, kw_, lgName_, new Options(), new ClassesCommon());
+        return getCtx(lk_, di_, kw_, lgName_, new Options(), new ClassesCommon(), null);
     }
     @Test
     public void parseLineArg1Test() {

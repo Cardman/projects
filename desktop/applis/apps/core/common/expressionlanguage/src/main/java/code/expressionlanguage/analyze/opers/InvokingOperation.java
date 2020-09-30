@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -108,7 +107,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (f_ instanceof NamedFunctionBlock) {
             NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
             String ret_ = n_.getImportedReturnType();
-            String void_ = _page.getStandards().getAliasVoid();
+            String void_ = _page.getAliasVoid();
             if (!StringList.quickEq(ret_, void_)) {
                 return ret_;
             }
@@ -319,7 +318,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String name_ = constraints_.getName();
             String className_ = f_.getClassName();
             StringList parametersTypes_ = constraints_.getParametersTypes();
-            parametersTypes_.add(0, _page.getStandards().getAliasPrimBoolean());
+            parametersTypes_.add(0, _page.getAliasPrimBoolean());
             f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
         }
         return f_;
@@ -337,8 +336,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     static StringList getBounds(String _cl, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        String objectClassName_ = stds_.getAliasObject();
+        String objectClassName_ = _page.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
             String glClass_ = _page.getGlobalClass();

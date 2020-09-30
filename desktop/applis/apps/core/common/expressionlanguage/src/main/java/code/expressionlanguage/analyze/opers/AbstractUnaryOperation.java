@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 
@@ -20,7 +19,6 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         MethodOperation.processEmptyError(getFirstChild(),getErrs());
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
-            LgNames stds_ = _page.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -30,7 +28,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
                     Integer.toString(children_.size()));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         analyzeUnary(_page);

@@ -18,10 +18,10 @@ public final class AnalyzedTestConfiguration {
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
-    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards) {
+    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanLgNames _standards) {
         this.configuration = configuration;
         forwards = _forwards;
-        adv=(BeanLgNames) analyzing.getAnalyzing().getStandards();
+        adv= _standards;
         this.configuration.setContext(analyzing.getContext());
         this.analyzing = analyzing.getAnalyzing();
     }
@@ -43,7 +43,47 @@ public final class AnalyzedTestConfiguration {
     }
 
     public LgNames getAnaStandards() {
-        return analyzing.getStandards();
+        return adv;
+    }
+
+    public String getAliasLong() {
+        return analyzing.getAliasLong();
+    }
+
+    public String getAliasPrimLong() {
+        return analyzing.getAliasPrimLong();
+    }
+
+    public String getAliasVoid() {
+        return analyzing.getAliasVoid();
+    }
+
+    public String getAliasBoolean() {
+        return analyzing.getAliasBoolean();
+    }
+
+    public String getAliasPrimBoolean() {
+        return analyzing.getAliasPrimBoolean();
+    }
+
+    public String getAliasObject() {
+        return analyzing.getAliasObject();
+    }
+
+    public String getAliasNumber() {
+        return analyzing.getAliasNumber();
+    }
+
+    public String getAliasString() {
+        return analyzing.getAliasString();
+    }
+
+    public String getAliasInteger() {
+        return analyzing.getAliasInteger();
+    }
+
+    public String getAliasPrimInteger() {
+        return analyzing.getAliasPrimInteger();
     }
 
     public LgNames getStandards() {
@@ -70,6 +110,9 @@ public final class AnalyzedTestConfiguration {
         return configuration.hasPages();
     }
 
+    public String getAliasByte() {
+        return analyzing.getAliasByte();
+    }
     public void setNavigation(StringMap<StringMap<String>> stringMapStringMap) {
         configuration.setNavigation(stringMapStringMap);
     }
@@ -89,4 +132,5 @@ public final class AnalyzedTestConfiguration {
     public void setAnalyzed(StringMap<AnaRendDocumentBlock> analyzed) {
         this.analyzed = analyzed;
     }
+
 }

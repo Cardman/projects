@@ -36,7 +36,7 @@ public final class AnaRendRadio extends AnaRendInput {
         _list.removeAllString(_cont.getRendKeyWords().getAttrType());
         String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
         if (!converterFieldValue_.trim().isEmpty()) {
-            String object_ = _page.getStandards().getAliasObject();
+            String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -52,14 +52,14 @@ public final class AnaRendRadio extends AnaRendInput {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterFieldValue.getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
-                        _page.getStandards().getAliasCharSequence());
+                        _page.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }

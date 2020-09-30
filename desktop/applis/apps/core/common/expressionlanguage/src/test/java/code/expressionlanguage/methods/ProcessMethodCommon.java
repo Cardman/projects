@@ -236,8 +236,8 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         opt_.setCovering(true);
         AnalyzedTestContext ct_ = InitializationLgNames.buildStdOneAna(opt_);
-        ct_.getStandards().getDisplayedStrings().setTrueString("\"");
-        ct_.getStandards().getDisplayedStrings().setFalseString("&");
+        ct_.getDisplayedStrings().setTrueString("\"");
+        ct_.getDisplayedStrings().setFalseString("&");
         return ct_;
     }
 
@@ -593,8 +593,7 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
@@ -635,8 +634,7 @@ public abstract class ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);

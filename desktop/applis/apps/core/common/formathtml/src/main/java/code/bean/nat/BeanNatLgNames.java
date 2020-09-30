@@ -3,8 +3,7 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassesCommon;
@@ -16,7 +15,6 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -169,7 +167,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend) {
+    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "validators")) {
@@ -302,33 +300,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         getStandards().addEntry(TYPE_VALIDATOR, cl_);
     }
 
-    @Override
-    public IterableAnalysisResult getCustomType(StringList _names, String _first, AnalyzedPageEl _page) {
-        StringList out_ = new StringList();
-        for (String f: _names) {
-            String type_ = getIterableFullTypeByStds(f,_first);
-            out_.add(type_);
-        }
-        return new IterableAnalysisResult(out_);
-    }
-
-    @Override
-    public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second, AnalyzedPageEl _page) {
-        String type_ = StringList.concat(getAliasIterableTable(), "<", _first, "," + _second + ">");
-        return new IterableAnalysisResult(new StringList(type_));
-    }
-
-    private String getIterableFullTypeByStds(String _subType, String _first) {
-        String it_ = getIterables().getVal(_subType);
-        if (it_ == null) {
-            it_ = getAliasObject();
-        }
-        if (StringList.quickEq(it_, getAliasObject())) {
-            it_ = _first;
-        }
-        return StringList.concat(getAliasIterable(),"<",it_,">");
-    }
-
 
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {
@@ -424,6 +395,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        _page.setForEachFetch(new NativeForEachFetch(this));
         _nav.initInstancesPattern(_page, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
@@ -489,7 +461,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Options _options = new Options();
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), new DefaultFileBuilder(getContent()));
         _conf.setContext(contextEl_);
         return page_;
     }

@@ -105,7 +105,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             );
             _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ClassMethodId id_ = null;
@@ -117,7 +117,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ClassMethodIdReturn cust_;
@@ -141,7 +141,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
             getErrs().add(undefined_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()));

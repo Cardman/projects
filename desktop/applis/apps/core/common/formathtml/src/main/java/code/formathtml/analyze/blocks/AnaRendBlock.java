@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.*;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -60,18 +60,18 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText, LgNames _stds) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,new OffsetsBlock(),_conf.getCurrentUrl());
-        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText, _stds);
+        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText, _primTypes);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
             MutableNode firstChild_ = curNode_.getFirstChild();
             if (firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
-                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText, _stds);
+                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText, _primTypes);
                 ((AnaRendParentBlock) curWrite_).appendChild(rendBlock_);
                 curWrite_ = rendBlock_;
                 curNode_ = firstChild_;
@@ -82,7 +82,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                 AnaRendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
-                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText, _stds);
+                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText, _primTypes);
                     par_.appendChild(rendBlock_);
                     curWrite_ = rendBlock_;
                     curNode_ = nextSibling_;
@@ -104,8 +104,8 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         return out_;
     }
 
-    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
-        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText, _stds);
+    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes) {
+        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText, _primTypes);
         if (_elt instanceof Text) {
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
             AttributePart attrPart_ = new AttributePart();
@@ -131,7 +131,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         }
         return bl_;
     }
-    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, LgNames _stds) {
+    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, Configuration _conf, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes) {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             if (t_.getTextContent().trim().isEmpty()) {
@@ -154,7 +154,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrList(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
+                        new OffsetsBlock(_begin,_begin), _primTypes
                 );
             }
             if (elt_.hasAttribute(rendKeyWords_.getAttrMap())) {
@@ -166,7 +166,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrMap(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
+                        new OffsetsBlock(_begin,_begin), _primTypes
                 );
             }
             if (elt_.hasAttribute(rendKeyWords_.getAttrVar())) {
@@ -179,7 +179,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
                         newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                        new OffsetsBlock(_begin,_begin), _stds
+                        new OffsetsBlock(_begin,_begin), _primTypes
                 );
             }
             return new AnaRendForMutableIterativeLoop(
@@ -189,7 +189,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
                     newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_)
                     ,newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
-                    new OffsetsBlock(_begin,_begin), _stds);
+                    new OffsetsBlock(_begin,_begin), _primTypes);
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordWhile()))) {
             MutableNode previousSibling_ = elt_.getPreviousSibling();
@@ -337,7 +337,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     static String inferOrObject(String _type, AnalyzedPageEl _page) {
         String t_ = _type;
         if (StringList.quickEq(_type, _page.getKeyWords().getKeyWordVar())) {
-            t_ = _page.getStandards().getAliasObject();
+            t_ = _page.getAliasObject();
         }
         return t_;
     }

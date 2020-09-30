@@ -200,7 +200,7 @@ public abstract class OperationNode {
                     String type_ = ch_.getResultClass().getSingleNameOrEmpty();
                     if (!type_.isEmpty()) {
                         String id_ = StringExpUtil.getIdFromAllTypes(type_);
-                        String fct_ = _page.getStandards().getAliasFct();
+                        String fct_ = _page.getAliasFct();
                         if (StringList.quickEq(id_, fct_)) {
                             return new CallDynMethodOperation(_index, _indexChild, _m, _op);
                         }
@@ -488,7 +488,7 @@ public abstract class OperationNode {
 
     static String emptyToObject(String _str, AnalyzedPageEl _page) {
         if (_str.isEmpty()) {
-            return _page.getStandards().getAliasObject();
+            return _page.getAliasObject();
         }
         return _str;
     }
@@ -974,7 +974,7 @@ public abstract class OperationNode {
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
-        return_.setReturnType(page_.getStandards().getAliasObject());
+        return_.setReturnType(page_.getAliasObject());
         return return_;
     }
 
@@ -1002,7 +1002,7 @@ public abstract class OperationNode {
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
-        return_.setReturnType(page_.getStandards().getAliasObject());
+        return_.setReturnType(page_.getAliasObject());
         return return_;
     }
     static ClassMethodIdReturn getDeclaredCustMethodLambda(OperationNode _op, int _varargOnly,
@@ -1029,13 +1029,13 @@ public abstract class OperationNode {
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
-        return_.setReturnType(page_.getStandards().getAliasObject());
+        return_.setReturnType(page_.getAliasObject());
         return return_;
     }
 
     protected static AnaClassArgumentMatching voidToObject(AnaClassArgumentMatching _original, AnalyzedPageEl _page) {
         if (_original.matchVoid(_page)) {
-            return new AnaClassArgumentMatching(_page.getStandards().getAliasObject());
+            return new AnaClassArgumentMatching(_page.getAliasObject());
         }
         return _original;
     }
@@ -1105,10 +1105,10 @@ public abstract class OperationNode {
     protected static ReversibleConversion tryGetPair(AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         StringList conv_ = new StringList();
         AnalyzedPageEl page_ = _page;
-        conv_.add(page_.getStandards().getAliasPrimInteger());
-        conv_.add(page_.getStandards().getAliasPrimLong());
-        conv_.add(page_.getStandards().getAliasPrimFloat());
-        conv_.add(page_.getStandards().getAliasPrimDouble());
+        conv_.add(page_.getAliasPrimInteger());
+        conv_.add(page_.getAliasPrimLong());
+        conv_.add(page_.getAliasPrimFloat());
+        conv_.add(page_.getAliasPrimDouble());
         for (String p: conv_) {
             AnaClassArgumentMatching r_ = new AnaClassArgumentMatching(p);
             ClassMethodIdReturn from_ = tryGetDeclaredImplicitCast(p, _argsClass, _page);
@@ -1299,18 +1299,18 @@ public abstract class OperationNode {
         if (StringList.quickEq(_op,"+")
                 ||StringList.quickEq(_op,"-")) {
             StringList group_ = new StringList();
-            group_.add(page_.getStandards().getAliasPrimInteger());
-            group_.add(page_.getStandards().getAliasPrimLong());
+            group_.add(page_.getAliasPrimInteger());
+            group_.add(page_.getAliasPrimLong());
             groups_.add(group_);
             group_ = new StringList();
-            group_.add(page_.getStandards().getAliasPrimFloat());
-            group_.add(page_.getStandards().getAliasPrimDouble());
+            group_.add(page_.getAliasPrimFloat());
+            group_.add(page_.getAliasPrimDouble());
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"~")) {
             StringList group_ = new StringList();
-            group_.add(page_.getStandards().getAliasPrimBoolean());
-            group_.add(page_.getStandards().getAliasPrimInteger());
-            group_.add(page_.getStandards().getAliasPrimLong());
+            group_.add(page_.getAliasPrimBoolean());
+            group_.add(page_.getAliasPrimInteger());
+            group_.add(page_.getAliasPrimLong());
             groups_.add(group_);
         }
         for (StringList g: groups_) {
@@ -1466,37 +1466,37 @@ public abstract class OperationNode {
             ||StringList.quickEq(_op,"/")
             ||StringList.quickEq(_op,"%")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimInteger(), _page.getStandards().getAliasPrimInteger()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimLong(), _page.getStandards().getAliasPrimLong()));
+            group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+            group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
             groups_.add(group_);
             group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimFloat(), _page.getStandards().getAliasPrimFloat()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimDouble(), _page.getStandards().getAliasPrimDouble()));
+            group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
+            group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"<")
                 ||StringList.quickEq(_op,"<=")
                 ||StringList.quickEq(_op,">")
                 ||StringList.quickEq(_op,">=")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimInteger(), _page.getStandards().getAliasPrimBoolean()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimLong(), _page.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimBoolean()));
             groups_.add(group_);
             group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimFloat(), _page.getStandards().getAliasPrimBoolean()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimDouble(), _page.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimBoolean()));
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"&")
                 ||StringList.quickEq(_op,"|")
                 ||StringList.quickEq(_op,"^")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimBoolean(), _page.getStandards().getAliasPrimBoolean()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimInteger(), _page.getStandards().getAliasPrimInteger()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimLong(), _page.getStandards().getAliasPrimLong()));
+            group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+            group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"&&")
                 ||StringList.quickEq(_op,"||")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimBoolean(), _page.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"<<")
                 ||StringList.quickEq(_op,">>")
@@ -1505,8 +1505,8 @@ public abstract class OperationNode {
                 ||StringList.quickEq(_op,"<<<<")
                 ||StringList.quickEq(_op,">>>>")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimInteger(), _page.getStandards().getAliasPrimInteger()));
-            group_.add(new ParamReturn(_page.getStandards().getAliasPrimLong(), _page.getStandards().getAliasPrimLong()));
+            group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+            group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
             groups_.add(group_);
         }
         for (CustList<ParamReturn> g: groups_) {
@@ -1603,8 +1603,8 @@ public abstract class OperationNode {
             if (AnaTypeUtil.isFloatOrderClass(_left,_right, _page)) {
                 return true;
             }
-            if (_left.matchClass(_page.getStandards().getAliasString())) {
-                if (_right.matchClass(_page.getStandards().getAliasNumber())) {
+            if (_left.matchClass(_page.getAliasString())) {
+                if (_right.matchClass(_page.getAliasNumber())) {
                     return true;
                 }
                 if (AnaTypeUtil.isPureNumberClass(_right, _page)) {
@@ -1613,16 +1613,16 @@ public abstract class OperationNode {
                 if (_right.isBoolType(_page)) {
                     return true;
                 }
-                if (_right.matchClass(_page.getStandards().getAliasString())) {
+                if (_right.matchClass(_page.getAliasString())) {
                     return true;
                 }
-                if (_right.matchClass(_page.getStandards().getAliasStringBuilder())) {
+                if (_right.matchClass(_page.getAliasStringBuilder())) {
                     return true;
                 }
-                return _right.matchClass(_page.getStandards().getAliasObject());
+                return _right.matchClass(_page.getAliasObject());
             }
-            if (_right.matchClass(_page.getStandards().getAliasString())) {
-                if (_left.matchClass(_page.getStandards().getAliasNumber())) {
+            if (_right.matchClass(_page.getAliasString())) {
+                if (_left.matchClass(_page.getAliasNumber())) {
                     return true;
                 }
                 if (AnaTypeUtil.isPureNumberClass(_left, _page)) {
@@ -1631,7 +1631,7 @@ public abstract class OperationNode {
                 if (_left.isBoolType(_page)) {
                     return true;
                 }
-                return _left.matchClass(_page.getStandards().getAliasObject());
+                return _left.matchClass(_page.getAliasObject());
             }
             return false;
         }
@@ -1650,8 +1650,8 @@ public abstract class OperationNode {
             if (AnaTypeUtil.isFloatOrderClass(_left,_right, _page)) {
                 return true;
             }
-            return _left.matchClass(_page.getStandards().getAliasString())
-                    &&_right.matchClass(_page.getStandards().getAliasString());
+            return _left.matchClass(_page.getAliasString())
+                    &&_right.matchClass(_page.getAliasString());
         }
         if (StringList.quickEq(_op,"&") || StringList.quickEq(_op,"|")
                 ||StringList.quickEq(_op,"^")) {
@@ -1674,19 +1674,19 @@ public abstract class OperationNode {
         if (AnaTypeUtil.isFloatOrderClass(_left,_right, _page)) {
             return true;
         }
-        if (_left.matchClass(_page.getStandards().getAliasNumber())
-                &&_right.matchClass(_page.getStandards().getAliasNumber())) {
+        if (_left.matchClass(_page.getAliasNumber())
+                &&_right.matchClass(_page.getAliasNumber())) {
             return true;
         }
         if (_left.isBoolType(_page)&&_right.isBoolType(_page)) {
             return true;
         }
-        if (_left.matchClass(_page.getStandards().getAliasString())
-                &&_right.matchClass(_page.getStandards().getAliasString())) {
+        if (_left.matchClass(_page.getAliasString())
+                &&_right.matchClass(_page.getAliasString())) {
             return true;
         }
-        return _left.matchClass(_page.getStandards().getAliasObject())
-                && _right.matchClass(_page.getStandards().getAliasObject());
+        return _left.matchClass(_page.getAliasObject())
+                && _right.matchClass(_page.getAliasObject());
     }
 
     private static ClassMethodIdReturn getIncrDecrOperator(String _op, AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
@@ -1975,7 +1975,7 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getTrues().getVal(supId_);
             RootBlock t_ = _page.getAnaClassBody(supId_);
-            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
+            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
         }
     }
     private static void fetchFalse(CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
@@ -1997,7 +1997,7 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getFalses().getVal(supId_);
             RootBlock t_ = _page.getAnaClassBody(supId_);
-            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
+            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
         }
     }
     protected static CustList<CustList<MethodInfo>>
@@ -2096,7 +2096,7 @@ public abstract class OperationNode {
                 String gene_ = root_.getGenericString();
                 addToList(typeInfos_,_staticContext,root_,s,root_,gene_,0,true, _page);
                 for (String m : root_.getAllGenericSuperTypes()) {
-                    StandardType sup_ = _page.getStandards().getStandards().getVal(m);
+                    StandardType sup_ = _page.getStandardsTypes().getVal(m);
                     addToList(typeInfos_,_staticContext,root_,s,sup_,m,0,false, _page);
                 }
             }
@@ -2262,7 +2262,7 @@ public abstract class OperationNode {
             return null;
         }
         String formattedClass_;
-        if (!id_.canAccessParamTypes() || StringList.quickEq(base_, _page.getStandards().getAliasFct())) {
+        if (!id_.canAccessParamTypes() || StringList.quickEq(base_, _page.getAliasFct())) {
             formattedClass_ = _s;
         } else {
             formattedClass_ = _f;
@@ -2403,10 +2403,10 @@ public abstract class OperationNode {
             return methods_;
         }
         String wildCardForm_ = r_.getWildCardString();
-        String string_ = _page.getStandards().getAliasString();
+        String string_ = _page.getAliasString();
         String returnType_ = wildCardForm_;
         ParametersGroup p_ = new ParametersGroup();
-        String valueOf_ = _page.getStandards().getAliasEnumPredValueOf();
+        String valueOf_ = _page.getAliasEnumPredValueOf();
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);
@@ -2421,7 +2421,7 @@ public abstract class OperationNode {
         mloc_.setRootNumber(r_.getNumberAll());
         methods_.add(mloc_);
         p_ = new ParametersGroup();
-        String values_ = _page.getStandards().getAliasEnumValues();
+        String values_ = _page.getAliasEnumValues();
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
         mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);

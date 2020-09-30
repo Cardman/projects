@@ -13,7 +13,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -38,7 +37,6 @@ public final class IdFctOperation extends LeafOperation {
     public void analyze(AnalyzedPageEl _page) {
         partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
-        LgNames stds_ = _page.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -52,7 +50,7 @@ public final class IdFctOperation extends LeafOperation {
             _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (!isFirstChildInParent()) {
@@ -67,7 +65,7 @@ public final class IdFctOperation extends LeafOperation {
             _page.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
@@ -83,7 +81,7 @@ public final class IdFctOperation extends LeafOperation {
             cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             if (cl_.isEmpty()) {
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
@@ -107,7 +105,7 @@ public final class IdFctOperation extends LeafOperation {
         }
         MethodId argsRes_ = resolveArguments(i_, cl_, EMPTY_STRING, static_, args_, className, partOffsets, _page);
         if (argsRes_ == null) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),anc_);
@@ -159,7 +157,7 @@ public final class IdFctOperation extends LeafOperation {
             methodInfos_.addAllElts(newList_);
         }
         setSimpleArgument(new Argument());
-        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
     public static MethodId resolveArguments(int _from, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
         StringList out_ = new StringList();

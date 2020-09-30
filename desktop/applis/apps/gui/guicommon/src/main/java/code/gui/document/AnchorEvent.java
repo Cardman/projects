@@ -45,7 +45,7 @@ public final class AnchorEvent extends MouseAdapter {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(na_);
-        CustComponent.newThread(ThreadActions.inst(page, page.getStandards(), anchorRef_, "", false, false)).start();
+        CustComponent.newThread(EventThreadActions.inst(page, anchorRef_, false)).start();
         page.animateProcess();
     }
 }

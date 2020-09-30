@@ -1,7 +1,9 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
+import code.bean.nat.NativeForEachFetch;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
@@ -260,7 +262,7 @@ public final class NativeTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_);
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, new DefaultFileBuilder(lgNames_.getContent()));
         n_.setFiles(files_);
         n_.setupRendClassesInit(page_, lgNames_, rend_);
         n_.initializeRendSession();
@@ -305,7 +307,7 @@ public final class NativeTest extends CommonRender {
     private static AnalyzedTestConfiguration buildNat(Configuration conf_) {
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = buildStdOne(opt_);
-        return new AnalyzedTestConfiguration(conf_,cont_, cont_.getForwards());
+        return new AnalyzedTestConfiguration(conf_,cont_, cont_.getForwards(), cont_.getStds());
     }
 
     @Test
@@ -1239,7 +1241,7 @@ public final class NativeTest extends CommonRender {
 
     private static void initSessionNat(AnalyzedTestConfiguration _conf,Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        BeanNatLgNames standards_ = (BeanNatLgNames) _conf.getAnalyzing().getStandards();
+        BeanNatLgNames standards_ = (BeanNatLgNames) _conf.getAdvStandards();
         for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
@@ -1250,6 +1252,7 @@ public final class NativeTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
         setupAna(analyzingDoc_, _conf.getAnalyzing());
+        _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
         AnalyzedPageEl _page = _conf.getAnalyzing();
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_.getRendAnalysisMessages(), analyzingDoc_);
@@ -1264,6 +1267,7 @@ public final class NativeTest extends CommonRender {
         setupNative(folder_, relative_, context_.getConfiguration());
         putBean(bean_, "bean_one", context_.getAnaStandards());
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
+        context_.getAnalyzing().setForEachFetch(new NativeForEachFetch(((BeanNatLgNames) context_.getAnaStandards())));
         analyzeInner(context_.getConfiguration(),context_, html_);
         return !context_.isEmptyErrors();
     }
@@ -1276,6 +1280,7 @@ public final class NativeTest extends CommonRender {
         addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
+        conf_.getAnalyzing().setForEachFetch(new NativeForEachFetch(((BeanNatLgNames) conf_.getAnaStandards())));
         analyzeInner(conf_.getConfiguration(),conf_, html_);
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
@@ -1310,8 +1315,8 @@ public final class NativeTest extends CommonRender {
         KeyWords kw_ = new KeyWords();
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_);
-        return new AnalyzedTestContext(contextEl_, page_, new Forwards());
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, null, null);
+        return new AnalyzedTestContext(contextEl_, page_, new Forwards(), lgNames_);
     }
 
     private static void addBeanInfo(AnalyzedTestConfiguration _conf, String _id, Struct _str) {

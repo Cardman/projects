@@ -88,7 +88,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                         _cont.getRendKeyWords().getAttrConvertValue());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
-            String string_ = _page.getStandards().getAliasString();
+            String string_ = _page.getAliasString();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -105,7 +105,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             StringList names_ = r_.getOpsValueRoot().getResultClass().getNames();
             if (!r_.getOpsValueRoot().getResultClass().isVariable()) {
-                IterableAnalysisResult it_ = _page.getStandards().getCustomType(names_,"", _page);
+                IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(names_,"");
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -131,7 +131,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
         } else if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -141,7 +141,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                             _cont.getRendKeyWords().getAttrConvertValue());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
-                String string_ = _page.getStandards().getAliasString();
+                String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -167,7 +167,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (!converterValue_.trim().isEmpty()) {
-                String string_ = _page.getStandards().getAliasString();
+                String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
@@ -196,7 +196,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
         }
         String converterField_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertField());
         if (!converterField_.trim().isEmpty()) {
-            String object_ = _page.getStandards().getAliasObject();
+            String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -212,20 +212,20 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
-                        _page.getStandards().getAliasCharSequence());
+                        _page.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         String converterFieldValue_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertFieldValue());
         if (!converterFieldValue_.trim().isEmpty()) {
-            String object_ = _page.getStandards().getAliasObject();
+            String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
@@ -241,14 +241,14 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterFieldValue.getResultClass());
-            m_.setParam(_page.getStandards().getAliasCharSequence());
+            m_.setParam(_page.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
-                        _page.getStandards().getAliasCharSequence());
+                        _page.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -269,18 +269,18 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(rootDefault.getResultClass());
             if (!multiple) {
-                m_.setParam(_page.getStandards().getAliasCharSequence());
+                m_.setParam(_page.getAliasCharSequence());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_cont.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootDefault.getResultClass().getNames(),AND_ERR),
-                            _page.getStandards().getAliasCharSequence());
+                            _page.getAliasCharSequence());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else {
-                IterableAnalysisResult it_ = _page.getStandards().getCustomType(rootDefault.getResultClass().getNames(),"", _page);
+                IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(rootDefault.getResultClass().getNames(),"");
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();

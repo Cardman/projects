@@ -31,7 +31,6 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -280,8 +279,8 @@ public final class ClassesUtil {
                         continue;
                     }
                     String base_ = e.getBase();
-                    String enumClassName_ = _page.getStandards().getAliasEnumType();
-                    String enumParamClassName_ = _page.getStandards().getAliasEnumParam();
+                    String enumClassName_ = _page.getAliasEnumType();
+                    String enumParamClassName_ = _page.getAliasEnumParam();
                     if (StringList.quickEq(enumParamClassName_, base_)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
@@ -393,8 +392,7 @@ public final class ClassesUtil {
     }
 
     public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_page);
+        StringMap<String> files_ = _page.buildFiles();
         buildFilesBodies(files_,true, _page);
         buildFilesBodies(_files,false, _page);
         parseFiles(_page);
@@ -418,7 +416,6 @@ public final class ClassesUtil {
         _page.setCurrentAnaBlock(_root);
         String packageName_;
         packageName_ = _root.getPackageName();
-        LgNames lgNames_ = _page.getStandards();
         if (packageName_.trim().isEmpty()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
@@ -460,7 +457,7 @@ public final class ClassesUtil {
         }
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
-        String objectClassName_ = _page.getStandards().getAliasObject();
+        String objectClassName_ = _page.getAliasObject();
         StringList params_ = StringExpUtil.getAllTypes(fullDef_);
         StringList namesFromParent_ = getParamVarFromParent(_root);
         int tempOff_ = _root.getTemplateDefOffset() + 1;
@@ -561,7 +558,7 @@ public final class ClassesUtil {
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
-            StringBuilder sBuild_ = new StringBuilder(_page.getStandards().getAliasEnumParam());
+            StringBuilder sBuild_ = new StringBuilder(_page.getAliasEnumParam());
             sBuild_.append(Templates.TEMPLATE_BEGIN);
             sBuild_.append(generic_);
             sBuild_.append(Templates.TEMPLATE_END);
@@ -579,12 +576,12 @@ public final class ClassesUtil {
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_root instanceof AnnotationBlock) {
-            String type_ = _page.getStandards().getAliasAnnotationType();
+            String type_ = _page.getAliasAnnotationType();
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
-        if (lgNames_.getStandards().contains(fullName_)) {
+        if (_page.getStandardsTypes().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
@@ -1073,7 +1070,7 @@ public final class ClassesUtil {
 
     public static void validateInheritingClasses(AnalyzedPageEl _page) {
         AnalyzedPageEl page_ = _page;
-        String objectClassName_ = page_.getStandards().getAliasObject();
+        String objectClassName_ = page_.getAliasObject();
         page_.getListTypesNames().clear();
         validateInheritingClassesId(_page);
         CustList<RootBlock> listTypes_ = page_.getListTypesNames();
@@ -1163,10 +1160,10 @@ public final class ClassesUtil {
     }
 
     public static void validateInheritingClassesId(AnalyzedPageEl _page) {
-        String objectClassName_ = _page.getStandards().getAliasObject();
-        String enumClassName_ = _page.getStandards().getAliasEnumType();
-        String enumParamClassName_ = _page.getStandards().getAliasEnumParam();
-        String annotName_ = _page.getStandards().getAliasAnnotationType();
+        String objectClassName_ = _page.getAliasObject();
+        String enumClassName_ = _page.getAliasEnumType();
+        String enumParamClassName_ = _page.getAliasEnumParam();
+        String annotName_ = _page.getAliasAnnotationType();
         StringMap<Boolean> builtTypes_ = new StringMap<Boolean>();
         IdList<RootBlock> stClNames_ = new IdList<RootBlock>(_page.getFoundTypes());
         for (RootBlock r: stClNames_) {
@@ -1229,7 +1226,7 @@ public final class ClassesUtil {
                     s = StringExpUtil.removeDottedSpaces(s);
                     String idSuper_ = StringExpUtil.getIdFromAllTypes(s);
                     int offset_ = e.getKey();
-                    String void_ = _page.getStandards().getAliasVoid();
+                    String void_ = _page.getAliasVoid();
                     if (StringList.quickEq(idSuper_, void_)) {
                         FoundErrorInterpret undef_ = new FoundErrorInterpret();
                         undef_.setFileName(r.getFile().getFileName());
@@ -1243,7 +1240,7 @@ public final class ClassesUtil {
                         continue;
                     }
                     if (r.getExplicitDirectSuperTypes().getValue(index_)) {
-                        if (_page.getStandards().getStandards().contains(idSuper_)) {
+                        if (_page.getStandardsTypes().contains(idSuper_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
                             undef_.setFileName(r.getFile().getFileName());
@@ -1469,7 +1466,6 @@ public final class ClassesUtil {
     }
 
     private static void checkTemplatesDef(String _objectClassName, AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
         for (RootBlock s: _page.getFoundTypes()) {
             String c = s.getFullName();
             Mapping mapping_ = new Mapping();
@@ -1582,7 +1578,7 @@ public final class ClassesUtil {
                         for (String b: upperNotObj_) {
                             String baseParamsUpp_ = StringExpUtil.getIdFromAllTypes(b);
                             String base_ = StringExpUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
-                            StandardType type_ = stds_.getStandards().getVal(base_);
+                            StandardType type_ = _page.getStandardsTypes().getVal(base_);
                             if (!(type_ instanceof StandardClass)) {
                                 continue;
                             }
@@ -2644,7 +2640,7 @@ public final class ClassesUtil {
             UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
             StringList all_ = _cl.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            StringList.removeAllElements(allCopy_, _page.getStandards().getPredefinedInterfacesInitOrder());
+            StringList.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
             RootBlock superType_ = _page.getAnaClassBody(superClassId_);

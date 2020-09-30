@@ -120,7 +120,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
-                String iter_ = _page.getStandards().getAliasIterable();
+                String iter_ = _page.getAliasIterable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
             }
         } else if (m_ == null && cur_ instanceof ImportForEachTable) {
@@ -128,7 +128,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String typeAffOne_ = i_.getImportedClassNameFirst();
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
-                String iter_ = _page.getStandards().getAliasIterableTable();
+                String iter_ = _page.getAliasIterableTable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
         } else {

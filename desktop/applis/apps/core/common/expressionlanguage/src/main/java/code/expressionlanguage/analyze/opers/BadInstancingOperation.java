@@ -25,7 +25,7 @@ public final class BadInstancingOperation extends LeafOperation {
         emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());
         getErrs().add(emptyPart_.getBuiltError());
         _page.getLocalizer().addError(emptyPart_);
-        argClName_ = _page.getStandards().getAliasObject();
+        argClName_ = _page.getAliasObject();
         setResultClass(new AnaClassArgumentMatching(argClName_));
     }
 

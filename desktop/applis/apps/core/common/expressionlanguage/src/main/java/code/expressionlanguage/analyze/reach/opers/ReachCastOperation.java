@@ -35,37 +35,37 @@ public final class ReachCastOperation extends ReachMethodOperation implements Re
         m_.setParam(className);
         m_.setArg("");
         if (after_.getStruct() instanceof StringStruct) {
-            m_.setArg(_page.getStandards().getAliasString());
+            m_.setArg(_page.getAliasString());
         }
         if (after_.getStruct() instanceof DoubleStruct) {
-            m_.setArg(_page.getStandards().getAliasDouble());
+            m_.setArg(_page.getAliasDouble());
         }
         if (after_.getStruct() instanceof FloatStruct) {
-            m_.setArg(_page.getStandards().getAliasFloat());
+            m_.setArg(_page.getAliasFloat());
         }
         if (after_.getStruct() instanceof LongStruct) {
-            m_.setArg(_page.getStandards().getAliasLong());
+            m_.setArg(_page.getAliasLong());
         }
         if (after_.getStruct() instanceof IntStruct) {
-            m_.setArg(_page.getStandards().getAliasInteger());
+            m_.setArg(_page.getAliasInteger());
         }
         if (after_.getStruct() instanceof ShortStruct) {
-            m_.setArg(_page.getStandards().getAliasShort());
+            m_.setArg(_page.getAliasShort());
         }
         if (after_.getStruct() instanceof CharStruct) {
-            m_.setArg(_page.getStandards().getAliasCharacter());
+            m_.setArg(_page.getAliasCharacter());
         }
         if (after_.getStruct() instanceof ByteStruct) {
-            m_.setArg(_page.getStandards().getAliasByte());
+            m_.setArg(_page.getAliasByte());
         }
         if (after_.getStruct() instanceof BooleanStruct) {
-            m_.setArg(_page.getStandards().getAliasBoolean());
+            m_.setArg(_page.getAliasBoolean());
         }
         if (after_.getStruct() instanceof ReplacementStruct) {
-            m_.setArg(_page.getStandards().getAliasReplacement());
+            m_.setArg(_page.getAliasReplacement());
         }
         if (after_.getStruct() instanceof ClassMetaInfo) {
-            m_.setArg(_page.getStandards().getAliasClassType());
+            m_.setArg(_page.getAliasClassType());
         }
         if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
             return;

@@ -233,7 +233,7 @@ public final class DimensionArrayInstancing extends
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        setClassName(_page.getStandards().getAliasObject());
+        setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
@@ -251,7 +251,7 @@ public final class DimensionArrayInstancing extends
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _page);
             AnaClassArgumentMatching resCh_ = o.getResultClass();
             if (!resCh_.isNumericInt(_page)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimInteger(), resCh_, _page);
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), resCh_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     resCh_.getImplicits().add(cl_);

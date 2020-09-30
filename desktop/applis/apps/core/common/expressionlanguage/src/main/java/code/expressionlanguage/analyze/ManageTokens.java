@@ -81,7 +81,7 @@ public final class ManageTokens {
         if (_analyzing.getKeyWords().isKeyWordNotVar(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
-        if (StringList.quickEq(_id, _analyzing.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_id, _analyzing.getAliasVoid())) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
         if (StringExpUtil.isDigit(_id.charAt(0))) {

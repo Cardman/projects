@@ -27,7 +27,6 @@ public final class SuperFromFieldOperation extends
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        LgNames stds_ = _page.getStandards();
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
@@ -55,7 +54,7 @@ public final class SuperFromFieldOperation extends
                     className_);
             _page.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return null;
         }
         return new AnaClassArgumentMatching(className_);

@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -49,12 +48,11 @@ public abstract class SettableAbstractFieldOperation extends
             import_ = true;
             staticAccess = _page.getStaticContext();
         }
-        LgNames stds_ = _page.getStandards();
         String fieldName_ = getFieldName();
         fieldNameLength = fieldName_.length();
         AnaClassArgumentMatching cl_ = getFrom(_page);
         if (cl_ == null) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         boolean baseAccess_ = isBaseAccess();
@@ -80,7 +78,7 @@ public abstract class SettableAbstractFieldOperation extends
         r_ = getDeclaredCustField(this, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
         settableFieldContent.setAnc(r_.getAnc());
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         rootNumber = r_.getRootNumber();

@@ -39,7 +39,12 @@ public final class AnalyzedPageEl {
     private static final int DEFAULT_TAB_WIDTH = 4;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
+    private final StringList predefinedClasses = new StringList();
+
+    private final StringList predefinedInterfacesInitOrder = new StringList();
     private LgNames standards;
+    private AbstractConstantsCalculator calculator;
+    private AbstractFileBuilder fileBuilder;
     private Classes classes;
     private ClassesCommon classesCommon;
     private Coverage coverage;
@@ -120,6 +125,7 @@ public final class AnalyzedPageEl {
 
     private StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
+    private AbstractForEachFetch forEachFetch;
     private AbstractHiddenTypes hiddenTypes;
     private AbstractCurrentConstraints currentConstraints;
     private AbstractAnnotationAnalysis annotationAnalysis;
@@ -152,6 +158,7 @@ public final class AnalyzedPageEl {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         page_.setProcessKeyWord(new DefaultProcessKeyWord());
         page_.setHiddenTypes(new DefaultHiddenTypes(page_));
+        page_.setForEachFetch(new DefaultForEachFetch(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
         page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
         page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
@@ -190,8 +197,181 @@ public final class AnalyzedPageEl {
         this.classesCommon = classesCommon;
     }
 
-    public LgNames getStandards() {
-        return standards;
+    public String getDefaultPkg() {
+        return standards.getContent().getDefaultPkg();
+    }
+    public AliasReflection getReflect() {
+        return standards.getContent().getReflect();
+    }
+    public AliasMath getMathRef() {
+        return standards.getContent().getMathRef();
+    }
+    public AliasCharSequence getCharSeq() {
+        return standards.getContent().getCharSeq();
+    }
+    public AliasNumber getNbAlias() {
+        return standards.getContent().getNbAlias();
+    }
+
+    public AliasCore getCoreNames() {
+        return standards.getContent().getCoreNames();
+    }
+
+    public String getAliasEnumPredValueOf() {
+        return standards.getContent().getPredefTypes().getAliasEnumPredValueOf();
+    }
+    public String getAliasMetaInfo() {
+        return standards.getContent().getReflect().getAliasMetaInfo();
+    }
+    public String getAliasAnnotated() {
+        return standards.getContent().getReflect().getAliasAnnotated();
+    }
+    public String getAliasInstance() {
+        return standards.getContent().getReflect().getAliasInstance();
+    }
+    public String getAliasCall() {
+        return standards.getContent().getReflect().getAliasCall();
+    }
+    public String getAliasEnumValues() {
+        return standards.getContent().getPredefTypes().getAliasEnumValues();
+    }
+    public String getAliasLength() {
+        return standards.getContent().getCharSeq().getAliasLength();
+    }
+
+    public String getAliasAnnotationType() {
+        return standards.getContent().getReflect().getAliasAnnotationType();
+    }
+    public String getAliasEnumParam() {
+        return standards.getContent().getPredefTypes().getAliasEnumParam();
+    }
+    public String getAliasEnumType() {
+        return standards.getContent().getPredefTypes().getAliasEnumType();
+    }
+
+    public StringMap<String> buildFiles(){
+        StringMap<String> m_ = fileBuilder.buildFiles(keyWords);
+        predefinedClasses.addAllElts(fileBuilder.getPredefinedClasses());
+        predefinedInterfacesInitOrder.addAllElts(fileBuilder.getPredefinedInterfacesInitOrder());
+        return m_;
+    }
+    public StringMap<StandardType> getStandardsTypes() {
+        return standards.getContent().getStandards();
+    }
+
+    public String getAliasIterable() {
+        return standards.getContent().getPredefTypes().getAliasIterable();
+    }
+
+    public String getAliasIterableTable() {
+        return standards.getContent().getPredefTypes().getAliasIterableTable();
+    }
+
+    public String getAliasReplacement() {
+        return standards.getContent().getCharSeq().getAliasReplacement();
+    }
+
+    public String getAliasNullPe() {
+        return standards.getContent().getCoreNames().getAliasNullPe();
+    }
+
+    public String getAliasClassType() {
+        return standards.getContent().getReflect().getAliasClassType();
+    }
+
+    public String getAliasClone() {
+        return standards.getContent().getCoreNames().getAliasClone();
+    }
+
+    public String getAliasFct() {
+        return standards.getContent().getReflect().getAliasFct();
+    }
+    public String getAliasVoid() {
+        return standards.getContent().getCoreNames().getAliasVoid();
+    }
+
+    public String getAliasBoolean() {
+        return standards.getContent().getNbAlias().getAliasBoolean();
+    }
+
+    public String getAliasPrimBoolean() {
+        return standards.getContent().getPrimTypes().getAliasPrimBoolean();
+    }
+
+    public String getAliasObject() {
+        return standards.getContent().getCoreNames().getAliasObject();
+    }
+
+    public String getAliasNumber() {
+        return standards.getContent().getNbAlias().getAliasNumber();
+    }
+
+    public String getAliasCharSequence() {
+        return standards.getContent().getCharSeq().getAliasCharSequence();
+    }
+
+    public String getAliasStringBuilder() {
+        return standards.getContent().getCharSeq().getAliasStringBuilder();
+    }
+
+    public String getAliasString() {
+        return standards.getContent().getCharSeq().getAliasString();
+    }
+
+    public String getAliasByte() {
+        return standards.getContent().getNbAlias().getAliasByte();
+    }
+
+    public String getAliasPrimByte() {
+        return standards.getContent().getPrimTypes().getAliasPrimByte();
+    }
+
+    public String getAliasShort() {
+        return standards.getContent().getNbAlias().getAliasShort();
+    }
+
+    public String getAliasPrimShort() {
+        return standards.getContent().getPrimTypes().getAliasPrimShort();
+    }
+
+    public String getAliasCharacter() {
+        return standards.getContent().getNbAlias().getAliasCharacter();
+    }
+
+    public String getAliasPrimChar() {
+        return standards.getContent().getPrimTypes().getAliasPrimChar();
+    }
+
+    public String getAliasInteger() {
+        return standards.getContent().getNbAlias().getAliasInteger();
+    }
+
+    public String getAliasPrimInteger() {
+        return standards.getContent().getPrimTypes().getAliasPrimInteger();
+    }
+
+    public String getAliasLong() {
+        return standards.getContent().getNbAlias().getAliasLong();
+    }
+
+    public String getAliasPrimLong() {
+        return standards.getContent().getPrimTypes().getAliasPrimLong();
+    }
+
+    public String getAliasFloat() {
+        return standards.getContent().getNbAlias().getAliasFloat();
+    }
+
+    public String getAliasPrimFloat() {
+        return standards.getContent().getPrimTypes().getAliasPrimFloat();
+    }
+
+    public String getAliasDouble() {
+        return standards.getContent().getNbAlias().getAliasDouble();
+    }
+
+    public String getAliasPrimDouble() {
+        return standards.getContent().getPrimTypes().getAliasPrimDouble();
     }
 
     public StringMap<PrimitiveType> getPrimitiveTypes() {
@@ -199,11 +379,11 @@ public final class AnalyzedPageEl {
     }
 
     public PrimitiveTypes getPrimTypes() {
-        return standards.getPrimTypes();
+        return standards.getContent().getPrimTypes();
     }
 
     public DisplayedStrings getDisplayedStrings() {
-        return standards.getDisplayedStrings();
+        return standards.getContent().getDisplayedStrings();
     }
 
     public void setStandards(LgNames standards) {
@@ -418,7 +598,7 @@ public final class AnalyzedPageEl {
         AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_list);
         String uniq_ = first_.getSingleNameOrEmpty();
         String w_ = "";
-        for (EntryCust<String, PrimitiveType> e: standards.getPrimitiveTypes().entryList()) {
+        for (EntryCust<String, PrimitiveType> e: standards.getContent().getPrimTypes().getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getKey(), uniq_)) {
                 w_ = e.getValue().getWrapper();
                 break;
@@ -429,9 +609,9 @@ public final class AnalyzedPageEl {
 
     public StringList getAllGenericSuperTypesWrapper(String _prim, int _d) {
         StringList list_ = new StringList();
-        for (EntryCust<String, PrimitiveType> e: standards.getPrimitiveTypes().entryList()) {
+        for (EntryCust<String, PrimitiveType> e: standards.getContent().getPrimTypes().getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getKey(), _prim)) {
-                for (EntryCust<String,StandardType> f: standards.getStandards().entryList()) {
+                for (EntryCust<String,StandardType> f: standards.getContent().getStandards().entryList()) {
                     String wrapper_ = e.getValue().getWrapper();
                     if (StringList.quickEq(wrapper_,f.getKey())) {
                         list_.add(StringExpUtil.getPrettyArrayType(wrapper_,_d));
@@ -449,7 +629,7 @@ public final class AnalyzedPageEl {
         if (r_ != null) {
             return r_;
         }
-        return standards.getStandards().getVal(_type);
+        return standards.getContent().getStandards().getVal(_type);
     }
     public RootBlock getAnaClassBody(String _type) {
         for (RootBlock r: refFoundTypes) {
@@ -630,6 +810,14 @@ public final class AnalyzedPageEl {
 
     public void setHiddenTypes(AbstractHiddenTypes hiddenTypes) {
         this.hiddenTypes = hiddenTypes;
+    }
+
+    public AbstractForEachFetch getForEachFetch() {
+        return forEachFetch;
+    }
+
+    public void setForEachFetch(AbstractForEachFetch forEachFetch) {
+        this.forEachFetch = forEachFetch;
     }
 
     public AbstractCurrentConstraints getCurrentConstraints() {
@@ -993,5 +1181,25 @@ public final class AnalyzedPageEl {
 
     public IdMap<RootBlock, ClassMethodIdReturn> getToStr() {
         return toStr;
+    }
+
+    public StringList getPredefinedClasses() {
+        return predefinedClasses;
+    }
+
+    public StringList getPredefinedInterfacesInitOrder() {
+        return predefinedInterfacesInitOrder;
+    }
+
+    public AbstractConstantsCalculator getCalculator() {
+        return calculator;
+    }
+
+    public void setCalculator(AbstractConstantsCalculator calculator) {
+        this.calculator = calculator;
+    }
+
+    public void setFileBuilder(AbstractFileBuilder fileBuilder) {
+        this.fileBuilder = fileBuilder;
     }
 }

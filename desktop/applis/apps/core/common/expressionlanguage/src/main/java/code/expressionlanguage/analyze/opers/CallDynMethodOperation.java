@@ -13,7 +13,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -31,11 +30,10 @@ public final class CallDynMethodOperation extends InvokingOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        LgNames stds_ = _page.getStandards();
         String fctName_ = getOperations().getFctName().trim();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (StringList.quickEq(fctName_, _page.getStandards().getAliasMetaInfo())) {
+        if (StringList.quickEq(fctName_, _page.getAliasMetaInfo())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -45,14 +43,14 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
-                        _page.getStandards().getAliasFct());
+                        _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
             }
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasAnnotated()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasAnnotated()));
             return;
         }
-        if (StringList.quickEq(fctName_, _page.getStandards().getAliasInstance())) {
+        if (StringList.quickEq(fctName_, _page.getAliasInstance())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -62,21 +60,21 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
-                        _page.getStandards().getAliasFct());
+                        _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
             }
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (!StringList.quickEq(fctName_, _page.getStandards().getAliasCall())) {
+        if (!StringList.quickEq(fctName_, _page.getAliasCall())) {
             FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_page.getLocalizer().getCurrentFileName());
             und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //fctName_ len
             und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
-                    _page.getStandards().getAliasCall(),
-                    _page.getStandards().getAliasFct());
+                    _page.getAliasCall(),
+                    _page.getAliasFct());
             _page.getLocalizer().addError(und_);
             getErrs().add(und_.getBuiltError());
         }
@@ -90,7 +88,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             firstArgs_.add(o.getResultClass());
         }
         if (all_.size() == 1) {
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (firstArgs_.size() != param_.size()) {
@@ -103,10 +101,10 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(param_.size()),
                         Integer.toString(firstArgs_.size()),
-                        _page.getStandards().getAliasFct());
+                        _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
-                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             indexCh = Math.min(param_.size() - 1,firstArgs_.size()-1);
@@ -117,10 +115,10 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
                     Integer.toString(param_.size()),
                     Integer.toString(firstArgs_.size()),
-                    _page.getStandards().getAliasFct());
+                    _page.getAliasFct());
             _page.getLocalizer().addError(undefined_);
             sepErr = undefined_.getBuiltError();
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         boolean allParamWildCard_ = true;
@@ -170,9 +168,9 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 getPartOffsetsChildren().add(parts_);
             }
         }
-        String void_ = stds_.getAliasVoid();
+        String void_ = _page.getAliasVoid();
         if (StringList.quickEq(ret_, void_) || StringList.quickEq(ret_, Templates.SUB_TYPE)) {
-            ret_ = stds_.getAliasObject();
+            ret_ = _page.getAliasObject();
         }
         setResultClass(new AnaClassArgumentMatching(ret_));
     }

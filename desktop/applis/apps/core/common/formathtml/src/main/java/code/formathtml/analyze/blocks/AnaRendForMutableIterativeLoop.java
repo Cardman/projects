@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
@@ -53,7 +52,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private OperationNode rootStep;
     AnaRendForMutableIterativeLoop(OffsetStringInfo _className,
                                    OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
+                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -65,7 +64,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         stepOffset = _step.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _stds.getAliasPrimInteger();
+            classIndex_ = _primTypes.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -132,7 +131,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         if (rootExp != null) {
             AnaClassArgumentMatching exp_ = rootExp.getResultClass();
             if (!exp_.isBoolType(_page)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     exp_.getImplicits().add(cl_);

@@ -2,6 +2,7 @@ package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -34,7 +35,7 @@ public final class PreparedRenderedPages implements Runnable {
         beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", stds_, rend_);
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", stds_, rend_, new DefaultFileBuilder(stds_.getContent()));
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {

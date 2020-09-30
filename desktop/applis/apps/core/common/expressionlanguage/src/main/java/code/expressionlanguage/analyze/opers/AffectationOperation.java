@@ -14,7 +14,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class AffectationOperation extends MethodOperation {
@@ -49,7 +48,6 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
-        LgNames stds_ = _page.getStandards();
         if (!ok_) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -66,7 +64,7 @@ public final class AffectationOperation extends MethodOperation {
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+1));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (elt_ instanceof VariableOperation) {

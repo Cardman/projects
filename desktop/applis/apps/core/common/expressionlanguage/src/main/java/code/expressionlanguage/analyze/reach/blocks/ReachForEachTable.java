@@ -34,7 +34,7 @@ public final class ReachForEachTable extends ReachBracedBlock implements ReachLo
             static_.setIndexFile(_page.getTraceIndex());
             //separator char
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
+                    _page.getAliasNullPe());
             _page.addLocError(static_);
             meta.getSepErrors().add(static_.getBuiltError());
         }

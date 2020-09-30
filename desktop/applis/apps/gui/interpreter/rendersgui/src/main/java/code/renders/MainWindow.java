@@ -12,6 +12,7 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
+import code.gui.document.ThreadActions;
 import code.gui.events.QuittingEvent;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
@@ -64,6 +65,13 @@ public final class MainWindow extends GroupFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+    }
+
+    public static CustThreadActions inst(String _conf, String _lgCode, BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName, RenderedPage _page) {
+        CustThreadActions actions_ = CustThreadActions.inst(_page, _stds, _lgCode,"", _conf, _files);
+        actions_.setClassDbName(_clName);
+        actions_.setMethodName(_methodName);
+        return actions_;
     }
 
     @Override
@@ -122,7 +130,7 @@ public final class MainWindow extends GroupFrame {
         session.initNav();
         session.setLanguage(getLanguageKey());
         session.setFiles(zipFiles_);
-        session.initializeOnlyConf(confRel_,lgCode.getText(),lgNames_,zipFiles_,clName_,mName_);
+        session.initializeOnlyConf(lgNames_, inst(confRel_, lgCode.getText(), lgNames_, zipFiles_, clName_, mName_, session));
     }
 
     private static void basicCustStandards(BeanCustLgNames _lgNames) {

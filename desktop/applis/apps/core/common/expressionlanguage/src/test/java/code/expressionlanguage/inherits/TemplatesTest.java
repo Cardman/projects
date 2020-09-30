@@ -342,8 +342,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void quickFormat1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        String first_ = context_.getStandards().getAliasString();
-        String second_ = context_.getStandards().getAliasInteger();
+        String first_ = context_.getAliasString();
+        String second_ = context_.getAliasInteger();
         assertEq(second_, quickFormat(context_, first_, second_));
     }
     @Test
@@ -384,8 +384,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
-        String first_ = context_.getStandards().getAliasString();
-        String second_ = context_.getStandards().getAliasInteger();
+        String first_ = context_.getAliasString();
+        String second_ = context_.getAliasInteger();
         assertEq(second_, format(context_, first_, second_));
     }
 
@@ -981,8 +981,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     private static AnalyzedTestContext simpleContextEl() {
         AnalyzedTestContext cont_ = ctxAna();
         AnalyzedPageEl page_ = cont_.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(page_);
+        StringMap<String> files_ = page_.buildFiles();
         buildFilesBodies(cont_, files_);
         parseFiles(cont_);
         validateInheritingClasses(cont_);

@@ -56,8 +56,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             memberNumber = cl_.getMemberNumber();
             return;
         }
-        LgNames stds_ = _page.getStandards();
-        setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
     @Override

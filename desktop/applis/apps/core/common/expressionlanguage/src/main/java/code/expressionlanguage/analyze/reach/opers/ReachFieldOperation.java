@@ -40,9 +40,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
         StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
         Struct str_ = Classes.getStaticField(fieldId_, staticFields_);
         if (map_.isEmpty()) {
-            LgNames stds_ = _page.getStandards();
-            ResultErrorStd res_ = stds_.getSimpleResult(fieldId_);
-            Argument arg_ = new Argument(res_.getResult());
+            Argument arg_ = new Argument(_page.getCalculator().getInnerSimpleResult(fieldId_));
             setSimpleArgumentAna(arg_);
             trySetDotParent(this, arg_, _page);
             return;

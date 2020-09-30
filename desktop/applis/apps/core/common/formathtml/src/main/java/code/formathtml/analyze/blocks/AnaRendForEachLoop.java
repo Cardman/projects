@@ -21,7 +21,7 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -54,7 +54,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     private OperationNode root;
     private boolean okVar = true;
     AnaRendForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, LgNames _stds) {
+                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -64,7 +64,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _stds.getAliasPrimInteger();
+            classIndex_ = _primTypes.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -81,7 +81,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
+                    _page.getAliasNullPe());
             AnalyzingDoc.addError(static_, _anaDoc, _page);
         } else if (root_.getResultClass().isArray()) {
             inferArrayClass(_anaDoc, root_, _page);
@@ -158,7 +158,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         }
     }
     public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
-        IterableAnalysisResult it_ = _page.getStandards().getCustomType(_types,importedClassName, _page);
+        IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(_types,importedClassName);
         return it_.getClassName();
     }
     public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -167,11 +167,11 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
-                paramArg_ = _page.getStandards().getAliasObject();
+                paramArg_ = _page.getAliasObject();
             }
             if (toInfer(_page)) {
                 importedClassName = paramArg_;
@@ -195,8 +195,8 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    _page.getStandards().getAliasObject(),
-                    _page.getStandards().getAliasIterable());
+                    _page.getAliasObject(),
+                    _page.getAliasIterable());
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
     }
@@ -213,7 +213,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(_page.getStandards().getAliasObject());
+            lInfo_.setClassName(_page.getAliasObject());
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
         _page.getInfosVars().put(variableName, lInfo_);

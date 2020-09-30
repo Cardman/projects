@@ -1,15 +1,14 @@
 package code.formathtml;
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -67,7 +66,7 @@ public final class Navigation {
     public Navigation(){
         //instance
     }
-    public AnalyzedPageEl loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend) {
+    public AnalyzedPageEl loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
@@ -76,7 +75,7 @@ public final class Navigation {
             return null;
         }
         session = new Configuration();
-        AnalyzedPageEl page_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames, _rend);
+        AnalyzedPageEl page_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames, _rend, _fileBuilder);
         if (session.getContext() == null) {
             error = true;
             return page_;

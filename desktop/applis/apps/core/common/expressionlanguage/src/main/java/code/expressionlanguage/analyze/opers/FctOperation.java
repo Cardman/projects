@@ -16,7 +16,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
@@ -112,7 +111,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     public void analyze(AnalyzedPageEl _page) {
         int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        LgNames stds_ = _page.getStandards();
         boolean import_ = false;
         AnaClassArgumentMatching clCur_;
         if (isIntermediateDottedOperation()) {
@@ -195,20 +193,20 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         StringList arrayBounds_ = getArrayBounds(bounds_);
         if (!arrayBounds_.isEmpty()) {
-            if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
+            if (!StringList.quickEq(trimMeth_, _page.getAliasClone())) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
                 undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //trimMeth_ len
                 undefined_.buildError(_page.getAnalysisMessages().getArrayCloneOnly(),
-                        stds_.getAliasClone(),
+                        _page.getAliasClone(),
                         StringList.join(arrayBounds_,"&"));
                 _page.getLocalizer().addError(undefined_);
                 getErrs().add(undefined_.getBuiltError());
                 return;
             }
             clonedMethod = true;
-            String foundClass_ = StringExpUtil.getPrettyArrayType(stds_.getAliasObject());
+            String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             setResultClass(new AnaClassArgumentMatching(arrayBounds_));
@@ -216,7 +214,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {

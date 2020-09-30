@@ -78,7 +78,7 @@ public final class AnonymousLambdaOperation extends
                 foundType_ = cp_;
             }
         }
-        String type_ = _page.getStandards().getAliasFct();
+        String type_ = _page.getAliasFct();
         StringMap<String> vars_ = new StringMap<String>();
         int nbParams_ = parse.getParametersType().size()+1;
         StringBuilder pattern_ = new StringBuilder(type_);
@@ -239,7 +239,7 @@ public final class AnonymousLambdaOperation extends
                 if (argCandidates_.onlyOneElt()) {
                     modifiedArgCandidates_.add(argCandidates_.first());
                 } else {
-                    modifiedArgCandidates_.add(_page.getStandards().getAliasObject());
+                    modifiedArgCandidates_.add(_page.getAliasObject());
                 }
             }
             StringList feed_ = new StringList();

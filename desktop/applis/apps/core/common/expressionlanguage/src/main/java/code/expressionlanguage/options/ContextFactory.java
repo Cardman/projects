@@ -1,8 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
@@ -23,8 +22,8 @@ public final class ContextFactory {
     private ContextFactory(){}
 
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com) {
-        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options, _com);
+                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, DefaultFileBuilder _fileBuilder) {
+        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder);
         return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
 
@@ -46,7 +45,7 @@ public final class ContextFactory {
     }
 
     public static AnalyzedPageEl validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
-                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com) {
+                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
@@ -55,6 +54,8 @@ public final class ContextFactory {
         page_.setAnalysisMessages(_mess);
         page_.setKeyWords(_definedKw);
         page_.setStandards(_definedLgNames);
+        page_.setCalculator(_calculator);
+        page_.setFileBuilder(_fileBuilder);
         page_.setClasses(_context.getClasses());
         page_.setClassesCommon(_com);
         page_.setCoverage(_context.getCoverage());

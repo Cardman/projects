@@ -1,17 +1,12 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.analyze.util.IterableAnalysisResult;
-import code.expressionlanguage.options.PredefinedClasses;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
@@ -325,38 +320,25 @@ public abstract class LgNames {
     public static final String EXPONENT = "Exponent";
     public static final String NAN = "Nan";
 
-    private StringMap<StandardType> standards = new StringMap<StandardType>();
-
-    private StringList predefinedClasses = new StringList();
-    private StringList predefinedInterfacesInitOrder = new StringList();
-
-    private AliasCore coreNames = new AliasCore();
-
-    private AliasCharSequence charSeq = new AliasCharSequence();
-    private AliasReflection reflect = new AliasReflection();
-    private AliasStackTraceElement stackElt = new AliasStackTraceElement();
-    private AliasNumber nbAlias = new AliasNumber();
-    private AliasMath mathRef = new AliasMath();
-    private PrimitiveTypes primTypes = new PrimitiveTypes();
-    private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
-    private DisplayedStrings displayedStrings = new DisplayedStrings();
-    private String defaultPkg = "";
+    private LgNamesContent content = new LgNamesContent();
 
     private final AbstractGenerator generator;
+    private AbstractExecConstantsCalculator calculator;
 
     protected LgNames(AbstractGenerator generator) {
         this.generator = generator;
+        setCalculator(new DefaultExecConstantsCalculator(content.getNbAlias()));
     }
 
     /**Called after setters*/
     public void build() {
-        coreNames.build(this);
-        nbAlias.build(this);
-        charSeq.build(this);
-        reflect.build(this);
-        mathRef.build(this);
-        stackElt.build(this);
-        primTypes.buildPrimitiveTypes(this);
+        content.getCoreNames().build(this);
+        content.getNbAlias().build(this);
+        content.getCharSeq().build(this);
+        content.getReflect().build(this);
+        content.getMathRef().build(this);
+        content.getStackElt().build(this);
+        content.getPrimTypes().buildPrimitiveTypes(this);
         buildOther();
     }
 
@@ -366,15 +348,15 @@ public abstract class LgNames {
 
     public StringMap<String> allPrimitives() {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry(PRIM_BOOLEAN,primTypes.getAliasPrimBoolean());
-        list_.addEntry(PRIM_BYTE,primTypes.getAliasPrimByte());
-        list_.addEntry(PRIM_SHORT,primTypes.getAliasPrimShort());
-        list_.addEntry(PRIM_CHAR,primTypes.getAliasPrimChar());
-        list_.addEntry(PRIM_INTEGER,primTypes.getAliasPrimInteger());
-        list_.addEntry(PRIM_LONG,primTypes.getAliasPrimLong());
-        list_.addEntry(PRIM_FLOAT,primTypes.getAliasPrimFloat());
-        list_.addEntry(PRIM_DOUBLE,primTypes.getAliasPrimDouble());
-        list_.addEntry(VOID,coreNames.getAliasVoid());
+        list_.addEntry(PRIM_BOOLEAN, content.getPrimTypes().getAliasPrimBoolean());
+        list_.addEntry(PRIM_BYTE, content.getPrimTypes().getAliasPrimByte());
+        list_.addEntry(PRIM_SHORT, content.getPrimTypes().getAliasPrimShort());
+        list_.addEntry(PRIM_CHAR, content.getPrimTypes().getAliasPrimChar());
+        list_.addEntry(PRIM_INTEGER, content.getPrimTypes().getAliasPrimInteger());
+        list_.addEntry(PRIM_LONG, content.getPrimTypes().getAliasPrimLong());
+        list_.addEntry(PRIM_FLOAT, content.getPrimTypes().getAliasPrimFloat());
+        list_.addEntry(PRIM_DOUBLE, content.getPrimTypes().getAliasPrimDouble());
+        list_.addEntry(VOID, content.getCoreNames().getAliasVoid());
         return list_;
     }
 
@@ -455,297 +437,297 @@ public abstract class LgNames {
                 new KeyValueMemberName(AliasParamPredefinedTypes.SEED_GENERATOR_0_GET_0,getPredefTypes().getParams().getAliasSeedGenerator0Get0())
                 )
         );
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUB_SEQUENCE_0,charSeq.getParams().getAliasCharSequence0SubSequence0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUB_SEQUENCE_1,charSeq.getParams().getAliasCharSequence0SubSequence1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_CHAR_AT_0,charSeq.getParams().getAliasCharSequence0CharAt0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUBSTRING_0,charSeq.getParams().getAliasCharSequence0Substring0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUBSTRING_1,charSeq.getParams().getAliasCharSequence0Substring1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SUBSTRING_0,charSeq.getParams().getAliasCharSequence1Substring0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_COMPARE_TO_0,charSeq.getParams().getAliasCharSequence0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_CONTAINS_0,charSeq.getParams().getAliasCharSequence0Contains0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_STARTS_WITH_0,charSeq.getParams().getAliasCharSequence0StartsWith0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_STARTS_WITH_0,charSeq.getParams().getAliasCharSequence1StartsWith0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_STARTS_WITH_1,charSeq.getParams().getAliasCharSequence1StartsWith1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_ENDS_WITH_0,charSeq.getParams().getAliasCharSequence0EndsWith0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_INDEX_OF_0,charSeq.getParams().getAliasCharSequence0IndexOf0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_INDEX_OF_0,charSeq.getParams().getAliasCharSequence1IndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_INDEX_OF_1,charSeq.getParams().getAliasCharSequence1IndexOf1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_INDEX_OF_0,charSeq.getParams().getAliasCharSequence2IndexOf0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_INDEX_OF_0,charSeq.getParams().getAliasCharSequence3IndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_INDEX_OF_1,charSeq.getParams().getAliasCharSequence3IndexOf1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_LAST_INDEX_OF_0,charSeq.getParams().getAliasCharSequence0LastIndexOf0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_LAST_INDEX_OF_0,charSeq.getParams().getAliasCharSequence1LastIndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_LAST_INDEX_OF_1,charSeq.getParams().getAliasCharSequence1LastIndexOf1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_LAST_INDEX_OF_0,charSeq.getParams().getAliasCharSequence2LastIndexOf0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_LAST_INDEX_OF_0,charSeq.getParams().getAliasCharSequence3LastIndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_LAST_INDEX_OF_1,charSeq.getParams().getAliasCharSequence3LastIndexOf1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_FORMAT_0,charSeq.getParams().getAliasCharSequence0Format0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_0,charSeq.getParams().getAliasCharSequence0Split0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_0,charSeq.getParams().getAliasCharSequence1Split0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_1,charSeq.getParams().getAliasCharSequence1Split1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_SPLIT_0,charSeq.getParams().getAliasCharSequence2Split0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_SPLIT_0,charSeq.getParams().getAliasCharSequence3Split0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_SPLIT_1,charSeq.getParams().getAliasCharSequence3Split1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_STRINGS_0,charSeq.getParams().getAliasCharSequence0SplitStrings0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_STRINGS_0,charSeq.getParams().getAliasCharSequence1SplitStrings0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_STRINGS_1,charSeq.getParams().getAliasCharSequence1SplitStrings1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_CHARS_0,charSeq.getParams().getAliasCharSequence0SplitChars0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_0,charSeq.getParams().getAliasCharSequence0RegionMatches0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_1,charSeq.getParams().getAliasCharSequence0RegionMatches1()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_2,charSeq.getParams().getAliasCharSequence0RegionMatches2()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_3,charSeq.getParams().getAliasCharSequence0RegionMatches3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_EQUALS_0,charSeq.getParams().getAliasCharSequence0Equals0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_EQUALS_1,charSeq.getParams().getAliasCharSequence0Equals1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_EQUALS_IGNORE_CASE_0,charSeq.getParams().getAliasString0EqualsIgnoreCase0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_0,charSeq.getParams().getAliasString0Compare0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_1,charSeq.getParams().getAliasString0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_TO_IGNORE_CASE_0,charSeq.getParams().getAliasString0CompareToIgnoreCase0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_STRING_0,charSeq.getParams().getAliasString0ReplaceString0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_STRING_1,charSeq.getParams().getAliasString0ReplaceString1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_REPLACE_STRING_0,charSeq.getParams().getAliasString1ReplaceString0()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_REPLACE_STRING_1,charSeq.getParams().getAliasString1ReplaceString1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_MULTIPLE_0,charSeq.getParams().getAliasString0ReplaceMultiple0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_0,charSeq.getParams().getAliasString0RegionMatches0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_1,charSeq.getParams().getAliasString0RegionMatches1()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_2,charSeq.getParams().getAliasString0RegionMatches2()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_3,charSeq.getParams().getAliasString0RegionMatches3()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_4,charSeq.getParams().getAliasString0RegionMatches4())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString0ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString1ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_2_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString2ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_3_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString3ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_4_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString4ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_5_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString5ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_6_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString6ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_7_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString7ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_8_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString8ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_0,charSeq.getParams().getAliasString9ValueOfMethod0()),new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_1,charSeq.getParams().getAliasString9ValueOfMethod1()),new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_2,charSeq.getParams().getAliasString9ValueOfMethod2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_STRING_0,charSeq.getParams().getAliasString0String0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_0,charSeq.getParams().getAliasString1String0()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_1,charSeq.getParams().getAliasString1String1()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_2,charSeq.getParams().getAliasString1String2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_2_STRING_0,charSeq.getParams().getAliasString2String0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_0,charSeq.getParams().getAliasString3String0()),new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_1,charSeq.getParams().getAliasString3String1()),new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_2,charSeq.getParams().getAliasString3String2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_4_STRING_0,charSeq.getParams().getAliasString4String0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_APPEND_0,charSeq.getParams().getAliasStringBuilder0Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_APPEND_0,charSeq.getParams().getAliasStringBuilder1Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_APPEND_0,charSeq.getParams().getAliasStringBuilder2Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_APPEND_0,charSeq.getParams().getAliasStringBuilder3Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_APPEND_0,charSeq.getParams().getAliasStringBuilder4Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_APPEND_0,charSeq.getParams().getAliasStringBuilder5Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_APPEND_0,charSeq.getParams().getAliasStringBuilder6Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_APPEND_0,charSeq.getParams().getAliasStringBuilder7Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_APPEND_0,charSeq.getParams().getAliasStringBuilder8Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_0,charSeq.getParams().getAliasStringBuilder9Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_1,charSeq.getParams().getAliasStringBuilder9Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_2,charSeq.getParams().getAliasStringBuilder9Append2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_APPEND_0,charSeq.getParams().getAliasStringBuilder10Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_0,charSeq.getParams().getAliasStringBuilder11Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_1,charSeq.getParams().getAliasStringBuilder11Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_2,charSeq.getParams().getAliasStringBuilder11Append2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_APPEND_0,charSeq.getParams().getAliasStringBuilder12Append0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_0,charSeq.getParams().getAliasStringBuilder13Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_1,charSeq.getParams().getAliasStringBuilder13Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_2,charSeq.getParams().getAliasStringBuilder13Append2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_0,charSeq.getParams().getAliasStringBuilder0Delete0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_1,charSeq.getParams().getAliasStringBuilder0Delete1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_CHAR_AT_0,charSeq.getParams().getAliasStringBuilder0DeleteCharAt0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_INSERT_0,charSeq.getParams().getAliasStringBuilder0Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_INSERT_1,charSeq.getParams().getAliasStringBuilder0Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_INSERT_0,charSeq.getParams().getAliasStringBuilder1Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_INSERT_1,charSeq.getParams().getAliasStringBuilder1Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_INSERT_0,charSeq.getParams().getAliasStringBuilder2Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_INSERT_1,charSeq.getParams().getAliasStringBuilder2Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_INSERT_0,charSeq.getParams().getAliasStringBuilder3Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_INSERT_1,charSeq.getParams().getAliasStringBuilder3Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_INSERT_0,charSeq.getParams().getAliasStringBuilder4Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_INSERT_1,charSeq.getParams().getAliasStringBuilder4Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_INSERT_0,charSeq.getParams().getAliasStringBuilder5Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_INSERT_1,charSeq.getParams().getAliasStringBuilder5Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_INSERT_0,charSeq.getParams().getAliasStringBuilder6Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_INSERT_1,charSeq.getParams().getAliasStringBuilder6Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_INSERT_0,charSeq.getParams().getAliasStringBuilder7Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_INSERT_1,charSeq.getParams().getAliasStringBuilder7Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_INSERT_0,charSeq.getParams().getAliasStringBuilder8Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_INSERT_1,charSeq.getParams().getAliasStringBuilder8Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_0,charSeq.getParams().getAliasStringBuilder9Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_1,charSeq.getParams().getAliasStringBuilder9Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_2,charSeq.getParams().getAliasStringBuilder9Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_3,charSeq.getParams().getAliasStringBuilder9Insert3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_INSERT_0,charSeq.getParams().getAliasStringBuilder10Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_INSERT_1,charSeq.getParams().getAliasStringBuilder10Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_0,charSeq.getParams().getAliasStringBuilder11Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_1,charSeq.getParams().getAliasStringBuilder11Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_2,charSeq.getParams().getAliasStringBuilder11Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_3,charSeq.getParams().getAliasStringBuilder11Insert3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_INSERT_0,charSeq.getParams().getAliasStringBuilder12Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_INSERT_1,charSeq.getParams().getAliasStringBuilder12Insert1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_0,charSeq.getParams().getAliasStringBuilder13Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_1,charSeq.getParams().getAliasStringBuilder13Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_2,charSeq.getParams().getAliasStringBuilder13Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_3,charSeq.getParams().getAliasStringBuilder13Insert3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_0,charSeq.getParams().getAliasStringBuilder0Replace0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_1,charSeq.getParams().getAliasStringBuilder0Replace1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_2,charSeq.getParams().getAliasStringBuilder0Replace2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_CHAR_AT_0,charSeq.getParams().getAliasStringBuilder0SetCharAt0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_CHAR_AT_1,charSeq.getParams().getAliasStringBuilder0SetCharAt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_LENGTH_0,charSeq.getParams().getAliasStringBuilder0SetLength0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_ENSURE_CAPACITY_0,charSeq.getParams().getAliasStringBuilder0EnsureCapacity0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SAME_0,charSeq.getParams().getAliasStringBuilder0Same0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SAME_1,charSeq.getParams().getAliasStringBuilder0Same1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_STRING_BUILDER_0,charSeq.getParams().getAliasStringBuilder0StringBuilder0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_STRING_BUILDER_0,charSeq.getParams().getAliasStringBuilder1StringBuilder0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_STRING_BUILDER_0,charSeq.getParams().getAliasStringBuilder2StringBuilder0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.REPLACEMENT_0_REPLACEMENT_0,charSeq.getParams().getAliasReplacement0Replacement0()),new KeyValueMemberName(AliasParamCharSequence.REPLACEMENT_0_REPLACEMENT_1,charSeq.getParams().getAliasReplacement0Replacement1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ERROR_0_CURRENT_STACK_0,coreNames.getParams().getAliasError0CurrentStack0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ERROR_0_TO_STRING_METHOD_0,coreNames.getParams().getAliasError0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_NAME_0,coreNames.getParams().getAliasEnums0Name0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_ORDINAL_0,coreNames.getParams().getAliasEnums0Ordinal0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_0,coreNames.getParams().getAliasObjectsUtil0SameRef0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_1,coreNames.getParams().getAliasObjectsUtil0SameRef1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_GET_PARENT_0,coreNames.getParams().getAliasObjectsUtil0GetParent0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_0,coreNames.getParams().getAliasObjectsUtil0SetParent0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_1,coreNames.getParams().getAliasObjectsUtil0SetParent1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.STRING_UTIL_0_VALUE_OF_METHOD_0,coreNames.getParams().getAliasStringUtil0ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_0,coreNames.getParams().getAliasResources0ReadResources0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_INDEX_0,coreNames.getParams().getAliasResources0ReadResourcesIndex0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ABS_0,mathRef.getParams().getAliasMath0Abs0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ABS_0,mathRef.getParams().getAliasMath1Abs0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_QUOT_0,mathRef.getParams().getAliasMath0Quot0()),new KeyValueMemberName(AliasParamMath.MATH_0_QUOT_1,mathRef.getParams().getAliasMath0Quot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_QUOT_0,mathRef.getParams().getAliasMath1Quot0()),new KeyValueMemberName(AliasParamMath.MATH_1_QUOT_1,mathRef.getParams().getAliasMath1Quot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MOD_0,mathRef.getParams().getAliasMath0Mod0()),new KeyValueMemberName(AliasParamMath.MATH_0_MOD_1,mathRef.getParams().getAliasMath0Mod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MOD_0,mathRef.getParams().getAliasMath1Mod0()),new KeyValueMemberName(AliasParamMath.MATH_1_MOD_1,mathRef.getParams().getAliasMath1Mod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_PLUS_0,mathRef.getParams().getAliasMath0Plus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_PLUS_0,mathRef.getParams().getAliasMath1Plus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_PLUS_0,mathRef.getParams().getAliasMath2Plus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_PLUS_0,mathRef.getParams().getAliasMath3Plus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MINUS_0,mathRef.getParams().getAliasMath0Minus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MINUS_0,mathRef.getParams().getAliasMath1Minus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_MINUS_0,mathRef.getParams().getAliasMath2Minus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_MINUS_0,mathRef.getParams().getAliasMath3Minus0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_NEG_0,mathRef.getParams().getAliasMath0Neg0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_NEG_BIN_0,mathRef.getParams().getAliasMath0NegBin0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_NEG_BIN_0,mathRef.getParams().getAliasMath1NegBin0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_4_PLUS_0,mathRef.getParams().getAliasMath4Plus0()),new KeyValueMemberName(AliasParamMath.MATH_4_PLUS_1,mathRef.getParams().getAliasMath4Plus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_5_PLUS_0,mathRef.getParams().getAliasMath5Plus0()),new KeyValueMemberName(AliasParamMath.MATH_5_PLUS_1,mathRef.getParams().getAliasMath5Plus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_6_PLUS_0,mathRef.getParams().getAliasMath6Plus0()),new KeyValueMemberName(AliasParamMath.MATH_6_PLUS_1,mathRef.getParams().getAliasMath6Plus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_7_PLUS_0,mathRef.getParams().getAliasMath7Plus0()),new KeyValueMemberName(AliasParamMath.MATH_7_PLUS_1,mathRef.getParams().getAliasMath7Plus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_4_MINUS_0,mathRef.getParams().getAliasMath4Minus0()),new KeyValueMemberName(AliasParamMath.MATH_4_MINUS_1,mathRef.getParams().getAliasMath4Minus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_5_MINUS_0,mathRef.getParams().getAliasMath5Minus0()),new KeyValueMemberName(AliasParamMath.MATH_5_MINUS_1,mathRef.getParams().getAliasMath5Minus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_6_MINUS_0,mathRef.getParams().getAliasMath6Minus0()),new KeyValueMemberName(AliasParamMath.MATH_6_MINUS_1,mathRef.getParams().getAliasMath6Minus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_7_MINUS_0,mathRef.getParams().getAliasMath7Minus0()),new KeyValueMemberName(AliasParamMath.MATH_7_MINUS_1,mathRef.getParams().getAliasMath7Minus1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MULT_0,mathRef.getParams().getAliasMath0Mult0()),new KeyValueMemberName(AliasParamMath.MATH_0_MULT_1,mathRef.getParams().getAliasMath0Mult1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MULT_0,mathRef.getParams().getAliasMath1Mult0()),new KeyValueMemberName(AliasParamMath.MATH_1_MULT_1,mathRef.getParams().getAliasMath1Mult1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_MULT_0,mathRef.getParams().getAliasMath2Mult0()),new KeyValueMemberName(AliasParamMath.MATH_2_MULT_1,mathRef.getParams().getAliasMath2Mult1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_MULT_0,mathRef.getParams().getAliasMath3Mult0()),new KeyValueMemberName(AliasParamMath.MATH_3_MULT_1,mathRef.getParams().getAliasMath3Mult1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIN_QUOT_0,mathRef.getParams().getAliasMath0BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIN_QUOT_1,mathRef.getParams().getAliasMath0BinQuot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIN_QUOT_0,mathRef.getParams().getAliasMath1BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIN_QUOT_1,mathRef.getParams().getAliasMath1BinQuot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_BIN_QUOT_0,mathRef.getParams().getAliasMath2BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_2_BIN_QUOT_1,mathRef.getParams().getAliasMath2BinQuot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_BIN_QUOT_0,mathRef.getParams().getAliasMath3BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_3_BIN_QUOT_1,mathRef.getParams().getAliasMath3BinQuot1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIN_MOD_0,mathRef.getParams().getAliasMath0BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIN_MOD_1,mathRef.getParams().getAliasMath0BinMod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIN_MOD_0,mathRef.getParams().getAliasMath1BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIN_MOD_1,mathRef.getParams().getAliasMath1BinMod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_BIN_MOD_0,mathRef.getParams().getAliasMath2BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_2_BIN_MOD_1,mathRef.getParams().getAliasMath2BinMod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_BIN_MOD_0,mathRef.getParams().getAliasMath3BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_3_BIN_MOD_1,mathRef.getParams().getAliasMath3BinMod1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_AND_0,mathRef.getParams().getAliasMath0And0()),new KeyValueMemberName(AliasParamMath.MATH_0_AND_1,mathRef.getParams().getAliasMath0And1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_AND_0,mathRef.getParams().getAliasMath1And0()),new KeyValueMemberName(AliasParamMath.MATH_1_AND_1,mathRef.getParams().getAliasMath1And1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_AND_0,mathRef.getParams().getAliasMath2And0()),new KeyValueMemberName(AliasParamMath.MATH_2_AND_1,mathRef.getParams().getAliasMath2And1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_OR_0,mathRef.getParams().getAliasMath0Or0()),new KeyValueMemberName(AliasParamMath.MATH_0_OR_1,mathRef.getParams().getAliasMath0Or1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_OR_0,mathRef.getParams().getAliasMath1Or0()),new KeyValueMemberName(AliasParamMath.MATH_1_OR_1,mathRef.getParams().getAliasMath1Or1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_OR_0,mathRef.getParams().getAliasMath2Or0()),new KeyValueMemberName(AliasParamMath.MATH_2_OR_1,mathRef.getParams().getAliasMath2Or1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_XOR_0,mathRef.getParams().getAliasMath0Xor0()),new KeyValueMemberName(AliasParamMath.MATH_0_XOR_1,mathRef.getParams().getAliasMath0Xor1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_XOR_0,mathRef.getParams().getAliasMath1Xor0()),new KeyValueMemberName(AliasParamMath.MATH_1_XOR_1,mathRef.getParams().getAliasMath1Xor1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_XOR_0,mathRef.getParams().getAliasMath2Xor0()),new KeyValueMemberName(AliasParamMath.MATH_2_XOR_1,mathRef.getParams().getAliasMath2Xor1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_LEFT_0,mathRef.getParams().getAliasMath0ShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_LEFT_1,mathRef.getParams().getAliasMath0ShiftLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_LEFT_0,mathRef.getParams().getAliasMath1ShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_LEFT_1,mathRef.getParams().getAliasMath1ShiftLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_RIGHT_0,mathRef.getParams().getAliasMath0ShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_RIGHT_1,mathRef.getParams().getAliasMath0ShiftRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_RIGHT_0,mathRef.getParams().getAliasMath1ShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_RIGHT_1,mathRef.getParams().getAliasMath1ShiftRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_LEFT_0,mathRef.getParams().getAliasMath0BitShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_LEFT_1,mathRef.getParams().getAliasMath0BitShiftLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_LEFT_0,mathRef.getParams().getAliasMath1BitShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_LEFT_1,mathRef.getParams().getAliasMath1BitShiftLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_RIGHT_0,mathRef.getParams().getAliasMath0BitShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_RIGHT_1,mathRef.getParams().getAliasMath0BitShiftRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_RIGHT_0,mathRef.getParams().getAliasMath1BitShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_RIGHT_1,mathRef.getParams().getAliasMath1BitShiftRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_LEFT_0,mathRef.getParams().getAliasMath0RotateLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_LEFT_1,mathRef.getParams().getAliasMath0RotateLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_LEFT_0,mathRef.getParams().getAliasMath1RotateLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_LEFT_1,mathRef.getParams().getAliasMath1RotateLeft1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_RIGHT_0,mathRef.getParams().getAliasMath0RotateRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_RIGHT_1,mathRef.getParams().getAliasMath0RotateRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_RIGHT_0,mathRef.getParams().getAliasMath1RotateRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_RIGHT_1,mathRef.getParams().getAliasMath1RotateRight1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_LE_0,mathRef.getParams().getAliasMath0Le0()),new KeyValueMemberName(AliasParamMath.MATH_0_LE_1,mathRef.getParams().getAliasMath0Le1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_GE_0,mathRef.getParams().getAliasMath0Ge0()),new KeyValueMemberName(AliasParamMath.MATH_0_GE_1,mathRef.getParams().getAliasMath0Ge1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_LT_0,mathRef.getParams().getAliasMath0Lt0()),new KeyValueMemberName(AliasParamMath.MATH_0_LT_1,mathRef.getParams().getAliasMath0Lt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_GT_0,mathRef.getParams().getAliasMath0Gt0()),new KeyValueMemberName(AliasParamMath.MATH_0_GT_1,mathRef.getParams().getAliasMath0Gt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_LE_0,mathRef.getParams().getAliasMath1Le0()),new KeyValueMemberName(AliasParamMath.MATH_1_LE_1,mathRef.getParams().getAliasMath1Le1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GE_0,mathRef.getParams().getAliasMath1Ge0()),new KeyValueMemberName(AliasParamMath.MATH_1_GE_1,mathRef.getParams().getAliasMath1Ge1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_LT_0,mathRef.getParams().getAliasMath1Lt0()),new KeyValueMemberName(AliasParamMath.MATH_1_LT_1,mathRef.getParams().getAliasMath1Lt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GT_0,mathRef.getParams().getAliasMath1Gt0()),new KeyValueMemberName(AliasParamMath.MATH_1_GT_1,mathRef.getParams().getAliasMath1Gt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_RANDOM_0,mathRef.getParams().getAliasMath0Random0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_0,mathRef.getParams().getAliasMath0Seed0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_0,nbAlias.getParams().getAliasBoolean0Compare0()),new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_1,nbAlias.getParams().getAliasBoolean0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_TO_0,nbAlias.getParams().getAliasBoolean0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_EQUALS_0,nbAlias.getParams().getAliasBoolean0Equals0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_PARSE_BOOLEAN_0,nbAlias.getParams().getAliasBoolean0ParseBoolean0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasBoolean0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_VALUE_OF_METHOD_0,nbAlias.getParams().getAliasBoolean0ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_1_VALUE_OF_METHOD_0,nbAlias.getParams().getAliasBoolean1ValueOfMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_BOOLEAN_0,nbAlias.getParams().getAliasBoolean0Boolean0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_1_BOOLEAN_0,nbAlias.getParams().getAliasBoolean1Boolean0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasByte0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_PARSE_BYTE_0,nbAlias.getParams().getAliasByte0ParseByte0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_0,nbAlias.getParams().getAliasByte1ParseByte0()),new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_1,nbAlias.getParams().getAliasByte1ParseByte1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_TO_0,nbAlias.getParams().getAliasByte0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_0,nbAlias.getParams().getAliasByte0Compare0()),new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_1,nbAlias.getParams().getAliasByte0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_PARSE_BYTE_OR_NULL_0,nbAlias.getParams().getAliasByte0ParseByteOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_0,nbAlias.getParams().getAliasByte1ParseByteOrNull0()),new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_1,nbAlias.getParams().getAliasByte1ParseByteOrNull1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_BYTE_0,nbAlias.getParams().getAliasByte0Byte0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_BYTE_0,nbAlias.getParams().getAliasByte1Byte0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasShort0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_PARSE_SHORT_0,nbAlias.getParams().getAliasShort0ParseShort0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_0,nbAlias.getParams().getAliasShort1ParseShort0()),new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_1,nbAlias.getParams().getAliasShort1ParseShort1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_TO_0,nbAlias.getParams().getAliasShort0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_0,nbAlias.getParams().getAliasShort0Compare0()),new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_1,nbAlias.getParams().getAliasShort0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_PARSE_SHORT_OR_NULL_0,nbAlias.getParams().getAliasShort0ParseShortOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_0,nbAlias.getParams().getAliasShort1ParseShortOrNull0()),new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_1,nbAlias.getParams().getAliasShort1ParseShortOrNull1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_SHORT_0,nbAlias.getParams().getAliasShort0Short0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_SHORT_0,nbAlias.getParams().getAliasShort1Short0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasInteger0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_PARSE_INT_0,nbAlias.getParams().getAliasInteger0ParseInt0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_0,nbAlias.getParams().getAliasInteger1ParseInt0()),new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_1,nbAlias.getParams().getAliasInteger1ParseInt1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_TO_0,nbAlias.getParams().getAliasInteger0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_0,nbAlias.getParams().getAliasInteger0Compare0()),new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_1,nbAlias.getParams().getAliasInteger0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_PARSE_INT_OR_NULL_0,nbAlias.getParams().getAliasInteger0ParseIntOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_0,nbAlias.getParams().getAliasInteger1ParseIntOrNull0()),new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_1,nbAlias.getParams().getAliasInteger1ParseIntOrNull1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_INTEGER_0,nbAlias.getParams().getAliasInteger0Integer0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_INTEGER_0,nbAlias.getParams().getAliasInteger1Integer0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasLong0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_0,nbAlias.getParams().getAliasLong0ParseLong0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_0,nbAlias.getParams().getAliasLong1ParseLong0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_1,nbAlias.getParams().getAliasLong1ParseLong1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_TO_0,nbAlias.getParams().getAliasLong0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_0,nbAlias.getParams().getAliasLong0Compare0()),new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_1,nbAlias.getParams().getAliasLong0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_OR_NULL_0,nbAlias.getParams().getAliasLong0ParseLongOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_0,nbAlias.getParams().getAliasLong1ParseLongOrNull0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_1,nbAlias.getParams().getAliasLong1ParseLongOrNull1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_LONG_0,nbAlias.getParams().getAliasLong0Long0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_LONG_0,nbAlias.getParams().getAliasLong1Long0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasFloat0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_PARSE_FLOAT_0,nbAlias.getParams().getAliasFloat0ParseFloat0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_TO_0,nbAlias.getParams().getAliasFloat0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_0,nbAlias.getParams().getAliasFloat0Compare0()),new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_1,nbAlias.getParams().getAliasFloat0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_PARSE_FLOAT_OR_NULL_0,nbAlias.getParams().getAliasFloat0ParseFloatOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_IS_INFINITE_0,nbAlias.getParams().getAliasFloat0IsInfinite0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_IS_NAN_0,nbAlias.getParams().getAliasFloat0IsNan0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_FLOAT_0,nbAlias.getParams().getAliasFloat0Float0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_1_FLOAT_0,nbAlias.getParams().getAliasFloat1Float0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasDouble0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_PARSE_DOUBLE_0,nbAlias.getParams().getAliasDouble0ParseDouble0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_TO_0,nbAlias.getParams().getAliasDouble0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_0,nbAlias.getParams().getAliasDouble0Compare0()),new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_1,nbAlias.getParams().getAliasDouble0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_PARSE_DOUBLE_OR_NULL_0,nbAlias.getParams().getAliasDouble0ParseDoubleOrNull0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_IS_INFINITE_0,nbAlias.getParams().getAliasDouble0IsInfinite0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_IS_NAN_0,nbAlias.getParams().getAliasDouble0IsNan0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_DOUBLE_0,nbAlias.getParams().getAliasDouble0Double0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_1_DOUBLE_0,nbAlias.getParams().getAliasDouble1Double0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasNumber0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_EQUALS_0,nbAlias.getParams().getAliasNumber0Equals0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_1_EQUALS_0,nbAlias.getParams().getAliasNumber1Equals0()),new KeyValueMemberName(AliasParamNumber.NUMBER_1_EQUALS_1,nbAlias.getParams().getAliasNumber1Equals1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_TO_0,nbAlias.getParams().getAliasNumber0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_0,nbAlias.getParams().getAliasNumber0Compare0()),new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_1,nbAlias.getParams().getAliasNumber0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_TO_0,nbAlias.getParams().getAliasCharacter0CompareTo0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_0,nbAlias.getParams().getAliasCharacter0Compare0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_1,nbAlias.getParams().getAliasCharacter0Compare1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_DIGIT_0,nbAlias.getParams().getAliasCharacter0Digit0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_DIGIT_1,nbAlias.getParams().getAliasCharacter0Digit1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_FOR_DIGIT_0,nbAlias.getParams().getAliasCharacter0ForDigit0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_FOR_DIGIT_1,nbAlias.getParams().getAliasCharacter0ForDigit1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_GET_DIRECTIONALITY_0,nbAlias.getParams().getAliasCharacter0GetDirectionality0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_GET_TYPE_0,nbAlias.getParams().getAliasCharacter0GetType0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_DIGIT_0,nbAlias.getParams().getAliasCharacter0IsDigit0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LETTER_0,nbAlias.getParams().getAliasCharacter0IsLetter0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LETTER_OR_DIGIT_0,nbAlias.getParams().getAliasCharacter0IsLetterOrDigit0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_WORD_CHAR_0,nbAlias.getParams().getAliasCharacter0IsWordChar0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_WHITESPACE_0,nbAlias.getParams().getAliasCharacter0IsWhitespace0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LOWER_CASE_0,nbAlias.getParams().getAliasCharacter0IsLowerCase0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_UPPER_CASE_0,nbAlias.getParams().getAliasCharacter0IsUpperCase0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_SPACE_0,nbAlias.getParams().getAliasCharacter0IsSpace0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_LOWER_CASE_CHAR_0,nbAlias.getParams().getAliasCharacter0ToLowerCaseChar0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_UPPER_CASE_CHAR_0,nbAlias.getParams().getAliasCharacter0ToUpperCaseChar0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_STRING_METHOD_0,nbAlias.getParams().getAliasCharacter0ToStringMethod0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_CHARACTER_0,nbAlias.getParams().getAliasCharacter0Character0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FCT_0_CALL_0,reflect.getParams().getAliasFct0Call0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_CLASS_0,reflect.getParams().getAliasClassType0GetClass0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_0,reflect.getParams().getAliasClassType0ForName0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_1,reflect.getParams().getAliasClassType0ForName1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_1_FOR_NAME_0,reflect.getParams().getAliasClassType1ForName0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_INSTANCE_0,reflect.getParams().getAliasClassType0IsInstance0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_ASSIGNABLE_FROM_0,reflect.getParams().getAliasClassType0IsAssignableFrom0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_DEFAULT_INSTANCE_0,reflect.getParams().getAliasClassType0DefaultInstance0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ENUM_VALUE_OF_0,reflect.getParams().getAliasClassType0EnumValueOf0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_CONSTRUCTORS_0,reflect.getParams().getAliasClassType0GetDeclaredConstructors0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_CONSTRUCTORS_1,reflect.getParams().getAliasClassType0GetDeclaredConstructors1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_FIELDS_0,reflect.getParams().getAliasClassType0GetDeclaredFields0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_0,reflect.getParams().getAliasClassType0GetDeclaredStaticMethods0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_1,reflect.getParams().getAliasClassType0GetDeclaredStaticMethods1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_2,reflect.getParams().getAliasClassType0GetDeclaredStaticMethods2()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_3,reflect.getParams().getAliasClassType0GetDeclaredStaticMethods3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_0,reflect.getParams().getAliasClassType0GetDeclaredMethods0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_1,reflect.getParams().getAliasClassType0GetDeclaredMethods1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_2,reflect.getParams().getAliasClassType0GetDeclaredMethods2()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_3,reflect.getParams().getAliasClassType0GetDeclaredMethods3())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_EXPLICITS_0,reflect.getParams().getAliasClassType0GetDeclaredExplicits0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_IMPLICITS_0,reflect.getParams().getAliasClassType0GetDeclaredImplicits0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_0,reflect.getParams().getAliasClassType0GetDeclaredBlocks0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_1,reflect.getParams().getAliasClassType0GetDeclaredBlocks1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_GENERIC_0,reflect.getParams().getAliasClassType0MakeGeneric0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_WILD_CARD_0,reflect.getParams().getAliasClassType0MakeWildCard0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_0,reflect.getParams().getAliasClassType0GetOperators0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_1,reflect.getParams().getAliasClassType0GetOperators1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_2,reflect.getParams().getAliasClassType0GetOperators2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_NEW_INSTANCE_0,reflect.getParams().getAliasClassType0ArrayNewInstance0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_LENGTH_0,reflect.getParams().getAliasClassType0ArrayGetLength0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_0,reflect.getParams().getAliasClassType0ArrayGet0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_1,reflect.getParams().getAliasClassType0ArrayGet1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_0,reflect.getParams().getAliasClassType0ArraySet0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_1,reflect.getParams().getAliasClassType0ArraySet1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_2,reflect.getParams().getAliasClassType0ArraySet2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CONSTRUCTOR_0_NEW_INSTANCE_0,reflect.getParams().getAliasConstructor0NewInstance0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FIELD_0_GET_FIELD_0,reflect.getParams().getAliasField0GetField0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_0,reflect.getParams().getAliasField0SetField0()),new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_1,reflect.getParams().getAliasField0SetField1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_0,reflect.getParams().getAliasMethod0Invoke0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_1,reflect.getParams().getAliasMethod0Invoke1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_0,reflect.getParams().getAliasMethod0InvokeDirect0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_1,reflect.getParams().getAliasMethod0InvokeDirect1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars1()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,reflect.getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,reflect.getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,reflect.getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,reflect.getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,reflect.getParams().getAliasMethod3GetDeclaredAnonymousLambdaLocalVars0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars1()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_2,reflect.getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars2())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0,reflect.getParams().getAliasMethod1GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1,reflect.getParams().getAliasMethod1GetDeclaredAnonymousLambdaLoopVars1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0,reflect.getParams().getAliasMethod2GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1,reflect.getParams().getAliasMethod2GetDeclaredAnonymousLambdaLoopVars1())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0,reflect.getParams().getAliasMethod3GetDeclaredAnonymousLambdaLoopVars0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATION_TYPE_0_GET_STRING_0,reflect.getParams().getAliasAnnotationType0GetString0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_0,reflect.getParams().getAliasAnnotated0GetAnnotations0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0,reflect.getParams().getAliasAnnotated0GetAnnotationsParameters0())));
-        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0,reflect.getParams().getAliasAnnotated0GetDeclaredAnonymousLambda0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1,reflect.getParams().getAliasAnnotated0GetDeclaredAnonymousLambda1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2,reflect.getParams().getAliasAnnotated0GetDeclaredAnonymousLambda2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3,reflect.getParams().getAliasAnnotated0GetDeclaredAnonymousLambda3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUB_SEQUENCE_0, content.getCharSeq().getParams().getAliasCharSequence0SubSequence0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUB_SEQUENCE_1, content.getCharSeq().getParams().getAliasCharSequence0SubSequence1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_CHAR_AT_0, content.getCharSeq().getParams().getAliasCharSequence0CharAt0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUBSTRING_0, content.getCharSeq().getParams().getAliasCharSequence0Substring0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SUBSTRING_1, content.getCharSeq().getParams().getAliasCharSequence0Substring1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SUBSTRING_0, content.getCharSeq().getParams().getAliasCharSequence1Substring0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_COMPARE_TO_0, content.getCharSeq().getParams().getAliasCharSequence0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_CONTAINS_0, content.getCharSeq().getParams().getAliasCharSequence0Contains0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_STARTS_WITH_0, content.getCharSeq().getParams().getAliasCharSequence0StartsWith0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_STARTS_WITH_0, content.getCharSeq().getParams().getAliasCharSequence1StartsWith0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_STARTS_WITH_1, content.getCharSeq().getParams().getAliasCharSequence1StartsWith1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_ENDS_WITH_0, content.getCharSeq().getParams().getAliasCharSequence0EndsWith0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence0IndexOf0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence1IndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_INDEX_OF_1, content.getCharSeq().getParams().getAliasCharSequence1IndexOf1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence2IndexOf0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence3IndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_INDEX_OF_1, content.getCharSeq().getParams().getAliasCharSequence3IndexOf1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_LAST_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence0LastIndexOf0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_LAST_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence1LastIndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_LAST_INDEX_OF_1, content.getCharSeq().getParams().getAliasCharSequence1LastIndexOf1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_LAST_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence2LastIndexOf0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_LAST_INDEX_OF_0, content.getCharSeq().getParams().getAliasCharSequence3LastIndexOf0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_LAST_INDEX_OF_1, content.getCharSeq().getParams().getAliasCharSequence3LastIndexOf1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_FORMAT_0, content.getCharSeq().getParams().getAliasCharSequence0Format0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_0, content.getCharSeq().getParams().getAliasCharSequence0Split0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_0, content.getCharSeq().getParams().getAliasCharSequence1Split0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_1, content.getCharSeq().getParams().getAliasCharSequence1Split1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_2_SPLIT_0, content.getCharSeq().getParams().getAliasCharSequence2Split0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_SPLIT_0, content.getCharSeq().getParams().getAliasCharSequence3Split0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_3_SPLIT_1, content.getCharSeq().getParams().getAliasCharSequence3Split1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_STRINGS_0, content.getCharSeq().getParams().getAliasCharSequence0SplitStrings0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_STRINGS_0, content.getCharSeq().getParams().getAliasCharSequence1SplitStrings0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_1_SPLIT_STRINGS_1, content.getCharSeq().getParams().getAliasCharSequence1SplitStrings1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_SPLIT_CHARS_0, content.getCharSeq().getParams().getAliasCharSequence0SplitChars0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_0, content.getCharSeq().getParams().getAliasCharSequence0RegionMatches0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_1, content.getCharSeq().getParams().getAliasCharSequence0RegionMatches1()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_2, content.getCharSeq().getParams().getAliasCharSequence0RegionMatches2()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_REGION_MATCHES_3, content.getCharSeq().getParams().getAliasCharSequence0RegionMatches3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_EQUALS_0, content.getCharSeq().getParams().getAliasCharSequence0Equals0()),new KeyValueMemberName(AliasParamCharSequence.CHAR_SEQUENCE_0_EQUALS_1, content.getCharSeq().getParams().getAliasCharSequence0Equals1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_EQUALS_IGNORE_CASE_0, content.getCharSeq().getParams().getAliasString0EqualsIgnoreCase0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_0, content.getCharSeq().getParams().getAliasString0Compare0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_1, content.getCharSeq().getParams().getAliasString0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_COMPARE_TO_IGNORE_CASE_0, content.getCharSeq().getParams().getAliasString0CompareToIgnoreCase0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_STRING_0, content.getCharSeq().getParams().getAliasString0ReplaceString0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_STRING_1, content.getCharSeq().getParams().getAliasString0ReplaceString1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_REPLACE_STRING_0, content.getCharSeq().getParams().getAliasString1ReplaceString0()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_REPLACE_STRING_1, content.getCharSeq().getParams().getAliasString1ReplaceString1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REPLACE_MULTIPLE_0, content.getCharSeq().getParams().getAliasString0ReplaceMultiple0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_0, content.getCharSeq().getParams().getAliasString0RegionMatches0()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_1, content.getCharSeq().getParams().getAliasString0RegionMatches1()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_2, content.getCharSeq().getParams().getAliasString0RegionMatches2()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_3, content.getCharSeq().getParams().getAliasString0RegionMatches3()),new KeyValueMemberName(AliasParamCharSequence.STRING_0_REGION_MATCHES_4, content.getCharSeq().getParams().getAliasString0RegionMatches4())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString0ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString1ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_2_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString2ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_3_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString3ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_4_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString4ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_5_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString5ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_6_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString6ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_7_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString7ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_8_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString8ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_0, content.getCharSeq().getParams().getAliasString9ValueOfMethod0()),new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_1, content.getCharSeq().getParams().getAliasString9ValueOfMethod1()),new KeyValueMemberName(AliasParamCharSequence.STRING_9_VALUE_OF_METHOD_2, content.getCharSeq().getParams().getAliasString9ValueOfMethod2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_0_STRING_0, content.getCharSeq().getParams().getAliasString0String0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_0, content.getCharSeq().getParams().getAliasString1String0()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_1, content.getCharSeq().getParams().getAliasString1String1()),new KeyValueMemberName(AliasParamCharSequence.STRING_1_STRING_2, content.getCharSeq().getParams().getAliasString1String2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_2_STRING_0, content.getCharSeq().getParams().getAliasString2String0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_0, content.getCharSeq().getParams().getAliasString3String0()),new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_1, content.getCharSeq().getParams().getAliasString3String1()),new KeyValueMemberName(AliasParamCharSequence.STRING_3_STRING_2, content.getCharSeq().getParams().getAliasString3String2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_4_STRING_0, content.getCharSeq().getParams().getAliasString4String0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder0Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder1Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder2Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder3Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder4Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder5Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder6Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder7Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder8Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder9Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_1, content.getCharSeq().getParams().getAliasStringBuilder9Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_APPEND_2, content.getCharSeq().getParams().getAliasStringBuilder9Append2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder10Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder11Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_1, content.getCharSeq().getParams().getAliasStringBuilder11Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_APPEND_2, content.getCharSeq().getParams().getAliasStringBuilder11Append2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder12Append0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_0, content.getCharSeq().getParams().getAliasStringBuilder13Append0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_1, content.getCharSeq().getParams().getAliasStringBuilder13Append1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_APPEND_2, content.getCharSeq().getParams().getAliasStringBuilder13Append2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_0, content.getCharSeq().getParams().getAliasStringBuilder0Delete0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_1, content.getCharSeq().getParams().getAliasStringBuilder0Delete1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_DELETE_CHAR_AT_0, content.getCharSeq().getParams().getAliasStringBuilder0DeleteCharAt0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder0Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder0Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder1Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder1Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder2Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder2Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder3Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_3_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder3Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder4Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_4_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder4Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder5Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_5_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder5Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder6Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_6_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder6Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder7Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_7_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder7Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder8Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_8_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder8Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder9Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder9Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_2, content.getCharSeq().getParams().getAliasStringBuilder9Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_9_INSERT_3, content.getCharSeq().getParams().getAliasStringBuilder9Insert3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder10Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_10_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder10Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder11Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder11Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_2, content.getCharSeq().getParams().getAliasStringBuilder11Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_11_INSERT_3, content.getCharSeq().getParams().getAliasStringBuilder11Insert3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder12Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_12_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder12Insert1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_0, content.getCharSeq().getParams().getAliasStringBuilder13Insert0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_1, content.getCharSeq().getParams().getAliasStringBuilder13Insert1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_2, content.getCharSeq().getParams().getAliasStringBuilder13Insert2()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_13_INSERT_3, content.getCharSeq().getParams().getAliasStringBuilder13Insert3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_0, content.getCharSeq().getParams().getAliasStringBuilder0Replace0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_1, content.getCharSeq().getParams().getAliasStringBuilder0Replace1()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_REPLACE_2, content.getCharSeq().getParams().getAliasStringBuilder0Replace2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_CHAR_AT_0, content.getCharSeq().getParams().getAliasStringBuilder0SetCharAt0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_CHAR_AT_1, content.getCharSeq().getParams().getAliasStringBuilder0SetCharAt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SET_LENGTH_0, content.getCharSeq().getParams().getAliasStringBuilder0SetLength0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_ENSURE_CAPACITY_0, content.getCharSeq().getParams().getAliasStringBuilder0EnsureCapacity0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SAME_0, content.getCharSeq().getParams().getAliasStringBuilder0Same0()),new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_SAME_1, content.getCharSeq().getParams().getAliasStringBuilder0Same1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_0_STRING_BUILDER_0, content.getCharSeq().getParams().getAliasStringBuilder0StringBuilder0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_1_STRING_BUILDER_0, content.getCharSeq().getParams().getAliasStringBuilder1StringBuilder0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.STRING_BUILDER_2_STRING_BUILDER_0, content.getCharSeq().getParams().getAliasStringBuilder2StringBuilder0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCharSequence.REPLACEMENT_0_REPLACEMENT_0, content.getCharSeq().getParams().getAliasReplacement0Replacement0()),new KeyValueMemberName(AliasParamCharSequence.REPLACEMENT_0_REPLACEMENT_1, content.getCharSeq().getParams().getAliasReplacement0Replacement1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ERROR_0_CURRENT_STACK_0, content.getCoreNames().getParams().getAliasError0CurrentStack0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ERROR_0_TO_STRING_METHOD_0, content.getCoreNames().getParams().getAliasError0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_NAME_0, content.getCoreNames().getParams().getAliasEnums0Name0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_ORDINAL_0, content.getCoreNames().getParams().getAliasEnums0Ordinal0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_0, content.getCoreNames().getParams().getAliasObjectsUtil0SameRef0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_1, content.getCoreNames().getParams().getAliasObjectsUtil0SameRef1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_GET_PARENT_0, content.getCoreNames().getParams().getAliasObjectsUtil0GetParent0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_0, content.getCoreNames().getParams().getAliasObjectsUtil0SetParent0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_1, content.getCoreNames().getParams().getAliasObjectsUtil0SetParent1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.STRING_UTIL_0_VALUE_OF_METHOD_0, content.getCoreNames().getParams().getAliasStringUtil0ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_0, content.getCoreNames().getParams().getAliasResources0ReadResources0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_INDEX_0, content.getCoreNames().getParams().getAliasResources0ReadResourcesIndex0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ABS_0, content.getMathRef().getParams().getAliasMath0Abs0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ABS_0, content.getMathRef().getParams().getAliasMath1Abs0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_QUOT_0, content.getMathRef().getParams().getAliasMath0Quot0()),new KeyValueMemberName(AliasParamMath.MATH_0_QUOT_1, content.getMathRef().getParams().getAliasMath0Quot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_QUOT_0, content.getMathRef().getParams().getAliasMath1Quot0()),new KeyValueMemberName(AliasParamMath.MATH_1_QUOT_1, content.getMathRef().getParams().getAliasMath1Quot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MOD_0, content.getMathRef().getParams().getAliasMath0Mod0()),new KeyValueMemberName(AliasParamMath.MATH_0_MOD_1, content.getMathRef().getParams().getAliasMath0Mod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MOD_0, content.getMathRef().getParams().getAliasMath1Mod0()),new KeyValueMemberName(AliasParamMath.MATH_1_MOD_1, content.getMathRef().getParams().getAliasMath1Mod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_PLUS_0, content.getMathRef().getParams().getAliasMath0Plus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_PLUS_0, content.getMathRef().getParams().getAliasMath1Plus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_PLUS_0, content.getMathRef().getParams().getAliasMath2Plus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_PLUS_0, content.getMathRef().getParams().getAliasMath3Plus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MINUS_0, content.getMathRef().getParams().getAliasMath0Minus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MINUS_0, content.getMathRef().getParams().getAliasMath1Minus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_MINUS_0, content.getMathRef().getParams().getAliasMath2Minus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_MINUS_0, content.getMathRef().getParams().getAliasMath3Minus0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_NEG_0, content.getMathRef().getParams().getAliasMath0Neg0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_NEG_BIN_0, content.getMathRef().getParams().getAliasMath0NegBin0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_NEG_BIN_0, content.getMathRef().getParams().getAliasMath1NegBin0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_4_PLUS_0, content.getMathRef().getParams().getAliasMath4Plus0()),new KeyValueMemberName(AliasParamMath.MATH_4_PLUS_1, content.getMathRef().getParams().getAliasMath4Plus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_5_PLUS_0, content.getMathRef().getParams().getAliasMath5Plus0()),new KeyValueMemberName(AliasParamMath.MATH_5_PLUS_1, content.getMathRef().getParams().getAliasMath5Plus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_6_PLUS_0, content.getMathRef().getParams().getAliasMath6Plus0()),new KeyValueMemberName(AliasParamMath.MATH_6_PLUS_1, content.getMathRef().getParams().getAliasMath6Plus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_7_PLUS_0, content.getMathRef().getParams().getAliasMath7Plus0()),new KeyValueMemberName(AliasParamMath.MATH_7_PLUS_1, content.getMathRef().getParams().getAliasMath7Plus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_4_MINUS_0, content.getMathRef().getParams().getAliasMath4Minus0()),new KeyValueMemberName(AliasParamMath.MATH_4_MINUS_1, content.getMathRef().getParams().getAliasMath4Minus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_5_MINUS_0, content.getMathRef().getParams().getAliasMath5Minus0()),new KeyValueMemberName(AliasParamMath.MATH_5_MINUS_1, content.getMathRef().getParams().getAliasMath5Minus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_6_MINUS_0, content.getMathRef().getParams().getAliasMath6Minus0()),new KeyValueMemberName(AliasParamMath.MATH_6_MINUS_1, content.getMathRef().getParams().getAliasMath6Minus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_7_MINUS_0, content.getMathRef().getParams().getAliasMath7Minus0()),new KeyValueMemberName(AliasParamMath.MATH_7_MINUS_1, content.getMathRef().getParams().getAliasMath7Minus1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_MULT_0, content.getMathRef().getParams().getAliasMath0Mult0()),new KeyValueMemberName(AliasParamMath.MATH_0_MULT_1, content.getMathRef().getParams().getAliasMath0Mult1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_MULT_0, content.getMathRef().getParams().getAliasMath1Mult0()),new KeyValueMemberName(AliasParamMath.MATH_1_MULT_1, content.getMathRef().getParams().getAliasMath1Mult1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_MULT_0, content.getMathRef().getParams().getAliasMath2Mult0()),new KeyValueMemberName(AliasParamMath.MATH_2_MULT_1, content.getMathRef().getParams().getAliasMath2Mult1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_MULT_0, content.getMathRef().getParams().getAliasMath3Mult0()),new KeyValueMemberName(AliasParamMath.MATH_3_MULT_1, content.getMathRef().getParams().getAliasMath3Mult1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIN_QUOT_0, content.getMathRef().getParams().getAliasMath0BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIN_QUOT_1, content.getMathRef().getParams().getAliasMath0BinQuot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIN_QUOT_0, content.getMathRef().getParams().getAliasMath1BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIN_QUOT_1, content.getMathRef().getParams().getAliasMath1BinQuot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_BIN_QUOT_0, content.getMathRef().getParams().getAliasMath2BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_2_BIN_QUOT_1, content.getMathRef().getParams().getAliasMath2BinQuot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_BIN_QUOT_0, content.getMathRef().getParams().getAliasMath3BinQuot0()),new KeyValueMemberName(AliasParamMath.MATH_3_BIN_QUOT_1, content.getMathRef().getParams().getAliasMath3BinQuot1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIN_MOD_0, content.getMathRef().getParams().getAliasMath0BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIN_MOD_1, content.getMathRef().getParams().getAliasMath0BinMod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIN_MOD_0, content.getMathRef().getParams().getAliasMath1BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIN_MOD_1, content.getMathRef().getParams().getAliasMath1BinMod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_BIN_MOD_0, content.getMathRef().getParams().getAliasMath2BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_2_BIN_MOD_1, content.getMathRef().getParams().getAliasMath2BinMod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_3_BIN_MOD_0, content.getMathRef().getParams().getAliasMath3BinMod0()),new KeyValueMemberName(AliasParamMath.MATH_3_BIN_MOD_1, content.getMathRef().getParams().getAliasMath3BinMod1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_AND_0, content.getMathRef().getParams().getAliasMath0And0()),new KeyValueMemberName(AliasParamMath.MATH_0_AND_1, content.getMathRef().getParams().getAliasMath0And1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_AND_0, content.getMathRef().getParams().getAliasMath1And0()),new KeyValueMemberName(AliasParamMath.MATH_1_AND_1, content.getMathRef().getParams().getAliasMath1And1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_AND_0, content.getMathRef().getParams().getAliasMath2And0()),new KeyValueMemberName(AliasParamMath.MATH_2_AND_1, content.getMathRef().getParams().getAliasMath2And1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_OR_0, content.getMathRef().getParams().getAliasMath0Or0()),new KeyValueMemberName(AliasParamMath.MATH_0_OR_1, content.getMathRef().getParams().getAliasMath0Or1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_OR_0, content.getMathRef().getParams().getAliasMath1Or0()),new KeyValueMemberName(AliasParamMath.MATH_1_OR_1, content.getMathRef().getParams().getAliasMath1Or1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_OR_0, content.getMathRef().getParams().getAliasMath2Or0()),new KeyValueMemberName(AliasParamMath.MATH_2_OR_1, content.getMathRef().getParams().getAliasMath2Or1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_XOR_0, content.getMathRef().getParams().getAliasMath0Xor0()),new KeyValueMemberName(AliasParamMath.MATH_0_XOR_1, content.getMathRef().getParams().getAliasMath0Xor1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_XOR_0, content.getMathRef().getParams().getAliasMath1Xor0()),new KeyValueMemberName(AliasParamMath.MATH_1_XOR_1, content.getMathRef().getParams().getAliasMath1Xor1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_2_XOR_0, content.getMathRef().getParams().getAliasMath2Xor0()),new KeyValueMemberName(AliasParamMath.MATH_2_XOR_1, content.getMathRef().getParams().getAliasMath2Xor1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_LEFT_0, content.getMathRef().getParams().getAliasMath0ShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_LEFT_1, content.getMathRef().getParams().getAliasMath0ShiftLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_LEFT_0, content.getMathRef().getParams().getAliasMath1ShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_LEFT_1, content.getMathRef().getParams().getAliasMath1ShiftLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_RIGHT_0, content.getMathRef().getParams().getAliasMath0ShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_SHIFT_RIGHT_1, content.getMathRef().getParams().getAliasMath0ShiftRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_RIGHT_0, content.getMathRef().getParams().getAliasMath1ShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_SHIFT_RIGHT_1, content.getMathRef().getParams().getAliasMath1ShiftRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_LEFT_0, content.getMathRef().getParams().getAliasMath0BitShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_LEFT_1, content.getMathRef().getParams().getAliasMath0BitShiftLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_LEFT_0, content.getMathRef().getParams().getAliasMath1BitShiftLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_LEFT_1, content.getMathRef().getParams().getAliasMath1BitShiftLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_RIGHT_0, content.getMathRef().getParams().getAliasMath0BitShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_BIT_SHIFT_RIGHT_1, content.getMathRef().getParams().getAliasMath0BitShiftRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_RIGHT_0, content.getMathRef().getParams().getAliasMath1BitShiftRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_BIT_SHIFT_RIGHT_1, content.getMathRef().getParams().getAliasMath1BitShiftRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_LEFT_0, content.getMathRef().getParams().getAliasMath0RotateLeft0()),new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_LEFT_1, content.getMathRef().getParams().getAliasMath0RotateLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_LEFT_0, content.getMathRef().getParams().getAliasMath1RotateLeft0()),new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_LEFT_1, content.getMathRef().getParams().getAliasMath1RotateLeft1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_RIGHT_0, content.getMathRef().getParams().getAliasMath0RotateRight0()),new KeyValueMemberName(AliasParamMath.MATH_0_ROTATE_RIGHT_1, content.getMathRef().getParams().getAliasMath0RotateRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_RIGHT_0, content.getMathRef().getParams().getAliasMath1RotateRight0()),new KeyValueMemberName(AliasParamMath.MATH_1_ROTATE_RIGHT_1, content.getMathRef().getParams().getAliasMath1RotateRight1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_LE_0, content.getMathRef().getParams().getAliasMath0Le0()),new KeyValueMemberName(AliasParamMath.MATH_0_LE_1, content.getMathRef().getParams().getAliasMath0Le1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_GE_0, content.getMathRef().getParams().getAliasMath0Ge0()),new KeyValueMemberName(AliasParamMath.MATH_0_GE_1, content.getMathRef().getParams().getAliasMath0Ge1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_LT_0, content.getMathRef().getParams().getAliasMath0Lt0()),new KeyValueMemberName(AliasParamMath.MATH_0_LT_1, content.getMathRef().getParams().getAliasMath0Lt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_GT_0, content.getMathRef().getParams().getAliasMath0Gt0()),new KeyValueMemberName(AliasParamMath.MATH_0_GT_1, content.getMathRef().getParams().getAliasMath0Gt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_LE_0, content.getMathRef().getParams().getAliasMath1Le0()),new KeyValueMemberName(AliasParamMath.MATH_1_LE_1, content.getMathRef().getParams().getAliasMath1Le1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GE_0, content.getMathRef().getParams().getAliasMath1Ge0()),new KeyValueMemberName(AliasParamMath.MATH_1_GE_1, content.getMathRef().getParams().getAliasMath1Ge1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_LT_0, content.getMathRef().getParams().getAliasMath1Lt0()),new KeyValueMemberName(AliasParamMath.MATH_1_LT_1, content.getMathRef().getParams().getAliasMath1Lt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GT_0, content.getMathRef().getParams().getAliasMath1Gt0()),new KeyValueMemberName(AliasParamMath.MATH_1_GT_1, content.getMathRef().getParams().getAliasMath1Gt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_RANDOM_0, content.getMathRef().getParams().getAliasMath0Random0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_0, content.getMathRef().getParams().getAliasMath0Seed0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_0, content.getNbAlias().getParams().getAliasBoolean0Compare0()),new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_1, content.getNbAlias().getParams().getAliasBoolean0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasBoolean0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_EQUALS_0, content.getNbAlias().getParams().getAliasBoolean0Equals0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_PARSE_BOOLEAN_0, content.getNbAlias().getParams().getAliasBoolean0ParseBoolean0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasBoolean0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_VALUE_OF_METHOD_0, content.getNbAlias().getParams().getAliasBoolean0ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_1_VALUE_OF_METHOD_0, content.getNbAlias().getParams().getAliasBoolean1ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_BOOLEAN_0, content.getNbAlias().getParams().getAliasBoolean0Boolean0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_1_BOOLEAN_0, content.getNbAlias().getParams().getAliasBoolean1Boolean0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasByte0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_PARSE_BYTE_0, content.getNbAlias().getParams().getAliasByte0ParseByte0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_0, content.getNbAlias().getParams().getAliasByte1ParseByte0()),new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_1, content.getNbAlias().getParams().getAliasByte1ParseByte1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasByte0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_0, content.getNbAlias().getParams().getAliasByte0Compare0()),new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_1, content.getNbAlias().getParams().getAliasByte0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_PARSE_BYTE_OR_NULL_0, content.getNbAlias().getParams().getAliasByte0ParseByteOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_0, content.getNbAlias().getParams().getAliasByte1ParseByteOrNull0()),new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_1, content.getNbAlias().getParams().getAliasByte1ParseByteOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_BYTE_0, content.getNbAlias().getParams().getAliasByte0Byte0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_BYTE_0, content.getNbAlias().getParams().getAliasByte1Byte0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasShort0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_PARSE_SHORT_0, content.getNbAlias().getParams().getAliasShort0ParseShort0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_0, content.getNbAlias().getParams().getAliasShort1ParseShort0()),new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_1, content.getNbAlias().getParams().getAliasShort1ParseShort1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasShort0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_0, content.getNbAlias().getParams().getAliasShort0Compare0()),new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_1, content.getNbAlias().getParams().getAliasShort0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_PARSE_SHORT_OR_NULL_0, content.getNbAlias().getParams().getAliasShort0ParseShortOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_0, content.getNbAlias().getParams().getAliasShort1ParseShortOrNull0()),new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_1, content.getNbAlias().getParams().getAliasShort1ParseShortOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_SHORT_0, content.getNbAlias().getParams().getAliasShort0Short0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_SHORT_0, content.getNbAlias().getParams().getAliasShort1Short0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasInteger0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_PARSE_INT_0, content.getNbAlias().getParams().getAliasInteger0ParseInt0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_0, content.getNbAlias().getParams().getAliasInteger1ParseInt0()),new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_1, content.getNbAlias().getParams().getAliasInteger1ParseInt1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasInteger0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_0, content.getNbAlias().getParams().getAliasInteger0Compare0()),new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_1, content.getNbAlias().getParams().getAliasInteger0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_PARSE_INT_OR_NULL_0, content.getNbAlias().getParams().getAliasInteger0ParseIntOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_0, content.getNbAlias().getParams().getAliasInteger1ParseIntOrNull0()),new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_1, content.getNbAlias().getParams().getAliasInteger1ParseIntOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_INTEGER_0, content.getNbAlias().getParams().getAliasInteger0Integer0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_INTEGER_0, content.getNbAlias().getParams().getAliasInteger1Integer0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasLong0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_0, content.getNbAlias().getParams().getAliasLong0ParseLong0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_0, content.getNbAlias().getParams().getAliasLong1ParseLong0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_1, content.getNbAlias().getParams().getAliasLong1ParseLong1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasLong0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_0, content.getNbAlias().getParams().getAliasLong0Compare0()),new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_1, content.getNbAlias().getParams().getAliasLong0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_OR_NULL_0, content.getNbAlias().getParams().getAliasLong0ParseLongOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_0, content.getNbAlias().getParams().getAliasLong1ParseLongOrNull0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_1, content.getNbAlias().getParams().getAliasLong1ParseLongOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_LONG_0, content.getNbAlias().getParams().getAliasLong0Long0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_LONG_0, content.getNbAlias().getParams().getAliasLong1Long0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasFloat0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_PARSE_FLOAT_0, content.getNbAlias().getParams().getAliasFloat0ParseFloat0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasFloat0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_0, content.getNbAlias().getParams().getAliasFloat0Compare0()),new KeyValueMemberName(AliasParamNumber.FLOAT_0_COMPARE_1, content.getNbAlias().getParams().getAliasFloat0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_PARSE_FLOAT_OR_NULL_0, content.getNbAlias().getParams().getAliasFloat0ParseFloatOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_IS_INFINITE_0, content.getNbAlias().getParams().getAliasFloat0IsInfinite0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_IS_NAN_0, content.getNbAlias().getParams().getAliasFloat0IsNan0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_FLOAT_0, content.getNbAlias().getParams().getAliasFloat0Float0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_1_FLOAT_0, content.getNbAlias().getParams().getAliasFloat1Float0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasDouble0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_PARSE_DOUBLE_0, content.getNbAlias().getParams().getAliasDouble0ParseDouble0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasDouble0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_0, content.getNbAlias().getParams().getAliasDouble0Compare0()),new KeyValueMemberName(AliasParamNumber.DOUBLE_0_COMPARE_1, content.getNbAlias().getParams().getAliasDouble0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_PARSE_DOUBLE_OR_NULL_0, content.getNbAlias().getParams().getAliasDouble0ParseDoubleOrNull0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_IS_INFINITE_0, content.getNbAlias().getParams().getAliasDouble0IsInfinite0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_IS_NAN_0, content.getNbAlias().getParams().getAliasDouble0IsNan0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_DOUBLE_0, content.getNbAlias().getParams().getAliasDouble0Double0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_1_DOUBLE_0, content.getNbAlias().getParams().getAliasDouble1Double0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasNumber0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_EQUALS_0, content.getNbAlias().getParams().getAliasNumber0Equals0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_1_EQUALS_0, content.getNbAlias().getParams().getAliasNumber1Equals0()),new KeyValueMemberName(AliasParamNumber.NUMBER_1_EQUALS_1, content.getNbAlias().getParams().getAliasNumber1Equals1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasNumber0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_0, content.getNbAlias().getParams().getAliasNumber0Compare0()),new KeyValueMemberName(AliasParamNumber.NUMBER_0_COMPARE_1, content.getNbAlias().getParams().getAliasNumber0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_TO_0, content.getNbAlias().getParams().getAliasCharacter0CompareTo0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_0, content.getNbAlias().getParams().getAliasCharacter0Compare0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_COMPARE_1, content.getNbAlias().getParams().getAliasCharacter0Compare1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_DIGIT_0, content.getNbAlias().getParams().getAliasCharacter0Digit0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_DIGIT_1, content.getNbAlias().getParams().getAliasCharacter0Digit1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_FOR_DIGIT_0, content.getNbAlias().getParams().getAliasCharacter0ForDigit0()),new KeyValueMemberName(AliasParamNumber.CHARACTER_0_FOR_DIGIT_1, content.getNbAlias().getParams().getAliasCharacter0ForDigit1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_GET_DIRECTIONALITY_0, content.getNbAlias().getParams().getAliasCharacter0GetDirectionality0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_GET_TYPE_0, content.getNbAlias().getParams().getAliasCharacter0GetType0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_DIGIT_0, content.getNbAlias().getParams().getAliasCharacter0IsDigit0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LETTER_0, content.getNbAlias().getParams().getAliasCharacter0IsLetter0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LETTER_OR_DIGIT_0, content.getNbAlias().getParams().getAliasCharacter0IsLetterOrDigit0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_WORD_CHAR_0, content.getNbAlias().getParams().getAliasCharacter0IsWordChar0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_WHITESPACE_0, content.getNbAlias().getParams().getAliasCharacter0IsWhitespace0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_LOWER_CASE_0, content.getNbAlias().getParams().getAliasCharacter0IsLowerCase0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_UPPER_CASE_0, content.getNbAlias().getParams().getAliasCharacter0IsUpperCase0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_IS_SPACE_0, content.getNbAlias().getParams().getAliasCharacter0IsSpace0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_LOWER_CASE_CHAR_0, content.getNbAlias().getParams().getAliasCharacter0ToLowerCaseChar0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_UPPER_CASE_CHAR_0, content.getNbAlias().getParams().getAliasCharacter0ToUpperCaseChar0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_TO_STRING_METHOD_0, content.getNbAlias().getParams().getAliasCharacter0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.CHARACTER_0_CHARACTER_0, content.getNbAlias().getParams().getAliasCharacter0Character0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FCT_0_CALL_0, content.getReflect().getParams().getAliasFct0Call0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_CLASS_0, content.getReflect().getParams().getAliasClassType0GetClass0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_0, content.getReflect().getParams().getAliasClassType0ForName0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_1, content.getReflect().getParams().getAliasClassType0ForName1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_1_FOR_NAME_0, content.getReflect().getParams().getAliasClassType1ForName0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_INSTANCE_0, content.getReflect().getParams().getAliasClassType0IsInstance0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_ASSIGNABLE_FROM_0, content.getReflect().getParams().getAliasClassType0IsAssignableFrom0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_DEFAULT_INSTANCE_0, content.getReflect().getParams().getAliasClassType0DefaultInstance0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ENUM_VALUE_OF_0, content.getReflect().getParams().getAliasClassType0EnumValueOf0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_CONSTRUCTORS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredConstructors0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_CONSTRUCTORS_1, content.getReflect().getParams().getAliasClassType0GetDeclaredConstructors1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_FIELDS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredFields0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredStaticMethods0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_1, content.getReflect().getParams().getAliasClassType0GetDeclaredStaticMethods1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_2, content.getReflect().getParams().getAliasClassType0GetDeclaredStaticMethods2()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_STATIC_METHODS_3, content.getReflect().getParams().getAliasClassType0GetDeclaredStaticMethods3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredMethods0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_1, content.getReflect().getParams().getAliasClassType0GetDeclaredMethods1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_2, content.getReflect().getParams().getAliasClassType0GetDeclaredMethods2()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_METHODS_3, content.getReflect().getParams().getAliasClassType0GetDeclaredMethods3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_EXPLICITS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredExplicits0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_IMPLICITS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredImplicits0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_0, content.getReflect().getParams().getAliasClassType0GetDeclaredBlocks0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_1, content.getReflect().getParams().getAliasClassType0GetDeclaredBlocks1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_GENERIC_0, content.getReflect().getParams().getAliasClassType0MakeGeneric0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_WILD_CARD_0, content.getReflect().getParams().getAliasClassType0MakeWildCard0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_0, content.getReflect().getParams().getAliasClassType0GetOperators0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_1, content.getReflect().getParams().getAliasClassType0GetOperators1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_2, content.getReflect().getParams().getAliasClassType0GetOperators2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_NEW_INSTANCE_0, content.getReflect().getParams().getAliasClassType0ArrayNewInstance0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_LENGTH_0, content.getReflect().getParams().getAliasClassType0ArrayGetLength0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_0, content.getReflect().getParams().getAliasClassType0ArrayGet0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_GET_1, content.getReflect().getParams().getAliasClassType0ArrayGet1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_0, content.getReflect().getParams().getAliasClassType0ArraySet0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_1, content.getReflect().getParams().getAliasClassType0ArraySet1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_SET_2, content.getReflect().getParams().getAliasClassType0ArraySet2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CONSTRUCTOR_0_NEW_INSTANCE_0, content.getReflect().getParams().getAliasConstructor0NewInstance0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FIELD_0_GET_FIELD_0, content.getReflect().getParams().getAliasField0GetField0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_0, content.getReflect().getParams().getAliasField0SetField0()),new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_1, content.getReflect().getParams().getAliasField0SetField1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_0, content.getReflect().getParams().getAliasMethod0Invoke0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_1, content.getReflect().getParams().getAliasMethod0Invoke1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_0, content.getReflect().getParams().getAliasMethod0InvokeDirect0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_1, content.getReflect().getParams().getAliasMethod0InvokeDirect1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars1()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, content.getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, content.getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, content.getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, content.getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, content.getReflect().getParams().getAliasMethod3GetDeclaredAnonymousLambdaLocalVars0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars1()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_2, content.getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLoopVars2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0, content.getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1, content.getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLoopVars1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0, content.getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLoopVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_1, content.getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLoopVars1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0, content.getReflect().getParams().getAliasMethod3GetDeclaredAnonymousLambdaLoopVars0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATION_TYPE_0_GET_STRING_0, content.getReflect().getParams().getAliasAnnotationType0GetString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_0, content.getReflect().getParams().getAliasAnnotated0GetAnnotations0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0, content.getReflect().getParams().getAliasAnnotated0GetAnnotationsParameters0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0, content.getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1, content.getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2, content.getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3, content.getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda3())));
         return map_;
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
@@ -1190,33 +1172,33 @@ public abstract class LgNames {
 
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
-        map_.addEntry(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_PLUS_INFINITY,nbAlias.getAliasPlusInfinityField()),
-                new KeyValueMemberName(FIELD_MINUS_INFINITY,nbAlias.getAliasMinusInfinityField()),
-                new KeyValueMemberName(FIELD_NAN,nbAlias.getAliasNanField()),
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_PLUS_INFINITY,nbAlias.getAliasPlusInfinityField()),
-                new KeyValueMemberName(FIELD_MINUS_INFINITY,nbAlias.getAliasMinusInfinityField()),
-                new KeyValueMemberName(FIELD_NAN,nbAlias.getAliasNanField()),
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasInteger(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasCharacter(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasShort(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.addEntry(nbAlias.getAliasByte(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY, content.getNbAlias().getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY, content.getNbAlias().getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN, content.getNbAlias().getAliasNanField()),
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY, content.getNbAlias().getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY, content.getNbAlias().getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN, content.getNbAlias().getAliasNanField()),
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasLong(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasInteger(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasCharacter(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasShort(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
+        map_.addEntry(content.getNbAlias().getAliasByte(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, content.getNbAlias().getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, content.getNbAlias().getAliasMaxValueField())));
         return map_;
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
@@ -1269,74 +1251,8 @@ public abstract class LgNames {
         return res_;
     }
 
-    public ResultErrorStd getSimpleResult(ClassField _classField) {
-        return ValidatorStandard.getSimpleResultBase( _classField,this);
-    }
-
-    /**
-     * @param _first le premier
-     * */
-    public IterableAnalysisResult getCustomType(StringList _names, String _first, AnalyzedPageEl _page) {
-        return ContextUtil.getCustomTypeBase(_names, _page);
-    }
-
-    /**@param _first le premier
-    @param _second le second
-     * @param _page*/
-    public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second, AnalyzedPageEl _page) {
-        return ContextUtil.getCustomTableType(_names, _page);
-    }
-
-    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
-        StringMap<String> files_ = new StringMap<String>();
-        LgNames stds_ = _page.getStandards();
-        String content_ = PredefinedClasses.getBracedIterableType(_page);
-        String name_;
-        name_ = stds_.getAliasIterable();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIteratorType(_page);
-        name_ = stds_.getAliasIteratorType();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIterableTableType(_page);
-        name_ = stds_.getAliasIterableTable();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIteratorTableType(_page);
-        name_ = stds_.getAliasIteratorTableType();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedPairType(_page);
-        name_ = stds_.getAliasPairType();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedEnumType(_page);
-        name_ = stds_.getAliasEnumType();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedEnumParamType(_page);
-        name_ = stds_.getAliasEnumParam();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedSeedDoubleGeneratorType(_page);
-        name_ = stds_.getAliasSeedDoubleGenerator();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedSeedGeneratorType(_page);
-        name_ = stds_.getAliasSeedGenerator();
-        predefinedClasses.add(name_);
-        files_.put(name_, content_);
-        predefinedInterfacesInitOrder.add(stds_.getAliasIterable());
-        predefinedInterfacesInitOrder.add(stds_.getAliasIteratorType());
-        predefinedInterfacesInitOrder.add(stds_.getAliasIterableTable());
-        predefinedInterfacesInitOrder.add(stds_.getAliasIteratorTableType());
-        predefinedInterfacesInitOrder.add(stds_.getAliasPairType());
-        predefinedInterfacesInitOrder.add(stds_.getAliasEnumParam());
-        predefinedInterfacesInitOrder.add(stds_.getAliasEnumType());
-        predefinedInterfacesInitOrder.add(stds_.getAliasSeedDoubleGenerator());
-        predefinedInterfacesInitOrder.add(stds_.getAliasSeedGenerator());
-        return files_;
+    public final Struct getSimpleResult(ClassField _classField) {
+        return calculator.getInnerSimpleResult(_classField);
     }
 
     public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBock, LambdaStruct _functional, ContextEl _contextEl) {
@@ -1347,1912 +1263,1894 @@ public abstract class LgNames {
         return new FullFunctionalInstance(_className,_functional,fs_);
     }
     public StringMap<StandardType> getStandards() {
-        return standards;
+        return content.getStandards();
     }
     public StringMap<PrimitiveType> getPrimitiveTypes() {
         return getPrimTypes().getPrimitiveTypes();
     }
 
     public PrimitiveTypes getPrimTypes() {
-        return primTypes;
+        return content.getPrimTypes();
     }
 
     public String getAliasObject() {
-        return coreNames.getAliasObject();
+        return content.getCoreNames().getAliasObject();
     }
     public void setAliasObject(String _aliasObject) {
-        coreNames.setAliasObject(_aliasObject);
+        content.getCoreNames().setAliasObject(_aliasObject);
     }
     public String getAliasVoid() {
-        return coreNames.getAliasVoid();
+        return content.getCoreNames().getAliasVoid();
     }
     public void setAliasVoid(String _aliasVoid) {
-        coreNames.setAliasVoid(_aliasVoid);
+        content.getCoreNames().setAliasVoid(_aliasVoid);
     }
     public String getAliasCharSequence() {
-        return charSeq.getAliasCharSequence();
+        return content.getCharSeq().getAliasCharSequence();
     }
     public void setAliasCharSequence(String _aliasCharSequence) {
-        charSeq.setAliasCharSequence(_aliasCharSequence);
+        content.getCharSeq().setAliasCharSequence(_aliasCharSequence);
     }
 
     public String getAliasIterator() {
-        return predefTypes.getAliasIterator();
+        return content.getPredefTypes().getAliasIterator();
     }
     public void setAliasIterator(String _aliasIterator) {
-        predefTypes.setAliasIterator(_aliasIterator);
+        content.getPredefTypes().setAliasIterator(_aliasIterator);
     }
     public String getAliasIteratorType() {
-        return predefTypes.getAliasIteratorType();
+        return content.getPredefTypes().getAliasIteratorType();
     }
     public void setAliasIteratorType(String _aliasIteratorType) {
-        predefTypes.setAliasIteratorType(_aliasIteratorType);
+        content.getPredefTypes().setAliasIteratorType(_aliasIteratorType);
     }
     public String getAliasIterable() {
-        return predefTypes.getAliasIterable();
+        return content.getPredefTypes().getAliasIterable();
     }
     public void setAliasIterable(String _aliasIterable) {
-        predefTypes.setAliasIterable(_aliasIterable);
+        content.getPredefTypes().setAliasIterable(_aliasIterable);
     }
     public String getAliasEnumParam() {
-        return predefTypes.getAliasEnumParam();
+        return content.getPredefTypes().getAliasEnumParam();
     }
     public void setAliasEnumParam(String _aliasEnumParam) {
-        predefTypes.setAliasEnumParam(_aliasEnumParam);
+        content.getPredefTypes().setAliasEnumParam(_aliasEnumParam);
     }
     public String getAliasEnumType() {
-        return predefTypes.getAliasEnumType();
+        return content.getPredefTypes().getAliasEnumType();
     }
     public void setAliasEnumType(String _aliasEnum) {
-        predefTypes.setAliasEnumType(_aliasEnum);
+        content.getPredefTypes().setAliasEnumType(_aliasEnum);
     }
     public String getAliasEnums() {
-        return coreNames.getAliasEnums();
+        return content.getCoreNames().getAliasEnums();
     }
     public void setAliasEnums(String _aliasEnums) {
-        coreNames.setAliasEnums(_aliasEnums);
+        content.getCoreNames().setAliasEnums(_aliasEnums);
     }
     public String getAliasError() {
-        return coreNames.getAliasError();
+        return content.getCoreNames().getAliasError();
     }
     public void setAliasError(String _aliasError) {
-        coreNames.setAliasError(_aliasError);
+        content.getCoreNames().setAliasError(_aliasError);
     }
     public String getAliasGetMessage() {
-        return coreNames.getAliasGetMessage();
+        return content.getCoreNames().getAliasGetMessage();
     }
     public void setAliasGetMessage(String _aliasGetMessage) {
-        coreNames.setAliasGetMessage(_aliasGetMessage);
+        content.getCoreNames().setAliasGetMessage(_aliasGetMessage);
     }
 
     public String getAliasGetCause() {
-        return coreNames.getAliasGetCause();
+        return content.getCoreNames().getAliasGetCause();
     }
 
     public void setAliasGetCause(String _aliasGetCause) {
-        coreNames.setAliasGetCause(_aliasGetCause);
+        content.getCoreNames().setAliasGetCause(_aliasGetCause);
     }
     public String getAliasBadSize() {
-        return coreNames.getAliasBadSize();
+        return content.getCoreNames().getAliasBadSize();
     }
     public void setAliasBadSize(String _aliasBadSize) {
-        coreNames.setAliasBadSize(_aliasBadSize);
+        content.getCoreNames().setAliasBadSize(_aliasBadSize);
     }
     public String getAliasDivisionZero() {
-        return coreNames.getAliasDivisionZero();
+        return content.getCoreNames().getAliasDivisionZero();
     }
     public void setAliasDivisionZero(String _aliasDivisionZero) {
-        coreNames.setAliasDivisionZero(_aliasDivisionZero);
+        content.getCoreNames().setAliasDivisionZero(_aliasDivisionZero);
     }
     public String getAliasCastType() {
-        return coreNames.getAliasCastType();
+        return content.getCoreNames().getAliasCastType();
     }
     public void setAliasCastType(String _aliasCast) {
-        coreNames.setAliasCastType(_aliasCast);
+        content.getCoreNames().setAliasCastType(_aliasCast);
     }
     public String getAliasStore() {
-        return coreNames.getAliasStore();
+        return content.getCoreNames().getAliasStore();
     }
     public void setAliasStore(String _aliasStore) {
-        coreNames.setAliasStore(_aliasStore);
+        content.getCoreNames().setAliasStore(_aliasStore);
     }
     public String getAliasNullPe() {
-        return coreNames.getAliasNullPe();
+        return content.getCoreNames().getAliasNullPe();
     }
     public void setAliasNullPe(String _aliasNullPe) {
-        coreNames.setAliasNullPe(_aliasNullPe);
+        content.getCoreNames().setAliasNullPe(_aliasNullPe);
     }
     public String getAliasNbFormat() {
-        return coreNames.getAliasNbFormat();
+        return content.getCoreNames().getAliasNbFormat();
     }
     public void setAliasNbFormat(String _aliasNbFormat) {
-        coreNames.setAliasNbFormat(_aliasNbFormat);
+        content.getCoreNames().setAliasNbFormat(_aliasNbFormat);
     }
     public String getAliasBadEncode() {
-        return coreNames.getAliasBadEncode();
+        return content.getCoreNames().getAliasBadEncode();
     }
     public void setAliasBadEncode(String _aliasBadEncode) {
-        coreNames.setAliasBadEncode(_aliasBadEncode);
+        content.getCoreNames().setAliasBadEncode(_aliasBadEncode);
     }
     public String getAliasBadIndex() {
-        return coreNames.getAliasBadIndex();
+        return content.getCoreNames().getAliasBadIndex();
     }
     public void setAliasBadIndex(String _aliasBadIndex) {
-        coreNames.setAliasBadIndex(_aliasBadIndex);
+        content.getCoreNames().setAliasBadIndex(_aliasBadIndex);
     }
 
     public String getAliasIllegalArg() {
-        return coreNames.getAliasIllegalArg();
+        return content.getCoreNames().getAliasIllegalArg();
     }
 
     public void setAliasIllegalArg(String _aliasIllegalArg) {
-        coreNames.setAliasIllegalArg(_aliasIllegalArg);
+        content.getCoreNames().setAliasIllegalArg(_aliasIllegalArg);
     }
     public String getAliasSof() {
-        return coreNames.getAliasSof();
+        return content.getCoreNames().getAliasSof();
     }
     public void setAliasSof(String _aliasSof) {
-        coreNames.setAliasSof(_aliasSof);
+        content.getCoreNames().setAliasSof(_aliasSof);
     }
     public String getAliasPrimBoolean() {
-        return primTypes.getAliasPrimBoolean();
+        return content.getPrimTypes().getAliasPrimBoolean();
     }
     public void setAliasPrimBoolean(String _aliasPrimBoolean) {
-        primTypes.setAliasPrimBoolean(_aliasPrimBoolean);
+        content.getPrimTypes().setAliasPrimBoolean(_aliasPrimBoolean);
     }
     public String getAliasMath() {
-        return mathRef.getAliasMath();
+        return content.getMathRef().getAliasMath();
     }
     public void setAliasMath(String _aliasMath) {
-        mathRef.setAliasMath(_aliasMath);
+        content.getMathRef().setAliasMath(_aliasMath);
     }
     public String getAliasPrimByte() {
-        return primTypes.getAliasPrimByte();
+        return content.getPrimTypes().getAliasPrimByte();
     }
     public void setAliasPrimByte(String _aliasPrimByte) {
-        primTypes.setAliasPrimByte(_aliasPrimByte);
+        content.getPrimTypes().setAliasPrimByte(_aliasPrimByte);
     }
     public String getAliasPrimShort() {
-        return primTypes.getAliasPrimShort();
+        return content.getPrimTypes().getAliasPrimShort();
     }
     public void setAliasPrimShort(String _aliasPrimShort) {
-        primTypes.setAliasPrimShort(_aliasPrimShort);
+        content.getPrimTypes().setAliasPrimShort(_aliasPrimShort);
     }
     public String getAliasPrimChar() {
-        return primTypes.getAliasPrimChar();
+        return content.getPrimTypes().getAliasPrimChar();
     }
     public void setAliasPrimChar(String _aliasPrimChar) {
-        primTypes.setAliasPrimChar(_aliasPrimChar);
+        content.getPrimTypes().setAliasPrimChar(_aliasPrimChar);
     }
     public String getAliasPrimInteger() {
-        return primTypes.getAliasPrimInteger();
+        return content.getPrimTypes().getAliasPrimInteger();
     }
     public void setAliasPrimInteger(String _aliasPrimInteger) {
-        primTypes.setAliasPrimInteger(_aliasPrimInteger);
+        content.getPrimTypes().setAliasPrimInteger(_aliasPrimInteger);
     }
     public String getAliasPrimLong() {
-        return primTypes.getAliasPrimLong();
+        return content.getPrimTypes().getAliasPrimLong();
     }
     public void setAliasPrimLong(String _aliasPrimLong) {
-        primTypes.setAliasPrimLong(_aliasPrimLong);
+        content.getPrimTypes().setAliasPrimLong(_aliasPrimLong);
     }
     public String getAliasPrimFloat() {
-        return primTypes.getAliasPrimFloat();
+        return content.getPrimTypes().getAliasPrimFloat();
     }
     public void setAliasPrimFloat(String _aliasPrimFloat) {
-        primTypes.setAliasPrimFloat(_aliasPrimFloat);
+        content.getPrimTypes().setAliasPrimFloat(_aliasPrimFloat);
     }
     public String getAliasPrimDouble() {
-        return primTypes.getAliasPrimDouble();
+        return content.getPrimTypes().getAliasPrimDouble();
     }
     public void setAliasPrimDouble(String _aliasPrimDouble) {
-        primTypes.setAliasPrimDouble(_aliasPrimDouble);
+        content.getPrimTypes().setAliasPrimDouble(_aliasPrimDouble);
     }
    
     public String getAliasCompareTo() {
-        return nbAlias.getAliasCompareTo();
+        return content.getNbAlias().getAliasCompareTo();
     }
     public void setAliasCompareTo(String _aliasCompareTo) {
-        nbAlias.setAliasCompareTo(_aliasCompareTo);
+        content.getNbAlias().setAliasCompareTo(_aliasCompareTo);
     }
     public String getAliasCompare() {
-        return nbAlias.getAliasCompare();
+        return content.getNbAlias().getAliasCompare();
     }
     public void setAliasCompare(String _aliasCompare) {
-        nbAlias.setAliasCompare(_aliasCompare);
+        content.getNbAlias().setAliasCompare(_aliasCompare);
     }
     public String getAliasEquals() {
-        return nbAlias.getAliasEquals();
+        return content.getNbAlias().getAliasEquals();
     }
     public void setAliasEquals(String _aliasEquals) {
-        nbAlias.setAliasEquals(_aliasEquals);
+        content.getNbAlias().setAliasEquals(_aliasEquals);
     }
     public String getAliasToStringMethod() {
-        return nbAlias.getAliasToStringMethod();
+        return content.getNbAlias().getAliasToStringMethod();
     }
     public void setAliasToStringMethod(String _aliasToString) {
-        nbAlias.setAliasToStringMethod(_aliasToString);
+        content.getNbAlias().setAliasToStringMethod(_aliasToString);
     }
     public String getAliasValueOfMethod() {
-        return nbAlias.getAliasValueOfMethod();
+        return content.getNbAlias().getAliasValueOfMethod();
     }
     public void setAliasValueOfMethod(String _aliasValueOf) {
-        nbAlias.setAliasValueOfMethod(_aliasValueOf);
+        content.getNbAlias().setAliasValueOfMethod(_aliasValueOf);
     }
 
     public void setAliasMaxValueField(String _aliasMaxValueField) {
-        nbAlias.setAliasMaxValueField(_aliasMaxValueField);
+        content.getNbAlias().setAliasMaxValueField(_aliasMaxValueField);
     }
-    public String getAliasMinValueField() {
-        return nbAlias.getAliasMinValueField();
-    }
+
     public void setAliasMinValueField(String _aliasMinValueField) {
-        nbAlias.setAliasMinValueField(_aliasMinValueField);
+        content.getNbAlias().setAliasMinValueField(_aliasMinValueField);
     }
-    public String getAliasPlusInfinityField() {
-        return nbAlias.getAliasPlusInfinityField();
-    }
+
     public void setAliasPlusInfinityField(String _aliasMaxValueField) {
-        nbAlias.setAliasPlusInfinityField(_aliasMaxValueField);
+        content.getNbAlias().setAliasPlusInfinityField(_aliasMaxValueField);
     }
-    public String getAliasMinusInfinityField() {
-        return nbAlias.getAliasMinusInfinityField();
-    }
+
     public void setAliasMinusInfinityField(String _aliasMinValueField) {
-        nbAlias.setAliasMinusInfinityField(_aliasMinValueField);
+        content.getNbAlias().setAliasMinusInfinityField(_aliasMinValueField);
     }
-    public String getAliasNanField() {
-        return nbAlias.getAliasNanField();
-    }
+
     public void setAliasNanField(String _aliasMinValueField) {
-        nbAlias.setAliasNanField(_aliasMinValueField);
+        content.getNbAlias().setAliasNanField(_aliasMinValueField);
     }
     public String getAliasBoolean() {
-        return nbAlias.getAliasBoolean();
+        return content.getNbAlias().getAliasBoolean();
     }
     public void setAliasBoolean(String _aliasBoolean) {
-        nbAlias.setAliasBoolean(_aliasBoolean);
+        content.getNbAlias().setAliasBoolean(_aliasBoolean);
     }
     public String getAliasByte() {
-        return nbAlias.getAliasByte();
+        return content.getNbAlias().getAliasByte();
     }
     public void setAliasByte(String _aliasByte) {
-        nbAlias.setAliasByte(_aliasByte);
+        content.getNbAlias().setAliasByte(_aliasByte);
     }
     public String getAliasShort() {
-        return nbAlias.getAliasShort();
+        return content.getNbAlias().getAliasShort();
     }
     public void setAliasShort(String _aliasShort) {
-        nbAlias.setAliasShort(_aliasShort);
+        content.getNbAlias().setAliasShort(_aliasShort);
     }
     public String getAliasCharacter() {
-        return nbAlias.getAliasCharacter();
+        return content.getNbAlias().getAliasCharacter();
     }
     public void setAliasCharacter(String _aliasCharacter) {
-        nbAlias.setAliasCharacter(_aliasCharacter);
+        content.getNbAlias().setAliasCharacter(_aliasCharacter);
     }
     public String getAliasInteger() {
-        return nbAlias.getAliasInteger();
+        return content.getNbAlias().getAliasInteger();
     }
     public void setAliasInteger(String _aliasInteger) {
-        nbAlias.setAliasInteger(_aliasInteger);
+        content.getNbAlias().setAliasInteger(_aliasInteger);
     }
     public String getAliasLong() {
-        return nbAlias.getAliasLong();
+        return content.getNbAlias().getAliasLong();
     }
     public void setAliasLong(String _aliasLong) {
-        nbAlias.setAliasLong(_aliasLong);
+        content.getNbAlias().setAliasLong(_aliasLong);
     }
     public String getAliasFloat() {
-        return nbAlias.getAliasFloat();
+        return content.getNbAlias().getAliasFloat();
     }
     public void setAliasFloat(String _aliasFloat) {
-        nbAlias.setAliasFloat(_aliasFloat);
+        content.getNbAlias().setAliasFloat(_aliasFloat);
     }
     public String getAliasDouble() {
-        return nbAlias.getAliasDouble();
+        return content.getNbAlias().getAliasDouble();
     }
     public void setAliasDouble(String _aliasDouble) {
-        nbAlias.setAliasDouble(_aliasDouble);
+        content.getNbAlias().setAliasDouble(_aliasDouble);
     }
     public String getAliasNumber() {
-        return nbAlias.getAliasNumber();
+        return content.getNbAlias().getAliasNumber();
     }
     public void setAliasNumber(String _aliasNumber) {
-        nbAlias.setAliasNumber(_aliasNumber);
+        content.getNbAlias().setAliasNumber(_aliasNumber);
     }
     public String getAliasParseBoolean() {
-        return nbAlias.getAliasParseBoolean();
+        return content.getNbAlias().getAliasParseBoolean();
     }
     public void setAliasParseBoolean(String _aliasParseBoolean) {
-        nbAlias.setAliasParseBoolean(_aliasParseBoolean);
+        content.getNbAlias().setAliasParseBoolean(_aliasParseBoolean);
     }
     public String getAliasParseByte() {
-        return nbAlias.getAliasParseByte();
+        return content.getNbAlias().getAliasParseByte();
     }
     public void setAliasParseByte(String _aliasParseByte) {
-        nbAlias.setAliasParseByte(_aliasParseByte);
+        content.getNbAlias().setAliasParseByte(_aliasParseByte);
     }
     public String getAliasParseShort() {
-        return nbAlias.getAliasParseShort();
+        return content.getNbAlias().getAliasParseShort();
     }
     public void setAliasParseShort(String _aliasParseShort) {
-        nbAlias.setAliasParseShort(_aliasParseShort);
+        content.getNbAlias().setAliasParseShort(_aliasParseShort);
     }
     public String getAliasParseInt() {
-        return nbAlias.getAliasParseInt();
+        return content.getNbAlias().getAliasParseInt();
     }
     public void setAliasParseInt(String _aliasParseInt) {
-        nbAlias.setAliasParseInt(_aliasParseInt);
+        content.getNbAlias().setAliasParseInt(_aliasParseInt);
     }
     public String getAliasParseLong() {
-        return nbAlias.getAliasParseLong();
+        return content.getNbAlias().getAliasParseLong();
     }
     public void setAliasParseLong(String _aliasParseLong) {
-        nbAlias.setAliasParseLong(_aliasParseLong);
+        content.getNbAlias().setAliasParseLong(_aliasParseLong);
     }
     public String getAliasParseFloat() {
-        return nbAlias.getAliasParseFloat();
+        return content.getNbAlias().getAliasParseFloat();
     }
     public void setAliasParseFloat(String _aliasParseFloat) {
-        nbAlias.setAliasParseFloat(_aliasParseFloat);
+        content.getNbAlias().setAliasParseFloat(_aliasParseFloat);
     }
     public String getAliasParseDouble() {
-        return nbAlias.getAliasParseDouble();
+        return content.getNbAlias().getAliasParseDouble();
     }
     public void setAliasParseDouble(String _aliasParseDouble) {
-        nbAlias.setAliasParseDouble(_aliasParseDouble);
+        content.getNbAlias().setAliasParseDouble(_aliasParseDouble);
     }
     public String getAliasParseByteOrNull() {
-        return nbAlias.getAliasParseByteOrNull();
+        return content.getNbAlias().getAliasParseByteOrNull();
     }
     public void setAliasParseByteOrNull(String _aliasParseByte) {
-        nbAlias.setAliasParseByteOrNull(_aliasParseByte);
+        content.getNbAlias().setAliasParseByteOrNull(_aliasParseByte);
     }
     public String getAliasParseShortOrNull() {
-        return nbAlias.getAliasParseShortOrNull();
+        return content.getNbAlias().getAliasParseShortOrNull();
     }
     public void setAliasParseShortOrNull(String _aliasParseShort) {
-        nbAlias.setAliasParseShortOrNull(_aliasParseShort);
+        content.getNbAlias().setAliasParseShortOrNull(_aliasParseShort);
     }
     public String getAliasParseIntOrNull() {
-        return nbAlias.getAliasParseIntOrNull();
+        return content.getNbAlias().getAliasParseIntOrNull();
     }
     public void setAliasParseIntOrNull(String _aliasParseInt) {
-        nbAlias.setAliasParseIntOrNull(_aliasParseInt);
+        content.getNbAlias().setAliasParseIntOrNull(_aliasParseInt);
     }
     public String getAliasParseLongOrNull() {
-        return nbAlias.getAliasParseLongOrNull();
+        return content.getNbAlias().getAliasParseLongOrNull();
     }
     public void setAliasParseLongOrNull(String _aliasParseLong) {
-        nbAlias.setAliasParseLongOrNull(_aliasParseLong);
+        content.getNbAlias().setAliasParseLongOrNull(_aliasParseLong);
     }
     public String getAliasParseFloatOrNull() {
-        return nbAlias.getAliasParseFloatOrNull();
+        return content.getNbAlias().getAliasParseFloatOrNull();
     }
     public void setAliasParseFloatOrNull(String _aliasParseFloat) {
-        nbAlias.setAliasParseFloatOrNull(_aliasParseFloat);
+        content.getNbAlias().setAliasParseFloatOrNull(_aliasParseFloat);
     }
     public String getAliasParseDoubleOrNull() {
-        return nbAlias.getAliasParseDoubleOrNull();
+        return content.getNbAlias().getAliasParseDoubleOrNull();
     }
     public void setAliasParseDoubleOrNull(String _aliasParseDouble) {
-        nbAlias.setAliasParseDoubleOrNull(_aliasParseDouble);
+        content.getNbAlias().setAliasParseDoubleOrNull(_aliasParseDouble);
     }
 
     public String getAliasBooleanValue() {
-        return nbAlias.getAliasBooleanValue();
+        return content.getNbAlias().getAliasBooleanValue();
     }
     public void setAliasBooleanValue(String _aliasBooleanValue) {
-        nbAlias.setAliasBooleanValue(_aliasBooleanValue);
+        content.getNbAlias().setAliasBooleanValue(_aliasBooleanValue);
     }
     public String getAliasByteValue() {
-        return nbAlias.getAliasByteValue();
+        return content.getNbAlias().getAliasByteValue();
     }
     public void setAliasByteValue(String _aliasByteValue) {
-        nbAlias.setAliasByteValue(_aliasByteValue);
+        content.getNbAlias().setAliasByteValue(_aliasByteValue);
     }
     public String getAliasShortValue() {
-        return nbAlias.getAliasShortValue();
+        return content.getNbAlias().getAliasShortValue();
     }
     public void setAliasShortValue(String _aliasShortValue) {
-        nbAlias.setAliasShortValue(_aliasShortValue);
+        content.getNbAlias().setAliasShortValue(_aliasShortValue);
     }
     public String getAliasCharValue() {
-        return nbAlias.getAliasCharValue();
+        return content.getNbAlias().getAliasCharValue();
     }
     public void setAliasCharValue(String _aliasCharValue) {
-        nbAlias.setAliasCharValue(_aliasCharValue);
+        content.getNbAlias().setAliasCharValue(_aliasCharValue);
     }
     public String getAliasIntValue() {
-        return nbAlias.getAliasIntValue();
+        return content.getNbAlias().getAliasIntValue();
     }
     public void setAliasIntValue(String _aliasIntValue) {
-        nbAlias.setAliasIntValue(_aliasIntValue);
+        content.getNbAlias().setAliasIntValue(_aliasIntValue);
     }
     public String getAliasLongValue() {
-        return nbAlias.getAliasLongValue();
+        return content.getNbAlias().getAliasLongValue();
     }
     public void setAliasLongValue(String _aliasLongValue) {
-        nbAlias.setAliasLongValue(_aliasLongValue);
+        content.getNbAlias().setAliasLongValue(_aliasLongValue);
     }
     public String getAliasFloatValue() {
-        return nbAlias.getAliasFloatValue();
+        return content.getNbAlias().getAliasFloatValue();
     }
     public void setAliasFloatValue(String _aliasFloatValue) {
-        nbAlias.setAliasFloatValue(_aliasFloatValue);
+        content.getNbAlias().setAliasFloatValue(_aliasFloatValue);
     }
     public String getAliasDoubleValue() {
-        return nbAlias.getAliasDoubleValue();
+        return content.getNbAlias().getAliasDoubleValue();
     }
     public void setAliasDoubleValue(String _aliasDoubleValue) {
-        nbAlias.setAliasDoubleValue(_aliasDoubleValue);
+        content.getNbAlias().setAliasDoubleValue(_aliasDoubleValue);
     }
     public String getAliasDigit() {
-        return nbAlias.getAliasDigit();
+        return content.getNbAlias().getAliasDigit();
     }
     public void setAliasDigit(String _aliasDigit) {
-        nbAlias.setAliasDigit(_aliasDigit);
+        content.getNbAlias().setAliasDigit(_aliasDigit);
     }
     public String getAliasIsDigit() {
-        return nbAlias.getAliasIsDigit();
+        return content.getNbAlias().getAliasIsDigit();
     }
     public void setAliasIsDigit(String _aliasIsDigit) {
-        nbAlias.setAliasIsDigit(_aliasIsDigit);
+        content.getNbAlias().setAliasIsDigit(_aliasIsDigit);
     }
     public String getAliasIsLetter() {
-        return nbAlias.getAliasIsLetter();
+        return content.getNbAlias().getAliasIsLetter();
     }
     public void setAliasIsLetter(String _aliasIsLetter) {
-        nbAlias.setAliasIsLetter(_aliasIsLetter);
+        content.getNbAlias().setAliasIsLetter(_aliasIsLetter);
     }
     public String getAliasIsLetterOrDigit() {
-        return nbAlias.getAliasIsLetterOrDigit();
+        return content.getNbAlias().getAliasIsLetterOrDigit();
     }
     public void setAliasIsLetterOrDigit(String _aliasIsLetterOrDigit) {
-        nbAlias.setAliasIsLetterOrDigit(_aliasIsLetterOrDigit);
+        content.getNbAlias().setAliasIsLetterOrDigit(_aliasIsLetterOrDigit);
     }
     public String getAliasIsWordChar() {
-        return nbAlias.getAliasIsWordChar();
+        return content.getNbAlias().getAliasIsWordChar();
     }
     public void setAliasIsWordChar(String _aliasIsWordChar) {
-        nbAlias.setAliasIsWordChar(_aliasIsWordChar);
+        content.getNbAlias().setAliasIsWordChar(_aliasIsWordChar);
     }
     public String getAliasIsLowerCase() {
-        return nbAlias.getAliasIsLowerCase();
+        return content.getNbAlias().getAliasIsLowerCase();
     }
     public void setAliasIsLowerCase(String _aliasIsLowerCase) {
-        nbAlias.setAliasIsLowerCase(_aliasIsLowerCase);
+        content.getNbAlias().setAliasIsLowerCase(_aliasIsLowerCase);
     }
     public String getAliasIsUpperCase() {
-        return nbAlias.getAliasIsUpperCase();
+        return content.getNbAlias().getAliasIsUpperCase();
     }
     public void setAliasIsUpperCase(String _aliasIsUpperCase) {
-        nbAlias.setAliasIsUpperCase(_aliasIsUpperCase);
+        content.getNbAlias().setAliasIsUpperCase(_aliasIsUpperCase);
     }
     public String getAliasIsWhitespace() {
-        return nbAlias.getAliasIsWhitespace();
+        return content.getNbAlias().getAliasIsWhitespace();
     }
     public void setAliasIsWhitespace(String _aliasIsWhitespace) {
-        nbAlias.setAliasIsWhitespace(_aliasIsWhitespace);
+        content.getNbAlias().setAliasIsWhitespace(_aliasIsWhitespace);
     }
     public String getAliasIsSpace() {
-        return nbAlias.getAliasIsSpace();
+        return content.getNbAlias().getAliasIsSpace();
     }
     public void setAliasIsSpace(String _aliasIsSpace) {
-        nbAlias.setAliasIsSpace(_aliasIsSpace);
+        content.getNbAlias().setAliasIsSpace(_aliasIsSpace);
     }
     public String getAliasIsInfinite() {
-        return nbAlias.getAliasIsInfinite();
+        return content.getNbAlias().getAliasIsInfinite();
     }
     public void setAliasIsInfinite(String _aliasIsInfinite) {
-        nbAlias.setAliasIsInfinite(_aliasIsInfinite);
+        content.getNbAlias().setAliasIsInfinite(_aliasIsInfinite);
     }
     public String getAliasIsNan() {
-        return nbAlias.getAliasIsNan();
+        return content.getNbAlias().getAliasIsNan();
     }
     public void setAliasIsNan(String _aliasIsNan) {
-        nbAlias.setAliasIsNan(_aliasIsNan);
+        content.getNbAlias().setAliasIsNan(_aliasIsNan);
     }
     public String getAliasForDigit() {
-        return nbAlias.getAliasForDigit();
+        return content.getNbAlias().getAliasForDigit();
     }
     public void setAliasForDigit(String _aliasForDigit) {
-        nbAlias.setAliasForDigit(_aliasForDigit);
+        content.getNbAlias().setAliasForDigit(_aliasForDigit);
     }
     public String getAliasGetDirectionality() {
-        return nbAlias.getAliasGetDirectionality();
+        return content.getNbAlias().getAliasGetDirectionality();
     }
     public void setAliasGetDirectionality(String _aliasGetDirectionality) {
-        nbAlias.setAliasGetDirectionality(_aliasGetDirectionality);
+        content.getNbAlias().setAliasGetDirectionality(_aliasGetDirectionality);
     }
     public String getAliasGetType() {
-        return reflect.getAliasGetType();
+        return content.getReflect().getAliasGetType();
     }
     public void setAliasGetType(String _aliasGetType) {
-        reflect.setAliasGetType(_aliasGetType);
+        content.getReflect().setAliasGetType(_aliasGetType);
     }
     public String getAliasGetCharType() {
-        return nbAlias.getAliasGetCharType();
+        return content.getNbAlias().getAliasGetCharType();
     }
     public void setAliasGetCharType(String _aliasGetType) {
-        nbAlias.setAliasGetCharType(_aliasGetType);
+        content.getNbAlias().setAliasGetCharType(_aliasGetType);
     }
 
     public String getAliasToLowerCaseChar() {
-        return nbAlias.getAliasToLowerCaseChar();
+        return content.getNbAlias().getAliasToLowerCaseChar();
     }
 
     public void setAliasToLowerCaseChar(String aliasToLowerCaseChar) {
-        nbAlias.setAliasToLowerCaseChar(aliasToLowerCaseChar);
+        content.getNbAlias().setAliasToLowerCaseChar(aliasToLowerCaseChar);
     }
 
     public String getAliasToUpperCaseChar() {
-        return nbAlias.getAliasToUpperCaseChar();
+        return content.getNbAlias().getAliasToUpperCaseChar();
     }
 
     public void setAliasToUpperCaseChar(String aliasToUpperCaseChar) {
-        nbAlias.setAliasToUpperCaseChar(aliasToUpperCaseChar);
+        content.getNbAlias().setAliasToUpperCaseChar(aliasToUpperCaseChar);
     }
     public String getAliasString() {
-        return charSeq.getAliasString();
+        return content.getCharSeq().getAliasString();
     }
     public void setAliasString(String _aliasString) {
-        charSeq.setAliasString(_aliasString);
+        content.getCharSeq().setAliasString(_aliasString);
     }
     public String getAliasLength() {
-        return charSeq.getAliasLength();
+        return content.getCharSeq().getAliasLength();
     }
     public void setAliasLength(String _aliasLength) {
-        charSeq.setAliasLength(_aliasLength);
+        content.getCharSeq().setAliasLength(_aliasLength);
     }
     public String getAliasCharAt() {
-        return charSeq.getAliasCharAt();
+        return content.getCharSeq().getAliasCharAt();
     }
     public void setAliasCharAt(String _aliasCharAt) {
-        charSeq.setAliasCharAt(_aliasCharAt);
+        content.getCharSeq().setAliasCharAt(_aliasCharAt);
     }
     public String getAliasToCharArray() {
-        return charSeq.getAliasToCharArray();
+        return content.getCharSeq().getAliasToCharArray();
     }
     public void setAliasToCharArray(String _aliasToCharArray) {
-        charSeq.setAliasToCharArray(_aliasToCharArray);
+        content.getCharSeq().setAliasToCharArray(_aliasToCharArray);
     }
     public String getAliasSplit() {
-        return charSeq.getAliasSplit();
+        return content.getCharSeq().getAliasSplit();
     }
     public void setAliasSplit(String _aliasSplit) {
-        charSeq.setAliasSplit(_aliasSplit);
+        content.getCharSeq().setAliasSplit(_aliasSplit);
     }
     public String getAliasSplitStrings() {
-        return charSeq.getAliasSplitStrings();
+        return content.getCharSeq().getAliasSplitStrings();
     }
     public void setAliasSplitStrings(String _aliasSplitStrings) {
-        charSeq.setAliasSplitStrings(_aliasSplitStrings);
+        content.getCharSeq().setAliasSplitStrings(_aliasSplitStrings);
     }
     public String getAliasSplitChars() {
-        return charSeq.getAliasSplitChars();
+        return content.getCharSeq().getAliasSplitChars();
     }
     public void setAliasSplitChars(String _aliasSplitChars) {
-        charSeq.setAliasSplitChars(_aliasSplitChars);
+        content.getCharSeq().setAliasSplitChars(_aliasSplitChars);
     }
     public String getAliasReplace() {
-        return charSeq.getAliasReplace();
+        return content.getCharSeq().getAliasReplace();
     }
     public void setAliasReplace(String _aliasReplace) {
-        charSeq.setAliasReplace(_aliasReplace);
+        content.getCharSeq().setAliasReplace(_aliasReplace);
     }
     public String getAliasReplaceString() {
-        return charSeq.getAliasReplaceString();
+        return content.getCharSeq().getAliasReplaceString();
     }
     public void setAliasReplaceString(String _aliasReplace) {
-        charSeq.setAliasReplaceString(_aliasReplace);
+        content.getCharSeq().setAliasReplaceString(_aliasReplace);
     }
     public String getAliasReplaceMultiple() {
-        return charSeq.getAliasReplaceMultiple();
+        return content.getCharSeq().getAliasReplaceMultiple();
     }
     public void setAliasReplaceMultiple(String _aliasReplaceMultiple) {
-        charSeq.setAliasReplaceMultiple(_aliasReplaceMultiple);
+        content.getCharSeq().setAliasReplaceMultiple(_aliasReplaceMultiple);
     }
     public String getAliasEqualsIgnoreCase() {
-        return charSeq.getAliasEqualsIgnoreCase();
+        return content.getCharSeq().getAliasEqualsIgnoreCase();
     }
     public void setAliasEqualsIgnoreCase(String _aliasEqualsIgnoreCase) {
-        charSeq.setAliasEqualsIgnoreCase(_aliasEqualsIgnoreCase);
+        content.getCharSeq().setAliasEqualsIgnoreCase(_aliasEqualsIgnoreCase);
     }
     public String getAliasCompareToIgnoreCase() {
-        return charSeq.getAliasCompareToIgnoreCase();
+        return content.getCharSeq().getAliasCompareToIgnoreCase();
     }
     public void setAliasCompareToIgnoreCase(String _aliasCompareToIgnoreCase) {
-        charSeq.setAliasCompareToIgnoreCase(_aliasCompareToIgnoreCase);
+        content.getCharSeq().setAliasCompareToIgnoreCase(_aliasCompareToIgnoreCase);
     }
     public String getAliasContains() {
-        return charSeq.getAliasContains();
+        return content.getCharSeq().getAliasContains();
     }
     public void setAliasContains(String _aliasContains) {
-        charSeq.setAliasContains(_aliasContains);
+        content.getCharSeq().setAliasContains(_aliasContains);
     }
     public String getAliasEndsWith() {
-        return charSeq.getAliasEndsWith();
+        return content.getCharSeq().getAliasEndsWith();
     }
     public void setAliasEndsWith(String _aliasEndsWith) {
-        charSeq.setAliasEndsWith(_aliasEndsWith);
+        content.getCharSeq().setAliasEndsWith(_aliasEndsWith);
     }
     public String getAliasStartsWith() {
-        return charSeq.getAliasStartsWith();
+        return content.getCharSeq().getAliasStartsWith();
     }
     public void setAliasStartsWith(String _aliasStartsWith) {
-        charSeq.setAliasStartsWith(_aliasStartsWith);
+        content.getCharSeq().setAliasStartsWith(_aliasStartsWith);
     }
     public String getAliasIndexOf() {
-        return charSeq.getAliasIndexOf();
+        return content.getCharSeq().getAliasIndexOf();
     }
     public void setAliasIndexOf(String _aliasIndexOf) {
-        charSeq.setAliasIndexOf(_aliasIndexOf);
+        content.getCharSeq().setAliasIndexOf(_aliasIndexOf);
     }
     public String getAliasFormat() {
-        return charSeq.getAliasFormat();
+        return content.getCharSeq().getAliasFormat();
     }
     public void setAliasFormat(String _aliasFormat) {
-        charSeq.setAliasFormat(_aliasFormat);
+        content.getCharSeq().setAliasFormat(_aliasFormat);
     }
     public String getAliasGetBytes() {
-        return charSeq.getAliasGetBytes();
+        return content.getCharSeq().getAliasGetBytes();
     }
     public void setAliasGetBytes(String _aliasGetBytes) {
-        charSeq.setAliasGetBytes(_aliasGetBytes);
+        content.getCharSeq().setAliasGetBytes(_aliasGetBytes);
     }
     public String getAliasIsEmpty() {
-        return charSeq.getAliasIsEmpty();
+        return content.getCharSeq().getAliasIsEmpty();
     }
     public void setAliasIsEmpty(String _aliasIsEmpty) {
-        charSeq.setAliasIsEmpty(_aliasIsEmpty);
+        content.getCharSeq().setAliasIsEmpty(_aliasIsEmpty);
     }
     public String getAliasLastIndexOf() {
-        return charSeq.getAliasLastIndexOf();
+        return content.getCharSeq().getAliasLastIndexOf();
     }
     public void setAliasLastIndexOf(String _aliasLastIndexOf) {
-        charSeq.setAliasLastIndexOf(_aliasLastIndexOf);
+        content.getCharSeq().setAliasLastIndexOf(_aliasLastIndexOf);
     }
     public String getAliasRegionMatches() {
-        return charSeq.getAliasRegionMatches();
+        return content.getCharSeq().getAliasRegionMatches();
     }
     public void setAliasRegionMatches(String _aliasRegionMatches) {
-        charSeq.setAliasRegionMatches(_aliasRegionMatches);
+        content.getCharSeq().setAliasRegionMatches(_aliasRegionMatches);
     }
     public String getAliasSubstring() {
-        return charSeq.getAliasSubstring();
+        return content.getCharSeq().getAliasSubstring();
     }
     public void setAliasSubstring(String _aliasSubstring) {
-        charSeq.setAliasSubstring(_aliasSubstring);
+        content.getCharSeq().setAliasSubstring(_aliasSubstring);
     }
     public String getAliasSubSequence() {
-        return charSeq.getAliasSubSequence();
+        return content.getCharSeq().getAliasSubSequence();
     }
     public void setAliasSubSequence(String _aliasSubSequence) {
-        charSeq.setAliasSubSequence(_aliasSubSequence);
+        content.getCharSeq().setAliasSubSequence(_aliasSubSequence);
     }
     public String getAliasToLowerCase() {
-        return charSeq.getAliasToLowerCase();
+        return content.getCharSeq().getAliasToLowerCase();
     }
     public void setAliasToLowerCase(String _aliasToLowerCase) {
-        charSeq.setAliasToLowerCase(_aliasToLowerCase);
+        content.getCharSeq().setAliasToLowerCase(_aliasToLowerCase);
     }
     public String getAliasToUpperCase() {
-        return charSeq.getAliasToUpperCase();
+        return content.getCharSeq().getAliasToUpperCase();
     }
     public void setAliasToUpperCase(String _aliasToUpperCase) {
-        charSeq.setAliasToUpperCase(_aliasToUpperCase);
+        content.getCharSeq().setAliasToUpperCase(_aliasToUpperCase);
     }
     public String getAliasTrim() {
-        return charSeq.getAliasTrim();
+        return content.getCharSeq().getAliasTrim();
     }
     public void setAliasTrim(String _aliasTrim) {
-        charSeq.setAliasTrim(_aliasTrim);
+        content.getCharSeq().setAliasTrim(_aliasTrim);
     }
     public String getAliasStringBuilder() {
-        return charSeq.getAliasStringBuilder();
+        return content.getCharSeq().getAliasStringBuilder();
     }
     public void setAliasStringBuilder(String _aliasStringBuilder) {
-        charSeq.setAliasStringBuilder(_aliasStringBuilder);
+        content.getCharSeq().setAliasStringBuilder(_aliasStringBuilder);
     }
     public String getAliasAppend() {
-        return charSeq.getAliasAppend();
+        return content.getCharSeq().getAliasAppend();
     }
     public void setAliasAppend(String _aliasAppend) {
-        charSeq.setAliasAppend(_aliasAppend);
+        content.getCharSeq().setAliasAppend(_aliasAppend);
     }
     public String getAliasCapacity() {
-        return charSeq.getAliasCapacity();
+        return content.getCharSeq().getAliasCapacity();
     }
     public void setAliasCapacity(String _aliasCapacity) {
-        charSeq.setAliasCapacity(_aliasCapacity);
+        content.getCharSeq().setAliasCapacity(_aliasCapacity);
     }
     public String getAliasClear() {
-        return charSeq.getAliasClear();
+        return content.getCharSeq().getAliasClear();
     }
     public void setAliasClear(String _aliasClear) {
-        charSeq.setAliasClear(_aliasClear);
+        content.getCharSeq().setAliasClear(_aliasClear);
     }
     public String getAliasDelete() {
-        return charSeq.getAliasDelete();
+        return content.getCharSeq().getAliasDelete();
     }
     public void setAliasDelete(String _aliasDelete) {
-        charSeq.setAliasDelete(_aliasDelete);
+        content.getCharSeq().setAliasDelete(_aliasDelete);
     }
     public String getAliasDeleteCharAt() {
-        return charSeq.getAliasDeleteCharAt();
+        return content.getCharSeq().getAliasDeleteCharAt();
     }
     public void setAliasDeleteCharAt(String _aliasDeleteCharAt) {
-        charSeq.setAliasDeleteCharAt(_aliasDeleteCharAt);
+        content.getCharSeq().setAliasDeleteCharAt(_aliasDeleteCharAt);
     }
     public String getAliasEnsureCapacity() {
-        return charSeq.getAliasEnsureCapacity();
+        return content.getCharSeq().getAliasEnsureCapacity();
     }
     public void setAliasEnsureCapacity(String _aliasEnsureCapacity) {
-        charSeq.setAliasEnsureCapacity(_aliasEnsureCapacity);
+        content.getCharSeq().setAliasEnsureCapacity(_aliasEnsureCapacity);
     }
     public String getAliasInsert() {
-        return charSeq.getAliasInsert();
+        return content.getCharSeq().getAliasInsert();
     }
     public void setAliasInsert(String _aliasInsert) {
-        charSeq.setAliasInsert(_aliasInsert);
+        content.getCharSeq().setAliasInsert(_aliasInsert);
     }
     public String getAliasReverse() {
-        return charSeq.getAliasReverse();
+        return content.getCharSeq().getAliasReverse();
     }
     public void setAliasReverse(String _aliasReverse) {
-        charSeq.setAliasReverse(_aliasReverse);
+        content.getCharSeq().setAliasReverse(_aliasReverse);
     }
     public String getAliasSetCharAt() {
-        return charSeq.getAliasSetCharAt();
+        return content.getCharSeq().getAliasSetCharAt();
     }
     public void setAliasSetCharAt(String _aliasSetCharAt) {
-        charSeq.setAliasSetCharAt(_aliasSetCharAt);
+        content.getCharSeq().setAliasSetCharAt(_aliasSetCharAt);
     }
     public String getAliasSetLength() {
-        return charSeq.getAliasSetLength();
+        return content.getCharSeq().getAliasSetLength();
     }
     public void setAliasSetLength(String _aliasSetLength) {
-        charSeq.setAliasSetLength(_aliasSetLength);
+        content.getCharSeq().setAliasSetLength(_aliasSetLength);
     }
     public String getAliasSame() {
-        return charSeq.getAliasSame();
+        return content.getCharSeq().getAliasSame();
     }
     public void setAliasSame(String _aliasSetLength) {
-        charSeq.setAliasSame(_aliasSetLength);
+        content.getCharSeq().setAliasSame(_aliasSetLength);
     }
     public String getAliasTrimToSize() {
-        return charSeq.getAliasTrimToSize();
+        return content.getCharSeq().getAliasTrimToSize();
     }
     public void setAliasTrimToSize(String _aliasTrimToSize) {
-        charSeq.setAliasTrimToSize(_aliasTrimToSize);
+        content.getCharSeq().setAliasTrimToSize(_aliasTrimToSize);
     }
 
     public String getAliasNext() {
-        return predefTypes.getAliasNext();
+        return content.getPredefTypes().getAliasNext();
     }
     public void setAliasNext(String _aliasNext) {
-        predefTypes.setAliasNext(_aliasNext);
+        content.getPredefTypes().setAliasNext(_aliasNext);
     }
     public String getAliasHasNext() {
-        return predefTypes.getAliasHasNext();
+        return content.getPredefTypes().getAliasHasNext();
     }
     public void setAliasHasNext(String _aliasHasNext) {
-        predefTypes.setAliasHasNext(_aliasHasNext);
+        content.getPredefTypes().setAliasHasNext(_aliasHasNext);
     }
     
     public String getAliasIterableTable() {
-        return predefTypes.getAliasIterableTable();
+        return content.getPredefTypes().getAliasIterableTable();
     }
     public void setAliasIterableTable(String _aliasIterableTable) {
-        predefTypes.setAliasIterableTable(_aliasIterableTable);
+        content.getPredefTypes().setAliasIterableTable(_aliasIterableTable);
     }
     public String getAliasIteratorTable() {
-        return predefTypes.getAliasIteratorTable();
+        return content.getPredefTypes().getAliasIteratorTable();
     }
     public void setAliasIteratorTable(String _aliasIteratorTable) {
-        predefTypes.setAliasIteratorTable(_aliasIteratorTable);
+        content.getPredefTypes().setAliasIteratorTable(_aliasIteratorTable);
     }
     public String getAliasIteratorTableType() {
-        return predefTypes.getAliasIteratorTableType();
+        return content.getPredefTypes().getAliasIteratorTableType();
     }
     public void setAliasIteratorTableType(String _aliasIteratorTableType) {
-        predefTypes.setAliasIteratorTableType(_aliasIteratorTableType);
+        content.getPredefTypes().setAliasIteratorTableType(_aliasIteratorTableType);
     }
     public String getAliasHasNextPair() {
-        return predefTypes.getAliasHasNextPair();
+        return content.getPredefTypes().getAliasHasNextPair();
     }
     public void setAliasHasNextPair(String _aliasHasNextPair) {
-        predefTypes.setAliasHasNextPair(_aliasHasNextPair);
+        content.getPredefTypes().setAliasHasNextPair(_aliasHasNextPair);
     }
     public String getAliasNextPair() {
-        return predefTypes.getAliasNextPair();
+        return content.getPredefTypes().getAliasNextPair();
     }
     public void setAliasNextPair(String _aliasHasNextPair) {
-        predefTypes.setAliasNextPair(_aliasHasNextPair);
+        content.getPredefTypes().setAliasNextPair(_aliasHasNextPair);
     }
     public String getAliasPairType() {
-        return predefTypes.getAliasPairType();
+        return content.getPredefTypes().getAliasPairType();
     }
     public void setAliasPairType(String _aliasPairType) {
-        predefTypes.setAliasPairType(_aliasPairType);
+        content.getPredefTypes().setAliasPairType(_aliasPairType);
     }
     public String getAliasGetFirst() {
-        return predefTypes.getAliasGetFirst();
+        return content.getPredefTypes().getAliasGetFirst();
     }
     public void setAliasGetFirst(String _aliasGetFirst) {
-        predefTypes.setAliasGetFirst(_aliasGetFirst);
+        content.getPredefTypes().setAliasGetFirst(_aliasGetFirst);
     }
     public String getAliasGetSecond() {
-        return predefTypes.getAliasGetSecond();
+        return content.getPredefTypes().getAliasGetSecond();
     }
     public void setAliasGetSecond(String _aliasGetSecond) {
-        predefTypes.setAliasGetSecond(_aliasGetSecond);
+        content.getPredefTypes().setAliasGetSecond(_aliasGetSecond);
     }
     public String getAliasName() {
-        return coreNames.getAliasName();
+        return content.getCoreNames().getAliasName();
     }
     public void setAliasName(String _aliasName) {
-        coreNames.setAliasName(_aliasName);
+        content.getCoreNames().setAliasName(_aliasName);
     }
     public String getAliasOrdinal() {
-        return coreNames.getAliasOrdinal();
+        return content.getCoreNames().getAliasOrdinal();
     }
     public void setAliasOrdinal(String _aliasOrdinal) {
-        coreNames.setAliasOrdinal(_aliasOrdinal);
+        content.getCoreNames().setAliasOrdinal(_aliasOrdinal);
     }
     public String getAliasReplacement() {
-        return charSeq.getAliasReplacement();
+        return content.getCharSeq().getAliasReplacement();
     }
     public void setAliasReplacement(String _aliasReplacement) {
-        charSeq.setAliasReplacement(_aliasReplacement);
+        content.getCharSeq().setAliasReplacement(_aliasReplacement);
     }
     public String getAliasGetOldString() {
-        return charSeq.getAliasGetOldString();
+        return content.getCharSeq().getAliasGetOldString();
     }
     public void setAliasGetOldString(String _aliasGetOldString) {
-        charSeq.setAliasGetOldString(_aliasGetOldString);
+        content.getCharSeq().setAliasGetOldString(_aliasGetOldString);
     }
     public String getAliasGetNewString() {
-        return charSeq.getAliasGetNewString();
+        return content.getCharSeq().getAliasGetNewString();
     }
     public void setAliasGetNewString(String _aliasGetNewString) {
-        charSeq.setAliasGetNewString(_aliasGetNewString);
+        content.getCharSeq().setAliasGetNewString(_aliasGetNewString);
     }
     public String getAliasAbs() {
-        return mathRef.getAliasAbs();
+        return content.getMathRef().getAliasAbs();
     }
     public void setAliasAbs(String _aliasAbs) {
-        mathRef.setAliasAbs(_aliasAbs);
+        content.getMathRef().setAliasAbs(_aliasAbs);
     }
     public String getAliasQuot() {
-        return mathRef.getAliasQuot();
+        return content.getMathRef().getAliasQuot();
     }
     public void setAliasQuot(String _aliasQuot) {
-        mathRef.setAliasQuot(_aliasQuot);
+        content.getMathRef().setAliasQuot(_aliasQuot);
     }
     public String getAliasMod() {
-        return mathRef.getAliasMod();
+        return content.getMathRef().getAliasMod();
     }
     public void setAliasMod(String _aliasMod) {
-        mathRef.setAliasMod(_aliasMod);
+        content.getMathRef().setAliasMod(_aliasMod);
     }
     public String getAliasErrorInitClass() {
-        return coreNames.getAliasErrorInitClass();
+        return content.getCoreNames().getAliasErrorInitClass();
     }
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
-        coreNames.setAliasErrorInitClass(_aliasErrorInitClass);
+        content.getCoreNames().setAliasErrorInitClass(_aliasErrorInitClass);
     }
     public String getAliasClone() {
-        return coreNames.getAliasClone();
+        return content.getCoreNames().getAliasClone();
     }
     public void setAliasClone(String _aliasClone) {
-        coreNames.setAliasClone(_aliasClone);
+        content.getCoreNames().setAliasClone(_aliasClone);
     }
     public String getAliasReadResourcesNames() {
-    	return coreNames.getAliasReadResourcesNames();
+    	return content.getCoreNames().getAliasReadResourcesNames();
     }
     public void setAliasReadResourcesNames(String _aliasReadResourcesNames) {
-    	coreNames.setAliasReadResourcesNames(_aliasReadResourcesNames);
+    	content.getCoreNames().setAliasReadResourcesNames(_aliasReadResourcesNames);
     }
     public String getAliasReadResourcesNamesLength() {
-        return coreNames.getAliasReadResourcesNamesLength();
+        return content.getCoreNames().getAliasReadResourcesNamesLength();
     }
     public void setAliasReadResourcesNamesLength(String _aliasReadResourcesNames) {
-        coreNames.setAliasReadResourcesNamesLength(_aliasReadResourcesNames);
+        content.getCoreNames().setAliasReadResourcesNamesLength(_aliasReadResourcesNames);
     }
     public String getAliasReadResources() {
-        return coreNames.getAliasReadResources();
+        return content.getCoreNames().getAliasReadResources();
     }
     public void setAliasReadResources(String _aliasReadResources) {
-        coreNames.setAliasReadResources(_aliasReadResources);
+        content.getCoreNames().setAliasReadResources(_aliasReadResources);
     }
     public String getAliasReadResourcesIndex() {
-        return coreNames.getAliasReadResourcesIndex();
+        return content.getCoreNames().getAliasReadResourcesIndex();
     }
     public void setAliasReadResourcesIndex(String _aliasReadResources) {
-        coreNames.setAliasReadResourcesIndex(_aliasReadResources);
+        content.getCoreNames().setAliasReadResourcesIndex(_aliasReadResources);
     }
     public String getAliasResources() {
-        return coreNames.getAliasResources();
+        return content.getCoreNames().getAliasResources();
     }
     public void setAliasResources(String _aliasResources) {
-        coreNames.setAliasResources(_aliasResources);
+        content.getCoreNames().setAliasResources(_aliasResources);
     }
     public String getAliasEnumValues() {
-        return predefTypes.getAliasEnumValues();
+        return content.getPredefTypes().getAliasEnumValues();
     }
     public void setAliasEnumValues(String _aliasValues) {
-        predefTypes.setAliasEnumValues(_aliasValues);
+        content.getPredefTypes().setAliasEnumValues(_aliasValues);
     }
     public String getAliasEnumPredValueOf() {
-        return predefTypes.getAliasEnumPredValueOf();
+        return content.getPredefTypes().getAliasEnumPredValueOf();
     }
     public void setAliasEnumPredValueOf(String _aliasValues) {
-        predefTypes.setAliasEnumPredValueOf(_aliasValues);
+        content.getPredefTypes().setAliasEnumPredValueOf(_aliasValues);
     }
 
     public String getAliasIterableVar() {
-        return predefTypes.getAliasIterableVar();
+        return content.getPredefTypes().getAliasIterableVar();
     }
 
     public void setAliasIterableVar(String aliasIterableVar) {
-        predefTypes.setAliasIterableVar(aliasIterableVar);
+        content.getPredefTypes().setAliasIterableVar(aliasIterableVar);
     }
 
     public String getAliasIteratorTypeVar() {
-        return predefTypes.getAliasIteratorTypeVar();
+        return content.getPredefTypes().getAliasIteratorTypeVar();
     }
 
     public void setAliasIteratorTypeVar(String aliasIteratorTypeVar) {
-        predefTypes.setAliasIteratorTypeVar(aliasIteratorTypeVar);
+        content.getPredefTypes().setAliasIteratorTypeVar(aliasIteratorTypeVar);
     }
 
     public String getAliasIterableTableVarFirst() {
-        return predefTypes.getAliasIterableTableVarFirst();
+        return content.getPredefTypes().getAliasIterableTableVarFirst();
     }
 
     public void setAliasIterableTableVarFirst(String aliasIterableTableVarFirst) {
-        predefTypes.setAliasIterableTableVarFirst(aliasIterableTableVarFirst);
+        content.getPredefTypes().setAliasIterableTableVarFirst(aliasIterableTableVarFirst);
     }
 
     public String getAliasIterableTableVarSecond() {
-        return predefTypes.getAliasIterableTableVarSecond();
+        return content.getPredefTypes().getAliasIterableTableVarSecond();
     }
 
     public void setAliasIterableTableVarSecond(String aliasIterableTableVarSecond) {
-        predefTypes.setAliasIterableTableVarSecond(aliasIterableTableVarSecond);
+        content.getPredefTypes().setAliasIterableTableVarSecond(aliasIterableTableVarSecond);
     }
 
     public String getAliasIteratorTableTypeVarFirst() {
-        return predefTypes.getAliasIteratorTableTypeVarFirst();
+        return content.getPredefTypes().getAliasIteratorTableTypeVarFirst();
     }
 
     public void setAliasIteratorTableTypeVarFirst(String aliasIteratorTableTypeVarFirst) {
-        predefTypes.setAliasIteratorTableTypeVarFirst(aliasIteratorTableTypeVarFirst);
+        content.getPredefTypes().setAliasIteratorTableTypeVarFirst(aliasIteratorTableTypeVarFirst);
     }
 
     public String getAliasIteratorTableTypeVarSecond() {
-        return predefTypes.getAliasIteratorTableTypeVarSecond();
+        return content.getPredefTypes().getAliasIteratorTableTypeVarSecond();
     }
 
     public void setAliasIteratorTableTypeVarSecond(String aliasIteratorTableTypeVarSecond) {
-        predefTypes.setAliasIteratorTableTypeVarSecond(aliasIteratorTableTypeVarSecond);
+        content.getPredefTypes().setAliasIteratorTableTypeVarSecond(aliasIteratorTableTypeVarSecond);
     }
 
     public String getAliasPairTypeVarFirst() {
-        return predefTypes.getAliasPairTypeVarFirst();
+        return content.getPredefTypes().getAliasPairTypeVarFirst();
     }
 
     public void setAliasPairTypeVarFirst(String aliasPairTypeVarFirst) {
-        predefTypes.setAliasPairTypeVarFirst(aliasPairTypeVarFirst);
+        content.getPredefTypes().setAliasPairTypeVarFirst(aliasPairTypeVarFirst);
     }
 
     public String getAliasPairTypeVarSecond() {
-        return predefTypes.getAliasPairTypeVarSecond();
+        return content.getPredefTypes().getAliasPairTypeVarSecond();
     }
 
     public void setAliasPairTypeVarSecond(String aliasPairTypeVarSecond) {
-        predefTypes.setAliasPairTypeVarSecond(aliasPairTypeVarSecond);
+        content.getPredefTypes().setAliasPairTypeVarSecond(aliasPairTypeVarSecond);
     }
 
     public String getAliasEnumParamVar() {
-        return predefTypes.getAliasEnumParamVar();
+        return content.getPredefTypes().getAliasEnumParamVar();
     }
 
     public void setAliasEnumParamVar(String aliasEnumParamVar) {
-        predefTypes.setAliasEnumParamVar(aliasEnumParamVar);
+        content.getPredefTypes().setAliasEnumParamVar(aliasEnumParamVar);
     }
 
     public String getAliasSeedDoubleGenerator() {
-        return predefTypes.getAliasSeedDoubleGenerator();
+        return content.getPredefTypes().getAliasSeedDoubleGenerator();
     }
 
     public void setAliasSeedDoubleGenerator(String aliasSeedDoubleGenerator) {
-        this.predefTypes.setAliasSeedDoubleGenerator(aliasSeedDoubleGenerator);
+        content.getPredefTypes().setAliasSeedDoubleGenerator(aliasSeedDoubleGenerator);
     }
 
     public String getAliasSeedGenerator() {
-        return predefTypes.getAliasSeedGenerator();
+        return content.getPredefTypes().getAliasSeedGenerator();
     }
 
     public void setAliasSeedGenerator(String aliasSeedGenerator) {
-        this.predefTypes.setAliasSeedGenerator(aliasSeedGenerator);
+        content.getPredefTypes().setAliasSeedGenerator(aliasSeedGenerator);
     }
 
     public String getAliasSeedGet() {
-        return predefTypes.getAliasSeedGet();
+        return content.getPredefTypes().getAliasSeedGet();
     }
 
     public void setAliasSeedGet(String aliasSeedGet) {
-        this.predefTypes.setAliasSeedGet(aliasSeedGet);
+        content.getPredefTypes().setAliasSeedGet(aliasSeedGet);
     }
 
     public String getAliasInvokeTarget() {
-        return reflect.getAliasInvokeTarget();
+        return content.getReflect().getAliasInvokeTarget();
     }
     public void setAliasInvokeTarget(String _aliasInvokeTarget) {
-        reflect.setAliasInvokeTarget(_aliasInvokeTarget);
+        content.getReflect().setAliasInvokeTarget(_aliasInvokeTarget);
     }
     public AliasReflection getReflect() {
-        return reflect;
+        return content.getReflect();
     }
     public String getAliasClassNotFoundError() {
-        return reflect.getAliasClassNotFoundError();
+        return content.getReflect().getAliasClassNotFoundError();
     }
     public void setAliasClassNotFoundError(String _aliasClassNotFoundError) {
-        reflect.setAliasClassNotFoundError(_aliasClassNotFoundError);
+        content.getReflect().setAliasClassNotFoundError(_aliasClassNotFoundError);
     }
 
     public String getAliasGetVariableOwner() {
-        return reflect.getAliasGetVariableOwner();
+        return content.getReflect().getAliasGetVariableOwner();
     }
     public void setAliasGetVariableOwner(String _aliasTypeVariable) {
-        reflect.setAliasGetVariableOwner(_aliasTypeVariable);
+        content.getReflect().setAliasGetVariableOwner(_aliasTypeVariable);
     }
 
     public String getAliasGetGenericVariableOwner() {
-        return reflect.getAliasGetGenericVariableOwner();
+        return content.getReflect().getAliasGetGenericVariableOwner();
     }
     public void setAliasGetGenericVariableOwner(String _aliasTypeVariable) {
-        reflect.setAliasGetGenericVariableOwner(_aliasTypeVariable);
+        content.getReflect().setAliasGetGenericVariableOwner(_aliasTypeVariable);
     }
 
     public String getAliasGetString() {
-        return reflect.getAliasGetString();
+        return content.getReflect().getAliasGetString();
     }
     public void setAliasGetString(String _aliasTypeVariable) {
-        reflect.setAliasGetString(_aliasTypeVariable);
+        content.getReflect().setAliasGetString(_aliasTypeVariable);
     }
 
     public String getAliasClassType() {
-        return reflect.getAliasClassType();
+        return content.getReflect().getAliasClassType();
     }
     public void setAliasClassType(String _aliasClass) {
-        reflect.setAliasClassType(_aliasClass);
+        content.getReflect().setAliasClassType(_aliasClass);
     }
     public String getAliasFct() {
-        return reflect.getAliasFct();
+        return content.getReflect().getAliasFct();
     }
     public void setAliasFct(String _aliasFct) {
-        reflect.setAliasFct(_aliasFct);
+        content.getReflect().setAliasFct(_aliasFct);
     }
     public String getAliasCall() {
-        return reflect.getAliasCall();
+        return content.getReflect().getAliasCall();
     }
     public void setAliasCall(String _aliasCall) {
-        reflect.setAliasCall(_aliasCall);
+        content.getReflect().setAliasCall(_aliasCall);
     }
 
     public String getAliasInstance() {
-        return reflect.getAliasInstance();
+        return content.getReflect().getAliasInstance();
     }
 
     public void setAliasInstance(String aliasInstance) {
-        this.reflect.setAliasInstance(aliasInstance);
+        content.getReflect().setAliasInstance(aliasInstance);
     }
 
     public String getAliasMetaInfo() {
-        return reflect.getAliasMetaInfo();
+        return content.getReflect().getAliasMetaInfo();
     }
 
     public void setAliasMetaInfo(String aliasMetaInfo) {
-        this.reflect.setAliasMetaInfo(aliasMetaInfo);
+        content.getReflect().setAliasMetaInfo(aliasMetaInfo);
     }
     public String getAliasAnnotationType() {
-        return reflect.getAliasAnnotationType();
+        return content.getReflect().getAliasAnnotationType();
     }
     public void setAliasAnnotationType(String _aliasAnnotation) {
-        reflect.setAliasAnnotationType(_aliasAnnotation);
+        content.getReflect().setAliasAnnotationType(_aliasAnnotation);
     }
     public String getAliasAnnotated() {
-        return reflect.getAliasAnnotated();
+        return content.getReflect().getAliasAnnotated();
     }
     public void setAliasAnnotated(String _aliasAnnotated) {
-        reflect.setAliasAnnotated(_aliasAnnotated);
+        content.getReflect().setAliasAnnotated(_aliasAnnotated);
     }
     public String getAliasGetAnnotations() {
-        return reflect.getAliasGetAnnotations();
+        return content.getReflect().getAliasGetAnnotations();
     }
     public void setAliasGetAnnotations(String _aliasGetAnnotations) {
-        reflect.setAliasGetAnnotations(_aliasGetAnnotations);
+        content.getReflect().setAliasGetAnnotations(_aliasGetAnnotations);
     }
     public String getAliasGetDefaultValue() {
-        return reflect.getAliasGetDefaultValue();
+        return content.getReflect().getAliasGetDefaultValue();
     }
     public void setAliasGetDefaultValue(String _aliasGetDefaultValue) {
-        reflect.setAliasGetDefaultValue(_aliasGetDefaultValue);
+        content.getReflect().setAliasGetDefaultValue(_aliasGetDefaultValue);
     }
     public String getAliasGetAnnotationsParameters() {
-        return reflect.getAliasGetAnnotationsParameters();
+        return content.getReflect().getAliasGetAnnotationsParameters();
     }
     public void setAliasGetAnnotationsParameters(String _aliasGetAnnotationsParameters) {
-        reflect.setAliasGetAnnotationsParameters(_aliasGetAnnotationsParameters);
+        content.getReflect().setAliasGetAnnotationsParameters(_aliasGetAnnotationsParameters);
     }
 
     public String getAliasGetDeclaredExplicits() {
-        return reflect.getAliasGetDeclaredExplicits();
+        return content.getReflect().getAliasGetDeclaredExplicits();
     }
 
     public void setAliasGetDeclaredExplicits(String aliasGetDeclaredExplicits) {
-        reflect.setAliasGetDeclaredExplicits(aliasGetDeclaredExplicits);
+        content.getReflect().setAliasGetDeclaredExplicits(aliasGetDeclaredExplicits);
     }
 
     public String getAliasGetDeclaredImplicits() {
-        return reflect.getAliasGetDeclaredImplicits();
+        return content.getReflect().getAliasGetDeclaredImplicits();
     }
 
     public void setAliasGetDeclaredImplicits(String aliasGetDeclaredImplicits) {
-        reflect.setAliasGetDeclaredImplicits(aliasGetDeclaredImplicits);
+        content.getReflect().setAliasGetDeclaredImplicits(aliasGetDeclaredImplicits);
     }
 
     public String getAliasGetDeclaredTrueOperators() {
-        return reflect.getAliasGetDeclaredTrueOperators();
+        return content.getReflect().getAliasGetDeclaredTrueOperators();
     }
 
     public void setAliasGetDeclaredTrueOperators(String aliasGetDeclaredTrueOperators) {
-        reflect.setAliasGetDeclaredTrueOperators(aliasGetDeclaredTrueOperators);
+        content.getReflect().setAliasGetDeclaredTrueOperators(aliasGetDeclaredTrueOperators);
     }
 
     public String getAliasGetDeclaredFalseOperators() {
-        return reflect.getAliasGetDeclaredFalseOperators();
+        return content.getReflect().getAliasGetDeclaredFalseOperators();
     }
 
     public void setAliasGetDeclaredFalseOperators(String aliasGetDeclaredFalseOperators) {
-        reflect.setAliasGetDeclaredFalseOperators(aliasGetDeclaredFalseOperators);
+        content.getReflect().setAliasGetDeclaredFalseOperators(aliasGetDeclaredFalseOperators);
     }
 
     public String getAliasGetDeclaredMethods() {
-        return reflect.getAliasGetDeclaredMethods();
+        return content.getReflect().getAliasGetDeclaredMethods();
     }
     public void setAliasGetDeclaredMethods(String _aliasGetDeclaredMethods) {
-        reflect.setAliasGetDeclaredMethods(_aliasGetDeclaredMethods);
+        content.getReflect().setAliasGetDeclaredMethods(_aliasGetDeclaredMethods);
     }
 
     public String getAliasGetDeclaredStaticMethods() {
-        return reflect.getAliasGetDeclaredStaticMethods();
+        return content.getReflect().getAliasGetDeclaredStaticMethods();
     }
 
     public void setAliasGetDeclaredStaticMethods(String _aliasGetDeclaredStaticMethods) {
-        reflect.setAliasGetDeclaredStaticMethods(_aliasGetDeclaredStaticMethods);
+        content.getReflect().setAliasGetDeclaredStaticMethods(_aliasGetDeclaredStaticMethods);
     }
 
     public String getAliasGetDeclaredConstructors() {
-        return reflect.getAliasGetDeclaredConstructors();
+        return content.getReflect().getAliasGetDeclaredConstructors();
     }
     public void setAliasGetDeclaredConstructors(String _aliasGetDeclaredConstructors) {
-        reflect.setAliasGetDeclaredConstructors(_aliasGetDeclaredConstructors);
+        content.getReflect().setAliasGetDeclaredConstructors(_aliasGetDeclaredConstructors);
     }
     public String getAliasGetDeclaredFields() {
-        return reflect.getAliasGetDeclaredFields();
+        return content.getReflect().getAliasGetDeclaredFields();
     }
     public void setAliasGetDeclaredFields(String _aliasGetDeclaredFields) {
-        reflect.setAliasGetDeclaredFields(_aliasGetDeclaredFields);
+        content.getReflect().setAliasGetDeclaredFields(_aliasGetDeclaredFields);
     }
 
     public String getAliasGetDeclaredAnonymousTypes() {
-        return reflect.getAliasGetDeclaredAnonymousTypes();
+        return content.getReflect().getAliasGetDeclaredAnonymousTypes();
     }
 
     public void setAliasGetDeclaredAnonymousTypes(String aliasGetDeclaredAnonymousTypes) {
-        this.reflect.setAliasGetDeclaredAnonymousTypes(aliasGetDeclaredAnonymousTypes);
+        content.getReflect().setAliasGetDeclaredAnonymousTypes(aliasGetDeclaredAnonymousTypes);
     }
 
     public String getAliasGetDeclaredAnonymousLambda() {
-        return this.reflect.getAliasGetDeclaredAnonymousLambda();
+        return content.getReflect().getAliasGetDeclaredAnonymousLambda();
     }
 
     public void setAliasGetDeclaredAnonymousLambda(String aliasGetDeclaredAnonymousLambda) {
-        this.reflect.setAliasGetDeclaredAnonymousLambda(aliasGetDeclaredAnonymousLambda);
+        content.getReflect().setAliasGetDeclaredAnonymousLambda(aliasGetDeclaredAnonymousLambda);
     }
 
     public String getAliasGetDeclaredAnonymousLambdaLocalVars() {
-        return this.reflect.getAliasGetDeclaredAnonymousLambdaLocalVars();
+        return content.getReflect().getAliasGetDeclaredAnonymousLambdaLocalVars();
     }
 
     public void setAliasGetDeclaredAnonymousLambdaLocalVars(String aliasGetDeclaredAnonymousLambdaLocalVars) {
-        this.reflect.setAliasGetDeclaredAnonymousLambdaLocalVars(aliasGetDeclaredAnonymousLambdaLocalVars);
+        content.getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars(aliasGetDeclaredAnonymousLambdaLocalVars);
     }
 
     public String getAliasGetDeclaredAnonymousLambdaLoopVars() {
-        return this.reflect.getAliasGetDeclaredAnonymousLambdaLoopVars();
+        return content.getReflect().getAliasGetDeclaredAnonymousLambdaLoopVars();
     }
 
     public void setAliasGetDeclaredAnonymousLambdaLoopVars(String aliasGetDeclaredAnonymousLambdaLoopVars) {
-        this.reflect.setAliasGetDeclaredAnonymousLambdaLoopVars(aliasGetDeclaredAnonymousLambdaLoopVars);
+        content.getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars(aliasGetDeclaredAnonymousLambdaLoopVars);
     }
     public String getAliasGetDeclaredBlocks() {
-        return reflect.getAliasGetDeclaredBlocks();
+        return content.getReflect().getAliasGetDeclaredBlocks();
     }
 
     public void setAliasGetDeclaredBlocks(String aliasGetDeclaredBlocks) {
-        this.reflect.setAliasGetDeclaredBlocks(aliasGetDeclaredBlocks);
+        content.getReflect().setAliasGetDeclaredBlocks(aliasGetDeclaredBlocks);
     }
 
     public String getAliasGetDeclaredLocalTypes() {
-        return reflect.getAliasGetDeclaredLocalTypes();
+        return content.getReflect().getAliasGetDeclaredLocalTypes();
     }
 
     public void setAliasGetDeclaredLocalTypes(String aliasGetDeclaredLocalTypes) {
-        this.reflect.setAliasGetDeclaredLocalTypes(aliasGetDeclaredLocalTypes);
+        content.getReflect().setAliasGetDeclaredLocalTypes(aliasGetDeclaredLocalTypes);
     }
     public String getAliasMakeGeneric() {
-        return reflect.getAliasMakeGeneric();
+        return content.getReflect().getAliasMakeGeneric();
     }
     public void setAliasMakeGeneric(String _aliasMakeGeneric) {
-        reflect.setAliasMakeGeneric(_aliasMakeGeneric);
+        content.getReflect().setAliasMakeGeneric(_aliasMakeGeneric);
     }
     public String getAliasGetAllClasses() {
-        return reflect.getAliasGetAllClasses();
+        return content.getReflect().getAliasGetAllClasses();
     }
     public void setAliasGetAllClasses(String _aliasGetAllClasses) {
-        reflect.setAliasGetAllClasses(_aliasGetAllClasses);
+        content.getReflect().setAliasGetAllClasses(_aliasGetAllClasses);
     }
     public String getAliasGetOperators() {
-        return reflect.getAliasGetOperators();
+        return content.getReflect().getAliasGetOperators();
     }
     public void setAliasGetOperators(String _aliasGetOperators) {
-        reflect.setAliasGetOperators(_aliasGetOperators);
+        content.getReflect().setAliasGetOperators(_aliasGetOperators);
     }
     public String getAliasConstructor() {
-        return reflect.getAliasConstructor();
+        return content.getReflect().getAliasConstructor();
     }
     public void setAliasConstructor(String _aliasConstructor) {
-        reflect.setAliasConstructor(_aliasConstructor);
+        content.getReflect().setAliasConstructor(_aliasConstructor);
     }
     public String getAliasField() {
-        return reflect.getAliasField();
+        return content.getReflect().getAliasField();
     }
     public void setAliasField(String _aliasField) {
-        reflect.setAliasField(_aliasField);
+        content.getReflect().setAliasField(_aliasField);
     }
     public String getAliasMethod() {
-        return reflect.getAliasMethod();
+        return content.getReflect().getAliasMethod();
     }
     public void setAliasMethod(String _aliasMethod) {
-        reflect.setAliasMethod(_aliasMethod);
+        content.getReflect().setAliasMethod(_aliasMethod);
     }
     public String getAliasInvoke() {
-        return reflect.getAliasInvoke();
+        return content.getReflect().getAliasInvoke();
     }
     public void setAliasInvoke(String _aliasInvoke) {
-        reflect.setAliasInvoke(_aliasInvoke);
+        content.getReflect().setAliasInvoke(_aliasInvoke);
     }
     public String getAliasInvokeDirect() {
-        return reflect.getAliasInvokeDirect();
+        return content.getReflect().getAliasInvokeDirect();
     }
     public void setAliasInvokeDirect(String _aliasInvoke) {
-        reflect.setAliasInvokeDirect(_aliasInvoke);
+        content.getReflect().setAliasInvokeDirect(_aliasInvoke);
     }
     public String getAliasNewInstance() {
-        return reflect.getAliasNewInstance();
+        return content.getReflect().getAliasNewInstance();
     }
     public void setAliasNewInstance(String _aliasNewInstance) {
-        reflect.setAliasNewInstance(_aliasNewInstance);
+        content.getReflect().setAliasNewInstance(_aliasNewInstance);
     }
 
     public String getAliasIsAbstract() {
-        return reflect.getAliasIsAbstract();
+        return content.getReflect().getAliasIsAbstract();
     }
     public void setAliasIsAbstract(String _aliasIsAbstract) {
-        reflect.setAliasIsAbstract(_aliasIsAbstract);
+        content.getReflect().setAliasIsAbstract(_aliasIsAbstract);
     }
     public String getAliasGetFileName() {
-        return reflect.getAliasGetFileName();
+        return content.getReflect().getAliasGetFileName();
     }
     public void setAliasGetFileName(String _aliasGetName) {
-        reflect.setAliasGetFileName(_aliasGetName);
+        content.getReflect().setAliasGetFileName(_aliasGetName);
     }
     public String getAliasGetName() {
-        return reflect.getAliasGetName();
+        return content.getReflect().getAliasGetName();
     }
     public void setAliasGetName(String _aliasGetName) {
-        reflect.setAliasGetName(_aliasGetName);
+        content.getReflect().setAliasGetName(_aliasGetName);
     }
     public String getAliasGetPrettyName() {
-        return reflect.getAliasGetPrettyName();
+        return content.getReflect().getAliasGetPrettyName();
     }
     public void setAliasGetPrettyName(String _aliasGetName) {
-        reflect.setAliasGetPrettyName(_aliasGetName);
+        content.getReflect().setAliasGetPrettyName(_aliasGetName);
     }
     public String getAliasGetPrettySingleName() {
-        return reflect.getAliasGetPrettySingleName();
+        return content.getReflect().getAliasGetPrettySingleName();
     }
     public void setAliasGetPrettySingleName(String _aliasGetName) {
-        reflect.setAliasGetPrettySingleName(_aliasGetName);
+        content.getReflect().setAliasGetPrettySingleName(_aliasGetName);
     }
     public String getAliasGetField() {
-        return reflect.getAliasGetField();
+        return content.getReflect().getAliasGetField();
     }
     public void setAliasGetField(String _aliasGetField) {
-        reflect.setAliasGetField(_aliasGetField);
+        content.getReflect().setAliasGetField(_aliasGetField);
     }
     public String getAliasSetField() {
-        return reflect.getAliasSetField();
+        return content.getReflect().getAliasSetField();
     }
     public void setAliasSetField(String _aliasSetField) {
-        reflect.setAliasSetField(_aliasSetField);
+        content.getReflect().setAliasSetField(_aliasSetField);
     }
     public String getAliasGetClass() {
-        return reflect.getAliasGetClass();
+        return content.getReflect().getAliasGetClass();
     }
     public void setAliasGetClass(String _aliasGetClass) {
-        reflect.setAliasGetClass(_aliasGetClass);
+        content.getReflect().setAliasGetClass(_aliasGetClass);
     }
     public String getAliasGetEnclosingType() {
-        return reflect.getAliasGetEnclosingType();
+        return content.getReflect().getAliasGetEnclosingType();
     }
     public void setAliasGetEnclosingType(String _aliasGetEnclosingType) {
-        reflect.setAliasGetEnclosingType(_aliasGetEnclosingType);
+        content.getReflect().setAliasGetEnclosingType(_aliasGetEnclosingType);
     }
     public String getAliasGetDeclaredClasses() {
-        return reflect.getAliasGetDeclaredClasses();
+        return content.getReflect().getAliasGetDeclaredClasses();
     }
     public void setAliasGetDeclaredClasses(String _aliasGetDeclaredClasses) {
-        reflect.setAliasGetDeclaredClasses(_aliasGetDeclaredClasses);
+        content.getReflect().setAliasGetDeclaredClasses(_aliasGetDeclaredClasses);
     }
     public String getAliasForName() {
-        return reflect.getAliasForName();
+        return content.getReflect().getAliasForName();
     }
     public void setAliasForName(String _aliasForName) {
-        reflect.setAliasForName(_aliasForName);
+        content.getReflect().setAliasForName(_aliasForName);
     }
     public String getAliasObjectsUtil() {
-        return coreNames.getAliasObjectsUtil();
+        return content.getCoreNames().getAliasObjectsUtil();
     }
     public void setAliasObjectsUtil(String _aliasObjectsUtil) {
-        coreNames.setAliasObjectsUtil(_aliasObjectsUtil);
+        content.getCoreNames().setAliasObjectsUtil(_aliasObjectsUtil);
     }
     public String getAliasStringUtil() {
-        return coreNames.getAliasStringUtil();
+        return content.getCoreNames().getAliasStringUtil();
     }
     public void setAliasStringUtil(String _aliasObjectsUtil) {
-        coreNames.setAliasStringUtil(_aliasObjectsUtil);
+        content.getCoreNames().setAliasStringUtil(_aliasObjectsUtil);
     }
     public String getAliasSameRef() {
-        return coreNames.getAliasSameRef();
+        return content.getCoreNames().getAliasSameRef();
     }
     public void setAliasSameRef(String _aliasSameRef) {
-        coreNames.setAliasSameRef(_aliasSameRef);
+        content.getCoreNames().setAliasSameRef(_aliasSameRef);
     }
     public String getAliasGetParent() {
-        return coreNames.getAliasGetParent();
+        return content.getCoreNames().getAliasGetParent();
     }
     public void setAliasGetParent(String _aliasGetParent) {
-        coreNames.setAliasGetParent(_aliasGetParent);
+        content.getCoreNames().setAliasGetParent(_aliasGetParent);
     }
     public String getAliasSetParent() {
-        return coreNames.getAliasSetParent();
+        return content.getCoreNames().getAliasSetParent();
     }
     public void setAliasSetParent(String _aliasGetParent) {
-        coreNames.setAliasSetParent(_aliasGetParent);
+        content.getCoreNames().setAliasSetParent(_aliasGetParent);
     }
 
     public String getAliasGetSuperClass() {
-        return reflect.getAliasGetSuperClass();
+        return content.getReflect().getAliasGetSuperClass();
     }
     public void setAliasGetSuperClass(String _aliasGetSuperClass) {
-        reflect.setAliasGetSuperClass(_aliasGetSuperClass);
+        content.getReflect().setAliasGetSuperClass(_aliasGetSuperClass);
     }
     public String getAliasGetGenericSuperClass() {
-        return reflect.getAliasGetGenericSuperClass();
+        return content.getReflect().getAliasGetGenericSuperClass();
     }
     public void setAliasGetGenericSuperClass(String _aliasGetGenericSuperClass) {
-        reflect.setAliasGetGenericSuperClass(_aliasGetGenericSuperClass);
+        content.getReflect().setAliasGetGenericSuperClass(_aliasGetGenericSuperClass);
     }
     public String getAliasGetInterfaces() {
-        return reflect.getAliasGetInterfaces();
+        return content.getReflect().getAliasGetInterfaces();
     }
     public void setAliasGetInterfaces(String _aliasGetInterfaces) {
-        reflect.setAliasGetInterfaces(_aliasGetInterfaces);
+        content.getReflect().setAliasGetInterfaces(_aliasGetInterfaces);
     }
     public String getAliasGetGenericInterfaces() {
-        return reflect.getAliasGetGenericInterfaces();
+        return content.getReflect().getAliasGetGenericInterfaces();
     }
     public void setAliasGetGenericInterfaces(String _aliasGetGenericInterfaces) {
-        reflect.setAliasGetGenericInterfaces(_aliasGetGenericInterfaces);
+        content.getReflect().setAliasGetGenericInterfaces(_aliasGetGenericInterfaces);
     }
 
     public String getAliasGetLowerBounds() {
-        return reflect.getAliasGetLowerBounds();
+        return content.getReflect().getAliasGetLowerBounds();
     }
     public void setAliasGetLowerBounds(String _aliasGetLowerBounds) {
-        reflect.setAliasGetLowerBounds(_aliasGetLowerBounds);
+        content.getReflect().setAliasGetLowerBounds(_aliasGetLowerBounds);
     }
     public String getAliasGetUpperBounds() {
-        return reflect.getAliasGetUpperBounds();
+        return content.getReflect().getAliasGetUpperBounds();
     }
     public void setAliasGetUpperBounds(String _aliasGetUpperBounds) {
-        reflect.setAliasGetUpperBounds(_aliasGetUpperBounds);
+        content.getReflect().setAliasGetUpperBounds(_aliasGetUpperBounds);
     }
     public String getAliasGetComponentType() {
-        return reflect.getAliasGetComponentType();
+        return content.getReflect().getAliasGetComponentType();
     }
     public void setAliasGetComponentType(String _aliasGetComponentType) {
-        reflect.setAliasGetComponentType(_aliasGetComponentType);
+        content.getReflect().setAliasGetComponentType(_aliasGetComponentType);
     }
 
     public String getAliasMakeArray() {
-        return reflect.getAliasMakeArray();
+        return content.getReflect().getAliasMakeArray();
     }
     public void setAliasMakeArray(String _aliasMakeArray) {
-        reflect.setAliasMakeArray(_aliasMakeArray);
+        content.getReflect().setAliasMakeArray(_aliasMakeArray);
     }
     public String getAliasGetParameterTypes() {
-        return reflect.getAliasGetParameterTypes();
+        return content.getReflect().getAliasGetParameterTypes();
     }
     public void setAliasGetParameterTypes(String _aliasGetParameterTypes) {
-        reflect.setAliasGetParameterTypes(_aliasGetParameterTypes);
+        content.getReflect().setAliasGetParameterTypes(_aliasGetParameterTypes);
     }
     public String getAliasGetTypeParameters() {
-        return reflect.getAliasGetTypeParameters();
+        return content.getReflect().getAliasGetTypeParameters();
     }
     public void setAliasGetTypeParameters(String _aliasGetTypeParameters) {
-        reflect.setAliasGetTypeParameters(_aliasGetTypeParameters);
+        content.getReflect().setAliasGetTypeParameters(_aliasGetTypeParameters);
     }
     public String getAliasGetParameterNames() {
-        return reflect.getAliasGetParameterNames();
+        return content.getReflect().getAliasGetParameterNames();
     }
     public void setAliasGetParameterNames(String _aliasGetNameParameters) {
-        reflect.setAliasGetParameterNames(_aliasGetNameParameters);
+        content.getReflect().setAliasGetParameterNames(_aliasGetNameParameters);
     }
     public String getAliasGetGenericReturnType() {
-        return reflect.getAliasGetGenericReturnType();
+        return content.getReflect().getAliasGetGenericReturnType();
     }
     public void setAliasGetGenericReturnType(String _aliasGetGenericReturnType) {
-        reflect.setAliasGetGenericReturnType(_aliasGetGenericReturnType);
+        content.getReflect().setAliasGetGenericReturnType(_aliasGetGenericReturnType);
     }
     public String getAliasGetReturnType() {
-        return reflect.getAliasGetReturnType();
+        return content.getReflect().getAliasGetReturnType();
     }
     public void setAliasGetReturnType(String _aliasGetReturnType) {
-        reflect.setAliasGetReturnType(_aliasGetReturnType);
+        content.getReflect().setAliasGetReturnType(_aliasGetReturnType);
     }
 
     public String getAliasGetActualTypeArguments() {
-        return reflect.getAliasGetActualTypeArguments();
+        return content.getReflect().getAliasGetActualTypeArguments();
     }
     public void setAliasGetActualTypeArguments(
             String _aliasGetActualTypeArguments) {
-        reflect.setAliasGetActualTypeArguments(_aliasGetActualTypeArguments);
+        content.getReflect().setAliasGetActualTypeArguments(_aliasGetActualTypeArguments);
     }
 
     public void setAliasGetFieldType(String _aliasGetGenericType) {
-        reflect.setAliasGetType(_aliasGetGenericType);
+        content.getReflect().setAliasGetType(_aliasGetGenericType);
     }
     public String getAliasGetGenericType() {
-        return reflect.getAliasGetGenericType();
+        return content.getReflect().getAliasGetGenericType();
     }
     public void setAliasGetGenericType(String _aliasGetGenericType) {
-        reflect.setAliasGetGenericType(_aliasGetGenericType);
+        content.getReflect().setAliasGetGenericType(_aliasGetGenericType);
     }
     public String getAliasIsFinal() {
-        return reflect.getAliasIsFinal();
+        return content.getReflect().getAliasIsFinal();
     }
     public void setAliasIsFinal(String _aliasIsFinal) {
-        reflect.setAliasIsFinal(_aliasIsFinal);
+        content.getReflect().setAliasIsFinal(_aliasIsFinal);
     }
     public String getAliasIsTypeVariable() {
-        return reflect.getAliasIsTypeVariable();
+        return content.getReflect().getAliasIsTypeVariable();
     }
     public void setAliasIsTypeVariable(String _aliasIsFinal) {
-        reflect.setAliasIsTypeVariable(_aliasIsFinal);
+        content.getReflect().setAliasIsTypeVariable(_aliasIsFinal);
     }
     public String getAliasIsVariable() {
-        return reflect.getAliasIsVariable();
+        return content.getReflect().getAliasIsVariable();
     }
     public void setAliasIsVariable(String _aliasIsFinal) {
-        reflect.setAliasIsVariable(_aliasIsFinal);
+        content.getReflect().setAliasIsVariable(_aliasIsFinal);
     }
     public String getAliasIsStatic() {
-        return reflect.getAliasIsStatic();
+        return content.getReflect().getAliasIsStatic();
     }
     public void setAliasIsStatic(String _aliasIsStatic) {
-        reflect.setAliasIsStatic(_aliasIsStatic);
+        content.getReflect().setAliasIsStatic(_aliasIsStatic);
     }
     public String getAliasIsStaticCall() {
-        return reflect.getAliasIsStaticCall();
+        return content.getReflect().getAliasIsStaticCall();
     }
     public void setAliasIsStaticCall(String _aliasIsStatic) {
-        reflect.setAliasIsStaticCall(_aliasIsStatic);
+        content.getReflect().setAliasIsStaticCall(_aliasIsStatic);
     }
 
     public String getAliasIsInstanceMethod() {
-        return reflect.getAliasIsInstanceMethod();
+        return content.getReflect().getAliasIsInstanceMethod();
     }
 
     public void setAliasIsInstanceMethod(String _aliasIsInstanceMethod) {
-        reflect.setAliasIsInstanceMethod(_aliasIsInstanceMethod);
+        content.getReflect().setAliasIsInstanceMethod(_aliasIsInstanceMethod);
     }
     public String getAliasIsVarargs() {
-        return reflect.getAliasIsVarargs();
+        return content.getReflect().getAliasIsVarargs();
     }
     public void setAliasIsVarargs(String _aliasIsVarargs) {
-        reflect.setAliasIsVarargs(_aliasIsVarargs);
+        content.getReflect().setAliasIsVarargs(_aliasIsVarargs);
     }
     public String getAliasIsNormal() {
-        return reflect.getAliasIsNormal();
+        return content.getReflect().getAliasIsNormal();
     }
     public void setAliasIsNormal(String _aliasIsNormal) {
-        reflect.setAliasIsNormal(_aliasIsNormal);
+        content.getReflect().setAliasIsNormal(_aliasIsNormal);
     }
     public String getAliasIsPublic() {
-        return reflect.getAliasIsPublic();
+        return content.getReflect().getAliasIsPublic();
     }
     public void setAliasIsPublic(String _aliasIsPublic) {
-        reflect.setAliasIsPublic(_aliasIsPublic);
+        content.getReflect().setAliasIsPublic(_aliasIsPublic);
     }
     public String getAliasIsProtected() {
-        return reflect.getAliasIsProtected();
+        return content.getReflect().getAliasIsProtected();
     }
     public void setAliasIsProtected(String _aliasIsProtected) {
-        reflect.setAliasIsProtected(_aliasIsProtected);
+        content.getReflect().setAliasIsProtected(_aliasIsProtected);
     }
     public String getAliasIsPackage() {
-        return reflect.getAliasIsPackage();
+        return content.getReflect().getAliasIsPackage();
     }
     public void setAliasIsPackage(String _aliasIsPackage) {
-        reflect.setAliasIsPackage(_aliasIsPackage);
+        content.getReflect().setAliasIsPackage(_aliasIsPackage);
     }
     public String getAliasIsPrivate() {
-        return reflect.getAliasIsPrivate();
+        return content.getReflect().getAliasIsPrivate();
     }
     public void setAliasIsPrivate(String _aliasIsPrivate) {
-        reflect.setAliasIsPrivate(_aliasIsPrivate);
+        content.getReflect().setAliasIsPrivate(_aliasIsPrivate);
     }
     public String getAliasIsClass() {
-        return reflect.getAliasIsClass();
+        return content.getReflect().getAliasIsClass();
     }
     public void setAliasIsClass(String _aliasIsClass) {
-        reflect.setAliasIsClass(_aliasIsClass);
+        content.getReflect().setAliasIsClass(_aliasIsClass);
     }
 
     public String getAliasIsWildCard() {
-        return reflect.getAliasIsWildCard();
+        return content.getReflect().getAliasIsWildCard();
     }
     public void setAliasIsWildCard(String _aliasIsWildCard) {
-        reflect.setAliasIsWildCard(_aliasIsWildCard);
+        content.getReflect().setAliasIsWildCard(_aliasIsWildCard);
     }
 
     public String getAliasIsInterface() {
-        return reflect.getAliasIsInterface();
+        return content.getReflect().getAliasIsInterface();
     }
     public void setAliasIsInterface(String _aliasIsInterface) {
-        reflect.setAliasIsInterface(_aliasIsInterface);
+        content.getReflect().setAliasIsInterface(_aliasIsInterface);
     }
     public String getAliasIsEnum() {
-        return reflect.getAliasIsEnum();
+        return content.getReflect().getAliasIsEnum();
     }
     public void setAliasIsEnum(String _aliasIsEnum) {
-        reflect.setAliasIsEnum(_aliasIsEnum);
+        content.getReflect().setAliasIsEnum(_aliasIsEnum);
     }
     public String getAliasIsPrimitive() {
-        return reflect.getAliasIsPrimitive();
+        return content.getReflect().getAliasIsPrimitive();
     }
     public void setAliasIsPrimitive(String _aliasIsPrimitive) {
-        reflect.setAliasIsPrimitive(_aliasIsPrimitive);
+        content.getReflect().setAliasIsPrimitive(_aliasIsPrimitive);
     }
     public String getAliasIsArray() {
-        return reflect.getAliasIsArray();
+        return content.getReflect().getAliasIsArray();
     }
     public void setAliasIsArray(String _aliasIsArray) {
-        reflect.setAliasIsArray(_aliasIsArray);
+        content.getReflect().setAliasIsArray(_aliasIsArray);
     }
     public String getAliasIsAnnotation() {
-        return reflect.getAliasIsAnnotation();
+        return content.getReflect().getAliasIsAnnotation();
     }
     public void setAliasIsAnnotation(String _aliasIsAnnotation) {
-        reflect.setAliasIsAnnotation(_aliasIsAnnotation);
+        content.getReflect().setAliasIsAnnotation(_aliasIsAnnotation);
     }
     public String getAliasMakeWildCard() {
-        return reflect.getAliasMakeWildCard();
+        return content.getReflect().getAliasMakeWildCard();
     }
     public void setAliasMakeWildCard(String _aliasMakeWildCard) {
-        reflect.setAliasMakeWildCard(_aliasMakeWildCard);
+        content.getReflect().setAliasMakeWildCard(_aliasMakeWildCard);
     }
     public String getAliasIsInstance() {
-        return reflect.getAliasIsInstance();
+        return content.getReflect().getAliasIsInstance();
     }
     public void setAliasIsInstance(String _aliasIsInstance) {
-        reflect.setAliasIsInstance(_aliasIsInstance);
+        content.getReflect().setAliasIsInstance(_aliasIsInstance);
     }
     public String getAliasIsAssignableFrom() {
-        return reflect.getAliasIsAssignableFrom();
+        return content.getReflect().getAliasIsAssignableFrom();
     }
     public void setAliasIsAssignableFrom(String _aliasIsAssignableFrom) {
-        reflect.setAliasIsAssignableFrom(_aliasIsAssignableFrom);
+        content.getReflect().setAliasIsAssignableFrom(_aliasIsAssignableFrom);
     }
     public String getAliasInit() {
-        return reflect.getAliasInit();
+        return content.getReflect().getAliasInit();
     }
     public void setAliasInit(String _aliasInit) {
-        reflect.setAliasInit(_aliasInit);
+        content.getReflect().setAliasInit(_aliasInit);
     }
     public String getAliasDefaultInstance() {
-        return reflect.getAliasDefaultInstance();
+        return content.getReflect().getAliasDefaultInstance();
     }
     public void setAliasDefaultInstance(String _aliasDefaultInstance) {
-        reflect.setAliasDefaultInstance(_aliasDefaultInstance);
+        content.getReflect().setAliasDefaultInstance(_aliasDefaultInstance);
     }
     public String getAliasEnumValueOf() {
-        return reflect.getAliasEnumValueOf();
+        return content.getReflect().getAliasEnumValueOf();
     }
     public void setAliasEnumValueOf(String _aliasEnumValueOf) {
-        reflect.setAliasEnumValueOf(_aliasEnumValueOf);
+        content.getReflect().setAliasEnumValueOf(_aliasEnumValueOf);
     }
     public String getAliasGetEnumConstants() {
-        return reflect.getAliasGetEnumConstants();
+        return content.getReflect().getAliasGetEnumConstants();
     }
     public void setAliasGetEnumConstants(String _aliasGetEnumConstants) {
-        reflect.setAliasGetEnumConstants(_aliasGetEnumConstants);
+        content.getReflect().setAliasGetEnumConstants(_aliasGetEnumConstants);
     }
     public String getAliasGetGenericBounds() {
-        return reflect.getAliasGetGenericBounds();
+        return content.getReflect().getAliasGetGenericBounds();
     }
     public void setAliasGetGenericBounds(String _aliasGetGenericBounds) {
-        reflect.setAliasGetGenericBounds(_aliasGetGenericBounds);
+        content.getReflect().setAliasGetGenericBounds(_aliasGetGenericBounds);
     }
     public String getAliasGetBounds() {
-        return reflect.getAliasGetBounds();
+        return content.getReflect().getAliasGetBounds();
     }
     public void setAliasGetBounds(String _aliasGetBounds) {
-        reflect.setAliasGetBounds(_aliasGetBounds);
+        content.getReflect().setAliasGetBounds(_aliasGetBounds);
     }
     public String getAliasArrayNewInstance() {
-        return reflect.getAliasArrayNewInstance();
+        return content.getReflect().getAliasArrayNewInstance();
     }
     public void setAliasArrayNewInstance(String _aliasArrayNewInstance) {
-        reflect.setAliasArrayNewInstance(_aliasArrayNewInstance);
+        content.getReflect().setAliasArrayNewInstance(_aliasArrayNewInstance);
     }
     public String getAliasArrayGet() {
-        return reflect.getAliasArrayGet();
+        return content.getReflect().getAliasArrayGet();
     }
     public void setAliasArrayGet(String _aliasArrayGet) {
-        reflect.setAliasArrayGet(_aliasArrayGet);
+        content.getReflect().setAliasArrayGet(_aliasArrayGet);
     }
     public String getAliasArraySet() {
-        return reflect.getAliasArraySet();
+        return content.getReflect().getAliasArraySet();
     }
     public void setAliasArraySet(String _aliasArraySet) {
-        reflect.setAliasArraySet(_aliasArraySet);
+        content.getReflect().setAliasArraySet(_aliasArraySet);
     }
     public String getAliasArrayGetLength() {
-        return reflect.getAliasArrayGetLength();
+        return content.getReflect().getAliasArrayGetLength();
     }
     public void setAliasArrayGetLength(String _aliasArrayGetLength) {
-        reflect.setAliasArrayGetLength(_aliasArrayGetLength);
+        content.getReflect().setAliasArrayGetLength(_aliasArrayGetLength);
     }
     public String getAliasGetDeclaringClass() {
-        return reflect.getAliasGetDeclaringClass();
+        return content.getReflect().getAliasGetDeclaringClass();
     }
     public void setAliasGetDeclaringClass(String _aliasGetDeclaringClass) {
-        reflect.setAliasGetDeclaringClass(_aliasGetDeclaringClass);
+        content.getReflect().setAliasGetDeclaringClass(_aliasGetDeclaringClass);
     }
     public AliasMath getMathRef() {
-        return mathRef;
+        return content.getMathRef();
     }
 
     public AliasCharSequence getCharSeq() {
-        return charSeq;
+        return content.getCharSeq();
     }
 
     public AliasCore getCoreNames() {
-        return coreNames;
+        return content.getCoreNames();
     }
 
     public AliasNumber getNbAlias() {
-        return nbAlias;
+        return content.getNbAlias();
     }
 
     public String getAliasBinQuot() {
-        return mathRef.getAliasBinQuot();
+        return content.getMathRef().getAliasBinQuot();
     }
     public void setAliasBinQuot(String _aliasBinQuot) {
-        mathRef.setAliasBinQuot(_aliasBinQuot);
+        content.getMathRef().setAliasBinQuot(_aliasBinQuot);
     }
     public String getAliasBinMod() {
-        return mathRef.getAliasBinMod();
+        return content.getMathRef().getAliasBinMod();
     }
     public void setAliasBinMod(String _aliasBinMod) {
-        mathRef.setAliasBinMod(_aliasBinMod);
+        content.getMathRef().setAliasBinMod(_aliasBinMod);
     }
     public String getAliasPlus() {
-        return mathRef.getAliasPlus();
+        return content.getMathRef().getAliasPlus();
     }
     public void setAliasPlus(String _aliasPlus) {
-        mathRef.setAliasPlus(_aliasPlus);
+        content.getMathRef().setAliasPlus(_aliasPlus);
     }
     public String getAliasMinus() {
-        return mathRef.getAliasMinus();
+        return content.getMathRef().getAliasMinus();
     }
     public void setAliasMinus(String _aliasMinus) {
-        mathRef.setAliasMinus(_aliasMinus);
+        content.getMathRef().setAliasMinus(_aliasMinus);
     }
     public String getAliasMult() {
-        return mathRef.getAliasMult();
+        return content.getMathRef().getAliasMult();
     }
     public void setAliasMult(String _aliasMult) {
-        mathRef.setAliasMult(_aliasMult);
+        content.getMathRef().setAliasMult(_aliasMult);
     }
     public String getAliasAnd() {
-        return mathRef.getAliasAnd();
+        return content.getMathRef().getAliasAnd();
     }
     public void setAliasAnd(String _aliasAnd) {
-        mathRef.setAliasAnd(_aliasAnd);
+        content.getMathRef().setAliasAnd(_aliasAnd);
     }
     public String getAliasOr() {
-        return mathRef.getAliasOr();
+        return content.getMathRef().getAliasOr();
     }
     public void setAliasOr(String _aliasOr) {
-        mathRef.setAliasOr(_aliasOr);
+        content.getMathRef().setAliasOr(_aliasOr);
     }
     public String getAliasXor() {
-        return mathRef.getAliasXor();
+        return content.getMathRef().getAliasXor();
     }
     public void setAliasXor(String _aliasXor) {
-        mathRef.setAliasXor(_aliasXor);
+        content.getMathRef().setAliasXor(_aliasXor);
     }
     public String getAliasNegBin() {
-        return mathRef.getAliasNegBin();
+        return content.getMathRef().getAliasNegBin();
     }
     public void setAliasNegBin(String _aliasNegBin) {
-        mathRef.setAliasNegBin(_aliasNegBin);
+        content.getMathRef().setAliasNegBin(_aliasNegBin);
     }
     
     public String getAliasNeg() {
-        return mathRef.getAliasNeg();
+        return content.getMathRef().getAliasNeg();
     }
     public void setAliasNeg(String _aliasNeg) {
-        mathRef.setAliasNeg(_aliasNeg);
+        content.getMathRef().setAliasNeg(_aliasNeg);
     }
     public String getAliasLt() {
-        return mathRef.getAliasLt();
+        return content.getMathRef().getAliasLt();
     }
     public void setAliasLt(String _aliasLt) {
-        mathRef.setAliasLt(_aliasLt);
+        content.getMathRef().setAliasLt(_aliasLt);
     }
     public String getAliasGt() {
-        return mathRef.getAliasGt();
+        return content.getMathRef().getAliasGt();
     }
     public void setAliasGt(String _aliasGt) {
-        mathRef.setAliasGt(_aliasGt);
+        content.getMathRef().setAliasGt(_aliasGt);
     }
     public String getAliasLe() {
-        return mathRef.getAliasLe();
+        return content.getMathRef().getAliasLe();
     }
     public void setAliasLe(String _aliasLe) {
-        mathRef.setAliasLe(_aliasLe);
+        content.getMathRef().setAliasLe(_aliasLe);
     }
     public String getAliasGe() {
-        return mathRef.getAliasGe();
+        return content.getMathRef().getAliasGe();
     }
     public void setAliasGe(String _aliasGe) {
-        mathRef.setAliasGe(_aliasGe);
+        content.getMathRef().setAliasGe(_aliasGe);
     }
     public String getAliasShiftLeft() {
-        return mathRef.getAliasShiftLeft();
+        return content.getMathRef().getAliasShiftLeft();
     }
     public void setAliasShiftLeft(String _aliasShiftLeft) {
-        mathRef.setAliasShiftLeft(_aliasShiftLeft);
+        content.getMathRef().setAliasShiftLeft(_aliasShiftLeft);
     }
     public String getAliasShiftRight() {
-        return mathRef.getAliasShiftRight();
+        return content.getMathRef().getAliasShiftRight();
     }
     public void setAliasShiftRight(String _aliasShiftRight) {
-        mathRef.setAliasShiftRight(_aliasShiftRight);
+        content.getMathRef().setAliasShiftRight(_aliasShiftRight);
     }
     public String getAliasBitShiftLeft() {
-        return mathRef.getAliasBitShiftLeft();
+        return content.getMathRef().getAliasBitShiftLeft();
     }
     public void setAliasBitShiftLeft(String _aliasBitShiftLeft) {
-        mathRef.setAliasBitShiftLeft(_aliasBitShiftLeft);
+        content.getMathRef().setAliasBitShiftLeft(_aliasBitShiftLeft);
     }
     public String getAliasBitShiftRight() {
-        return mathRef.getAliasBitShiftRight();
+        return content.getMathRef().getAliasBitShiftRight();
     }
     public void setAliasBitShiftRight(String _aliasBitShiftRight) {
-        mathRef.setAliasBitShiftRight(_aliasBitShiftRight);
+        content.getMathRef().setAliasBitShiftRight(_aliasBitShiftRight);
     }
     public String getAliasRotateLeft() {
-        return mathRef.getAliasRotateLeft();
+        return content.getMathRef().getAliasRotateLeft();
     }
     public void setAliasRotateLeft(String _aliasRotateLeft) {
-        mathRef.setAliasRotateLeft(_aliasRotateLeft);
+        content.getMathRef().setAliasRotateLeft(_aliasRotateLeft);
     }
     public String getAliasRotateRight() {
-        return mathRef.getAliasRotateRight();
+        return content.getMathRef().getAliasRotateRight();
     }
     public void setAliasRotateRight(String _aliasRotateRight) {
-        mathRef.setAliasRotateRight(_aliasRotateRight);
+        content.getMathRef().setAliasRotateRight(_aliasRotateRight);
     }
     public String getAliasRandom() {
-        return mathRef.getAliasRandom();
+        return content.getMathRef().getAliasRandom();
     }
     public void setAliasRandom(String _aliasRotateRight) {
-        mathRef.setAliasRandom(_aliasRotateRight);
+        content.getMathRef().setAliasRandom(_aliasRotateRight);
     }
     public String getAliasSeed() {
-        return mathRef.getAliasSeed();
+        return content.getMathRef().getAliasSeed();
     }
     public void setAliasSeed(String _aliasRotateRight) {
-        mathRef.setAliasSeed(_aliasRotateRight);
+        content.getMathRef().setAliasSeed(_aliasRotateRight);
     }
     public String getAliasStackTraceElement() {
-        return stackElt.getAliasStackTraceElement();
+        return content.getStackElt().getAliasStackTraceElement();
     }
     public void setAliasStackTraceElement(String _aliasStackTraceElement) {
-        stackElt.setAliasStackTraceElement(_aliasStackTraceElement);
+        content.getStackElt().setAliasStackTraceElement(_aliasStackTraceElement);
     }
     public String getAliasCurrentStack() {
-        return stackElt.getAliasCurrentStack();
+        return content.getStackElt().getAliasCurrentStack();
     }
     public void setAliasCurrentStack(String _aliasCurrentStack) {
-        stackElt.setAliasCurrentStack(_aliasCurrentStack);
+        content.getStackElt().setAliasCurrentStack(_aliasCurrentStack);
     }
     public String getAliasCurrentFullStack() {
-        return stackElt.getAliasCurrentFullStack();
+        return content.getStackElt().getAliasCurrentFullStack();
     }
     public void setAliasCurrentFullStack(String _aliasCurrentStack) {
-        stackElt.setAliasCurrentFullStack(_aliasCurrentStack);
+        content.getStackElt().setAliasCurrentFullStack(_aliasCurrentStack);
     }
 
     public String getAliasEnumName() {
-        return predefTypes.getAliasEnumName();
+        return content.getPredefTypes().getAliasEnumName();
     }
 
     public void setAliasEnumName(String _aliasEnumName) {
-        predefTypes.setAliasEnumName(_aliasEnumName);
+        content.getPredefTypes().setAliasEnumName(_aliasEnumName);
     }
 
     public String getAliasEnumOrdinal() {
-        return predefTypes.getAliasEnumOrdinal();
+        return content.getPredefTypes().getAliasEnumOrdinal();
     }
 
     public void setAliasEnumOrdinal(String _aliasEnumOrdinal) {
-        predefTypes.setAliasEnumOrdinal(_aliasEnumOrdinal);
+        content.getPredefTypes().setAliasEnumOrdinal(_aliasEnumOrdinal);
     }
 
     public AliasStackTraceElement getStackElt() {
-        return stackElt;
-    }
-    public StringList getPredefinedClasses() {
-        return predefinedClasses;
-    }
-
-    public StringList getPredefinedInterfacesInitOrder() {
-        return predefinedInterfacesInitOrder;
+        return content.getStackElt();
     }
 
     public DisplayedStrings getDisplayedStrings() {
-        return displayedStrings;
+        return content.getDisplayedStrings();
     }
 
-    public String getDefaultPkg() {
-        return defaultPkg;
-    }
     public void setDefaultPkg(String _defaultPkg) {
-        defaultPkg = _defaultPkg;
+        content.setDefaultPkg(_defaultPkg);
     }
 
     public AbstractGenerator getGenerator() {
@@ -3260,6 +3158,14 @@ public abstract class LgNames {
     }
 
     public AliasPredefinedTypes getPredefTypes() {
-        return predefTypes;
+        return content.getPredefTypes();
+    }
+
+    public LgNamesContent getContent() {
+        return content;
+    }
+
+    public void setCalculator(AbstractExecConstantsCalculator calculator) {
+        this.calculator = calculator;
     }
 }

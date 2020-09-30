@@ -10,7 +10,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.*;
@@ -35,7 +34,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        LgNames stds_ = _page.getStandards();
         okNum = true;
         if (chidren_.size() != 2) {
             okNum = false;
@@ -57,7 +55,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         operatorContent.setOpOffset(getOperations().getOperators().firstKey());
@@ -75,10 +73,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             }
             return;
         }
-        String stringType_ = stds_.getAliasString();
+        String stringType_ = _page.getAliasString();
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
             return;
@@ -88,7 +86,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
             r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         if (AnaTypeUtil.isIntOrderClass(first_,second_, _page)) {
@@ -96,16 +94,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
             r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
-            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         okNum = false;
         _page.setOkNumOp(false);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
         StringList expectedTypes_ = new StringList();
-        expectedTypes_.add(stds_.getAliasPrimDouble());
-        expectedTypes_.add(stds_.getAliasString());
-        String res_ = _page.getStandards().getAliasPrimBoolean();
+        expectedTypes_.add(_page.getAliasPrimDouble());
+        expectedTypes_.add(_page.getAliasString());
+        String res_ = _page.getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);

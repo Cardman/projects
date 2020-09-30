@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
@@ -32,7 +31,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        LgNames stds_ = _page.getStandards();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
@@ -63,7 +61,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatch_, _page)) {
             _page.setOkNumOp(false);
-            String exp_ = _page.getStandards().getAliasNumber();
+            String exp_ = _page.getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -81,9 +79,9 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         if (AnaTypeUtil.isIntOrderClass(cl_, _page)) {
             int res_ = AnaTypeUtil.getIntOrderClass(cl_, _page);
-            int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _page);
+            int intOrder_ = AnaTypeUtil.getIntOrderClass(_page.getAliasPrimInteger(), _page);
             if (res_ < intOrder_) {
-                cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
+                cl_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
             }
         }
         clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());

@@ -91,7 +91,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             analyzeFullType(_type);
             return true;
         }
-        if (_page.getStandards().getStandards().contains(_type)) {
+        if (_page.getStandardsTypes().contains(_type)) {
             setAnalyzedType(_type);
             return true;
         }
@@ -132,10 +132,10 @@ final class AnaNamePartType extends AnaLeafPartType {
             return false;
         }
         AnaPartType prev_ = par_.getFirstChild();
-        if (StringList.quickEq(getTypeName().trim(), _page.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
             base_ = StringExpUtil.getIdFromAllTypes(base_);
-            if (StringList.quickEq(base_.trim(), _page.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+            if (StringList.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
             }
             return true;
@@ -349,10 +349,10 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         if (getParent() instanceof AnaTemplatePartType) {
             AnaPartType prev_ = getParent().getFirstChild();
-            if (StringList.quickEq(getTypeName().trim(), _page.getStandards().getAliasVoid())) {
+            if (StringList.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
                 String base_ = prev_.getAnalyzedType();
                 base_ = StringExpUtil.getIdFromAllTypes(base_);
-                if (StringList.quickEq(base_.trim(), _page.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                if (StringList.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
                 return;

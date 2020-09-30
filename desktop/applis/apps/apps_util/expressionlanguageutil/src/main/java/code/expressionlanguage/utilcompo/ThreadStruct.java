@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
 
@@ -31,7 +30,7 @@ public final class ThreadStruct extends WithoutParentStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getAliasThread();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
     }
 
     @Override

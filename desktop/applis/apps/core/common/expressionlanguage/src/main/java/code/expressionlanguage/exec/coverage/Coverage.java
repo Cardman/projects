@@ -162,7 +162,7 @@ public final class Coverage {
                 return;
             }
         }
-        String b_ = _analyzing.getStandards().getAliasPrimBoolean();
+        String b_ = _analyzing.getAliasPrimBoolean();
         if ((_op.getResultClass().matchClass(b_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
             instr_.put(_op,new BooleanCoverageResult());
         } else {

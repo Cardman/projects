@@ -146,7 +146,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {

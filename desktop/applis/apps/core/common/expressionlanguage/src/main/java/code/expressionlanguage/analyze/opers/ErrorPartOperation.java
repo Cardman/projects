@@ -26,7 +26,7 @@ public final class ErrorPartOperation extends LeafOperation {
         emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());
         _page.getLocalizer().addError(emptyPart_);
         getErrs().add(emptyPart_.getBuiltError());
-        argClName_ = _page.getStandards().getAliasObject();
+        argClName_ = _page.getAliasObject();
         setResultClass(new AnaClassArgumentMatching(argClName_));
     }
 

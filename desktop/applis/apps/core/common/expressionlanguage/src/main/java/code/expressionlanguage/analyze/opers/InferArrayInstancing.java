@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -96,7 +95,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-        setClassName(_page.getStandards().getAliasObject());
+        setClassName(_page.getAliasObject());
 
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
@@ -131,8 +130,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = _page.getStandards();
-            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
         String n_ = type_;
@@ -150,8 +148,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = _page.getStandards();
-            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
         String classNameFinal_ = StringExpUtil.getQuickComponentType(cp_);
@@ -168,8 +165,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             _page.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            LgNames stds_ = _page.getStandards();
-            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
         setClassName(classNameFinal_);

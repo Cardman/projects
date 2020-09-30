@@ -235,7 +235,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl58Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        String stringType_ = context_.getAnaStandards().getAliasString();
+        String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -257,7 +257,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl59Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        String stringType_ = context_.getAnaStandards().getAliasString();
+        String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
@@ -271,7 +271,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl60Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        String stringType_ = context_.getAnaStandards().getAliasString();
+        String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -293,7 +293,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl61Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        String stringType_ = context_.getAnaStandards().getAliasString();
+        String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
@@ -416,7 +416,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl81Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        String stringType_ = context_.getAnaStandards().getAliasString();
+        String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -960,7 +960,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasPrimInteger()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasPrimInteger()));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
@@ -3069,7 +3069,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
-        lv_.setIndexClassName(context_.getAnaStandards().getAliasPrimLong());
+        lv_.setIndexClassName(context_.getAliasPrimLong());
         lv_.setIndex(5);
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -3106,7 +3106,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasString());
+        lv_.setClassName(context_.getAliasString());
         lv_.setStruct(new StringStruct("str"));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -3225,7 +3225,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(0));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("(v)=$this.inst", context_);
@@ -3246,7 +3246,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(2));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("$this.inst=(v)", context_);
@@ -5138,7 +5138,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(cont_.getAnaStandards().getAliasInteger());
+        lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
         calc("$classchoice(pkg.Ex)inst=v", cont_);
@@ -5152,7 +5152,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("add "));
-        lv_.setClassName(context_.getAnaStandards().getAliasString());
+        lv_.setClassName(context_.getAliasString());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("v+=1i", context_);
@@ -5166,7 +5166,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         Struct[] arr_ = new Struct[1];
         arr_[0] = new StringStruct("add ");
-        String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasString());
+        String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAliasString());
         lv_.setStruct(new ArrayStruct(arr_, arrayType_));
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
@@ -5294,7 +5294,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5329,7 +5329,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5352,7 +5352,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5376,7 +5376,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5452,7 +5452,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5502,11 +5502,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5536,11 +5536,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5565,11 +5565,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5594,11 +5594,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5641,11 +5641,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5668,7 +5668,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasString());
+        lv_.setClassName(context_.getAliasString());
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -5680,11 +5680,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAliasBoolean());
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAliasBoolean());
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -5696,11 +5696,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(b));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -5712,7 +5712,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(b));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -5724,7 +5724,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(i));
         localVars_.put(_varName, lv_);
         addImportingPage(context_);
@@ -5755,11 +5755,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(b));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(b2));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -5792,7 +5792,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(b));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc(s, context_);
@@ -5805,7 +5805,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(i));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc(s, context_);
@@ -5863,7 +5863,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(b));
-        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);

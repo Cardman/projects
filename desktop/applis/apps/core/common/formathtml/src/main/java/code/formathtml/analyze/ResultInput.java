@@ -102,7 +102,7 @@ public final class ResultInput {
                         String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
                         varNames_.add(varParam_);
                         varParamNames_.add(varParam_);
-                        typeNames_.add(_page.getStandards().getAliasPrimInteger());
+                        typeNames_.add(_page.getAliasPrimInteger());
                     }
                     idName = StringList.concat("[](", StringList.join(typeNames_,","),")");
                     id = StringList.concat(idClass,".",idName);

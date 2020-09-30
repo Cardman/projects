@@ -77,7 +77,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         stepOffset = _step.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getStandards().getAliasPrimInteger();
+            classIndex_ = _page.getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -270,7 +270,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching exp_ = _root.getResultClass();
         if (!exp_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getStandards().getAliasPrimBoolean(), exp_, _page);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);

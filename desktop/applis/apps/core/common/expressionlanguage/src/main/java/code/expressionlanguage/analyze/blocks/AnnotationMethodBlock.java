@@ -16,7 +16,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.stds.LgNames;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -60,9 +59,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     @Override
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
         super.buildImportedReturnTypes(_page);
-        LgNames stds_ = _page.getStandards();
-        String string_ = stds_.getAliasString();
-        String class_ = stds_.getAliasClassType();
+        String string_ = _page.getAliasString();
+        String class_ = _page.getAliasClassType();
         String itype_ = getImportedReturnType();
         String type_ = itype_;
         String ctype_ = StringExpUtil.getQuickComponentType(type_);

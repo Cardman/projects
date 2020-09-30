@@ -263,7 +263,7 @@ public abstract class ReachOperationNode {
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //leaf or header parent or first operator
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
-                    _page.getStandards().getAliasNullPe());
+                    _page.getAliasNullPe());
             _page.getLocalizer().addError(static_);
             getInfo().getErrs().add(static_.getBuiltError());
         }

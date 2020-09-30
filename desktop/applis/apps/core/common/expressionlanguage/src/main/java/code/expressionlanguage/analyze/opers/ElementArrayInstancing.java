@@ -41,7 +41,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        setClassName(_page.getStandards().getAliasObject());
+        setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = me_.trim().substring(new_.length());
@@ -241,7 +241,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        setClassName(_page.getStandards().getAliasObject());
+        setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
@@ -265,7 +265,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            String obj_ = _page.getStandards().getAliasObject();
+            String obj_ = _page.getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
             setResultClass(class_);
