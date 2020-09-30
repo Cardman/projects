@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.AdvancedFullStack;
@@ -2323,7 +2322,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
         Classes.validateWithoutInit(_files, a_.getAnalyzing());
         assertTrue(isEmptyErrors(a_));
-        ForwardInfos.generalForward( a_.getAnalyzing(), a_.getForwards());
+        ForwardInfos.generalForward( a_.getAnalyzing(), a_.getForwards(), a_.getContext());
         AnalyzedPageEl page_ = a_.getAnalyzing();
         AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
         ReportedMessages messages_ = page_.getMessages();

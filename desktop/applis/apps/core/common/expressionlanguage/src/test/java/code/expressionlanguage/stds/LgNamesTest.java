@@ -2284,7 +2284,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()));
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2320,7 +2320,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_, com_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()));
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, com_, calculator_, new DefaultFileBuilder(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2337,7 +2337,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
-        page_.setStandards(lgName_);
+        page_.setStandards(lgName_.getContent());
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());

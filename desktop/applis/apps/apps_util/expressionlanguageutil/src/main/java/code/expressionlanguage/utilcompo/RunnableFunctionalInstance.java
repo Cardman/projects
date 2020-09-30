@@ -3,6 +3,8 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
@@ -16,15 +18,15 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
     private final String className;
 
     private final LambdaStruct functional;
-    private final ContextEl original;
 
     private final CustList<ClassFieldStruct> fields;
+    private final CommonExecutionInfos executionInfos;
 
     public RunnableFunctionalInstance(String _className, LambdaStruct _functional,
                                       CustList<ClassFieldStruct> _fields, ContextEl _contextEl) {
         className = _className;
         functional = _functional;
-        original = _contextEl;
+        executionInfos = _contextEl.getExecutionInfos();
         fields = _fields;
     }
 
@@ -40,7 +42,7 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
 
     @Override
     public void run() {
-        callMethod(new RunnableContextEl(original), functional, new CustList<Argument>());
+        callMethod(new RunnableContextEl(InitPhase.NOTHING, executionInfos), functional, new CustList<Argument>());
     }
 
     public static void callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {

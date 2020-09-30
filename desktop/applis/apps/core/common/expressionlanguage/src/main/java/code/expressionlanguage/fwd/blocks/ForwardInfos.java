@@ -1,6 +1,7 @@
 package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
@@ -31,8 +32,9 @@ import code.util.StringMap;
 public final class ForwardInfos {
     private ForwardInfos() {
     }
-    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
-        Coverage coverage_ = _page.getCoverage();
+    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards, ContextEl _context) {
+        Coverage coverage_ = _context.getCoverage();
+        coverage_.setKeyWords(_page.getKeyWords());
         coverage_.putToStringOwner(_page.getAliasObject());
         StringMap<ExecFileBlock> files_ = new StringMap<ExecFileBlock>();
         for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
@@ -46,7 +48,7 @@ public final class ForwardInfos {
             Members v_ = new Members();
             _forwards.getMapMembers().put(r, v_);
         }
-        Classes classes_ = _page.getClasses();
+        Classes classes_ = _context.getClasses();
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
             ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
@@ -65,7 +67,7 @@ public final class ForwardInfos {
             processExecType(exFile_, e, coverage_, classes_, _forwards);
         }
         innerFetchExecEnd(_forwards);
-        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = classes_.getToStringMethodsToCallBodies();
+        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             ExecRootBlock ex_ = fetchType(resDyn_.getRootNumber(), _forwards);
@@ -518,7 +520,8 @@ public final class ForwardInfos {
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof OverridableBlock) {
-                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), ((OverridableBlock)b).getKind(), b.getOffset().getOffsetTrim());
+                    MethodKind kind_ = ((OverridableBlock) b).getKind();
+                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
@@ -553,6 +556,33 @@ public final class ForwardInfos {
         }
     }
 
+    private static ExecMethodKind toExecMethodKind(MethodKind _k) {
+        if (_k == MethodKind.EXPLICIT_CAST) {
+            return ExecMethodKind.EXPLICIT_CAST;
+        }
+        if (_k == MethodKind.IMPLICIT_CAST) {
+            return ExecMethodKind.IMPLICIT_CAST;
+        }
+        if (_k == MethodKind.TRUE_OPERATOR) {
+            return ExecMethodKind.TRUE_OPERATOR;
+        }
+        if (_k == MethodKind.FALSE_OPERATOR) {
+            return ExecMethodKind.FALSE_OPERATOR;
+        }
+        if (_k == MethodKind.GET_INDEX) {
+            return ExecMethodKind.GET_INDEX;
+        }
+        if (_k == MethodKind.SET_INDEX) {
+            return ExecMethodKind.SET_INDEX;
+        }
+        if (_k == MethodKind.TO_STRING) {
+            return ExecMethodKind.TO_STRING;
+        }
+        if (_k == MethodKind.OPERATOR) {
+            return ExecMethodKind.OPERATOR;
+        }
+        return ExecMethodKind.STD_METHOD;
+    }
     private static void processExecFile(FileBlock _anaFile, ExecFileBlock _exeFile, Coverage _coverage, Classes _classes, Forwards _forwards) {
         for (Block b: ClassesUtil.getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {

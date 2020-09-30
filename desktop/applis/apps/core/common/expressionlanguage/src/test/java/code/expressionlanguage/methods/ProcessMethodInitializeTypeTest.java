@@ -52,6 +52,10 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
     }
 
+    private static boolean isSuccessfulInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) == InitClassState.SUCCESS;
+    }
+
     @Test
     public void calculate1Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1480,8 +1484,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxMustInitFail(files_);
-        assertTrue(!isInitialized(cont_, "pkg.Ex"));
-        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(!isSuccessfulInitialized(cont_, "pkg.Ex"));
     }
     private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));

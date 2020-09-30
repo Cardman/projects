@@ -26,7 +26,6 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
@@ -421,7 +420,7 @@ public abstract class ProcessMethodCommon {
 
     protected static void postValidation(AnalyzedTestContext ctx_) {
         ClassesUtil.postValidation(ctx_.getAnalyzing());
-        ForwardInfos.generalForward(ctx_.getAnalyzing(), ctx_.getForwards());
+        ForwardInfos.generalForward(ctx_.getAnalyzing(), ctx_.getForwards(), ctx_.getContext());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {

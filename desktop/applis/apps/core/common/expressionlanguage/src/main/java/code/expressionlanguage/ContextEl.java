@@ -35,9 +35,10 @@ public abstract class ContextEl {
     private AbstractFullStack fullStack;
     private Struct seed;
 
-    protected ContextEl(CommonExecutionInfos _executionInfos) {
+    protected ContextEl(CommonExecutionInfos _executionInfos, InitPhase _readOnlyOthers) {
         executionInfos = _executionInfos;
         initializingTypeInfos = new InitializingTypeInfos();
+        initializingTypeInfos.setInitEnums(_readOnlyOthers);
         seed = NullStruct.NULL_VALUE;
     }
 
@@ -190,13 +191,13 @@ public abstract class ContextEl {
     }
 
     public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
-        ForwardInfos.generalForward(_ana,_forwards);
+        ForwardInfos.generalForward(_ana,_forwards, this);
         for (ClassMetaInfo c: _ana.getClassMetaInfos()) {
-            _ana.getClasses().getClassMetaInfos().add(c);
+            getClasses().getClassMetaInfos().add(c);
         }
         _ana.getClassMetaInfos().clear();
-        _ana.getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
-        buildIterable(_ana, _ana.getClasses(), this);
+        getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
+        buildIterable(_ana, getClasses(), this);
     }
 
     public AbstractPageEl getLastPage() {

@@ -31,8 +31,9 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         ClassesCommon com_ = new ClassesCommon();
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), new BeanFileBuilder(lgNames_.getContent(),lgNames_.getBeanAliases()));
+        int tabWidth_ = 4;
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, tabWidth_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), new BeanFileBuilder(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(contextEl_, page_, new Forwards(),lgNames_);
     }

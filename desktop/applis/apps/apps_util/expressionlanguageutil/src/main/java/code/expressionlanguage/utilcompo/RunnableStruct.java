@@ -3,28 +3,19 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.ReflectingType;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
-    private ContextEl original;
     private Struct parent;
 
     private String className;
@@ -34,16 +25,18 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     private String name;
     private int ordinal;
     private final String parentClassName;
-    RunnableStruct(ContextEl _original,String _className,
-                      String _name, int _ordinal,
-                   CustList<ClassFieldStruct> _fields, Struct _parent) {
-        original = _original;
+    private CommonExecutionInfos executionInfos;
+
+    RunnableStruct(ContextEl _original, String _className,
+                   String _name, int _ordinal,
+                   CustList<ClassFieldStruct> _fields, Struct _parent, String _parendClassName) {
+        executionInfos = _original.getExecutionInfos();
         name = _name;
         ordinal = _ordinal;
         className = _className;
         fields = _fields;
         parent = _parent;
-        parentClassName = _parent.getClassName(_original);
+        parentClassName = _parendClassName;
     }
     @Override
     public String getName() {
@@ -92,7 +85,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
 
     @Override
     public void run() {
-        RunnableContextEl r_ = new RunnableContextEl(original);
+        RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos);
         setupThread(r_);
         invoke(this,r_,r_.getRunnableType(),r_.getRunMethod(),new CustList<Argument>());
     }

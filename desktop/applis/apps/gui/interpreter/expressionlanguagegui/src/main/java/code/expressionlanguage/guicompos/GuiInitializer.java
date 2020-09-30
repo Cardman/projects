@@ -11,7 +11,7 @@ public class GuiInitializer extends CustInitializer {
     private final WindowSetStruct windows = new WindowSetStruct(false);
     @Override
     protected Struct init(ContextEl _context, Struct _parent, String _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
-        return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
+        return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent, _parent.getClassName(_context));
     }
 
     public WindowSetStruct getWindows() {

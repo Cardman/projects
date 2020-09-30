@@ -5889,7 +5889,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(a_));
         AnalysisMessages analysisMessages_ = a_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = a_.getAnalyzing().getMessages();
-        ForwardInfos.generalForward(a_.getAnalyzing(),a_.getForwards());
+        ForwardInfos.generalForward(a_.getAnalyzing(),a_.getForwards(), a_.getContext());
         Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, a_.getAnalyzing().getOptions());
         return a_;
     }

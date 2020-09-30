@@ -64,8 +64,9 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         ClassesCommon com_ = new ClassesCommon();
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()));
+        int tabWidth_ = 4;
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, tabWidth_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -77,8 +78,9 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
         ClassesCommon com_ = new ClassesCommon();
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()));
+        int tabWidth_ = 4;
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, tabWidth_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -98,8 +100,9 @@ public final class InitializationLgNames {
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         ClassesCommon com_ = new ClassesCommon();
-        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, _lgNames, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()));
+        int tabWidth_ = 4;
+        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, _lgNames, tabWidth_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, new DefaultFileBuilder(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -434,7 +437,7 @@ public final class InitializationLgNames {
         }
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, _undefinedLgNames, _tabWidth, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options, com_, çcalculator, new DefaultFileBuilder(_undefinedLgNames.getContent()));
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options, com_, çcalculator, new DefaultFileBuilder(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth);
         return new AnalyzedTestContext(contextEl_,page_, new Forwards());
     }
 }

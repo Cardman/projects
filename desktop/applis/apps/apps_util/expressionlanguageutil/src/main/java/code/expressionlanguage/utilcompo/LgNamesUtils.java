@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.*;
@@ -20,12 +21,17 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     private FileInfos infos;
 
+    private ExecutingOptions executingOptions;
+
+    private ExecutingBlocks executingBlocks = new ExecutingBlocks();
     public LgNamesUtils(FileInfos _infos) {
         super(_infos.getGenerator());
         custAliases.setInfos(_infos);
         infos = _infos;
     }
-
+    public void forwardAndClear(Classes _classes) {
+        executingBlocks.forwardAndClear(getContent(),custAliases,_classes);
+    }
     @Override
     public void buildOther() {
         custAliases.buildOther(getContent());
@@ -132,4 +138,15 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return custAliases;
     }
 
+    public ExecutingBlocks getExecutingBlocks() {
+        return executingBlocks;
+    }
+
+    public ExecutingOptions getExecutingOptions() {
+        return executingOptions;
+    }
+
+    public void setExecutingOptions(ExecutingOptions executingOptions) {
+        this.executingOptions = executingOptions;
+    }
 }

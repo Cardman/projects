@@ -3,7 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AccessibleBlock;
-import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -16,7 +16,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,ExecAccessingImportingBlock {
+public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
 
     private Element elt;
 

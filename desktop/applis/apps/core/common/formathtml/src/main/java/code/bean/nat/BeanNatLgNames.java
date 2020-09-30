@@ -460,8 +460,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
         ClassesCommon com_ = new ClassesCommon();
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, 4, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), new DefaultFileBuilder(getContent()));
+        int tabWidth_ = 4;
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, tabWidth_, com_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), new DefaultFileBuilder(getContent()), getContent(),tabWidth_);
         _conf.setContext(contextEl_);
         return page_;
     }

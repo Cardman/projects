@@ -2,7 +2,7 @@ package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.AbstractCurrentGlobalBlock;
@@ -38,7 +38,7 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
     }
 
     @Override
-    public ExecAccessingImportingBlock getImportingAcces() {
+    public AccessingImportingBlock getImportingAcces() {
         return analyzingDoc.getCurrentDoc();
     }
 

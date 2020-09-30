@@ -2,6 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.utilcompo.RunnableStruct;
@@ -13,13 +15,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public final class SimpleSelectEltListStruct extends MouseAdapter implements IndexableListener {
-    private ContextEl original;
     private GraphicListStruct grList;
 
     private int index;
+    private CommonExecutionInfos executionInfos;
 
     public SimpleSelectEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
-        original = _contextEl;
+        executionInfos = _contextEl.getExecutionInfos();
         grList = _graphicList;
         index = _index;
     }
@@ -51,7 +53,7 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
         RunnableStruct.invoke(arg_, stds_.getAliasPaint(), classBody_, fct_, _args, _r);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(original);
+        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);
         RunnableStruct.setupThread(r_);
         return r_;
     }

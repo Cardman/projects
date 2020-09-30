@@ -17,9 +17,6 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -27,7 +24,16 @@ import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.*;
+import code.expressionlanguage.stds.AliasCharSequence;
+import code.expressionlanguage.stds.AliasCore;
+import code.expressionlanguage.stds.AliasMath;
+import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.stds.AliasReflection;
+import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.stds.LgNamesContent;
+import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
@@ -42,12 +48,10 @@ public final class AnalyzedPageEl {
     private final StringList predefinedClasses = new StringList();
 
     private final StringList predefinedInterfacesInitOrder = new StringList();
-    private LgNames standards;
     private AbstractConstantsCalculator calculator;
     private AbstractFileBuilder fileBuilder;
-    private Classes classes;
-    private ClassesCommon classesCommon;
-    private Coverage coverage;
+    private StringMap<String> resources;
+    private StringMap<StringMap<Struct>> staticFields;
 
     private Block currentBlock;
     private AnalyzedBlock currentAnaBlock;
@@ -62,7 +66,7 @@ public final class AnalyzedPageEl {
 
     private MemberCallingsBlock currentFct;
     private AccessedBlock importing;
-    private ExecAccessingImportingBlock importingAcces;
+    private AccessingImportingBlock importingAcces;
     private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private int countTypes;
@@ -153,6 +157,7 @@ public final class AnalyzedPageEl {
     private KeyWords keyWords;
     private boolean gettingErrors;
     private Options options;
+    private LgNamesContent content;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -171,82 +176,77 @@ public final class AnalyzedPageEl {
     }
 
     public StringMap<StringMap<Struct>> getStaticFields() {
-        return getClassesCommon().getStaticFields();
+        return staticFields;
     }
 
     public StringMap<String> getResources() {
-        return getClassesCommon().getResources();
+        return resources;
     }
 
     public void addResources(StringMap<String> _resources) {
-        getClassesCommon().addResources(_resources);
-    }
-    public Classes getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Classes classes) {
-        this.classes = classes;
+        for (EntryCust<String, String> e: _resources.entryList()) {
+            resources.addEntry(e.getKey(), e.getValue());
+        }
     }
 
-    public ClassesCommon getClassesCommon() {
-        return classesCommon;
+    public void setStaticFields(StringMap<StringMap<Struct>> staticFields) {
+        this.staticFields = staticFields;
     }
 
-    public void setClassesCommon(ClassesCommon classesCommon) {
-        this.classesCommon = classesCommon;
+    public void setResources(StringMap<String> resources) {
+        this.resources = resources;
     }
 
     public String getDefaultPkg() {
-        return standards.getContent().getDefaultPkg();
+        return content.getDefaultPkg();
     }
     public AliasReflection getReflect() {
-        return standards.getContent().getReflect();
+        return content.getReflect();
     }
     public AliasMath getMathRef() {
-        return standards.getContent().getMathRef();
+        return content.getMathRef();
     }
     public AliasCharSequence getCharSeq() {
-        return standards.getContent().getCharSeq();
+        return content.getCharSeq();
     }
     public AliasNumber getNbAlias() {
-        return standards.getContent().getNbAlias();
+        return content.getNbAlias();
     }
 
     public AliasCore getCoreNames() {
-        return standards.getContent().getCoreNames();
+        return content.getCoreNames();
     }
 
     public String getAliasEnumPredValueOf() {
-        return standards.getContent().getPredefTypes().getAliasEnumPredValueOf();
+        return content.getPredefTypes().getAliasEnumPredValueOf();
     }
     public String getAliasMetaInfo() {
-        return standards.getContent().getReflect().getAliasMetaInfo();
+        return content.getReflect().getAliasMetaInfo();
     }
     public String getAliasAnnotated() {
-        return standards.getContent().getReflect().getAliasAnnotated();
+        return content.getReflect().getAliasAnnotated();
     }
     public String getAliasInstance() {
-        return standards.getContent().getReflect().getAliasInstance();
+        return content.getReflect().getAliasInstance();
     }
     public String getAliasCall() {
-        return standards.getContent().getReflect().getAliasCall();
+        return content.getReflect().getAliasCall();
     }
     public String getAliasEnumValues() {
-        return standards.getContent().getPredefTypes().getAliasEnumValues();
+        return content.getPredefTypes().getAliasEnumValues();
     }
     public String getAliasLength() {
-        return standards.getContent().getCharSeq().getAliasLength();
+        return content.getCharSeq().getAliasLength();
     }
 
     public String getAliasAnnotationType() {
-        return standards.getContent().getReflect().getAliasAnnotationType();
+        return content.getReflect().getAliasAnnotationType();
     }
     public String getAliasEnumParam() {
-        return standards.getContent().getPredefTypes().getAliasEnumParam();
+        return content.getPredefTypes().getAliasEnumParam();
     }
     public String getAliasEnumType() {
-        return standards.getContent().getPredefTypes().getAliasEnumType();
+        return content.getPredefTypes().getAliasEnumType();
     }
 
     public StringMap<String> buildFiles(){
@@ -256,122 +256,122 @@ public final class AnalyzedPageEl {
         return m_;
     }
     public StringMap<StandardType> getStandardsTypes() {
-        return standards.getContent().getStandards();
+        return content.getStandards();
     }
 
     public String getAliasIterable() {
-        return standards.getContent().getPredefTypes().getAliasIterable();
+        return content.getPredefTypes().getAliasIterable();
     }
 
     public String getAliasIterableTable() {
-        return standards.getContent().getPredefTypes().getAliasIterableTable();
+        return content.getPredefTypes().getAliasIterableTable();
     }
 
     public String getAliasReplacement() {
-        return standards.getContent().getCharSeq().getAliasReplacement();
+        return content.getCharSeq().getAliasReplacement();
     }
 
     public String getAliasNullPe() {
-        return standards.getContent().getCoreNames().getAliasNullPe();
+        return content.getCoreNames().getAliasNullPe();
     }
 
     public String getAliasClassType() {
-        return standards.getContent().getReflect().getAliasClassType();
+        return content.getReflect().getAliasClassType();
     }
 
     public String getAliasClone() {
-        return standards.getContent().getCoreNames().getAliasClone();
+        return content.getCoreNames().getAliasClone();
     }
 
     public String getAliasFct() {
-        return standards.getContent().getReflect().getAliasFct();
+        return content.getReflect().getAliasFct();
     }
     public String getAliasVoid() {
-        return standards.getContent().getCoreNames().getAliasVoid();
+        return content.getCoreNames().getAliasVoid();
     }
 
     public String getAliasBoolean() {
-        return standards.getContent().getNbAlias().getAliasBoolean();
+        return content.getNbAlias().getAliasBoolean();
     }
 
     public String getAliasPrimBoolean() {
-        return standards.getContent().getPrimTypes().getAliasPrimBoolean();
+        return content.getPrimTypes().getAliasPrimBoolean();
     }
 
     public String getAliasObject() {
-        return standards.getContent().getCoreNames().getAliasObject();
+        return content.getCoreNames().getAliasObject();
     }
 
     public String getAliasNumber() {
-        return standards.getContent().getNbAlias().getAliasNumber();
+        return content.getNbAlias().getAliasNumber();
     }
 
     public String getAliasCharSequence() {
-        return standards.getContent().getCharSeq().getAliasCharSequence();
+        return content.getCharSeq().getAliasCharSequence();
     }
 
     public String getAliasStringBuilder() {
-        return standards.getContent().getCharSeq().getAliasStringBuilder();
+        return content.getCharSeq().getAliasStringBuilder();
     }
 
     public String getAliasString() {
-        return standards.getContent().getCharSeq().getAliasString();
+        return content.getCharSeq().getAliasString();
     }
 
     public String getAliasByte() {
-        return standards.getContent().getNbAlias().getAliasByte();
+        return content.getNbAlias().getAliasByte();
     }
 
     public String getAliasPrimByte() {
-        return standards.getContent().getPrimTypes().getAliasPrimByte();
+        return content.getPrimTypes().getAliasPrimByte();
     }
 
     public String getAliasShort() {
-        return standards.getContent().getNbAlias().getAliasShort();
+        return content.getNbAlias().getAliasShort();
     }
 
     public String getAliasPrimShort() {
-        return standards.getContent().getPrimTypes().getAliasPrimShort();
+        return content.getPrimTypes().getAliasPrimShort();
     }
 
     public String getAliasCharacter() {
-        return standards.getContent().getNbAlias().getAliasCharacter();
+        return content.getNbAlias().getAliasCharacter();
     }
 
     public String getAliasPrimChar() {
-        return standards.getContent().getPrimTypes().getAliasPrimChar();
+        return content.getPrimTypes().getAliasPrimChar();
     }
 
     public String getAliasInteger() {
-        return standards.getContent().getNbAlias().getAliasInteger();
+        return content.getNbAlias().getAliasInteger();
     }
 
     public String getAliasPrimInteger() {
-        return standards.getContent().getPrimTypes().getAliasPrimInteger();
+        return content.getPrimTypes().getAliasPrimInteger();
     }
 
     public String getAliasLong() {
-        return standards.getContent().getNbAlias().getAliasLong();
+        return content.getNbAlias().getAliasLong();
     }
 
     public String getAliasPrimLong() {
-        return standards.getContent().getPrimTypes().getAliasPrimLong();
+        return content.getPrimTypes().getAliasPrimLong();
     }
 
     public String getAliasFloat() {
-        return standards.getContent().getNbAlias().getAliasFloat();
+        return content.getNbAlias().getAliasFloat();
     }
 
     public String getAliasPrimFloat() {
-        return standards.getContent().getPrimTypes().getAliasPrimFloat();
+        return content.getPrimTypes().getAliasPrimFloat();
     }
 
     public String getAliasDouble() {
-        return standards.getContent().getNbAlias().getAliasDouble();
+        return content.getNbAlias().getAliasDouble();
     }
 
     public String getAliasPrimDouble() {
-        return standards.getContent().getPrimTypes().getAliasPrimDouble();
+        return content.getPrimTypes().getAliasPrimDouble();
     }
 
     public StringMap<PrimitiveType> getPrimitiveTypes() {
@@ -379,23 +379,15 @@ public final class AnalyzedPageEl {
     }
 
     public PrimitiveTypes getPrimTypes() {
-        return standards.getContent().getPrimTypes();
+        return content.getPrimTypes();
     }
 
     public DisplayedStrings getDisplayedStrings() {
-        return standards.getContent().getDisplayedStrings();
+        return content.getDisplayedStrings();
     }
 
-    public void setStandards(LgNames standards) {
-        this.standards = standards;
-    }
-
-    public Coverage getCoverage() {
-        return coverage;
-    }
-
-    public void setCoverage(Coverage coverage) {
-        this.coverage = coverage;
+    public void setStandards(LgNamesContent _content) {
+        content = _content;
     }
 
     public int getTabWidth() {
@@ -519,11 +511,11 @@ public final class AnalyzedPageEl {
         importing = _importing;
     }
 
-    public ExecAccessingImportingBlock getImportingAcces() {
+    public AccessingImportingBlock getImportingAcces() {
         return importingAcces;
     }
 
-    public void setImportingAcces(ExecAccessingImportingBlock importingAcces) {
+    public void setImportingAcces(AccessingImportingBlock importingAcces) {
         this.importingAcces = importingAcces;
     }
 
@@ -598,7 +590,7 @@ public final class AnalyzedPageEl {
         AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_list);
         String uniq_ = first_.getSingleNameOrEmpty();
         String w_ = "";
-        for (EntryCust<String, PrimitiveType> e: standards.getContent().getPrimTypes().getPrimitiveTypes().entryList()) {
+        for (EntryCust<String, PrimitiveType> e: content.getPrimTypes().getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getKey(), uniq_)) {
                 w_ = e.getValue().getWrapper();
                 break;
@@ -609,9 +601,9 @@ public final class AnalyzedPageEl {
 
     public StringList getAllGenericSuperTypesWrapper(String _prim, int _d) {
         StringList list_ = new StringList();
-        for (EntryCust<String, PrimitiveType> e: standards.getContent().getPrimTypes().getPrimitiveTypes().entryList()) {
+        for (EntryCust<String, PrimitiveType> e: content.getPrimTypes().getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getKey(), _prim)) {
-                for (EntryCust<String,StandardType> f: standards.getContent().getStandards().entryList()) {
+                for (EntryCust<String,StandardType> f: content.getStandards().entryList()) {
                     String wrapper_ = e.getValue().getWrapper();
                     if (StringList.quickEq(wrapper_,f.getKey())) {
                         list_.add(StringExpUtil.getPrettyArrayType(wrapper_,_d));
@@ -629,7 +621,7 @@ public final class AnalyzedPageEl {
         if (r_ != null) {
             return r_;
         }
-        return standards.getContent().getStandards().getVal(_type);
+        return content.getStandards().getVal(_type);
     }
     public RootBlock getAnaClassBody(String _type) {
         for (RootBlock r: refFoundTypes) {

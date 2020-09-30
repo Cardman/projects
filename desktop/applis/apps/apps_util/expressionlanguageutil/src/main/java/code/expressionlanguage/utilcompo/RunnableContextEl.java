@@ -3,52 +3,19 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.threads.Locking;
-import code.util.StringList;
 
 public class RunnableContextEl extends ContextEl implements Locking {
 
-    private ExecutingOptions executingOptions;
-
     private ThreadStruct thread;
     private String idDate;
-    private ExecRootBlock executeType;
-    private ExecNamedFunctionBlock executeMethod;
-    private ExecRootBlock formatType;
-    private ExecNamedFunctionBlock formatObject;
-    private ExecNamedFunctionBlock formatObjectTwo;
-    private ExecRootBlock runnableType;
-    private ExecNamedFunctionBlock runMethod;
 
-    protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
-                                CustInitializer _init, Options _options, ExecutingOptions _exec,
-                                LgNames _stds, int _tabWidth, ClassesCommon _com) {
-        super(new CommonExecutionInfos(_tabWidth, _stackOverFlow, _stds, new Classes(_com), new Coverage(_options.isCovering()), _lock, _init));
+    protected RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
+        super(_executionInfos, _state);
         setFullStack(new DefaultFullStack(this));
-        executingOptions = _exec;
-        setThread();
-    }
-    protected RunnableContextEl(ContextEl _context) {
-        super(_context.getExecutionInfos());
-        setFullStack(new DefaultFullStack(this));
-        getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        executingOptions = ((RunnableContextEl)_context).executingOptions;
-        executeType = ((RunnableContextEl)_context).executeType;
-        executeMethod = ((RunnableContextEl)_context).executeMethod;
-        formatType = ((RunnableContextEl)_context).formatType;
-        formatObject = ((RunnableContextEl)_context).formatObject;
-        formatObjectTwo = ((RunnableContextEl)_context).formatObjectTwo;
-        runnableType = ((RunnableContextEl)_context).runnableType;
-        runMethod = ((RunnableContextEl)_context).runMethod;
         setThread();
     }
 
@@ -56,45 +23,35 @@ public class RunnableContextEl extends ContextEl implements Locking {
     public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
         super.forwardAndClear(_ana, _forwards);
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
-        String aliasExecute_ = standards_.getCustAliases().getAliasExecute();
-        executeType = _ana.getClasses().getClassBody(aliasExecute_);
-        String infoTest_ = standards_.getCustAliases().getAliasInfoTest();
-        MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
-                standards_.getCustAliases().getAliasExecuteTests(),new StringList(infoTest_));
-        executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
-        formatType = _ana.getClasses().getClassBody(standards_.getCustAliases().getAliasFormatType());
-        formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getCustAliases().getAliasPrint(),new StringList(getStandards().getAliasObject()))).first();
-        formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getCustAliases().getAliasPrint(),new StringList(getStandards().getAliasString(),getStandards().getAliasObject()),true)).first();
-        runnableType = _ana.getClasses().getClassBody(standards_.getCustAliases().getAliasRunnable());
-        runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getCustAliases().getAliasRun(),new StringList())).first();
+        standards_.forwardAndClear(getClasses());
     }
 
     public ExecRootBlock getExecuteType() {
-        return executeType;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getExecuteType();
     }
 
     public ExecNamedFunctionBlock getExecuteMethod() {
-        return executeMethod;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getExecuteMethod();
     }
 
     public ExecRootBlock getFormatType() {
-        return formatType;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatType();
     }
 
     public ExecNamedFunctionBlock getFormatObject() {
-        return formatObject;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatObject();
     }
 
     public ExecNamedFunctionBlock getFormatObjectTwo() {
-        return formatObjectTwo;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatObjectTwo();
     }
 
     public ExecRootBlock getRunnableType() {
-        return runnableType;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getRunnableType();
     }
 
     public ExecNamedFunctionBlock getRunMethod() {
-        return runMethod;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getRunMethod();
     }
 
     @Override
@@ -129,7 +86,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     public ExecutingOptions getExecutingOptions() {
-        return executingOptions;
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingOptions();
     }
 
     @Override
@@ -141,11 +98,11 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     boolean stopped() {
-        return executingOptions.getInterrupt().get() || isCurrentThreadEnded();
+        return ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().get() || isCurrentThreadEnded();
     }
 
     public void interrupt() {
-        executingOptions.getInterrupt().set(true);
+        ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().set(true);
     }
 
 }

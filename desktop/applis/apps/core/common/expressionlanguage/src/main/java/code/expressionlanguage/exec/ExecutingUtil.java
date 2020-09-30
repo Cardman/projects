@@ -2,7 +2,6 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
@@ -181,8 +180,6 @@ public final class ExecutingUtil {
         _page.setFile(_block.getFile());
     }
     private static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
-        String cl_ = _e.getClassName();
-        Parameters args_ = _e.getArguments();
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
             return createNewInstancing(_context,_e);
@@ -394,8 +391,8 @@ public final class ExecutingUtil {
                 ExecOverridableBlock method_ = (ExecOverridableBlock) b;
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
-                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
-                        || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR;
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
+                        || method_.getKind() == ExecMethodKind.TRUE_OPERATOR  || method_.getKind() == ExecMethodKind.FALSE_OPERATOR;
                 MethodId fid_ = tryFormatId(_name, _context, id_);
                 String idType_ = _type.getFullName();
                 String formCl_ = tryFormatType(idType_, _name, _context);
@@ -409,10 +406,10 @@ public final class ExecutingUtil {
                 met_.setCalleeInv(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
-                        || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR);
+                met_.setExpCast(method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
+                        || method_.getKind() == ExecMethodKind.TRUE_OPERATOR  || method_.getKind() == ExecMethodKind.FALSE_OPERATOR);
                 infos_.add(met_);
-                if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
+                if (method_.getKind() == ExecMethodKind.EXPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
@@ -422,7 +419,7 @@ public final class ExecutingUtil {
                     met_.setExpCast(true);
                     infosExplicits_.add(met_);
                 }
-                if (method_.getKind() == MethodKind.IMPLICIT_CAST) {
+                if (method_.getKind() == ExecMethodKind.IMPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
@@ -432,7 +429,7 @@ public final class ExecutingUtil {
                     met_.setExpCast(true);
                     infosImplicits_.add(met_);
                 }
-                if (method_.getKind() == MethodKind.TRUE_OPERATOR) {
+                if (method_.getKind() == ExecMethodKind.TRUE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
@@ -442,7 +439,7 @@ public final class ExecutingUtil {
                     met_.setExpCast(true);
                     infosTrues_.add(met_);
                 }
-                if (method_.getKind() == MethodKind.FALSE_OPERATOR) {
+                if (method_.getKind() == ExecMethodKind.FALSE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);

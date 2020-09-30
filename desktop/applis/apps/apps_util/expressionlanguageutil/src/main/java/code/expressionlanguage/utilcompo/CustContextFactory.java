@@ -4,9 +4,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ClassesCommon;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -106,9 +110,10 @@ public final class CustContextFactory {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
         ClassesCommon com_ = new ClassesCommon();
-        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth, com_);
+        _definedLgNames.setExecutingOptions(_exec);
+        RunnableContextEl r_ = new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, _definedLgNames, new Classes(com_), new Coverage(_options.isCovering()), cl_, ci_));
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_,
-                new DefaultConstantsCalculator(_definedLgNames.getNbAlias()), new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases()));
+                new DefaultConstantsCalculator(_definedLgNames.getNbAlias()), new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsRunnableContext(r_,reportedMessages_);
     }
 }

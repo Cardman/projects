@@ -430,7 +430,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public void forwardAndClear(Configuration _conf, AnalyzedPageEl _page, AnalyzingDoc _anaDoc, Forwards _forward, StringMap<AnaRendDocumentBlock> _analyzed) {
         Classes.forwardAndClear(_conf.getContext(), _page, _forward);
         RendForwardInfos.buildExec(_anaDoc, _analyzed, _forward, _conf);
-        buildIterables(_page.getClasses());
+        buildIterables(_conf.getContext().getClasses());
     }
 
     private void setupRendClasses(Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {

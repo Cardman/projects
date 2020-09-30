@@ -29,7 +29,7 @@ public class CustInitializer extends DefaultInitializer {
     protected Struct init(ContextEl _context, Struct _parent,
                           String _className, String _fieldName, int _ordinal,
                           CustList<ClassFieldStruct> _fields) {
-        return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent);
+        return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
     }
 
     @Override

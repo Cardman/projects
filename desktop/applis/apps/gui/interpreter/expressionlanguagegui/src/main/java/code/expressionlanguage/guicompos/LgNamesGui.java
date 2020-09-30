@@ -19,9 +19,14 @@ import code.util.StringMap;
 public class LgNamesGui extends LgNamesUtils {
 
     private GuiAliases guiAliases = new GuiAliases();
+    private GuiExecutingBlocks guiExecutingBlocks = new GuiExecutingBlocks();
     public LgNamesGui(FileInfos _infos) {
         super(_infos);
         setCalculator(new AdvancedExecConstantsCalculator(this));
+    }
+
+    public GuiExecutingBlocks getGuiExecutingBlocks() {
+        return guiExecutingBlocks;
     }
 
     public GuiAliases getGuiAliases() {

@@ -11,7 +11,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
@@ -302,7 +302,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             return new CustList<InaccessibleType>();
         }
         CustList<InaccessibleType> l_ = new CustList<InaccessibleType>();
-        ExecAccessingImportingBlock gl_ = _page.getCurrentGlobalBlock().getImportingAcces();
+        AccessingImportingBlock gl_ = _page.getCurrentGlobalBlock().getImportingAcces();
         if (_page.getHiddenTypes().isHidden(gl_,found_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);

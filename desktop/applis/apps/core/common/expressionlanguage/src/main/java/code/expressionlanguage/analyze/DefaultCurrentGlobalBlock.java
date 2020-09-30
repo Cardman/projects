@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 
@@ -18,7 +18,7 @@ public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlo
     }
 
     @Override
-    public ExecAccessingImportingBlock getImportingAcces() {
+    public AccessingImportingBlock getImportingAcces() {
         return page.getImportingAcces();
     }
 

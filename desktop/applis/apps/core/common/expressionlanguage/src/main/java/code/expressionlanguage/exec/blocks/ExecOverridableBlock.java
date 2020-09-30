@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
-import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
@@ -13,11 +12,11 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
 
     private final MethodModifier methodModifier;
 
-    private final MethodKind kind;
-    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, MethodKind _kind, int _offsetTrim) {
+    private final ExecMethodKind kind;
+    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim) {
         super(_name, _varargs, _access, _parametersNames, _offsetTrim);
         methodModifier = _modifier;
-        kind = _kind;
+        kind = _execKind;
     }
 
     public boolean isAbstractMethod() {
@@ -30,8 +29,8 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST
-                ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {
+        if (kind == ExecMethodKind.EXPLICIT_CAST || kind == ExecMethodKind.IMPLICIT_CAST
+                ||kind == ExecMethodKind.TRUE_OPERATOR || kind == ExecMethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -56,7 +55,7 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
-    public MethodKind getKind() {
+    public ExecMethodKind getKind() {
         return kind;
     }
 }

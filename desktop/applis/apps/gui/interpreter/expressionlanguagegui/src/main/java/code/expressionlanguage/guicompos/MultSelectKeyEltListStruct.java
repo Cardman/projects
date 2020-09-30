@@ -2,6 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.IndexableListener;
 import code.util.CustList;
@@ -10,13 +12,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public final class MultSelectKeyEltListStruct extends KeyAdapter implements IndexableListener {
-    private ContextEl original;
     private GraphicListStruct grList;
 
     private int index;
+    private CommonExecutionInfos executionInfos;
 
     public MultSelectKeyEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
-        original = _contextEl;
+        executionInfos = _contextEl.getExecutionInfos();
         grList = _graphicList;
         index = _index;
     }
@@ -64,7 +66,7 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
     }
 
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(original);
+        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);
         RunnableStruct.setupThread(r_);
         return r_;
     }

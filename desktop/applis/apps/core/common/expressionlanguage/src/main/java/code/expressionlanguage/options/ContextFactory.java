@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -22,8 +23,8 @@ public final class ContextFactory {
     private ContextFactory(){}
 
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, DefaultFileBuilder _fileBuilder) {
-        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder);
+                                            CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, DefaultFileBuilder _fileBuilder, LgNamesContent _content) {
+        AnalyzedPageEl page_ = validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth());
         return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
 
@@ -44,8 +45,8 @@ public final class ContextFactory {
         return new SingleContextEl(_stack, _lock, _init, _options, _definedLgNames,_tabWidth, _com);
     }
 
-    public static AnalyzedPageEl validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
-                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder) {
+    public static AnalyzedPageEl validateStds(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
+                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
@@ -53,15 +54,13 @@ public final class ContextFactory {
         page_.setComments(comments_);
         page_.setAnalysisMessages(_mess);
         page_.setKeyWords(_definedKw);
-        page_.setStandards(_definedLgNames);
+        page_.setStandards(_content);
         page_.setCalculator(_calculator);
         page_.setFileBuilder(_fileBuilder);
-        page_.setClasses(_context.getClasses());
-        page_.setClassesCommon(_com);
-        page_.setCoverage(_context.getCoverage());
-        page_.setTabWidth(_context.getTabWidth());
+        page_.setResources(_com.getResources());
+        page_.setStaticFields(_com.getStaticFields());
+        page_.setTabWidth(_tabWidth);
         page_.setGettingErrors(_options.isGettingErrors());
-        page_.getCoverage().setKeyWords(_definedKw);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         if (!page_.isEmptyMessageError()) {
             return page_;

@@ -3,7 +3,7 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.AbstractHiddenTypes;
 
 public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
@@ -14,7 +14,7 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
     }
 
     @Override
-    public boolean isHidden(ExecAccessingImportingBlock _global, RootBlock _type) {
+    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
         if (_global == null) {
             return false;
         }
