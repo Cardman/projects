@@ -27,7 +27,7 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenuItemCheck();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItemCheck();
     }
 
     public CheckBoxMenuItem getComponent() {

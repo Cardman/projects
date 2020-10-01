@@ -25,8 +25,8 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         String mathType_ = _page.getMathRef().getAliasMath();
-        String stringType_ = _page.getAliasString();
-        String replType_ = _page.getAliasReplacement();
+        String stringType_ = _page.getCharSeq().getAliasString();
+        String replType_ = _page.getCharSeq().getAliasReplacement();
         if (StringList.quickEq(type_, _page.getCoreNames().getAliasResources())) {
             if (StringList.quickEq(name_, _page.getCoreNames().getAliasReadResourcesNamesLength())) {
                 return ResourcesStruct.getResourceNamesLength(_page);
@@ -54,7 +54,7 @@ public final class AnaApplyCoreMethodUtil {
             return calculateReplacement(_method, _struct, _page);
         }
         if (StringList.quickEq(type_, stringType_)
-                || StringList.quickEq(type_, _page.getAliasCharSequence())) {
+                || StringList.quickEq(type_, _page.getCharSeq().getAliasCharSequence())) {
             result_ = invokeAnalyzisCharSequenceStdMethod(_method, _struct, _page, _args);
             return result_;
         }
@@ -67,16 +67,16 @@ public final class AnaApplyCoreMethodUtil {
     public static Struct newAnalyzisInstanceStd(ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
-        String booleanType_ = _page.getAliasBoolean();
-        String charType_ = _page.getAliasCharacter();
-        String stringType_ = _page.getAliasString();
-        String byteType_ = _page.getAliasByte();
-        String shortType_ = _page.getAliasShort();
-        String intType_ = _page.getAliasInteger();
-        String longType_ = _page.getAliasLong();
-        String floatType_ = _page.getAliasFloat();
-        String doubleType_ = _page.getAliasDouble();
-        String replType_ = _page.getAliasReplacement();
+        String booleanType_ = _page.getNbAlias().getAliasBoolean();
+        String charType_ = _page.getNbAlias().getAliasCharacter();
+        String stringType_ = _page.getCharSeq().getAliasString();
+        String byteType_ = _page.getNbAlias().getAliasByte();
+        String shortType_ = _page.getNbAlias().getAliasShort();
+        String intType_ = _page.getNbAlias().getAliasInteger();
+        String longType_ = _page.getNbAlias().getAliasLong();
+        String floatType_ = _page.getNbAlias().getAliasFloat();
+        String doubleType_ = _page.getNbAlias().getAliasDouble();
+        String replType_ = _page.getCharSeq().getAliasReplacement();
         if (StringList.quickEq(type_, replType_)) {
             return instantiate(args_);
         }
@@ -263,14 +263,14 @@ public final class AnaApplyCoreMethodUtil {
     public static Struct instantiateNumber(ConstructorId _method, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
-        String booleanType_ = _page.getAliasBoolean();
-        String charType_ = _page.getAliasCharacter();
-        String stringType_ = _page.getAliasString();
-        String byteType_ = _page.getAliasByte();
-        String shortType_ = _page.getAliasShort();
-        String intType_ = _page.getAliasInteger();
-        String longType_ = _page.getAliasLong();
-        String floatType_ = _page.getAliasFloat();
+        String booleanType_ = _page.getNbAlias().getAliasBoolean();
+        String charType_ = _page.getNbAlias().getAliasCharacter();
+        String stringType_ = _page.getCharSeq().getAliasString();
+        String byteType_ = _page.getNbAlias().getAliasByte();
+        String shortType_ = _page.getNbAlias().getAliasShort();
+        String intType_ = _page.getNbAlias().getAliasInteger();
+        String longType_ = _page.getNbAlias().getAliasLong();
+        String floatType_ = _page.getNbAlias().getAliasFloat();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -460,15 +460,15 @@ public final class AnaApplyCoreMethodUtil {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         AnalyzedPageEl page_ = _page;
-        String booleanType_ = _page.getAliasBoolean();
-        String charType_ = _page.getAliasCharacter();
-        String byteType_ = _page.getAliasByte();
-        String shortType_ = _page.getAliasShort();
-        String intType_ = _page.getAliasInteger();
-        String longType_ = _page.getAliasLong();
-        String floatType_ = _page.getAliasFloat();
-        String doubleType_ = _page.getAliasDouble();
-        String nbType_ = _page.getAliasNumber();
+        String booleanType_ = _page.getNbAlias().getAliasBoolean();
+        String charType_ = _page.getNbAlias().getAliasCharacter();
+        String byteType_ = _page.getNbAlias().getAliasByte();
+        String shortType_ = _page.getNbAlias().getAliasShort();
+        String intType_ = _page.getNbAlias().getAliasInteger();
+        String longType_ = _page.getNbAlias().getAliasLong();
+        String floatType_ = _page.getNbAlias().getAliasFloat();
+        String doubleType_ = _page.getNbAlias().getAliasDouble();
+        String nbType_ = _page.getNbAlias().getAliasNumber();
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(name_, _page.getNbAlias().getAliasBooleanValue())) {
@@ -732,7 +732,7 @@ public final class AnaApplyCoreMethodUtil {
     public static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
-        String stringType_ = _page.getAliasString();
+        String stringType_ = _page.getCharSeq().getAliasString();
         if (StringList.quickEq(type_, stringType_)) {
             return calculateString(_method, _struct, _page, args_);
         }
@@ -784,7 +784,7 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        String stringType_ = _page.getAliasString();
+        String stringType_ = _page.getCharSeq().getAliasString();
         if (StringList.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
             return regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
                     NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
@@ -1111,7 +1111,7 @@ public final class AnaApplyCoreMethodUtil {
     public static String getString(Argument _value, AnalyzedPageEl _page) {
         Struct struct_ = _value.getStruct();
         if (struct_ instanceof ReplacementStruct) {
-            return _page.getAliasReplacement();
+            return _page.getCharSeq().getAliasReplacement();
         }
         return getAnaDisplayable(struct_).getDisplayedString(_page).getInstance();
     }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;

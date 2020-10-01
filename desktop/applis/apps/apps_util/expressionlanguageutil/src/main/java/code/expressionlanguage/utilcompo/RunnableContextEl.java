@@ -3,8 +3,6 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.threads.Locking;
 
@@ -24,34 +22,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         super.forwardAndClear(_ana, _forwards);
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
         standards_.forwardAndClear(getClasses());
-    }
-
-    public ExecRootBlock getExecuteType() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getExecuteType();
-    }
-
-    public ExecNamedFunctionBlock getExecuteMethod() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getExecuteMethod();
-    }
-
-    public ExecRootBlock getFormatType() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatType();
-    }
-
-    public ExecNamedFunctionBlock getFormatObject() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatObject();
-    }
-
-    public ExecNamedFunctionBlock getFormatObjectTwo() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getFormatObjectTwo();
-    }
-
-    public ExecRootBlock getRunnableType() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getRunnableType();
-    }
-
-    public ExecNamedFunctionBlock getRunMethod() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingBlocks().getRunMethod();
     }
 
     @Override

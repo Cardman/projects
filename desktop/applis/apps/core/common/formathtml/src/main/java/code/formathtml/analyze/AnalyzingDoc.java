@@ -4,12 +4,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
+import code.formathtml.util.BeanLgNames;
 import code.util.*;
 
 public final class AnalyzingDoc {
@@ -25,6 +27,7 @@ public final class AnalyzingDoc {
     private int nextIndex;
     private IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
     private IdMap<OperationNode, ValidatorInfo> lateValidators = new IdMap<OperationNode, ValidatorInfo>();
+    private LgNamesContent content;
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
@@ -108,6 +111,10 @@ public final class AnalyzingDoc {
         return null;
     }
 
+    public String getAliasCharSequence() {
+        return content.getCharSeq().getAliasCharSequence();
+    }
+
     public boolean isInternGlobal() {
         return !getInternGlobalClass().isEmpty();
     }
@@ -124,6 +131,9 @@ public final class AnalyzingDoc {
         languages = _languages;
     }
 
+    public void setContent(BeanLgNames _adv) {
+        content = _adv.getContent();
+    }
     public AnaRendBlock getCurrentBlock() {
         return currentBlock;
     }

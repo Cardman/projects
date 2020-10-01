@@ -10,7 +10,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.*;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanCustLgNames;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -51,7 +51,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -73,7 +73,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -97,7 +97,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -122,7 +122,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -143,7 +143,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -163,7 +163,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -182,7 +182,7 @@ public final class RendKeyWordsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(lk_, di_, kw_, lgName_, opts_);
@@ -351,13 +351,13 @@ public final class RendKeyWordsTest {
         AnalysisMessages.validateMessageContents(def_.allMessages(), s_.getAnalyzing());
     }
 
-    private static AnalyzedTestConfiguration build(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
+    private static AnalyzedTestConfiguration build(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
         AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
         return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), lgName_);
     }
 
-    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanLgNames lgName_, Options opts_) {
+    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
         SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, lgName_, 4, new ClassesCommon());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());

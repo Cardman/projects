@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
 
@@ -26,7 +25,7 @@ public final class DimensionStruct extends WithoutParentStruct implements Struct
     @Override
     public String getClassName(ContextEl _contextEl) {
         LgNamesGui stds_ = (LgNamesGui) _contextEl.getStandards();
-        return stds_.getAliasDimension();
+        return stds_.getGuiAliases().getAliasDimension();
     }
 
     public IntStruct getHeight() {

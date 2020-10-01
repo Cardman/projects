@@ -91,7 +91,7 @@ public final class GuiProcess implements Runnable {
         ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(cont_,stds_,opt_,exec_, reportedMessages_);
+        CustContextFactory.reportErrors(cont_, exec_, reportedMessages_, stds_.getInfos());
         if (!reportedMessages_.isAllEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
@@ -145,6 +145,6 @@ public final class GuiProcess implements Runnable {
     }
 
     public boolean isVisible() {
-        return context.getFrame().isVisible();
+        return ((LgNamesGui) context.getStandards()).getGuiExecutingBlocks().getFrame().isVisible();
     }
 }

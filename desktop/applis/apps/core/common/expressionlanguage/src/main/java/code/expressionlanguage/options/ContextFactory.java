@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.CustList;
@@ -22,9 +23,10 @@ public final class ContextFactory {
 
     private ContextFactory(){}
 
-    public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
+    public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
                                             CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content) {
-        AnalyzedPageEl page_ = validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth(), page_);
         return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
 
@@ -45,72 +47,73 @@ public final class ContextFactory {
         return new SingleContextEl(_stack, _lock, _init, _options, _definedLgNames,_tabWidth, _com);
     }
 
-    public static AnalyzedPageEl validateStds(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
-                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth) {
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setOptions(_options);
+    public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,
+                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page) {
+        if (validatedStds(_mess,_definedKw,_comments,_options,_com,_calculator,_fileBuilder,_content,_tabWidth,_page)) {
+            _definedLgNames.build();
+            ValidatorStandard.setupOverrides(_page);
+        }
+    }
+    public static boolean validatedStds(AnalysisMessages _mess, KeyWords _definedKw,
+                                        CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page) {
+        _page.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
-        page_.setComments(comments_);
-        page_.setAnalysisMessages(_mess);
-        page_.setKeyWords(_definedKw);
-        page_.setStandards(_content);
-        page_.setCalculator(_calculator);
-        page_.setFileBuilder(_fileBuilder);
-        page_.setResources(_com.getResources());
-        page_.setStaticFields(_com.getStaticFields());
-        page_.setTabWidth(_tabWidth);
-        page_.setGettingErrors(_options.isGettingErrors());
-        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        if (!page_.isEmptyMessageError()) {
-            return page_;
+        _page.setComments(comments_);
+        _page.setAnalysisMessages(_mess);
+        _page.setKeyWords(_definedKw);
+        _page.setStandards(_content);
+        _page.setCalculator(_calculator);
+        _page.setFileBuilder(_fileBuilder);
+        _page.setResources(_com.getResources());
+        _page.setStaticFields(_com.getStaticFields());
+        _page.setTabWidth(_tabWidth);
+        _page.setGettingErrors(_options.isGettingErrors());
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), _page);
+        if (!_page.isEmptyMessageError()) {
+            return false;
         }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
-        _definedKw.validateKeyWordContents(keyWords_, page_);
+        _definedKw.validateKeyWordContents(keyWords_, _page);
         StringMap<String> escapings_ = _definedKw.allEscapings();
-        _definedKw.validateEscapingsContents(escapings_, page_);
+        _definedKw.validateEscapingsContents(escapings_, _page);
         StringMap<String> nbWords_ = _definedKw.allNbWords(_definedKw.allNbWordsBasic());
-        _definedKw.validateNbWordContents(nbWords_, page_);
-        _definedKw.validateBinarySeparators(page_);
+        _definedKw.validateNbWordContents(nbWords_, _page);
+        _definedKw.validateBinarySeparators(_page);
         DefaultAliasGroups defaultAliasGroups_ = _fileBuilder.getDefaultAliasGroups();
         StringMap<String> prims_ = defaultAliasGroups_.allPrimitives();
-        ValidatorStandard.validatePrimitiveContents(prims_, page_);
-        ValidatorStandard.validatePrimitiveDuplicates(prims_, page_);
-        _definedKw.validateKeyWordDuplicates(keyWords_, page_);
-        _definedKw.validateEscapingsDuplicates(escapings_, page_);
+        ValidatorStandard.validatePrimitiveContents(prims_, _page);
+        ValidatorStandard.validatePrimitiveDuplicates(prims_, _page);
+        _definedKw.validateKeyWordDuplicates(keyWords_, _page);
+        _definedKw.validateEscapingsDuplicates(escapings_, _page);
         StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
-        _definedKw.validateNbWordDuplicates(nbWordsDec_, page_);
+        _definedKw.validateNbWordDuplicates(nbWordsDec_, _page);
         StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
-        _definedKw.validateNbWordDuplicates(nbWordsBin_, page_);
+        _definedKw.validateNbWordDuplicates(nbWordsBin_, _page);
         StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_definedKw.allNbWordsPreBin());
-        _definedKw.validateNbWordDuplicates(nbWordsPreBin_, page_);
-        _definedKw.validateStartsPrefixesDuplicates(page_);
+        _definedKw.validateNbWordDuplicates(nbWordsPreBin_, _page);
+        _definedKw.validateStartsPrefixesDuplicates(_page);
         StringMap<String> refTypes_ = defaultAliasGroups_.allRefTypes();
-        ValidatorStandard.validateRefTypeContents(refTypes_, prims_, page_);
-        boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(refTypes_, page_);
+        ValidatorStandard.validateRefTypeContents(refTypes_, prims_, _page);
+        boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(refTypes_, _page);
         if (dup_) {
-            return page_;
+            return false;
         }
         StringMap<CustList<KeyValueMemberName>> methods_ = defaultAliasGroups_.allTableTypeMethodNames();
-        ValidatorStandard.validateMethodsContents(methods_, prims_, page_);
+        ValidatorStandard.validateMethodsContents(methods_, prims_, _page);
         CustList<CustList<KeyValueMemberName>> params_ = defaultAliasGroups_.allTableTypeMethodParamNames();
-        ValidatorStandard.validateParamtersContents(params_, prims_, page_);
+        ValidatorStandard.validateParamtersContents(params_, prims_, _page);
         StringMap<CustList<KeyValueMemberName>> fields_ = defaultAliasGroups_.allTableTypeFieldNames();
-        ValidatorStandard.validateFieldsContents(fields_, prims_, page_);
+        ValidatorStandard.validateFieldsContents(fields_, prims_, _page);
         StringMap<CustList<KeyValueMemberName>> varTypes_ = defaultAliasGroups_.allTableTypeVarTypes();
-        ValidatorStandard.validateVarTypesContents(varTypes_, prims_, page_);
+        ValidatorStandard.validateVarTypesContents(varTypes_, prims_, _page);
         //duplicates
-        ValidatorStandard.validateMethodsDuplicates(methods_, page_);
-        ValidatorStandard.validateParamtersDuplicates(params_, page_);
-        ValidatorStandard.validateFieldsDuplicates(fields_, page_);
-        ValidatorStandard.validateVarTypesDuplicates(varTypes_, page_);
+        ValidatorStandard.validateMethodsDuplicates(methods_, _page);
+        ValidatorStandard.validateParamtersDuplicates(params_, _page);
+        ValidatorStandard.validateFieldsDuplicates(fields_, _page);
+        ValidatorStandard.validateVarTypesDuplicates(varTypes_, _page);
         CustList<CustList<KeyValueMemberName>> merge_ = defaultAliasGroups_.allMergeTableTypeMethodNames();
-        ValidatorStandard.validateMergedDuplicates(merge_, page_);
-        if (!page_.isEmptyStdError()) {
-            return page_;
-        }
-        _definedLgNames.build();
-        ValidatorStandard.setupOverrides(page_);
-        return page_;
+        ValidatorStandard.validateMergedDuplicates(merge_, _page);
+        return _page.isEmptyStdError();
     }
 }

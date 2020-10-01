@@ -55,7 +55,7 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasFont();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasFont();
     }
 
     public Font getFont() {

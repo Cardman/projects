@@ -10,7 +10,7 @@ import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
-public abstract class LgNames {
+public abstract class LgNames implements BuildableLgNames {
 
     public static final String ITERATOR = "Iterator";
     public static final String HAS_NEXT = "HasNext";

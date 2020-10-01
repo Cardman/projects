@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import org.junit.Assert;
@@ -33,7 +34,10 @@ public final class InitializationLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
+        lgNames_.build();
+        ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(contextEl_, page_, new Forwards(),lgNames_);
     }

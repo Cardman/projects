@@ -86,7 +86,7 @@ public final class MenuStruct extends AbsMenuStruct {
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenu();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenu();
     }
 
     public void addSeparator() {

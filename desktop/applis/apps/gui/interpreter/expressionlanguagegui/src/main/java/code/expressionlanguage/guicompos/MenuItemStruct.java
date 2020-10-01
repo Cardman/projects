@@ -20,7 +20,7 @@ public final class MenuItemStruct extends AbsMenuItemStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenuItem();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItem();
     }
 
     public MenuItem getComponent() {

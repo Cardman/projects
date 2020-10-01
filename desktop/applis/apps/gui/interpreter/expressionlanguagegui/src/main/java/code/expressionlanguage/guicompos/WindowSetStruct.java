@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -22,7 +21,7 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
         for (WindowStruct s: elementSet.keySet()) {
             instantKeys_.add(s);
         }
-        String thClass_ = ((LgNamesGui)_contextEl.getStandards()).getAliasWindow();
+        String thClass_ = ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasWindow();
         int len_ = instantKeys_.size();
         ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
@@ -58,7 +57,7 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui)_contextEl.getStandards()).getAliasWindowSet();
+        return ((LgNamesGui)_contextEl.getStandards()).getGuiAliases().getAliasWindowSet();
     }
 
 }

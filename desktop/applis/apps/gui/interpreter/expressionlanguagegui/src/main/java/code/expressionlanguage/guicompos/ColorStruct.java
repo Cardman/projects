@@ -31,7 +31,7 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasColor();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasColor();
     }
 
     @Override

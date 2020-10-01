@@ -183,7 +183,7 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasImage();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasImage();
     }
 
     @Override

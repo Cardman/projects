@@ -415,6 +415,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Forwards forwards_ = new Forwards();
         setupRendClasses(_conf,_files, _page);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setContent(this);
         _nav.initInstancesPattern(_page, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
         ReportedMessages messages_ = _page.getMessages();

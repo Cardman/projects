@@ -55,9 +55,9 @@ public class GraphicListStruct extends InputStruct {
         }
         simple = _simple;
         LgNamesGui stds_ = (LgNamesGui) _ctx.getStandards();
-        panel = PanelStruct.newPageBox(stds_.getAliasPanel());
+        panel = PanelStruct.newPageBox(stds_.getGuiAliases().getAliasPanel());
         panel.setAutoscrolls(BooleanStruct.of(true));
-        scroll = ScrollPaneStruct.newScroll(panel,stds_.getAliasScrollPane());
+        scroll = ScrollPaneStruct.newScroll(panel, stds_.getGuiAliases().getAliasScrollPane());
     }
     public void add(ContextEl _ctx, int _index, Struct _img, Struct _elt) {
         if (!(_img instanceof PreparedLabelStruct)) {

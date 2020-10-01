@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.Struct;
@@ -37,17 +38,17 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
-    public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
-        mainWindow.showProgress(_ctx,_infos,_doneTests,_method,_count);
+    public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
+        mainWindow.showProgress(_ctx,_infos,_doneTests,_method,_count, _evolved);
     }
 
     @Override
-    public void finish(RunnableContextEl _ctx, Struct _infos) {
-        mainWindow.finish(_ctx,_infos);
+    public void finish(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
+        mainWindow.finish(_infos, _evolved);
     }
 
     @Override
-    public void setResults(RunnableContextEl _ctx, Argument _res) {
-        mainWindow.setResults(_ctx,_res);
+    public void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+        mainWindow.setResults(_ctx,_res, _evolved);
     }
 }

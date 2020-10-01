@@ -176,7 +176,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui)_contextEl.getStandards()).getAliasTreeNode();
+        return ((LgNamesGui)_contextEl.getStandards()).getGuiAliases().getAliasTreeNode();
     }
 
     @Override

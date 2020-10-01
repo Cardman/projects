@@ -528,18 +528,20 @@ public final class ValidatorStandard {
         }
     }
 
-    public static String tr(StringList _list, AnalyzedPageEl _analyzing) {
-        CustList<String> allKeysWords_ = _analyzing.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_analyzing.getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_analyzing.getAliasVoid());
-        allKeysWords_.addAllElts(_list);
-        String candidate_ = "tmp";
+    public static String tr(StringList _list) {
+        CustList<String> allKeysWords_ = new StringList();
+        String candidate_ = tr(allKeysWords_,"tmp");
+        _list.add(candidate_);
+        return candidate_;
+    }
+
+    public static String tr(CustList<String> _list, String _var) {
+        String candidate_ = _var;
         int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs("tmp",index_);
+        while (StringList.contains(_list,candidate_)) {
+            candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        _list.add(candidate_);
         return candidate_;
     }
 }

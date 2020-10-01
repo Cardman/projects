@@ -75,7 +75,7 @@ public final class RunningTest implements Runnable {
         opt_.setCovering(exec_.isCovering());
         opt_.setGettingErrors(exec_.isErrors());
         opt_.setFailIfNotAllInit(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests, new LgNamesUtils(_infos));
     }
 
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {

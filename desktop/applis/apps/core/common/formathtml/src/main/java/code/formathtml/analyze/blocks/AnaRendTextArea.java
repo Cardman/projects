@@ -55,7 +55,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
         if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -110,14 +110,14 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
-                        _page.getAliasCharSequence());
+                        _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }

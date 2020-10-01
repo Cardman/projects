@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.structs.*;
@@ -93,193 +94,193 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasActionEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasActionEvent();
         ActionEventStruct a_ = new ActionEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getActionListener(),r_.getActionPerformed(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionPerformed(),args_);
     }
 
     @Override
     public void run() {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        invoke(r_,r_.getRunnableType(),r_.getExecuteMethod(),args_);
+        invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getExecuteMethod(),args_);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseClicked(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseClicked(),args_);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMousePressed(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMousePressed(),args_);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseReleased(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseReleased(),args_);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseEntered(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseEntered(),args_);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseExited(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseExited(),args_);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseDragged(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseDragged(),args_);
    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasMouseEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getMouseListener(),r_.getMouseMoved(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseMoved(),args_);
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWheelEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWheelEvent();
         MouseWheelEventStruct a_ = new MouseWheelEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWheelListener(),r_.getWheelMove(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWheelListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWheelMove(),args_);
     }
     @Override
     public void windowOpened(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowOpened(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowOpened(),args_);
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowClosing(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowClosing(),args_);
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowClosed(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowClosed(),args_);
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowIconified(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowIconified(),args_);
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowDeiconified(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowDeiconified(),args_);
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowActivated(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowActivated(),args_);
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasWindowEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getWindowListener(),r_.getWindowDeactivated(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowDeactivated(),args_);
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        invoke(r_,r_.getListSelection(),r_.getValueChanged(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getListSelection(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getValueChanged(),args_);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasKeyEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getKeyListener(),r_.getKeyPressed(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyPressed(),args_);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasKeyEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getKeyListener(),r_.getKeyTyped(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyTyped(),args_);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getAliasKeyEvent();
+        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        invoke(r_,r_.getKeyListener(),r_.getKeyReleased(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyReleased(),args_);
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        invoke(r_,r_.getChangeListener(),r_.getStateChanged(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getChangeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getStateChanged(),args_);
     }
 
     @Override
@@ -293,14 +294,14 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         } else {
             args_.add(new Argument());
         }
-        invoke(r_,r_.getTreeListener(),r_.getTreeListenerValueChanged(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        invoke(r_,r_.getTableListener(),r_.getTableValueTableChanged(),args_);
+        invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableValueTableChanged(),args_);
     }
 
     private void invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {

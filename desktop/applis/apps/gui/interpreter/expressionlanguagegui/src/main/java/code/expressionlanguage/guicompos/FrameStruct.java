@@ -15,7 +15,7 @@ public final class FrameStruct extends WindowStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasFrame();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasFrame();
     }
 
     @Override

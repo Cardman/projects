@@ -11,23 +11,25 @@ public final class ShowUpdates implements Runnable {
     private Struct info;
     private RunnableContextEl ctx;
     private ProgressingTests progressingTests;
-    public ShowUpdates(Struct _info, RunnableContextEl _ctx, ProgressingTests _progressingTests) {
+    private LgNamesWithNewAliases evolved;
+    public ShowUpdates(Struct _info, RunnableContextEl _ctx, ProgressingTests _progressingTests,LgNamesWithNewAliases _evolved) {
         show.set(true);
         info = _info;
         ctx = _ctx;
         progressingTests = _progressingTests;
+        evolved = _evolved;
     }
     @Override
     public void run() {
-        String infoTest_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTest();
-        String infoTestDone_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTestDone();
-        String curMethodName_ = ((LgNamesUtils) ctx.getStandards()).getCustAliases().getAliasInfoTestCurrentMethod();
-        String infoTestCount_ = ((LgNamesUtils)ctx.getStandards()).getCustAliases().getAliasInfoTestCount();
+        String infoTest_ = evolved.getCustAliases().getAliasInfoTest();
+        String infoTestDone_ = evolved.getCustAliases().getAliasInfoTestDone();
+        String curMethodName_ = evolved.getCustAliases().getAliasInfoTestCurrentMethod();
+        String infoTestCount_ = evolved.getCustAliases().getAliasInfoTestCount();
         Struct doneBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct countBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct methodBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
         while (show.get()) {
-            progressingTests.updateInfos(ctx,info,doneBefore_,methodBefore_,countBefore_);
+            progressingTests.updateInfos(ctx,info,doneBefore_,methodBefore_,countBefore_, evolved);
             Struct count_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
             Struct done_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
             Struct method_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
@@ -35,7 +37,7 @@ public final class ShowUpdates implements Runnable {
             methodBefore_ = method_;
             countBefore_ = count_;
         }
-        progressingTests.finish(ctx,info);
+        progressingTests.finish(ctx,info, evolved);
     }
     public void stop() {
         show.set(false);

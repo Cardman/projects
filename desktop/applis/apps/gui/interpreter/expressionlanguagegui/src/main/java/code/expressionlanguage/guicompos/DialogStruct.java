@@ -42,6 +42,6 @@ public final class DialogStruct extends WindowStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui) _contextEl.getStandards()).getAliasDialog();
+        return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasDialog();
     }
 }

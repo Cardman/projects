@@ -32,7 +32,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     public void buildOther() {
-        super.buildOther();
+        getCustAliases().buildOther(getContent());
         guiAliases.buildOther(getContent(),getCustAliases());
     }
 
@@ -50,7 +50,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }
-        return super.getStringOfObject(_cont,_arg);
+        return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
     public Argument defaultInstance(ContextEl _cont, String _id) {
         Argument arg_ = getCustAliases().defaultInstance(_cont, _id);
@@ -65,7 +65,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        return guiAliases.getOtherResult(getCustAliases(),_cont,_instance,_method,_args);
+        return guiAliases.getOtherResult(getCustAliases(),_cont,_instance,_method, getExecutingBlocks(), guiExecutingBlocks, _args);
     }
 
     @Override
@@ -78,98 +78,6 @@ public class LgNamesGui extends LgNamesUtils {
     public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
         return new EventFunctionalInstance(_className,_functional,fs_, _contextEl);
-    }
-
-    public String getAliasActionEvent() {
-        return getGuiAliases().getAliasActionEvent();
-    }
-
-    public String getAliasTreeNode() {
-        return getGuiAliases().getAliasTreeNode();
-    }
-
-    public String getAliasFrame() {
-        return getGuiAliases().getAliasFrame();
-    }
-
-    public String getAliasDialog() {
-        return getGuiAliases().getAliasDialog();
-    }
-
-    public String getAliasPanel() {
-        return getGuiAliases().getAliasPanel();
-    }
-
-    public String getAliasFont() {
-        return getGuiAliases().getAliasFont();
-    }
-
-    public String getAliasDimension() {
-        return getGuiAliases().getAliasDimension();
-    }
-
-    public String getAliasImage() {
-        return getGuiAliases().getAliasImage();
-    }
-
-    public String getAliasColor() {
-        return getGuiAliases().getAliasColor();
-    }
-
-    public String getAliasPaint() {
-        return getGuiAliases().getAliasPaint();
-    }
-
-    public String getAliasScrollPane() {
-        return getGuiAliases().getAliasScrollPane();
-    }
-
-    public String getAliasWindow() {
-        return getGuiAliases().getAliasWindow();
-    }
-
-    public String getAliasWindowSet() {
-        return getGuiAliases().getAliasWindowSet();
-    }
-
-    public String getAliasMouseEvent() {
-        return getGuiAliases().getAliasMouseEvent();
-    }
-
-    public String getAliasWheelEvent() {
-        return getGuiAliases().getAliasWheelEvent();
-    }
-
-    public String getAliasKeyEvent() {
-        return getGuiAliases().getAliasKeyEvent();
-    }
-
-    public String getAliasWindowEvent() {
-        return getGuiAliases().getAliasWindowEvent();
-    }
-
-    public String getAliasRender() {
-        return getGuiAliases().getAliasRender();
-    }
-
-    public String getAliasButtonGroup() {
-        return getGuiAliases().getAliasButtonGroup();
-    }
-
-    public String getAliasMenuBar() {
-        return getGuiAliases().getAliasMenuBar();
-    }
-
-    public String getAliasMenu() {
-        return getGuiAliases().getAliasMenu();
-    }
-
-    public String getAliasMenuItem() {
-        return getGuiAliases().getAliasMenuItem();
-    }
-
-    public String getAliasMenuItemCheck() {
-        return getGuiAliases().getAliasMenuItemCheck();
     }
 
     public void otherAlias(String _lang, StringMap<String> _cust) {

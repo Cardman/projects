@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 
@@ -14,14 +15,15 @@ public final class AnalyzedTestConfiguration {
     private final Configuration configuration;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
-    private final BeanLgNames adv;
+    private final BeanCustLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
-    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanLgNames _standards) {
+    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.configuration = configuration;
         forwards = _forwards;
         adv= _standards;
+        analyzingDoc.setContent(adv);
         this.configuration.setContext(analyzing.getContext());
         this.analyzing = analyzing.getAnalyzing();
     }
@@ -40,10 +42,6 @@ public final class AnalyzedTestConfiguration {
 
     public AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    public LgNames getAnaStandards() {
-        return adv;
     }
 
     public String getAliasPrimLong() {
@@ -109,7 +107,7 @@ public final class AnalyzedTestConfiguration {
         return configuration.getNavigation();
     }
 
-    public BeanLgNames getAdvStandards() {
+    public BeanCustLgNames getAdvStandards() {
         return adv;
     }
 

@@ -47,10 +47,10 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
 
     public static void invokePaint(GuiContextEl _r, CustList<Argument> _args) {
         Argument arg_ = new Argument();
-        ExecRootBlock classBody_ = _r.getPaint();
-        ExecNamedFunctionBlock fct_ = _r.getPaintRefresh();
+        ExecRootBlock classBody_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPaint();
+        ExecNamedFunctionBlock fct_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPaintRefresh();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
-        RunnableStruct.invoke(arg_, stds_.getAliasPaint(), classBody_, fct_, _args, _r);
+        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), classBody_, fct_, _args, _r);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);

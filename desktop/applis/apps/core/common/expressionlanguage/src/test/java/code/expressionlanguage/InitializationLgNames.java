@@ -12,10 +12,7 @@ import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -66,7 +63,10 @@ public final class InitializationLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        _lgNames.build();
+        ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -80,7 +80,10 @@ public final class InitializationLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, _lgNames, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        _lgNames.build();
+        ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -102,7 +105,10 @@ public final class InitializationLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, _lgNames, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        _lgNames.build();
+        ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(out_,page_, new Forwards());
     }
@@ -438,7 +444,10 @@ public final class InitializationLgNames {
         }
         ClassesCommon com_ = new ClassesCommon();
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, _undefinedLgNames, _tabWidth, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options, com_, çcalculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, com_, çcalculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
+        _undefinedLgNames.build();
+        ValidatorStandard.setupOverrides(page_);
         return new AnalyzedTestContext(contextEl_,page_, new Forwards());
     }
 }

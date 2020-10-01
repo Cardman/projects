@@ -46,7 +46,7 @@ public abstract class AnaRendInput extends AnaRendElement {
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
@@ -118,14 +118,14 @@ public abstract class AnaRendInput extends AnaRendElement {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
-                        _page.getAliasCharSequence());
+                        _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }

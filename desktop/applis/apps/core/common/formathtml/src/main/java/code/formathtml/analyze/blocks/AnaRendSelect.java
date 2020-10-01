@@ -131,7 +131,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
         } else if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -212,14 +212,14 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
-                        _page.getAliasCharSequence());
+                        _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -241,14 +241,14 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterFieldValue.getResultClass());
-            m_.setParam(_page.getAliasCharSequence());
+            m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
-                        _page.getAliasCharSequence());
+                        _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
@@ -269,14 +269,14 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(rootDefault.getResultClass());
             if (!multiple) {
-                m_.setParam(_page.getAliasCharSequence());
+                m_.setParam(_anaDoc.getAliasCharSequence());
                 if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_cont.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(rootDefault.getResultClass().getNames(),AND_ERR),
-                            _page.getAliasCharSequence());
+                            _anaDoc.getAliasCharSequence());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else {

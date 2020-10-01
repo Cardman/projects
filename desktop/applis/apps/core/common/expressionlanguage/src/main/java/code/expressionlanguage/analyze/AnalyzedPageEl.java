@@ -266,10 +266,6 @@ public final class AnalyzedPageEl {
         return content.getPredefTypes().getAliasIterableTable();
     }
 
-    public String getAliasReplacement() {
-        return content.getCharSeq().getAliasReplacement();
-    }
-
     public String getAliasNullPe() {
         return content.getCoreNames().getAliasNullPe();
     }
@@ -305,12 +301,12 @@ public final class AnalyzedPageEl {
         return content.getNbAlias().getAliasNumber();
     }
 
-    public String getAliasCharSequence() {
-        return content.getCharSeq().getAliasCharSequence();
-    }
-
     public String getAliasStringBuilder() {
         return content.getCharSeq().getAliasStringBuilder();
+    }
+
+    public String getAliasReplacement() {
+        return content.getCharSeq().getAliasReplacement();
     }
 
     public String getAliasString() {

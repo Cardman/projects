@@ -11,10 +11,8 @@ import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.StringMap;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
-    protected static final String RUN = "Run";
     private CustAliases custAliases = new CustAliases();
 
     private FileInfos infos;
@@ -43,15 +41,15 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     public Argument defaultInstance(ContextEl _cont, String _id) {
         return custAliases.defaultInstance(_cont,_id);
     }
-    @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
-        return custAliases.getOtherResult(_cont,_method,_args);
-    }
 
     @Override
     protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
         return custAliases.instance(_cont, _method, _args);
+    }
+    @Override
+    public ResultErrorStd getOtherResult(ContextEl _cont,
+                                         ConstructorId _method, Struct... _args) {
+        return custAliases.getOtherResult(_cont,_method,_args);
     }
 
     protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
@@ -60,7 +58,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
-        return custAliases.getOtherResult(_cont,_instance,_method,_args);
+        return custAliases.getOtherResult(_cont,_instance,_method, executingBlocks, _args);
     }
 
     public FileInfos getInfos() {
@@ -74,13 +72,6 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(String _className,ExecRootBlock _rootBlock, LambdaStruct _functional,ContextEl _contextEl) {
         return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
-    }
-
-    public void otherAlias(String _lang, StringMap<String>_cust) {
-        custAliases.otherAlias(getContent(),_lang,_cust);
-    }
-    public void allAlias(StringMap<String> _util, StringMap<String> _cust) {
-        custAliases.allAlias(getContent(),_util,_cust);
     }
 
     public CustAliases getCustAliases() {

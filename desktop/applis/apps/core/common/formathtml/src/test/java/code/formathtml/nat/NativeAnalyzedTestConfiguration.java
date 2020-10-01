@@ -21,6 +21,7 @@ class NativeAnalyzedTestConfiguration {
         this.configuration = configuration;
         forwards = _forwards;
         adv= _standards;
+        analyzingDoc.setContent(adv);
         this.configuration.setContext(analyzing.getContext());
         this.analyzing = analyzing.getAnalyzing();
     }

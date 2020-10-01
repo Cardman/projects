@@ -388,6 +388,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setContent(this);
         _page.setForEachFetch(new NativeForEachFetch(this));
         _nav.initInstancesPattern(_page, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
@@ -455,7 +456,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, page_);
         _conf.setContext(contextEl_);
         return page_;
     }

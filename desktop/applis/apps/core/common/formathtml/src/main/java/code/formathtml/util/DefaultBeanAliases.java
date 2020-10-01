@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -482,13 +483,7 @@ public final class DefaultBeanAliases {
     }
 
     private static String getCandidate(String _var, CustList<String> allKeysWords_) {
-        String candidate_ = _var;
-        int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
-            index_++;
-        }
-        return candidate_;
+        return ValidatorStandard.tr(allKeysWords_,_var);
     }
     public void buildOther(LgNamesContent _content) {
         CustList<StandardField> fields_;

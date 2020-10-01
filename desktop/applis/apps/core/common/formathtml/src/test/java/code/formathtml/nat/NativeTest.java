@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.Configuration;
@@ -1363,7 +1364,10 @@ public final class NativeTest {
         ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, tabWidth_, com_);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt, com_, null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_, page_);
+        lgNames_.build();
+        ValidatorStandard.setupOverrides(page_);
         return new NativeAnalyzedTestContext(contextEl_, page_, new Forwards(), lgNames_);
     }
 

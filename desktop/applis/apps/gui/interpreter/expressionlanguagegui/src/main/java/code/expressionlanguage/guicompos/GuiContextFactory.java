@@ -43,8 +43,8 @@ public final class GuiContextFactory {
         GuiInitializer ci_ = new GuiInitializer();
         ClassesCommon com_ = new ClassesCommon();
         _definedLgNames.setExecutingOptions(_exec);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(ci_,_mainArgs,_window);
         GuiContextEl r_ = new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, _definedLgNames, new Classes(com_), new Coverage(_options.isCovering()), cl_, ci_));
-        r_.initApplicationParts(_mainArgs,_window);
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_, new AdvancedConstantsCalculator(_definedLgNames), new GuiFileBuilder(_definedLgNames.getContent(),_definedLgNames.getGuiAliases(),_definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsGuiContext(r_,reportedMessages_);
     }

@@ -12,7 +12,7 @@ public class RenderStruct extends WithoutParentIdStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesGui)_contextEl.getStandards()).getAliasRender();
+        return ((LgNamesGui)_contextEl.getStandards()).getGuiAliases().getAliasRender();
     }
 
 
