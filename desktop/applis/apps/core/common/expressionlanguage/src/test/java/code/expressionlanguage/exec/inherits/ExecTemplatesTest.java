@@ -32,6 +32,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     private static final String CUST_CLASS = "pkg.CustClass";
     private static final String ARR_ARR_CUST_CLASS = "[[pkg.CustClass";
+    private static final String ARR_ARR_ARR_CUST_CLASS = "[[[pkg.CustClass";
     private static final String ARR_CUST_CLASS = "[pkg.CustClass";
     @Test
     public void getParent1Test() {
@@ -208,6 +209,22 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = subInstance_[2];
         assertSame(NullStruct.NULL_VALUE,elt_);
+    }
+
+    @Test
+    public void newCustomArray4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustClass{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
+        Ints dims_ = new Ints(4,2,3);
+        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
+        assertEq(ARR_ARR_ARR_CUST_CLASS, customArray_.getClassName());
+        Struct[] instance_ = customArray_.getInstance();
+        assertEq(4, instance_.length);
     }
     @Test
     public void reflectFormat1Test() {

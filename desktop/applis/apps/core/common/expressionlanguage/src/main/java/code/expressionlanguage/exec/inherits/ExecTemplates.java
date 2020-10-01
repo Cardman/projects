@@ -37,9 +37,6 @@ public final class ExecTemplates {
     public static final String SUB_TYPE = "?";
     public static final String SUP_TYPE = "!";
 
-    public static final char LT = '<';
-
-    public static final char GT = '>';
     private static final String RETURN_LINE = "\n";
 
     private ExecTemplates(){
@@ -81,16 +78,17 @@ public final class ExecTemplates {
         Struct defClass_ = ExecClassArgumentMatching.defaultValue(_className, _cont);
         for (int i : _dims) {
             dims_.add(i);
-            glDim_--;
-            if (glDim_ == 0) {
+            int nextIndex_ = i_ + 1;
+            if (nextIndex_ >= glDim_) {
                 for (Ints k: dims_.getAllIndexes()) {
                     indexesArray_.put(k, defClass_);
                 }
                 continue;
             }
-            String formattedClass_ = StringExpUtil.getPrettyArrayType(_className, glDim_);
+            int curDim_ = _dims.get(nextIndex_);
+            String formattedClass_ = StringExpUtil.getPrettyArrayType(_className, glDim_-nextIndex_);
             for (Ints k: dims_.getAllIndexes()) {
-                Struct value_ = new ArrayStruct(_dims.get(i_ + 1), formattedClass_);
+                Struct value_ = new ArrayStruct(curDim_, formattedClass_);
                 indexesArray_.put(k, value_);
             }
             i_++;
