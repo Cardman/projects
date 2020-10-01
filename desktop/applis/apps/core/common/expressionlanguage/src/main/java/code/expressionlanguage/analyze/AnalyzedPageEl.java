@@ -200,9 +200,7 @@ public final class AnalyzedPageEl {
     public String getDefaultPkg() {
         return content.getDefaultPkg();
     }
-    public AliasReflection getReflect() {
-        return content.getReflect();
-    }
+
     public AliasMath getMathRef() {
         return content.getMathRef();
     }
@@ -236,7 +234,7 @@ public final class AnalyzedPageEl {
         return content.getPredefTypes().getAliasEnumValues();
     }
     public String getAliasLength() {
-        return content.getCharSeq().getAliasLength();
+        return content.getCoreNames().getAliasArrayLength();
     }
 
     public String getAliasAnnotationType() {

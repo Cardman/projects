@@ -323,6 +323,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNames("readNames");
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNamesLength("nbNames");
         _lgNames.getContent().getCoreNames().setAliasResources("$core.Resources");
+        _lgNames.getContent().getCoreNames().setAliasArrayLength("length");
         _lgNames.getContent().getPredefTypes().setAliasEnumValues("values");
         _lgNames.getContent().getReflect().setAliasInvokeTarget("$core.InvokeTarget");
         _lgNames.getContent().getCoreNames().setAliasGetCause("getCause");
@@ -634,6 +635,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNames("lireNoms");
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNamesLength("nbNoms");
         _lgNames.getContent().getCoreNames().setAliasResources("$coeur.Ressources");
+        _lgNames.getContent().getCoreNames().setAliasArrayLength("longueur");
         _lgNames.getContent().getPredefTypes().setAliasEnumValues("valeurs");
         _lgNames.getContent().getReflect().setAliasInvokeTarget("$coeur.InvoqueCible");
         _lgNames.getContent().getCoreNames().setAliasGetCause("valCause");

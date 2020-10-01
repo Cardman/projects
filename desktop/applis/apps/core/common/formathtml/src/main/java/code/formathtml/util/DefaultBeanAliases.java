@@ -174,7 +174,7 @@ public final class DefaultBeanAliases {
         String object_ = coreNames_.getAliasObject();
         String forms_ = getAliasForms();
         String boolean_ = _content.getPrimTypes().getAliasPrimBoolean();
-        String length_ = _content.getCharSeq().getAliasLength();
+        String length_ = _content.getCoreNames().getAliasArrayLength();
         file_.append(" ").append(private_).append(" ").append(string_).append(" ")
                 .append(language_).append(endLine_);
         file_.append(" ").append(private_).append(" ").append(string_).append(" ")

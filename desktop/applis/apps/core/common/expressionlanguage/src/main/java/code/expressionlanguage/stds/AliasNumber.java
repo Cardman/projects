@@ -508,7 +508,7 @@ public final class AliasNumber {
                 _res.setResult(new ByteStruct(Character.getDirectionality(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getReflect().getAliasGetType())) {
+            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(new IntStruct(Character.getType(one_)));
                 return;

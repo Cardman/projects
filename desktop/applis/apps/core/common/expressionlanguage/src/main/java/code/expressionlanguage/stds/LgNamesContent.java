@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -106,6 +107,7 @@ public final class LgNamesContent {
     private static final String IS_LETTER = "IsLetter";
     private static final String IS_NAN = "IsNan";
     private static final String LENGTH = "Length";
+    private static final String ARRAY_LENGTH = "ArrayLength";
     private static final String CHAR_AT = "CharAt";
     private static final String CLONE = "Clone";
     private static final String NAME = "Name";
@@ -491,6 +493,7 @@ public final class LgNamesContent {
         getCoreNames().setAliasReadResources(get(_util,_cust, READ_RESOURCES));
         getCoreNames().setAliasReadResourcesIndex(get(_util,_cust, READ_RESOURCES_INDEX));
         getCoreNames().setAliasResources(get(_util,_cust, RESOURCES));
+        getCoreNames().setAliasArrayLength(get(_util,_cust,ARRAY_LENGTH));
         getReflect().setAliasClassNotFoundError(get(_util,_cust, CLASS_NOT_FOUND_ERROR));
         getPredefTypes().setAliasEnumValues(get(_util,_cust, ENUM_VALUES));
         getPredefTypes().setAliasEnumPredValueOf(get(_util,_cust, ENUM_PRED_VALUE_OF));
@@ -1158,6 +1161,8 @@ public final class LgNamesContent {
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(StringExpUtil.getPrettyArrayType(getCoreNames().getAliasObject()), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ARRAY_LENGTH, getCoreNames().getAliasArrayLength())));
         map_.addEntry(getNbAlias().getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_PLUS_INFINITY, getNbAlias().getAliasPlusInfinityField()),
                 new KeyValueMemberName(FIELD_MINUS_INFINITY, getNbAlias().getAliasMinusInfinityField()),
@@ -1225,6 +1230,8 @@ public final class LgNamesContent {
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(StringExpUtil.getPrettyArrayType(getCoreNames().getAliasObject()), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CLONE, getCoreNames().getAliasClone())));
         map_.addEntry(getCoreNames().getAliasError(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CURRENT_STACK, getStackElt().getAliasCurrentStack()),
                 new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
@@ -1494,7 +1501,6 @@ public final class LgNamesContent {
                 new KeyValueMemberName(PARSE_INT,getNbAlias().getAliasParseInt()),
                 new KeyValueMemberName(PARSE_INT_OR_NULL,getNbAlias().getAliasParseIntOrNull()),
                 new KeyValueMemberName(SHORT_VALUE,getNbAlias().getAliasShortValue()),
-                new KeyValueMemberName(CHAR_AT, getCharSeq().getAliasCharAt()),
                 new KeyValueMemberName(CHAR_VALUE,getNbAlias().getAliasCharValue()),
                 new KeyValueMemberName(COMPARE,getNbAlias().getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getNbAlias().getAliasCompareTo()),
@@ -1510,8 +1516,6 @@ public final class LgNamesContent {
                 new KeyValueMemberName(IS_UPPER_CASE, getNbAlias().getAliasIsUpperCase()),
                 new KeyValueMemberName(IS_WHITESPACE,getNbAlias().getAliasIsWhitespace()),
                 new KeyValueMemberName(IS_WORD_CHAR,getNbAlias().getAliasIsWordChar()),
-                new KeyValueMemberName(LENGTH, getCharSeq().getAliasLength()),
-                new KeyValueMemberName(SUB_SEQUENCE, getCharSeq().getAliasSubSequence()),
                 new KeyValueMemberName(TO_LOWER_CASE_CHAR,getNbAlias().getAliasToLowerCaseChar()),
                 new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(TO_UPPER_CASE_CHAR,getNbAlias().getAliasToUpperCaseChar())));

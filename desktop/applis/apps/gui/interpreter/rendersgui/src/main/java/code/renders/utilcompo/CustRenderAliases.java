@@ -400,7 +400,7 @@ public final class CustRenderAliases {
         map_.put("{lengthLi}", aliasLengthLi);
         map_.put("{new}", new_);
         map_.put("{clone}", coreNames_.getAliasClone());
-        map_.put("{length}", _content.getCharSeq().getAliasLength());
+        map_.put("{length}", coreNames_.getAliasArrayLength());
         map_.put("{add}", aliasAddLi);
         map_.put("{iter}", iter_);
         map_.put("{value}", value_);

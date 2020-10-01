@@ -152,6 +152,7 @@ public final class DefaultInitialization {
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNames("readNames");
         _lgNames.getContent().getCoreNames().setAliasReadResourcesNamesLength("nbNames");
         _lgNames.getContent().getCoreNames().setAliasResources("java.lang.Resources");
+        _lgNames.getContent().getCoreNames().setAliasArrayLength("length");
         _lgNames.getContent().getPredefTypes().setAliasEnumValues("values");
         _lgNames.getContent().getReflect().setAliasInvokeTarget("java.lang.$invokeTaget");
         _lgNames.getContent().getCoreNames().setAliasGetCause("getCause");

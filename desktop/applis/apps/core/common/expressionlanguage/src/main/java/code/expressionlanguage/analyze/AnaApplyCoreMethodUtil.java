@@ -529,7 +529,7 @@ public final class AnaApplyCoreMethodUtil {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new ByteStruct(Character.getDirectionality(one_)));
                 }
-                if (StringList.quickEq(name_, _page.getReflect().getAliasGetType())) {
+                if (StringList.quickEq(name_, _page.getNbAlias().getAliasGetCharType())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new IntStruct(Character.getType(one_)));
                 }
@@ -895,7 +895,7 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringList.quickEq(name_, _page.getAliasLength())) {
+        if (StringList.quickEq(name_, _page.getCharSeq().getAliasLength())) {
             return new IntStruct(_charSequence.length());
         }
         if (StringList.quickEq(name_, _page.getCharSeq().getAliasIsEmpty())) {

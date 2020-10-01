@@ -43,6 +43,7 @@ public final class AliasCore {
     private String aliasReadResourcesIndex;
     private String aliasResources;
     private String aliasStringUtil;
+    private String aliasArrayLength;
     private AliasParamCore params = new AliasParamCore();
 
     public void build(LgNames _lgNames) {
@@ -443,6 +444,14 @@ public final class AliasCore {
 	public void setAliasResources(String _aliasResources) {
 		aliasResources = _aliasResources;
 	}
+
+    public String getAliasArrayLength() {
+        return aliasArrayLength;
+    }
+
+    public void setAliasArrayLength(String aliasArrayLength) {
+        this.aliasArrayLength = aliasArrayLength;
+    }
 
     public AliasParamCore getParams() {
         return params;

@@ -807,7 +807,7 @@ public final class CustAliases {
         map_.put("{lengthLi}", aliasLengthLi);
         map_.put("{new}", new_);
         map_.put("{clone}", coreNames_.getAliasClone());
-        map_.put("{length}", charSeq_.getAliasLength());
+        map_.put("{length}", coreNames_.getAliasArrayLength());
         map_.put("{add}", aliasAddLi);
         map_.put("{iter}", iter_);
         map_.put("{value}", value_);
@@ -1010,7 +1010,7 @@ public final class CustAliases {
         map_.put("{getAllClasses}",reflect_.getAliasGetAllClasses());
         map_.put("{getDeclaredMethods}",reflect_.getAliasGetDeclaredMethods());
         map_.put("{getAnnotations}",reflect_.getAliasGetAnnotations());
-        map_.put("{length}",charSeq_.getAliasLength());
+        map_.put("{length}",coreNames_.getAliasArrayLength());
         map_.put("{getMethodName}",reflect_.getAliasGetName());
         map_.put("{getClassName}",reflect_.getAliasGetName());
         map_.put("{getClass}",reflect_.getAliasGetClass());
