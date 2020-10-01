@@ -16,13 +16,13 @@ public final class ResourcesStruct {
         String cl_ = _contextEl.getStandards().getContent().getCharSeq().getAliasString();
 		cl_ = StringExpUtil.getPrettyArrayType(cl_);
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
-		Struct[] arr_ = new Struct[res_.size()];
+		ArrayStruct a_ = new ArrayStruct(res_.size(),cl_);
 		int i_ = 0;
 		for (String s: res_.getKeys()) {
-			arr_[i_] = new StringStruct(s);
+			a_.set(i_,new StringStruct(s));
 			i_++;
 		}
-		return new ArrayStruct(arr_, cl_);
+		return a_;
 	}
 	public static Struct getResourceNamesLength(AnalyzedPageEl _contextEl) {
 		StringMap<String> res_ = _contextEl.getResources();

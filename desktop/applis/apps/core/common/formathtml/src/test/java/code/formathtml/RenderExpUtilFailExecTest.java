@@ -243,10 +243,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = NullStruct.NULL_VALUE;
-        lv_.setStruct(new ArrayStruct(in_, ARR_INTEGER));
-        lv_.setClassName(ARR_INTEGER);
+        setValue(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -270,10 +267,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = NullStruct.NULL_VALUE;
-        lv_.setStruct(new ArrayStruct(in_, ARR_INTEGER));
-        lv_.setClassName(ARR_INTEGER);
+        setValue(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -289,6 +283,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         calculate(all_, context_);
 
         assertEq(getAliasNullPe(context_), getClassName(context_));
+    }
+
+    private static void setValue(LocalVariable lv_) {
+        ArrayStruct array_ = new ArrayStruct(1, ARR_INTEGER);
+        array_.set(0,NullStruct.NULL_VALUE);
+        lv_.setStruct(array_);
+        lv_.setClassName(ARR_INTEGER);
     }
 
     @Test
@@ -2264,9 +2265,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] exp_ = new Struct[1];
-        exp_[0] = NullStruct.NULL_VALUE;
-        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(stringType_)));
+        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(stringType_));
+        array_.set(0,NullStruct.NULL_VALUE);
+        lv_.setStruct(array_);
         lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasObject()));
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
@@ -2285,9 +2286,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] exp_ = new Struct[1];
-        exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
+        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(primIntType_));
+        array_.set(0,new IntStruct(0));
+        lv_.setStruct(array_);
         lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);

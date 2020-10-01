@@ -3,7 +3,6 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.expressionlanguage.stds.LgNames;
 
 public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
 
@@ -33,8 +32,7 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        LgNames stds_ = _an.getStandards();
-        return getDisplayedString(stds_.getDisplayedStrings());
+        return getDisplayedString(_an.getStandards().getDisplayedStrings());
     }
 
     private StringStruct getDisplayedString(DisplayedStrings _displayedStrings) {

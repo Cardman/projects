@@ -3219,9 +3219,9 @@ public final class GuiAliases {
             if (StringList.quickEq(name_, aliasGetWindowListeners)) {
                 WindowListener[] listeners_ = inst_.getWindowListeners();
                 int len_ = listeners_.length;
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(aliasWindowListener));
+                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasWindowListener));
                 for (int i = 0; i< len_; i++) {
-                    arr_.getInstance()[i] = (Struct)listeners_[i];
+                    arr_.set(i, (Struct)listeners_[i]);
                 }
                 res_.setResult(arr_);
                 return res_;
@@ -3362,11 +3362,11 @@ public final class GuiAliases {
             String typeStr_ = _cont.getStandards().getContent().getCharSeq().getAliasString();
             typeStr_ = StringExpUtil.getPrettyArrayType(typeStr_);
             int len_ = mainArgs_.size();
-            Struct[] struct_ = new Struct[len_];
+            ArrayStruct result_ = new ArrayStruct(len_, typeStr_);
             for (int i = 0; i < len_; i++) {
-                struct_[i] = new StringStruct(mainArgs_.get(i));
+                result_.set(i, new StringStruct(mainArgs_.get(i)));
             }
-            res_.setResult(new ArrayStruct(struct_,typeStr_));
+            res_.setResult(result_);
             return res_;
         }
         if (StringList.quickEq(type_, aliasDialog)) {

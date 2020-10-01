@@ -743,13 +743,13 @@ public final class ExecutingUtil {
 
     public static ArrayStruct newStackTraceElementArray(ContextEl _cont) {
         int count_ = _cont.nbPages();
-        Struct[] arr_ = new Struct[count_];
-        for (int i = 0; i < count_; i++) {
-            arr_[i] = newStackTraceElement(_cont,i);
-        }
         String cl_ = _cont.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
-        return new ArrayStruct(arr_, cl_);
+        ArrayStruct array_ = new ArrayStruct(count_, cl_);
+        for (int i = 0; i < count_; i++) {
+            array_.set(i, newStackTraceElement(_cont,i));
+        }
+        return array_;
     }
 
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index) {

@@ -2008,9 +2008,31 @@ public final class NumParsers {
 
     public static void setElements(ArrayStruct _arr,CustList<Struct> _args) {
         int len_ = _args.size();
-        Struct[] arr_ = _arr.getInstance();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            arr_[i] = _args.get(i);
+            _arr.set(i,_args.get(i));
         }
+    }
+
+    public static Replacement getReplacement(Struct[] _args) {
+        Replacement rep_ = new Replacement();
+        if (_args[0] instanceof CharSequenceStruct) {
+            rep_.setOldString(getCharSeq(_args[0]).toStringInstance());
+        }
+        if (_args[1] instanceof CharSequenceStruct) {
+            rep_.setNewString(getCharSeq(_args[1]).toStringInstance());
+        }
+        return rep_;
+    }
+
+    public static Struct isEmpty(CharSequenceStruct _inst) {
+        return BooleanStruct.of(_inst.length() == 0);
+    }
+
+    public static boolean isInvalidIndex(int ind_, CharSequenceStruct _inst) {
+        return ind_ < 0 || ind_ >= _inst.length();
+    }
+
+    public static boolean isIncorrectSub(int begin_, int end_, CharSequenceStruct _inst) {
+        return begin_ < 0 || end_ > _inst.length() || begin_ > end_;
     }
 }

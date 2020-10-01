@@ -132,15 +132,15 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
         }
         ArrayStruct x_ = (ArrayStruct) xPoints;
         ArrayStruct y_ = (ArrayStruct) yPoints;
-        if (x_.getInstance().length != y_.getInstance().length) {
+        if (x_.getLength() != y_.getLength()) {
             return;
         }
-        int len_ = x_.getInstance().length;
+        int len_ = x_.getLength();
         int[] xs_ = new int[len_];
         int[] ys_ = new int[len_];
         for (int i = 0; i < len_; i++) {
-            xs_[i] = ((NumberStruct)x_.getInstance()[i]).intStruct();
-            ys_[i] = ((NumberStruct)y_.getInstance()[i]).intStruct();
+            xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
+            ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
         }
         graphics.drawPolygon(xs_, ys_, len_);
     }
@@ -154,15 +154,15 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
         }
         ArrayStruct x_ = (ArrayStruct) xPoints;
         ArrayStruct y_ = (ArrayStruct) yPoints;
-        if (x_.getInstance().length != y_.getInstance().length) {
+        if (x_.getLength() != y_.getLength()) {
             return;
         }
-        int len_ = x_.getInstance().length;
+        int len_ = x_.getLength();
         int[] xs_ = new int[len_];
         int[] ys_ = new int[len_];
         for (int i = 0; i < len_; i++) {
-            xs_[i] = ((NumberStruct)x_.getInstance()[i]).intStruct();
-            ys_[i] = ((NumberStruct)y_.getInstance()[i]).intStruct();
+            xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
+            ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
         }
         graphics.fillPolygon(xs_, ys_, len_);
     }

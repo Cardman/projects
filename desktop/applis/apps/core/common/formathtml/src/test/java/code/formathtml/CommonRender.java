@@ -66,15 +66,11 @@ public abstract class CommonRender {
         return nav_;
     }
 
-    protected static Navigation newNavigation(AnalyzedTestConfiguration _conf) {
-        Navigation nav_ = new Navigation();
-        nav_.setSession(_conf.getConfiguration());
-        ContextEl context_ = _conf.getContext();
-        setStack(nav_.getSession(), context_);
-        return nav_;
+    private static void setStack(Configuration conf_1, ContextEl cont_) {
+        cont_.setFullStack(new AdvancedFullStack(conf_1));
     }
 
-    public static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
+    protected static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
         //
 
         String globalClass_ = _analyzing.getGlobalClass();
@@ -93,11 +89,11 @@ public abstract class CommonRender {
         }
     }
 
-    public static void setVars(ImportingPage _importingPage, StringMap<LoopVariable> _vars) {
+    protected static void setVars(ImportingPage _importingPage, StringMap<LoopVariable> _vars) {
         _importingPage.getPageEl().setVars(_vars);
     }
 
-    public static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
+    protected static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
         _importingPage.getPageEl().getValueVars().putAllMap(_localVars);
     }
 
@@ -113,7 +109,7 @@ public abstract class CommonRender {
         AnalyzingDoc.setupInts(page_, _analyzingDoc);
     }
 
-    protected static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
+    private static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = context_.getAnalyzing();
         Configuration conf_ = context_.getConfiguration();
         setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_);
@@ -168,12 +164,8 @@ public abstract class CommonRender {
         return null;
     }
 
-    protected static void setFiles(StringMap<String> files_, Configuration conf_) {
+    private static void setFiles(StringMap<String> files_, Configuration conf_) {
         conf_.setFiles(files_);
-    }
-
-    protected static void setFiles(StringMap<String> files_, AnalyzedTestConfiguration conf_) {
-        conf_.getConfiguration().setFiles(files_);
     }
 
     protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
@@ -622,10 +614,6 @@ public abstract class CommonRender {
             i_++;
         }
         return ops2_;
-    }
-
-    private static void setStack(Configuration conf_1, ContextEl cont_) {
-        cont_.setFullStack(new AdvancedFullStack(conf_1));
     }
 
     private static void setStack(AnalyzedTestConfiguration cont_) {
@@ -1297,17 +1285,9 @@ public abstract class CommonRender {
         return getException(conf_);
     }
 
-    protected static void analyzeInner(Configuration conf_, AnalyzedTestConfiguration a_, String... _html) {
+    private static void analyzeInner(Configuration conf_, AnalyzedTestConfiguration a_, String... _html) {
         StringMap<AnaRendDocumentBlock> d_ = analyze(conf_, a_, a_.getAnalyzingDoc(), _html);
         a_.setAnalyzed(d_);
-//        putRenders(conf_, a_, d_);
-    }
-
-    private static void putRenders(Configuration conf_, AnalyzedTestConfiguration a_, StringMap<AnaRendDocumentBlock> d_) {
-        for (EntryCust<String,AnaRendDocumentBlock> v: d_.entryList()) {
-            RendDocumentBlock rendDoc_ = RendForwardInfos.build(v.getValue(), a_.getConfiguration(), a_.getForwards());
-            conf_.getRenders().put(v.getKey(), rendDoc_);
-        }
     }
 
     private static StringMap<AnaRendDocumentBlock> analyze(Configuration conf_, AnalyzedTestConfiguration a_, AnalyzingDoc analyzingDoc_, String... _html) {
@@ -1404,12 +1384,12 @@ public abstract class CommonRender {
         return !isEmptyErrors(a_);
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Forwards _forwards) {
+    private static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Forwards _forwards) {
         OperationNode root_ = _list.last();
         return RendForwardInfos.getExecutableNodes(root_, _forwards);
     }
 
-    public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
+    protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         RendDynOperationNode current_ = _root;
         while (current_ != null) {

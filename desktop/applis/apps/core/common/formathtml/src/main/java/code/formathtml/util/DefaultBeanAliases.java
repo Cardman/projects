@@ -612,18 +612,18 @@ public final class DefaultBeanAliases {
             StringList resArgs_ = instance_.getArgs();
             String arrStr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString());
             int len_ = resArgs_.size();
-            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
+            ArrayStruct arr_ = new ArrayStruct(len_,arrStr_);
             for (int i = 0; i < len_; i++){
-                arr_.getInstance()[i] = BeanLgNames.wrapStd(resArgs_.get(i));
+                arr_.set(i, BeanLgNames.wrapStd(resArgs_.get(i)));
             }
             res_.setResult(arr_);
             return res_;
         }
-        Struct[] argsInst_ = ExecArrayFieldOperation.getArray(_args[0],_cont).getInstance();
-        int len_ = argsInst_.length;
+        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_args[0], _cont);
+        int len_ = array_.getLength();
         String[] resArgs_ = new String[len_];
         for (int i = 0; i < len_; i++){
-            Struct argInst_ = argsInst_[i];
+            Struct argInst_ = array_.get(i);
             if (argInst_ instanceof StringStruct) {
                 resArgs_[i] = ((StringStruct)argInst_).getInstance();
             } else {

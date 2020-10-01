@@ -348,11 +348,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl68Test() {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] ints_ = new Struct[2];
-        ints_[0] = new IntStruct(0);
-        ints_[1] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(ints_,ARR_INT));
-        lv_.setClassName(ARR_INT);
+        setValues(lv_, 0, 0, ARR_INT);
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
@@ -364,17 +360,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl69Test() {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] ints_ = new Struct[2];
-        Struct[] elt_ = new Struct[2];
-        elt_[0] = new IntStruct(0);
-        elt_[1] = new IntStruct(0);
-        ints_[0] = new ArrayStruct(elt_, ARR_INT);
-        elt_ = new Struct[2];
-        elt_[0] = new IntStruct(0);
-        elt_[1] = new IntStruct(0);
-        ints_[1] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(ints_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        setPairs(lv_);
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
@@ -440,10 +426,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] i_ = new Struct[1];
-        i_[0] = new IntStruct(8);
-        lv_.setStruct(new ArrayStruct(i_,ARR_INT));
-        lv_.setClassName(ARR_INT);
+        setValue(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument arg_ = calc("$static($math).abs(v[0i]+2)*2", context_);
@@ -455,10 +438,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] i_ = new Struct[1];
-        i_[0] = new IntStruct(8);
-        lv_.setStruct(new ArrayStruct(i_,ARR_INT));
-        lv_.setClassName(ARR_INT);
+        setValue(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument arg_ = calc("(v[0i]+2)*2", context_);
@@ -3167,10 +3147,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] i_ = new Struct[1];
-        i_[0] = new IntStruct(8);
-        lv_.setStruct(new ArrayStruct(i_,ARR_INT));
-        lv_.setClassName(ARR_INT);
+        setValue(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument arg_ = calc("v.clone()", context_);
@@ -3178,6 +3155,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(1, arr_.getInstance().length);
         assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
     }
+
+    private static void setValue(LocalVariable lv_, int _value, String _arrInt) {
+        setValue2(lv_, _value, _arrInt);
+    }
+
     @Test
     public void processEl377Test() {
         StringBuilder xml_;
@@ -4937,10 +4919,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(in_, ARR_INT));
-        lv_.setClassName(ARR_INT);
+        setValue(lv_, 0, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("v[0i]=12i", context_);
@@ -4952,13 +4931,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("v[0i][0i]=12i", context_);
@@ -4996,14 +4969,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(in_, ARR_INT));
-        lv_.setClassName(ARR_INT);
+        ArrayStruct in_ = setValue2(lv_, 0, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("v[0i]-=12i", context_);
-        assertEq(-12, ((NumberStruct) in_[0]).intStruct());
+        assertEq(-12, ((NumberStruct) in_.get(0)).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
@@ -5012,17 +4982,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("v[0i][0i]-=12i", context_);
-        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
@@ -5031,36 +4995,25 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("v[0i][0i]++", context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
+
     @Test
     public void processAffect10Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("v[0i][0i]--", context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
     @Test
@@ -5069,17 +5022,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("++v[0i][0i]", context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(1, getNumber(res_));
     }
     @Test
@@ -5088,17 +5035,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         Argument res_ = calc("--v[0i][0i]", context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(-1, getNumber(res_));
     }
     @Test
@@ -5164,10 +5105,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] arr_ = new Struct[1];
-        arr_[0] = new StringStruct("add ");
         String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAliasString());
-        lv_.setStruct(new ArrayStruct(arr_, arrayType_));
+        ArrayStruct array_ = new ArrayStruct(1, arrayType_);
+        array_.set(0, new StringStruct("add "));
+        lv_.setStruct(array_);
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
@@ -5274,17 +5215,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(0);
-        Struct[] elt_ = new Struct[1];
-        elt_[0] = new IntStruct(0);
-        in_[0] = new ArrayStruct(elt_, ARR_INT);
-        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
-        lv_.setClassName(ARR_ARR_INT);
+        ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         calc("(v[0i][0i])=12i", context_);
-        assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        assertEq(12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
     }
 
     @Test
@@ -5399,10 +5334,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(5);
-        lv_.setStruct(new ArrayStruct(in_, ARR_INT));
-        lv_.setClassName(ARR_INT);
+        ArrayStruct in_ = setValue2(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5416,7 +5348,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_[0]).intStruct());
+        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
         assertEq(5, getNumber(arg_));
     }
     @Test
@@ -5425,10 +5357,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(5);
-        lv_.setStruct(new ArrayStruct(in_, ARR_INT));
-        lv_.setClassName(ARR_INT);
+        ArrayStruct in_ = setValue2(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5442,7 +5371,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_[0]).intStruct());
+        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
         assertEq(6, getNumber(arg_));
     }
     @Test
@@ -5475,10 +5404,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct[] in_ = new Struct[1];
-        in_[0] = new IntStruct(5);
-        lv_.setStruct(new ArrayStruct(in_, ARR_INT));
-        lv_.setClassName(ARR_INT);
+        ArrayStruct in_ = setValue2(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         setupAnalyzing(context_);
@@ -5492,7 +5418,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
-        assertEq(8, ((NumberStruct) in_[0]).intStruct());
+        assertEq(8, ((NumberStruct) in_.get(0)).intStruct());
         assertEq(8, getNumber(arg_));
     }
     @Test
@@ -5893,6 +5819,47 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, a_.getAnalyzing().getOptions());
         return a_;
     }
+
+    private static void setPairs(LocalVariable lv_) {
+        ArrayStruct arrArr_ = new ArrayStruct(2, ARR_ARR_INT);
+        ArrayStruct first_ = new ArrayStruct(2, ARR_INT);
+        first_.set(0,new IntStruct(0));
+        first_.set(1,new IntStruct(0));
+        arrArr_.set(0, first_);
+        ArrayStruct sec_ = new ArrayStruct(2, ARR_INT);
+        sec_.set(0,new IntStruct(0));
+        sec_.set(1,new IntStruct(0));
+        arrArr_.set(1, sec_);
+        lv_.setStruct(arrArr_);
+        lv_.setClassName(ARR_ARR_INT);
+    }
+
+    private static ArrayStruct setValue2(LocalVariable lv_, int _value, String _arrInt) {
+        ArrayStruct arr_ = new ArrayStruct(1, _arrInt);
+        arr_.set(0,new IntStruct(_value));
+        lv_.setStruct(arr_);
+        lv_.setClassName(_arrInt);
+        return arr_;
+    }
+
+    private static ArrayStruct setArrays(LocalVariable lv_) {
+        ArrayStruct arrArr_ = new ArrayStruct(1, ARR_ARR_INT);
+        ArrayStruct arr_ = new ArrayStruct(1, ARR_INT);
+        arr_.set(0, new IntStruct(0));
+        arrArr_.set(0, arr_);
+        lv_.setStruct(arrArr_);
+        lv_.setClassName(ARR_ARR_INT);
+        return arrArr_;
+    }
+
+    private static void setValues(LocalVariable lv_, int _one, int _two, String _arrInt) {
+        ArrayStruct arr_ = new ArrayStruct(2, _arrInt);
+        arr_.set(0,new IntStruct(_one));
+        arr_.set(1,new IntStruct(_two));
+        lv_.setStruct(arr_);
+        lv_.setClassName(_arrInt);
+    }
+
 
     private static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();

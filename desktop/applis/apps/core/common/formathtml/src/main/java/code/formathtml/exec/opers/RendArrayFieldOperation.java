@@ -22,7 +22,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         Struct inst_ = _previous.getStruct();
         if (inst_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) inst_;
-            return new Argument(new IntStruct(arr_.getInstance().length));
+            return new Argument(new IntStruct(arr_.getLength()));
         }
         ContextEl _context = _conf.getContext();
         String npe_;

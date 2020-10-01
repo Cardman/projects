@@ -23,11 +23,10 @@ public final class ZipBinStructUtil {
         if (!(_byteArray instanceof ArrayStruct)) {
             return NullStruct.NULL_VALUE;
         }
-        Struct[] data_ = ((ArrayStruct)_byteArray).getInstance();
-        int len_ = data_.length;
+        int len_ = ((ArrayStruct)_byteArray).getLength();
         byte[] bytes_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            bytes_[i] = ((ByteStruct)data_[i]).byteStruct();
+            bytes_[i] = ((ByteStruct)((ArrayStruct)_byteArray).get(i)).byteStruct();
         }
 
         CustList<EntryBinaryStruct> filesMap_ = getEntryBinaryStructs(bytes_, _ctx);
@@ -37,10 +36,10 @@ public final class ZipBinStructUtil {
 
         String arr_ = ((LgNamesWithNewAliases)_ctx.getStandards()).getCustAliases().getAliasEntryBinary();
         arr_ = StringExpUtil.getPrettyArrayType(arr_);
-        ArrayStruct files_ = new ArrayStruct(new Struct[filesMap_.size()],arr_);
+        ArrayStruct files_ = new ArrayStruct(filesMap_.size(),arr_);
         int i_ = 0;
         for (EntryBinaryStruct entry_ :filesMap_) {
-            files_.getInstance()[i_] = entry_;
+            files_.set(i_, entry_);
             i_++;
         }
         return files_;
@@ -59,7 +58,7 @@ public final class ZipBinStructUtil {
                     break;
                 }
                 if (e_.isDirectory()) {
-                    ArrayStruct bs_ = new ArrayStruct(new Struct[0],cont_);
+                    ArrayStruct bs_ = new ArrayStruct(0,cont_);
                     filesMap_.add(new EntryBinaryStruct(new StringStruct(e_.getName()),bs_));
                     zis_.closeEntry();
                     continue;
@@ -70,9 +69,9 @@ public final class ZipBinStructUtil {
                 while (i < lengthFile_) {
                     i += zis_.read(bytesFile_, i, lengthFile_ - i);
                 }
-                ArrayStruct bs_ = new ArrayStruct(new Struct[lengthFile_],cont_);
+                ArrayStruct bs_ = new ArrayStruct(lengthFile_,cont_);
                 for (int j = 0; j < lengthFile_; j++) {
-                    bs_.getInstance()[j] = new ByteStruct(bytesFile_[j]);
+                    bs_.set(j, new ByteStruct(bytesFile_[j]));
                 }
                 filesMap_.add(new EntryBinaryStruct(new StringStruct(e_.getName()),bs_));
                 zis_.closeEntry();
@@ -92,9 +91,9 @@ public final class ZipBinStructUtil {
         int lengthFile_ = exp_.length;
         String cont_ = _ctx.getStandards().getContent().getPrimTypes().getAliasPrimByte();
         cont_ = StringExpUtil.getPrettyArrayType(cont_);
-        ArrayStruct bs_ = new ArrayStruct(new Struct[lengthFile_],cont_);
+        ArrayStruct bs_ = new ArrayStruct(lengthFile_,cont_);
         for (int j = 0; j < lengthFile_; j++) {
-            bs_.getInstance()[j] = new ByteStruct(exp_[j]);
+            bs_.set(j, new ByteStruct(exp_[j]));
         }
         return bs_;
     }
@@ -111,11 +110,10 @@ public final class ZipBinStructUtil {
                     EntryBinaryStruct e_ = (EntryBinaryStruct)s;
                     ZipEntry ze_ = new ZipEntry(e_.getName().getInstance());
                     zos_.putNextEntry(ze_);
-                    Struct[] as_ = e_.getBinary().getInstance();
-                    int len_ = as_.length;
+                    int len_ = e_.getBinary().getLength();
                     byte[] file_ = new byte[len_];
                     for (int i = 0; i < len_; i++) {
-                        Struct byte_ = as_[i];
+                        Struct byte_ = e_.getBinary().get(i);
                         if (!(byte_ instanceof ByteStruct)) {
                             continue;
                         }

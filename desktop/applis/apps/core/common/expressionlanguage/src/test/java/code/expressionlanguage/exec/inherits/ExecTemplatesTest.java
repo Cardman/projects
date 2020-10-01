@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -483,9 +484,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = new IntStruct(0);
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        ArrayStruct arr_ = new ArrayStruct(1,"[$int");
+        arr_.set(0,new IntStruct(0));
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ExecTemplates.setCheckedElements(args_,arr_,cont_);
@@ -496,9 +496,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("$int"),true);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = NullStruct.NULL_VALUE;
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        ArrayStruct arr_ = defaultArray1(NullStruct.NULL_VALUE, "[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
@@ -509,9 +507,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = new StringStruct("");
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
@@ -522,12 +518,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = new StringStruct("");
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = new ArrayStruct(1,"[java.lang.Number");
+        arr_.set(0,new StringStruct(""));
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        arr_ = new ArrayStruct(1,"[java.lang.Number");
+        arr_.set(0,new StringStruct(""));
         args_.add(new Argument(arr_));
         assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
         assertNotNull(getException(cont_));
@@ -537,9 +533,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = new StringStruct("");
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
@@ -594,9 +588,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = new StringStruct("");
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        ArrayStruct arr_ = defaultArray2("[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
@@ -646,32 +638,24 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void getErrorWhenContain1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = NullStruct.NULL_VALUE;
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray();
         assertSame(ErrorType.NPE, ExecTemplates.getErrorWhenContain(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_));
     }
     @Test
     public void getErrorWhenContain2Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = NullStruct.NULL_VALUE;
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray();
         assertSame(ErrorType.CAST, ExecTemplates.getErrorWhenContain(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_));
     }
     @Test
     public void getErrorWhenIndex1Test() {
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = NullStruct.NULL_VALUE;
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray();
         assertSame(ErrorType.NPE, ExecTemplates.getErrorWhenIndex(arr_, NullStruct.NULL_VALUE));
     }
     @Test
     public void getErrorWhenIndex2Test() {
-        Struct[] instance_ = new Struct[1];
-        instance_[0] = NullStruct.NULL_VALUE;
-        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        ArrayStruct arr_ = defaultArray();
         assertSame(ErrorType.CAST, ExecTemplates.getErrorWhenIndex(arr_, new StringStruct("")));
     }
     @Test
@@ -869,21 +853,27 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void trySet1() {
-        Struct[] arr_ = new Struct[1];
-        ExecTemplates.trySet(arr_,-1,NullStruct.NULL_VALUE);
-        assertNull(arr_[0]);
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = validated(files_);
+        ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
+        ExecTemplates.trySet(str_,-1,NullStruct.NULL_VALUE);
+        assertNull(str_.get(0));
     }
     @Test
     public void trySet2() {
-        Struct[] arr_ = new Struct[1];
-        ExecTemplates.trySet(arr_,1,NullStruct.NULL_VALUE);
-        assertNull(arr_[0]);
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = validated(files_);
+        ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
+        ExecTemplates.trySet(str_,1,NullStruct.NULL_VALUE);
+        assertNull(str_.get(0));
     }
     @Test
     public void trySet3() {
-        Struct[] arr_ = new Struct[1];
-        ExecTemplates.trySet(arr_,0,NullStruct.NULL_VALUE);
-        assertNotNull(arr_[0]);
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = validated(files_);
+        ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
+        ExecTemplates.trySet(str_,0,NullStruct.NULL_VALUE);
+        assertNotNull(str_.get(0));
     }
     @Test
     public void wrapAndCall() {
@@ -1014,6 +1004,28 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.processBlockAndRemove(cont_,null);
         assertNull(instancingClass_.getReadWrite());
     }
+
+    private static ArrayStruct defaultArray() {
+        ArrayStruct array_ = new ArrayStruct(1, "[java.lang.Number");
+        array_.set(0, NullStruct.NULL_VALUE);
+        return array_;
+    }
+
+    private static ArrayStruct defaultArray1(NullStruct _value, String _className) {
+        return defaultArr(_value, _className);
+    }
+
+    private static ArrayStruct defaultArray2(String s) {
+        return defaultArr(new StringStruct(""),s);
+    }
+
+    private static ArrayStruct defaultArr(Struct _value, String _className) {
+        ArrayStruct array_ = new ArrayStruct(1, _className);
+        array_.set(0,_value);
+        return array_;
+    }
+
+
     @Test
     public void hasToLookForParent() {
         StringMap<String> files_ = new StringMap<String>();

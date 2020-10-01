@@ -8,21 +8,18 @@ public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
 
     private final String className;
 
-    public ArrayStruct(Struct[] _instance, String _className) {
-        instance = _instance;
+    public ArrayStruct(int _len, String _className) {
+        instance = new Struct[_len];
         className = _className;
     }
 
     public ArrayStruct swallowCopy() {
-        int len_ = instance.length;
-        Struct[] inst_ = new Struct[len_];
+        int len_ = getLength();
+        ArrayStruct copy_ = new ArrayStruct(len_, className);
         for (int i = 0; i < len_; i++) {
-            set(i,inst_,instance);
+            copy_.set(i,get(i));
         }
-        return new ArrayStruct(inst_,className);
-    }
-    private static void set(int _i, Struct[] _dest, Struct[] _orig) {
-        _dest[_i] = _orig[_i];
+        return copy_;
     }
 
     @Override
@@ -34,6 +31,15 @@ public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
         return className;
     }
 
+    public int getLength() {
+        return instance.length;
+    }
+    public Struct get(int _i) {
+        return instance[_i];
+    }
+    public void set(int _i, Struct _str) {
+        instance[_i]=_str;
+    }
     public Struct[] getInstance() {
         return instance;
     }

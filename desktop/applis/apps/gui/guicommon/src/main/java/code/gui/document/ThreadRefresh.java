@@ -16,27 +16,12 @@ public final class ThreadRefresh implements Runnable {
 
     private RenderedPage page;
 
-    private String anchor;
-
-    private String fileName;
-
-    private boolean usedFirstUrl;
-
     private BeanNatLgNames stds;
 
-    private boolean refresh;
-
-    private boolean form;
-
-    ThreadRefresh(RenderedPage _page, BeanNatLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
+    ThreadRefresh(RenderedPage _page, BeanNatLgNames _lgNames) {
         page = _page;
         page.start();
         stds = _lgNames;
-        anchor = _anchor;
-        form = _form;
-        refresh = _refresh;
-        fileName = _fileName;
-        usedFirstUrl = _usedFirstUrl;
     }
 
     @Override
@@ -53,7 +38,7 @@ public final class ThreadRefresh implements Runnable {
                 Struct exception_ = (Struct) exc_;
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
-                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_.getContext(),fullStack_.getInstance()));
+                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_.getContext(), fullStack_));
                 } else {
                     context_.setException(null);
                     String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);

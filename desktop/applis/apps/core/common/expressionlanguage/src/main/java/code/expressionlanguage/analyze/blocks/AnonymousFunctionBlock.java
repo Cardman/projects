@@ -3,13 +3,11 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.common.GeneCustStaticMethod;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 

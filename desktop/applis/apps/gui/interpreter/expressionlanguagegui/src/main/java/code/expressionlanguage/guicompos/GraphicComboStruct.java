@@ -102,11 +102,11 @@ public final class GraphicComboStruct extends InputStruct {
         int selectedIndex_ = graphicCombo.getSelectedIndex();
         String arrInt_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         if (selectedIndex_ == -1) {
-            return new ArrayStruct(new Struct[0], arrInt_);
+            return new ArrayStruct(0, arrInt_);
         }
-        Struct[] arr_ = new Struct[1];
-        arr_[0] = new IntStruct(selectedIndex_);
-        return new ArrayStruct(arr_, arrInt_);
+        ArrayStruct arrInst_ = new ArrayStruct(1, arrInt_);
+        arrInst_.set(0,new IntStruct(selectedIndex_));
+        return arrInst_;
     }
     public IntStruct getSelectedIndex() {
         int selectedIndex_ = graphicCombo.getSelectedIndex();

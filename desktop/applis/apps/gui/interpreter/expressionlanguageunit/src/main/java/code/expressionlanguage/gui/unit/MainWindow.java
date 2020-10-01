@@ -206,7 +206,7 @@ public final class MainWindow extends GroupFrame {
             String aliasFailMessage_ = stds_.getCustAliases().getAliasResultFailMessage();
             String aliasParams_ = stds_.getCustAliases().getAliasResultParams();
             int i =0;
-            resultsTable.setRowCount(((ArrayStruct)array_).getInstance().length);
+            resultsTable.setRowCount(((ArrayStruct)array_).getLength());
             for (Struct t: ((ArrayStruct)array_).getInstance()) {
                 Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getStruct();
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();

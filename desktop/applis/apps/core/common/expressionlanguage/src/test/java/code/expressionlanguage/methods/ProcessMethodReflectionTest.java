@@ -6549,10 +6549,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        Struct[] arr_ = new Struct[2];
-        arr_[0] = new IntStruct(4);
-        arr_[1] = new IntStruct(3);
-        ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
+        ArrayStruct s_ = args();
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.STD_FCT, false);
         assertNull(getException(cont_));
@@ -6565,13 +6562,17 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        Struct[] arr_ = new Struct[2];
-        arr_[0] = new IntStruct(4);
-        arr_[1] = new IntStruct(3);
-        ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
+        ArrayStruct s_ = args();
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.STD_FCT, false);
         assertNull(getException(cont_));
         assertEq(1, getNumber(out_));
+    }
+
+    private static ArrayStruct args() {
+        ArrayStruct array_ = new ArrayStruct(2, "[java.lang.Object");
+        array_.set(0,new IntStruct(4));
+        array_.set(1,new IntStruct(3));
+        return array_;
     }
 }

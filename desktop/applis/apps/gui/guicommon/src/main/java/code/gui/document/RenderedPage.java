@@ -145,7 +145,7 @@ public final class RenderedPage implements ProcessingSession {
         if (!(standards instanceof BeanNatLgNames)) {
             return;
         }
-        threadAction = CustComponent.newThread(new ThreadRefresh(this, (BeanNatLgNames) standards, "", "", false, true, false));
+        threadAction = CustComponent.newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
         threadAction.start();
         animateProcess();
     }

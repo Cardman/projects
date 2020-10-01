@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumberInfos;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;

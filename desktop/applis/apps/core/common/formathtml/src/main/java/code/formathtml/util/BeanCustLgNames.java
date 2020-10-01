@@ -26,6 +26,7 @@ import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.blocks.RendImportForm;
 import code.formathtml.exec.opers.*;
@@ -53,6 +54,12 @@ import code.util.*;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
     private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
+
+    private static final String REF_TAG = "#";
+
+    private static final String PAGE = "page";
+
+    private static final String SESSION = "session";
 
     private static final String RETURN_LINE = "\n";
 
@@ -115,8 +122,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String validateVarArgForm;
     private String validateVarArgClassField;
     private String vlidateVarArgNameField;
-
-    private Struct storedForms = NullStruct.NULL_VALUE;
 
     public BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
@@ -517,7 +522,114 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language) {
+        ImportingPage ip_ = new ImportingPage();
+        ip_.setPrefix(_conf.getPrefix());
+        _conf.addPage(ip_);
+        Struct forms_ = NullStruct.NULL_VALUE;
+        if (!_beanName.isEmpty()) {
+            forms_ = storeForms(_bean, _conf);
+        }
+        if (_conf.getContext().hasException()) {
+            return "";
+        }
+        processInitBeans(_conf,_dest,_beanName, _currentUrl, _language);
+        if (_conf.getContext().hasException()) {
+            return "";
+        }
+        _conf.setCurrentUrl(_dest);
+        String dest_ = StringList.getFirstToken(_dest, REF_TAG);
+        String currentBeanName_;
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(dest_);
+        if (rendDocumentBlock_ == null) {
+            return "";
+        }
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        if (!_beanName.isEmpty()) {
+            setStoredForms(bean_, _conf, forms_);
+        }
+        if (_conf.getContext().hasException()) {
+            return "";
+        }
+        _conf.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf);
+    }
+    private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language) {
+        int s_ = _conf.getBuiltBeans().size();
+        for (int i = 0; i < s_; i++) {
+            String key_ = _conf.getBuiltBeans().getKey(i);
+            boolean reinit_ = reinitRendBean(_conf,_dest, _beanName, key_, _currentUrl);
+            if (_conf.getContext().hasException()) {
+                break;
+            }
+            if (!reinit_) {
+                continue;
+            }
+            Struct bean_ = _conf.getBuiltBeans().getValue(i);
+            BeanInfo info_ = _conf.getBeansInfos().getValue(i);
+            bean_ = newBean(_conf,_language, bean_,info_);
+            if (_conf.getContext().hasException()) {
+                break;
+            }
+            _conf.getBuiltBeans().setValue(i,bean_);
+        }
+    }
+    private boolean reinitRendBean(Configuration _conf, String _dest, String _beanName, String _currentBean, String _currentUrl) {
+        if (!StringList.quickEq(_currentBean,_beanName)) {
+            return false;
+        }
+        Struct bean_ = getBeanOrNull(_conf,_currentBean);
+        String scope_ = getScope(bean_,_conf);
+        if (_conf.getContext().hasException()) {
+            return false;
+        }
+        if (StringList.quickEq(scope_,SESSION)) {
+            return false;
+        }
+        if (StringList.quickEq(scope_,PAGE)) {
+            return !StringList.quickEq(_currentUrl, StringList.getFirstToken(_dest, REF_TAG));
+        }
+        return true;
+    }
+
+    private Struct newBean(Configuration _conf, String _language, Struct _bean, BeanInfo _info) {
+        Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), _conf);
+        ContextEl context = _conf.getContext();
+        Struct strBean_ = arg_.getStruct();
+        forwardDataBase(_bean,strBean_,_conf);
+        setStoredForms(strBean_, _conf, NullStruct.NULL_VALUE);
+        setLanguage(strBean_, _language,_conf);
+        if (context.hasException()) {
+            return NullStruct.NULL_VALUE;
+        }
+        String str_ = getScope(_bean,_conf);
+        if (context.hasException()) {
+            return NullStruct.NULL_VALUE;
+        }
+        setScope(strBean_, str_,_conf);
+        if (context.hasException()) {
+            return NullStruct.NULL_VALUE;
+        }
+        return strBean_;
+    }
+
+    private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
+        Struct bean_ = getBean(_conf,_currentBeanName);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
+        return bean_;
+    }
+
+    private Struct getBean(Configuration _conf,String _beanName) {
+        return _conf.getBuiltBeans().getVal(_beanName);
+    }
+
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
+        if (_conf.getContext().hasException()) {
+            return;
+        }
         _conf.getLastPage().putInternVars(getDataBaseVar, _bean,_conf.getContext());
         _conf.getLastPage().setEnabledOp(false);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, _conf);
@@ -533,14 +645,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().clearInternVars();
     }
 
-    @Override
-    public void storeForms(Struct _bean, Configuration _conf) {
+
+    public Struct storeForms(Struct _bean, Configuration _conf) {
         Argument forms_ = getForms(_bean, _conf);
         _conf.getLastPage().setEnabledOp(true);
         if (_conf.getContext().hasException()) {
-            return;
+            return NullStruct.NULL_VALUE;
         }
-        storedForms = forms_.getStruct();
+        return forms_.getStruct();
     }
 
     public Argument getForms(Struct _bean, Configuration _conf) {
@@ -561,11 +673,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return argument_;
     }
 
-    @Override
-    public void setStoredForms(Struct _bean, Configuration _conf) {
+
+    public void setStoredForms(Struct _bean, Configuration _conf, Struct _storedForms) {
+        if (_conf.getContext().hasException()) {
+            return;
+        }
         _conf.getLastPage().setEnabledOp(false);
         _conf.getLastPage().putInternVars(setFormsVar, _bean,_conf.getContext());
-        _conf.getLastPage().putInternVars(setFormsVarArg, storedForms,_conf.getContext());
+        _conf.getLastPage().putInternVars(setFormsVarArg, _storedForms,_conf.getContext());
         RenderExpUtil.calculateReuse(expsSetForms, _conf);
         _conf.getLastPage().clearInternVars();
         _conf.getLastPage().setEnabledOp(true);
@@ -830,10 +945,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().putInternVars(validateVarArgBean, locVar_);
         CustList<Struct> params_ = _cont.getStructParam();
         int size_ = params_.size();
-        ArrayStruct arr_ = new ArrayStruct(new Struct[size_ +1],StringExpUtil.getPrettyArrayType(getAliasObject()));
-        arr_.getInstance()[0] = _cont.getUpdated();
+        ArrayStruct arr_ = new ArrayStruct(size_ +1,StringExpUtil.getPrettyArrayType(getAliasObject()));
+        arr_.set(0, _cont.getUpdated());
         for (int i = 0; i < size_; i++) {
-            arr_.getInstance()[i+1] = params_.get(i);
+            arr_.set(i+1, params_.get(i));
         }
         locVar_ = LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasObject()));
         _conf.getLastPage().putInternVars(validateVarArgForm, locVar_);
@@ -893,6 +1008,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _cont.getLastPage().clearInternVars();
     }
     public void setLanguage(Struct _bean, String _scope,Configuration _cont) {
+        if (_cont.getContext().hasException()) {
+            return;
+        }
         _cont.getLastPage().putInternVars(setLanguageVar, _bean,_cont.getContext());
         _cont.getLastPage().putInternVars(setLanguageVarArg, new StringStruct(_scope),_cont.getContext());
         _cont.getLastPage().setEnabledOp(false);

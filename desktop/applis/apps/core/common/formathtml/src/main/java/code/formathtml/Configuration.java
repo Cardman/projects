@@ -167,35 +167,6 @@ public final class Configuration {
         currentForm = 0;
     }
 
-    Struct newBean(String _language, Struct _bean, BeanInfo _info) {
-        Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        Struct strBean_ = arg_.getStruct();
-        getAdvStandards().forwardDataBase(_bean,strBean_,this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        getAdvStandards().setStoredForms(strBean_, this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        getAdvStandards().setLanguage(strBean_, _language,this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        String str_ = getAdvStandards().getScope(_bean,this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        getAdvStandards().setScope(strBean_, str_,this);
-        if (context.hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        return strBean_;
-    }
-
     public String getFirstUrl() {
         return firstUrl;
     }

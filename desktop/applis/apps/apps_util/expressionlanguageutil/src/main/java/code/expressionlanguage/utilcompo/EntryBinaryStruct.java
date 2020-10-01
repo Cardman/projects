@@ -24,7 +24,7 @@ public final class EntryBinaryStruct extends WithoutParentIdStruct implements St
         if (_str instanceof ArrayStruct) {
             return (ArrayStruct) _str;
         }
-        return new ArrayStruct(new Struct[0],_arrType);
+        return new ArrayStruct(0,_arrType);
     }
 
     public StringStruct getName() {

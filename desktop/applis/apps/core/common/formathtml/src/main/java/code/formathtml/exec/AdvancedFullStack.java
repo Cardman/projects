@@ -24,16 +24,16 @@ public final class AdvancedFullStack implements AbstractFullStack {
     private static ArrayStruct newStackTraceElementArray(Configuration _configuration) {
         int count_ = _configuration.getImporting().size();
         int lenArrCtx_ = _configuration.getContext().nbPages();
-        Struct[] arr_ = new Struct[count_+ lenArrCtx_];
-        for (int i = 0; i < count_; i++) {
-            arr_[i] = newStackTraceElement(_configuration.getImporting().get(i));
-        }
-        for (int i = 0; i < lenArrCtx_; i++) {
-            arr_[i+count_] = ExecutingUtil.newStackTraceElement(_configuration.getContext(),i);
-        }
         String cl_ = _configuration.getContext().getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
-        return new ArrayStruct(arr_, cl_);
+        ArrayStruct array_ = new ArrayStruct(count_+ lenArrCtx_, cl_);
+        for (int i = 0; i < count_; i++) {
+            array_.set(i, newStackTraceElement(_configuration.getImporting().get(i)));
+        }
+        for (int i = 0; i < lenArrCtx_; i++) {
+            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_configuration.getContext(),i));
+        }
+        return array_;
     }
 
     private static StackTraceElementStruct newStackTraceElement(ImportingPage _page) {

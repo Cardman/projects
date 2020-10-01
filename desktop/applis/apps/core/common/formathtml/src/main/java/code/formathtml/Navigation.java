@@ -32,10 +32,6 @@ public final class Navigation {
 
     private static final String REF_TAG = "#";
 
-    private static final String PAGE = "page";
-
-    private static final String SESSION = "session";
-
     private static final String DOT = ".";
 
     private static final String CALL_METHOD = "$";
@@ -231,62 +227,13 @@ public final class Navigation {
     }
 
     private void processAfterInvoke(String _dest, String _beanName, Struct _bean){
-        ImportingPage ip_ = new ImportingPage();
-        ip_.setPrefix(session.getPrefix());
-        session.addPage(ip_);
-        if (!_beanName.isEmpty()) {
-            session.getAdvStandards().storeForms(_bean, session);
-        }
-        if (session.getContext().hasException()) {
-            return;
-        }
-        processInitBeans(_dest,_beanName);
-        if (session.getContext().hasException()) {
-            return;
-        }
-        session.setCurrentUrl(_dest);
-        String dest_ = StringList.getFirstToken(_dest, REF_TAG);
-        String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
-        if (rendDocumentBlock_ == null) {
-            return;
-        }
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(currentBeanName_);
-        if (!_beanName.isEmpty()) {
-            session.getAdvStandards().setStoredForms(bean_, session);
-        }
-        if (session.getContext().hasException()) {
-            return;
-        }
-        session.clearPages();
-        String textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
+        String textToBeChanged_ = session.getAdvStandards().processAfterInvoke(session,_dest,_beanName,_bean,currentUrl,language);
         if (textToBeChanged_.isEmpty()) {
             return;
         }
         currentBeanName = session.getBeanName();
         currentUrl = _dest;
         setupText(textToBeChanged_);
-    }
-    private void processInitBeans(String _dest, String _beanName) {
-        int s_ = session.getBuiltBeans().size();
-        for (int i = 0; i < s_; i++) {
-            String key_ = session.getBuiltBeans().getKey(i);
-            boolean reinit_ = reinitRendBean(_dest, _beanName, key_);
-            if (session.getContext().hasException()) {
-                break;
-            }
-            if (!reinit_) {
-                continue;
-            }
-            Struct bean_ = session.getBuiltBeans().getValue(i);
-            BeanInfo info_ = session.getBeansInfos().getValue(i);
-            bean_ = session.newBean(language, bean_,info_);
-            if (session.getContext().hasException()) {
-                break;
-            }
-            session.getBuiltBeans().setValue(i,bean_);
-        }
     }
 
     private static boolean isPartOfArgument(char _char) {
@@ -505,23 +452,6 @@ public final class Navigation {
         return val_;
     }
 
-    private boolean reinitRendBean(String _dest, String _beanName, String _currentBean) {
-        if (!StringList.quickEq(_currentBean,_beanName)) {
-            return false;
-        }
-        Struct bean_ = getBeanOrNull(_currentBean);
-        String scope_ = session.getAdvStandards().getScope(bean_,session);
-        if (session.getContext().hasException()) {
-            return false;
-        }
-        if (StringList.quickEq(scope_,SESSION)) {
-            return false;
-        }
-        if (StringList.quickEq(scope_,PAGE)) {
-            return !StringList.quickEq(currentUrl, StringList.getFirstToken(_dest, REF_TAG));
-        }
-        return true;
-    }
     private void setupText(String _text) {
         Document doc_ = session.getDocument();
         ElementList nodes_;

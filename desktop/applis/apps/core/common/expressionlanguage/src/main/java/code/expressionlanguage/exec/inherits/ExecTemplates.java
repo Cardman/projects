@@ -73,8 +73,7 @@ public final class ExecTemplates {
     public static ArrayStruct newCustomArray(String _className, Ints _dims, ContextEl _cont) {
         TreeMap<Ints,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Ints,Struct>(new IndexesComparator());
-        Struct[] instanceGl_ = new Struct[_dims.first()];
-        ArrayStruct output_ = new ArrayStruct(instanceGl_, StringExpUtil.getPrettyArrayType(_className, _dims.size()));
+        ArrayStruct output_ = new ArrayStruct(_dims.first(), StringExpUtil.getPrettyArrayType(_className, _dims.size()));
         Ints dims_ = new Ints();
         indexesArray_.put(new Ints(), output_);
         int glDim_ = _dims.size();
@@ -91,8 +90,7 @@ public final class ExecTemplates {
             }
             String formattedClass_ = StringExpUtil.getPrettyArrayType(_className, glDim_);
             for (Ints k: dims_.getAllIndexes()) {
-                Struct[] instance_ = new Struct[_dims.get(i_ + 1)];
-                Struct value_ = new ArrayStruct(instance_, formattedClass_);
+                Struct value_ = new ArrayStruct(_dims.get(i_ + 1), formattedClass_);
                 indexesArray_.put(k, value_);
             }
             i_++;
@@ -107,16 +105,16 @@ public final class ExecTemplates {
             ind_.removeLast();
             int lastIndex_ = key_.last();
             Struct str_ = indexesArray_.getVal(ind_);
-            Struct[] array_ = ExecArrayFieldOperation.getArray(str_,_cont).getInstance();
-            trySet(array_,lastIndex_,value_);
+            ArrayStruct arr_ = ExecArrayFieldOperation.getArray(str_, _cont);
+            trySet(arr_,lastIndex_,value_);
         }
         return output_;
     }
-    static void trySet(Struct[] _arr, int _index, Struct _value) {
-        if (_index < 0 || _index >= _arr.length) {
+    static void trySet(ArrayStruct _arr, int _index, Struct _value) {
+        if (_index < 0 || _index >= _arr.getLength()) {
             return;
         }
-        _arr[_index] = _value;
+        _arr.set(_index, _value);
     }
     /** nb calls of getParent - super type - arg object
      use class parent of object
@@ -690,9 +688,8 @@ public final class ExecTemplates {
                 _context.getInitializingTypeInfos().failInitEnums();
                 return;
             }
-            Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
-            inst_[index_] = _value;
+            arr_.set(index_, _value);
             return;
         }
         if (err_ == ErrorType.NPE) {
@@ -703,7 +700,6 @@ public final class ExecTemplates {
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
-            Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
@@ -712,7 +708,7 @@ public final class ExecTemplates {
             } else {
                 mess_.append(index_);
                 mess_.append(">=");
-                mess_.append(inst_.length);
+                mess_.append(arr_.getLength());
             }
             _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
             return;
@@ -748,9 +744,8 @@ public final class ExecTemplates {
             return ErrorType.CAST;
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
-        Struct[] inst_ = arr_.getInstance();
         int index_ = NumParsers.convertToNumber(_index).intStruct();
-        if (index_ < 0 || index_ >= inst_.length) {
+        if (index_ < 0 || index_ >= arr_.getLength()) {
             return ErrorType.BAD_INDEX;
         }
         String arrType_ = arr_.getClassName();
@@ -789,9 +784,8 @@ public final class ExecTemplates {
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
-            Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
-            return inst_[index_];
+            return arr_.get(index_);
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -801,7 +795,6 @@ public final class ExecTemplates {
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
-            Struct[] inst_ = arr_.getInstance();
             int index_ = NumParsers.convertToNumber(_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
@@ -810,7 +803,7 @@ public final class ExecTemplates {
             } else {
                 mess_.append(index_);
                 mess_.append(">=");
-                mess_.append(inst_.length);
+                mess_.append(arr_.getLength());
             }
             _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
             return NullStruct.NULL_VALUE;
@@ -834,9 +827,8 @@ public final class ExecTemplates {
             return ErrorType.CAST;
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
-        Struct[] inst_ = arr_.getInstance();
         int index_ = NumParsers.convertToNumber(_index).intStruct();
-        if (index_ < 0 || index_ >= inst_.length) {
+        if (index_ < 0 || index_ >= arr_.getLength()) {
             return ErrorType.BAD_INDEX;
         }
         return ErrorType.NOTHING;

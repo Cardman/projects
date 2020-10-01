@@ -33,7 +33,7 @@ public abstract class AbstractThreadActions implements Runnable {
                 Struct exception_ = (Struct) exc_;
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
-                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_.getContext(),fullStack_.getInstance()));
+                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_.getContext(), fullStack_));
                 } else {
                     context_.setException(null);
                     String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);

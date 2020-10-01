@@ -46,9 +46,6 @@ public abstract class BeanLgNames extends LgNames {
 
 
     public abstract void beforeDisplaying(Struct _arg,Configuration _cont);
-    public abstract String getScope(Struct _bean, Configuration _cont);
-    public abstract void setScope(Struct _bean, String _scope,Configuration _cont);
-    public abstract void setLanguage(Struct _bean, String _scope,Configuration _cont);
     public abstract String processString(Argument _arg,Configuration _cont);
 
     public abstract Argument iteratorMultTable(Struct _arg, Configuration _cont);
@@ -92,9 +89,9 @@ public abstract class BeanLgNames extends LgNames {
         StringList values_ = _container.getValue();
         if (_container.isArrayConverter()) {
             int len_ = values_.size();
-            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(getAliasString()));
+            ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(getAliasString()));
             for (int i = 0; i < len_; i++) {
-                arr_.getInstance()[i] = new StringStruct(values_.get(i));
+                arr_.set(i, new StringStruct(values_.get(i)));
             }
             return LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasString()));
         }
@@ -236,10 +233,7 @@ public abstract class BeanLgNames extends LgNames {
 
     protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);
 
-    public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
-    public abstract void storeForms(Struct _bean, Configuration _conf);
-
-    public abstract void setStoredForms(Struct _bean, Configuration _conf);
+    public abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language);
 
     public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
 

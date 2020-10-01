@@ -636,7 +636,6 @@ public final class AliasReflection {
     private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
         CustList<MethodMetaInfo> candidates_;
         candidates_ = new CustList<MethodMetaInfo>();
-        Struct[] args_ = _args;
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
@@ -662,21 +661,21 @@ public final class AliasReflection {
             met_.setFileName(f.getFile().getFileName());
             methods_.add(met_);
         }
-        if (args_.length == 0) {
+        if (_args.length == 0) {
             for (MethodMetaInfo e: methods_) {
                 candidates_.add(e);
             }
         } else {
-            AliasReflection.filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
+            AliasReflection.filterMethods(_cont, _args, declaringClass_, candidates_, methods_);
         }
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-        Struct[] methodsArr_ = new Struct[candidates_.size()];
+        ArrayStruct array_ = new ArrayStruct(candidates_.size(), className_);
         int index_ = 0;
         for (MethodMetaInfo c: candidates_) {
-            methodsArr_[index_] = c;
+            array_.set(index_, c);
             index_++;
         }
-        return new ArrayStruct(methodsArr_, className_);
+        return array_;
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
@@ -770,13 +769,12 @@ public final class AliasReflection {
                 }
             }
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -924,23 +922,22 @@ public final class AliasReflection {
             StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (method_.isVararg()) {
                 int first_ = len_ -1;
                 for (int i = 0; i < first_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
                 String int_ = geneInterfaces_.get(first_);
                 int_ = StringExpUtil.getPrettyArrayType(int_);
-                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                arr_.set(first_, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -950,23 +947,22 @@ public final class AliasReflection {
             StringList geneInterfaces_ = method_.getParameterNames();
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (method_.isVararg()) {
                 int first_ = len_ -1;
                 for (int i = 0; i < first_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
                 String int_ = geneInterfaces_.get(first_);
                 int_ = StringExpUtil.getPrettyArrayType(int_);
-                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                arr_.set(first_, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -1014,11 +1010,11 @@ public final class AliasReflection {
             if (cache_ != null) {
                 StringList localVars_ = cache_.getLocalVars();
                 int size_ = localVars_.size();
-                Struct[] arr_ = new Struct[size_];
+                ArrayStruct array_ = new ArrayStruct(size_, arrStr_);
                 for (int i = 0; i < size_; i++) {
-                    arr_[i] = Argument.wrapStr(localVars_.get(i));
+                    array_.set(i, Argument.wrapStr(localVars_.get(i)));
                 }
-                result_.setResult(new ArrayStruct(arr_,arrStr_));
+                result_.setResult(array_);
                 return result_;
             }
             result_.setResult(NullStruct.NULL_VALUE);
@@ -1072,11 +1068,11 @@ public final class AliasReflection {
             if (cache_ != null) {
                 StringList localVars_ = cache_.getLoopVars();
                 int size_ = localVars_.size();
-                Struct[] arr_ = new Struct[size_];
+                ArrayStruct array_ = new ArrayStruct(size_, arrStr_);
                 for (int i = 0; i < size_; i++) {
-                    arr_[i] = Argument.wrapStr(localVars_.get(i));
+                    array_.set(i, Argument.wrapStr(localVars_.get(i)));
                 }
-                result_.setResult(new ArrayStruct(arr_,arrStr_));
+                result_.setResult(array_);
                 return result_;
             }
             result_.setResult(NullStruct.NULL_VALUE);
@@ -1089,13 +1085,12 @@ public final class AliasReflection {
             ExecMemberCallingsBlock callee_ = method_.getCallee();
             fetchAnonymous(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1106,13 +1101,12 @@ public final class AliasReflection {
             ExecMemberCallingsBlock callee_ = method_.getCallee();
             fetchLocalTypes(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1485,13 +1479,12 @@ public final class AliasReflection {
             StringList methods_;
             methods_ = cl_.getMemberTypes();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,cl_.getVariableOwner());
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,cl_.getVariableOwner()));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1514,13 +1507,12 @@ public final class AliasReflection {
                     operators_.add(met_);
                 }
                 operators_.sortElts(new OperatorCmp());
-                Struct[] ctorsArr_ = new Struct[operators_.size()];
+                ArrayStruct str_ = new ArrayStruct(operators_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: operators_) {
-                    ctorsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1542,13 +1534,12 @@ public final class AliasReflection {
                     candidates_.add(met_);
                 }
             }
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1565,14 +1556,13 @@ public final class AliasReflection {
                 classes_.add(ExecutingUtil.getClassMetaInfo(_cont,clblock_, k_));
             }
             classes_.sortElts(new ClassNameCmp());
-            Struct[] ctorsArr_ = new Struct[classes_.size()];
+            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+            ArrayStruct str_ = new ArrayStruct(classes_.size(), className_);
             int index_ = 0;
             for (ClassMetaInfo e: classes_) {
-                ctorsArr_[index_] = e;
+                str_.set(index_, e);
                 index_++;
             }
-            String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1592,13 +1582,12 @@ public final class AliasReflection {
             ctors_ = cl_.getConstructorsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasConstructor_);
             if (args_.length == 0) {
-                Struct[] ctorsArr_ = new Struct[ctors_.size()];
+                ArrayStruct str_ = new ArrayStruct(ctors_.size(), className_);
                 int index_ = 0;
                 for (ConstructorMetaInfo e: ctors_) {
-                    ctorsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1620,13 +1609,12 @@ public final class AliasReflection {
                     }
                 }
             }
-            Struct[] ctorsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (ConstructorMetaInfo c: candidates_) {
-                ctorsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1636,13 +1624,12 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getExplicitsInfos();
             if (args_.length == 0) {
-                Struct[] methodsArr_ = new Struct[methods_.size()];
+                ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
-                    methodsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1664,13 +1651,12 @@ public final class AliasReflection {
                     }
                 }
             }
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1680,13 +1666,12 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getImplicitsInfos();
             if (args_.length == 0) {
-                Struct[] methodsArr_ = new Struct[methods_.size()];
+                ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
-                    methodsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1708,13 +1693,12 @@ public final class AliasReflection {
                     }
                 }
             }
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1723,13 +1707,12 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getTruesInfos();
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo e: methods_) {
-                methodsArr_[index_] = e;
+                str_.set(index_, e);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1738,13 +1721,12 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getFalsesInfos();
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo e: methods_) {
-                methodsArr_[index_] = e;
+                str_.set(index_, e);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1762,27 +1744,24 @@ public final class AliasReflection {
                     String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
                     String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                     String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
-                    Struct[] methodsArr_ = new Struct[1];
-                    methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    ArrayStruct str_ = new ArrayStruct(1, className_);
+                    str_.set(0, new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_));
                     result_.setResult(str_);
                     return result_;
                 }
-                Struct[] methodsArr_ = new Struct[methods_.size()];
+                ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
-                    methodsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
             if (cl_.isTypeArray()) {
                 MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
                 if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
-                    Struct[] methodsArr_ = new Struct[0];
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    ArrayStruct str_ = new ArrayStruct(0, className_);
                     result_.setResult(str_);
                     return result_;
                 }
@@ -1792,9 +1771,8 @@ public final class AliasReflection {
                 String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
                 String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                 String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
-                Struct[] methodsArr_ = new Struct[1];
-                methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                ArrayStruct str_ = new ArrayStruct(1, className_);
+                str_.set(0, new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_));
                 result_.setResult(str_);
                 return result_;
             }
@@ -1802,13 +1780,12 @@ public final class AliasReflection {
             candidates_ = new CustList<MethodMetaInfo>();
             String instClassName_ = cl_.getName();
             filterMethods(_cont, args_, instClassName_, candidates_, methods_);
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1818,8 +1795,7 @@ public final class AliasReflection {
             methods_ = cl_.getMethodsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             if (cl_.isTypeArray()) {
-                Struct[] methodsArr_ = new Struct[0];
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                ArrayStruct str_ = new ArrayStruct(0, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1831,13 +1807,12 @@ public final class AliasReflection {
                     }
                     stMethods_.add(e);
                 }
-                Struct[] methodsArr_ = new Struct[stMethods_.size()];
+                ArrayStruct str_ = new ArrayStruct(stMethods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: stMethods_) {
-                    methodsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1859,13 +1834,12 @@ public final class AliasReflection {
                     }
                 }
             }
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1875,13 +1849,12 @@ public final class AliasReflection {
             methods_ = cl_.getBlocsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             if (args_.length == 0) {
-                Struct[] methodsArr_ = new Struct[methods_.size()];
+                ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
-                    methodsArr_[index_] = e;
+                    str_.set(index_, e);
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -1893,13 +1866,12 @@ public final class AliasReflection {
                     candidates_.add(e);
                 }
             }
-            Struct[] methodsArr_ = new Struct[candidates_.size()];
+            ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
-                methodsArr_[index_] = c;
+                str_.set(index_, c);
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1909,26 +1881,24 @@ public final class AliasReflection {
             fields_ = cl_.getFieldsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasField_);
             if (args_.length == 0 || !(args_[0] instanceof StringStruct)) {
-                Struct[] ctorsArr_ = new Struct[fields_.size()];
+                ArrayStruct str_ = new ArrayStruct(fields_.size(), className_);
                 int index_ = 0;
                 for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
-                    ctorsArr_[index_] = e.getValue();
+                    str_.set(index_, e.getValue());
                     index_++;
                 }
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
             String fieldName_ = ((StringStruct) args_[0]).getInstance();
             FieldMetaInfo meta_ = fields_.getVal(fieldName_);
-            Struct[] ctorsArr_;
+            ArrayStruct str_;
             if (meta_ != null) {
-                ctorsArr_ = new Struct[1];
-                ctorsArr_[0] = meta_;
+                str_ = new ArrayStruct(1, className_);
+                str_.set(0, meta_);
             } else {
-                ctorsArr_ = new Struct[0];
+                str_ = new ArrayStruct(0, className_);
             }
-            ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -1964,20 +1934,19 @@ public final class AliasReflection {
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             String nameType_ = cl_.getName();
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
                     int_ = ExecTemplates.reflectFormat(nameType_, int_, _cont);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner()));
                 }
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner()));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -1986,12 +1955,11 @@ public final class AliasReflection {
             StringList geneInterfaces_ = cl_.getSuperInterfaces();
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             for (int i = 0; i < len_; i++) {
                 String int_ = geneInterfaces_.get(i);
-                superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
+                arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner()));
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2002,25 +1970,23 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             String clName_ = cl_.getVariableOwner();
             if (clName_.isEmpty()) {
-                Struct[] superInts_ = new Struct[0];
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                ArrayStruct arr_ = new ArrayStruct(0, className_);
                 result_.setResult(arr_);
                 return result_;
             }
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
                     int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_));
                 }
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2031,25 +1997,23 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             String clName_ = cl_.getVariableOwner();
             if (clName_.isEmpty()) {
-                Struct[] superInts_ = new Struct[0];
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                ArrayStruct arr_ = new ArrayStruct(0, className_);
                 result_.setResult(arr_);
                 return result_;
             }
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
                     int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_));
                 }
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,clName_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2104,11 +2068,10 @@ public final class AliasReflection {
             CustList<ClassMetaInfo> list_ = cl_.getTypeParameters(_cont);
             int len_ = list_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             for (int i = 0; i < len_; i++) {
-                superInts_[i] = list_.get(i);
+                arr_.set(i, list_.get(i));
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2119,26 +2082,24 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             String clName_ = cl_.getVariableOwner();
             if (clName_.isEmpty()) {
-                Struct[] superInts_ = new Struct[0];
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                ArrayStruct arr_ = new ArrayStruct(0, className_);
                 result_.setResult(arr_);
                 return result_;
             }
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                 for (int i = 0; i < len_; i++) {
                     String nameVar_ = list_.get(i).getName();
                     nameVar_ = ExecTemplates.reflectFormat(clName_, nameVar_, _cont);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_));
 
                 }
             } else {
                 for (int i = 0; i < len_; i++) {
                     String nameVar_ = list_.get(i).getName();
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2147,11 +2108,10 @@ public final class AliasReflection {
             CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
             int len_ = list_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             for (int i = 0; i < len_; i++) {
-                superInts_[i] = list_.get(i);
+                arr_.set(i, list_.get(i));
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2229,8 +2189,7 @@ public final class AliasReflection {
                 _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return result_;
             }
-            Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
-            for (Struct s: arrayDim_) {
+            for (Struct s: ((ArrayStruct)inst_).getInstance()) {
                 int dim_ = NumParsers.convertToNumber(s).intStruct();
                 dims_.add(dim_);
             }
@@ -2255,7 +2214,7 @@ public final class AliasReflection {
                 return result_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
-            int len_ = arr_.getInstance().length;
+            int len_ = arr_.getLength();
             result_.setResult(new IntStruct(len_));
             return result_;
         }
@@ -2279,13 +2238,12 @@ public final class AliasReflection {
             ExecRootBlock callee_ = cl_.getRootBlock();
             fetchAnonymous(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -2294,12 +2252,11 @@ public final class AliasReflection {
         String owner_ = cl_.getName();
         int len_ = types_.size();
         String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-        Struct[] superInts_ = new Struct[len_-1];
+        ArrayStruct arr_ = new ArrayStruct(len_-1, className_);
         for (int i = 1; i < len_; i++) {
             String nameVar_ = types_.get(i);
-            superInts_[i-1] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_);
+            arr_.set(i-1, ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_));
         }
-        ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
         result_.setResult(arr_);
         return result_;
     }
@@ -2353,23 +2310,22 @@ public final class AliasReflection {
             StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (method_.isVararg()) {
                 int first_ = len_ -1;
                 for (int i = 0; i < first_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
                 String int_ = geneInterfaces_.get(first_);
                 int_ = StringExpUtil.getPrettyArrayType(int_);
-                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                arr_.set(first_, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2379,23 +2335,22 @@ public final class AliasReflection {
             StringList geneInterfaces_ =  method_.getParametersTypes();
             int len_ = geneInterfaces_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] superInts_ = new Struct[len_];
+            ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (method_.isVararg()) {
                 int first_ = len_ -1;
                 for (int i = 0; i < first_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
                 String int_ = geneInterfaces_.get(first_);
                 int_ = StringExpUtil.getPrettyArrayType(int_);
-                superInts_[first_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                arr_.set(first_, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
             } else {
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_);
+                    arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,declaring_));
                 }
             }
-            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
             result_.setResult(arr_);
             return result_;
         }
@@ -2428,13 +2383,12 @@ public final class AliasReflection {
             ExecMemberCallingsBlock callee_ = method_.getCallee();
             fetchAnonymous(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -2445,13 +2399,12 @@ public final class AliasReflection {
             ExecMemberCallingsBlock callee_ = method_.getCallee();
             fetchLocalTypes(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
-            Struct[] methodsArr_ = new Struct[methods_.size()];
+            ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
                 index_++;
             }
-            ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
             result_.setResult(str_);
             return result_;
         }
@@ -2547,14 +2500,13 @@ public final class AliasReflection {
         }
         if (_params instanceof ArrayStruct) {
             ArrayStruct params_ = (ArrayStruct) _params;
-            Struct[] pars_ = params_.getInstance();
             StringList parTypes_ = _id.getParametersTypes();
             int parLen_ = parTypes_.size();
-            if (pars_.length != parLen_) {
+            if (params_.getLength() != parLen_) {
                 return false;
             }
             for (int i = 0; i < parLen_; i++) {
-                Struct par_ = pars_[i];
+                Struct par_ = params_.get(i);
                 if (par_ instanceof ClassMetaInfo) {
                     ClassMetaInfo p_ = NumParsers.getClass(par_);
                     if (!StringList.quickEq(p_.getName(), parTypes_.get(i))) {

@@ -16,7 +16,6 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ConstructorBlock;
 import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 

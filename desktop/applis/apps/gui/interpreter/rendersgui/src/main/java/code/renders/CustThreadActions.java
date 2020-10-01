@@ -17,7 +17,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -114,16 +113,14 @@ public final class CustThreadActions extends AbstractThreadActions {
                         Argument arg_ = new Argument();
                         CustList<Argument> args_ = new CustList<Argument>();
                         int len_ = fileNames.size();
-                        Struct[] names_ = new Struct[len_];
+                        ArrayStruct arrNames_ = new ArrayStruct(len_,arrStr_);
                         for (int i = 0; i < len_; i++) {
-                            names_[i]= new StringStruct(fileNames.getKey(i));
+                            arrNames_.set(i, new StringStruct(fileNames.getKey(i)));
                         }
-                        Struct[] contents_ = new Struct[len_];
+                        ArrayStruct arrContents_ = new ArrayStruct(len_,arrStr_);
                         for (int i = 0; i < len_; i++) {
-                            contents_[i]= new StringStruct(fileNames.getValue(i));
+                            arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
                         }
-                        ArrayStruct arrNames_ = new ArrayStruct(names_,arrStr_);
-                        ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
                         ExecNamedFunctionBlock method_ = methods_.first();

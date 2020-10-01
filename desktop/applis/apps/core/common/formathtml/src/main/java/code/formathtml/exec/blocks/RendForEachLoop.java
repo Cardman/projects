@@ -108,7 +108,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
 
     private int getLength(Struct _str,Configuration _cont) {
         if (_str instanceof ArrayStruct) {
-            return ((ArrayStruct)_str).getInstance().length;
+            return ((ArrayStruct)_str).getLength();
         }
         ContextEl context_ = _cont.getContext();
         String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();

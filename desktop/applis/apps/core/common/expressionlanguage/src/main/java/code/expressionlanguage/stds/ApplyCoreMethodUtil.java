@@ -34,7 +34,7 @@ public final class ApplyCoreMethodUtil {
         }
         if (StringList.quickEq(type_, replType_)) {
             ResultErrorStd result_ = new ResultErrorStd();
-            ReplacementStruct.calculate(_cont, result_, _method, _struct);
+            AliasCharSequence.calculate(_cont, result_, _method, _struct);
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)
@@ -120,9 +120,8 @@ public final class ApplyCoreMethodUtil {
                 return res_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
-            Struct[] real_ = arr_.getInstance();
             CustList<Argument> ar_ = new CustList<Argument>();
-            for (Struct str_ : real_) {
+            for (Struct str_ : arr_.getInstance()) {
                 ar_.add(new Argument(str_));
             }
             res_.setResult(ExecInvokingOperation.prepareCallDyn(new Argument(_struct), ar_, _cont).getStruct());
@@ -160,7 +159,7 @@ public final class ApplyCoreMethodUtil {
         String doubleType_ = lgNames_.getContent().getNbAlias().getAliasDouble();
         String replType_ = lgNames_.getContent().getCharSeq().getAliasReplacement();
         if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.instantiate(result_, args_);
+            AliasCharSequence.instantiate(result_, args_);
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)) {
@@ -314,7 +313,7 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         err_ = getError(args_[0],_cont);
-        result_.setResult(new StringStruct(err_.getStringRep(_cont,err_.getFullStack().getInstance())));
+        result_.setResult(new StringStruct(err_.getStringRep(_cont, err_.getFullStack())));
         return result_;
     }
 

@@ -91,11 +91,10 @@ public final class AliasCharSequence {
     }
 
     private static void tryGetCharArray(ResultErrorStd _res, StringList _list, LgNames _lgNames, ArrayStruct _arg, Struct[] _args, ContextEl _context) {
-        Struct[] argArr_ = _arg.getInstance();
-        int len_ = argArr_.length;
+        int len_ = _arg.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(argArr_[i]).getChar();
+            arr_[i] = NumParsers.convertToChar(_arg.get(i)).getChar();
         }
         if (_list.size() == 1) {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
@@ -213,11 +212,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         Replacement[] seps_ = new Replacement[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof ReplacementStruct)) {
                 _context.setException(new ErrorStruct(_context,nullPe_));
                 return;
@@ -269,11 +267,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
+        int len_ = chArr_.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(argArr_[i]).getChar();
+            arr_[i] = NumParsers.convertToChar(chArr_.get(i)).getChar();
         }
         _res.setResult(new StringStruct(new String(arr_)));
     }
@@ -285,11 +282,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
+        int len_ = chArr_.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(argArr_[i]).getChar();
+            arr_[i] = NumParsers.convertToChar(chArr_.get(i)).getChar();
         }
         int one_ = NumParsers.convertToNumber(_one).intStruct();
         int two_ = NumParsers.convertToNumber(_two).intStruct();
@@ -313,11 +309,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
+        int len_ = chArr_.getLength();
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToNumber(argArr_[i]).byteStruct();
+            arr_[i] = NumParsers.convertToNumber(chArr_.get(i)).byteStruct();
         }
         String chars_ = StringList.decode(arr_);
         if (chars_ == null) {
@@ -335,11 +330,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
+        int len_ = chArr_.getLength();
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToNumber(argArr_[i]).byteStruct();
+            arr_[i] = NumParsers.convertToNumber(chArr_.get(i)).byteStruct();
         }
         int one_ = NumParsers.convertToNumber(_one).intStruct();
         int two_ = NumParsers.convertToNumber(_two).intStruct();
@@ -564,11 +558,10 @@ public final class AliasCharSequence {
             _an.setException(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
         }
-        Struct[] arr_ = ((ArrayStruct)_str).getInstance();
-        int len_ = arr_.length;
+        int len_ =  ((ArrayStruct)_str).getLength();
         char[] chars_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            chars_[i] = NumParsers.convertToChar(arr_[i]).getChar();
+            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
         }
         _instance.getInstance().append(chars_);
         _out.setResult(_instance);
@@ -587,8 +580,7 @@ public final class AliasCharSequence {
         }
         int offset_ = _offset.intStruct();
         int len_ = _len.intStruct();
-        Struct[] arr_ = ((ArrayStruct)_str).getInstance();
-        int lenChar_ = arr_.length;
+        int lenChar_ = ((ArrayStruct)_str).getLength();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
             if (offset_ < 0) {
                 _an.setException(new ErrorStruct(_an,StringList.concat(Long.toString(offset_),"<0"), lgNames_.getContent().getCoreNames().getAliasBadIndex()));
@@ -601,7 +593,7 @@ public final class AliasCharSequence {
         }
         char[] chars_ = new char[lenChar_];
         for (int i = 0; i < lenChar_; i++) {
-            chars_[i] = NumParsers.convertToChar(arr_[i]).getChar();
+            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
         }
         _instance.getInstance().append(chars_, offset_, len_);
         _out.setResult(_instance);
@@ -708,11 +700,10 @@ public final class AliasCharSequence {
             _an.setException(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
         }
-        Struct[] arr_ = ((ArrayStruct)_str).getInstance();
-        int lenArr_ = arr_.length;
+        int lenArr_ = ((ArrayStruct)_str).getLength();
         char[] chars_ = new char[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            chars_[i] = NumParsers.convertToChar(arr_[i]).getChar();
+            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
         }
         int offset_ = _offset.intStruct();
         int len_ = _len.intStruct();
@@ -750,11 +741,10 @@ public final class AliasCharSequence {
             _an.setException(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
         }
-        Struct[] arr_ = ((ArrayStruct)_str).getInstance();
-        int len_ = arr_.length;
+        int len_ = ((ArrayStruct) _str).getLength();
         char[] chars_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            chars_[i] = NumParsers.convertToChar(arr_[i]).getChar();
+            chars_[i] = NumParsers.convertToChar(((ArrayStruct) _str).get(i)).getChar();
         }
         _instance.getInstance().insert(index_, chars_);
         _out.setResult(_instance);
@@ -1004,14 +994,14 @@ public final class AliasCharSequence {
     }
 
     private static void isEmpty(CharSequenceStruct _charSequence, ResultErrorStd _res) {
-        _res.setResult(_charSequence.isEmpty());
+        _res.setResult(NumParsers.isEmpty(_charSequence));
     }
 
     private static void charAt(CharSequenceStruct _charSequence, Struct _index, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
         NumberStruct nb_ = NumParsers.convertToNumber(_index);
         int ind_ = nb_.intStruct();
         String badIndex_ = _stds.getContent().getCoreNames().getAliasBadIndex();
-        if (_charSequence.isValidIndex(ind_)) {
+        if (NumParsers.isInvalidIndex(ind_, _charSequence)) {
             if (ind_ < 0) {
                 _context.setException(new ErrorStruct(_context,StringList.concat(Long.toString(ind_),"<0"),badIndex_));
             } else {
@@ -1028,11 +1018,11 @@ public final class AliasCharSequence {
         byte[] list_ = StringList.encode(seq_);
         bytePrim_ = StringExpUtil.getPrettyArrayType(bytePrim_);
         int len_ = list_.length;
-        Struct[] strArr_ = new Struct[len_];
+        ArrayStruct result_ = new ArrayStruct(len_, bytePrim_);
         for (int i = 0; i < len_; i++) {
-            strArr_[i] = new ByteStruct(list_[i]);
+            result_.set(i, new ByteStruct(list_[i]));
         }
-        _res.setResult(new ArrayStruct(strArr_, bytePrim_));
+        _res.setResult(result_);
     }
 
     private static void compareTo(CharSequenceStruct _charSequence, Struct _anotherString, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -1161,7 +1151,7 @@ public final class AliasCharSequence {
     private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, NumberStruct _endIndex, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
         int begin_ = _beginIndex.intStruct();
         int end_ = _endIndex.intStruct();
-        if (_charSequence.isCorrectSub(begin_, end_)) {
+        if (NumParsers.isIncorrectSub(begin_, end_, _charSequence)) {
             if (begin_ < 0) {
                 _context.setException(new ErrorStruct(_context,StringList.concat(Long.toString(begin_),"<0"), _stds.getContent().getCoreNames().getAliasBadIndex()));
             } else if (end_ > _charSequence.length()) {
@@ -1189,13 +1179,13 @@ public final class AliasCharSequence {
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
+        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
+        for (int i = 0; i < lenArr_; i++) {
+            result_.set(i, new StringStruct(parts_.get(i)));
+        }
+        _res.setResult(result_);
     }
 
     private static void splitChars(CharSequenceStruct _charSequence, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -1205,22 +1195,21 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         char[] seps_ = new char[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             seps_[i] = NumParsers.convertToChar(curSep_).getChar();
         }
         StringList parts_ = StringList.splitChars(_charSequence.toStringInstance(), seps_);
         int lenArr_ = parts_.size();
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
+        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
+        for (int i = 0; i < lenArr_; i++) {
+            result_.set(i, new StringStruct(parts_.get(i)));
+        }
+        _res.setResult(result_);
     }
 
     private static void splitSingleString(CharSequenceStruct _charSequence, Struct _sep, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -1238,11 +1227,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         String[] seps_ = new String[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
                 _context.setException(new ErrorStruct(_context,nullPe_));
                 return;
@@ -1258,13 +1246,13 @@ public final class AliasCharSequence {
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
+        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
+        for (int i = 0; i < lenArr_; i++) {
+            result_.set(i, new StringStruct(parts_.get(i)));
+        }
+        _res.setResult(result_);
     }
 
     private static void splitSingleString(CharSequenceStruct _charSequence, Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -1283,13 +1271,13 @@ public final class AliasCharSequence {
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
+        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
+        for (int i = 0; i < lenArr_; i++) {
+            result_.set(i, new StringStruct(parts_.get(i)));
+        }
+        _res.setResult(result_);
     }
 
     private static void trim(CharSequenceStruct _charSequence, ResultErrorStd _res) {
@@ -1300,11 +1288,10 @@ public final class AliasCharSequence {
         String aliasChar_ = _stds.getContent().getPrimTypes().getAliasPrimChar();
         aliasChar_ = StringExpUtil.getPrettyArrayType(aliasChar_);
         int len_ = _charSequence.length();
-        Struct[] arrOut_ = new Struct[len_];
+        ArrayStruct arr_ = new ArrayStruct(len_,aliasChar_);
         for (int i = 0; i < len_; i++) {
-            arrOut_[i] = new CharStruct(_charSequence.charAt(i));
+            arr_.set(i, new CharStruct(_charSequence.charAt(i)));
         }
-        ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
         _res.setResult(arr_);
     }
 
@@ -1315,11 +1302,10 @@ public final class AliasCharSequence {
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         String[] seps_ = new String[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
                 _context.setException(new ErrorStruct(_context,nullPe_));
                 return;
@@ -1327,6 +1313,25 @@ public final class AliasCharSequence {
             seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
         }
         _res.setResult(new StringStruct(StringList.simpleStringsFormat(_charSequence.toStringInstance(), seps_)));
+    }
+
+    public static void instantiate(ResultErrorStd _res, Struct... _args) {
+        Replacement rep_ = NumParsers.getReplacement(_args);
+        _res.setResult(new ReplacementStruct(rep_));
+    }
+
+    public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
+        String name_ = _method.getConstraints().getName();
+        LgNames lgNames_ = _cont.getStandards();
+        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
+        if (StringList.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasGetNewString())) {
+            String newStr_ = rp_.getInstance().getNewString();
+            _res.setResult(Argument.wrapStr(newStr_));
+            return;
+        }
+        String oldStr_ = rp_.getInstance().getOldString();
+        _res.setResult(Argument.wrapStr(oldStr_));
+
     }
 
     public void build(LgNames _lgNames) {

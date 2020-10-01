@@ -24,12 +24,11 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
         }
         String thClass_ = ((LgNamesGui)_contextEl.getStandards()).getAliasWindow();
         int len_ = instantKeys_.size();
-        Struct[] innArr_ = new Struct[len_];
-        ArrayStruct arr_ = new ArrayStruct(innArr_,StringExpUtil.getPrettyArrayType(thClass_));
+        ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
             _contextEl.getInitializingTypeInfos().addSensibleField(this,e_);
-            innArr_[i] = e_;
+            arr_.set(i, e_);
         }
         return arr_;
     }

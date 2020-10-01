@@ -21,10 +21,10 @@ public final class TableStruct extends CustComponentStruct {
             return new String[0];
         }
         ArrayStruct a_ = (ArrayStruct) _array;
-        int len_ = a_.getInstance().length;
+        int len_ = a_.getLength();
         String[] str_ = new String[len_];
         for (int i = 0; i < len_; i++) {
-            Struct s_ = a_.getInstance()[i];
+            Struct s_ = a_.get(i);
             if (s_ instanceof StringStruct) {
                 str_[i] = ((StringStruct)s_).getInstance();
             } else {
@@ -43,9 +43,9 @@ public final class TableStruct extends CustComponentStruct {
         int_ = StringExpUtil.getPrettyArrayType(int_);
         int[] rows_ = table.getSelectedRows();
         int len_ = rows_.length;
-        ArrayStruct arr_ = new ArrayStruct(new Struct[len_],int_);
+        ArrayStruct arr_ = new ArrayStruct(len_,int_);
         for (int i =0; i < len_; i++) {
-            arr_.getInstance()[i] = new IntStruct(rows_[i]);
+            arr_.set(i, new IntStruct(rows_[i]));
         }
         return arr_;
     }

@@ -2465,9 +2465,9 @@ public final class CustAliases {
                     return res_;
                 }
                 int len_ = read_.length;
-                ArrayStruct bin_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimByte()));
+                ArrayStruct bin_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimByte()));
                 for (int i = 0; i < len_; i++) {
-                    bin_.getInstance()[i] = new ByteStruct(read_[i]);
+                    bin_.set(i, new ByteStruct(read_[i]));
                 }
                 res_.setResult(bin_);
                 return res_;
@@ -2479,10 +2479,10 @@ public final class CustAliases {
                     return res_;
                 }
                 ArrayStruct arr_ = (ArrayStruct) _args[1];
-                int len_ = arr_.getInstance().length;
+                int len_ = arr_.getLength();
                 byte[] bin_ = new byte[len_];
                 for (int i = 0; i < len_; i++) {
-                    Struct byte_ = arr_.getInstance()[i];
+                    Struct byte_ = arr_.get(i);
                     if (!(byte_ instanceof NumberStruct)) {
                         continue;
                     }
@@ -2555,9 +2555,9 @@ public final class CustAliases {
                     return res_;
                 }
                 int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
+                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
                 for (int i = 0; i < len_; i++) {
-                    arr_.getInstance()[i] = new StringStruct(files_.get(i));
+                    arr_.set(i, new StringStruct(files_.get(i)));
                 }
                 res_.setResult(arr_);
                 return res_;
@@ -2570,9 +2570,9 @@ public final class CustAliases {
                     return res_;
                 }
                 int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
+                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
                 for (int i = 0; i < len_; i++) {
-                    arr_.getInstance()[i] = new StringStruct(files_.get(i));
+                    arr_.set(i, new StringStruct(files_.get(i)));
                 }
                 res_.setResult(arr_);
                 return res_;
@@ -2581,11 +2581,10 @@ public final class CustAliases {
                 String fileName_ = ((StringStruct)_args[0]).getInstance();
                 Struct struct_ = ZipBinStructUtil.zipBinFiles(_args[1], (RunnableContextEl) _cont);
                 if (struct_ instanceof ArrayStruct) {
-                    Struct[] as_ = ((ArrayStruct)struct_).getInstance();
-                    int len_ = as_.length;
+                    int len_ = ((ArrayStruct)struct_).getLength();
                     byte[] file_ = new byte[len_];
                     for (int i = 0; i < len_; i++) {
-                        Struct byte_ = as_[i];
+                        Struct byte_ = ((ArrayStruct)struct_).get(i);
                         if (!(byte_ instanceof ByteStruct)) {
                             continue;
                         }
@@ -2608,9 +2607,9 @@ public final class CustAliases {
                             String contType_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
                             contType_ = StringExpUtil.getPrettyArrayType(contType_);
                             int bLen_ = encoded_.length;
-                            ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],contType_);
+                            ArrayStruct bs_ = new ArrayStruct(bLen_,contType_);
                             for (int j = 0; j < bLen_; j++) {
-                                bs_.getInstance()[j] = new ByteStruct(encoded_[j]);
+                                bs_.set(j, new ByteStruct(encoded_[j]));
                             }
                             bins_.add(new EntryBinaryStruct(cont_.getName(), bs_));
                         }
@@ -2619,9 +2618,9 @@ public final class CustAliases {
                 int bLen_ = bins_.size();
                 String arrType_ = getAliasEntryBinary();
                 arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
-                ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],arrType_);
+                ArrayStruct bs_ = new ArrayStruct(bLen_,arrType_);
                 for (int j = 0; j < bLen_; j++) {
-                    bs_.getInstance()[j] = bins_.get(j);
+                    bs_.set(j, bins_.get(j));
                 }
                 byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_);
                 if (finalFile_ != null) {
@@ -2642,9 +2641,9 @@ public final class CustAliases {
                 String cont_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
                 cont_ = StringExpUtil.getPrettyArrayType(cont_);
                 int bLen_ = bytes_.length;
-                ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],cont_);
+                ArrayStruct bs_ = new ArrayStruct(bLen_,cont_);
                 for (int j = 0; j < bLen_; j++) {
-                    bs_.getInstance()[j] = new ByteStruct(bytes_[j]);
+                    bs_.set(j, new ByteStruct(bytes_[j]));
                 }
                 res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(bs_, (RunnableContextEl) _cont));
                 return res_;
@@ -2661,21 +2660,20 @@ public final class CustAliases {
                     String arrType_ = getAliasEntryText();
                     arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
                     int len_ = arrList_.size();
-                    ArrayStruct filesOut_ = new ArrayStruct(new Struct[len_],arrType_);
+                    ArrayStruct filesOut_ = new ArrayStruct(len_,arrType_);
                     for (int i = 0; i < len_; i++) {
                         EntryBinaryStruct fileBin_ = arrList_.get(i);
                         ArrayStruct bin_ = fileBin_.getBinary();
-                        Struct[] contBin_ = bin_.getInstance();
-                        int contLen_ = contBin_.length;
+                        int contLen_ = bin_.getLength();
                         byte[] prim_ = new byte[contLen_];
                         for (int j = 0; j < contLen_; j++) {
-                            prim_[j] = ((NumberStruct)contBin_[j]).byteStruct();
+                            prim_[j] = ((NumberStruct)bin_.get(j)).byteStruct();
                         }
                         String dec_ = StringList.decode(prim_);
                         if (dec_ == null) {
-                            filesOut_.getInstance()[i] = new EntryTextStruct(fileBin_.getName(),NullStruct.NULL_VALUE);
+                            filesOut_.set(i, new EntryTextStruct(fileBin_.getName(),NullStruct.NULL_VALUE));
                         } else {
-                            filesOut_.getInstance()[i] = new EntryTextStruct(fileBin_.getName(),new StringStruct(dec_));
+                            filesOut_.set(i, new EntryTextStruct(fileBin_.getName(),new StringStruct(dec_)));
                         }
                     }
                     res_.setResult(filesOut_);

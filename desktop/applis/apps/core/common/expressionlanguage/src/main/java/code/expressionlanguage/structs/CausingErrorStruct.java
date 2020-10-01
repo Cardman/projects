@@ -40,8 +40,7 @@ public final class CausingErrorStruct extends WithoutParentIdStruct implements E
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        Struct[] calls_ = stack.getInstance();
-        return new StringStruct(getStringRep(_an,calls_));
+        return new StringStruct(getStringRep(_an, stack));
     }
 
     @Override
@@ -60,11 +59,11 @@ public final class CausingErrorStruct extends WithoutParentIdStruct implements E
     }
 
 
-    public String getStringRep(ContextEl _an, Struct[] _array) {
-        StringList str_ = new StringList(new CollCapacity(_array.length+2));
+    public String getStringRep(ContextEl _an, ArrayStruct _arrInst) {
+        StringList str_ = new StringList(new CollCapacity(_arrInst.getLength()+2));
         str_.add(getClassName(_an));
         str_.add(message);
-        for (Struct s: _array) {
+        for (Struct s: _arrInst.getInstance()) {
             str_.add(StackTraceElementStruct.getStack(s).getStringRep());
         }
         return StringList.join(str_, "\n");

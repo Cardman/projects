@@ -1,36 +1,36 @@
-package code.formathtml;
+package code.formathtml.nat;
 
+import code.bean.nat.BeanNatLgNames;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
-import code.formathtml.util.BeanLgNames;
 
-public final class AnalyzedTestContext {
+class NativeAnalyzedTestContext {
     private final ContextEl context;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
-    private final BeanLgNames stds;
+    private final BeanNatLgNames stds;
 
-    public AnalyzedTestContext(ContextEl context, AnalyzedPageEl analyzing, Forwards _forwards, BeanLgNames _standards) {
+    NativeAnalyzedTestContext(ContextEl context, AnalyzedPageEl analyzing, Forwards _forwards, BeanNatLgNames _standards) {
         this.context = context;
         this.analyzing = analyzing;
         stds = _standards;
         forwards = _forwards;
     }
 
-    public ContextEl getContext() {
+    ContextEl getContext() {
         return context;
     }
 
-    public Forwards getForwards() {
+    Forwards getForwards() {
         return forwards;
     }
 
-    public AnalyzedPageEl getAnalyzing() {
+    AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
 
-    public BeanLgNames getStds() {
+    BeanNatLgNames getStds() {
         return stds;
     }
 }

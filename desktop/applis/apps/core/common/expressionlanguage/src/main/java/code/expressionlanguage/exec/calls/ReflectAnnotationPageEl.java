@@ -82,27 +82,26 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
                 annot_ = StringExpUtil.getPrettyArrayType(annot_);
                 String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
-                array = new ArrayStruct(new Struct[len_], annotArr_);
+                array = new ArrayStruct(len_, annotArr_);
                 int i_ = 0;
                 for (CustList<CustList<ExecOperationNode>> e: annotationsParams) {
                     ArrayStruct loc_;
-                    loc_ = new ArrayStruct(new Struct[e.size()], annot_);
-                    array.getInstance()[i_] = loc_;
+                    loc_ = new ArrayStruct(e.size(), annot_);
+                    array.set(i_, loc_);
                     i_++;
                 }
             } else {
                 int len_ = annotations.size();
                 String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
                 annot_ = StringExpUtil.getPrettyArrayType(annot_);
-                array = new ArrayStruct(new Struct[len_], annot_);
+                array = new ArrayStruct(len_, annot_);
             }
             retrievedAnnot = true;
         }
         if (onParameters) {
             int len_ = annotationsParams.size();
             for (int i = indexAnnotationParam; i < len_; i++) {
-                Struct[] rr_ = array.getInstance();
-                Struct loc_ = rr_[i];
+                Struct loc_ = array.get(i);
                 int lenLoc_ = annotationsParams.get(i).size();
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
@@ -112,7 +111,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         return false;
                     }
                     clearCurrentEls();
-                    ExecArrayFieldOperation.getArray(loc_,_context).getInstance()[j] = ret_.getStruct();
+                    ExecArrayFieldOperation.getArray(loc_,_context).set(j, ret_.getStruct());
                     indexAnnotation++;
                 }
                 indexAnnotationParam++;
@@ -128,7 +127,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     return false;
                 }
                 clearCurrentEls();
-                array.getInstance()[i] = ret_.getStruct();
+                array.set(i, ret_.getStruct());
                 indexAnnotation++;
             }
         }

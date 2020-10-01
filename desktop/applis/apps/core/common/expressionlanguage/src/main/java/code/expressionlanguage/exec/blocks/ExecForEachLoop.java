@@ -247,7 +247,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
 
     private int getLength(Struct _str,ContextEl _cont) {
         if (_str instanceof ArrayStruct) {
-            return ((ArrayStruct)_str).getInstance().length;
+            return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
         _cont.setException(new ErrorStruct(_cont, npe_));

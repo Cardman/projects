@@ -46,16 +46,8 @@ public final class AnalyzedTestConfiguration {
         return adv;
     }
 
-    public String getAliasLong() {
-        return analyzing.getAliasLong();
-    }
-
     public String getAliasPrimLong() {
         return analyzing.getAliasPrimLong();
-    }
-
-    public String getAliasVoid() {
-        return analyzing.getAliasVoid();
     }
 
     public String getAliasBoolean() {
@@ -68,10 +60,6 @@ public final class AnalyzedTestConfiguration {
 
     public String getAliasObject() {
         return analyzing.getAliasObject();
-    }
-
-    public String getAliasNumber() {
-        return analyzing.getAliasNumber();
     }
 
     public String getAliasString() {

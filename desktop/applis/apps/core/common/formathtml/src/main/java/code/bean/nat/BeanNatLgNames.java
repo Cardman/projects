@@ -20,8 +20,8 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
-import code.formathtml.exec.blocks.RendImportForm;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendInvokingOperation;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
@@ -59,7 +59,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected static final String TYPE_ITERATOR = "code.util.SimpleItr";
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
-    private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
     private Object dataBase;
     private final StringMap<Bean> beans = new StringMap<Bean>();
@@ -134,17 +133,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return strBean_;
     }
 
-    @Override
-    public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
-        ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());
-    }
-    public void storeForms(Struct _bean, Configuration _conf) {
-        storedForms = ((BeanStruct)_bean).getBean().getForms();
+
+    private StringMapObject storeForms(Struct _bean) {
+        return ((BeanStruct)_bean).getBean().getForms();
     }
 
-    @Override
-    public void setStoredForms(Struct _bean, Configuration _conf) {
-        ((BeanStruct)_bean).getBean().setForms(storedForms);
+
+    private void setStoredForms(Struct _bean, StringMapObject _storedForms) {
+        ((BeanStruct)_bean).getBean().setForms(_storedForms);
     }
 
     @Override
@@ -152,18 +148,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
         StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
         StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
-        if (_keepField) {
-            for (RendBlock f_: RendBlock.getDirectChildren(_node)) {
-                if (!(f_ instanceof RendImportForm)) {
-                    continue;
-                }
-                String name_ = ((RendImportForm)f_).getName();
-                forms_.put(name_,formsMap_.getVal(name_));
-            }
-        } else {
-            //add option for copying forms (default copy)
-            forms_.putAllMap(formsMap_);
-        }
+        forms_.putAllMap(formsMap_);
     }
 
     @Override
@@ -229,6 +214,28 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             i_++;
         }
         return validators_;
+    }
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language) {
+        ImportingPage ip_ = new ImportingPage();
+        ip_.setPrefix(_conf.getPrefix());
+        _conf.addPage(ip_);
+        StringMapObject stringMapObject_ = storeForms(_bean);
+        _conf.setCurrentUrl(_dest);
+        String currentBeanName_;
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        setStoredForms(bean_, stringMapObject_);
+        _conf.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf);
+    }
+
+    private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
+        return getBean(_conf,_currentBeanName);
+    }
+
+    private Struct getBean(Configuration _conf,String _beanName) {
+        return _conf.getBuiltBeans().getVal(_beanName);
     }
     @Override
     public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
@@ -316,20 +323,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
-    }
-
-    @Override
-    public String getScope(Struct _bean, Configuration _cont) {
-        return ((BeanStruct)_bean).getBean().getScope();
-    }
-
-    @Override
-    public void setScope(Struct _bean, String _scope, Configuration _cont) {
-        ((BeanStruct)_bean).getBean().setScope(_scope);
-    }
-
-    public void setLanguage(Struct _bean, String _scope,Configuration _cont) {
-        ((BeanStruct)_bean).getBean().setLanguage(_scope);
     }
 
 

@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class ReturnMethod extends AbruptBlock {

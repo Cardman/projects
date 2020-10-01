@@ -32,7 +32,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     }
 
     public static int getLength(Struct _str, ContextEl _cont) {
-        return getArray(_str,_cont).getInstance().length;
+        return getArray(_str,_cont).getLength();
     }
 
     public static ArrayStruct getArray(Struct _str, ContextEl _cont) {
@@ -40,6 +40,6 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
             return (ArrayStruct) _str;
         }
         String arr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCoreNames().getAliasObject());
-        return new ArrayStruct(new Struct[0], arr_);
+        return new ArrayStruct(0, arr_);
     }
 }

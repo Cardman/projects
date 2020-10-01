@@ -36,8 +36,8 @@ public class GraphicListStruct extends InputStruct {
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         this(_ctx,_className,_simple,
-                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger())),
-                new ArrayStruct(new Struct[0],StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject())));
+                new ArrayStruct(0,StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger())),
+                new ArrayStruct(0,StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject())));
     }
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple, Struct _selectedIndexes, Struct _objects) {
@@ -114,9 +114,9 @@ public class GraphicListStruct extends InputStruct {
     public ArrayStruct getListView(ContextEl _ctx) {
         int len_ = list.size();
         String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject());
-        ArrayStruct arr_ = new ArrayStruct(new Struct[len_], obj_);
+        ArrayStruct arr_ = new ArrayStruct(len_, obj_);
         for (int i = 0; i < len_; i++) {
-            arr_.getInstance()[i] = list.get(i);
+            arr_.set(i, list.get(i));
         }
         return arr_;
     }
@@ -142,9 +142,9 @@ public class GraphicListStruct extends InputStruct {
     public ArrayStruct getSelectedIndexes(ContextEl _ctx) {
         int len_ = selectedIndexes.size();
         String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-        ArrayStruct arr_ = new ArrayStruct(new Struct[len_], obj_);
+        ArrayStruct arr_ = new ArrayStruct(len_, obj_);
         for (int i = 0; i < len_; i++) {
-            arr_.getInstance()[i] = new IntStruct(selectedIndexes.get(i));
+            arr_.set(i, new IntStruct(selectedIndexes.get(i)));
         }
         return arr_;
     }

@@ -78,7 +78,7 @@ public final class AnaApplyCoreMethodUtil {
         String doubleType_ = _page.getAliasDouble();
         String replType_ = _page.getAliasReplacement();
         if (StringList.quickEq(type_, replType_)) {
-            return ReplacementStruct.instantiate(args_);
+            return instantiate(args_);
         }
         if (StringList.quickEq(type_, stringType_)) {
             StringList list_ = _method.getParametersTypes();
@@ -765,11 +765,10 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct tryGetCharArray(StringList _list, ArrayStruct _arg, Struct[] _args) {
-        Struct[] argArr_ = _arg.getInstance();
-        int len_ = argArr_.length;
+        int len_ = _arg.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(argArr_[i]).getChar();
+            arr_[i] = NumParsers.convertToChar(_arg.get(i)).getChar();
         }
         if (_list.size() == 1) {
             return new StringStruct(String.valueOf(arr_));
@@ -863,11 +862,10 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         Replacement[] seps_ = new Replacement[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof ReplacementStruct)) {
                 return null;
             }
@@ -899,7 +897,7 @@ public final class AnaApplyCoreMethodUtil {
             return new IntStruct(_charSequence.length());
         }
         if (StringList.quickEq(name_, _page.getCharSeq().getAliasIsEmpty())) {
-            return _charSequence.isEmpty();
+            return NumParsers.isEmpty(_charSequence);
         }
         if (StringList.quickEq(name_, _page.getCharSeq().getAliasCharAt())) {
             return charAt(_charSequence, _args[0]);
@@ -967,7 +965,7 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct charAt(CharSequenceStruct _charSequence, Struct _index) {
         NumberStruct nb_ = NumParsers.convertToNumber(_index);
         int ind_ = nb_.intStruct();
-        if (_charSequence.isValidIndex(ind_)) {
+        if (NumParsers.isInvalidIndex(ind_, _charSequence)) {
             return null;
         }
         return new CharStruct(_charSequence.charAt(ind_));
@@ -1083,7 +1081,7 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, NumberStruct _endIndex) {
         int begin_ = _beginIndex.intStruct();
         int end_ = _endIndex.intStruct();
-        if (_charSequence.isCorrectSub(begin_, end_)) {
+        if (NumParsers.isIncorrectSub(begin_, end_, _charSequence)) {
             return null;
         }
         return new StringStruct(_charSequence.substring(begin_, end_));
@@ -1098,11 +1096,10 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
+        int lenSeps_ = arrSep_.getLength();
         String[] seps_ = new String[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
+            Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
                 return null;
             }
@@ -1136,5 +1133,10 @@ public final class AnaApplyCoreMethodUtil {
         String new_ = rp_.getInstance().getOldString();
         return Argument.wrapStr(new_);
 
+    }
+
+    private static Struct instantiate(Struct... _args) {
+        Replacement rep_ = NumParsers.getReplacement(_args);
+        return(new ReplacementStruct(rep_));
     }
 }

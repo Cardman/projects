@@ -111,9 +111,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
             int len_ = optArgs_.size();
-            Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
+            ArrayStruct str_ = new ArrayStruct(len_,clArr_);
             NumParsers.setElements(str_, optArgs_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
@@ -426,10 +425,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String obj_ = _conf.getStandards().getContent().getCoreNames().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
-                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
+                ArrayStruct arr_ = new ArrayStruct(_values.size(),obj_);
                 int i_ = 0;
                 for (Argument v: _values) {
-                    arr_.getInstance()[i_] = v.getStruct();
+                    arr_.set(i_, v.getStruct());
                     i_++;
                 }
                 CustList<Argument> nList_ = new CustList<Argument>();
@@ -437,11 +436,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
                 return new Argument();
             }
-            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
+            ArrayStruct arr_ = new ArrayStruct(_values.size()+1,obj_);
             int i_ = 1;
-            arr_.getInstance()[0] = instance_.getStruct();
+            arr_.set(0, instance_.getStruct());
             for (Argument v: _values) {
-                arr_.getInstance()[i_] = v.getStruct();
+                arr_.set(i_, v.getStruct());
                 i_++;
             }
             CustList<Argument> nList_ = new CustList<Argument>();
@@ -528,10 +527,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String obj_ = _conf.getStandards().getContent().getCoreNames().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
-                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
+                ArrayStruct arr_ = new ArrayStruct(_values.size(),obj_);
                 int i_ = 0;
                 for (Argument v: _values) {
-                    arr_.getInstance()[i_] = v.getStruct();
+                    arr_.set(i_, v.getStruct());
                     i_++;
                 }
                 CustList<Argument> nList_ = new CustList<Argument>();
@@ -549,11 +548,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return redirect(_conf, l_, pr_, nList_);
             }
             if (FunctionIdUtil.isOperatorName(fid_.getName())) {
-                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
+                ArrayStruct arr_ = new ArrayStruct(_values.size()+1,obj_);
                 int i_ = 1;
-                arr_.getInstance()[0] = instanceStruct_;
+                arr_.set(0, instanceStruct_);
                 for (Argument v: _values) {
-                    arr_.getInstance()[i_] = v.getStruct();
+                    arr_.set(i_, v.getStruct());
                     i_++;
                 }
                 CustList<Argument> nList_ = new CustList<Argument>();
@@ -561,10 +560,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, pr_, nList_, true));
                 return new Argument();
             }
-            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()-1],obj_);
+            ArrayStruct arr_ = new ArrayStruct(_values.size()-1,obj_);
             int i_ = 0;
             for (Argument v: _values.mid(1, _values.size() - 1)) {
-                arr_.getInstance()[i_] = v.getStruct();
+                arr_.set(i_, v.getStruct());
                 i_++;
             }
             CustList<Argument> nList_ = new CustList<Argument>();
@@ -587,7 +586,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_l.getFormClassName().startsWith(PrimitiveTypeUtil.ARR_CLASS) && _l.getFid().getName().startsWith("[]")) {
             Struct arr_ = _nList.first().getStruct();
             ArrayStruct argArr_ = ExecArrayFieldOperation.getArray(_nList.get(1).getStruct(),_conf);
-            int len_ = argArr_.getInstance().length - 1;
+            int len_ = argArr_.getLength() - 1;
             if (len_ < 0) {
                 return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf)));
             }
@@ -595,17 +594,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 len_--;
             }
             for (int i = 0; i < len_; i++) {
-                Struct ind_ = argArr_.getInstance()[i];
+                Struct ind_ = argArr_.get(i);
                 arr_ = ExecTemplates.getElement(arr_,ind_,_conf);
                 if (_conf.callsOrException()) {
                     return new Argument();
                 }
             }
-            Struct ind_ = argArr_.getInstance()[len_];
+            Struct ind_ = argArr_.get(len_);
             if (StringList.quickEq(_l.getFid().getName(),"[]")) {
                 return new Argument(ExecTemplates.getElement(arr_,ind_,_conf));
             }
-            Struct right_ = argArr_.getInstance()[len_ + 1];
+            Struct right_ = argArr_.get(len_ + 1);
             ExecTemplates.setElement(arr_,ind_, right_,_conf);
             return new Argument(right_);
         }
@@ -672,15 +671,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.getInitializingTypeInfos().addSensibleField(_conf,id_, str_);
             enums_.add(str_);
         }
-        Struct[] o_ = new Struct[enums_.size()];
-        int i_ = CustList.FIRST_INDEX;
-        for (Struct o: enums_) {
-            o_[i_] = o;
-            i_++;
-        }
         String clArr_ = _class;
         clArr_ = StringExpUtil.getPrettyArrayType(clArr_);
-        return new Argument(new ArrayStruct(o_,clArr_));
+        ArrayStruct array_ = new ArrayStruct(enums_.size(), clArr_);
+        int i_ = CustList.FIRST_INDEX;
+        for (Struct o: enums_) {
+            array_.set(i_,o);
+            i_++;
+        }
+        return new Argument(array_);
     }
     private static Argument getEnumValue(AbstractExiting _exit, String _class, ExecRootBlock _root, Argument _name, ContextEl _conf) {
         String enumName_ = StringExpUtil.getIdFromAllTypes(_class);
