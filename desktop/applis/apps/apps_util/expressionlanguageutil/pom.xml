@@ -22,15 +22,5 @@
             <artifactId>threads</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>stream</groupId>
-            <artifactId>stream</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>resources</groupId>
-            <artifactId>resources</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 	</dependencies>
 </project>

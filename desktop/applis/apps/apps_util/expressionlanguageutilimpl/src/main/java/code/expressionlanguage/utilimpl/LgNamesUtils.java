@@ -1,4 +1,4 @@
-package code.expressionlanguage.utilcompo;
+package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.*;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     private CustAliases custAliases = new CustAliases();

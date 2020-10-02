@@ -1,8 +1,11 @@
-package code.expressionlanguage.utilcompo;
+package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
+import code.expressionlanguage.utilcompo.ProgressingTests;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

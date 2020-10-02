@@ -17,5 +17,7 @@
 		<module>random</module>
 		<module>stream</module>
 		<module>expressionlanguageutil</module>
+		<module>expressionlanguageutilimpl</module>
+		<module>expressionlanguagefiles</module>
 	</modules>
 </project>

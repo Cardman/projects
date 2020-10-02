@@ -11,7 +11,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private ThreadStruct thread;
     private String idDate;
 
-    protected RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
+    public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
         super(_executionInfos, _state);
         setFullStack(new DefaultFullStack(this));
         setThread();

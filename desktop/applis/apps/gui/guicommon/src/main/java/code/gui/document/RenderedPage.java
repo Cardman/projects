@@ -118,7 +118,7 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    public void initializeOnlyConf(BeanCustLgNames _stds, AbstractThreadActions _inst) {
+    public void initializeOnlyConf(BeanCustLgNames _stds, Runnable _inst) {
         if (processing.get()) {
             return;
         }

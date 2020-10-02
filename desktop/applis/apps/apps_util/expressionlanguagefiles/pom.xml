@@ -3,29 +3,28 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-       <groupId>interpreter</groupId>
-        <artifactId>interpreter</artifactId>
+       <groupId>apps_util</groupId>
+        <artifactId>apps_util</artifactId>
         <version>2.0</version>
     </parent>
-	<groupId>expressionlanguagegui</groupId>
-	<artifactId>expressionlanguagegui</artifactId>
+	<groupId>expressionlanguagefiles</groupId>
+	<artifactId>expressionlanguagefiles</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-            <groupId>expressionlanguagefiles</groupId>
-            <artifactId>expressionlanguagefiles</artifactId>
+            <groupId>expressionlanguageutil</groupId>
+            <artifactId>expressionlanguageutil</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-		<dependency>
-            <groupId>expressionlanguageutilimpl</groupId>
-            <artifactId>expressionlanguageutilimpl</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!-- For enabling writing custom named files and predefined log file names -->
         <dependency>
-            <groupId>guicommon</groupId>
-            <artifactId>guicommon</artifactId>
+            <groupId>stream</groupId>
+            <artifactId>stream</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>resources</groupId>
+            <artifactId>resources</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 	</dependencies>

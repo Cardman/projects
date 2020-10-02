@@ -1,5 +1,6 @@
-package code.expressionlanguage.utilcompo;
+package code.expressionlanguage.utilfiles;
 
+import code.expressionlanguage.utilcompo.AbstractResourcesReader;
 import code.resources.ResourceFiles;
 
 public final class DefaultResourcesReader implements AbstractResourcesReader {
