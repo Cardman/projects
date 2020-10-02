@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -35,6 +34,6 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation impl
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getPageEl(),_conf.getContext());
+        return ExecExplicitOperation.prepare(_conf.getContext().getExiting(),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getPageEl(),_conf.getContext());
     }
 }

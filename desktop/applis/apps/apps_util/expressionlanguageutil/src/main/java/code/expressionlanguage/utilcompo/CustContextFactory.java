@@ -4,10 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -106,7 +103,7 @@ public final class CustContextFactory {
     }
     public static ResultsRunnableContext build(int _stack,
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        CustLockingClass cl_ = new CustLockingClass();
+        DefaultLockingClass cl_ = new DefaultLockingClass();
         CustInitializer ci_ = new CustInitializer();
         ClassesCommon com_ = new ClassesCommon();
         _definedLgNames.setExecutingOptions(_exec);

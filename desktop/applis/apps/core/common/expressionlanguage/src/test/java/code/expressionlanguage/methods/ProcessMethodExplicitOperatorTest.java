@@ -529,7 +529,11 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int v;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  $if ($operator(+,Ex)($null, $null) != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
@@ -551,7 +555,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -564,7 +568,11 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int v;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  $if ((Ex)$null+$null != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
@@ -586,7 +594,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -599,7 +607,11 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int v;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  Ex e = $null;\n");
         xml_.append("  e++;\n");
         xml_.append("  $if (e.a != 8i){\n");
@@ -625,7 +637,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -638,7 +650,11 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int v;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  Ex e = $null;\n");
         xml_.append("  e+=$null;\n");
         xml_.append("  $if (e.a != 8i){\n");
@@ -664,7 +680,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;

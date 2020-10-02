@@ -157,7 +157,11 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static java.lang.String res = res();\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.String res(){\n");
         xml_.append("  $Class c = ($Class)$class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0].invoke($null,\"pkg.Ex\",$true);\n");
         xml_.append("  $return c.getName();\n");
         xml_.append(" }\n");
@@ -169,7 +173,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -2703,7 +2707,18 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append(" $public $static java.lang.Object err;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $try {\n");
+        xml_.append("   err();\n");
+        xml_.append("  } $catch(java.lang.Object e) {\n");
+        xml_.append("   err = e;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return err;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int err(){\n");
         xml_.append("  $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(java.lang.String),$class($boolean))[0i];\n");
         xml_.append("  m.invoke($null,\"pkg.Ex\",$true);\n");
         xml_.append("  $return $($int) $static(pkg.Ex).inst;\n");
@@ -2722,11 +2737,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Struct exc_ = calculateNormal("pkg.ExTwo", id_, args_, cont_).getStruct();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
@@ -2883,7 +2897,11 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(java.lang.String),$class($boolean))[0i];\n");
         xml_.append("   m.invoke($null,\"pkg.Ex\",$true);\n");
@@ -2906,7 +2924,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -2928,7 +2946,18 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append(" $public $static java.lang.Object err;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $try {\n");
+        xml_.append("   err();\n");
+        xml_.append("  } $catch(java.lang.Object e) {\n");
+        xml_.append("   err = e;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return err;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int err(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class(java.lang.Integer))[0i];\n");
         xml_.append("  m.invoke($null,8i);\n");
         xml_.append("  $return $($int) $static(pkg.Ex).inst;\n");
@@ -2947,11 +2976,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Struct exc_ = calculateNormal("pkg.ExTwo", id_, args_, cont_).getStruct();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
@@ -2974,7 +3002,18 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append(" $public $static java.lang.Object err;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $try {\n");
+        xml_.append("   err();\n");
+        xml_.append("  } $catch(java.lang.Object e) {\n");
+        xml_.append("   err = e;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return err;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int err(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class(java.lang.Integer))[0i];\n");
         xml_.append("  $try{\n");
         xml_.append("   m.invoke($null,8i);\n");
@@ -2995,11 +3034,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Struct exc_ = calculateNormal("pkg.ExTwo", id_, args_, cont_).getStruct();
         assertTrue(exc_ instanceof CausingErrorStruct);
         Struct cause_ = ((CausingErrorStruct)exc_).getCause();
         assertSame(NullStruct.NULL_VALUE,cause_);
@@ -3644,7 +3682,11 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl329Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String out = out();\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.String out(){\n");
         xml_.append("  $return $Class.getClass($class(pkg.Ex).getDeclaredConstructors()[0].newInstance()).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3656,7 +3698,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -3751,7 +3793,11 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl334Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String out = out();\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static java.lang.String out(){\n");
         xml_.append("  $return $Class.getClass($class(pkg.Ex).getDeclaredConstructors()[0].newInstance()).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3764,7 +3810,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -3811,8 +3857,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
+        xml_.append(" private static pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance();\n");
         xml_.append(" public static int method(){\n");
-        xml_.append("  pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance();\n");
         xml_.append("  if (static(Class).getClass(w).getName() != \"pkg.Outer<$core.String>\") {\n");
         xml_.append("   return 2i;\n");
         xml_.append("  }\n");
@@ -3823,7 +3869,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -3870,8 +3916,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
+        xml_.append(" private static pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance(null);\n");
         xml_.append(" public static int method(){\n");
-        xml_.append("  pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance(null);\n");
         xml_.append("  if (static(Class).getClass(w).getName() != \"pkg.Outer<$core.String>\") {\n");
         xml_.append("   return 2i;\n");
         xml_.append("  }\n");
@@ -3882,7 +3928,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -3916,14 +3962,17 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static java.lang.Integer exmeth(){\n");
+        xml_.append(" $public $static Integer out = out();\n");
+        xml_.append(" $public $static Integer exmeth(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Integer out(){\n");
         xml_.append("  $class(pkg.Ex).getDeclaredFields(\"inst\")[0i].set($null,$null);\n");
         xml_.append("  $return $static(pkg.Ex).inst;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
@@ -3958,13 +4007,16 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Integer out = out();\n");
         xml_.append(" $public $static Integer exmeth(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Integer out(){\n");
         xml_.append("  $return (Integer)$class(pkg.Ex).getDeclaredFields(\"inst\")[0i].get($null);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
@@ -4695,8 +4747,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1;\n");
+        xml_.append(" $public $static String res = $class(ExThree).getEnumConstants()[0].$name();\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(ExThree).getEnumConstants()[0].$name();\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO;\n");
@@ -4706,8 +4759,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -4720,8 +4772,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1;\n");
+        xml_.append(" $public $static String res = $class(ExThree).getEnumConstants()[1].$name();\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(ExThree).getEnumConstants()[1].$name();\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO;\n");
@@ -4731,8 +4784,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -4745,8 +4797,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1;\n");
+        xml_.append(" $public $static $int res = $class(ExThree).enumValueOf(\"TWO\").$ordinal();\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $class(ExThree).enumValueOf(\"TWO\").$ordinal();\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO;\n");
@@ -4756,8 +4809,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
+        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -4815,8 +4867,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl464Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String out = $static($Class).forName(\"pkg.Ex\",$true).getName();\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
-        xml_.append("  $return $static($Class).forName(\"pkg.Ex\",$true).getName();\n");
+        xml_.append("  $return out;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -4830,7 +4883,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -4843,8 +4896,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl465Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String out = $static($Class).forName(\"pkg.Ex<java.lang.Number,java.lang.String>\",$true).getName();\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
-        xml_.append("  $return $static($Class).forName(\"pkg.Ex<java.lang.Number,java.lang.String>\",$true).getName();\n");
+        xml_.append("  $return out;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex<S,T> {\n");
@@ -4858,7 +4912,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -5061,8 +5115,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl471Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String out = $static($Class).forName(\"pkg.Ex..ExTwo\",$true).getName();\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $static($Class).forName(\"pkg.Ex..ExTwo\",$true).getName();\n");
+        xml_.append("  $return out;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -5075,8 +5130,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -5151,8 +5205,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     public void processEl474Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String out = $static($Class).forName(\"pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>\",$true).getName();\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $static($Class).forName(\"pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>\",$true).getName();\n");
+        xml_.append("  $return out;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree {}\n");
@@ -5166,8 +5221,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");

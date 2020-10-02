@@ -303,7 +303,6 @@ public abstract class ProcessMethodCommon {
     private static AnalyzedTestContext contextElReadOnlyMustInit() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        opt_.setFailIfNotAllInit(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
@@ -333,9 +332,12 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdExp(opt_);
     }
 
-    private static AnalyzedTestContext ctxLgReadOnlyAna(String fr) {
+    private static AnalyzedTestContext ctxLgReadOnlyAna(String fr, String... _types) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
+        for (String t: _types) {
+            opt_.getTypesInit().add(t);
+        }
         return InitializationLgNames.buildStdOneAna(fr, opt_);
     }
 
@@ -368,8 +370,8 @@ public abstract class ProcessMethodCommon {
         return validateAndRet(srcFiles_, cont_);
     }
 
-    protected static ContextEl ctxOk(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxAna();
+    protected static ContextEl ctxOk(StringMap<String> files_, String... _types) {
+        AnalyzedTestContext cont_ = ctxAna(_types);
         return validateAndRet(files_, cont_);
     }
 
@@ -379,8 +381,8 @@ public abstract class ProcessMethodCommon {
         return cont_.getContext();
     }
 
-    protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxLgAna(_lg);
+    protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_, String... _types) {
+        AnalyzedTestContext cont_ = ctxLgAna(_lg,_types);
         return validateAndRet(files_, cont_);
     }
 
@@ -431,13 +433,19 @@ public abstract class ProcessMethodCommon {
         AnaTypeUtil.checkInterfaces(cont_.getAnalyzing());
     }
 
-    protected static AnalyzedTestContext ctxAna() {
+    protected static AnalyzedTestContext ctxAna(String... _types) {
         Options opt_ = new Options();
+        for (String p:_types) {
+            opt_.getTypesInit().add(p);
+        }
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    protected static AnalyzedTestContext ctxLgAna(String _lg) {
+    protected static AnalyzedTestContext ctxLgAna(String _lg, String... _types) {
         Options opt_ = new Options();
+        for (String p:_types) {
+            opt_.getTypesInit().add(p);
+        }
         return InitializationLgNames.buildStdOneAna(_lg, opt_);
     }
 
@@ -493,8 +501,8 @@ public abstract class ProcessMethodCommon {
         return !isEmptyErrors(cont_);
     }
 
-    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
+    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_, String... _types) {
+        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg,_types);
         return validateAndRet(files_, cont_);
     }
 

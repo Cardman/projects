@@ -3199,7 +3199,31 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq("new", getString(ret_));
     }
-
+    @Test
+    public void calculateArgument132Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClassTwo {\n");
+        xml_.append(" $private $static $boolean out = ExClass.m();\n");
+        xml_.append(" $private $static $boolean m(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $static $boolean m(){\n");
+        xml_.append("  String v = `\t`; $final $stack[] st = $stack.current();\n");
+        xml_.append("  $return st[0]==st[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        ContextEl cont_ = ctxOk(files_,"pkgtwo.ExClassTwo");
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = calculateNormal("pkgtwo.ExClassTwo", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
     @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();

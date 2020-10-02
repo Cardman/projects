@@ -102,7 +102,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static ExClass res = res();\n");
         xml_.append(" public static ExClass method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass res(){\n");
         xml_.append("  return 5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -118,7 +122,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -2206,7 +2210,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  Apply sec = null;\n");
         xml_.append("  int v = sec+=10;\n");
         xml_.append("  return v;\n");
@@ -2237,7 +2245,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -2250,7 +2258,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  Apply sec = null;\n");
         xml_.append("  ExOut v = sec+=10;\n");
         xml_.append("  return v;\n");
@@ -2292,7 +2304,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -2305,7 +2317,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  Apply sec = null;\n");
         xml_.append("  ExOut v = sec+=10;\n");
         xml_.append("  return v;\n");
@@ -2347,7 +2363,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -2360,7 +2376,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  Apply sec = null;\n");
         xml_.append("  int v = sec+=10;\n");
         xml_.append("  return v;\n");
@@ -2402,7 +2422,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -2415,7 +2435,11 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  Apply sec = null;\n");
         xml_.append("  int v = sec+=10;\n");
         xml_.append("  return v;\n");
@@ -2457,7 +2481,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);

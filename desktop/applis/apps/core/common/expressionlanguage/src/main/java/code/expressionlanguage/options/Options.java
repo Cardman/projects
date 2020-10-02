@@ -10,7 +10,6 @@ public final class Options {
     private boolean readOnly;
     private boolean covering;
     private boolean gettingErrors;
-    private boolean failIfNotAllInit;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public StringList getTypesInit() {
@@ -39,14 +38,6 @@ public final class Options {
 
     public void setGettingErrors(boolean _gettingErrors) {
         gettingErrors = _gettingErrors;
-    }
-
-    public boolean isFailIfNotAllInit() {
-        return failIfNotAllInit;
-    }
-
-    public void setFailIfNotAllInit(boolean _failIfNotAllInit) {
-        failIfNotAllInit = _failIfNotAllInit;
     }
 
     public CustList<CommentDelimiters> getComments() {

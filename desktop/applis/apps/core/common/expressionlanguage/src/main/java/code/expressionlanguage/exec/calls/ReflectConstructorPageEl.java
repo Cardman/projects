@@ -44,7 +44,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (static_ && ExecutingUtil.hasToExit(_context,res_)) {
+            if (static_ && _context.getExiting().hasToExit(res_)) {
                 setWrapException(true);
                 return false;
             }

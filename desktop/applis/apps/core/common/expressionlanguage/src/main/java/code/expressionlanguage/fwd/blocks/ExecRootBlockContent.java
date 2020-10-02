@@ -8,7 +8,6 @@ import code.util.*;
 public final class ExecRootBlockContent {
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
-    private final int idRowCol;
     private StringList paramTypes;
     private StringList paramTypesValues = new StringList();
     private CustList<ExecTypeVar> paramTypesMapValues = new CustList<ExecTypeVar>();
@@ -19,7 +18,6 @@ public final class ExecRootBlockContent {
     private String fullName = "";
     private CustList<ExecRootBlock> selfAndParentTypes = new CustList<ExecRootBlock>();
     public ExecRootBlockContent(AnaRootBlockContent _cont) {
-        idRowCol = _cont.getIdRowCol();
         paramTypes = new StringList();
         for (TypeVar t: _cont.getParamTypes()) {
             paramTypes.add(t.getName());
@@ -40,10 +38,6 @@ public final class ExecRootBlockContent {
             t_.setConstraints(e.getValue().getConstraints());
             paramTypesMapValues.add(t_);
         }
-    }
-
-    public int getIdRowCol() {
-        return idRowCol;
     }
 
     public CustList<ExecTypeVar> getParamTypesMapValues() {

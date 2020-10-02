@@ -41,7 +41,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

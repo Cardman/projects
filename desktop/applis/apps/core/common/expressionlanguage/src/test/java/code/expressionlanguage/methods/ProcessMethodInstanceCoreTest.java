@@ -260,8 +260,9 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int st;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Ex res = $new {} Ex();\n");
         xml_.append(" $public $static Ex exec(){\n");
-        xml_.append("  $return $new {} Ex();\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -272,8 +273,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_));
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", getMethodId("exec"),args_,cont_);
@@ -327,8 +327,9 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int st;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Ex res = $new{ } Ex(5);\n");
         xml_.append(" $public $static Ex exec(){\n");
-        xml_.append("  $return $new{ } Ex(5);\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -342,8 +343,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_));
+        ContextEl cont_ = ctxOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", getMethodId("exec"),args_,cont_);

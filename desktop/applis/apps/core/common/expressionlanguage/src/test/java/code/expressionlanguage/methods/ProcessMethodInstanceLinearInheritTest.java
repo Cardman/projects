@@ -3187,6 +3187,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3194,7 +3198,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3233,6 +3237,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3240,7 +3248,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3280,6 +3288,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3287,7 +3299,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3336,6 +3348,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3343,7 +3359,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3390,6 +3406,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3397,7 +3417,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3647,6 +3667,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3654,7 +3678,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3693,6 +3717,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3700,7 +3728,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3739,6 +3767,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3746,7 +3778,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3785,6 +3817,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3792,7 +3828,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3831,6 +3867,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  pkg.Ex res = $new pkg.Ex();\n");
+        xml_.append("  res.superaccess();\n");
+        xml_.append(" }\n");
         xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
@@ -3838,7 +3878,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $static $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -4037,7 +4077,11 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int execute(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  Ex variable = $null;\n");
         xml_.append("  variable.infoOne = 5i;\n");
         xml_.append("  variable.infoOne += variable.infoThree;\n");
@@ -4045,7 +4089,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         Argument ret_;

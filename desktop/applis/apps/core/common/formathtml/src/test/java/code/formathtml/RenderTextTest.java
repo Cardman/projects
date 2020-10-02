@@ -174,7 +174,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>txt,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>txt,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
     public void process13Test() {
@@ -203,7 +203,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
     public void process14Test() {
@@ -232,7 +232,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
     public void process15Test() {
@@ -240,7 +240,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:try><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;+&quot;iere&quot;'/></c:try><c:finally><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;+&quot;iere&quot;'/></c:finally></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:try><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;+&quot;iere&quot;'/></c:try><c:finally><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;+&quot;iere&quot;'/></c:finally>{1/0}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -261,7 +261,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
     public void process16Test() {
@@ -326,7 +326,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
     public void process18Test() {
@@ -1503,8 +1503,8 @@ public final class RenderTextTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>9</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
-    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
+        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_,_types);
     }
 
     private String getRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
@@ -1512,8 +1512,8 @@ public final class RenderTextTest extends CommonRender {
     }
 
 
-    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
+        return getCommOneBean(folder_,relative_,html_,files_,filesSec_,_types);
     }
     private Struct getEx(String folder_, String relative_, String html_, StringMap<String> _files) {
         return getCommEx(folder_, relative_, html_, _files);

@@ -13,7 +13,6 @@ import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -63,7 +62,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock type_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
+        return ExecInvokingOperation.callPrepare(ctx_.getExiting(), ctx_, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
     }
 
     public int getNaturalVararg() {

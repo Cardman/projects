@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
@@ -25,12 +24,12 @@ public final class StaticInitPageEl extends AbstractPageEl {
             String gene_ = exUniq_.getImportedDirectGenericSuperClass();
             String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
             //initialize the super class first
-            if (ExecutingUtil.hasToExit(_context,superClass_)) {
+            if (_context.getExiting().hasToExit(superClass_)) {
                 return false;
             }
             for (String i: exUniq_.getStaticInitImportedInterfaces()) {
                 //then initialize the additional super interfaces (not provided by the super class)
-                if (ExecutingUtil.hasToExit(_context,i)) {
+                if (_context.getExiting().hasToExit(i)) {
                     return false;
                 }
             }

@@ -69,7 +69,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             arguments_.add(leftArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock,named, firstArgs_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock,named, firstArgs_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);

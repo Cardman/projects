@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.IdMap;
 
 public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation,RendCallable {
@@ -27,7 +26,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
-        return ExecInvokingOperation.tryGetEnumValues(new AdvancedExiting(_conf), _conf.getContext(), valuesContent.getRootBlock(),ClassCategory.ENUM);
+        return ExecInvokingOperation.tryGetEnumValues(_conf.getContext().getExiting(), _conf.getContext(), valuesContent.getRootBlock(),ClassCategory.ENUM);
     }
 
     @Override

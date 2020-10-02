@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -38,7 +37,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, staticFctContent.getNaturalVararg(), staticFctContent.getLastType(), first_);
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_conf.getContext().getExiting(),_conf.getContext(), rootBlock,named, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
         return Argument.createVoid();
     }
 }

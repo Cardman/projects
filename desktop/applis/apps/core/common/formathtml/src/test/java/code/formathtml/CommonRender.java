@@ -128,9 +128,7 @@ public abstract class CommonRender {
     protected static void tryInitStaticlyTypes(AnalyzedTestConfiguration _context) {
         if (_context.isEmptyErrors()) {
             AnalyzedPageEl page_ = _context.getAnalyzing();
-            AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
-            ReportedMessages messages_ = page_.getMessages();
-            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_, page_.getOptions());
+            Classes.tryInitStaticlyTypes(_context.getContext(), page_.getOptions());
         }
         addInnerPage(_context.getConfiguration());
     }
@@ -346,9 +344,12 @@ public abstract class CommonRender {
         return getException(conf_);
     }
 
-    private static AnalyzedTestContext buildStd() {
+    private static AnalyzedTestContext buildStd(String... _types) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
+        for (String t: _types) {
+            opt_.getTypesInit().add(t);
+        }
 
         return InitializationLgNames.buildStdThree(opt_);
     }
@@ -478,10 +479,10 @@ public abstract class CommonRender {
         return res_;
     }
 
-    protected static String getCommOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+    protected static String getCommOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build(conf_,_types);
         setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
@@ -504,10 +505,10 @@ public abstract class CommonRender {
         return res_;
     }
 
-    protected static Struct getCommExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+    protected static Struct getCommExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build(conf_,_types);
         setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
@@ -961,8 +962,8 @@ public abstract class CommonRender {
         return nav_;
     }
 
-    protected static AnalyzedTestConfiguration build(Configuration conf_) {
-        AnalyzedTestContext cont_ = buildStd();
+    protected static AnalyzedTestConfiguration build(Configuration conf_,String... _types) {
+        AnalyzedTestContext cont_ = buildStd(_types);
         return new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
     }
 

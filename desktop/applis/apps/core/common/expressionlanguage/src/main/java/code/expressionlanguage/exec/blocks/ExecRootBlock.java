@@ -144,10 +144,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return StringList.contains(getAllSuperTypes(),_fullName);
     }
 
-    public int getIdRowCol() {
-        return rootBlockContent.getIdRowCol();
-    }
-
 
     public String getImportedDirectGenericSuperClass() {
         return rootBlockContent.getImportedDirectSuperClass();

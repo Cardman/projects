@@ -34,6 +34,7 @@ public abstract class ContextEl {
     private InitializingTypeInfos initializingTypeInfos;
     private AbstractFullStack fullStack;
     private Struct seed;
+    private AbstractExiting exiting;
 
     protected ContextEl(CommonExecutionInfos _executionInfos, InitPhase _readOnlyOthers) {
         executionInfos = _executionInfos;
@@ -259,5 +260,13 @@ public abstract class ContextEl {
 
     public void setSeed(Struct seed) {
         this.seed = seed;
+    }
+
+    public AbstractExiting getExiting() {
+        return exiting;
+    }
+
+    public void setExiting(AbstractExiting _exiting) {
+        exiting = _exiting;
     }
 }

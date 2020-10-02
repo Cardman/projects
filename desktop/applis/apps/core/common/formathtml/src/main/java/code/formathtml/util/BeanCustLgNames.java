@@ -9,19 +9,15 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.AdvancedExiting;
 import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RenderExpUtil;
@@ -426,7 +422,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
-        Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_, options_);
+        Classes.tryInitStaticlyTypes(_conf.getContext(), options_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
         return messages_;
     }
@@ -760,21 +756,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             previous_ = new Argument();
         }
         String fieldType_ = _rend.getRealType();
-        Argument arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
-            arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
-        }
-        return arg_;
+        return getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
     }
 
     private static Argument getField(Configuration _conf, int off_, String className_, String fieldName_, boolean staticField_, Argument previous_, String fieldType_) {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
+        return ExecTemplates.getField(new AdvancedSetOffset(_conf), _conf.getContext().getExiting(), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
     }
 
     @Override
@@ -793,21 +782,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             previous_ = new Argument();
         }
         //Come from code directly so constant static fields can be initialized here
-        Argument arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, _rend.getRootBlock(), className_, fieldName_, previous_);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
-            arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, _rend.getRootBlock(), className_, fieldName_, previous_);
-        }
-        return arg_;
+        return setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, _rend.getRootBlock(), className_, fieldName_, previous_);
     }
 
     private static Argument setField(Configuration _conf, Argument _right, int off_, String fieldType_, boolean isStatic_, boolean isFinal_, ExecRootBlock _root, String className_, String fieldName_, Argument previous_) {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.setField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), _root,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
+        return ExecTemplates.setField(new AdvancedSetOffset(_conf), _conf.getContext().getExiting(), _root,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
     }
 
     @Override
@@ -833,7 +815,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, _rend.getNaturalVararg(), lastType_, first_);
-        return ExecInvokingOperation.callStd(new AdvancedExiting(_conf),ctx_, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return ExecInvokingOperation.callStd(ctx_.getExiting(),ctx_, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {

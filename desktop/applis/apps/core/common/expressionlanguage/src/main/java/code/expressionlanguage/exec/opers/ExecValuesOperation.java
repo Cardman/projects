@@ -28,7 +28,7 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
     }
     Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
-        return ExecInvokingOperation.tryGetEnumValues(new DefaultExiting(_conf), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM);
+        return ExecInvokingOperation.tryGetEnumValues(_conf.getExiting(), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM);
     }
 
 }

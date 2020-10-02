@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -49,9 +48,6 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
         classNameFound_ = staticFctContent.getClassName();
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        if (AdvancedExiting.hasToExit(classNameFound_, _conf.getContext())) {
-            return Argument.createVoid();
-        }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named, staticFctContent.getKind(), "");
+        return ExecInvokingOperation.callPrepare(_conf.getContext().getExiting(),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named, staticFctContent.getKind(), "");
     }
 }

@@ -78,7 +78,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);

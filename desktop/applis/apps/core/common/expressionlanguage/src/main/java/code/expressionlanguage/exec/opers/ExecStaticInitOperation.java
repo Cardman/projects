@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
@@ -22,7 +21,7 @@ public final class ExecStaticInitOperation extends ExecLeafOperation implements 
         Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
             String className_ = getResultClass().getSingleNameOrEmpty();
-            ExecutingUtil.hasToExit(_conf,className_);
+            _conf.getExiting().hasToExit(className_);
         }
         setSimpleArgument(arg_, _conf, _nodes);
     }

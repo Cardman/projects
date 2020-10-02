@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -66,7 +65,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_conf.getContext().getExiting(),_conf.getContext(), rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
     public abstract boolean match(Struct _struct);

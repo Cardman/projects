@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -1238,8 +1239,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(java.lang.String),$class($boolean))[0i];\n");
-        xml_.append("  m.invoke($null,\"pkg.Ex\",$true);\n");
+        xml_.append("  $Method m = $class(Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class(java.lang.Integer))[0i];\n");
+        xml_.append("  m.invoke($null,$new Object[]{$null});\n");
         xml_.append("  $return $($int) $static(pkg.Ex).inst;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1263,8 +1264,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertTrue(cause_ instanceof CausingErrorStruct);
-        cause_ = ((CausingErrorStruct)cause_).getCause();
         assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
     }
 
@@ -1333,7 +1332,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class(java.lang.Integer))[0i];\n");
+        xml_.append("  $Method m = $null;\n");
         xml_.append("  m.invoke($null,8i);\n");
         xml_.append("  $return $($int) $static(pkg.Ex).inst;\n");
         xml_.append(" }\n");
@@ -1356,11 +1355,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
-        assertTrue(exc_ instanceof InvokeTargetErrorStruct);
-        Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertTrue(cause_ instanceof CausingErrorStruct);
-        cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), getClassName3(cont_, exc_));
     }
     @Test
     public void processEl298Test() {
@@ -1379,10 +1374,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst;\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class(java.lang.Integer))[0i];\n");
-        xml_.append("  $try{\n");
-        xml_.append("   m.invoke($null,8i);\n");
-        xml_.append("  } $catch(java.lang.Object e);\n");
+        xml_.append("  $Method m = $null;\n");
+        xml_.append("  m.invoke($null,8i);\n");
         xml_.append("  $return $($int) $static(pkg.Ex).inst;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1404,9 +1397,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
-        assertTrue(exc_ instanceof CausingErrorStruct);
-        Struct cause_ = ((CausingErrorStruct)exc_).getCause();
-        assertSame(NullStruct.NULL_VALUE,cause_);
+        assertEq(getAliasNullPe(cont_), getClassName3(cont_, exc_));
     }
     @Test
     public void processEl303Test() {
@@ -1502,9 +1493,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        processEl("pkg.ExTwo.exmeth()+pkg.Ex.inst", cont_);
+        processEl("pkg.ExTwo.exmeth()+pkg.Ex.inst+1/0", cont_);
         assertNotNull(getException(cont_));
-        assertTrue(isInitialized(cont_));
         assertTrue(!isSuccessfulInitialized(cont_));
     }
 
@@ -1539,10 +1529,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         addImportingPage(conf_);
-        processEl("$new{} pkg.Ex(5).inst", conf_);
+        processEl("$new{} pkg.Ex(5).inst+1/0", conf_);
         assertNotNull(getException(conf_));
-        assertTrue(isInitialized(conf_));
-        assertTrue(!isSuccessfulInitialized(conf_));
     }
     @Test
     public void processEl363Test() {
@@ -1571,10 +1559,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Ex(5).inst", conf_);
+        processEl("$new pkg.Ex(5).inst+1/0", conf_);
         assertNotNull(getException(conf_));
-        assertTrue(isInitialized(conf_));
-        assertTrue(!isSuccessfulInitialized(conf_));
     }
 
     private static boolean isInitialized(AnalyzedTestConfiguration conf_) {
@@ -1764,7 +1750,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.inst=10");
+        checkEx(files_, "pkg.Ex.inst=10/0");
     }
     @Test
     public void processEl391Test() {
@@ -1794,7 +1780,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.res(8)");
+        checkEx(files_, "pkg.Ex.res(8)/0");
     }
     @Test
     public void processEl392Test() {
@@ -1912,7 +1898,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)");
+        checkEx(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)/0");
     }
     @Test
     public void processEl400Test() {
@@ -1973,7 +1959,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)");
+        checkEx(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)/0");
     }
     @Test
     public void processEl405Test() {
@@ -1990,7 +1976,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "$values(pkg.ExTwo).length");
+        checkEx(files_, "$values(pkg.ExTwo).length/0");
     }
     @Test
     public void processEl406Test() {
@@ -2313,13 +2299,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
+        _an.getContext().setExiting(new NoExiting());
         RenderExpUtil.calculateReuse(out_, _an.getConfiguration());
         assertNotNull(getException(_an));
     }
 
-    private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files) {
+    private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files, String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build(conf_,_types);
         a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
         Classes.validateWithoutInit(_files, a_.getAnalyzing());
         assertTrue(isEmptyErrors(a_));
@@ -2327,7 +2314,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedPageEl page_ = a_.getAnalyzing();
         AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
         ReportedMessages messages_ = page_.getMessages();
-        Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, page_.getOptions());
+        Classes.tryInitStaticlyTypes(a_.getContext(), page_.getOptions());
         return a_;
     }
 
@@ -2342,6 +2329,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
         }
         out_ = CommonRender.getReducedNodes(out_.last());
+        _conf.getContext().setExiting(new NoExiting());
         RenderExpUtil.calculateReuse(out_, _conf.getConfiguration());
     }
 

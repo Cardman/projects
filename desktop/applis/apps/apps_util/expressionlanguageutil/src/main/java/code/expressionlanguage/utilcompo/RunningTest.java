@@ -74,7 +74,6 @@ public final class RunningTest implements Runnable {
         opt_.setReadOnly(true);
         opt_.setCovering(exec_.isCovering());
         opt_.setGettingErrors(exec_.isErrors());
-        opt_.setFailIfNotAllInit(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests, new LgNamesUtils(_infos));
     }
 

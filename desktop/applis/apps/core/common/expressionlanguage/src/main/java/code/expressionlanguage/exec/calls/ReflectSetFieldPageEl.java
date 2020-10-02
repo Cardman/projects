@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -23,7 +22,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             if (method_.isStaticField()) {
                 String baseClass_ = method_.getDeclaringClass();
                 baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                if (ExecutingUtil.hasToExit(_context,baseClass_)) {
+                if (_context.getExiting().hasToExit(baseClass_)) {
                     setWrapException(true);
                     return false;
                 }

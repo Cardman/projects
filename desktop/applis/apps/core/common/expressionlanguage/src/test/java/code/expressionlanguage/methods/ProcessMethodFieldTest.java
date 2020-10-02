@@ -1321,8 +1321,9 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1055Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = ExTwo.myfb;\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return ExTwo.myfb;\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1348,8 +1349,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int myf=3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_));
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -1360,8 +1360,9 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument10555Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = ExTwo.myfb&&ExTwo.myfb2;\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return ExTwo.myfb&&ExTwo.myfb2;\n");
+        xml_.append("  $return res;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1389,17 +1390,12 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int myf=3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
-        assertTrue(!isInitialized(cont_));
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isTrue());
-    }
-
-    private static boolean isInitialized(ContextEl cont_) {
-        return cont_.getLocks().getState("pkg.ExTwo") != InitClassState.NOT_YET;
     }
 
     @Test

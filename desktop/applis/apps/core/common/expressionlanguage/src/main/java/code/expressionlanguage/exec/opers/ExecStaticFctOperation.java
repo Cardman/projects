@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -38,11 +37,11 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
         CustList<Argument> firstArgs_ = getArgs(_nodes, classNameFound_);
-        if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
+        if (_conf.getExiting().hasToExit(classNameFound_)) {
             return Argument.createVoid();
         }
         Argument prev_ = new Argument();
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), staticFctContent.getKind(), "");
+        return callPrepare(_conf.getExiting(),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), staticFctContent.getKind(), "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String classNameFound_) {

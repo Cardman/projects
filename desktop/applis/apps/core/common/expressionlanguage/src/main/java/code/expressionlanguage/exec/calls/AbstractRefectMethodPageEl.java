@@ -36,7 +36,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     protected boolean initDefault(ContextEl _cont) {
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
-        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
+        return method_.isWideStatic()&&_cont.getExiting().hasToExit(method_.getClassName());
+//        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
     @Override
@@ -146,7 +147,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
-        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _instance,method_.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,methodToCallType, _instance,method_.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
     }
 
     MethodAccessKind getAccessKind() {

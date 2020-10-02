@@ -38,7 +38,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             }
             arguments_.add(getArgument(_nodes, o));
         }
-        Argument argres_ =  prepare(new DefaultExiting(_conf),rootBlock,false,named,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getLastPage(),_conf);
+        Argument argres_ =  prepare(_conf.getExiting(),rootBlock,false,named,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getLastPage(),_conf);
         setSimpleArgument(argres_, _conf, _nodes);
     }
     public static Argument prepare(AbstractExiting _exit, ExecRootBlock _rootBlock, boolean _direct, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,

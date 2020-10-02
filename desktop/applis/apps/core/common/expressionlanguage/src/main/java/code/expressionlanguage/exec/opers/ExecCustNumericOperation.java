@@ -32,7 +32,7 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-        ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className, kind);
+        ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, className, kind);
     }
 
 }

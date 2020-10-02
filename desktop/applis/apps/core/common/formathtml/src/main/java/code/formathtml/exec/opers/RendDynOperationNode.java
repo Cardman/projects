@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -24,7 +23,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -72,16 +70,7 @@ public abstract class RendDynOperationNode {
                          Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                          Configuration _conf, Argument _right) {
         CallingState state_ = _conf.getContext().getCallingState();
-        Argument before_ = _before;
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return Argument.createVoid();
-            }
-            before_ = _node.getArgument(_previous, _all, _conf, _right);
-        }
-        return before_;
+        return _before;
     }
     private Argument processCall(Configuration _conf, Argument _res) {
         CallingState callingState_ = _conf.getContext().getCallingState();
@@ -345,13 +334,13 @@ public abstract class RendDynOperationNode {
         PageEl last_ = _conf.getPageEl();
         String cl_ = _owner;
         String paramNameOwner_ = last_.formatVarType(cl_, _conf.getContext());
-        if (AdvancedExiting.hasToExit(paramNameOwner_, _conf.getContext())) {
-            CallingState state_ = _conf.getContext().getCallingState();
-            if (state_ instanceof NotInitializedClass) {
-                NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-                ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
-            }
-        }
+//        if (AdvancedExiting.hasToExit(paramNameOwner_, _conf.getContext())) {
+//            CallingState state_ = _conf.getContext().getCallingState();
+//            if (state_ instanceof NotInitializedClass) {
+//                NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+//                ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
+//            }
+//        }
         Parameters parameters_ = new Parameters();
         if (!_conf.getContext().hasException()) {
             parameters_ = ExecTemplates.okArgsSet(_rootBlock, c, true, paramNameOwner_,null, args_, _conf.getContext(), null);

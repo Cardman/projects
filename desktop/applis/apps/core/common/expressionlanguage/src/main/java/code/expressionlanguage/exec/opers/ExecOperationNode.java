@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
@@ -58,7 +59,7 @@ public abstract class ExecOperationNode {
 
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods implicits_, int indexImplicit_) {
         ExecNamedFunctionBlock c = implicits_.get(indexImplicit_);
-        DefaultExiting ex_ = new DefaultExiting(_conf);
+        AbstractExiting ex_ = _conf.getExiting();
         CustList<Argument> args_ = new CustList<Argument>(_right);
         AbstractPageEl last_ = _conf.getLastPage();
         if (ExecExplicitOperation.checkCustomOper(ex_,implicits_.getRootBlock(), c, args_, implicits_.getOwnerClass(), last_,_conf,_right)) {

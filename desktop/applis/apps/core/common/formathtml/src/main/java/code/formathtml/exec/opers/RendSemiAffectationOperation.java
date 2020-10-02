@@ -15,7 +15,6 @@ import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -73,10 +72,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument before_ = stored_;
         if (converterFrom != null) {
             Argument conv_ = tryConvert(converterFrom.getRootBlock(),converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _conf);
-            if (conv_ == null) {
-                return;
-            }
-            stored_ = conv_;
+            stored_ = Argument.getNullableValue(conv_);
         }
         if (converterTo != null) {
             String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
@@ -108,7 +104,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_conf.getContext().getExiting(),_conf.getContext(), rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
         return Argument.createVoid();
     }
 }

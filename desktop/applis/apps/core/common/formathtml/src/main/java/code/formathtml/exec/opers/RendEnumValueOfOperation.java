@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -29,7 +28,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
 
     Argument getCommonArgument(Argument _argument, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
-        return ExecInvokingOperation.tryGetEnumValue(new AdvancedExiting(_conf),_conf.getContext(), valuesContent.getRootBlock(), ClassCategory.ENUM,_argument);
+        return ExecInvokingOperation.tryGetEnumValue(_conf.getContext().getExiting(),_conf.getContext(), valuesContent.getRootBlock(), ClassCategory.ENUM,_argument);
     }
 
     @Override

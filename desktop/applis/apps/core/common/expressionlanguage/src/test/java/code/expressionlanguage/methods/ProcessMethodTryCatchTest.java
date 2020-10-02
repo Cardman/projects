@@ -1358,7 +1358,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument95Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return (String)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -1375,18 +1379,24 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,12:79\npkg.Ex.$static catching();pkg/Ex:13,2:280\npkg.ExTwo.;2", getString(ret_));
+        assertEq("pkg/Ex:2,31:54\n" +
+                "pkg.Ex.;pkg/Ex:8,12:165\n" +
+                "pkg.Ex.$static res();3", getString(ret_));
     }
     @Test
     public void calculateArgument96Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return (String)$Class.forName(\"pkg.ExTwo\",$true);\n");
         xml_.append("  }\n");
@@ -1403,18 +1413,24 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,27:94\npkg.Ex.$static catching();pkg/Ex:13,2:304\npkg.ExTwo.;2", getString(ret_));
+        assertEq("pkg/Ex:2,31:54\n" +
+                "pkg.Ex.;pkg/Ex:8,27:180\n" +
+                "pkg.Ex.$static res();3", getString(ret_));
     }
     @Test
     public void calculateArgument97Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return (String)m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1432,12 +1448,14 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:5,22:198\npkg.Ex.$static catching();:0,0:0\n.;2", getString(ret_));
+        assertEq("pkg/Ex:2,31:54\n" +
+                "pkg.Ex.;pkg/Ex:9,22:284\n" +
+                "pkg.Ex.$static res();3", getString(ret_));
     }
     @Test
     public void calculateArgument971Test() {
@@ -1478,7 +1496,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument98Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return (String)m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1496,7 +1518,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1507,7 +1529,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument99Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return (String)m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1525,18 +1551,29 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$invokeTaget\n\npkg/Ex:5,22:198\npkg.Ex.$static catching()\n:0,0:0\n.", getString(ret_));
+        assertEq("java.lang.$invokeTaget\n" +
+                "\n" +
+                "pkg/Ex:2,31:54\n" +
+                "pkg.Ex.\n" +
+                "pkg/Ex:9,22:284\n" +
+                "pkg.Ex.$static res()\n" +
+                ":0,0:0\n" +
+                ".", getString(ret_));
     }
     @Test
     public void calculateArgument990Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1553,19 +1590,27 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:7,32:163\n" +
-                "pkg.Ex.$static catching()", getString(ret_));
+        assertEq("code.util.exceptions.NullObjectException\n" +
+                "\n" +
+                "pkg/Ex:2,31:54\n" +
+                "pkg.Ex.\n" +
+                "pkg/Ex:11,32:249\n" +
+                "pkg.Ex.$static res()", getString(ret_));
     }
     @Test
     public void calculateArgument991Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1582,18 +1627,29 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$defErrorClass\n\npkg/Ex:4,12:79\npkg.Ex.$static catching()\npkg/Ex:13,2:230\npkg.ExTwo.", getString(ret_));
+        assertEq("java.lang.$defErrorClass\n" +
+                "\n" +
+                "pkg/Ex:2,31:54\n" +
+                "pkg.Ex.\n" +
+                "pkg/Ex:8,12:165\n" +
+                "pkg.Ex.$static res()\n" +
+                "pkg/Ex:17,2:316\n" +
+                "pkg.ExTwo.", getString(ret_));
     }
     @Test
     public void calculateArgument100Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1610,18 +1666,29 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$defErrorClass\n\npkg/Ex:4,12:79\npkg.Ex.$static catching()\npkg/Ex:13,2:211\npkg.ExTwo.", getString(ret_));
+        assertEq("java.lang.$defErrorClass\n" +
+                "\n" +
+                "pkg/Ex:2,31:54\n" +
+                "pkg.Ex.\n" +
+                "pkg/Ex:8,12:165\n" +
+                "pkg.Ex.$static res()\n" +
+                "pkg/Ex:17,2:297\n" +
+                "pkg.ExTwo.", getString(ret_));
     }
     @Test
     public void calculateArgument1001Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1638,12 +1705,19 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$defErrorClass\n\npkg/Ex:4,12:79\npkg.Ex.$static catching()\npkg/Ex:13,2:230\npkg.ExTwo.", getString(ret_));
+        assertEq("java.lang.$defErrorClass\n" +
+                "\n" +
+                "pkg/Ex:2,31:54\n" +
+                "pkg.Ex.\n" +
+                "pkg/Ex:8,12:165\n" +
+                "pkg.Ex.$static res()\n" +
+                "pkg/Ex:17,2:316\n" +
+                "pkg.ExTwo.", getString(ret_));
     }
     @Test
     public void calculateArgument101Test() {
@@ -1699,7 +1773,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument102Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String res = res();\n");
         xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1716,7 +1794,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1727,7 +1805,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument103Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(\"\"+pkg.ExTwo.i);\n");
         xml_.append("  }\n");
@@ -1744,7 +1826,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1755,7 +1837,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument104Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(\"\"+pkg.ExTwo.i);\n");
         xml_.append("  }\n");
@@ -1777,7 +1863,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1788,7 +1874,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument105Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(\"\"+pkg.ExTwo.i.length());\n");
         xml_.append("  }\n");
@@ -1802,7 +1892,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1813,7 +1903,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument106Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(\"\"+pkg.ExTwo.i.length());\n");
         xml_.append("  }\n");
@@ -1832,7 +1926,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1843,7 +1937,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument107Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return ($boolean)m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1861,7 +1959,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1872,7 +1970,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument108Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return ($boolean)m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1896,7 +1998,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1907,7 +2009,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument109Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object res = res();\n");
         xml_.append(" $public $static Object catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i;\n");
         xml_.append("  }\n");
@@ -1924,7 +2030,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1935,7 +2041,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument110Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object res = res();\n");
         xml_.append(" $public $static Object catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return \"\"+pkg.ExTwo.i.length();\n");
         xml_.append("  }\n");
@@ -1949,7 +2059,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1960,7 +2070,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument111Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object res = res();\n");
         xml_.append(" $public $static Object catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -1978,7 +2092,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1989,7 +2103,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument112Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -2006,7 +2124,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2017,7 +2135,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument1112Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -2034,7 +2156,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2045,7 +2167,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument113Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -2062,7 +2188,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2074,7 +2200,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -2092,7 +2222,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2103,7 +2233,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument115Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean res = res();\n");
         xml_.append(" $public $static $boolean catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $return ($boolean)(ExTwo.i);\n");
         xml_.append("  }\n");
@@ -2120,7 +2254,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2131,7 +2265,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument116Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object res = res();\n");
         xml_.append(" $public $static Object catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -2149,7 +2287,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -2160,7 +2298,11 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
     public void calculateArgument1161Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object res = res();\n");
         xml_.append(" $public $static Object catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object res(){\n");
         xml_.append("  $try{\n");
         xml_.append("   $Method m = $class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0];\n");
         xml_.append("   $return m.invoke($null,\"pkg.ExTwo\",$true);\n");
@@ -2178,7 +2320,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;

@@ -789,9 +789,6 @@ public final class ExecutingUtil {
         }
     }
 
-    public static boolean hasToExit(ContextEl _cont,String _className) {
-        return hasToExit(_cont,_className,null);
-    }
     public static boolean hasToExit(ContextEl _cont,String _className,Argument _arg) {
         Classes classes_ = _cont.getClasses();
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
@@ -811,7 +808,7 @@ public final class ExecutingUtil {
                 }
                 return false;
             }
-            InitClassState res_ = locks_.getState(_cont, idClass_);
+            InitClassState res_ = locks_.getProgressingState(idClass_);
             if (res_ == InitClassState.NOT_YET) {
                 _cont.setCallingState(new NotInitializedClass(idClass_,c_, _arg));
                 return true;

@@ -12,7 +12,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -57,7 +56,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named,MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named,MethodAccessKind.INSTANCE, "");
     }
 
 }

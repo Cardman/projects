@@ -8,8 +8,6 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.PolymorphMethod;
@@ -68,9 +66,8 @@ public final class Classes {
             return messages_;
         }
         forwardAndClear(_context, _page, _forwards);
-        AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
-        tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
+        tryInitStaticlyTypes(_context, options_);
         return messages_;
     }
 
@@ -100,7 +97,7 @@ public final class Classes {
         }
     }
 
-    public static void tryInitStaticlyTypes(ContextEl _context, AnalysisMessages _mess, ReportedMessages _reported, Options _options) {
+    public static void tryInitStaticlyTypes(ContextEl _context, Options _options) {
         Classes cl_ = _context.getClasses();
         for (ClassMetaInfo c: cl_.getClassMetaInfos()) {
             String name_ = c.getName();
@@ -129,6 +126,7 @@ public final class Classes {
             }
         }
         CustList<String> all_ = cl_.classesBodies.getKeys();
+        _context.setExiting(new DefaultExiting(_context));
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
         while (true) {
             StringList new_ = new StringList();
@@ -160,20 +158,8 @@ public final class Classes {
             ProcessMethod.initializeClass(res_,classBody_,_context);
         }
         _context.getInitializingTypeInfos().resetInitEnums(_context);
-        StringList notInit_ = dl_.initAlwaysSuccess();
-        if (_options.isFailIfNotAllInit()) {
-            for (String s: notInit_) {
-                ExecRootBlock r_ = cl_.getClassBody(s);
-                ExecFileBlock file_ = r_.getFile();
-                FoundErrorInterpret n_ = new FoundErrorInterpret();
-                n_.setFileName(file_.getFileName());
-                n_.setIndexFile(r_.getIdRowCol());
-                n_.buildError(_mess.getNotInitClass(),
-                        s);
-                _reported.addError(n_);
-            }
-        }
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
+        _context.setExiting(new NoExiting());
     }
 
     private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {

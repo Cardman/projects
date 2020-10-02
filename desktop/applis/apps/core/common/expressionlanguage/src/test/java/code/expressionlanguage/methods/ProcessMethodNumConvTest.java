@@ -870,7 +870,11 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  ExClass e = null;\n");
         xml_.append("  if ((++e).field == 11){\n");
         xml_.append("   return 1;\n");
@@ -894,7 +898,7 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -1949,7 +1953,11 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int res = res();\n");
         xml_.append(" public static int method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int res(){\n");
         xml_.append("  ExClass e = null;\n");
         xml_.append("  if ((e+=1).field == 11){\n");
         xml_.append("   return 1;\n");
@@ -1977,7 +1985,7 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);

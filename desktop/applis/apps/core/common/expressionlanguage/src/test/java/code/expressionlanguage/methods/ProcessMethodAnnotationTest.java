@@ -3571,7 +3571,11 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("@MyAnnot\n");
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int field;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
         xml_.append("  $if (arr.length != 1i){\n");
         xml_.append("   $return 2i;\n");
@@ -3581,7 +3585,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -3599,7 +3603,11 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("@MyAnnot\n");
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int field;\n");
+        xml_.append(" $public $static $int res = res();\n");
         xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int res(){\n");
         xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
         xml_.append("  $if (arr.length != 1i){\n");
         xml_.append("   $return 2i;\n");
@@ -3609,7 +3617,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;

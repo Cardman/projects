@@ -10,39 +10,35 @@ import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 
-public class DefaultLockingClass {
+public final class DefaultLockingClass {
 
     private StringMap<InitClassState> classes = new StringMap<InitClassState>();
 
-    public final void init(ContextEl _context) {
+    public void init(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         for (ExecRootBlock r: cl_.getClassBodies()) {
             String name_ = r.getFullName();
             classes.addEntry(name_, InitClassState.NOT_YET);
         }
     }
-    public StringList initAlwaysSuccess() {
-        StringList notInit_ = new StringList();
+    public void initAlwaysSuccess() {
         for (EntryCust<String, InitClassState> e: classes.entryList()) {
             if (e.getValue() != InitClassState.SUCCESS) {
-                notInit_.add(e.getKey());
                 e.setValue(InitClassState.NOT_YET);
             }
         }
-        return notInit_;
     }
-    public final void initClass(String _className) {
+    public void initClass(String _className) {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.PROGRESSING);
     }
-    public final InitClassState getState(String _className) {
+    public InitClassState getState(String _className) {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         return classes.getVal(base_);
     }
-    public InitClassState getState(ContextEl _context, String _className) {
+    public InitClassState getProgressingState(String _className) {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {
@@ -54,7 +50,7 @@ public class DefaultLockingClass {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
-    public final Struct processErrorClass(ContextEl _context, Struct _cause) {
+    public Struct processErrorClass(ContextEl _context, Struct _cause) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         if (!(pageEl_ instanceof StaticInitPageEl)) {
             if (pageEl_ instanceof AbstractReflectPageEl) {

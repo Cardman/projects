@@ -49,7 +49,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             return new Argument(str_);
         }
         String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
-        if (ExecutingUtil.hasToExit(_conf,base_)) {
+        if (_conf.getExiting().hasToExit(base_)) {
             return Argument.createVoid();
         }
         return instancePrepareAnnotation(_conf, instancingAnnotContent.getClassName(),rootBlock, instancingAnnotContent.getFieldNames(), _arguments);

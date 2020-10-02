@@ -1314,8 +1314,9 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int field;\n");
+        xml_.append(" public static ExClass<int> res = $(ExClass<int>)class(ExClass<int>).getDeclaredExplicits(class(ExClass<int>),class(int))[0].invoke(null,5);\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  return $(ExClass<int>)class(ExClass<int>).getDeclaredExplicits(class(ExClass<int>),class(int))[0].invoke(null,5);\n");
+        xml_.append("  return res;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -1330,7 +1331,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -1965,7 +1966,11 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static ExClass res = res();\n");
         xml_.append(" public static ExClass method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass res(){\n");
         xml_.append("  return explicit(ExClass)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1981,7 +1986,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -1995,7 +2000,11 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static int v;\n");
+        xml_.append(" public static ExClass res = res();\n");
         xml_.append(" public static ExClass method(){\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass res(){\n");
         xml_.append("  return (ExClass)class(ExClass).getDeclaredMethods()[0].invoke(null,5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2011,7 +2020,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);

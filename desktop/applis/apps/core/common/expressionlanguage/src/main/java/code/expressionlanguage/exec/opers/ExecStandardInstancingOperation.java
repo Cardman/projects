@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -50,7 +49,7 @@ public final class ExecStandardInstancingOperation extends
         String className_ = page_.formatVarType(getClassName(), _conf);
         if (instancingStdContent.getFieldName().isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
-            if (ExecutingUtil.hasToExit(_conf,base_)) {
+            if (_conf.getExiting().hasToExit(base_)) {
                 return Argument.createVoid();
             }
         }

@@ -1,7 +1,6 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -10,7 +9,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.formathtml.exec.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
@@ -52,10 +50,6 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         String className_;
         PageEl page_ = _conf.getPageEl();
         className_ = page_.formatVarType(instancingCommonContent.getClassName(), _conf.getContext());
-        String base_ = StringExpUtil.getIdFromAllTypes(className_);
-        if (AdvancedExiting.hasToExit(base_, _conf.getContext())) {
-            return Argument.createVoid();
-        }
         String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, instancingCommonContent.getLastType());
         RendArgumentList args_ = listNamedArguments(_all, chidren_);
         CustList<Argument> first_ = args_.getArguments();

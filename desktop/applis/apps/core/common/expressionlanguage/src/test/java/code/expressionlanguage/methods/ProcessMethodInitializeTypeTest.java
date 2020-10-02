@@ -1473,7 +1473,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $static{\n");
-        xml_.append("  ExTwo.inst.append(\"word\");\n");
+        xml_.append("  ExTwo.inst.append(\"word\");n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

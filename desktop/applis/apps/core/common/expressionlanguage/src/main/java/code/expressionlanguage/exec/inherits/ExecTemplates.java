@@ -1462,7 +1462,7 @@ public final class ExecTemplates {
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         String type_ = _meta.getType();
-        return getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1);
+        return getField(new DefaultSetOffset(_conf),_conf.getExiting(),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1);
     }
 
     public static Argument getField(AbstractSetOffset _setOffset, AbstractExiting _exit, String _className, String _fieldName, boolean _isStaticField, String _ret, Argument _previous, ContextEl _conf, int _possibleOffset) {
@@ -1523,7 +1523,7 @@ public final class ExecTemplates {
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
+        return setField(new DefaultSetOffset(_conf),_conf.getExiting(),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
     }
 
     public static Argument setField(AbstractSetOffset _setOffset, AbstractExiting _exit, ExecRootBlock _rootBlock, String _className, String _fieldName,

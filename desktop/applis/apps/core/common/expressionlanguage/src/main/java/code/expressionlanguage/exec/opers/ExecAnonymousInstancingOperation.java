@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -44,7 +43,7 @@ public final class ExecAnonymousInstancingOperation extends
         PageEl page_ = _conf.getLastPage();
         String className_ = page_.formatVarType(instancingCommonContent.getClassName(), _conf);
         String base_ = StringExpUtil.getIdFromAllTypes(className_);
-        if (ExecutingUtil.hasToExit(_conf,base_)) {
+        if (_conf.getExiting().hasToExit(base_)) {
             return Argument.createVoid();
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);

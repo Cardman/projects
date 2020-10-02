@@ -1,14 +1,9 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.utilcompo.CustLockingClass;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -39,7 +34,7 @@ public final class GuiContextFactory {
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        CustLockingClass cl_ = new CustLockingClass();
+        DefaultLockingClass cl_ = new DefaultLockingClass();
         GuiInitializer ci_ = new GuiInitializer();
         ClassesCommon com_ = new ClassesCommon();
         _definedLgNames.setExecutingOptions(_exec);

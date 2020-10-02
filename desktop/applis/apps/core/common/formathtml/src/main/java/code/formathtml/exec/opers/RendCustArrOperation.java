@@ -15,7 +15,6 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
-import code.formathtml.exec.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -129,7 +128,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock dest_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(ctx_.getExiting(), ctx_, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
     }
 
 }

@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
@@ -304,8 +305,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
 
-    private static Argument processElNormal3(String el, StringMap<String> files) {
-        AnalyzedTestConfiguration context_ = getConfiguration(files);
+    private static Argument processElNormal3(String el, StringMap<String> files, String... _types) {
+        AnalyzedTestConfiguration context_ = getConfiguration(files,_types);
         addImportingPage(context_);
         return calc(el, context_);
     }
@@ -2824,6 +2825,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Argument caculateReuse(AnalyzedTestConfiguration conf_, CustList<RendDynOperationNode> out_) {
+        conf_.getContext().setExiting(new NoExiting());
         return RenderExpUtil.calculateReuse(out_, conf_.getConfiguration());
     }
 
@@ -2867,7 +2869,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl318Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth($null);\n");
+        xml_.append(" $public $static $int inst = exmeth(0);\n");
         xml_.append(" $public $static $int exmeth(java.lang.Integer e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
@@ -2891,7 +2893,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl319Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth($null);\n");
+        xml_.append(" $public $static $int inst = exmeth(0);\n");
         xml_.append(" $public $static $int exmeth(java.lang.Integer e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
@@ -2934,7 +2936,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$static(pkg.ExTwo).exmeth()+pkg.Ex.inst");
+        Argument arg_ = processElNormalInit(files_, "$static(pkg.ExTwo).exmeth()+pkg.Ex.inst","pkg.Ex");
         assertEq(6,getNumber(arg_));
     }
     @Test
@@ -2959,7 +2961,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst");
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex");
         assertEq(1,getNumber(arg_));
     }
     @Test
@@ -2987,7 +2989,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new pkg.Ex().$new Inner().inst");
+        Argument arg_ = processElNormalInit(files_, "$new pkg.Ex().$new Inner().inst","pkg.Ex");
         assertEq(5,getNumber(arg_));
     }
     @Test
@@ -3012,7 +3014,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst");
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex");
         assertEq(1,getNumber(arg_));
     }
 
@@ -3041,7 +3043,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex(5).inst");
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex(5).inst","pkg.Ex");
         assertEq(5,getNumber(arg_));
     }
     @Test
@@ -3264,7 +3266,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "++pkg.Ex.inst");
+        Argument arg_ = processElNormalInit(files_, "++pkg.Ex.inst","pkg.Ex");
         assertEq(2,getNumber(arg_));
     }
     @Test
@@ -3292,7 +3294,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst++");
+        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst++","pkg.Ex");
         assertEq(1,getNumber(arg_));
     }
     @Test
@@ -3320,7 +3322,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst+=5");
+        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst+=5","pkg.Ex");
         assertEq(6,getNumber(arg_));
     }
 
@@ -3348,7 +3350,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new{} pkg.Ex(5).inst=10");
+        Argument argument_ = processEl(files_, "$new{} pkg.Ex(5).inst=10","pkg.Ex");
         assertEq(10,getNumber(argument_));
     }
     @Test
@@ -3375,7 +3377,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.inst=10");
+        Argument argument_ = processEl(files_, "pkg.Ex.inst=10","pkg.Ex");
         assertEq(10,getNumber(argument_));
     }
     @Test
@@ -3405,7 +3407,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new{} pkg.Ex(52).$that.res(8)");
+        Argument argument_ = processEl(files_, "$new{} pkg.Ex(52).$that.res(8)","pkg.Ex");
         assertEq(60,getNumber(argument_));
     }
     @Test
@@ -3436,7 +3438,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.res(8)");
+        Argument argument_ = processEl(files_, "pkg.Ex.res(8)","pkg.Ex");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -3466,7 +3468,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)");
+        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)","pkg.Ex");
         assertEq(60,getNumber(argument_));
     }
 
@@ -3498,7 +3500,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)");
+        Argument argument_ = processEl(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)","pkg.Ex");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -3528,7 +3530,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)");
+        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)","pkg.Ex");
         assertEq(60,getNumber(argument_));
     }
     @Test
@@ -3559,7 +3561,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)");
+        Argument argument_ = processEl(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)","pkg.Ex");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -3577,7 +3579,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length");
+        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length","pkg.ExTwo");
         assertEq(2,getNumber(argument_));
     }
     @Test
@@ -3596,7 +3598,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval");
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -3615,7 +3617,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval");
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -3715,7 +3717,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.inst.$lambda(java.lang.String,length).call()");
+        Argument argument_ = processEl(files_, "pkg.Ex.inst.$lambda(java.lang.String,length).call()","pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -3733,7 +3735,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")");
+        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")","pkg.Ex");
         assertEq("mystr",getString(argument_));
     }
     @Test
@@ -4131,7 +4133,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst");
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst","pkg.Ex");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4155,7 +4157,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]++).inst");
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]++).inst","pkg.Ex");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -4179,7 +4181,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res[0]).inst");
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res[0]).inst","pkg.Ex");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4203,7 +4205,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res+=$new pkg.Ex(8)).inst");
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res+=$new pkg.Ex(8)).inst","pkg.Ex");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4227,7 +4229,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res++).inst");
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res++).inst","pkg.Ex");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -4251,7 +4253,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res).inst");
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res).inst","pkg.Ex");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4275,7 +4277,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_,"pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4311,7 +4313,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_,"pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4346,7 +4348,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_,"pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -5758,11 +5760,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return processElNormal(s, conf_, _expClass);
     }
 
-    private static Argument processElNormalNotInit(StringMap<String> files_, String s) {
-        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
+    private static Argument processElNormalNotInit(StringMap<String> files_, String s,String... _types) {
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_,_types);
         addImportingPage(cont_);
         Argument arg_ = calc(s, cont_);
-        assertTrue(!isInitialized(cont_));
+//        assertTrue(!isInitialized(cont_));
         return arg_;
     }
 
@@ -5770,8 +5772,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return cont_.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
     }
 
-    private static Argument processElNormalInit(StringMap<String> files_, String s) {
-        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+    private static Argument processElNormalInit(StringMap<String> files_, String s, String... _types) {
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_,_types);
         addImportingPage(conf_);
         Argument arg_ = calc(s, conf_);
         assertTrue(isInitialized(conf_));
@@ -5779,8 +5781,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return arg_;
     }
 
-    private static Argument processEl(StringMap<String> files_, String s) {
-        return processElNormal3(s, files_);
+    private static Argument processEl(StringMap<String> files_, String s, String... _types) {
+        return processElNormal3(s, files_,_types);
     }
 
     private static LocalVariable getModBoolVar(boolean b, String s) {
@@ -5806,9 +5808,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return lv_;
     }
 
-    private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files) {
+    private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build(conf_,_types);
         a_.getContext().setFullStack(new AdvancedFullStack(conf_));
         //
         getHeaders(_files, a_);
@@ -5816,7 +5818,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalysisMessages analysisMessages_ = a_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = a_.getAnalyzing().getMessages();
         ForwardInfos.generalForward(a_.getAnalyzing(),a_.getForwards(), a_.getContext());
-        Classes.tryInitStaticlyTypes(a_.getContext(),analysisMessages_,messages_, a_.getAnalyzing().getOptions());
+        Classes.tryInitStaticlyTypes(a_.getContext(), a_.getAnalyzing().getOptions());
         return a_;
     }
 
