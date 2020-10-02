@@ -1,13 +1,11 @@
 package code.expressionlanguage.analyze.errors;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.classes.CustLgNames;
-import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import org.junit.Test;
@@ -241,20 +239,18 @@ public final class AnalysisMessagesTest {
         def_.setUnexpectedVararg("");
         def_.setUnexpectedLeaf("");
         def_.setEmptyPart("");
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        getCtx(lk_, di_, lgName_, opts_, new ClassesCommon());
+        getCtx(di_, lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(def_);
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
 
-    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, LgNames lgName_, Options opts_, ClassesCommon _com) {
-        return new SingleContextEl(-1,lk_,di_,opts_, lgName_,4, _com);
+    private static ContextEl getCtx(DefaultInitializer di_, LgNames lgName_, Options opts_) {
+        return lgName_.newContext(4,-1, new Coverage(opts_.isCovering()),di_);
     }
 }

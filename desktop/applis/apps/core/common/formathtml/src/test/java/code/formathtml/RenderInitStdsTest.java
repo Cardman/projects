@@ -56,14 +56,12 @@ public final class RenderInitStdsTest extends CommonRender {
         KeyWords k_ = new KeyWords();
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         Options options_ = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, options_, b_, tabWidth_, com_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, di_, options_, b_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(am_, k_, new CustList<CommentDelimiters>(), options_, com_, null, BeanFileBuilder.newInstance(b_.getContent(),b_.getBeanAliases()), b_.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(am_, k_, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), null, BeanFileBuilder.newInstance(b_.getContent(),b_.getBeanAliases()), b_.getContent(), tabWidth_, page_);
         b_.build();
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards(), b_);
@@ -84,13 +82,11 @@ public final class RenderInitStdsTest extends CommonRender {
     private boolean contextEl(StringMap<String> _files, Options _opt, BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _opt, _beanLgNames, tabWidth_, com_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, di_, _opt, _beanLgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_mess, _kw, new CustList<CommentDelimiters>(), _opt, com_, _calculator, BeanFileBuilder.newInstance(_beanLgNames.getContent(),_beanLgNames.getBeanAliases()), _beanLgNames.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(_mess, _kw, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), _calculator, BeanFileBuilder.newInstance(_beanLgNames.getContent(),_beanLgNames.getBeanAliases()), _beanLgNames.getContent(), tabWidth_, page_);
         _beanLgNames.build();
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext analyzing = new AnalyzedTestContext(contextEl_, page_, new Forwards(), _beanLgNames);

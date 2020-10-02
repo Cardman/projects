@@ -6,9 +6,8 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -448,18 +447,21 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private AnalyzedPageEl setupNative(Configuration _conf) {
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, this, tabWidth_, com_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, di_, _options, this, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, com_, new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, page_);
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, page_);
         _conf.setContext(contextEl_);
         return page_;
+    }
+
+    @Override
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
+        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;

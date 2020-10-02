@@ -34,13 +34,11 @@ public final class GuiContextFactory {
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        DefaultLockingClass cl_ = new DefaultLockingClass();
         GuiInitializer ci_ = new GuiInitializer();
-        ClassesCommon com_ = new ClassesCommon();
         _definedLgNames.setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(ci_,_mainArgs,_window);
-        GuiContextEl r_ = new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, _definedLgNames, new Classes(com_), new Coverage(_options.isCovering()), cl_, ci_));
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_, new AdvancedConstantsCalculator(_definedLgNames), new GuiFileBuilder(_definedLgNames.getContent(),_definedLgNames.getGuiAliases(),_definedLgNames.getCustAliases()), _definedLgNames.getContent());
+        GuiContextEl r_ = (GuiContextEl)_definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()),ci_);
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(), new AdvancedConstantsCalculator(_definedLgNames), new GuiFileBuilder(_definedLgNames.getContent(),_definedLgNames.getGuiAliases(),_definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsGuiContext(r_,reportedMessages_);
     }
 }

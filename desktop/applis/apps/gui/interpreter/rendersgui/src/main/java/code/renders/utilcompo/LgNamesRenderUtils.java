@@ -2,8 +2,11 @@ package code.renders.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
@@ -30,7 +33,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
 
     public LgNamesRenderUtils(AbstractGenerator _gene) {
-        super(_gene);
+        super(_gene, new DefaultInitializer());
     }
 
     @Override
@@ -732,5 +735,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _mess.setUnexpectedVararg(LgNamesContent.get(_util, _cust, AnalysisMessages.UNEXPECTED_VARARG));
         _mess.setUnexpectedLeaf(LgNamesContent.get(_util, _cust, AnalysisMessages.UNEXPECTED_LEAF));
         _mess.setEmptyPart(LgNamesContent.get(_util, _cust, AnalysisMessages.EMPTY_PART));
+    }
+
+    @Override
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
+        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
     }
 }

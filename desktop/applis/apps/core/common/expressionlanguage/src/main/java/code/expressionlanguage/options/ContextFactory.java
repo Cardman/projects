@@ -2,17 +2,13 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.exec.ClassesCommon;
-import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.exec.Initializer;
-import code.expressionlanguage.SingleContextEl;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.BuildableLgNames;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -43,8 +39,8 @@ public final class ContextFactory {
         return Classes.validateAll(srcFiles_, _contextEl, _page, _forwards);
     }
 
-    public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, LgNames _definedLgNames, int _tabWidth, ClassesCommon _com) {
-        return new SingleContextEl(_stack, _lock, _init, _options, _definedLgNames,_tabWidth, _com);
+    public static ContextEl simpleBuild(int _stack, Initializer _init, Options _options, BuildableLgNames _definedLgNames, int _tabWidth) {
+        return _definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()),_init);
     }
 
     public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,

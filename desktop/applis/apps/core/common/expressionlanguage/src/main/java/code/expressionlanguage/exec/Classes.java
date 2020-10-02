@@ -54,7 +54,7 @@ public final class Classes {
 
 
     public StringMap<String> getResources() {
-		return common.getResources();
+		return getCommon().getResources();
 	}
 
     /**Resources are possibly added before analyzing file types*/
@@ -213,7 +213,11 @@ public final class Classes {
     }
 
     public StringMap<StringMap<Struct>> getStaticFields() {
-        return common.getStaticFields();
+        return getCommon().getStaticFields();
+    }
+
+    public ClassesCommon getCommon() {
+        return common;
     }
 
     public String getIteratorVarCust() {
@@ -326,7 +330,7 @@ public final class Classes {
     }
 
     public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
-        return common.getToStringMethodsToCallBodies();
+        return getCommon().getToStringMethodsToCallBodies();
     }
 
     public StringMap<ExecRootBlock> getClassesBodies() {

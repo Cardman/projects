@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -21,7 +20,7 @@ import code.util.StringMap;
 public final class CustContextFactory {
     private CustContextFactory(){}
     public static ResultsRunnableContext buildDefKw(String _lang,
-            Options _options, ExecutingOptions _exec,LgNamesUtils _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
+            Options _options, ExecutingOptions _exec,LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         if (StringList.quickEq(_lang, "en")) {
@@ -102,13 +101,10 @@ public final class CustContextFactory {
         }
     }
     public static ResultsRunnableContext build(int _stack,
-            Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        DefaultLockingClass cl_ = new DefaultLockingClass();
-        CustInitializer ci_ = new CustInitializer();
-        ClassesCommon com_ = new ClassesCommon();
+                                               Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files, int _tabWidth) {
         _definedLgNames.setExecutingOptions(_exec);
-        RunnableContextEl r_ = new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, _definedLgNames, new Classes(com_), new Coverage(_options.isCovering()), cl_, ci_));
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, com_,
+        RunnableContextEl r_ = (RunnableContextEl) _definedLgNames.newContext(_tabWidth, _stack, new Coverage(_options.isCovering()), new CustInitializer());
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(),
                 new DefaultConstantsCalculator(_definedLgNames.getContent().getNbAlias()), CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsRunnableContext(r_,reportedMessages_);
     }

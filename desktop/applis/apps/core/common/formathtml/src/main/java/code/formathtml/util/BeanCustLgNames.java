@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -49,6 +51,7 @@ import code.sml.Element;
 import code.util.*;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
+    private final Initializer init;
     private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
     private static final String REF_TAG = "#";
@@ -119,8 +122,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String validateVarArgClassField;
     private String vlidateVarArgNameField;
 
-    public BeanCustLgNames(AbstractGenerator _gene) {
+    public BeanCustLgNames(AbstractGenerator _gene, Initializer _init) {
         super(_gene);
+        init = _init;
     }
 
     @Override
@@ -419,7 +423,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return messages_;
         }
         forwardAndClear(_conf, _page, analyzingDoc_, forwards_, d_);
-        AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
         Options options_ = _page.getOptions();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext(), options_);
@@ -732,7 +735,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
-                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder);
+                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder, init);
             }
         }
         return page_;

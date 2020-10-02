@@ -27,15 +27,13 @@ public final class InitializationLgNames {
 
     public static AnalyzedTestContext buildStdThree(Options _opt) {
         BeanCustLgNames lgNames_ = getBeanCustLgNames();
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, lgNames_, tabWidth_, com_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, di_, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, com_, new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());

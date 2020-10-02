@@ -46,7 +46,6 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     @Test
     public void failStd(){
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
@@ -54,11 +53,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_,null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
+        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(),null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
@@ -66,7 +64,6 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     @Test
     public void failStd2(){
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
@@ -77,18 +74,16 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.getContent().getMathRef().setAliasLe("ge");
         lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_, null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
+        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyStdError());
     }
 
     @Test
     public void failMessage(){
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
@@ -97,18 +92,16 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_, null, null, null, tabWidth_, page_);
+        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, null, null, tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }
     @Test
     public void failMessage2(){
-        DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
@@ -116,11 +109,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        ClassesCommon com_ = new ClassesCommon();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, lgName_, tabWidth_, com_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, com_, null, null, null, tabWidth_, page_);
+        ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, null, null, tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());

@@ -1,6 +1,7 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
@@ -160,7 +161,7 @@ public final class MainWindow extends GroupFrame {
         th_.start();
     }
 
-    public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
+    public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
         String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
         String infoTestDone_ = _evolved.getCustAliases().getAliasInfoTestDone();
         String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
@@ -188,7 +189,7 @@ public final class MainWindow extends GroupFrame {
         progressBar.setValue(progressBar.getMaximum());
     }
 
-    public void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+    public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         if (!_res.isNull()) {
             Struct results_ = _res.getStruct();
             String tableCl_ = _evolved.getCustAliases().getAliasTable();

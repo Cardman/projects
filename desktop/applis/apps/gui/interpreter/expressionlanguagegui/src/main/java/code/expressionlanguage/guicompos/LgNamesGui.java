@@ -3,8 +3,9 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -91,4 +92,8 @@ public class LgNamesGui extends LgNamesUtils {
         guiAliases.otherAliasGui(_util,_cust);
     }
 
+    @Override
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
+        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, this, new Classes(new ClassesCommon()), _coverage, new DefaultLockingClass(), _init));
+    }
 }

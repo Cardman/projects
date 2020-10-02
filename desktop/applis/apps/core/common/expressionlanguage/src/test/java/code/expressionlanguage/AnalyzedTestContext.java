@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {
     private final ContextEl context;
@@ -33,14 +32,6 @@ public final class AnalyzedTestContext {
     }
     public String getAliasVoid() {
         return analyzing.getAliasVoid();
-    }
-
-    public String getAliasBoolean() {
-        return analyzing.getAliasBoolean();
-    }
-
-    public String getAliasPrimBoolean() {
-        return analyzing.getAliasPrimBoolean();
     }
 
     public String getAliasObject() {

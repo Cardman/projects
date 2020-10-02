@@ -3,8 +3,9 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
@@ -88,5 +89,10 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     public void setExecutingOptions(ExecutingOptions executingOptions) {
         this.executingOptions = executingOptions;
+    }
+
+    @Override
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
+        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, this, new Classes(new ClassesCommon()), _coverage, new DefaultLockingClass(), _init));
     }
 }
