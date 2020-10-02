@@ -2404,6 +2404,26 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq("",lgNamesContent_.getDefaultPkg());
     }
     @Test
+    public void getAlias5() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        KeyWords lgNamesContent_ = new KeyWords();
+        lgNamesContent_.build(def_, cust_);
+        assertEq("",lgNamesContent_.getKeyWordVar());
+    }
+    @Test
+    public void getAlias6() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        AnalysisMessages lgNamesContent_ = new AnalysisMessages();
+        lgNamesContent_.build(def_, cust_);
+        assertEq("",lgNamesContent_.getEmptyPart());
+    }
+    @Test
     public void parseLineArg1Test() {
         StringList args_ = ParseLinesArgUtil.parseLineArg("first_arg");
         assertEq(1, args_.size());
