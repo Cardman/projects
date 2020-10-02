@@ -26,7 +26,6 @@ public final class FileResolver {
     private static final char BEGIN_ARRAY = '[';
     private static final char END_ARRAY = ']';
     private static final char BEGIN_CALLING = '(';
-    private static final char SEP_CALLING = ',';
     private static final char END_CALLING = ')';
     private static final char PART_SEPARATOR = '=';
     private static final char DEL_CHAR = '\'';
@@ -61,8 +60,7 @@ public final class FileResolver {
         Ints offsetsImports_ = new Ints();
         Ints beginComments_ = _block.getBeginComments();
         Ints endComments_ = _block.getEndComments();
-        AnalyzedPageEl analyzing_ = _page;
-        CustList<CommentDelimiters> comments_ = analyzing_.getComments();
+        CustList<CommentDelimiters> comments_ = _page.getComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
@@ -283,8 +281,7 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(null);
         CommentDelimiters current_ = null;
-        AnalyzedPageEl analyzing_ = _page;
-        CustList<CommentDelimiters> comments_ = analyzing_.getComments();
+        CustList<CommentDelimiters> comments_ = _page.getComments();
         Ints beginComments_ = fileBlock_.getBeginComments();
         Ints endComments_ = fileBlock_.getEndComments();
         while (i_ < len_) {
@@ -501,7 +498,7 @@ public final class FileResolver {
                 }
             }
             if (endInstruction_) {
-                after_ = processInstruction(out_,_input, currentChar_, packageName_, currentChar_, currentParent_,
+                after_ = processInstruction(out_,_input, packageName_, currentChar_, currentParent_,
                         instructionLocation_,
                         instruction_, _file, declType_, i_,_offset, enableByEndLine_, _page);
                 enableByEndLine_ = after_.isEnabledEnumHeader();
@@ -841,7 +838,7 @@ public final class FileResolver {
         return join_.substring(typeStr_.length()).trim();
     }
 
-    private static AfterBuiltInstruction processInstruction(ResultCreation _out, InputTypeCreation _input, char _end, String _pkgName, char _currentChar,
+    private static AfterBuiltInstruction processInstruction(ResultCreation _out, InputTypeCreation _input, String _pkgName, char _currentChar,
                                                             BracedBlock _currentParent,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _offset, boolean _enabledEnum, AnalyzedPageEl _page) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
@@ -925,7 +922,7 @@ public final class FileResolver {
                     StringBuilder symbol_;
                     int symbolIndex_ = nextIndex_;
                     String trAfterOper_ = afterOper_.trim();
-                    symbol_ = fetchSymbol(trAfterOper_,0);
+                    symbol_ = fetchSymbol(trAfterOper_);
                     nextIndex_ += symbol_.length();
                     String afterSymbol_ = trAfterOper_.substring(symbol_.length());
                     int offAfterSymbol_ = StringList.getFirstPrintableCharIndex(afterSymbol_);
@@ -1429,7 +1426,7 @@ public final class FileResolver {
                     br_ = built_;
                 } else if (currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
-                    br_ = processTypeMember(_end, _instruction, instructionLocation_, _i, _offset, (RootBlock)currentParent_, _page);
+                    br_ = processTypeMember(_currentChar, _instruction, instructionLocation_, _i, _offset, (RootBlock)currentParent_, _page);
                 } else {
                     int affectOffset_;
                     int afterDeclareOffset_;
@@ -1723,7 +1720,7 @@ public final class FileResolver {
         return typeBlock_;
     }
 
-    private static Block processTypeMember(char _end,
+    private static Block processTypeMember(char _currentChar,
                                            StringBuilder _instruction, int _instructionLocation, int _i, int _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
         int instructionLocation_ = _instructionLocation;
         String found_ = _instruction.toString();
@@ -1779,7 +1776,7 @@ public final class FileResolver {
         String trimmedAfterAccess_ = afterAccess_.trim();
         String infoModifiers_ = trimmedAfterAccess_;
         boolean field_ = false;
-        if (_end == ';' && StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
+        if (_currentChar == ';' && StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
             String otherModifier_;
             otherModifier_ = keyWordStatic_;
             int lenLoc_ = otherModifier_.length();
@@ -1872,7 +1869,7 @@ public final class FileResolver {
                 meth_ = true;
             }
         }
-        if (meth_|| oper_||ctor_||_end != ';') {
+        if (meth_|| oper_||ctor_||_currentChar != ';') {
             if (_currentParent instanceof InterfaceBlock && word_.isEmpty()) {
                 accessFct_ = AccessEnum.PUBLIC;
             }
@@ -1944,7 +1941,7 @@ public final class FileResolver {
                 methodNameOffest_ = modifierOffest_ + prefModifier_.length();
                 methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterModifier_);
                 afterModifier_ = afterModifier_.substring(StringList.getFirstPrintableCharIndex(afterModifier_));
-                methodName_ = fetchSymbol(afterModifier_, 0).toString();
+                methodName_ = fetchSymbol(afterModifier_).toString();
                 afterModifier_ = afterModifier_.substring(methodName_.length());
                 typeOffset_ = methodNameOffest_ + methodName_.length();
                 typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
@@ -2127,9 +2124,9 @@ public final class FileResolver {
         return br_;
     }
 
-    private static StringBuilder fetchSymbol(String _afterModifier, int _from) {
+    private static StringBuilder fetchSymbol(String _afterModifier) {
         int len_ = _afterModifier.length();
-        int j_ = _from;
+        int j_ = 0;
         StringBuilder symbol_ = new StringBuilder();
         while (j_ < len_) {
             char currentChar_ = _afterModifier.charAt(j_);
@@ -2571,8 +2568,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(begCall_ + 1, endIndex_);
             }
             String declaringType_ = getFoundType(exp_);
-            typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
             int varOffset_ = typeOffset_ + declaringType_.length();
+            typeOffset_ += StringExpUtil.getOffset(exp_);
             exp_ = exp_.substring(declaringType_.length());
             int eqIndex_ = exp_.indexOf(PART_SEPARATOR);
             String variable_ = "";
@@ -2581,34 +2578,39 @@ public final class FileResolver {
                 ok_ = false;
             } else {
                 variable_ = exp_.substring(0, eqIndex_);
-                firstOff_ = StringList.getFirstPrintableCharIndex(variable_);
+                firstOff_ = StringExpUtil.getOffset(variable_);
                 varOffset_ += firstOff_;
                 exp_ = exp_.substring(eqIndex_ + 1);
             }
-            int nextElt_ = getIndex(exp_, END_LINE);
+            int nextElt_ = getIndex(exp_);
             int initOff_ = varOffset_ + variable_.length()-firstOff_+1;
             String init_ = "";
+            int secondOff_ = 0;
             if (nextElt_ < 0) {
                 ok_ = false;
             } else {
                 init_ = exp_.substring(0, nextElt_);
-                initOff_ += StringList.getFirstPrintableCharIndex(init_);
-                exp_ = exp_.substring(init_.length()+1);
+                secondOff_ = StringExpUtil.getOffset(init_);
+                initOff_ += secondOff_;
+                exp_ = exp_.substring(nextElt_+1);
             }
-            nextElt_ = getIndex(exp_, END_LINE);
-            int toOff_ = initOff_ + init_.trim().length()+1;
+            nextElt_ = getIndex(exp_);
+            int toOff_ = initOff_ + init_.length()-secondOff_+1;
             String to_ = "";
+            int thirdOff_ = 0;
             if (nextElt_ < 0) {
                 ok_ = false;
             } else {
                 to_ = exp_.substring(0, nextElt_);
-                toOff_ += StringList.getFirstPrintableCharIndex(to_);
+                thirdOff_ = StringExpUtil.getOffset(to_);
+                toOff_ += thirdOff_;
             }
             boolean eq_ = false;
-            int expOff_ = toOff_ + nextElt_;
+            int expOff_ = toOff_ + to_.length()-thirdOff_;
             int stepOff_ = expOff_ + 1;
             if (nextElt_ + 1 >= exp_.length()) {
                 ok_ = false;
+                stepOff_--;
             } else {
                 if (exp_.charAt(nextElt_ + 1) == END_LINE) {
                     eq_ = true;
@@ -2618,7 +2620,7 @@ public final class FileResolver {
                 exp_ = exp_.substring(nextElt_ + 1);
             }
             String step_ = exp_;
-            stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+            stepOff_ += StringExpUtil.getOffset(step_);
             label_ = label_.substring(lastPar_ + 1);
             if (!label_.isEmpty()) {
                 labelOff_ += StringList.getFirstPrintableCharIndex(label_);
@@ -2665,34 +2667,35 @@ public final class FileResolver {
             }
             boolean finalLocalVar_ = StringExpUtil.startsWithKeyWord(exp_.trim(), keyWordFinal_);
             int finalOffset_ = typeOffset_;
-            int delta_;
-            int deltaAfter_ = 0;
+            int deltaAfter_;
             if (finalLocalVar_) {
-                deltaAfter_ = keyWordFinal_.length();
-                delta_ = StringList.getFirstPrintableCharIndex(exp_) + deltaAfter_;
+                int delta_ = StringList.getFirstPrintableCharIndex(exp_) + keyWordFinal_.length();
                 deltaAfter_ = delta_;
                 String afterDelta_ = exp_.substring(delta_);
-                deltaAfter_ += StringList.getFirstPrintableCharIndex(afterDelta_);
+                deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
+            } else {
+                deltaAfter_ = StringExpUtil.getOffset(exp_);
             }
             typeOffset_ += deltaAfter_;
             exp_ = exp_.substring(deltaAfter_);
             String declaringType_ = getDeclaringTypeInstr(exp_,keyWords_);
-            int initOff_ = typeOffset_ + declaringType_.length();
             exp_ = exp_.substring(declaringType_.length());
             boolean ok_ = false;
-            int nextEltMut_ = getIndex(exp_, END_LINE);
+            int nextEltMut_ = getIndex(exp_);
+            String expAfterType_ = exp_;
             if (nextEltMut_ > -1) {
+                int initOff_ = typeOffset_ + declaringType_.length();
                 String init_ = exp_.substring(0, nextEltMut_);
                 int off_ = StringExpUtil.getOffset(init_);
+                int toOff_ = initOff_ + nextEltMut_+1;
                 initOff_ += off_;
                 exp_ = exp_.substring(nextEltMut_+1);
-                int toOff_ = initOff_ -off_+ nextEltMut_+1;
-                int nextElt_ = getIndex(exp_, END_LINE);
+                int nextElt_ = getIndex(exp_);
                 if (nextElt_ > -1) {
                     String to_ = exp_.substring(0, nextElt_);
                     int offTwo_ = StringExpUtil.getOffset(to_);
+                    int stepOff_ = toOff_ + nextElt_+1;
                     toOff_ += offTwo_;
-                    int stepOff_ = toOff_ - offTwo_ + nextElt_+1;
                     exp_ = exp_.substring(nextElt_ + 1);
                     String step_ = exp_;
                     stepOff_ += StringExpUtil.getOffset(step_);
@@ -2710,20 +2713,20 @@ public final class FileResolver {
                 }
             }
             if (!ok_) {
-                int nextElt_ = getIndex(exp_,FOR_BLOCKS);
+                int nextElt_ = expAfterType_.indexOf(FOR_BLOCKS);
                 if (nextElt_ > -1) {
-                    String init_ = exp_.substring(0, nextElt_);
+                    int expOffset_ = typeOffset_ + declaringType_.length();
+                    expOffset_ += nextElt_+1;
+                    int setOff_ = expOffset_-1;
+                    String init_ = expAfterType_.substring(0, nextElt_);
+                    exp_ = expAfterType_.substring(nextElt_+1);
+                    expOffset_ += StringExpUtil.getOffset(exp_);
                     String variableName_ = init_.trim();
+                    label_ = label_.substring(lastPar_ + 1);
+                    labelOff_ += getLabelOffset(label_);
                     if (StringExpUtil.isTypeLeafPart(variableName_)) {
-                        exp_ = exp_.substring(init_.length()+1);
                         int varOffset_ = typeOffset_ + declaringType_.length();
                         varOffset_ += StringList.getFirstPrintableCharIndex(init_);
-                        int expOffset_ = varOffset_;
-                        expOffset_ += init_.length();
-                        int setOff_ = expOffset_-1;
-                        expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                        label_ = label_.substring(lastPar_ + 1);
-                        labelOff_ += getLabelOffset(label_);
                         br_ = new ForEachLoop(new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
                                 new OffsetStringInfo(varOffset_+_offset, variableName_), new OffsetStringInfo(expOffset_+_offset, exp_.trim()),
                                 new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
@@ -2740,21 +2743,14 @@ public final class FileResolver {
                             if (StringExpUtil.isTypeLeafPart(secVar_)) {
                                 int varOffset_ = typeOffset_ + declaringType_.length();
                                 varOffset_ += StringList.getFirstPrintableCharIndex(init_);
-                                int expOffset_ = varOffset_;
-                                expOffset_ += init_.length();
                                 int secType_ = varOffset_;
                                 secType_ += nextIndexVar_+1;
                                 int secVarOff_ = secType_;
-                                secType_ += StringList.getFirstPrintableCharIndex(declaringTypeSec_);
+                                secType_ += StringExpUtil.getOffset(declaringTypeSec_);
                                 secVarOff_ += declaringTypeSec_.length();
                                 secVarOff_ += StringList.getFirstPrintableCharIndex(padSecVar_);
-                                label_ = label_.substring(lastPar_ + 1);
-                                labelOff_ += getLabelOffset(label_);
-                                exp_ = exp_.substring(init_.length()+1);
-                                int setOff_ = expOffset_-1;
-                                expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                                 br_ = new ForEachTable(
-                                        new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()), new OffsetStringInfo(varOffset_+_offset, firstVar_),
+                                        new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()), new OffsetStringInfo(varOffset_+_offset, firstVar_.trim()),
                                         new OffsetStringInfo(secType_+_offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_+_offset, secVar_),
                                         new OffsetStringInfo(expOffset_+_offset, exp_.trim()), new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
                                         new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page);
@@ -2890,11 +2886,8 @@ public final class FileResolver {
         }
         return "";
     }
-    private static int getIndex(String _info, char _endLine) {
-        return getIndex(0,_info,_endLine);
-    }
-    private static int getIndex(int _from,String _info, char _endLine) {
-        int indexInstr_ = _from;
+    private static int getIndex(String _info) {
+        int indexInstr_ = 0;
         int instrLen_ = _info.length();
         int localCallings_ = 0;
         boolean localConstChar_ = false;
@@ -2942,7 +2935,7 @@ public final class FileResolver {
                 indexInstr_++;
                 continue;
             }
-            if (localCallings_ == 0 && locChar_ == _endLine) {
+            if (localCallings_ == 0 && locChar_ == END_LINE) {
                 return indexInstr_;
             }
             if (locChar_ == DEL_CHAR) {
