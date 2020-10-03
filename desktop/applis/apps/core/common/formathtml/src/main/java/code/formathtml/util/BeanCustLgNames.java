@@ -18,6 +18,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.AdvancedFullStack;
@@ -400,14 +401,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     private static String tr(StringList _list) {
-        String candidate_ = "tmp";
-        int index_ = 0;
-        while (StringList.contains(_list,candidate_)) {
-            candidate_ = StringList.concatNbs("tmp",index_);
-            index_++;
-        }
-        _list.add(candidate_);
-        return candidate_;
+        return ValidatorStandard.tr(_list);
     }
 
     @Override

@@ -1027,48 +1027,7 @@ public final class CustRenderAliases {
     }
     public void build(LgNamesContent _content,DefaultBeanAliases _bean,StringMap<String> _util, StringMap<String> _cust) {
         _content.build(_util,_cust);
-        _bean.setAliasBean(LgNamesContent.get(_util, _cust, DefaultBeanAliases.BEAN));
-        _bean.setAliasMapKeys(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_KEYS));
-        _bean.setAliasMapValues(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_VALUES));
-        _bean.setAliasMapIndexOfEntry(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_INDEX_OF_ENTRY));
-        _bean.setAliasMapAddEntry(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_ADD_ENTRY));
-        _bean.setAliasMapGetValue(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_GET_VALUE));
-        _bean.setAliasMapFirstValue(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_FIRST_VALUE));
-        _bean.setAliasMapLastValue(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_LAST_VALUE));
-        _bean.setAliasMapSetValue(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_SET_VALUE));
-        _bean.setAliasMapPut(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_PUT));
-        _bean.setAliasMapContains(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_CONTAINS));
-        _bean.setAliasMapPutAll(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_PUT_ALL));
-        _bean.setAliasMapGetVal(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_GET_VAL));
-        _bean.setAliasMapRemoveKey(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_REMOVE_KEY));
-        _bean.setAliasMapGetKey(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_GET_KEY));
-        _bean.setAliasMapFirstKey(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_FIRST_KEY));
-        _bean.setAliasMapLastKey(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_LAST_KEY));
-        _bean.setAliasMapSetKey(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_SET_KEY));
-        _bean.setAliasMapSize(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_SIZE));
-        _bean.setAliasMapIsEmpty(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_IS_EMPTY));
-        _bean.setAliasMapClear(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MAP_CLEAR));
-        _bean.setAliasValidator(LgNamesContent.get(_util, _cust, DefaultBeanAliases.VALIDATOR));
-        _bean.setAliasValidate(LgNamesContent.get(_util, _cust, DefaultBeanAliases.VALIDATE));
-        _bean.setAliasDataBaseField(LgNamesContent.get(_util, _cust, DefaultBeanAliases.DATA_BASE_FIELD));
-        _bean.setAliasForms(LgNamesContent.get(_util, _cust, DefaultBeanAliases.FORMS));
-        _bean.setAliasSetForms(LgNamesContent.get(_util, _cust, DefaultBeanAliases.SET_FORMS));
-        _bean.setAliasGetForms(LgNamesContent.get(_util, _cust, DefaultBeanAliases.GET_FORMS));
-        _bean.setAliasLanguage(LgNamesContent.get(_util, _cust, DefaultBeanAliases.LANGUAGE));
-        _bean.setAliasSetLanguage(LgNamesContent.get(_util, _cust, DefaultBeanAliases.SET_LANGUAGE));
-        _bean.setAliasGetLanguage(LgNamesContent.get(_util, _cust, DefaultBeanAliases.GET_LANGUAGE));
-        _bean.setAliasScope(LgNamesContent.get(_util, _cust, DefaultBeanAliases.SCOPE));
-        _bean.setAliasSetScope(LgNamesContent.get(_util, _cust, DefaultBeanAliases.SET_SCOPE));
-        _bean.setAliasGetScope(LgNamesContent.get(_util, _cust, DefaultBeanAliases.GET_SCOPE));
-        _bean.setAliasSetDataBase(LgNamesContent.get(_util, _cust, DefaultBeanAliases.SET_DATA_BASE));
-        _bean.setAliasGetDataBase(LgNamesContent.get(_util, _cust, DefaultBeanAliases.GET_DATA_BASE));
-        _bean.setAliasBeforeDisplaying(LgNamesContent.get(_util, _cust, DefaultBeanAliases.BEFORE_DISPLAYING));
-        _bean.setAliasStringMapObject(LgNamesContent.get(_util, _cust, DefaultBeanAliases.STRING_MAP_OBJECT));
-        _bean.setAliasMessage(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MESSAGE));
-        _bean.setAliasNewMessage(LgNamesContent.get(_util, _cust, DefaultBeanAliases.NEW_MESSAGE));
-        _bean.setAliasMessageFormat(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MESSAGE_FORMAT));
-        _bean.setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MESSAGE_GET_ARGS));
-        _bean.setAliasMessageSetArgs(LgNamesContent.get(_util, _cust, DefaultBeanAliases.MESSAGE_SET_ARGS));
+        _bean.build(_util, _cust);
     }
 
     public String getAliasAtomicBoolean() {

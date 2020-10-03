@@ -33,6 +33,13 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     }
 
     @Override
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
+        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames();
+        m_.addAllElts(beanAliases.allTableTypeMethodParamNames());
+        return m_;
+    }
+
+    @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
         for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames().entryList()) {

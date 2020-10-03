@@ -10,10 +10,12 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.*;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
 import org.junit.Test;
 
 
+import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public final class RendKeyWordsTest {
@@ -372,4 +374,14 @@ public final class RendKeyWordsTest {
         r_.validateDuplicates(tags_, conf_.getAnalyzing());
     }
 
+    @Test
+    public void getAlias4() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        DefaultBeanAliases lgNamesContent_ = new DefaultBeanAliases();
+        lgNamesContent_.build(def_, cust_);
+        assertEq("",lgNamesContent_.getAliasBean());
+    }
 }

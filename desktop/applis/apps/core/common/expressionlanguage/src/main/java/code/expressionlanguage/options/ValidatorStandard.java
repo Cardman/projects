@@ -529,8 +529,7 @@ public final class ValidatorStandard {
     }
 
     public static String tr(StringList _list) {
-        CustList<String> allKeysWords_ = new StringList();
-        String candidate_ = tr(allKeysWords_,"tmp");
+        String candidate_ = tr(_list,"tmp");
         _list.add(candidate_);
         return candidate_;
     }
