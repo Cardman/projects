@@ -10,8 +10,10 @@ import code.expressionlanguage.stds.LgNames;
 import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.InitializationLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.util.StringMap;
 import org.junit.Test;
 
+import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public final class RendAnalysisMessagesTest {
@@ -37,6 +39,16 @@ public final class RendAnalysisMessagesTest {
         assertTrue(!page_.isEmptyMessageError());
     }
 
+    @Test
+    public void getAlias6() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        RendAnalysisMessages lgNamesContent_ = new RendAnalysisMessages();
+        lgNamesContent_.rendMessages(def_, cust_);
+        assertEq("",lgNamesContent_.getEmptyAttr());
+    }
     private static ContextEl getCtx(DefaultInitializer di_, LgNames lgName_, Options opts_) {
         return lgName_.newContext(4, -1, new Coverage(opts_.isCovering()),di_);
     }

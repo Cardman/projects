@@ -384,4 +384,20 @@ public final class RendKeyWordsTest {
         lgNamesContent_.build(def_, cust_);
         assertEq("",lgNamesContent_.getAliasBean());
     }
+
+    @Test
+    public void getAlias5() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        RendKeyWords lgNamesContent_ = new RendKeyWords();
+        lgNamesContent_.otherStyleUnits(def_, cust_);
+        lgNamesContent_.otherTags(def_, cust_);
+        lgNamesContent_.otherAttrs(def_, cust_);
+        lgNamesContent_.otherStyleAttrs(def_, cust_);
+        lgNamesContent_.otherStyleValues(def_, cust_);
+        lgNamesContent_.otherValues(def_, cust_);
+        assertEq("",lgNamesContent_.getKeyWordAnchor());
+    }
 }

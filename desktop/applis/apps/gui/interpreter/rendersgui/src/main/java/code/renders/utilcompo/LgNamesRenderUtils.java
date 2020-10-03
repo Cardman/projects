@@ -183,9 +183,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherStyleUnits(_rendKw,_util,_cust);
     }
     private void otherStyleUnits(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setStyleUnitSolid(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_UNIT_SOLID));
-        _rendKw.setStyleUnitPx(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_UNIT_PX));
-        _rendKw.setStyleUnitEm(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_UNIT_EM));
+        _rendKw.otherStyleUnits(_util, _cust);
     }
     private void otherStyleValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"stylevalues");
@@ -197,16 +195,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherStyleValues(_rendKw,_util,_cust);
     }
     private void otherStyleValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setStyleValueGreen(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_GREEN));
-        _rendKw.setStyleValueBlue(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_BLUE));
-        _rendKw.setStyleValueYellow(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_YELLOW));
-        _rendKw.setStyleValueMagenta(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_MAGENTA));
-        _rendKw.setStyleValueCyan(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_CYAN));
-        _rendKw.setStyleValueBlack(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_BLACK));
-        _rendKw.setStyleValueGrey(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_GREY));
-        _rendKw.setStyleValueWhite(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_WHITE));
-        _rendKw.setStyleValueRgb(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_RGB));
-        _rendKw.setStyleValueRed(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_VALUE_RED));
+        _rendKw.otherStyleValues(_util, _cust);
     }
     private void otherStyleAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"styleattrs");
@@ -218,11 +207,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherStyleAttrs(_rendKw,_util,_cust);
     }
     private void otherStyleAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setStyleAttrColor(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_ATTR_COLOR));
-        _rendKw.setStyleAttrBackground(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_ATTR_BACKGROUND));
-        _rendKw.setStyleAttrBorder(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_ATTR_BORDER));
-        _rendKw.setStyleAttrFontSize(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_ATTR_FONTSIZE));
-        _rendKw.setStyleAttrFontFam(LgNamesContent.get(_util, _cust, RendKeyWords.STYLE_ATTR_FONTFAM));
+        _rendKw.otherStyleAttrs(_util, _cust);
     }
     private void otherValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"values");
@@ -234,22 +219,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherValues(_rendKw,_util,_cust);
     }
     private void otherValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setValueNumber(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_NUMBER));
-        _rendKw.setValueRange(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_RANGE));
-        _rendKw.setValueRadio(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_RADIO));
-        _rendKw.setValueCheckbox(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_CHECKBOX));
-        _rendKw.setValueText(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_TEXT));
-        _rendKw.setValueLiMinLet(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIMINLET));
-        _rendKw.setValueLiDisk(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIDISK));
-        _rendKw.setValueLiRect(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIRECT));
-        _rendKw.setValueLiSquare(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LISQUARE));
-        _rendKw.setValueLiNb(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LINB));
-        _rendKw.setValueLiMajLat(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIMAJLAT));
-        _rendKw.setValueStyle(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_STYLE));
-        _rendKw.setValueLiCircle(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LICIRCLE));
-        _rendKw.setValueLiMajLet(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIMAJLET));
-        _rendKw.setValueLiMinLat(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_LIMINLAT));
-        _rendKw.setValueSubmit(LgNamesContent.get(_util, _cust, RendKeyWords.VALUE_SUBMIT));
+        _rendKw.otherValues(_util, _cust);
     }
     private void otherAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"attrs");
@@ -261,63 +231,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherAttrs(_rendKw,_util,_cust);
     }
     private void otherAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setAttrType(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_TYPE));
-        _rendKw.setAttrClassName(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CLASSNAME));
-        _rendKw.setAttrMultiple(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_MULTIPLE));
-        _rendKw.setAttrValidator(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VALIDATOR));
-        _rendKw.setAttrSelected(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_SELECTED));
-        _rendKw.setAttrAction(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ACTION));
-        _rendKw.setAttrAlias(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ALIAS));
-        _rendKw.setAttrNf(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_N_F));
-        _rendKw.setAttrNi(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_N_I));
-        _rendKw.setAttrChecked(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CHECKED));
-        _rendKw.setAttrLabel(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_LABEL));
-        _rendKw.setAttrCondition(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CONDITION));
-        _rendKw.setAttrFor(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_FOR));
-        _rendKw.setAttrTitle(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_TITLE));
-        _rendKw.setAttrConvert(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CONVERT));
-        _rendKw.setAttrEscaped(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ESCAPED));
-        _rendKw.setAttrHref(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_HREF));
-        _rendKw.setAttrCommand(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_COMMAND));
-        _rendKw.setAttrMessage(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_MESSAGE));
-        _rendKw.setAttrDefault(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_DEFAULT));
-        _rendKw.setAttrPrepare(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_PREPARE));
-        _rendKw.setAttrForm(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_FORM));
-        _rendKw.setAttrId(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ID));
-        _rendKw.setAttrGroupId(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_GROUPID));
-        _rendKw.setAttrVarValue(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VARVALUE));
-        _rendKw.setAttrBean(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_BEAN));
-        _rendKw.setAttrNa(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_N_A));
-        _rendKw.setAttrParam(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_PARAM));
-        _rendKw.setAttrName(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_NAME));
-        _rendKw.setAttrQuoted(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_QUOTED));
-        _rendKw.setAttrRel(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_REL));
-        _rendKw.setAttrSrc(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_SRC));
-        _rendKw.setAttrDelay(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_DELAY));
-        _rendKw.setAttrPage(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_PAGE));
-        _rendKw.setAttrRows(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ROWS));
-        _rendKw.setAttrClass(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CLASS));
-        _rendKw.setAttrCols(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_COLS));
-        _rendKw.setAttrWidth(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_WIDTH));
-        _rendKw.setAttrList(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_LIST));
-        _rendKw.setAttrMap(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_MAP));
-        _rendKw.setAttrKey(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_KEY));
-        _rendKw.setAttrTo(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_TO));
-        _rendKw.setAttrEq(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_EQ));
-        _rendKw.setAttrVar(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VAR));
-        _rendKw.setAttrStep(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_STEP));
-        _rendKw.setAttrFrom(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_FROM));
-        _rendKw.setAttrValue(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VALUE));
-        _rendKw.setAttrInit(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_INIT));
-        _rendKw.setAttrKeepFields(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_KEEPFIELDS));
-        _rendKw.setAttrValueMessage(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VALUEMESSAGE));
-        _rendKw.setAttrConvertField(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CONVERTFIELD));
-        _rendKw.setAttrKeyClassName(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_KEYCLASSNAME));
-        _rendKw.setAttrVarClassName(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_VARCLASSNAME));
-        _rendKw.setAttrIndexClassName(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_INDEXCLASSNAME));
-        _rendKw.setAttrEscapedAmp(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_ESCAPEDAMP));
-        _rendKw.setAttrConvertValue(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CONVERTVALUE));
-        _rendKw.setAttrConvertFieldValue(LgNamesContent.get(_util, _cust, RendKeyWords.ATTR_CONVERTFIELDVALUE));
+        _rendKw.otherAttrs(_util, _cust);
     }
     private void otherTags(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"tags");
@@ -329,64 +243,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         otherTags(_rendKw,_util,_cust);
     }
     private void otherTags(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.setKeyWordTextarea(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TEXTAREA));
-        _rendKw.setKeyWordSelect(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_SELECT));
-        _rendKw.setKeyWordFinally(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_FINALLY));
-        _rendKw.setKeyWordContinue(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_CONTINUE));
-        _rendKw.setKeyWordPackage(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_PACKAGE));
-        _rendKw.setKeyWordDefault(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_DEFAULT));
-        _rendKw.setKeyWordReturn(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_RETURN));
-        _rendKw.setKeyWordFor(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_FOR));
-        _rendKw.setKeyWordIf(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_IF));
-        _rendKw.setKeyWordClass(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_CLASS));
-        _rendKw.setKeyWordElseif(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_ELSEIF));
-        _rendKw.setKeyWordThrow(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_THROW));
-        _rendKw.setKeyWordBreak(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_BREAK));
-        _rendKw.setKeyWordCatch(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_CATCH));
-        _rendKw.setKeyWordCase(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_CASE));
-        _rendKw.setKeyWordTry(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TRY));
-        _rendKw.setKeyWordElse(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_ELSE));
-        _rendKw.setKeyWordSwitch(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_SWITCH));
-        _rendKw.setKeyWordWhile(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_WHILE));
-        _rendKw.setKeyWordDo(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_DO));
-        _rendKw.setKeyWordCaption(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_CAPTION));
-        _rendKw.setKeyWordMessage(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_MESSAGE));
-        _rendKw.setKeyWordAnchor(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_A));
-        _rendKw.setKeyWordParam(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_PARAM));
-        _rendKw.setKeyWordForm(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_FORM));
-        _rendKw.setKeyWordSpan(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_SPAN));
-        _rendKw.setKeyWordImg(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_IMG));
-        _rendKw.setKeyWordInput(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_INPUT));
-        _rendKw.setKeyWordLink(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_LINK));
-        _rendKw.setKeyWordSet(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_SET));
-        _rendKw.setKeyWordSubmit(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_SUBMIT));
-        _rendKw.setKeyWordStyle(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_STYLE));
-        _rendKw.setKeyWordField(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_FIELD));
-        _rendKw.setKeyWordImport(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_IMPORT));
-        _rendKw.setKeyWordItalic(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_I));
-        _rendKw.setKeyWordHr(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_HR));
-        _rendKw.setKeyWordTd(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TD));
-        _rendKw.setKeyWordBody(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_BODY));
-        _rendKw.setKeyWordOption(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_OPTION));
-        _rendKw.setKeyWordUl(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_UL));
-        _rendKw.setKeyWordHTwo(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H2));
-        _rendKw.setKeyWordPre(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_PRE));
-        _rendKw.setKeyWordBr(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_BR));
-        _rendKw.setKeyWordHSix(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H6));
-        _rendKw.setKeyWordMap(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_MAP));
-        _rendKw.setKeyWordTh(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TH));
-        _rendKw.setKeyWordLi(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_LI));
-        _rendKw.setKeyWordHOne(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H1));
-        _rendKw.setKeyWordOl(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_OL));
-        _rendKw.setKeyWordBold(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_B));
-        _rendKw.setKeyWordDiv(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_DIV));
-        _rendKw.setKeyWordTr(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TR));
-        _rendKw.setKeyWordHFive(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H5));
-        _rendKw.setKeyWordPar(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_P));
-        _rendKw.setKeyWordHead(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_HEAD));
-        _rendKw.setKeyWordHFour(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H4));
-        _rendKw.setKeyWordTable(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_TABLE));
-        _rendKw.setKeyWordHThree(LgNamesContent.get(_util, _cust, RendKeyWords.TAG_H3));
+        _rendKw.otherTags(_util, _cust);
     }
     private void otherAlias(String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
@@ -417,14 +274,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         rendMessages(_mess,util_,_cust);
     }
     private void rendMessages(RendAnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
-        _mess.setBadInputName(LgNamesContent.get(_util, _cust, RendAnalysisMessages.BAD_INPUT_NAME));
-        _mess.setStaticInputName(LgNamesContent.get(_util, _cust, RendAnalysisMessages.STATIC_INPUT_NAME));
-        _mess.setUnexpectedChildTag(LgNamesContent.get(_util, _cust, RendAnalysisMessages.UNEXPECTED_CHILD_TAG));
-        _mess.setEmptyAttr(LgNamesContent.get(_util, _cust, RendAnalysisMessages.EMPTY_ATTR));
-        _mess.setUnexpectedExp(LgNamesContent.get(_util, _cust, RendAnalysisMessages.UNEXPECTED_EXP));
-        _mess.setInexistantFile(LgNamesContent.get(_util, _cust, RendAnalysisMessages.INEXISTANT_FILE));
-        _mess.setInexistantKey(LgNamesContent.get(_util, _cust, RendAnalysisMessages.INEXISTANT_KEY));
-        _mess.setBadDocument(LgNamesContent.get(_util, _cust, RendAnalysisMessages.BAD_DOCUMENT));
+        _mess.rendMessages(_util, _cust);
     }
     private void messages(AnalysisMessages _mess, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messages");
