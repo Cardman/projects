@@ -19,7 +19,6 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -84,7 +83,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
@@ -124,17 +123,17 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         }
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrFrom());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrFrom());
         rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, initOffset, rootInit);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrTo());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrTo());
         rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, expressionOffset, rootExp);
         _page.setGlobalOffset(stepOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrStep());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
         rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, stepOffset, rootStep);
         if (!res_.isError()) {

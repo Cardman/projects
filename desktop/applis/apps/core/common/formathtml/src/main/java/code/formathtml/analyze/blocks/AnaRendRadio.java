@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -21,20 +20,20 @@ public final class AnaRendRadio extends AnaRendInput {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        processAnaInput(_cont, _read, _anaDoc, _page);
-        _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
-        _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
-        _list.removeAllString(_cont.getRendKeyWords().getAttrName());
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrClassName()));
-        _list.removeAllString(_cont.getRendKeyWords().getAttrNi());
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()));
-        _list.removeAllString(_cont.getRendKeyWords().getAttrType());
-        String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        processAnaInput(_read, _anaDoc, _page);
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+        String converterFieldValue_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
         if (!converterFieldValue_.trim().isEmpty()) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
@@ -45,7 +44,7 @@ public final class AnaRendRadio extends AnaRendInput {
             lv_.setClassName(object_);
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
-            int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
+            int attr_ = getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);

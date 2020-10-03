@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendLoop {
@@ -19,7 +18,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnaRendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

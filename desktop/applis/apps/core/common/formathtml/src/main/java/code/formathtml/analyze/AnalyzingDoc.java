@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.formathtml.Configuration;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -23,11 +25,21 @@ public final class AnalyzingDoc {
     private String fileName="";
     private AnaRendDocumentBlock currentDoc;
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
+    private RendKeyWords rendKeyWords = new RendKeyWords();
 
     private int nextIndex;
     private IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
     private IdMap<OperationNode, ValidatorInfo> lateValidators = new IdMap<OperationNode, ValidatorInfo>();
     private LgNamesContent content;
+    private String prefix = "";
+
+    private StringMap<String> properties = new StringMap<String>();
+
+    private String messagesFolder = "";
+    private StringMap<String> files = new StringMap<String>();
+    private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
+    private BeanLgNames standards;
+
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
@@ -44,6 +56,15 @@ public final class AnalyzingDoc {
         return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
     }
 
+    public void setup(Configuration _conf) {
+        rendKeyWords = _conf.getRendKeyWords();
+        prefix = _conf.getPrefix();
+        properties = _conf.getProperties();
+        messagesFolder = _conf.getMessagesFolder();
+        files = _conf.getFiles();
+        standards = _conf.getAdvStandards();
+        beansInfosBefore = _conf.getBeansInfos();
+    }
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
         _page.getMappingLocal().clear();
         _page.setCurrentAnaBlock(null);
@@ -182,11 +203,39 @@ public final class AnalyzingDoc {
         this.rendAnalysisMessages = rendAnalysisMessages;
     }
 
+    public RendKeyWords getRendKeyWords() {
+        return rendKeyWords;
+    }
+
     public IdMap<OperationNode, BeanInfo> getBeansInfos() {
         return beansInfos;
     }
 
     public IdMap<OperationNode, ValidatorInfo> getLateValidators() {
         return lateValidators;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getMessagesFolder() {
+        return messagesFolder;
+    }
+
+    public StringMap<String> getProperties() {
+        return properties;
+    }
+
+    public StringMap<String> getFiles() {
+        return files;
+    }
+
+    public BeanLgNames getStandards() {
+        return standards;
+    }
+
+    public StringMap<BeanInfo> getBeansInfosBefore() {
+        return beansInfosBefore;
     }
 }

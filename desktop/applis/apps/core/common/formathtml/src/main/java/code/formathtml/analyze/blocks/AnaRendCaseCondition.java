@@ -22,7 +22,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.CustList;
@@ -49,10 +48,10 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         AnaRendParentBlock par_ = getParent();
         if (!(par_ instanceof AnaRendSwitchBlock)) {
             _page.setGlobalOffset(getOffset().getOffsetTrim());

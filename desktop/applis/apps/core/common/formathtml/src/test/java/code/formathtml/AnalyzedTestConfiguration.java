@@ -8,7 +8,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 
 public final class AnalyzedTestConfiguration {
@@ -89,7 +88,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public Classes getClasses() {
-        return configuration.getClasses();
+        return configuration.getContext().getClasses();
     }
 
     public boolean hasPages() {

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
@@ -21,7 +20,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnaRendParentBlock b_ = getParent();
         if (!(b_ instanceof AnaRendSwitchBlock)) {
             _page.setGlobalOffset(getOffset().getOffsetTrim());

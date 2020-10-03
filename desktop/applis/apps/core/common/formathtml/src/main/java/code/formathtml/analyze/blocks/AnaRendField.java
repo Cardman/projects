@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 
@@ -20,14 +19,14 @@ public final class AnaRendField extends AnaRendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendClass)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
-                    _cont.getRendKeyWords().getKeyWordField(),
-                    _cont.getRendKeyWords().getKeyWordClass());
+                    _anaDoc.getRendKeyWords().getKeyWordField(),
+                    _anaDoc.getRendKeyWords().getKeyWordClass());
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendClass cl_ = (AnaRendClass) getParent();
@@ -35,7 +34,7 @@ public final class AnaRendField extends AnaRendParentBlock {
             _anaDoc.setInternGlobalClass(intern_);
             _page.setGlobalOffset(prepareOffset);
             _page.setOffset(0);
-            _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());
+            _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrPrepare());
             root = RenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }

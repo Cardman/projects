@@ -69,7 +69,7 @@ public abstract class BeanLgNames extends LgNames {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
-            LocalVariable lv_ = newLocVar(_container,_conf);
+            LocalVariable lv_ = newLocVar(_container);
             _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
             _conf.getLastPage().setGlobalArgumentStruct(_container.getBean(), _conf);
             Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
@@ -85,7 +85,7 @@ public abstract class BeanLgNames extends LgNames {
         StringList values_ = _container.getValue();
         return getStructToBeValidated(values_, className_, _conf);
     }
-    protected LocalVariable newLocVar(NodeContainer _container, Configuration _conf) {
+    protected LocalVariable newLocVar(NodeContainer _container) {
         StringList values_ = _container.getValue();
         if (_container.isArrayConverter()) {
             int len_ = values_.size();

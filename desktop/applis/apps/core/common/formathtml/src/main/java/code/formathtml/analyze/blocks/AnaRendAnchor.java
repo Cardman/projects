@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -22,8 +21,8 @@ public final class AnaRendAnchor extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultText res_ = ResultText.buildAnchor(_cont,this, _read, _list, _anaDoc, _page);
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        ResultText res_ = ResultText.buildAnchor(this, _read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         root = res_.getOpExpAnchorRoot();
         roots = res_.getOpExpRoot();

@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -38,10 +37,10 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
         result = root.getResultClass();
         AnaClassArgumentMatching clArg_ = root.getResultClass();

@@ -30,8 +30,8 @@ public final class ResultInput {
     private String className = EMPTY_STRING;
     private SettableElResult settable;
 
-    public void build(Configuration _cont, AnaRendBlock _bl, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
+    public void build(AnaRendBlock _bl, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
             opsReadRoot = RenderAnalysis.getRootAnalyzedOperations(name_, 0, _anaDoc, _page);
             OperationNode res_;
@@ -52,7 +52,7 @@ public final class ResultInput {
                     if (infoField_.isStaticField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                         badEl_.setFileName(_anaDoc.getFileName());
-                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
                         AnalyzingDoc.addError(badEl_, _anaDoc, _page);
@@ -60,7 +60,7 @@ public final class ResultInput {
                     if (infoField_.isFinalField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                         badEl_.setFileName(_anaDoc.getFileName());
-                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 clField_.getFieldName());
                         AnalyzingDoc.addError(badEl_, _anaDoc, _page);
@@ -134,16 +134,16 @@ public final class ResultInput {
             } else {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         } else {
-            String type_ = _read.getAttribute(_cont.getRendKeyWords().getAttrType());
-            if (!StringList.quickEq(type_,_cont.getRendKeyWords().getValueSubmit())) {
+            String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
+            if (!StringList.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }

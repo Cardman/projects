@@ -960,7 +960,7 @@ public final class SubmitFormTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c;");
+        conf_.setPrefix("c:");
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -991,7 +991,7 @@ public final class SubmitFormTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c;");
+        conf_.setPrefix("c:");
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -1021,6 +1021,7 @@ public final class SubmitFormTest extends CommonRender {
 
     private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
+        _anaDoc.setup(_nav.getSession());
         setupAna(_anaDoc, page_);
         _nav.initInstancesPattern(page_, _anaDoc);
         _nav.getSession().setPrefix("c:");

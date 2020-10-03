@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
@@ -33,7 +32,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(variableNameOffset);
         _page.setOffset(0);
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);

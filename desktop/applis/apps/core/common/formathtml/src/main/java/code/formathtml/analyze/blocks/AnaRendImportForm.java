@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendImportForm extends AnaRendParentBlock {
@@ -15,14 +14,14 @@ public final class AnaRendImportForm extends AnaRendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendImport)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
-                    _cont.getRendKeyWords().getKeyWordForm(),
-                    _cont.getRendKeyWords().getKeyWordImport());
+                    _anaDoc.getRendKeyWords().getKeyWordForm(),
+                    _anaDoc.getRendKeyWords().getKeyWordImport());
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         }
     }

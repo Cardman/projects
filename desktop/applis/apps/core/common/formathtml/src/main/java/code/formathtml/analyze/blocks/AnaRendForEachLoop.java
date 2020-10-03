@@ -22,7 +22,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -73,8 +72,8 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        OperationNode root_ = buildEl(_cont, _doc, _anaDoc, _page);
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        OperationNode root_ = buildEl(_anaDoc, _page);
         Argument arg_ = root_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
@@ -95,7 +94,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         }
         putVariable(_page);
     }
-    public OperationNode buildEl(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public OperationNode buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -123,7 +122,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         }
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         return root;
     }

@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendReturnMehod extends AnaRendLeaf {
@@ -11,7 +10,7 @@ public final class AnaRendReturnMehod extends AnaRendLeaf {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
 
     }
 }

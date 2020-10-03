@@ -324,6 +324,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
+        analyzingDoc_.setup(_conf.getConfiguration());
         AnalyzingDoc.setupInts(page_, analyzingDoc_);
         page_.setGlobalClass(globalClass_);
         page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));

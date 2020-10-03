@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.StringExpUtil;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
@@ -18,14 +17,14 @@ public final class AnaRendClass  extends AnaRendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendPackage)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
-                    _cont.getRendKeyWords().getKeyWordClass(),
-                    _cont.getRendKeyWords().getKeyWordPackage());
+                    _anaDoc.getRendKeyWords().getKeyWordClass(),
+                    _anaDoc.getRendKeyWords().getKeyWordPackage());
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendPackage par_ = (AnaRendPackage) getParent();

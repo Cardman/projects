@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -28,14 +27,14 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        buildConditions(_cont, _anaDoc, _page);
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildConditions(_anaDoc, _page);
     }
 
-    protected void buildConditions(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void buildConditions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(conditionOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page);
         AnaClassArgumentMatching exp_ = root.getResultClass();
         if (!exp_.isBoolType(_page)) {

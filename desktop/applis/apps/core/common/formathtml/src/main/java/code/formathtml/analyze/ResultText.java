@@ -188,16 +188,16 @@ public final class ResultText {
         texts.add(str_.toString());
     }
 
-    public static ResultText buildAnchor(Configuration _cont, AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(_cont.getRendKeyWords().getAttrHref());
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+    public static ResultText buildAnchor(AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         r_.opExpRoot = new CustList<OperationNode>();
         r_.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
-            int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+            int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             r_.buildAna(lk_, colsGrId_, _anaDoc, _page);
             CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
             for (OperationNode e: opExpRoot_) {

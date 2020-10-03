@@ -13,7 +13,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -84,7 +83,6 @@ public final class ReadConfiguration {
             _conf.setContext(null);
             return page_;
         }
-        context_.setFullStack(new AdvancedFullStack(_conf));
         _conf.setContext(context_);
         return page_;
     }

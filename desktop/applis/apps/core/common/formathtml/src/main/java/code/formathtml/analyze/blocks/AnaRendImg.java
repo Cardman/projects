@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -20,14 +19,14 @@ public final class AnaRendImg extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultText res_ = new ResultText();
-        String pageName_ = _read.getAttribute(_cont.getRendKeyWords().getAttrSrc());
-        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrSrc());
+        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
+        int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrSrc());
         res_.buildAna(pageName_, rowsGrId_, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
-        _list.removeAllString(_cont.getRendKeyWords().getAttrSrc());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrSrc());
     }
 
     public CustList<OperationNode> getRoots() {

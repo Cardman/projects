@@ -108,6 +108,7 @@ public final class Configuration {
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         renders.clear();
         setFiles(_files);
+        _analyzingDoc.setup(this);
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 
@@ -126,12 +127,11 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
-            currentUrl = link_;
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(this,getPrefix(), document_, file_, _page.getPrimTypes());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
             d_.addEntry(link_,anaDoc_);
         }
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(this, _analyzingDoc, _page);
+            v.buildFctInstructions(_analyzingDoc, _page);
         }
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
@@ -170,7 +170,6 @@ public final class Configuration {
 
     public void setFirstUrl(String _firstUrl) {
         firstUrl = _firstUrl;
-        setCurrentUrl(currentUrl);
     }
 
     public StringMap<BeanInfo> getBeansInfos() {
@@ -306,10 +305,6 @@ public final class Configuration {
 
     public RendKeyWords getRendKeyWords() {
         return rendKeyWords;
-    }
-
-    public Classes getClasses() {
-        return getContext().getClasses();
     }
 
     public void setOffset(int _offset) {

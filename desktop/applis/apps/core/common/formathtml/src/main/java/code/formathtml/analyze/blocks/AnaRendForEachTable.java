@@ -21,7 +21,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -99,8 +98,8 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        buildEl(_cont,_doc, _anaDoc, _page);
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildEl(_anaDoc, _page);
         Argument arg_ = root.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
@@ -112,7 +111,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         } else {
             StringList names_ = root.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _page);
-            checkIterableCandidates(out_, _cont, _anaDoc, _page);
+            checkIterableCandidates(out_, _anaDoc, _page);
         }
         putVariable(_anaDoc, _page);
     }
@@ -121,8 +120,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         return _page.getForEachFetch().getCustomTableType(_names, importedClassNameFirst,importedClassNameSecond).getClassName();
     }
 
-    public void buildEl(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
+    public void buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -132,7 +130,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                     importedClassIndexName);
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
-        TokenErrorMessage resOne_ = ManageTokens.partVar(page_).checkTokenVar(variableNameFirst, page_);
+        TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(variableNameFirst, _page);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_anaDoc.getFileName());
@@ -141,7 +139,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             AnalyzingDoc.addError(b_, _anaDoc, _page);
             okVarFirst = false;
         }
-        TokenErrorMessage resTwo_ = ManageTokens.partVar(page_).checkTokenVar(variableNameSecond, page_);
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_page).checkTokenVar(variableNameSecond, _page);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_anaDoc.getFileName());
@@ -150,27 +148,27 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             AnalyzingDoc.addError(b_, _anaDoc, _page);
             okVarSecond = false;
         }
-        page_.setGlobalOffset(classNameOffsetFirst);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classNameOffsetFirst);
+        _page.setOffset(0);
         if (!toInferFirst(_page)) {
             importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(classNameFirst, _page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
-        page_.setGlobalOffset(classNameOffsetSecond);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classNameOffsetSecond);
+        _page.setOffset(0);
         if (!toInferSecond(_page)) {
             importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(classNameSecond, _page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrMap());
+        _page.setGlobalOffset(expressionOffset);
+        _page.setOffset(0);
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrMap());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
     }
 
-    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();

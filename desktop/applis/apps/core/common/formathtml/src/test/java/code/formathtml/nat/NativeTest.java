@@ -5,9 +5,7 @@ import code.bean.nat.NativeForEachFetch;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.fwd.Forwards;
@@ -1259,6 +1257,7 @@ public final class NativeTest {
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
+        analyzingDoc_.setup(_conf.getConfiguration());
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
@@ -1327,6 +1326,7 @@ public final class NativeTest {
 
     private static void setInnerLocalFilesLg(AnalyzingDoc _analyzingDoc, AnalyzedPageEl analyzing_, Configuration conf_) {
         conf_.setCurrentLanguage("en");
+        _analyzingDoc.setup(conf_);
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 
@@ -1339,13 +1339,13 @@ public final class NativeTest {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(conf_, "c:", doc_, h, a_.getAnalyzing().getPrimTypes());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, a_.getAnalyzing().getPrimTypes(), conf_.getCurrentUrl(), conf_.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
         setLocalFiles(a_, analyzingDoc_);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(a_.getConfiguration(), analyzingDoc_, a_.getAnalyzing());
+            v.buildFctInstructions(analyzingDoc_, a_.getAnalyzing());
         }
         return d_;
     }

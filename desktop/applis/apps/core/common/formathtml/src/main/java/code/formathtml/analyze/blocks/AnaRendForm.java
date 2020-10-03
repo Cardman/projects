@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -26,15 +25,15 @@ public final class AnaRendForm extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _list.removeAllString(_cont.getRendKeyWords().getAttrAction());
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
         roots = new CustList<OperationNode>();
-        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
-            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             r_.buildAna(lk_, rowsGrId_, _anaDoc, _page);
             texts = r_.getTexts();
             roots = r_.getOpExpRoot();

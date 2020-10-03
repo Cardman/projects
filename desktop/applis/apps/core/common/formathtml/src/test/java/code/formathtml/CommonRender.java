@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -10,7 +9,6 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -112,6 +110,7 @@ public abstract class CommonRender {
     private static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = context_.getAnalyzing();
         Configuration conf_ = context_.getConfiguration();
+        _analyzingDoc.setup(conf_);
         setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_);
     }
 
@@ -167,6 +166,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
+        _analyzingDoc.setup(_conf.getConfiguration());
         setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
@@ -1127,6 +1127,7 @@ public abstract class CommonRender {
     protected static void analyze(AnalyzedTestConfiguration _cont,Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = _cont.getAnalyzingDoc();
+        anaDoc_.setup(_cont.getConfiguration());
         setupAna(anaDoc_, _cont.getAnalyzing());
         _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
         AnalyzedPageEl _page = _cont.getAnalyzing();
@@ -1296,13 +1297,13 @@ public abstract class CommonRender {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(conf_, "c:", doc_, h, a_.getAnalyzing().getPrimTypes());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, a_.getAnalyzing().getPrimTypes(), conf_.getCurrentUrl(), conf_.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
         setLocalFiles(a_, analyzingDoc_);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(a_.getConfiguration(), analyzingDoc_, a_.getAnalyzing());
+            v.buildFctInstructions(analyzingDoc_, a_.getAnalyzing());
         }
         return d_;
     }

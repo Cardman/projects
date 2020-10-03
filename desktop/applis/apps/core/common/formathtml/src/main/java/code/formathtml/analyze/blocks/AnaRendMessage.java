@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Document;
@@ -33,19 +32,19 @@ public final class AnaRendMessage extends AnaRendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
-        String value_ = elt.getAttribute(_cont.getRendKeyWords().getAttrValue());
-        int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
-        preformatted = getPre(_cont,value_,offMessage_, _anaDoc, _page);
+        String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+        int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
+        preformatted = getPre(value_,offMessage_, _anaDoc, _page);
         if (preformatted.isEmpty()) {
             return;
         }
         for (Element n: elt.getChildElements()) {
-            String attribute_ = n.getAttribute(_cont.getRendKeyWords().getAttrValue());
-            if (n.hasAttribute(_cont.getRendKeyWords().getAttrQuoted())) {
+            String attribute_ = n.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+            if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrQuoted())) {
                 quoted.add(true);
-                if (n.hasAttribute(_cont.getRendKeyWords().getAttrEscaped())) {
+                if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
                     args.add(escapeParam(attribute_));
                     escaped.add(true);
                 } else {
@@ -57,7 +56,7 @@ public final class AnaRendMessage extends AnaRendParentBlock {
             }
             args.add(EMPTY_STRING);
             quoted.add(false);
-            if (n.hasAttribute(_cont.getRendKeyWords().getAttrEscaped())) {
+            if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
                 escaped.add(true);
             } else {
                 escaped.add(false);
@@ -65,7 +64,7 @@ public final class AnaRendMessage extends AnaRendParentBlock {
             roots.add(RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
-        if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
+        if (elt.getAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()).isEmpty()) {
             String lt_ = String.valueOf(LT_BEGIN_TAG);
             String gt_ = String.valueOf(GT_TAG);
             int l_ = roots.size();
@@ -90,8 +89,8 @@ public final class AnaRendMessage extends AnaRendParentBlock {
                 Document docLoc2_ = res2_.getDocument();
                 CustList<OperationNode> callExpsLoc_ = new CustList<OperationNode>();
                 if (docLoc2_ != null) {
-                    for (Element a: docLoc2_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordAnchor())){
-                        String href_ = a.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+                    for (Element a: docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor())){
+                        String href_ = a.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
                         if (href_.startsWith(CALL_METHOD)) {
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringList.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);

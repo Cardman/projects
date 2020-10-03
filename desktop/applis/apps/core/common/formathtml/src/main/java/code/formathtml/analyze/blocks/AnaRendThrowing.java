@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 
@@ -22,10 +21,10 @@ public final class AnaRendThrowing extends AnaRendLeaf {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setOffset(0);
         _page.setGlobalOffset(expressionOffset);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
     }
 

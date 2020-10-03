@@ -120,6 +120,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
+        context_.getAnalyzingDoc().setup(context_.getConfiguration());
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
     }
 

@@ -14,7 +14,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -73,7 +72,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
@@ -105,7 +104,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrInit());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrInit());
         _page.setForLoopPartState(ForLoopPart.INIT);
         _page.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
@@ -122,7 +121,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
         } else {
@@ -156,10 +155,10 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             }
             exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         }
-        buildIncrementPart(_cont,_doc, _anaDoc, _page);
+        buildIncrementPart(_anaDoc, _page);
     }
 
-    public void buildIncrementPart(Configuration _an, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnalyzedPageEl page_ = _page;
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
@@ -167,7 +166,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         page_.setForLoopPartState(ForLoopPart.STEP);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
-        _anaDoc.setAttribute(_an.getRendKeyWords().getAttrStep());
+        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
         if (step.trim().isEmpty()) {
         } else {
             rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);

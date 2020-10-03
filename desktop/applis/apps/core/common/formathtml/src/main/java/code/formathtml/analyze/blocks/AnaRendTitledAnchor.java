@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.DocumentBuilder;
@@ -27,36 +26,36 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
-        ResultText res_ = ResultText.buildAnchor(_cont,this, _read, _list, _anaDoc, _page);
+        ResultText res_ = ResultText.buildAnchor(this, _read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         root = res_.getOpExpAnchorRoot();
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
-        _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
-        String value_ = _read.getAttribute(_cont.getRendKeyWords().getAttrValue());
-        int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
-        preformatted = getPre(_cont,value_,offMessage_, _anaDoc, _page);
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
+        String value_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+        int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
+        preformatted = getPre(value_,offMessage_, _anaDoc, _page);
         opExpTitle = new StringMap<ResultText>();
         if (preformatted.isEmpty()) {
-            removeUseLess(_cont,_read, _list);
+            removeUseLess(_read, _list, _anaDoc.getRendKeyWords());
             return;
         }
         for (EntryCust<String,String> e: preformatted.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_cont.getRendKeyWords().getAttrEscapedAmp())));
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
         int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
-            _list.removeAllString(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+        while (_read.hasAttribute(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            _list.removeAllString(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            String attribute_ = _read.getAttribute(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
-            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             r_.buildAna(attribute_, rowsGrId_, _anaDoc, _page);
-            opExpTitle.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
+            opExpTitle.addEntry(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }
-        _list.removeAllString(_cont.getRendKeyWords().getAttrTitle());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrTitle());
     }
 
     public StringMap<String> getPreformatted() {

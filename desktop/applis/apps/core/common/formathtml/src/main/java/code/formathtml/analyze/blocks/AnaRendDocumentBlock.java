@@ -32,16 +32,16 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         fileName = _fileName;
     }
 
-    public void buildFctInstructions(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
-        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
+    public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        beanName = elt.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
+        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setGlobalDirType(null);
-        if (_cont.getBeansInfos().contains(beanName)) {
+        if (_anaDoc.getBeansInfosBefore().contains(beanName)) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();
+            String clName_ = _anaDoc.getBeansInfosBefore().getVal(beanName).getResolvedClassName();
             _page.setGlobalClass(clName_);
             _page.setGlobalType(_page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
         } else {
@@ -60,7 +60,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _anaDoc.setCurrentBlock(en_);
             _page.setCurrentAnaBlock(en_);
             if (en_ instanceof AnaRendStdElement) {
-                if (StringList.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_cont.getRendKeyWords().getKeyWordBody())) {
+                if (StringList.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_anaDoc.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);
                 }
             }
@@ -95,7 +95,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 parents_.add((AnaRendParentBlock) en_);
             }
             AnaRendBlock n_ = en_.getFirstChild();
-            tryBuildExpressionLanguage(en_, _cont,this, _anaDoc, _page);
+            tryBuildExpressionLanguage(en_, this, _anaDoc, _page);
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -157,7 +157,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
 
     }
 

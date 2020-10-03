@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
@@ -14,8 +13,8 @@ public final class AnaRendElseIfCondition extends AnaRendCondition implements An
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        buildConditions(_cont, _anaDoc, _page);
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        buildConditions(_anaDoc, _page);
         AnaRendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AnaRendIfCondition)) {
             if (!(pBlock_ instanceof AnaRendElseIfCondition)) {

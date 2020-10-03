@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
@@ -13,7 +12,7 @@ public final class AnaRendNullCatchEval extends AnaRendAbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnaRendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AnaRendAbstractCatchEval)) {
             if (!(pBlock_ instanceof AnaRendTryEval)) {

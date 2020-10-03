@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.options.KeyWords;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
@@ -33,7 +32,7 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
