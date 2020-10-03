@@ -10,7 +10,8 @@ import code.util.IdMap;
 
 public final class RendAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
-    private RendSettableElResult settable;
+    private RendDynOperationNode settable;
+    private RendMethodOperation settableParent;
 
     public RendAffectationOperation(ExecOperationContent _content) {
         super(_content);
@@ -18,12 +19,15 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
 
     public void setup() {
         settable = tryGetSettable(this);
+        settableParent = tryGetSettableParent(this);
     }
-    public static RendSettableElResult tryGetSettable(RendMethodOperation _operation) {
+    public static RendDynOperationNode tryGetSettable(RendMethodOperation _operation) {
         RendDynOperationNode root_ = getIdOp(_operation);
-        RendSettableElResult elt_;
-        elt_ = castDottedTo(root_);
-        return elt_;
+        return castDottedTo(root_);
+    }
+    public static RendMethodOperation tryGetSettableParent(RendMethodOperation _operation) {
+        RendDynOperationNode root_ = getIdOp(_operation);
+        return castParentTo(root_);
     }
 
     public static RendDynOperationNode getIdOp(RendMethodOperation _operation) {
@@ -34,8 +38,18 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         return root_;
     }
 
-    public static RendSettableElResult castDottedTo(RendDynOperationNode _root) {
-        RendSettableElResult elt_;
+    public static RendMethodOperation castParentTo(RendDynOperationNode _root) {
+        RendMethodOperation elt_;
+        if (!(_root instanceof RendAbstractDotOperation)) {
+            elt_ = _root.getParent();
+        } else {
+            elt_ = (RendMethodOperation) _root;
+        }
+        return elt_;
+    }
+
+    public static RendDynOperationNode castDottedTo(RendDynOperationNode _root) {
+        RendDynOperationNode elt_;
         if (!(_root instanceof RendAbstractDotOperation)) {
             elt_ = castTo(_root);
         } else {
@@ -45,17 +59,17 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         return elt_;
     }
 
-    private static RendSettableElResult castTo(RendDynOperationNode _op) {
-        return (RendSettableElResult) _op;
+    private static RendDynOperationNode castTo(RendDynOperationNode _op) {
+        return _op;
     }
-    public RendSettableElResult getSettable() {
+    public RendDynOperationNode getSettable() {
         return settable;
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        if (((RendDynOperationNode) settable).getParent() instanceof RendSafeDotOperation) {
-            RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
+        if (settableParent instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
@@ -65,7 +79,24 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         }
         RendDynOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes,right_);
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
+        Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf,_nodes);
+    }
+    static Argument calculateChSetting(RendDynOperationNode _set,
+                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right){
+        Argument arg_ = null;
+        if (_set instanceof RendStdVariableOperation) {
+            arg_ = ((RendStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof RendSettableFieldOperation) {
+            arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof RendCustArrOperation) {
+            arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof RendArrOperation) {
+            arg_ = ((RendArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        return Argument.getNullableValue(arg_);
     }
 }

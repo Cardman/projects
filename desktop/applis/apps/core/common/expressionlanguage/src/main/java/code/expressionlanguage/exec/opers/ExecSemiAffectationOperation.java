@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -19,7 +18,8 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
-    private ExecSettableElResult settable;
+    private ExecOperationNode settable;
+    private ExecMethodOperation settableParent;
     private ExecOperatorContent operatorContent;
     private ExecStaticPostEltContent staticPostEltContent;
     private ExecNamedFunctionBlock named;
@@ -39,13 +39,14 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
 
     public void setup() {
         settable = ExecAffectationOperation.tryGetSettable(this);
+        settableParent = ExecAffectationOperation.tryGetSettableParent(this);
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        if (((ExecOperationNode) settable).getParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
+        if (settableParent instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
@@ -86,10 +87,27 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(), _conf);
-        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        Argument arg_ = calculateSemiChSetting(_nodes, _conf);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
+    }
+
+    private Argument calculateSemiChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+        Argument arg_ = null;
+        if (settable instanceof ExecStdVariableOperation) {
+            arg_ = ((ExecStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
+        return Argument.getNullableValue(arg_);
     }
 
     @Override
@@ -119,10 +137,10 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, implicits_,indexImplicit_));
             return;
         }
-        Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
+        Argument stored_ = getNullArgument(_nodes, settable);
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            Argument arg_ = settable.endCalculate(_conf, _nodes, staticPostEltContent.isPost(), stored_, _right);
+            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, settable, staticPostEltContent);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
@@ -141,6 +159,40 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         setSimpleArgument(_right, _conf, _nodes);
     }
 
+    private static Argument getNullArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecOperationNode _settable) {
+        Argument arg_ = null;
+        if (_settable instanceof ExecStdVariableOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
+        if (_settable instanceof ExecSettableFieldOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
+        if (_settable instanceof ExecCustArrOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
+        if (_settable instanceof ExecArrOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
+        return Argument.getNullableValue(arg_);
+    }
+
+    private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument stored_, ExecOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent) {
+        Argument arg_ = null;
+        if (_settable instanceof ExecStdVariableOperation) {
+            arg_ = ((ExecStdVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+        }
+        if (_settable instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+        }
+        if (_settable instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+        }
+        if (_settable instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+        }
+        return Argument.getNullableValue(arg_);
+    }
+
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
         Argument a_ = _right;
         if (_post) {
@@ -149,7 +201,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return a_;
     }
 
-    public ExecSettableElResult getSettable() {
+    public ExecOperationNode getSettable() {
         return settable;
     }
 

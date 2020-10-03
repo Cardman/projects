@@ -175,7 +175,7 @@ public abstract class ExecOperationNode {
                 if (skip_) {
                     ExecMethodOperation p_ = par_;
                     while (p_ != null) {
-                        ExecSettableElResult set_ = null;
+                        ExecOperationNode set_ = null;
                         if (p_ instanceof ExecCompoundAffectationOperation) {
                             set_ = ((ExecCompoundAffectationOperation)p_).getSettable();
                         }

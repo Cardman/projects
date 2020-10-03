@@ -282,9 +282,8 @@ public abstract class RendBlock {
         if (name_.isEmpty()) {
             return Argument.createVoid();
         }
-        CustList<Struct> obj_;
-        StringList objClasses_;
-        Struct currentField_;
+        CustList<Struct> obj_ = new CustList<Struct>();
+        StringList objClasses_ = new StringList();
         long found_ = -1;
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
@@ -301,21 +300,25 @@ public abstract class RendBlock {
         } else {
             res_ = root_;
         }
-        RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
-        Argument arg_;
+        CustList<LongTreeMap<NodeContainer>> stack_ = new CustList<LongTreeMap<NodeContainer>>();
+        RendDynOperationNode settable_ = RendAffectationOperation.castDottedTo(res_);
+        Argument arg_ = Argument.createVoid();
         if (settable_ instanceof RendSettableFieldOperation) {
-            ArgumentsPair pair_ = args_.getValue(((RendSettableFieldOperation) settable_).getOrder());
+            stack_ = _cont.getContainersMapStack();
+            ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                 obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
             } else {
                 obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
             }
-            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(((RendSettableFieldOperation) settable_).getResultClass().getNames()));
+            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
-        } else {
-            ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
+        }
+        if (settable_ instanceof RendMethodOperation){
+            stack_ = _cont.getContainersMapStack();
+            ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
-            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(((RendMethodOperation) settable_).getResultClass().getNames()));
+            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
                 pair_ = args_.getValue(r.getOrder());
@@ -323,7 +326,6 @@ public abstract class RendBlock {
                 objClasses_.add(NumParsers.getSingleNameOrEmpty(r.getResultClass().getNames()));
             }
         }
-        CustList<LongTreeMap<NodeContainer>> stack_ = _cont.getContainersMapStack();
         if (stack_.isEmpty()) {
             return arg_;
         }
@@ -337,7 +339,7 @@ public abstract class RendBlock {
             found_ = e.getKey();
             break;
         }
-        currentField_ = arg_.getStruct();
+        Struct currentField_ = arg_.getStruct();
         if (found_ == -1) {
             long currentInput_ = _cont.getInputs().last();
             NodeContainer nodeCont_ = new NodeContainer();

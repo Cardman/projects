@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -19,7 +18,8 @@ import code.util.StringList;
 
 public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
-    private ExecSettableElResult settable;
+    private ExecOperationNode settable;
+    private ExecMethodOperation settableParent;
     private ExecOperatorContent operatorContent;
     private ExecStaticEltContent staticEltContent;
     private ExecNamedFunctionBlock named;
@@ -38,13 +38,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
 
     public void setup() {
         settable = ExecAffectationOperation.tryGetSettable(this);
+        settableParent = ExecAffectationOperation.tryGetSettableParent(this);
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        if (((ExecOperationNode) settable).getParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
+        if (settableParent instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 ArgumentsPair pair_ = getArgumentPair(_nodes,this);
@@ -65,7 +66,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
             setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(),_conf);
-            Argument arg_ = settable.calculateSetting(_nodes, _conf, leftArg_);
+            Argument arg_ = ExecAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
@@ -94,9 +95,26 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(),_conf);
-        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
+    }
+
+    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument rightArg_) {
+        Argument arg_ = null;
+        if (settable instanceof ExecStdVariableOperation) {
+            arg_ = ((ExecStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
+        if (settable instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
+        return Argument.getNullableValue(arg_);
     }
 
     @Override
@@ -111,14 +129,30 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
+            Argument arg_ = endCalculateCh(settable, _nodes, _conf, _right);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
         setSimpleArgument(_right,_conf,_nodes);
     }
-
-    public ExecSettableElResult getSettable() {
+    private static Argument endCalculateCh(ExecOperationNode _set,
+                                           IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right){
+        Argument arg_ = null;
+        if (_set instanceof ExecStdVariableOperation) {
+            arg_ = ((ExecStdVariableOperation)_set).endCalculate(_conf, _nodes, _right);
+        }
+        if (_set instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)_set).endCalculate(_conf, _nodes, _right);
+        }
+        if (_set instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)_set).endCalculate(_conf, _nodes, _right);
+        }
+        if (_set instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)_set).endCalculate(_conf, _nodes,_right);
+        }
+        return Argument.getNullableValue(arg_);
+    }
+    public ExecOperationNode getSettable() {
         return settable;
     }
 

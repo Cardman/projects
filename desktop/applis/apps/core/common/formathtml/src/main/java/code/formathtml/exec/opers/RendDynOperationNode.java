@@ -192,7 +192,7 @@ public abstract class RendDynOperationNode {
                 if (skip_) {
                     RendMethodOperation p_ = par_;
                     while (p_ != null) {
-                        RendSettableElResult set_ = null;
+                        RendDynOperationNode set_ = null;
                         if (p_ instanceof RendCompoundAffectationOperation) {
                             set_ = ((RendCompoundAffectationOperation)p_).getSettable();
                         }

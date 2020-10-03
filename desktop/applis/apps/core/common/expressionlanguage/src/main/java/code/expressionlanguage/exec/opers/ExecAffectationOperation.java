@@ -10,7 +10,8 @@ import code.util.IdMap;
 
 public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
-    private ExecSettableElResult settable;
+    private ExecOperationNode settable;
+    private ExecMethodOperation settableParent;
 
     private int opOffset;
 
@@ -21,21 +22,29 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
 
     public void setup() {
         settable = tryGetSettable(this);
+        settableParent = tryGetSettableParent(this);
     }
-    static ExecSettableElResult tryGetSettable(ExecMethodOperation _operation) {
+    static ExecOperationNode tryGetSettable(ExecMethodOperation _operation) {
         ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
-        ExecSettableElResult elt_;
+        ExecOperationNode elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = castTo(root_);
+            elt_ = root_;
         } else {
-            ExecOperationNode beforeLast_ = ((ExecMethodOperation)root_).getChildrenNodes().last();
-            elt_ = castTo(beforeLast_);
+            elt_ = ((ExecMethodOperation)root_).getChildrenNodes().last();
         }
         return elt_;
     }
-    private static ExecSettableElResult castTo(ExecOperationNode _op) {
-        return (ExecSettableElResult) _op;
+    static ExecMethodOperation tryGetSettableParent(ExecMethodOperation _operation) {
+        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
+        ExecMethodOperation elt_;
+        if (!(root_ instanceof ExecAbstractDotOperation)) {
+            elt_ = root_.getParent();
+        } else {
+            elt_ = (ExecMethodOperation)root_;
+        }
+        return elt_;
     }
+
     public static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
         ExecOperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof ExecIdOperation) {
@@ -43,15 +52,15 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         }
         return root_;
     }
-    public ExecSettableElResult getSettable() {
+    public ExecOperationNode getSettable() {
         return settable;
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        if (((ExecOperationNode) settable).getParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
+        if (settableParent instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
@@ -62,8 +71,24 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         ExecOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes, right_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
+        Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
     }
-
+    static Argument calculateChSetting(ExecOperationNode _set,
+            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right){
+        Argument arg_ = null;
+        if (_set instanceof ExecStdVariableOperation) {
+            arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        return Argument.getNullableValue(arg_);
+    }
 }
