@@ -1,59 +1,109 @@
 package code.renders.utilcompo;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
-import code.maths.montecarlo.AbstractGenerator;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class LgNamesRenderUtils extends BeanCustLgNames {
+public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
 
-    private CustRenderAliases custRenderAliases = new CustRenderAliases();
+    private CustAliases custAliases = new CustAliases();
+    private FileInfos infos;
 
-    private AbstractResourcesReader reader = new DefaultResourcesReader();
-
-    public CustRenderAliases getCustRenderAliases() {
-        return custRenderAliases;
+    private ExecutingOptions executingOptions;
+    private ExecutingBlocks executingBlocks = new ExecutingBlocks();
+    public LgNamesRenderUtils(FileInfos _infos) {
+        super(_infos.getGenerator(), new CustInitializer());
+        custAliases.setInfos(_infos);
+        infos = _infos;
     }
 
-    public LgNamesRenderUtils(AbstractGenerator _gene) {
-        super(_gene, new DefaultInitializer());
+    public FileInfos getInfos() {
+        return infos;
     }
 
+    @Override
+    public ExecutingBlocks getExecutingBlocks() {
+        return executingBlocks;
+    }
+
+    @Override
+    public CustAliases getCustAliases() {
+        return custAliases;
+    }
+
+    public void forwardAndClear(Classes _classes) {
+        executingBlocks.forwardAndClear(getContent(),custAliases,_classes);
+    }
     @Override
     public void buildOther() {
         getBeanAliases().buildOther(getContent());
-        custRenderAliases.buildOther(getContent());
+        custAliases.buildOther(getContent());
+    }
+    @Override
+    public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
+        return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
     @Override
     public Argument defaultInstance(ContextEl _cont, String _id) {
-        return custRenderAliases.defaultInstance(_cont, _id);
+        if (StringList.contains(getBeanAliases().allRefTypes().values(),_id)) {
+            return Argument.createVoid();
+        }
+        return custAliases.defaultInstance(_cont, _id);
+    }
+
+    @Override
+    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
+        return custAliases.instance(_cont, _method, _args);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
-        return custRenderAliases.getOtherResult(_cont, _method, _args);
+        if (StringList.contains(getBeanAliases().allRefTypes().values(),_method.getName())) {
+            ResultErrorStd resultErrorStd_ = new ResultErrorStd();
+            resultErrorStd_.setResult(NullStruct.NULL_VALUE);
+            return resultErrorStd_;
+        }
+        return custAliases.getOtherResult(_cont, _method, _args);
+    }
+
+    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+        return custAliases.invoke(_cont, _method, _struct, _exit, _args);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        return custRenderAliases.getOtherResult(_cont, _instance, _method, _args);
+        if (StringList.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
+            return getBeanAliases().getOtherResult(_cont, _instance, _method, _args);
+        }
+        return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _args);
+    }
+
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ContextEl _contextEl){
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
+    }
+
+    @Override
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className,ExecRootBlock _rootBlock, LambdaStruct _functional,ContextEl _contextEl) {
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
     }
 
     @Override
@@ -174,8 +224,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
 
     private void otherStyleUnits(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"styleunits");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"styleunits");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherStyleUnits(_rendKw,util_,_cust);
     }
@@ -186,8 +236,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherStyleUnits(_util, _cust);
     }
     private void otherStyleValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"stylevalues");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"stylevalues");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherStyleValues(_rendKw,util_,_cust);
     }
@@ -198,8 +248,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherStyleValues(_util, _cust);
     }
     private void otherStyleAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"styleattrs");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"styleattrs");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherStyleAttrs(_rendKw,util_,_cust);
     }
@@ -210,8 +260,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherStyleAttrs(_util, _cust);
     }
     private void otherValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"values");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"values");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherValues(_rendKw,util_,_cust);
     }
@@ -222,8 +272,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherValues(_util, _cust);
     }
     private void otherAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"attrs");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"attrs");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherAttrs(_rendKw,util_,_cust);
     }
@@ -234,8 +284,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherAttrs(_util, _cust);
     }
     private void otherTags(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"tags");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"tags");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherTags(_rendKw,util_,_cust);
     }
@@ -246,19 +296,24 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _rendKw.otherTags(_util, _cust);
     }
     private void otherAlias(String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"types");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
-        custRenderAliases.build(getContent(),getBeanAliases(),util_,_cust);
-        custRenderAliases.build(util_,_cust);
+        getBeanAliases().build(util_, _cust);
+        fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
+        content_ = infos.getReader().read(fileName_);
+        util_ = DocumentBuilder.getMessagesFromContent(content_);
+        getContent().build(util_, _cust);
+        custAliases.build(util_,_cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
-        custRenderAliases.build(getContent(),getBeanAliases(),_util,_cust);
-        custRenderAliases.build(_util,_cust);
+        getContent().build(_util, _cust);
+        getBeanAliases().build(_util, _cust);
+        custAliases.build(_util,_cust);
     }
     private void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
-        String content_ = reader.read(fileName_);
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
@@ -268,8 +323,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
 
 
     private void rendMessages(RendAnalysisMessages _mess, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messagesrender");
-        String content_ = reader.read(fileName_);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"messagesrender");
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         rendMessages(_mess,util_,_cust);
     }
@@ -278,7 +333,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
     private void messages(AnalysisMessages _mess, String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messages");
-        String content_ = reader.read(fileName_);
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         messages(_mess,util_,_cust);
     }
@@ -286,8 +341,16 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _mess.build(_util, _cust);
     }
 
+    public ExecutingOptions getExecutingOptions() {
+        return executingOptions;
+    }
+
+    public void setExecutingOptions(ExecutingOptions executingOptions) {
+        this.executingOptions = executingOptions;
+    }
+
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
-        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
+        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, this, new Classes(new ClassesCommon()), _coverage, new DefaultLockingClass(), _init));
     }
 }

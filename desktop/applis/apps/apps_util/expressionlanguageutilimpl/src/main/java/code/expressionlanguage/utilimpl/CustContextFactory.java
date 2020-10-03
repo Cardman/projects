@@ -68,7 +68,7 @@ public final class CustContextFactory {
                 _definedLgNames, _files, _exec.getTabWidth());
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(rCont_, _exec, reportedMessages_, _definedLgNames.getInfos());
+        CustContextFactory.reportErrors(rCont_, _options, _exec, reportedMessages_, _definedLgNames.getInfos());
         if (!reportedMessages_.isAllEmptyErrors()) {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
             return;
@@ -93,8 +93,8 @@ public final class CustContextFactory {
         }
         _progressingTests.setResults(rCont_,arg_, _definedLgNames);
     }
-    public static void reportErrors(RunnableContextEl _ctx, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
-        if (_exec.isErrors()) {
+    public static void reportErrors(RunnableContextEl _ctx, Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
+        if (_options.isGettingErrors()) {
             String exp_ = _exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
                 _infos.getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);

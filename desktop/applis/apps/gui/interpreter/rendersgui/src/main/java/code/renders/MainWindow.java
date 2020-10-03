@@ -1,7 +1,12 @@
 package code.renders;
 
 import code.expressionlanguage.common.StringExpUtil;
-import code.bean.nat.DefaultInitialization;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilfiles.DefaultFileSystem;
+import code.expressionlanguage.utilfiles.DefaultLogger;
+import code.expressionlanguage.utilfiles.DefaultReporter;
+import code.expressionlanguage.utilfiles.DefaultResourcesReader;
 import code.formathtml.util.BeanCustLgNames;
 import code.gui.*;
 import code.gui.Menu;
@@ -12,13 +17,14 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
-import code.gui.document.ThreadActions;
 import code.gui.events.QuittingEvent;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -113,6 +119,9 @@ public final class MainWindow extends GroupFrame {
         StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_);
         String clName_ = "";
         String mName_ = "";
+        ExecutingOptions exec_ = new ExecutingOptions();
+        String lg_ = getLanguageKey();
+        StringList lgs_ = Constants.getAvailableLanguages();
         if (linesFiles_.size() > 2) {
             String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
             if (line_.startsWith("initDb=")) {
@@ -122,61 +131,58 @@ public final class MainWindow extends GroupFrame {
                     clName_ = subLine_.substring(0,last_);
                     mName_ = subLine_.substring(last_+1);
                 }
+                if (linesFiles_.size() > 3) {
+                    lg_ = linesFiles_.get(3);
+                    StringList curr_ = new StringList();
+                    if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
+                        lg_ = getLanguageKey();
+                        setupOptionals(3, exec_,linesFiles_,curr_);
+                    } else {
+                        setupOptionals(4, exec_, linesFiles_,curr_);
+                    }
+                    if (!curr_.isEmpty()) {
+                        lgs_ = curr_;
+                    }
+                }
             }
         }
-        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(getGenerator());
-        DefaultInitialization.basicStandards(lgNames_);
-        basicCustStandards(lgNames_);
+        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
+                new DefaultFileSystem(), new DefaultReporter(), getGenerator()));
         session.initNav();
-        session.setLanguage(getLanguageKey());
+        session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
         session.initializeOnlyConf(lgNames_, inst(confRel_, lgCode.getText(), lgNames_, zipFiles_, clName_, mName_, session));
     }
-
-    private static void basicCustStandards(BeanCustLgNames _lgNames) {
-        _lgNames.setAliasMapKeys("keys");
-        _lgNames.setAliasMapValues("values");
-        _lgNames.setAliasMapIndexOfEntry("indexOfEntry");
-        _lgNames.setAliasMapAddEntry("addEntry");
-        _lgNames.setAliasMapGetValue("getValue");
-        _lgNames.setAliasMapFirstValue("firstValue");
-        _lgNames.setAliasMapLastValue("lastValue");
-        _lgNames.setAliasMapSetValue("setValue");
-        _lgNames.setAliasMapPut("put");
-        _lgNames.setAliasMapPutAll("putAll");
-        _lgNames.setAliasMapContains("contains");
-        _lgNames.setAliasMapGetVal("getVal");
-        _lgNames.setAliasMapRemoveKey("removeKey");
-        _lgNames.setAliasMapGetKey("getKey");
-        _lgNames.setAliasMapFirstKey("firstKey");
-        _lgNames.setAliasMapLastKey("lastKey");
-        _lgNames.setAliasMapSetKey("setKey");
-        _lgNames.setAliasMapSize("size");
-        _lgNames.setAliasMapIsEmpty("isEmpty");
-        _lgNames.setAliasMapClear("clear");
-        _lgNames.setAliasValidator("code.bean.Validator");
-        _lgNames.setAliasValidate("validate");
-        _lgNames.setAliasBean("code.bean.Bean");
-        _lgNames.setAliasStringMapObject("code.util.StringMapObject");
-        _lgNames.setAliasForms("forms");
-        _lgNames.setAliasGetForms("getForms");
-        _lgNames.setAliasSetForms("setForms");
-        _lgNames.setAliasLanguage("language");
-        _lgNames.setAliasGetLanguage("getLanguage");
-        _lgNames.setAliasSetLanguage("setLanguage");
-        _lgNames.setAliasScope("scope");
-        _lgNames.setAliasGetScope("getScope");
-        _lgNames.setAliasSetScope("setScope");
-        _lgNames.setAliasDataBaseField("dataBase");
-        _lgNames.setAliasGetDataBase("getDataBase");
-        _lgNames.setAliasSetDataBase("setDataBase");
-        _lgNames.setAliasBeforeDisplaying("beforeDisplaying");
-        _lgNames.setAliasMessage("code.bean.Message");
-        _lgNames.setAliasNewMessage("newStandardMessage");
-        _lgNames.setAliasMessageFormat("format");
-        _lgNames.setAliasMessageGetArgs("getArgs");
-        _lgNames.setAliasMessageSetArgs("setArgs");
+    public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
+        for (String l: _lines.mid(_from)) {
+            if (l.startsWith("log=")) {
+                String output_ = l.substring("log=".length());
+                int lastSep_ = output_.lastIndexOf('>');
+                if (lastSep_ > -1) {
+                    _exec.setLogFolder(output_.substring(0,lastSep_));
+                    _exec.setMainThread(output_.substring(lastSep_+1));
+                }
+            }
+            if (l.startsWith("tabWidth=")) {
+                String output_ = l.substring("tabWidth=".length());
+                int t_ = Numbers.parseInt(output_);
+                if (t_ > 0) {
+                    _exec.setTabWidth(t_);
+                }
+            }
+            if (l.startsWith("lgs=")) {
+                String output_ = l.substring("lgs=".length());
+                for (String s: StringList.splitChars(output_,',')) {
+                    String tr_ = s.trim();
+                    if (tr_.isEmpty()) {
+                        continue;
+                    }
+                    _lgs.add(tr_);
+                }
+            }
+        }
     }
+
     @Override
     public void quit() {
         dispose();

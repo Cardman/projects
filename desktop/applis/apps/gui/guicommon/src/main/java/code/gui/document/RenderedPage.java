@@ -80,6 +80,11 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setLanguages(Constants.getAvailableLanguages());
     }
 
+    public void setLanguage(String _language, StringList _languages) {
+        navigation.setLanguage(_language);
+        navigation.setLanguages(_languages);
+    }
+
     public void setProcess(CustList<BufferedImage> _process) {
         process = _process;
     }

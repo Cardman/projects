@@ -82,7 +82,7 @@ public final class CustThreadActions extends AbstractThreadActions {
             }
             RendAnalysisMessages rend_ = new RendAnalysisMessages();
             AbstractFileBuilder fileBuilder_;
-            fileBuilder_ = new CustBeanFileBuilder(stds.getContent(),((LgNamesRenderUtils)stds).getBeanAliases(),((LgNamesRenderUtils)stds).getCustRenderAliases());
+            fileBuilder_ = new CustBeanFileBuilder(stds.getContent(),((LgNamesRenderUtils)stds).getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
             AnalyzedPageEl page_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, rend_, fileBuilder_);
             if (!getPage().getNavigation().isError()) {
                 HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();

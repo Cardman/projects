@@ -80,23 +80,19 @@ public final class GuiProcess implements Runnable {
 
 
         ExecutingOptions exec_ = new ExecutingOptions();
-        RunningTest.setupOptionals(from_,exec_,linesFiles_);
+        Options opt_ = new Options();
+        RunningTest.setupOptionals(from_, opt_, exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
         }
-        Options opt_ = new Options();
-        opt_.getTypesInit().addAllElts(exec_.getTypesInit());
         opt_.setReadOnly(true);
-        opt_.setCovering(exec_.isCovering());
-        opt_.setGettingErrors(exec_.isErrors());
-        opt_.getComments().addAllElts(exec_.getComments());
         LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter(), _window.getGenerator()));
         ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(cont_, exec_, reportedMessages_, stds_.getInfos());
+        CustContextFactory.reportErrors(cont_, opt_, exec_, reportedMessages_, stds_.getInfos());
         if (!reportedMessages_.isAllEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";

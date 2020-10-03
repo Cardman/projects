@@ -1143,7 +1143,7 @@ public final class CustAliases {
         otherAlias(_content,_util,_cust);
     }
     private void otherAlias(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {
-        build(_content,_util,_cust);
+        _content.build(_util, _cust);
         build(_util,_cust);
     }
     public void build(StringMap<String> _util, StringMap<String> _cust) {
@@ -1304,9 +1304,6 @@ public final class CustAliases {
         custAliasParameters.build(_util,_cust);
     }
 
-    public void build(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {
-        _content.build(_util,_cust);
-    }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
         StringMap<CustList<KeyValueMemberName>> t_ = new StringMap<CustList<KeyValueMemberName>>();
         t_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(

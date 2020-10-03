@@ -1,7 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -15,17 +13,14 @@ public final class ExecutingOptions {
     private int tabWidth = 4;
     private AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
-    private boolean errors;
     private String coverFolder = "coverage";
     private String errorsFolder = "errors";
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
-    private StringList typesInit = new StringList();
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
-    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -61,14 +56,6 @@ public final class ExecutingOptions {
 
     public void setCovering(boolean _covering) {
         covering = _covering;
-    }
-
-    public boolean isErrors() {
-        return errors;
-    }
-
-    public void setErrors(boolean _errors) {
-        errors = _errors;
     }
 
     public String getCoverFolder() {
@@ -119,14 +106,6 @@ public final class ExecutingOptions {
         args = _args;
     }
 
-    public StringList getTypesInit() {
-        return typesInit;
-    }
-
-    public void setTypesInit(StringList _typesInit) {
-        typesInit = _typesInit;
-    }
-
     public StringMap<String> getAliases() {
         return aliases;
     }
@@ -149,14 +128,6 @@ public final class ExecutingOptions {
 
     public void setKeyWords(StringMap<String> _keyWords) {
         keyWords = _keyWords;
-    }
-
-    public CustList<CommentDelimiters> getComments() {
-        return comments;
-    }
-
-    public void setComments(CustList<CommentDelimiters> comments) {
-        this.comments = comments;
     }
 
 }

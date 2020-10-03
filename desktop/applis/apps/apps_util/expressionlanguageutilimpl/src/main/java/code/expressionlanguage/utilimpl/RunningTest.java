@@ -66,21 +66,17 @@ public final class RunningTest implements Runnable {
         String lg_ = linesFiles_.get(1);
         StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_);
         ExecutingOptions exec_ = new ExecutingOptions();
-        if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
-            setupOptionals(1, exec_,linesFiles_);
-        } else {
-            setupOptionals(2, exec_, linesFiles_);
-        }
         Options opt_ = new Options();
-        opt_.getTypesInit().addAllElts(exec_.getTypesInit());
-        opt_.getComments().addAllElts(exec_.getComments());
+        if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
+            setupOptionals(1, opt_, exec_,linesFiles_);
+        } else {
+            setupOptionals(2, opt_, exec_, linesFiles_);
+        }
         opt_.setReadOnly(true);
-        opt_.setCovering(exec_.isCovering());
-        opt_.setGettingErrors(exec_.isErrors());
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests, new LgNamesUtils(_infos));
     }
 
-    public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
+    public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();
         StringBuilder messagesPart_ = new StringBuilder();
@@ -96,6 +92,7 @@ public final class RunningTest implements Runnable {
                 }
             }
             if (l.startsWith("cover=")) {
+                _options.setCovering(true);
                 _exec.setCovering(true);
                 String output_ = l.substring("cover=".length());
                 if (!output_.isEmpty()) {
@@ -103,15 +100,16 @@ public final class RunningTest implements Runnable {
                 }
             }
             if (l.startsWith("err=")) {
-                _exec.setErrors(true);
+                _options.setGettingErrors(true);
                 String output_ = l.substring("err=".length());
                 if (!output_.isEmpty()) {
                     _exec.setErrorsFolder(output_);
                 }
             }
             if (l.startsWith("src=")) {
+                _options.setCovering(true);
+                _options.setGettingErrors(true);
                 _exec.setCovering(true);
-                _exec.setErrors(true);
                 String output_ = l.substring("src=".length());
                 if (!output_.isEmpty()) {
                     if (output_.endsWith("/")) {
@@ -163,14 +161,15 @@ public final class RunningTest implements Runnable {
                     String end_ = ParseLinesArgUtil.parseValue(parts_.last());
                     comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
                 }
-                _exec.setComments(comments_);
+                _options.getComments().clear();
+                _options.getComments().addAllElts(comments_);
             }
         }
         if (_exec.isHasArg()) {
             _exec.setArgs(ParseLinesArgUtil.parseLineArg(argParts_.toString()));
         }
         if (classesPart_.length() > 0) {
-            _exec.setTypesInit(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
+            _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
         }
         if (aliasesPart_.length() > 0) {
             StringList infos_ = StringList.splitChars(aliasesPart_.toString(),',');

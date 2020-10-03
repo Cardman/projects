@@ -4846,16 +4846,6 @@ public final class GuiAliases {
         ExecTemplates.wrapAndCall(fct_,classBody_,aliasPaint,Argument.createVoid(), args_,_cont);
     }
 
-    public void otherAlias(CustAliases _custAliases,LgNamesContent _content,String _lang, StringMap<String> _cust) {
-        _custAliases.otherAlias(_content,_lang,_cust);
-        StringMap<String> util_ = ExtractFromFiles.getMessagesFromLocaleClass("resources_lg_gui/aliases",_lang,"typesgui");
-        otherAliasGui(util_,_cust);
-    }
-
-    public void allAlias(CustAliases _custAliases,LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {
-        _custAliases.allAlias(_content,_util,_cust);
-        otherAliasGui(_util,_cust);
-    }
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {
         setAliasTreeNode(LgNamesContent.get(_util, _cust, TREE_NODE));
         setAliasTree(LgNamesContent.get(_util, _cust, TREE));
