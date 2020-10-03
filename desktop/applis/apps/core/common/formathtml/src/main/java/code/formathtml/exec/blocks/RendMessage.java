@@ -48,7 +48,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 continue;
             }
             Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _cont);
-            if (_cont.getContext().hasException()) {
+            if (_cont.getContext().callsOrException()) {
                 return;
             }
             String res_;
@@ -57,7 +57,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 res_ = _cont.getAdvStandards().processString(arg_,_cont);
             }
-            if (_cont.getContext().hasException()) {
+            if (_cont.getContext().callsOrException()) {
                 return;
             }
             objects_.add(res_);

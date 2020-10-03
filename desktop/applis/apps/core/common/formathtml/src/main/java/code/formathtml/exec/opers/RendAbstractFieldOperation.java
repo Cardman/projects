@@ -24,7 +24,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument arg_ = processCall(this, this, previous_,_nodes, _conf, null);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         boolean simple_ = false;

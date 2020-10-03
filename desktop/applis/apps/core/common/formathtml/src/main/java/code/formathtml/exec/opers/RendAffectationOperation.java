@@ -51,17 +51,13 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     public static RendDynOperationNode castDottedTo(RendDynOperationNode _root) {
         RendDynOperationNode elt_;
         if (!(_root instanceof RendAbstractDotOperation)) {
-            elt_ = castTo(_root);
+            elt_ = _root;
         } else {
-            RendDynOperationNode beforeLast_ = ((RendMethodOperation) _root).getChildrenNodes().last();
-            elt_ = castTo(beforeLast_);
+            elt_ = ((RendMethodOperation) _root).getChildrenNodes().last();
         }
         return elt_;
     }
 
-    private static RendDynOperationNode castTo(RendDynOperationNode _op) {
-        return _op;
-    }
     public RendDynOperationNode getSettable() {
         return settable;
     }

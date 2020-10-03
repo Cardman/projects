@@ -51,11 +51,11 @@ public final class RenderingText {
     private static String tryCalculate(CustList<RendDynOperationNode> _e, Configuration _cont) {
         Argument argument_ = RenderExpUtil.calculateReuse(_e, _cont);
         BeanLgNames standards_ = _cont.getAdvStandards();
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return null;
         }
         String string_ = standards_.processString(argument_, _cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return null;
         }
         return string_;

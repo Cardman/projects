@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -24,6 +23,6 @@ public final class BeanCustLgNamesImpl extends BeanCustLgNames {
 
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
-        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
+        return new TestedContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
     }
 }

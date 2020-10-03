@@ -246,7 +246,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
         ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return null;
         }
         Struct obj_ = resError_.getResult();
@@ -461,7 +461,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
-        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
+        return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;

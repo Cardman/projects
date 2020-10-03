@@ -27,7 +27,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         last_.setOffset(conditionOffset);
         last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
         Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context);
-        if (_context.getContext().hasException()) {
+        if (_context.getContext().callsOrException()) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

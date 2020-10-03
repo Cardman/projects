@@ -45,7 +45,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = ExecTemplates.getElement(array_, o_, _conf.getContext());
-            if (_conf.getContext().hasException()) {
+            if (_conf.getContext().callsOrException()) {
                 return new Argument();
             }
         }
@@ -105,7 +105,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument left_ = new Argument(_stored);
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return _stored;
         }
         ExecTemplates.setElement(_array, o_, res_.getStruct(), _conf.getContext());

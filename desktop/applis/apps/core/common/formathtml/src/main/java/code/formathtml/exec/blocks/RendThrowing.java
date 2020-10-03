@@ -26,7 +26,7 @@ public final class RendThrowing extends RendLeaf implements RendWithEl, RendRedu
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return;
         }
         Struct o_ = argument_.getStruct();

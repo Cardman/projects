@@ -17,7 +17,7 @@ public final class RendImg extends RendElement {
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         String pageName_ = RenderingText.render(textPart,_cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return;
         }
         String lg_ = _cont.getCurrentLanguage();

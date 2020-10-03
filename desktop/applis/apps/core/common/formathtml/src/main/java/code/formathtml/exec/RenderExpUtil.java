@@ -63,7 +63,7 @@ public final class RenderExpUtil {
     }
 
     private static int getNextIndex(Configuration _conf, int _max,RendDynOperationNode o, ArgumentsPair pair_) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return _max;
         }
         Argument res_ = Argument.getNullableValue(pair_.getArgument());

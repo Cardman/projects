@@ -3330,4 +3330,18 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
+    @Test
+    public void calculateArgument11FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $int t=0;\n");
+        xml_.append("  $long u=8;\n");
+        xml_.append("  (t,u)=$null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
 }

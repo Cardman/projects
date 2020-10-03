@@ -48,7 +48,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         classNameFound_ = instFctContent.getClassName();
         ContextEl ctx_ = _conf.getContext();
         Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), ctx_));
-        if (ctx_.hasException()) {
+        if (ctx_.callsOrException()) {
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);

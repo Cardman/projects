@@ -129,7 +129,7 @@ public final class GuiProcess implements Runnable {
         CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
         if (!methods_.isEmpty()) {
             ProcessMethod.initializeClass(clName, classBody_,context);
-            if (context.hasException()) {
+            if (context.callsOrException()) {
                 context.getCustInit().prExc(context);
                 return;
             }

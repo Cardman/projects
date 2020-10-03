@@ -110,7 +110,7 @@ public abstract class RendDynOperationNode {
 
     private void setNextSiblingsArg(Argument _arg, Configuration _cont) {
         ContextEl context_ = _cont.getContext();
-        if (context_.hasException()) {
+        if (context_.callsOrException()) {
             return;
         }
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
@@ -261,7 +261,7 @@ public abstract class RendDynOperationNode {
         setQuickSimpleArgument(_argument,_conf,_nodes);
     }
     private void setQuickSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
@@ -314,7 +314,7 @@ public abstract class RendDynOperationNode {
         if (content.getResultClass().isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();
-            if (ctx_.hasException()) {
+            if (ctx_.callsOrException()) {
                 return;
             }
         }
@@ -342,14 +342,14 @@ public abstract class RendDynOperationNode {
 //            }
 //        }
         Parameters parameters_ = new Parameters();
-        if (!_conf.getContext().hasException()) {
+        if (!_conf.getContext().callsOrException()) {
             parameters_ = ExecTemplates.okArgsSet(_rootBlock, c, true, paramNameOwner_,null, args_, _conf.getContext(), null);
         }
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return null;
         }
         Argument out_ = ProcessMethod.castArgument(paramNameOwner_,_rootBlock,c, parameters_, _conf.getContext());
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return null;
         }
         return out_;
@@ -365,7 +365,7 @@ public abstract class RendDynOperationNode {
             out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), ctx_);
             convert_ = true;
         }
-        if (ctx_.hasException()) {
+        if (ctx_.callsOrException()) {
             return Argument.createVoid();
         }
         if (convert_) {

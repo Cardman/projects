@@ -45,7 +45,7 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         String classNameFound_;
         classNameFound_ = instFctContent.getClassName();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return new Argument();
         }
         ContextEl _context = _conf.getContext();

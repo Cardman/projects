@@ -34,7 +34,7 @@ public final class RendSubmit extends RendElement {
         for (EntryCust<String,ExecTextPart> e:opExp.entryList()) {
             ExecTextPart r_ = e.getValue();
             objects_.add(RenderingText.render(r_,_cont));
-            if (_cont.getContext().hasException()) {
+            if (_cont.getContext().callsOrException()) {
                 return;
             }
             curWr_.removeAttribute(e.getKey());

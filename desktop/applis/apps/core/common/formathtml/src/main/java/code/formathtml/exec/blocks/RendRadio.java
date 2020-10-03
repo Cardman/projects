@@ -30,7 +30,7 @@ public final class RendRadio extends RendInput {
         Element elt_ = (Element) _nextWrite;
         Argument arg_ = processIndexes(_cont, _read, elt_);
         ContextEl context_ = _cont.getContext();
-        if (context_.hasException()) {
+        if (context_.callsOrException()) {
             return;
         }
         Struct res_ = arg_.getStruct();
@@ -39,7 +39,7 @@ public final class RendRadio extends RendInput {
             _cont.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
             Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont);
             _cont.getLastPage().removeLocalVar(varNameConverterFieldValue);
-            if (context_.hasException()) {
+            if (context_.callsOrException()) {
                 return;
             }
             res_ = argConv_.getStruct();
@@ -48,7 +48,7 @@ public final class RendRadio extends RendInput {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
             String strObj_ = getStringKey(_cont, res_);
-            if (context_.hasException()) {
+            if (context_.callsOrException()) {
                 return;
             }
             if (StringList.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {

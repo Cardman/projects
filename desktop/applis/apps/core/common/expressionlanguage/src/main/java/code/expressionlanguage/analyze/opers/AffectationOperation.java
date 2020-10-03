@@ -236,7 +236,7 @@ public final class AffectationOperation extends MethodOperation {
 
     public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
         OperationNode root_ = _operation.getFirstChild();
-        while (root_ instanceof IdOperation) {
+        while (root_ instanceof IdOperation&&((IdOperation)root_).isStandard()) {
             root_ = root_.getFirstChild();
         }
         return root_;

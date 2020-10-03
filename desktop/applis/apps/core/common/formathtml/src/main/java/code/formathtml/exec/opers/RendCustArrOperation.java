@@ -65,7 +65,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument left_ = new Argument(store_);
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return res_;
         }
         return processCalling(_nodes,_conf,res_);
@@ -108,7 +108,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Struct argPrev_ = _previous.getStruct();
         ContextEl ctx_ = _conf.getContext();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, ctx_));
-        if (ctx_.hasException()) {
+        if (ctx_.callsOrException()) {
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);

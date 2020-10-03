@@ -61,7 +61,7 @@ public class CustInitializer extends DefaultInitializer {
                     out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _cont);
                     convert_ = true;
                 }
-                if (!_cont.hasException()) {
+                if (!_cont.callsOrException()) {
                     if (convert_) {
                         out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
                     }

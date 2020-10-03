@@ -474,7 +474,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             BeanInfo info_ = e.getValue();
             _conf.addPage(new ImportingPage());
             Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
-            if (_conf.getContext().hasException()) {
+            if (_conf.getContext().callsOrException()) {
                 _conf.removeLastPage();
                 return;
             }
@@ -506,7 +506,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             _conf.addPage(new ImportingPage());
             Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
             _conf.removeLastPage();
-            if (_conf.getContext().hasException()) {
+            if (_conf.getContext().callsOrException()) {
                 return;
             }
             Struct strBean_ = arg_.getStruct();
@@ -530,11 +530,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!_beanName.isEmpty()) {
             forms_ = storeForms(_bean, _conf);
         }
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return "";
         }
         processInitBeans(_conf,_dest,_beanName, _currentUrl, _language);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return "";
         }
         _conf.setCurrentUrl(_dest);
@@ -549,7 +549,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!_beanName.isEmpty()) {
             setStoredForms(bean_, _conf, forms_);
         }
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return "";
         }
         _conf.clearPages();
@@ -560,7 +560,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         for (int i = 0; i < s_; i++) {
             String key_ = _conf.getBuiltBeans().getKey(i);
             boolean reinit_ = reinitRendBean(_conf,_dest, _beanName, key_, _currentUrl);
-            if (_conf.getContext().hasException()) {
+            if (_conf.getContext().callsOrException()) {
                 break;
             }
             if (!reinit_) {
@@ -569,7 +569,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             Struct bean_ = _conf.getBuiltBeans().getValue(i);
             BeanInfo info_ = _conf.getBeansInfos().getValue(i);
             bean_ = newBean(_conf,_language, bean_,info_);
-            if (_conf.getContext().hasException()) {
+            if (_conf.getContext().callsOrException()) {
                 break;
             }
             _conf.getBuiltBeans().setValue(i,bean_);
@@ -581,7 +581,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         Struct bean_ = getBeanOrNull(_conf,_currentBean);
         String scope_ = getScope(bean_,_conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return false;
         }
         if (StringList.quickEq(scope_,SESSION)) {
@@ -600,15 +600,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         forwardDataBase(_bean,strBean_,_conf);
         setStoredForms(strBean_, _conf, NullStruct.NULL_VALUE);
         setLanguage(strBean_, _language,_conf);
-        if (context.hasException()) {
+        if (context.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         String str_ = getScope(_bean,_conf);
-        if (context.hasException()) {
+        if (context.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         setScope(strBean_, str_,_conf);
-        if (context.hasException()) {
+        if (context.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return strBean_;
@@ -627,14 +627,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         _conf.getLastPage().putInternVars(getDataBaseVar, _bean,_conf.getContext());
         _conf.getLastPage().setEnabledOp(false);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, _conf);
         _conf.getLastPage().clearInternVars();
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
@@ -649,7 +649,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public Struct storeForms(Struct _bean, Configuration _conf) {
         Argument forms_ = getForms(_bean, _conf);
         _conf.getLastPage().setEnabledOp(true);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return forms_.getStruct();
@@ -664,7 +664,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().putInternVars(getFormsVar, _bean,_conf.getContext());
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetForms, _conf);
         _conf.getLastPage().clearInternVars();
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return argument_;
         }
         if (argument_.isNull()) {
@@ -675,7 +675,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
 
     public void setStoredForms(Struct _bean, Configuration _conf, Struct _storedForms) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         _conf.getLastPage().setEnabledOp(false);
@@ -689,12 +689,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
         Argument forms_ = getForms(_bean, _conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
         Argument formsMap_ = getForms(_mainBean,_conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
@@ -705,7 +705,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 }
                 String name_ = ((RendImportForm)f_).getName();
                 forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
-                if (_conf.getContext().hasException()) {
+                if (_conf.getContext().callsOrException()) {
                     _conf.getLastPage().setEnabledOp(true);
                     return;
                 }
@@ -763,7 +763,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     private static Argument getField(Configuration _conf, int off_, String className_, String fieldName_, boolean staticField_, Argument previous_, String fieldType_) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return Argument.createVoid();
         }
         return ExecTemplates.getField(new AdvancedSetOffset(_conf), _conf.getContext().getExiting(), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
@@ -789,7 +789,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     private static Argument setField(Configuration _conf, Argument _right, int off_, String fieldType_, boolean isStatic_, boolean isFinal_, ExecRootBlock _root, String className_, String fieldName_, Argument previous_) {
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return Argument.createVoid();
         }
         return ExecTemplates.setField(new AdvancedSetOffset(_conf), _conf.getContext().getExiting(), _root,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
@@ -808,7 +808,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             classNameFound_ = _rend.getClassMethodId().getClassName();
             Struct argPrev_ = _previous.getStruct();
             prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, ctx_));
-            if (ctx_.hasException()) {
+            if (ctx_.callsOrException()) {
                 return new Argument();
             }
         } else {
@@ -826,7 +826,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().putInternVars(getValVarArg, _key,_conf.getContext());
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetVal, _conf);
         _conf.getLastPage().clearInternVars();
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         _conf.getLastPage().putInternVars(putVarCust, _to, _conf.getContext());
@@ -944,7 +944,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, _conf);
         _conf.getLastPage().setEnabledOp(true);
         _conf.getLastPage().clearInternVars();
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return null;
         }
         if (arg_.isNull()) {
@@ -980,7 +980,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, _cont);
         _cont.getLastPage().setEnabledOp(true);
         _cont.getLastPage().clearInternVars();
-        if (_cont.getContext().hasException() || argument_.isNull()) {
+        if (_cont.getContext().callsOrException() || argument_.isNull()) {
             return "";
         }
         return NumParsers.getString(argument_.getStruct()).getInstance();
@@ -994,7 +994,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _cont.getLastPage().clearInternVars();
     }
     public void setLanguage(Struct _bean, String _scope,Configuration _cont) {
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return;
         }
         _cont.getLastPage().putInternVars(setLanguageVar, _bean,_cont.getContext());
@@ -1096,7 +1096,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public String processString(Argument _arg, Configuration _cont) {
         Argument arg_ = RendDynOperationNode.processString(_arg, _cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return "";
         }
         return NumParsers.getString(arg_.getStruct()).getInstance();

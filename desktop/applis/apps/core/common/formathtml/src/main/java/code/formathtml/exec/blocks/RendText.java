@@ -29,7 +29,7 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
         Text t_ = doc_.createTextNode(EMPTY_STRING);
         ((MutableNode)write_).appendChild(t_);
         t_.appendData(RenderingText.render(textPart,_cont));
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return;
         }
         processBlock(_cont);

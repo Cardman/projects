@@ -25,6 +25,7 @@ public final class IdOperation extends AbstractUnaryOperation {
     public void analyzeUnary(AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = getChildrenNodes();
         if (children_.size() > 1) {
+            standard = false;
             MethodOperation par_ = getParent();
             getPartOffsetsChildren().add(new CustList<PartOffset>());
             if (!(par_ instanceof CastOperation)) {
@@ -129,11 +130,11 @@ public final class IdOperation extends AbstractUnaryOperation {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            standard = false;
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (children_.isEmpty()) {
+            standard = false;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

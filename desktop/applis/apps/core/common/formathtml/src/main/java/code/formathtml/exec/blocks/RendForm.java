@@ -55,7 +55,7 @@ public final class RendForm extends RendElement {
             arg_.add(alt_.get(i));
         }
         String render_ = StringList.join(alt_,"");
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             _cont.getFormsArgs().add(new StringList());
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();

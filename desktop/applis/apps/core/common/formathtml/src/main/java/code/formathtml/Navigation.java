@@ -109,7 +109,7 @@ public final class Navigation {
         }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
-        if (session.getContext().hasException()) {
+        if (session.getContext().callsOrException()) {
             return;
         }
         String currentUrl_ = session.getFirstUrl();
@@ -192,14 +192,14 @@ public final class Navigation {
             } else {
                 return_=RendRequestUtil.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
             }
-            if (session.getContext().hasException()) {
+            if (session.getContext().callsOrException()) {
                 return;
             }
             String urlDest_ = currentUrl;
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getRendUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
-                if (session.getContext().hasException()) {
+                if (session.getContext().callsOrException()) {
                     return;
                 }
                 if (urlDest_ == null) {
@@ -278,7 +278,7 @@ public final class Navigation {
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
             Message messageTr_ = session.getAdvStandards().validate(session,nCont_,valId_);
-            if (session.getContext().hasException()) {
+            if (session.getContext().callsOrException()) {
                 return;
             }
             if (messageTr_ != null) {
@@ -312,7 +312,7 @@ public final class Navigation {
         //Setting values for bean
         updateRendBean(containers_);
         session.clearPages();
-        if (session.getContext().hasException()) {
+        if (session.getContext().callsOrException()) {
             return;
         }
 
@@ -328,14 +328,14 @@ public final class Navigation {
             }
             Struct newObj_;
             ResultErrorStd res_ = session.getAdvStandards().convert(nCont_, session);
-            if (session.getContext().hasException()) {
+            if (session.getContext().callsOrException()) {
                 return;
             }
             newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getUpdated();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
             RendRequestUtil.setRendObject(session, e.getValue(), newObj_);
-            if (session.getContext().hasException()) {
+            if (session.getContext().callsOrException()) {
                 return;
             }
         }
@@ -483,7 +483,7 @@ public final class Navigation {
             return null;
         }
         String case_ = session.getAdvStandards().processString(new Argument(_return),session);
-        if (session.getContext().hasException()) {
+        if (session.getContext().callsOrException()) {
             return null;
         }
         return cases_.getVal(case_);

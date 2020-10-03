@@ -60,7 +60,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
         Struct its_ = processLoop(_cont);
         ContextEl context_ = _cont.getContext();
-        if (context_.hasException()) {
+        if (context_.callsOrException()) {
             return;
         }
         Struct iterStr_ = null;
@@ -72,7 +72,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
-            if (context_.hasException()) {
+            if (context_.callsOrException()) {
                 return;
             }
         } else {
@@ -82,7 +82,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 return;
             }
             Argument arg_ = iterator(its_,_cont);
-            if (context_.hasException()) {
+            if (context_.callsOrException()) {
                 return;
             }
             iterStr_ = arg_.getStruct();
@@ -120,7 +120,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrList());
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
@@ -170,7 +170,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
         Argument arg_ = hasNext(strIter_,_conf);
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
@@ -199,7 +199,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecTemplates.getElement(container_, lg_, _conf.getContext());
         }
-        if (_conf.getContext().hasException()) {
+        if (_conf.getContext().callsOrException()) {
             return;
         }
         if (!el_.getResultClass().isArray()) {

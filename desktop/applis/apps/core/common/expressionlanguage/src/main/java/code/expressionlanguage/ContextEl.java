@@ -219,12 +219,9 @@ public abstract class ContextEl {
     }
 
     public boolean calls() {
-        return !hasException();
+        return !(getCallingState() instanceof Struct);
     }
 
-    public boolean hasException() {
-        return callingState instanceof Struct;
-    }
     public boolean isFailInit() {
         return initializingTypeInfos.isFailInit();
     }

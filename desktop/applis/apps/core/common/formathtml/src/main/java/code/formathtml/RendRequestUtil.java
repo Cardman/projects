@@ -39,7 +39,7 @@ final class RendRequestUtil {
         for (String n: varNames_) {
             ip_.removeLocalVar(n);
         }
-        if (context_.hasException()) {
+        if (context_.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();

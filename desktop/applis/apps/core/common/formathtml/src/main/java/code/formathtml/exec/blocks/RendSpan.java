@@ -20,7 +20,7 @@ public final class RendSpan extends RendElement {
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         String txt_ = RenderingText.render(result, _cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             ((Element)_nextWrite).removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;
         }

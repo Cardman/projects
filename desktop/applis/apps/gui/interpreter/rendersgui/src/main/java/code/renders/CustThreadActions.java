@@ -106,7 +106,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                     CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
                     if (!methods_.isEmpty()) {
                         ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
-                        if (ctx_.hasException()) {
+                        if (ctx_.callsOrException()) {
                             afterAction();
                             return;
                         }
@@ -126,7 +126,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                         ExecNamedFunctionBlock method_ = methods_.first();
                         Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
                         Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
-                        if (ctx_.hasException()) {
+                        if (ctx_.callsOrException()) {
                             afterAction();
                             return;
                         }

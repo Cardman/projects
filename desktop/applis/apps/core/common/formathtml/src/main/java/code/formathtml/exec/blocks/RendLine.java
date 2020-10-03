@@ -24,7 +24,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         RenderExpUtil.calculateReuse(opExp, _cont);
-        if (_cont.getContext().hasException()) {
+        if (_cont.getContext().callsOrException()) {
             return;
         }
         processBlock(_cont);
