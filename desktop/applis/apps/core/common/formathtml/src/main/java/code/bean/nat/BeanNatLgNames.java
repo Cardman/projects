@@ -445,19 +445,18 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private ContextEl setupNative(AnalyzedPageEl _page) {
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, di_, _options, this, tabWidth_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, _options, this, tabWidth_);
         ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
         return contextEl_;
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
-        return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
+        return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;

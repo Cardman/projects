@@ -18,7 +18,7 @@ public final class CustLgNames extends LgNames {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage, Initializer _init) {
-        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),_init));
+    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
+        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
     }
 }

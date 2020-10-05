@@ -239,18 +239,17 @@ public final class AnalysisMessagesTest {
         def_.setUnexpectedVararg("");
         def_.setUnexpectedLeaf("");
         def_.setEmptyPart("");
-        DefaultInitializer di_ = new DefaultInitializer();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        getCtx(di_, lgName_, opts_);
+        getCtx(lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(def_);
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
 
-    private static ContextEl getCtx(DefaultInitializer di_, LgNames lgName_, Options opts_) {
-        return lgName_.newContext(4,-1, new Coverage(opts_.isCovering()),di_);
+    private static ContextEl getCtx(LgNames lgName_, Options opts_) {
+        return lgName_.newContext(4,-1, new Coverage(opts_.isCovering()));
     }
 }

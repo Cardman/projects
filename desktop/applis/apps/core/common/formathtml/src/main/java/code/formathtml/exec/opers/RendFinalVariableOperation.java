@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
@@ -28,8 +27,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
 
     Argument getCommonArgument(Configuration _conf, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
-        ImportingPage ip_ = _conf.getLastPage();
-        return ExecTemplates.getIndexLoop(_context, variableContent.getVariableName(), ip_.getPageEl(), variableContent.getDeep());
+        return ExecTemplates.getIndexLoop(_context, variableContent.getVariableName(), _conf.getPageEl(), variableContent.getDeep());
     }
 
 }

@@ -806,7 +806,7 @@ public class ScenePanel {
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;
         }
-        receivedPk.initializeOnlyConf(facade,task_.isOk(), task_.getBeanNatLgNames(), task_.getNavigation(),facade.getLanguage(), task_.getContext());
+        receivedPk.initializeOnlyConf(facade, task_.getBeanNatLgNames(), task_.getNavigation(),facade.getLanguage(), task_.getContext());
     }
 
     public void interact() {

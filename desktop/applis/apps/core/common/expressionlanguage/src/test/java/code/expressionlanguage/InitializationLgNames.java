@@ -6,8 +6,6 @@ import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
@@ -54,11 +52,10 @@ public final class InitializationLgNames {
     }
 
     private static AnalyzedTestContext buildAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, di_, _opt, _lgNames, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
         _lgNames.build();
@@ -68,12 +65,11 @@ public final class InitializationLgNames {
     }
 
     private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, di_, _opt, _lgNames, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
         _lgNames.build();
@@ -83,19 +79,17 @@ public final class InitializationLgNames {
     }
 
     private static AnalyzedTestContext buildLgAna(String _lang, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        DefaultInitializer di_ = new DefaultInitializer();
-        AnalyzedTestContext out_ = buildDefKwAna(_lang, di_, _opt, _lgNames,4, _calculator);
+        AnalyzedTestContext out_ = buildDefKwAna(_lang, _opt, _lgNames,4, _calculator);
         Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
     private static AnalyzedTestContext builExp(LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, di_, _opt, _lgNames, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
         _lgNames.build();
@@ -423,7 +417,7 @@ public final class InitializationLgNames {
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
     }
 
-    private static AnalyzedTestContext buildDefKwAna(String _lang, Initializer _init,
+    private static AnalyzedTestContext buildDefKwAna(String _lang,
                                                      Options _options, LgNames _undefinedLgNames, int _tabWidth, AbstractConstantsCalculator çcalculator) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWordsMap km_ = new KeyWordsMap();
@@ -433,7 +427,7 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _init, _options, _undefinedLgNames, _tabWidth);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), çcalculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
         _undefinedLgNames.build();

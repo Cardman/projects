@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.exec.Initializer;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -27,7 +26,7 @@ public final class ReadConfiguration {
     public static ContextEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
         return _stds.load(_configuration,_lgCode,_document, _rend, _fileBuilder, _page);
     }
-    public static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, Initializer _init, AnalyzedPageEl _page) {
+    public static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options opt_ = new Options();
@@ -52,7 +51,7 @@ public final class ReadConfiguration {
                 tab_=(Numbers.parseInt(c.getAttribute("value")));
             }
         }
-        ContextEl context_ = ContextFactory.simpleBuild(stack_, _init, opt_, _stds, tab_);
+        ContextEl context_ = ContextFactory.simpleBuild(stack_, opt_, _stds, tab_);
         ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, _page);
         AnalysisMessages.validateMessageContents(_rend.allMessages(), _page);
         if (!_page.isEmptyMessageError()) {

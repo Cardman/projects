@@ -50,6 +50,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private ContextEl context;
 
+    private AbstractContextCreator contextCreator;
     private BeanLgNames standards;
 
     private CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
@@ -97,6 +98,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         _stds.setDataBase(_db);
         standards = _stds;
+        contextCreator = new NativeContextCreator();
         String content_ = ResourceFiles.ressourceFichier(_conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
         DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()));
@@ -115,7 +117,7 @@ public final class RenderedPage implements ProcessingSession {
         setupText();
     }
 
-    public void initializeOnlyConf(Object _dataBase, boolean _ok, BeanNatLgNames _stds, Navigation _navigation, String _lg, ContextEl _context) {
+    public void initializeOnlyConf(Object _dataBase, BeanNatLgNames _stds, Navigation _navigation, String _lg, ContextEl _context) {
         if (processing.get()) {
             return;
         }
@@ -124,16 +126,20 @@ public final class RenderedPage implements ProcessingSession {
         _stds.setDataBase(_dataBase);
         navigation.setLanguage(_lg);
         standards = _stds;
-        threadAction = CustComponent.newThread(new ThreadActions(this,_ok));
+        contextCreator = new NativeContextCreator();
+        ThreadActions th_ = new ThreadActions(this);
+        th_.startPage();
+        threadAction = CustComponent.newThread(th_);
         threadAction.start();
         animateProcess();
     }
 
-    public void initializeOnlyConf(BeanCustLgNames _stds, Runnable _inst) {
+    public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {
         if (processing.get()) {
             return;
         }
         standards = _stds;
+        contextCreator = _creator;
         threadAction = CustComponent.newThread(_inst);
         threadAction.start();
         animateProcess();
@@ -166,6 +172,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _lgNames;
+        contextCreator = new NativeContextCreator();
         threadAction = CustComponent.newThread(ThreadActions.inst(this, _lgNames, navigation.getSession().getFirstUrl()));
         threadAction.start();
         animateProcess();
@@ -303,5 +310,9 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setContext(ContextEl context) {
         this.context = context;
+    }
+
+    public AbstractContextCreator getContextCreator() {
+        return contextCreator;
     }
 }

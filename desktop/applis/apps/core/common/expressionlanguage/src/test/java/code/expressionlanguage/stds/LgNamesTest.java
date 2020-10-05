@@ -36,13 +36,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail1Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -51,13 +51,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail2Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordIntern("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -67,13 +67,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail3Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -82,13 +82,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail4Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("1a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -97,13 +97,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail5Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -114,13 +114,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail6Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -132,13 +132,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail7Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -151,13 +151,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail8Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -170,13 +170,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail9Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("_");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -189,13 +189,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail10Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -209,13 +209,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail11Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -229,13 +229,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail12Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("_");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -249,13 +249,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail13Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -269,13 +269,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail14Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -289,13 +289,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail15Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -309,13 +309,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail16Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("_");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -329,13 +329,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail17Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("1");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -349,13 +349,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail18Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -369,13 +369,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail19Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("A");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -389,13 +389,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail20Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -409,13 +409,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail21Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -429,13 +429,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail22Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("1");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -449,13 +449,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail23Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -469,13 +469,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail24Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("A");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -489,13 +489,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail25Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -511,13 +511,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail26Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -533,13 +533,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail27Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("$if");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -555,13 +555,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail28Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -577,13 +577,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail29Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("$if");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -601,13 +601,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail30Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -625,13 +625,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail31Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("ab");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -649,13 +649,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail32Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -673,13 +673,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail33Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("a..b");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -697,13 +697,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail34Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("$int");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -721,13 +721,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail35Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().setDefaultPkg("pkg");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -745,13 +745,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail36Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("java");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -769,13 +769,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail37Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -795,13 +795,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail38Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -821,13 +821,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail39Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -847,13 +847,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail40Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("$if");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -873,13 +873,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail41Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("$int");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -899,13 +899,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail42Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -927,13 +927,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail43Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -955,13 +955,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail44Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -983,13 +983,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail45Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$int");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1011,13 +1011,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail46Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$if");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1039,13 +1039,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail47Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordCase("$abstract");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1068,13 +1068,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail48Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("n");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1098,13 +1098,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail49Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("nou");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1128,13 +1128,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail50Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1158,13 +1158,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail51Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("f");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1188,14 +1188,14 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail52Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("");
         kw_.setKeyWordEscUnicode("f0");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1219,13 +1219,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail53Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("f0");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1249,13 +1249,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail54Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbSufLong("Y");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1283,13 +1283,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail55Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("x");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1318,7 +1318,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail56Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
@@ -1327,7 +1327,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
         lgName_.getContent().getMathRef().setAliasLe("ge");
         lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1360,13 +1360,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail57Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1384,13 +1384,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail58Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1408,7 +1408,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail59Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
@@ -1418,7 +1418,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getContent().getPredefTypes().setAliasEnumParamVar("");
         lgName_.getContent().getPredefTypes().setAliasIteratorTypeVar("$if");
         lgName_.getContent().getPredefTypes().setAliasIterableVar("$int");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1454,14 +1454,14 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail60Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst("E");
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("E");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1497,13 +1497,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail61Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1523,13 +1523,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail62Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("<");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1549,13 +1549,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail63Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("0a");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1575,13 +1575,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail64Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$if");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1601,13 +1601,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail65Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$int");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1627,13 +1627,13 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail66Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPredefTypes().setAliasHasNextPair("hasNext");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1708,7 +1708,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail67Test() {
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
@@ -2170,7 +2170,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda1("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda2("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda3("");
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_);
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -2266,7 +2266,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> srcFiles_ = new StringMap<String>();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
@@ -2279,7 +2279,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalyzedTestContext contextEl_ = getCtx(di_, kw_, lgName_, options_, calculator_);
+        AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
         ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, ctx_.getClasses().getCommon(), calculator_,DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
@@ -2301,7 +2301,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> srcFiles_ = new StringMap<String>();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
@@ -2314,7 +2314,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalyzedTestContext contextEl_ = getCtx(di_, kw_, lgName_, options_, calculator_);
+        AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
         ContextEl ctx_ = contextEl_.getContext();
         ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, ctx_.getClasses().getCommon(), calculator_, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
         assertTrue(isEmptyErrors(contextEl_));
@@ -2327,9 +2327,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
-    private static AnalyzedTestContext getCtx(DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options, AbstractConstantsCalculator _calculator) {
+    private static AnalyzedTestContext getCtx(KeyWords kw_, LgNames lgName_, Options _options, AbstractConstantsCalculator _calculator) {
         AnalysisMessages mess_ = new AnalysisMessages();
-        ContextEl ctx_ = lgName_.newContext(4,-1, new Coverage(_options.isCovering()),di_);
+        ContextEl ctx_ = lgName_.newContext(4,-1, new Coverage(_options.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kw_);
@@ -2370,8 +2370,8 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
 
-    private static AnalyzedTestContext getCtx(DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
-        return getCtx(di_, kw_, lgName_, new Options(), null);
+    private static AnalyzedTestContext getCtx(KeyWords kw_, LgNames lgName_) {
+        return getCtx(kw_, lgName_, new Options(), null);
     }
     @Test
     public void getAlias1() {

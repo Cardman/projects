@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -51,7 +50,6 @@ import code.sml.Element;
 import code.util.*;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
-    private final Initializer init;
     private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
     private static final String REF_TAG = "#";
@@ -122,9 +120,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String validateVarArgClassField;
     private String vlidateVarArgNameField;
 
-    protected BeanCustLgNames(AbstractGenerator _gene, Initializer _init) {
+    protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
-        init = _init;
     }
 
     @Override
@@ -589,20 +586,19 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     private Struct newBean(Configuration _conf, String _language, Struct _bean, BeanInfo _info, ContextEl _ctx) {
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), _conf, this, _ctx);
-        ContextEl context = _ctx;
         Struct strBean_ = arg_.getStruct();
         forwardDataBase(_bean,strBean_,_conf, _ctx);
         setStoredForms(strBean_, _conf, NullStruct.NULL_VALUE, _ctx);
         setLanguage(strBean_, _language,_conf, _ctx);
-        if (context.callsOrException()) {
+        if (_ctx.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         String str_ = getScope(_bean,_conf, _ctx);
-        if (context.callsOrException()) {
+        if (_ctx.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         setScope(strBean_, str_,_conf, _ctx);
-        if (context.callsOrException()) {
+        if (_ctx.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return strBean_;
@@ -729,7 +725,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
-                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder, init, _page);
+                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder, _page);
             }
         }
         return page_;

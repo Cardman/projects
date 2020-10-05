@@ -13,9 +13,7 @@ import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.exec.ClassesCommon;
 import code.expressionlanguage.exec.DefaultInitializer;
-import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
@@ -46,7 +44,6 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     @Test
     public void failStd(){
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
@@ -54,7 +51,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(),null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
@@ -64,7 +61,6 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     @Test
     public void failStd2(){
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
@@ -75,7 +71,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent(), tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
@@ -84,7 +80,6 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     @Test
     public void failMessage(){
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
         KeyWords kw_ = new KeyWords();
@@ -93,7 +88,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, null, null, tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());
@@ -102,7 +97,6 @@ public final class ClassesTest extends ProcessMethodCommon {
     }
     @Test
     public void failMessage2(){
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
         KeyWords kw_ = new KeyWords();
@@ -110,7 +104,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(-1, di_, opts_, lgName_, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, opts_, lgName_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validateStds(a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_, out_.getClasses().getCommon(), null, null, null, tabWidth_, page_);
         Classes.validateAll(new StringMap<String>(),out_, page_, new Forwards());

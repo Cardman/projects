@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.render.MetaDocument;
 import code.gui.CustComponent;
 import code.sml.Document;
@@ -15,32 +14,46 @@ import javax.swing.*;
 
 public abstract class AbstractThreadActions implements Runnable {
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
     private Timer timer;
-    protected AbstractThreadActions() {
+
+    protected AbstractThreadActions(RenderedPage _page) {
+        page = _page;
+        timer = null;
     }
     protected AbstractThreadActions(RenderedPage _page, Timer _timer) {
         page = _page;
         timer = _timer;
     }
-    protected void afterAction() {
-        Configuration conf_ = page.getNavigation().getSession();
-        ContextEl context_ = page.getContext();
-        CallingState exc_ = context_.getCallingState();
+    protected void afterAction(ContextEl _ctx) {
+        if (_ctx == null) {
+            finish();
+            return;
+        }
+        page.getContextCreator().removeContext(_ctx);
+        afterActionWithoutRemove(_ctx);
+    }
+
+    protected void afterActionWithoutRemove(ContextEl _ctx) {
+        if (_ctx == null) {
+            finish();
+            return;
+        }
+        CallingState exc_ = _ctx.getCallingState();
         if (exc_ instanceof Struct) {
             if (page.getArea() != null) {
                 Struct exception_ = (Struct) exc_;
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
-                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(context_, fullStack_));
+                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
                 } else {
-                    context_.setException(null);
-                    String str_ = page.getStandards().processString(new Argument(exception_), page.getContext());
+                    _ctx.setException(null);
+                    String str_ = page.getStandards().processString(new Argument(exception_),_ctx);
                     page.getArea().append(str_);
                 }
             }
-            context_.setException(null);
+            _ctx.setException(null);
             finish();
             return;
         }
@@ -67,7 +80,4 @@ public abstract class AbstractThreadActions implements Runnable {
         return page;
     }
 
-    public void setPage(RenderedPage page) {
-        this.page = page;
-    }
 }

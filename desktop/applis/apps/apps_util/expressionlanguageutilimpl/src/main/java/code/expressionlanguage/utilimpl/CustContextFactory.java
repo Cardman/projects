@@ -104,7 +104,7 @@ public final class CustContextFactory {
     public static ResultsRunnableContext build(int _stack,
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files, int _tabWidth) {
         _definedLgNames.setExecutingOptions(_exec);
-        RunnableContextEl r_ = (RunnableContextEl) _definedLgNames.newContext(_tabWidth, _stack, new Coverage(_options.isCovering()), new CustInitializer());
+        RunnableContextEl r_ = (RunnableContextEl) _definedLgNames.newContext(_tabWidth, _stack, new Coverage(_options.isCovering()));
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(),
                 new DefaultConstantsCalculator(_definedLgNames.getContent().getNbAlias()), CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsRunnableContext(r_,reportedMessages_);

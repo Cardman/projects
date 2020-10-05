@@ -20,18 +20,17 @@ public final class ThreadActions extends AbstractThreadActions {
     private BeanLgNames stds;
 
 
-    private ThreadActions(){}
-    private boolean ok;
-    ThreadActions(RenderedPage _page, boolean _ok) {
-        setPage(_page);
+    ThreadActions(RenderedPage _page) {
+        super(_page);
+    }
+
+    void startPage() {
         getPage().start();
         directFirst = true;
-        ok = _ok;
     }
 
     static ThreadActions inst(RenderedPage _page, BeanNatLgNames _lgNames, String _fileName) {
-        ThreadActions t_ = new ThreadActions();
-        t_.setPage(_page);
+        ThreadActions t_ = new ThreadActions(_page);
         t_.getPage().start();
         t_.stds = _lgNames;
         t_.fileName = _fileName;
@@ -47,13 +46,14 @@ public final class ThreadActions extends AbstractThreadActions {
                 return;
             }
             page_.getNavigation().initializeRendSession(ctx_, page_.getStandards());
-            afterAction();
+            afterAction(ctx_);
             return;
         }
         String content_;
         content_ = ResourceFiles.ressourceFichier(fileName);
         if (content_ == null) {
-            afterAction();
+            ContextEl ctx_ = page_.getContext();
+            afterAction(ctx_);
             return;
         }
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
@@ -76,6 +76,6 @@ public final class ThreadActions extends AbstractThreadActions {
             }
             page_.getNavigation().initializeRendSession(ctx_, du_.getStds());
         }
-        afterAction();
+        afterAction(ctx_);
     }
 }

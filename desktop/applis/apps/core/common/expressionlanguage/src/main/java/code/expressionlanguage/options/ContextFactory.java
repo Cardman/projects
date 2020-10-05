@@ -39,8 +39,8 @@ public final class ContextFactory {
         return Classes.validateAll(srcFiles_, _contextEl, _page, _forwards);
     }
 
-    public static ContextEl simpleBuild(int _stack, Initializer _init, Options _options, BuildableLgNames _definedLgNames, int _tabWidth) {
-        return _definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()),_init);
+    public static ContextEl simpleBuild(int _stack, Options _options, BuildableLgNames _definedLgNames, int _tabWidth) {
+        return _definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()));
     }
 
     public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,

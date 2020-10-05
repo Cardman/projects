@@ -5,7 +5,6 @@ import code.bean.nat.NativeForEachFetch;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.fwd.Forwards;
@@ -1358,11 +1357,10 @@ public final class NativeTest {
     private static NativeAnalyzedTestContext buildStdOne(Options _opt) {
         BeanNatLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, di_, _opt, lgNames_, tabWidth_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_, page_);
         lgNames_.build();

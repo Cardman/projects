@@ -2,7 +2,6 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.Forwards;
@@ -24,12 +23,12 @@ public final class RendKeyWordsTest {
     public void fail1() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -50,12 +49,12 @@ public final class RendKeyWordsTest {
     public void fail2() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -72,12 +71,12 @@ public final class RendKeyWordsTest {
     public void fail3() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -96,12 +95,12 @@ public final class RendKeyWordsTest {
     public void fail4() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -121,12 +120,12 @@ public final class RendKeyWordsTest {
     public void fail5() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -142,12 +141,12 @@ public final class RendKeyWordsTest {
     public void fail6() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -162,12 +161,12 @@ public final class RendKeyWordsTest {
     public void fail7() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -181,12 +180,12 @@ public final class RendKeyWordsTest {
     public void fail8() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
         
-        DefaultInitializer di_ = new DefaultInitializer();
+        
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(di_, kw_, lgName_, opts_);
+        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -352,14 +351,14 @@ public final class RendKeyWordsTest {
         AnalysisMessages.validateMessageContents(def_.allMessages(), s_.getAnalyzing());
     }
 
-    private static AnalyzedTestConfiguration build(DefaultInitializer di_, KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
-        AnalyzedTestContext s_ = getCtx(di_, kw_, lgName_, opts_);
+    private static AnalyzedTestConfiguration build(KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
         return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), lgName_);
     }
 
-    private static AnalyzedTestContext getCtx(DefaultInitializer di_, KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
-        ContextEl s_ =  lgName_.newContext(4, -1, new Coverage(opts_.isCovering()),di_);
+    private static AnalyzedTestContext getCtx(KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
+        ContextEl s_ =  lgName_.newContext(4, -1, new Coverage(opts_.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);

@@ -74,7 +74,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     public static CustThreadActions inst(String _conf, String _lgCode, BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName, RenderedPage _page) {
-        CustThreadActions actions_ = CustThreadActions.inst(_page, _stds, _lgCode,"", _conf, _files);
+        CustThreadActions actions_ = CustThreadActions.inst(_page, _stds, _lgCode, _conf, _files);
         actions_.setClassDbName(_clName);
         actions_.setMethodName(_methodName);
         return actions_;
@@ -151,7 +151,7 @@ public final class MainWindow extends GroupFrame {
         session.initNav();
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
-        session.initializeOnlyConf(lgNames_, inst(confRel_, lgCode.getText(), lgNames_, zipFiles_, clName_, mName_, session));
+        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(confRel_, lgCode.getText(), lgNames_, zipFiles_, clName_, mName_, session));
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
         for (String l: _lines.mid(_from)) {

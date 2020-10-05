@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
@@ -37,7 +36,7 @@ public final class GuiContextFactory {
         GuiInitializer ci_ = new GuiInitializer();
         _definedLgNames.setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(ci_,_mainArgs,_window);
-        GuiContextEl r_ = (GuiContextEl)_definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()),ci_);
+        GuiContextEl r_ = (GuiContextEl)_definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()));
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(), new AdvancedConstantsCalculator(_definedLgNames), new GuiFileBuilder(_definedLgNames.getContent(),_definedLgNames.getGuiAliases(),_definedLgNames.getCustAliases()), _definedLgNames.getContent());
         return new ResultsGuiContext(r_,reportedMessages_);
     }
