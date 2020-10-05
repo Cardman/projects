@@ -55,7 +55,7 @@ public final class RendDimensionArrayInstancing extends
         }
         Struct res_ = newCustomArrayOrExc(offs_,className_, dims_, _conf, _ctx);
         if (res_ instanceof ErrorStruct) {
-            _ctx.setException(res_);
+            _ctx.setCallingState(res_);
             return new Argument();
         }
         return new Argument(res_);

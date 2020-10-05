@@ -160,7 +160,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -170,7 +170,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new DoubleStruct(v_.getValue()));
       }
@@ -182,7 +182,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -199,7 +199,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new FloatStruct((float) d_));
       }
@@ -211,7 +211,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -223,7 +223,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new LongStruct(lg_.getValue()));
       }
@@ -235,7 +235,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -247,7 +247,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new IntStruct((int) lg_.getValue()));
       }
@@ -259,7 +259,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -271,7 +271,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new ShortStruct((short) lg_.getValue()));
       }
@@ -283,7 +283,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -295,7 +295,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setException(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new ByteStruct((byte)lg_.getValue()));
       }
@@ -307,11 +307,11 @@ public final class AliasNumber {
         StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             if (!(_args[0] instanceof NumberStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return;
             }
             if (!(_args[1] instanceof  NumberStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
@@ -320,7 +320,7 @@ public final class AliasNumber {
         if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             if (!(_args[0] instanceof  NumberStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
@@ -573,7 +573,7 @@ public final class AliasNumber {
             return;
         }
         if (!(_args[0] instanceof CharStruct)) {
-            _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+            _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
         }
         char one_ = ch_.getChar();

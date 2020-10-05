@@ -485,8 +485,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ext", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ext", id_, args_, cont_);
         assertEq("$core.DivideZero", ret_.getStruct().getClassName(cont_));
     }
 
@@ -3691,7 +3690,8 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateError("pkg.Ext", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ext", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
     @Test

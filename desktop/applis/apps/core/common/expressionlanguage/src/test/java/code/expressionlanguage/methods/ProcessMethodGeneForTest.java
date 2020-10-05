@@ -929,8 +929,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument39Test() {

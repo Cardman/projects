@@ -3934,9 +3934,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe2() {
@@ -3961,9 +3961,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe3() {
@@ -3988,9 +3988,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe4() {
@@ -4012,9 +4012,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe5() {
@@ -4036,9 +4036,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgument9FailTest() {

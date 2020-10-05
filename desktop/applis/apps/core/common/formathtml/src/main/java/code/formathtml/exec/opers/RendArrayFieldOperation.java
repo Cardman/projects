@@ -28,7 +28,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         String npe_;
         npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        _ctx.setException(new ErrorStruct(_ctx,npe_));
+        _ctx.setCallingState(new ErrorStruct(_ctx,npe_));
         return new Argument();
     }
 }

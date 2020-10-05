@@ -226,10 +226,6 @@ public abstract class ContextEl {
         return initializingTypeInfos.isFailInit();
     }
 
-    public void setException(Struct _exception) {
-        callingState = _exception;
-    }
-
     public CallingState getCallingState() {
         return callingState;
     }

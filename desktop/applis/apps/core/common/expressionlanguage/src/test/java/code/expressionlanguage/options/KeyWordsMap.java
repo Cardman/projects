@@ -209,6 +209,10 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasStore("$core.BadStore");
         _lgNames.getContent().getCoreNames().setAliasNullPe("$core.NullObject");
         _lgNames.getContent().getCoreNames().setAliasBadIndex("$core.BadIndexException");
+        _lgNames.getContent().getCoreNames().setAliasBadArgNumber("$core.BadArgNumber");
+        _lgNames.getContent().getCoreNames().setAliasAbstractTypeErr("$core.AbstractTypeErr");
+        _lgNames.getContent().getCoreNames().setAliasIllegalType("$core.IllegalType");
+        _lgNames.getContent().getCoreNames().setAliasNonInvokable("$core.NonInvokable");
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("$core.IllegalArgument");
         _lgNames.getContent().getCoreNames().setAliasBadSize("$core.NegativeSize");
         _lgNames.getContent().getCoreNames().setAliasError("$core.Error");
@@ -522,6 +526,10 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasNullPe("$coeur.ObjetNul");
         _lgNames.getContent().getCoreNames().setAliasBadEncode("$coeur.MauvaisEncodage");
         _lgNames.getContent().getCoreNames().setAliasBadIndex("$coeur.MauvaisIndice");
+        _lgNames.getContent().getCoreNames().setAliasBadArgNumber("$coeur.MauvaisNombreArgs");
+        _lgNames.getContent().getCoreNames().setAliasAbstractTypeErr("$coeur.TypeAbstraitErreur");
+        _lgNames.getContent().getCoreNames().setAliasIllegalType("$coeur.IllegalType");
+        _lgNames.getContent().getCoreNames().setAliasNonInvokable("$coeur.NonInvokable");
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("$coeur.IllegalArgument");
         _lgNames.getContent().getCoreNames().setAliasBadSize("$coeur.TailleNegative");
         _lgNames.getContent().getCoreNames().setAliasError("$coeur.Erreur");

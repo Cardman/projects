@@ -57,7 +57,7 @@ public final class ExecDimensionArrayInstancing extends
         }
         Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf);
         if (res_ instanceof ErrorStruct) {
-            _conf.setException(res_);
+            _conf.setCallingState(res_);
             return new Argument();
         }
         return new Argument(res_);

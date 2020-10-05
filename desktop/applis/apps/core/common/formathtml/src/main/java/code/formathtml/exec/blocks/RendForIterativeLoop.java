@@ -116,7 +116,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argFrom_.isNull()) {
-            _ctx.setException(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
             return;
         }
         ip_.setOffset(expressionOffset);
@@ -126,7 +126,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argTo_.isNull()) {
-            _ctx.setException(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
             return;
         }
         ip_.setOffset(stepOffset);
@@ -136,7 +136,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argStep_.isNull()) {
-            _ctx.setException(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
             return;
         }
         fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();

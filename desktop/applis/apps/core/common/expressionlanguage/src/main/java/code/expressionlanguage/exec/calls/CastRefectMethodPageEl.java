@@ -2,10 +2,8 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
@@ -29,8 +27,8 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(method_.getClassName(), _cont);
         if (res_.isEmpty()) {
             String null_;
-            null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg();
-            _cont.setException(new ErrorStruct(_cont,null_));
+            null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalType();
+            _cont.setCallingState(new ErrorStruct(_cont,method_.getClassName(),null_));
             return true;
         }
         if (!StringExpUtil.customCast(res_)) {
@@ -55,8 +53,8 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
-            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalArg();
-            _context.setException(new ErrorStruct(_context,null_));
+            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
+            _context.setCallingState(new ErrorStruct(_context,_className,null_));
             return Argument.createVoid();
         }
         return ExecExplicitOperation.prepare(_context.getExiting(),getMethodToCallType(),direct,getMethodToCallBody(),_args,res_,res_,_context.getLastPage(),_context);

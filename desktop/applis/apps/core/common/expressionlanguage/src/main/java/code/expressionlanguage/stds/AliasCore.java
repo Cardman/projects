@@ -26,6 +26,10 @@ public final class AliasCore {
     private String aliasNbFormat;
     private String aliasBadEncode;
     private String aliasBadIndex;
+    private String aliasBadArgNumber;
+    private String aliasAbstractTypeErr;
+    private String aliasIllegalType;
+    private String aliasNonInvokable;
     private String aliasIllegalArg;
     private String aliasSof;
 
@@ -129,6 +133,30 @@ public final class AliasCore {
         stdcl_ = new StandardClass(aliasBadIndex, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
         std_ = stdcl_;
         standards_.addEntry(aliasBadIndex, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        stdcl_ = new StandardClass(aliasBadArgNumber, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        standards_.addEntry(aliasBadArgNumber, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        stdcl_ = new StandardClass(aliasIllegalType, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        standards_.addEntry(aliasIllegalType, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        stdcl_ = new StandardClass(aliasAbstractTypeErr, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        standards_.addEntry(aliasAbstractTypeErr, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        stdcl_ = new StandardClass(aliasNonInvokable, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        standards_.addEntry(aliasNonInvokable, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
@@ -307,6 +335,38 @@ public final class AliasCore {
 
     public void setAliasBadIndex(String _aliasBadIndex) {
         aliasBadIndex = _aliasBadIndex;
+    }
+
+    public String getAliasBadArgNumber() {
+        return aliasBadArgNumber;
+    }
+
+    public void setAliasBadArgNumber(String _aliasBadArgNumber) {
+        this.aliasBadArgNumber = _aliasBadArgNumber;
+    }
+
+    public String getAliasAbstractTypeErr() {
+        return aliasAbstractTypeErr;
+    }
+
+    public void setAliasAbstractTypeErr(String aliasAbstractTypeErr) {
+        this.aliasAbstractTypeErr = aliasAbstractTypeErr;
+    }
+
+    public String getAliasIllegalType() {
+        return aliasIllegalType;
+    }
+
+    public void setAliasIllegalType(String aliasIllegalType) {
+        this.aliasIllegalType = aliasIllegalType;
+    }
+
+    public String getAliasNonInvokable() {
+        return aliasNonInvokable;
+    }
+
+    public void setAliasNonInvokable(String aliasNonInvokable) {
+        this.aliasNonInvokable = aliasNonInvokable;
     }
 
     public String getAliasIllegalArg() {

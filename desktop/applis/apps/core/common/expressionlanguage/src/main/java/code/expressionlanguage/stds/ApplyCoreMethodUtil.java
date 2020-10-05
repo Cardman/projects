@@ -116,7 +116,7 @@ public final class ApplyCoreMethodUtil {
             Argument instance_ = new Argument(args_[0]);
             Struct inst_ = instance_.getStruct();
             if (!(inst_ instanceof ArrayStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return res_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
@@ -193,7 +193,7 @@ public final class ApplyCoreMethodUtil {
         if (StringList.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new StringStruct(en_.getName()));
@@ -201,7 +201,7 @@ public final class ApplyCoreMethodUtil {
         } else {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setException(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new IntStruct(en_.getOrdinal()));

@@ -245,8 +245,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl243Test() {
@@ -261,8 +261,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl244Test() {
@@ -277,8 +277,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl245Test() {
@@ -322,8 +322,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalArg(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl246Test() {
@@ -338,8 +338,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl247Test() {
@@ -354,8 +354,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl248Test() {
@@ -404,8 +404,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl249Test() {
@@ -454,8 +454,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl250Test() {
@@ -1033,8 +1033,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasAbstractTypeErr(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl262_Test() {
@@ -1079,8 +1079,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasAbstractTypeErr(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl263Test() {
@@ -1128,8 +1128,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl264Test() {
@@ -1177,8 +1177,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl265Test() {
@@ -1226,8 +1226,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl266Test() {
@@ -1275,8 +1275,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl267Test() {
@@ -1579,8 +1579,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl273Test() {
@@ -1632,8 +1632,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl274Test() {
@@ -1679,8 +1679,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl275Test() {
@@ -1877,8 +1877,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalArg(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl280Test() {
@@ -1923,8 +1923,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl281Test() {
@@ -1969,8 +1969,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl2811Test() {
@@ -2015,8 +2015,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl282Test() {
@@ -2161,8 +2161,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl285Test() {
@@ -2208,8 +2208,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl286Test() {
@@ -2304,8 +2304,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl288Test() {
@@ -2351,8 +2351,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl2881Test() {
@@ -2398,8 +2398,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl289Test() {
@@ -2445,8 +2445,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl290Test() {
@@ -2492,8 +2492,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl291Test() {
@@ -2688,8 +2688,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl295Test() {
@@ -2785,8 +2785,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        Struct exc_ = arg_.getStruct();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), cause_.getClassName(cont_));
@@ -3066,8 +3066,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        Struct exc_ = arg_.getStruct();
         assertEq(cont_.getStandards().getContent().getReflect().getAliasClassNotFoundError(), exc_.getClassName(cont_));
     }
     @Test
@@ -3094,8 +3094,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        Struct exc_ = arg_.getStruct();
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), exc_.getClassName(cont_));
     }
     @Test
@@ -3112,8 +3112,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl307Test() {
@@ -3412,8 +3412,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl323Test() {
@@ -3463,8 +3463,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl324Test() {
@@ -3514,8 +3514,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl325Test() {
@@ -3675,8 +3675,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl329Test() {
@@ -3744,8 +3744,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl3300Test() {
@@ -3786,8 +3786,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl334Test() {
@@ -4039,8 +4039,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("$void",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4059,8 +4059,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("?java.lang.String",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4082,8 +4082,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("#T",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4105,8 +4105,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("pkg.ExParam",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4125,8 +4125,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException",err_.getClassName(cont_));
     }
     @Test
@@ -4144,8 +4144,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4182,8 +4182,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4220,8 +4220,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4240,8 +4240,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4260,8 +4260,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4298,8 +4298,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4318,8 +4318,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4338,8 +4338,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
     @Test
@@ -4357,8 +4357,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4377,8 +4377,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.DynamicArrayStoreException",err_.getClassName(cont_));
         assertEq("java.lang.Integer!=java.lang.String",((StringStruct) err_.getMessage()).getInstance());
     }
@@ -4417,8 +4417,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
     @Test
@@ -4654,9 +4654,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
-        assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
+        assertEq("code.expressionlanguage.exceptions.IllegalType",err_.getClassName(cont_));
     }
     @Test
     public void processEl455Test() {
@@ -4675,9 +4675,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
-        assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
+        assertEq("code.expressionlanguage.exceptions.AbstractTypeErr",err_.getClassName(cont_));
     }
     @Test
     public void processEl456Test() {
@@ -4696,9 +4696,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
-        assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
+        assertEq("code.expressionlanguage.exceptions.IllegalType",err_.getClassName(cont_));
     }
     @Test
     public void processEl457Test() {
@@ -4943,7 +4943,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getReflect().getAliasClassNotFoundError(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl465_Test() {
@@ -4967,7 +4968,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getReflect().getAliasClassNotFoundError(), arg_.getStruct().getClassName(cont_));
         assertTrue(!isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
@@ -5438,8 +5440,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5465,8 +5467,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5492,8 +5494,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<>>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5519,8 +5521,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("??pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5546,8 +5548,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?pkg.Ex..ExTwo",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5595,8 +5597,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex..ExTwo",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5622,8 +5624,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5649,8 +5651,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex,pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5676,8 +5678,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex.",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5703,8 +5705,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("#T",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5730,8 +5732,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("!!pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5757,8 +5759,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex[",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5784,8 +5786,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex]",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5811,8 +5813,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex[]$int[]",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5838,8 +5840,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<Number>$int",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5865,8 +5867,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("..pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5892,8 +5894,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("[",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5919,8 +5921,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("]",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5946,8 +5948,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("[]",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -5973,8 +5975,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("!",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6000,8 +6002,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6027,8 +6029,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("java.lang.$Fct<?java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6054,8 +6056,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("java.lang.$Fct<$void,java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6081,8 +6083,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("$void[]",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6108,8 +6110,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<$void>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6135,8 +6137,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<Number>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6162,8 +6164,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("..",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6189,8 +6191,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("<java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
     }
@@ -6226,8 +6228,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
-        ErrorStruct err_ = (ErrorStruct) getException(cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
     }
 
@@ -6302,7 +6304,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getReflect().getAliasClassNotFoundError(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl500Test() {
@@ -6319,7 +6322,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getReflect().getAliasClassNotFoundError(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl501Test() {
@@ -6336,7 +6340,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getReflect().getAliasClassNotFoundError(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument502Test() {
@@ -6389,7 +6394,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument504Test() {
@@ -6407,7 +6413,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument505Test() {
@@ -6425,7 +6432,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument506Test() {
@@ -6443,7 +6451,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument507Test() {
@@ -6464,7 +6473,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument508Test() {
@@ -6485,7 +6495,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument509Test() {
@@ -6506,7 +6517,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument510Test() {
@@ -6554,8 +6566,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertNull(getException(cont_));
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,arg_.getStruct());
     }
     @Test
     public void processEl_2Test() {
@@ -6593,8 +6605,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertNull(getException(cont_));
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,arg_.getStruct());
     }
     @Test
     public void reflect1Test() {

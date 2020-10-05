@@ -1116,8 +1116,8 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        instanceError("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = instanceError("pkg.Ex", null, id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgument163Test() {

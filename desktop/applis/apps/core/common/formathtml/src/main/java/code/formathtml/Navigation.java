@@ -261,7 +261,7 @@ public final class Navigation {
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), String.valueOf(lg_));
         if (formElement_ == null) {
-            _ctx.setException(NullStruct.NULL_VALUE);
+            _ctx.setCallingState(NullStruct.NULL_VALUE);
             return;
         }
         htmlPage_.setForm(true);

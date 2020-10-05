@@ -32,7 +32,7 @@ public final class RendThrowing extends RendLeaf implements RendWithEl, RendRedu
             return;
         }
         Struct o_ = argument_.getStruct();
-        _ctx.setException(o_);
+        _ctx.setCallingState(o_);
     }
 
 }

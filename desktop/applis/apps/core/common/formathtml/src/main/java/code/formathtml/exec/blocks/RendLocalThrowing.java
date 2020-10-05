@@ -20,7 +20,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
         RendAbstractCatchEval catchElt_ = null;
         Struct custCause_ = (Struct) _ctx.getCallingState();
         while (_conf.hasPages()) {
-            _ctx.setException(null);
+            _ctx.setCallingState(null);
             ImportingPage bkIp_ = _conf.getLastPage();
             while (bkIp_.hasBlock()) {
                 RendRemovableVars bl_ = bkIp_.getRendLastStack();
@@ -71,7 +71,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
             }
             _conf.removeLastPage();
         }
-        _ctx.setException(custCause_);
+        _ctx.setCallingState(custCause_);
     }
 
     @Override

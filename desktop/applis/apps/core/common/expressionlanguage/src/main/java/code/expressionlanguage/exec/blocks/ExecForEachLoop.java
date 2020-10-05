@@ -205,7 +205,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
                 String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-                _cont.setException(new ErrorStruct(_cont, npe_));
+                _cont.setCallingState(new ErrorStruct(_cont, npe_));
                 return;
             }
             String locName_ = getIteratorVar(_cont);
@@ -250,7 +250,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _cont.setException(new ErrorStruct(_cont, npe_));
+        _cont.setCallingState(new ErrorStruct(_cont, npe_));
         return -1;
     }
     private void incrOrFinish(ContextEl _cont, boolean _finished, LoopBlockStack _l) {

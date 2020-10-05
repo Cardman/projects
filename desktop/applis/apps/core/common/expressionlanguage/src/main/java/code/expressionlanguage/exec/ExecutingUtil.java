@@ -815,7 +815,7 @@ public final class ExecutingUtil {
             }
             if (res_ == InitClassState.ERROR) {
                 CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont);
-                _cont.setException(causing_);
+                _cont.setCallingState(causing_);
                 return true;
             }
         }

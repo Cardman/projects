@@ -48,12 +48,12 @@ public abstract class AbstractThreadActions implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
                 } else {
-                    _ctx.setException(null);
+                    _ctx.setCallingState(null);
                     String str_ = page.getStandards().processString(new Argument(exception_),_ctx);
                     page.getArea().append(str_);
                 }
             }
-            _ctx.setException(null);
+            _ctx.setCallingState(null);
             finish();
             return;
         }

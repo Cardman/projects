@@ -153,7 +153,7 @@ public abstract class ExecBlock {
                             ((MethodCallingFinally)callingFinally_).removeBlockFinally(_conf);
                         } else {
                             Struct exception_ = ((TryBlockStack)lastStack_).getException();
-                            _conf.setException(exception_);
+                            _conf.setCallingState(exception_);
                             ExecutingUtil.processGeneException(_conf);
                         }
                     }

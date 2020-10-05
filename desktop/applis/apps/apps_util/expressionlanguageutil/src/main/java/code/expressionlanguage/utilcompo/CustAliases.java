@@ -1578,7 +1578,7 @@ public final class CustAliases {
         try {
             return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args);
         } catch (RuntimeException e) {
-            _cont.setException(new ErrorStruct(_cont, getAliasConcurrentError()));
+            _cont.setCallingState(new ErrorStruct(_cont, getAliasConcurrentError()));
             return new ResultErrorStd();
         }
     }
@@ -1586,7 +1586,7 @@ public final class CustAliases {
         try {
             return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args);
         } catch (RuntimeException e) {
-            _cont.setException(new ErrorStruct(_cont, getAliasConcurrentError()));
+            _cont.setCallingState(new ErrorStruct(_cont, getAliasConcurrentError()));
             return new ResultErrorStd();
         }
     }
@@ -1595,7 +1595,7 @@ public final class CustAliases {
             return new Argument(new SimpleObjectStruct());
         }
         if (StringList.quickEq(_id,aliasThread)) {
-            _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+            _cont.setCallingState(new ErrorStruct(_cont,_id, _cont.getStandards().getContent().getCoreNames().getAliasIllegalType()));
             return Argument.createVoid();
         }
         if (StringList.quickEq(_id,aliasThreadSet)) {
@@ -1736,7 +1736,7 @@ public final class CustAliases {
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
                 ins_.add(_args[0]);
                 if (!(_args[0] instanceof ThreadStruct)) {
-                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -1796,7 +1796,7 @@ public final class CustAliases {
                 if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    _cont.setException(new ErrorStruct(_cont,getAliasIllegalThreadStateException()));
+                    _cont.setCallingState(new ErrorStruct(_cont,getAliasIllegalThreadStateException()));
                 }
                 return res_;
             }
@@ -1807,7 +1807,7 @@ public final class CustAliases {
                     return res_;
                 }
                 if (!(_args[0] instanceof NumberStruct)) {
-                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                     return res_;
                 }
                 res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
@@ -1886,7 +1886,7 @@ public final class CustAliases {
                 if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
                 }
                 return res_;
             }
@@ -2132,7 +2132,7 @@ public final class CustAliases {
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasRead)) {
@@ -2192,7 +2192,7 @@ public final class CustAliases {
             }
             if (StringList.quickEq(name_,aliasFileRename)) {
                 if (!(_args[1] instanceof StringStruct)) {
-                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                     return res_;
                 }
                 String file_ = ((StringStruct)_args[0]).getInstance();
@@ -2435,7 +2435,7 @@ public final class CustAliases {
         if (_cont.getInitializingTypeInfos().isInitEnums()) {
             _cont.getInitializingTypeInfos().failInitEnums();
         } else {
-            _cont.setException(new ErrorStruct(_cont, aliasConcurrentError));
+            _cont.setCallingState(new ErrorStruct(_cont, aliasConcurrentError));
         }
     }
     static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime) {

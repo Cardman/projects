@@ -33,7 +33,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         if (stds_.getStandards().contains(baseClass_)) {
             String ill_;
             ill_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _context.setException(new ErrorStruct(_context,ill_));
+            _context.setCallingState(new ErrorStruct(_context,ill_));
             return false;
         }
         Argument instance_ = getArguments().first();

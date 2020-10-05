@@ -3,7 +3,6 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
@@ -21,7 +20,6 @@ public final class PreparedRenderedPages implements Runnable {
     private String conf;
     private BeanNatLgNames beanNatLgNames;
     private ContextEl context;
-    private boolean ok;
 
     public PreparedRenderedPages(String _relative, String _conf) {
         relative = _relative;
@@ -56,8 +54,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(stds_, rend_, du_);
-        ok = reportedMessages_.isAllEmptyErrors();
+        navigation.setupRendClassesInit(stds_, rend_, du_);
     }
 
     public Navigation getNavigation() {
@@ -72,7 +69,4 @@ public final class PreparedRenderedPages implements Runnable {
         return beanNatLgNames;
     }
 
-    public boolean isOk() {
-        return ok;
-    }
 }

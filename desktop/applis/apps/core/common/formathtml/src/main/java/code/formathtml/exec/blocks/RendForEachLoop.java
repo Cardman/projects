@@ -78,7 +78,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
                 String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-                _ctx.setException(new ErrorStruct(_ctx, npe_));
+                _ctx.setCallingState(new ErrorStruct(_ctx, npe_));
                 return;
             }
             Argument arg_ = iterator(its_,_cont, _stds, _ctx);
@@ -111,7 +111,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _ctx.setException(new ErrorStruct(_ctx, npe_));
+        _ctx.setCallingState(new ErrorStruct(_ctx, npe_));
         return -1;
     }
     Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {

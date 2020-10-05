@@ -299,7 +299,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setException(new ErrorStruct(_cont,divZero_));
+                    _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                     return result_;
                 }
                 result_.setResult(new LongStruct(Numbers.mod(num_, den_)));
@@ -308,7 +308,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setException(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(new IntStruct(Numbers.mod(num_, den_)));
@@ -319,7 +319,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setException(new ErrorStruct(_cont,divZero_));
+                    _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                     return result_;
                 }
                 result_.setResult(new LongStruct(Numbers.quot(num_, den_)));
@@ -328,7 +328,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setException(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(new IntStruct(Numbers.quot(num_, den_)));
@@ -363,7 +363,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(arg_);
@@ -373,7 +373,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
                 return result_;
             }
             result_.setResult(arg_);

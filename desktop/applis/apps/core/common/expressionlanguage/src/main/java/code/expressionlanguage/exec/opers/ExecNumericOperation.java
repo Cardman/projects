@@ -143,7 +143,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateDiv(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setException(new ErrorStruct(_an,div_));
+            _an.setCallingState(new ErrorStruct(_an,div_));
         }
         return res_;
     }
@@ -154,7 +154,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateMod(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setException(new ErrorStruct(_an,div_));
+            _an.setCallingState(new ErrorStruct(_an,div_));
         }
         return res_;
     }

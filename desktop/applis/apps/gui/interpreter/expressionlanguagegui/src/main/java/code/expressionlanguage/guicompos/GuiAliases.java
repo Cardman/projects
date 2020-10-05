@@ -22,7 +22,6 @@ import code.gui.OtherConfirmDialog;
 import code.gui.OtherDialog;
 import code.gui.OtherFrame;
 import code.resources.ResourceFiles;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2817,24 +2816,24 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[1] instanceof CustComponentStruct)) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[2] instanceof CustComponentStruct)) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             CustComponentStruct first_ = (CustComponentStruct) _args[1];
             CustComponentStruct second_ = (CustComponentStruct) _args[2];
             if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2953,7 +2952,7 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[0] instanceof TreeNodeStruct)) {
-                _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 return r_;
             }
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
@@ -3262,7 +3261,7 @@ public final class GuiAliases {
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
                 ins_.add(_args[0],true);
                 if (!(_args[0] instanceof WindowStruct)) {
-                    _cont.setException(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }

@@ -2897,8 +2897,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument37Test() {
@@ -2913,8 +2913,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument38Test() {

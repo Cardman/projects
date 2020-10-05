@@ -118,9 +118,10 @@ public abstract class ProcessMethodCommon {
                 i_++;
             }
         }
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
-        assertNotNull(getException(_cont));
-        return arg_;
+        ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
+        Struct exc_ = getException(_cont);
+        assertNotNull(exc_);
+        return new Argument(exc_);
     }
     protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getParametersTypes().size();

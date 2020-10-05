@@ -43,7 +43,7 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
         }
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
-        _cont.setException(o_);
+        _cont.setCallingState(o_);
     }
 
     public ExpressionLanguage getEl() {

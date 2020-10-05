@@ -736,8 +736,8 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -762,8 +762,8 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument10FailTest() {

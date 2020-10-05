@@ -186,14 +186,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_previous.isNull()) {
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new ErrorStruct(_conf,npe_));
             return;
         }
         String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
             cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            _conf.setException(new ErrorStruct(_conf,cast_));
+            _conf.setCallingState(new ErrorStruct(_conf,StringList.concat(arg_, RETURN_LINE,param_, RETURN_LINE),cast_));
         }
     }
 
@@ -266,7 +266,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument arg_ = _firstArgs.first();
             Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont);
             if (ex_ != null) {
-                _cont.setException(ex_);
+                _cont.setCallingState(ex_);
                 return Argument.createVoid();
             }
             return tryGetEnumValue(_exit,_cont,_rootBlock, ClassCategory.ENUM, arg_);
@@ -363,7 +363,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setException(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
     public static Argument getMetaInfo(Argument _previous, ContextEl _conf) {
@@ -374,7 +374,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setException(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ContextEl _conf) {
@@ -387,8 +387,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int valuesSize_ = _values.size();
             if (valuesSize_ != paramsFct_.size()) {
                 String null_;
-                null_ = lgNames_.getContent().getCoreNames().getAliasIllegalArg();
-                _conf.setException(new ErrorStruct(_conf,null_));
+                null_ = lgNames_.getContent().getCoreNames().getAliasBadArgNumber();
+                _conf.setCallingState(new ErrorStruct(_conf,ExecTemplates.countDiff(valuesSize_,paramsFct_.size()).toString(),null_));
                 return new Argument();
             }
             for (int i = 0; i < valuesSize_; i++) {
@@ -411,7 +411,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String c_ = forId_.substring(ARR.length());
                 Struct res_ = ExecTemplates.newCustomArrayOrExc(c_, dims_, _conf);
                 if (res_ instanceof ErrorStruct) {
-                    _conf.setException(res_);
+                    _conf.setCallingState(res_);
                     return new Argument();
                 }
                 return new Argument(res_);
@@ -578,7 +578,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setException(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new ErrorStruct(_conf,null_));
         return Argument.createVoid();
     }
 

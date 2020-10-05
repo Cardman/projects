@@ -20,7 +20,7 @@ public final class LocalThrowing {
         while (_conf.hasPages()) {
             AbstractPageEl bkIp_ = _conf.getLastPage();
             bkIp_.clearCurrentEls();
-            _conf.setException(null);
+            _conf.setCallingState(null);
             while (bkIp_.hasBlock()) {
                 AbstractStask bl_ = bkIp_.getLastStack();
                 ExecBlock currentBlock_ = bl_.getCurrentVisitedBlock();
@@ -69,7 +69,7 @@ public final class LocalThrowing {
             custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_);
             _conf.removeLastPage();
         }
-        _conf.setException(custCause_);
+        _conf.setCallingState(custCause_);
     }
 
 

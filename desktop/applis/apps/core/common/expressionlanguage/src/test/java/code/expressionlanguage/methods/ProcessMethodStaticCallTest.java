@@ -822,7 +822,8 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate28__Test() {
@@ -843,7 +844,8 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate29Test() {
@@ -864,8 +866,8 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate30Test() {
@@ -886,8 +888,8 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate31Test() {
@@ -908,8 +910,8 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32Test() {

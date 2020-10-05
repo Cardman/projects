@@ -38,8 +38,8 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
-            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalArg();
-            _context.setException(new ErrorStruct(_context,null_));
+            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
+            _context.setCallingState(new ErrorStruct(_context,_className,null_));
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
@@ -50,8 +50,8 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         if (!StringExpUtil.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
             String null_;
-            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _conf.setException(new ErrorStruct(_conf,null_));
+            null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
+            _conf.setCallingState(new ErrorStruct(_conf,_className,null_));
             return Argument.createVoid();
         }
         return checkStaticCall(_rootBlock,_castOpId,_cache, _arguments, _className, _page, _conf);

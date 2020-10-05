@@ -38,7 +38,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
         Struct argPrev_ = _previous.getStruct();
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof AnnotationStruct)) {
-            _conf.setException(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new ErrorStruct(_conf,npe_));
             return new Argument();
         }
         String clName_ = argPrev_.getClassName(_conf);

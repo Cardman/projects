@@ -162,7 +162,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         Struct ito_ = arg_.getStruct();
         if (ito_== NullStruct.NULL_VALUE) {
             String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf, npe_));
+            _conf.setCallingState(new ErrorStruct(_conf, npe_));
         }
         return ito_;
 

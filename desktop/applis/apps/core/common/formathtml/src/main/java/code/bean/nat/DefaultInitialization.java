@@ -34,6 +34,10 @@ public final class DefaultInitialization {
         _lgNames.getContent().getCoreNames().setAliasBadEncode("java.lang.$enc");
         //        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.getContent().getCoreNames().setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
+        _lgNames.getContent().getCoreNames().setAliasBadArgNumber("code.expressionlanguage.exceptions.BadArgNumber");
+        _lgNames.getContent().getCoreNames().setAliasAbstractTypeErr("code.expressionlanguage.exceptions.AbstractTypeErr");
+        _lgNames.getContent().getCoreNames().setAliasIllegalType("code.expressionlanguage.exceptions.IllegalType");
+        _lgNames.getContent().getCoreNames().setAliasNonInvokable("code.expressionlanguage.exceptions.NonInvokable");
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("code.expressionlanguage.exceptions.IllegalArgument");
         //        _lgNames.setAliasBadSize("$badSize");
         _lgNames.getContent().getCoreNames().setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");

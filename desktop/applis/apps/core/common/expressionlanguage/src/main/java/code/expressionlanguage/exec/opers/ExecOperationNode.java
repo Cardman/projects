@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -127,7 +126,7 @@ public abstract class ExecOperationNode {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont,null_));
+                _cont.setCallingState(new ErrorStruct(_cont,null_));
                 return;
             }
         }

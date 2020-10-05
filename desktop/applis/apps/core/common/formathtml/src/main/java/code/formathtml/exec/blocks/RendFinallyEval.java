@@ -35,7 +35,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         if (call_ != null) {
             RendCallingFinally callingFinally_ = call_.getCallingFinally();
             if (call_ instanceof RendExceptionCallingFinally) {
-                _ctx.setException(((RendExceptionCallingFinally)call_).getException());
+                _ctx.setCallingState(((RendExceptionCallingFinally)call_).getException());
             }
             callingFinally_.removeBlockFinally(_context, _advStandards, _ctx);
         }

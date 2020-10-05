@@ -38,8 +38,8 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        instanceError("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = instanceError("pkg.Ex", null, id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgument99Test() {
@@ -1762,8 +1762,8 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        instanceError("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = instanceError("pkg.Ex", null, id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgument139Test() {
@@ -1787,8 +1787,8 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        instanceError("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = instanceError("pkg.Ex", null, id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void instanceArgument140Test() {

@@ -4229,8 +4229,8 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        instanceError("pkg.ExCont", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = instanceError("pkg.ExCont", null, id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument91Test() {
@@ -4260,8 +4260,8 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        instanceError("pkg.ExCont", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = instanceError("pkg.ExCont", null, id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument92Test() {

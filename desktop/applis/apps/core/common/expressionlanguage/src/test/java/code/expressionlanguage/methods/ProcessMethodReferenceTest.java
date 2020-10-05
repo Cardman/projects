@@ -3037,8 +3037,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument92Test() {
@@ -3069,8 +3069,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument93Test() {
@@ -3103,8 +3103,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument94Test() {
@@ -3138,8 +3138,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -3157,8 +3157,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        Struct exc_ = getException(cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Struct exc_ = arg_.getStruct();
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException", exc_.getClassName(cont_));
         assertEq("-1<0", ((StringStruct)((ErroneousStruct)exc_).getMessage()).getInstance());
     }
@@ -3814,8 +3814,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument127Test() {
@@ -3843,8 +3843,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument128Test() {
@@ -4276,8 +4276,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument141Test() {
@@ -4309,8 +4309,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument142Test() {
@@ -4409,8 +4409,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument145Test() {
@@ -4441,8 +4441,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -4875,8 +4875,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument5FailTest() {
@@ -5024,9 +5024,8 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.Ex", id_, args_, cont_);
-        Struct str_ = getException(cont_);
-        assertEq("code.util.exceptions.NullObjectException", str_.getClassName(cont_));
+        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateArgument24FailTest() {

@@ -2,12 +2,11 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -58,14 +57,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 if (instance_.isNull()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    _context.setCallingState(new ErrorStruct(_context,null_));
                     return false;
                 }
             }
             if (isAbstract(_context)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                _context.setException(new ErrorStruct(_context,null_));
+                _context.setCallingState(new ErrorStruct(_context,method_.getDisplayedString(_context).getInstance(),null_));
                 return false;
             }
             String className_ = method_.getClassName();
@@ -95,7 +94,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setException(new ErrorStruct(_context,null_));
+                _context.setCallingState(new ErrorStruct(_context,null_));
                 return false;
             }
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
@@ -105,22 +104,22 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (method_.isExpCast()) {
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size() + 1,mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
             } else if (!StringList.quickEq(mid_.getName(),"[]=")) {
                 if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size(),mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
             } else {
                 if (args.size() != mid_.getParametersTypes().size() + 1) {
                     String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size(),mid_.getParametersTypes().size() + 1).toString(),null_));
                     return false;
                 }
                 rightArg = args.last();

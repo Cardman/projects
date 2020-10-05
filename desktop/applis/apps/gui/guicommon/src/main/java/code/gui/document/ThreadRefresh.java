@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.render.MetaDocument;
 import code.bean.nat.BeanNatLgNames;
 import code.gui.CustComponent;
@@ -39,12 +38,12 @@ public final class ThreadRefresh implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(context_, fullStack_));
                 } else {
-                    context_.setException(null);
+                    context_.setCallingState(null);
                     String str_ = page.getStandards().processString(new Argument(exception_), page.getContext());
                     page.getArea().append(str_);
                 }
             }
-            context_.setException(null);
+            context_.setCallingState(null);
             finish();
             return;
         }

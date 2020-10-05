@@ -50,6 +50,10 @@ public final class LgNamesContent {
     private static final String VOID = "Void";
     private static final String GET_CAUSE = "GetCause";
     private static final String BAD_INDEX = "BadIndex";
+    private static final String BAD_ARG_NUMBER = "BadArgNumber";
+    private static final String ABSTRACT_TYPE_ERR = "AbstractTypeErr";
+    private static final String ILLEGAL_TYPE = "IllegalType";
+    private static final String NON_INVOKABLE = "NonInvokable";
     private static final String ENUMS = "Enums";
     private static final String ITERABLE = "Iterable";
     private static final String NB_FORMAT = "NbFormat";
@@ -372,6 +376,10 @@ public final class LgNamesContent {
         getCoreNames().setAliasVoid(get(_util,_cust, VOID));
         getCoreNames().setAliasGetCause(get(_util,_cust, GET_CAUSE));
         getCoreNames().setAliasBadIndex(get(_util,_cust, BAD_INDEX));
+        getCoreNames().setAliasBadArgNumber(get(_util,_cust, BAD_ARG_NUMBER));
+        getCoreNames().setAliasIllegalType(get(_util,_cust, ILLEGAL_TYPE));
+        getCoreNames().setAliasAbstractTypeErr(get(_util,_cust, ABSTRACT_TYPE_ERR));
+        getCoreNames().setAliasNonInvokable(get(_util,_cust, NON_INVOKABLE));
         getCoreNames().setAliasEnums(get(_util,_cust, ENUMS));
         getPredefTypes().setAliasIterable(get(_util,_cust, ITERABLE));
         getCoreNames().setAliasNbFormat(get(_util,_cust, NB_FORMAT));
@@ -1134,6 +1142,10 @@ public final class LgNamesContent {
         list_.addEntry(STACK_TRACE_ELEMENT, getStackElt().getAliasStackTraceElement());
         list_.addEntry(BAD_ENCODE, getCoreNames().getAliasBadEncode());
         list_.addEntry(BAD_INDEX, getCoreNames().getAliasBadIndex());
+        list_.addEntry(BAD_ARG_NUMBER, getCoreNames().getAliasBadArgNumber());
+        list_.addEntry(ABSTRACT_TYPE_ERR, getCoreNames().getAliasAbstractTypeErr());
+        list_.addEntry(ILLEGAL_TYPE, getCoreNames().getAliasIllegalType());
+        list_.addEntry(NON_INVOKABLE, getCoreNames().getAliasNonInvokable());
         list_.addEntry(ILLEGAL_ARG, getCoreNames().getAliasIllegalArg());
         list_.addEntry(DIVISION_ZERO, getCoreNames().getAliasDivisionZero());
         list_.addEntry(STORE, getCoreNames().getAliasStore());

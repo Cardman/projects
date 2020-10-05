@@ -69,7 +69,4 @@ public final class ErrorStruct extends WithoutParentIdStruct implements Erroneou
         return new StringStruct(message);
     }
 
-    public String getMessageValue() {
-        return message;
-    }
 }

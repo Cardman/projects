@@ -129,7 +129,7 @@ public abstract class BeanLgNames extends LgNames {
         if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
-                _ctx.setException(new ErrorStruct(_ctx, getContent().getCoreNames().getAliasCastType()));
+                _ctx.setCallingState(new ErrorStruct(_ctx,_values.first(), getContent().getCoreNames().getAliasNbFormat()));
                 return res_;
             }
             res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
@@ -137,7 +137,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
-            _ctx.setException(new ErrorStruct(_ctx, getContent().getCoreNames().getAliasCastType()));
+            _ctx.setCallingState(new ErrorStruct(_ctx,_values.first(), getContent().getCoreNames().getAliasNbFormat()));
             return res_;
         }
         res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));

@@ -51,7 +51,7 @@ public class CustInitializer extends DefaultInitializer {
                 String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
                 log(_cont,text_);
             } else {
-                _cont.setException(null);
+                _cont.setCallingState(null);
                 Argument out_ = new Argument(exception_);
                 out_ = ExecOperationNode.processString(out_, _cont);
                 CallingState state_ = _cont.getCallingState();

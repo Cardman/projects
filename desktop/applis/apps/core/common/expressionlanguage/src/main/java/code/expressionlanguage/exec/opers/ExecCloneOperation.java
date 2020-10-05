@@ -35,7 +35,7 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
         Struct argPrev_ = _previous.getStruct();
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof ArrayStruct)) {
-            _conf.setException(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new ErrorStruct(_conf,npe_));
             return new Argument();
         }
         //clone object

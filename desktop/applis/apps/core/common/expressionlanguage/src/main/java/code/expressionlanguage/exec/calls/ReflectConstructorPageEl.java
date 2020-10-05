@@ -30,16 +30,16 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         GeneType type_ = _context.getClassBody(id_);
         if (ExecutingUtil.isAbstractType(type_)) {
             String null_;
-            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _context.setException(new ErrorStruct(_context,null_));
+            null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
+            _context.setCallingState(new ErrorStruct(_context,className_,null_));
             return false;
         }
         boolean static_ = type_.isStaticType();
         String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;
-            null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _context.setException(new ErrorStruct(_context,null_));
+            null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
+            _context.setCallingState(new ErrorStruct(_context,className_,null_));
             return false;
         }
         if (!initClass) {
@@ -58,7 +58,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setException(new ErrorStruct(_context,null_));
+                _context.setCallingState(new ErrorStruct(_context,null_));
                 return false;
             }
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
@@ -69,16 +69,16 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
                 previous_ = Argument.createVoid();
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
                     String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                    _context.setException(new ErrorStruct(_context,null_));
+                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),1 + mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
                 previous_ = args_.first();
