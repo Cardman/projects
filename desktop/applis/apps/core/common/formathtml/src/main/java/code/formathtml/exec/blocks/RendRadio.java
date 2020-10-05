@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -26,20 +27,19 @@ public final class RendRadio extends RendInput {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_);
-        ContextEl context_ = _cont.getContext();
-        if (context_.callsOrException()) {
+        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), context_.getStandards().getContent().getCoreNames().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _cont.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
-            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont);
+            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont, _stds, _ctx);
             _cont.getLastPage().removeLocalVar(varNameConverterFieldValue);
-            if (context_.callsOrException()) {
+            if (_ctx.callsOrException()) {
                 return;
             }
             res_ = argConv_.getStruct();
@@ -47,8 +47,8 @@ public final class RendRadio extends RendInput {
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
-            String strObj_ = getStringKey(_cont, res_);
-            if (context_.callsOrException()) {
+            String strObj_ = getStringKey(res_, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             if (StringList.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {

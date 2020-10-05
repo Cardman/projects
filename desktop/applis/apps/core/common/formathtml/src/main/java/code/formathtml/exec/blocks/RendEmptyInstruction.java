@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.IntTreeMap;
 import code.util.StringMap;
 
@@ -11,7 +13,7 @@ public final class RendEmptyInstruction extends RendLeaf implements RendWithEl,R
     }
 
     @Override
-    public void processEl(Configuration _cont) {
-        processBlock(_cont);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
+        processBlock(_cont, _stds, _ctx);
     }
 }

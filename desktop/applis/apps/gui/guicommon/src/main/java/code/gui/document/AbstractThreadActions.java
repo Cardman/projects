@@ -26,17 +26,17 @@ public abstract class AbstractThreadActions implements Runnable {
     }
     protected void afterAction() {
         Configuration conf_ = page.getNavigation().getSession();
-        ContextEl context_ = conf_.getContext();
+        ContextEl context_ = page.getContext();
         CallingState exc_ = context_.getCallingState();
         if (exc_ instanceof Struct) {
             if (page.getArea() != null) {
                 Struct exception_ = (Struct) exc_;
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
-                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_.getContext(), fullStack_));
+                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(context_, fullStack_));
                 } else {
                     context_.setException(null);
-                    String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);
+                    String str_ = page.getStandards().processString(new Argument(exception_), page.getContext());
                     page.getArea().append(str_);
                 }
             }

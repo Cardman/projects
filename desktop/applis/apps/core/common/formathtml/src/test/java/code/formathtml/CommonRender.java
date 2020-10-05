@@ -56,16 +56,16 @@ public abstract class CommonRender {
         _conf.addPage(new ImportingPage());
     }
 
-    protected static Navigation newNavigation(Configuration _conf) {
+    protected static Navigation newNavigation(AnalyzedTestConfiguration _conf) {
         Navigation nav_ = new Navigation();
-        nav_.setSession(_conf);
+        nav_.setSession(_conf.getConfiguration());
         ContextEl context_ = _conf.getContext();
         setStack(nav_.getSession(), context_);
         return nav_;
     }
 
     private static void setStack(Configuration conf_1, ContextEl cont_) {
-        cont_.setFullStack(new AdvancedFullStack(conf_1));
+        cont_.setFullStack(new AdvancedFullStack(conf_1, cont_));
     }
 
     protected static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
@@ -110,7 +110,7 @@ public abstract class CommonRender {
     private static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = context_.getAnalyzing();
         Configuration conf_ = context_.getConfiguration();
-        _analyzingDoc.setup(conf_);
+        _analyzingDoc.setup(conf_, context_.getAdvStandards());
         setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_);
     }
 
@@ -136,7 +136,7 @@ public abstract class CommonRender {
         if (_context.isEmptyErrors()) {
             AnalyzedPageEl page_ = _context.getAnalyzing();
             ((BeanCustLgNames)_context.getStandards()).forwardAndClear(_context.getConfiguration(),page_, _context.getAnalyzingDoc(),
-                    _context.getForwards(), _context.getAnalyzed());
+                    _context.getForwards(), _context.getAnalyzed(), _context.getContext());
         }
     }
 
@@ -146,13 +146,7 @@ public abstract class CommonRender {
     protected static void setStruct(Struct _struct, ClassField _cl, Struct _value) {
         ((FieldableStruct) _struct).getEntryStruct(_cl).setStruct(_value);
     }
-    protected static Struct getException(Configuration _cont) {
-        CallingState str_ = _cont.getContext().getCallingState();
-        if (str_ instanceof Struct) {
-            return (Struct) str_;
-        }
-        return null;
-    }
+
     protected static Struct getException(AnalyzedTestConfiguration _cont) {
         CallingState str_ = _cont.getContext().getCallingState();
         if (str_ instanceof Struct) {
@@ -166,7 +160,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setup(_conf.getConfiguration());
+        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getAdvStandards());
         setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
@@ -246,17 +240,13 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        String res_ = getRes(conf_);
-        assertNull(getException(conf_));
+        String res_ = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res_;
     }
 
-    protected static String getRes(Configuration conf_) {
-        return RendBlock.getRes(conf_.getRendDocumentBlock(), conf_);
-    }
-
-    protected static String getRes(Configuration conf_, RendDocumentBlock _doc) {
-        return RendBlock.getRes(_doc, conf_);
+    protected static String getRes(Configuration conf_, BeanLgNames _stds, ContextEl _context) {
+        return RendBlock.getRes(conf_.getRendDocumentBlock(), conf_, _stds, _context);
     }
 
     protected static String getCommRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
@@ -276,8 +266,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        String res_ = getRes(conf_);
-        assertNull(getException(conf_));
+        String res_ = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res_;
     }
 
@@ -298,8 +288,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 
@@ -317,8 +307,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 
@@ -340,8 +330,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     private static AnalyzedTestContext buildStd(String... _types) {
@@ -368,8 +358,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     protected static Struct getEx(String folder_, String html_, StringMap<String> files_) {
@@ -389,8 +379,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
     protected static Struct getEx(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
@@ -409,8 +399,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     protected static boolean hasCommErr(String html_, StringMap<String> files_) {
@@ -470,12 +460,12 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        String res_ = getRes(conf_);
-        assertNull(getException(conf_));
+        String res_ = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res_;
     }
 
@@ -496,12 +486,12 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        String res_ = getRes(conf_);
-        assertNull(getException(conf_));
+        String res_ = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res_;
     }
 
@@ -521,12 +511,12 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     protected static boolean hasCommErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
@@ -592,12 +582,12 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        String res_ = getRes(conf_);
-        assertNull(getException(conf_));
+        String res_ = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         assertEq(1, conf_.getHtmlPage().getAnchorsArgs().size());
         assertEq("2", conf_.getHtmlPage().getAnchorsArgs().last().last());
         return res_;
@@ -618,10 +608,10 @@ public abstract class CommonRender {
     }
 
     private static void setStack(AnalyzedTestConfiguration cont_) {
-        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration()));
+        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration(), cont_.getContext()));
     }
 
-    protected static Configuration simulateNav2(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+    protected static AnalyzedTestConfiguration simulateNav2(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -640,15 +630,15 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        getRes(conf_);
-        return conf_;
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return a_;
     }
 
-    protected static Configuration simulateNav(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+    protected static AnalyzedTestConfiguration simulateNav(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -665,12 +655,37 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        getRes(conf_);
-        return conf_;
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return a_;
+    }
+
+    protected static AnalyzedTestConfiguration simulateNavEx(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        AnalyzedTestConfiguration a_ = build(conf_);
+        setStack(a_);
+        getHeaders(filesSec_, a_);
+        assertTrue(isEmptyErrors(a_));
+
+        simpleSetup(folder_, relative_, conf_);
+        setFiles(files_, conf_);
+
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
+        analyzeInner(conf_, a_, html_);
+        assertTrue(isEmptyErrors(a_));
+        tryForward(a_);
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
+        conf_.getBuiltBeans().addEntry("bean_one", bean_);
+        conf_.clearPages();
+        setFirst(a_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return a_;
     }
 
     private static void simpleSetup(String folder_, String relative_, Configuration conf_) {
@@ -697,7 +712,7 @@ public abstract class CommonRender {
 
 
 
-    protected static Navigation initSession(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSession(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -705,7 +720,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -718,8 +733,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_, a_);
     }
 
     protected static boolean initSessionFail(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
@@ -730,7 +745,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -743,7 +758,7 @@ public abstract class CommonRender {
         return !isEmptyErrors(a_);
     }
 
-    protected static Navigation initSession2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSession2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -754,7 +769,7 @@ public abstract class CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -768,11 +783,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    protected static Navigation initSession3(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSession3(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -786,7 +801,7 @@ public abstract class CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.validate",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.validate").addEntry("val1","page2.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -799,8 +814,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
     private static void setupNav(String folder_, String relative_, Configuration conf_, String s) {
@@ -808,7 +823,7 @@ public abstract class CommonRender {
         setup(folder_,relative_,conf_);
     }
 
-    protected static Navigation initSession4(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSession4(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -820,7 +835,7 @@ public abstract class CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -834,11 +849,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    protected static Navigation initSession44(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSession44(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -850,7 +865,7 @@ public abstract class CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -865,11 +880,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    protected static Navigation initSessionSim(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _className, String _scope) {
+    protected static AnalyzedTestNavigation initSessionSim(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _className, String _scope) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -877,7 +892,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
@@ -890,11 +905,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    protected static Navigation initSessionSim2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
+    protected static AnalyzedTestNavigation initSessionSim2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -905,7 +920,7 @@ public abstract class CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -918,15 +933,19 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    protected static Navigation initSession5(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _scope, String _className) {
+    private static void initializeRendSession(Navigation nav_, AnalyzedTestConfiguration _a) {
+        nav_.initializeRendSession(_a.getContext(), _a.getAdvStandards());
+    }
+
+    protected static AnalyzedTestNavigation initSession5(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _scope, String _className) {
         return initSession55(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "bean_one.click()", "page2.html", "page3.html", _scope, _className);
     }
 
-    protected static Navigation initSession55(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String s, String s2, String s3, String session, String s4) {
+    protected static AnalyzedTestNavigation initSession55(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String s, String s2, String s3, String session, String s4) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -943,7 +962,7 @@ public abstract class CommonRender {
         conf_.getNavigation().addEntry(s,new StringMap<String>());
         conf_.getNavigation().getVal(s).addEntry("val1", s2);
         conf_.getNavigation().getVal(s).addEntry("val2", s3);
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -958,8 +977,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
     protected static AnalyzedTestConfiguration build(Configuration conf_,String... _types) {
@@ -967,7 +986,7 @@ public abstract class CommonRender {
         return new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
     }
 
-    protected static Navigation initSession56(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
+    protected static AnalyzedTestNavigation initSession56(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -984,7 +1003,7 @@ public abstract class CommonRender {
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1003,8 +1022,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
     protected static Navigation getStdNavigation(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_, String _scope, String _className) {
@@ -1015,7 +1034,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1029,12 +1048,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
+        initializeRendSession(nav_, a_);
         return nav_;
     }
 
-
-    protected static Navigation getStdNavigation2(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_) {
+    protected static AnalyzedTestNavigation getStdNavigation2(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
@@ -1042,7 +1060,34 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
+        nav_.setLanguage(locale_);
+
+        nav_.setFiles(files_);
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope(_scope);
+        i_.setClassName(_className);
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        analyze(a_,nav_);
+        assertTrue(isEmptyErrors(a_));
+        tryForward(a_);
+        tryInitStaticlyTypes(a_);
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
+    }
+
+
+    protected static AnalyzedTestNavigation getStdNavigation2(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_) {
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        AnalyzedTestConfiguration a_ = build(conf_);
+        setStack(a_);
+        getHeaders(filesSec_, a_);
+        assertTrue(isEmptyErrors(a_));
+        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1052,8 +1097,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        initializeRendSession(nav_, a_);
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
     protected static Navigation getStdNavigation3(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
@@ -1067,7 +1112,7 @@ public abstract class CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1076,7 +1121,7 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
+        initializeRendSession(nav_, a_);
         return nav_;
     }
 
@@ -1088,7 +1133,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, s);
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1105,7 +1150,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
@@ -1127,7 +1172,7 @@ public abstract class CommonRender {
     protected static void analyze(AnalyzedTestConfiguration _cont,Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = _cont.getAnalyzingDoc();
-        anaDoc_.setup(_cont.getConfiguration());
+        anaDoc_.setup(_cont.getConfiguration(), _cont.getAdvStandards());
         setupAna(anaDoc_, _cont.getAnalyzing());
         _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
         AnalyzedPageEl _page = _cont.getAnalyzing();
@@ -1154,8 +1199,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     protected static String getResTwoPages(String folder_, String relative_, String html_, String htmlTwo_) {
@@ -1173,8 +1218,8 @@ public abstract class CommonRender {
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 
@@ -1194,14 +1239,14 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_two", bean_);
         conf_.clearPages();
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 
@@ -1222,14 +1267,14 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_two", bean_);
         conf_.clearPages();
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     protected static String getResTwoPagesOne(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
@@ -1246,12 +1291,12 @@ public abstract class CommonRender {
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 
@@ -1275,16 +1320,16 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, "bean_three");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_two", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_three", bean_);
         conf_.clearPages();
         setFirst(a_);
-        getRes(conf_);
-        return getException(conf_);
+        getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        return getException(a_);
     }
 
     private static void analyzeInner(Configuration conf_, AnalyzedTestConfiguration a_, String... _html) {
@@ -1336,17 +1381,17 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, "bean_three");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_two", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_).getStruct();
+        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_, a_.getAdvStandards(), a_.getContext()).getStruct();
         conf_.getBuiltBeans().addEntry("bean_three", bean_);
         conf_.clearPages();
         conf_.setCurrentUrl(_currentUrl);
         setFirst(a_);
-        String res = getRes(conf_);
-        assertNull(getException(conf_));
+        String res = getRes(conf_, a_.getAdvStandards(), a_.getContext());
+        assertNull(getException(a_));
         return res;
     }
 

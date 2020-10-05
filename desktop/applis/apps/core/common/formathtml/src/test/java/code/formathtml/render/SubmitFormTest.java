@@ -66,7 +66,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -81,7 +82,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.getSelectedIndexes().clear();
         combo_.getSelectedIndexes().add(0);
         SubmitForm.submit(intForm_,nav_);
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -143,7 +144,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ =session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -163,7 +165,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.getSelected().add(0);
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -216,7 +218,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -228,7 +231,7 @@ public final class SubmitFormTest extends CommonRender {
         MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         SubmitForm.submit(intForm_,nav_);
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -270,7 +273,8 @@ public final class SubmitFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -295,7 +299,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(false);
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -355,7 +359,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -368,7 +373,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(true);
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
@@ -425,7 +430,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
@@ -438,7 +444,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(false);
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -495,7 +501,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
@@ -512,7 +519,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setValue("THREE");
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" name=\"bean_one.choice\" n-i=\"0\" value=\"THREE\"/></form></body></html>", nav_.getHtmlText());
@@ -549,7 +556,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
@@ -566,7 +574,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setValue("1");
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">1</textarea></form></body></html>", nav_.getHtmlText());
@@ -624,7 +632,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -645,7 +654,7 @@ public final class SubmitFormTest extends CommonRender {
         range_.setValue("8");
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -705,7 +714,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -724,7 +734,7 @@ public final class SubmitFormTest extends CommonRender {
         number_.setValue("6");
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -784,7 +794,8 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        AnalyzedTestNavigation session_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
+        Navigation nav_ = session_.getNav();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -803,7 +814,7 @@ public final class SubmitFormTest extends CommonRender {
         number_.setValue("8");
         SubmitForm.submit(intForm_,nav_);
 
-        nav_.processRendFormRequest();
+        processRendFormRequest(session_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"8\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -811,6 +822,10 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(8, ((NumberStruct) choice_).intStruct());
+    }
+
+    private static void processRendFormRequest(AnalyzedTestNavigation nav_) {
+        nav_.getNav().processRendFormRequest(nav_.getAdvStandards(), nav_.getContext());
     }
 
     private static String getCustomPair() {
@@ -955,7 +970,7 @@ public final class SubmitFormTest extends CommonRender {
         _nav.getSession().getLateValidators().addEntry(_valId,v_);
     }
 
-    private Navigation initWithoutValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+    private AnalyzedTestNavigation initWithoutValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -964,12 +979,12 @@ public final class SubmitFormTest extends CommonRender {
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
+        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration(), a_.getContext()));
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -983,10 +998,10 @@ public final class SubmitFormTest extends CommonRender {
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
+        return new AnalyzedTestNavigation(nav_,a_);
     }
-    private Navigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+    private AnalyzedTestNavigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -995,12 +1010,12 @@ public final class SubmitFormTest extends CommonRender {
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_));
+        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
-        Navigation nav_ = newNavigation(conf_);
+        Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1015,13 +1030,13 @@ public final class SubmitFormTest extends CommonRender {
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        nav_.initializeRendSession();
-        return nav_;
+        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
+        return new AnalyzedTestNavigation(nav_,a_);
     }
 
     private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _anaDoc.setup(_nav.getSession());
+        _anaDoc.setup(_nav.getSession(), _stds);
         setupAna(_anaDoc, page_);
         _nav.initInstancesPattern(page_, _anaDoc);
         _nav.getSession().setPrefix("c:");

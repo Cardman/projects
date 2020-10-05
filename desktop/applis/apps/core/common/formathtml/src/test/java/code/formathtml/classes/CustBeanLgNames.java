@@ -1983,7 +1983,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
     @Override
     public ResultErrorStd getStructToBeValidated(StringList _values,
-            String _className, Configuration _context) {
+                                                 String _className, Configuration _context, ContextEl _ctx) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, TYPE_RATE)) {
             if (!Rate.matchesRate(_values.first())) {
@@ -2008,7 +2008,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             res_.setResult(new StdStruct(list_, _className));
             return res_;
         }
-        return super.getStructToBeValidated(_values,_className,_context);
+        return super.getStructToBeValidated(_values,_className,_context, _ctx);
     }
     public boolean isConveritble(String _className) {
         if (super.isConveritble(_className)) {

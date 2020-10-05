@@ -1,13 +1,14 @@
 package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
 import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
@@ -19,6 +20,7 @@ public final class PreparedRenderedPages implements Runnable {
     private String relative;
     private String conf;
     private BeanNatLgNames beanNatLgNames;
+    private ContextEl context;
     private boolean ok;
 
     public PreparedRenderedPages(String _relative, String _conf) {
@@ -35,7 +37,8 @@ public final class PreparedRenderedPages implements Runnable {
         beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", stds_, rend_, DefaultFileBuilder.newInstance(stds_.getContent()));
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, rend_, DefaultFileBuilder.newInstance(stds_.getContent()));
+        context = du_.getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {
@@ -53,12 +56,16 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_, stds_, rend_);
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(stds_, rend_, du_);
         ok = reportedMessages_.isAllEmptyErrors();
     }
 
     public Navigation getNavigation() {
         return navigation;
+    }
+
+    public ContextEl getContext() {
+        return context;
     }
 
     public BeanNatLgNames getBeanNatLgNames() {

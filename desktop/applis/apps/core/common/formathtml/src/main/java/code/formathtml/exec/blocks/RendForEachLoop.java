@@ -13,6 +13,7 @@ import code.formathtml.ImportingPage;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -51,16 +52,15 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
-        Struct its_ = processLoop(_cont);
-        ContextEl context_ = _cont.getContext();
-        if (context_.callsOrException()) {
+        Struct its_ = processLoop(_cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         Struct iterStr_ = null;
@@ -68,21 +68,21 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         boolean finished_ = false;
         RendDynOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            length_ = getLength(its_,_cont);
+            length_ = getLength(its_, _ctx);
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
-            if (context_.callsOrException()) {
+            if (_ctx.callsOrException()) {
                 return;
             }
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
-                String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();
-                _cont.setException(new ErrorStruct(context_, npe_));
+                String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
+                _ctx.setException(new ErrorStruct(_ctx, npe_));
                 return;
             }
-            Argument arg_ = iterator(its_,_cont);
-            if (context_.callsOrException()) {
+            Argument arg_ = iterator(its_,_cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             iterStr_ = arg_.getStruct();
@@ -98,29 +98,28 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ip_.addBlock(l_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, context_);
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         lv_.setIndexClassName(importedClassIndexName);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
         ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,importedClassName));
-        processLastElementLoop(_cont);
+        processLastElementLoop(_cont, _stds, _ctx);
     }
 
-    private int getLength(Struct _str,Configuration _cont) {
+    private int getLength(Struct _str, ContextEl _ctx) {
         if (_str instanceof ArrayStruct) {
             return ((ArrayStruct)_str).getLength();
         }
-        ContextEl context_ = _cont.getContext();
-        String npe_ = context_.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _cont.setException(new ErrorStruct(context_, npe_));
+        String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
+        _ctx.setException(new ErrorStruct(_ctx, npe_));
         return -1;
     }
-    Struct processLoop(Configuration _conf) {
+    Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrList());
-        Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
-        if (_conf.getContext().callsOrException()) {
+        Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf, _advStandards, _ctx);
+        if (_ctx.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
@@ -128,8 +127,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
 
     @Override
-    public void exitStack(Configuration _context) {
-        processLastElementLoop(_context);
+    public void exitStack(Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
+        processLastElementLoop(_context, _advStandards, _ctx);
     }
 
     @Override
@@ -142,14 +141,14 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
-            ConditionReturn has_ = iteratorHasNext(_conf);
+            ConditionReturn has_ = iteratorHasNext(_conf, _advStandards, _ctx);
             if (has_ == ConditionReturn.CALL_EX) {
                 return;
             }
@@ -159,18 +158,18 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
 
         if (hasNext_) {
-            incrementLoop(_conf, l_, vars_,varsInfos_);
+            incrementLoop(_conf, l_, vars_,varsInfos_, _advStandards, _ctx);
         } else {
             l_.setFinished(true);
         }
     }
 
-    private ConditionReturn iteratorHasNext(Configuration _conf) {
+    private ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
-        Argument arg_ = hasNext(strIter_,_conf);
-        if (_conf.getContext().callsOrException()) {
+        Argument arg_ = hasNext(strIter_,_conf, _advStandards, _ctx);
+        if (_ctx.callsOrException()) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
@@ -181,7 +180,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
 
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars,
-                              StringMap<LocalVariable> _varsInfos) {
+                              StringMap<LocalVariable> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx) {
         _l.setIndex(_l.getIndex() + 1);
         ImportingPage abs_ = _conf.getLastPage();
 
@@ -193,13 +192,13 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         Argument arg_ = Argument.createVoid();
         RendDynOperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
-            arg_ = next(iterator_,_conf);
+            arg_ = next(iterator_,_conf, _advStandards, _ctx);
         } else {
             Struct container_ = _l.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
-            element_ = ExecTemplates.getElement(container_, lg_, _conf.getContext());
+            element_ = ExecTemplates.getElement(container_, lg_, _ctx);
         }
-        if (_conf.getContext().callsOrException()) {
+        if (_ctx.callsOrException()) {
             return;
         }
         if (!el_.getResultClass().isArray()) {
@@ -207,7 +206,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             arg_ = new Argument(element_);
         }
-        if (!ExecTemplates.checkQuick(importedClassName, arg_, _conf.getContext())) {
+        if (!ExecTemplates.checkQuick(importedClassName, arg_, _ctx)) {
             return;
         }
         lInfo_.setStruct(element_);

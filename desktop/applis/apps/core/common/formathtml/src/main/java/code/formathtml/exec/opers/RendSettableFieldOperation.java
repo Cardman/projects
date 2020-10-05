@@ -1,6 +1,7 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -11,6 +12,7 @@ import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
@@ -31,77 +33,77 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    Argument getCommonArgument(Argument _previous, Configuration _conf) {
+    Argument getCommonArgument(Argument _previous, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        return _conf.getAdvStandards().getCommonArgument(this,_previous,_conf);
+        return _advStandards.getCommonArgument(this,_previous,_conf, _ctx);
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        return processCall(this, this, previous_,_nodes, _conf, _right);
+        return processCall(this, this, previous_,_nodes, _conf, _right, _advStandards, _context);
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, _cl, _cast);
+        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, _cl, _cast, _advStandards, _context);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Struct store_ = _store.getStruct();
-        return getCommonSemiSetting(previous_, store_, _conf, _op, _post, _cast);
+        return getCommonSemiSetting(previous_, store_, _conf, _op, _post, _cast, _advStandards, _context);
     }
 
-    private Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right) {
-        return _conf.getAdvStandards().getCommonSetting(this,_previous,_conf,_right);
+    private Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        return _advStandards.getCommonSetting(this,_previous,_conf,_right, _context);
     }
-    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
+    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast);
-        return getCommonSetting(_previous,_conf,res_);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _context);
+        return getCommonSetting(_previous,_conf,res_, _advStandards, _context);
     }
-    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast) {
+    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
         Argument res_;
 
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        getCommonSetting(_previous,_conf,res_);
+        getCommonSetting(_previous,_conf,res_, _advStandards, _context);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        processField(_nodes, _conf, _right);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        processField(_nodes, _conf, _right, _advStandards, _context);
         return _right;
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
-        processField(_nodes, _conf, _right);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        processField(_nodes, _conf, _right, _advStandards, _context);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private void processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+    private void processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument prev_ = Argument.createVoid();
         if (!settableFieldContent.isStaticField()) {
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
-        getCommonSetting(prev_,_conf,_right);
+        getCommonSetting(prev_,_conf,_right, _advStandards, _context);
     }
 
     public boolean isFinalField() {
@@ -125,11 +127,11 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         if (_right != null) {
-            return getCommonSetting(_previous,_conf,_right);
+            return getCommonSetting(_previous,_conf,_right, _advStandards, _context);
         }
-        return getCommonArgument(_previous,_conf);
+        return getCommonArgument(_previous,_conf, _advStandards, _context);
     }
 
     public ExecRootBlock getRootBlock() {

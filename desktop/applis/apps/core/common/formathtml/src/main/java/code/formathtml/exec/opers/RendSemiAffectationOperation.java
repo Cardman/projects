@@ -15,6 +15,7 @@ import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -44,14 +45,13 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        ContextEl context_ = _conf.getContext();
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         if (settableParent instanceof RendSafeDotOperation) {
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, context_, getResultClass().getNames()));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+                setQuickConvertSimpleArgument(leftArg_, _nodes, _context);
                 return;
             }
         }
@@ -62,9 +62,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             chidren_.add(left_);
             Argument stored_ = getArgument(_nodes,left_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null);
-            res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent);
-            setSimpleArgument(res_, _conf,_nodes);
+            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null, _advStandards, _context);
+            res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent, _advStandards, _context);
+            setSimpleArgument(res_, _conf,_nodes, _context);
             return;
         }
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
@@ -73,25 +73,25 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument stored_ = getNullArgument(_nodes, settable);
         Argument before_ = stored_;
         if (converterFrom != null) {
-            Argument conv_ = tryConvert(converterFrom.getRootBlock(),converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _conf);
+            Argument conv_ = tryConvert(converterFrom.getRootBlock(),converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _context);
             stored_ = Argument.getNullableValue(conv_);
         }
         if (converterTo != null) {
             String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, context_.getStandards().getPrimTypes());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(stored_, operatorContent.getOper(), cast_);
-            Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);
+            Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _context);
             if (conv_ == null) {
                 return;
             }
-            conv_ = RendAffectationOperation.calculateChSetting(settable,_nodes,_conf,conv_);
+            conv_ = RendAffectationOperation.calculateChSetting(settable,_nodes,_conf,conv_, _advStandards, _context);
             stored_ =  RendSemiAffectationOperation.getPrePost(staticPostEltContent.isPost(),before_,conv_);
-            setSimpleArgument(stored_, _conf,_nodes);
+            setSimpleArgument(stored_, _conf,_nodes, _context);
             return;
         }
-        Argument arg_ = calculateSemiChSetting(_nodes, _conf, stored_);
-        setSimpleArgument(arg_, _conf,_nodes);
+        Argument arg_ = calculateSemiChSetting(_nodes, _conf, stored_, _advStandards, _context);
+        setSimpleArgument(arg_, _conf,_nodes, _context);
     }
 
     private static Argument getNullArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendDynOperationNode _settable) {
@@ -111,36 +111,36 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         return Argument.getNullableValue(arg_);
     }
 
-    private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_, Argument res_, RendDynOperationNode _settable, ExecStaticPostEltContent staticPostEltContent) {
+    private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_, Argument res_, RendDynOperationNode _settable, ExecStaticPostEltContent staticPostEltContent, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (_settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_);
+            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
         }
         if (_settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_);
+            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
         }
         if (_settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_);
+            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
         }
         if (_settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_);
+            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }
 
-    private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_) {
+    private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }
@@ -154,10 +154,10 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(_conf.getContext().getExiting(),_conf.getContext(), rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
         return Argument.createVoid();
     }
 }

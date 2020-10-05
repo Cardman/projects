@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Document;
 import code.sml.Element;
@@ -49,7 +51,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
         Element write_ = (Element) rw_.getWrite();
         Document doc_ = write_.getOwnerDocument();
@@ -67,8 +69,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         f_.setOpsConverter(opsConverter);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont);
-            if (_cont.getContext().callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
@@ -77,19 +79,19 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
                     elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
-        fetchName(_cont, elt, docElementSelect_, f_);
-        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);
-        if (_cont.getContext().callsOrException()) {
+        fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx);
+        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont);
-            if (_cont.getContext().callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
-        processBlock(_cont);
+        processBlock(_cont, _stds, _ctx);
     }
 }

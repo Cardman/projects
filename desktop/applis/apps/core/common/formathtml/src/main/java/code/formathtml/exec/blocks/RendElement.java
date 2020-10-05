@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -25,12 +27,12 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Node write_ = rw_.getWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
@@ -38,20 +40,20 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         MutableNode nextWrite_ = write_.getLastChild();
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont);
-            if (_cont.getContext().callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,nextWrite_,read);
-        if (_cont.getContext().callsOrException()) {
+        processExecAttr(_cont,nextWrite_,read, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont);
-            if (_cont.getContext().callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
@@ -66,6 +68,6 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         rw_.setWrite(nextWrite_);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read);
+    protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx);
 
 }

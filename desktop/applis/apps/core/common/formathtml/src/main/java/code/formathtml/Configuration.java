@@ -1,9 +1,7 @@
 package code.formathtml;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.Classes;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
@@ -44,8 +42,6 @@ public final class Configuration {
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
     private String filesConfName = "";
-
-    private ContextEl context;
 
     private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
 
@@ -105,10 +101,10 @@ public final class Configuration {
         renderFiles.add(firstUrl);
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, BeanLgNames _advStandards) {
         renders.clear();
         setFiles(_files);
-        _analyzingDoc.setup(this);
+        _analyzingDoc.setup(this, _advStandards);
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 
@@ -268,14 +264,6 @@ public final class Configuration {
         filesConfName = _filesConfName;
     }
 
-    public ContextEl getContext() {
-        return context;
-    }
-
-    public void setContext(ContextEl _context) {
-        context = _context;
-    }
-
     public StringMap<ValidatorInfo> getLateValidators() {
         return lateValidators;
     }
@@ -298,10 +286,6 @@ public final class Configuration {
         return builtValidators;
     }
 
-    public BeanLgNames getAdvStandards() {
-        return (BeanLgNames)context.getStandards();
-    }
-
 
     public RendKeyWords getRendKeyWords() {
         return rendKeyWords;
@@ -316,10 +300,6 @@ public final class Configuration {
 
     public PageEl getPageEl() {
         return importing.last().getPageEl();
-    }
-
-    public void setException(Struct _struct) {
-        context.setException(_struct);
     }
 
     public Struct getInternGlobal() {

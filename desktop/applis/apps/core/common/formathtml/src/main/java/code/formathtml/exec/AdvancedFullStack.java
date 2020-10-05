@@ -1,37 +1,39 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.AbstractFullStack;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 
 public final class AdvancedFullStack implements AbstractFullStack {
     private final Configuration context;
+    private final ContextEl cont;
 
-    public AdvancedFullStack(Configuration context) {
-        this.context = context;
+    public AdvancedFullStack(Configuration _conf, ContextEl _context) {
+        this.context = _conf;
+        cont = _context;
     }
 
     @Override
     public ArrayStruct newStackTraceElementArray() {
-        return newStackTraceElementArray(context);
+        return newStackTraceElementArray(context, cont);
     }
 
-    private static ArrayStruct newStackTraceElementArray(Configuration _configuration) {
+    private static ArrayStruct newStackTraceElementArray(Configuration _configuration, ContextEl _context) {
         int count_ = _configuration.getImporting().size();
-        int lenArrCtx_ = _configuration.getContext().nbPages();
-        String cl_ = _configuration.getContext().getStandards().getContent().getStackElt().getAliasStackTraceElement();
+        int lenArrCtx_ = _context.nbPages();
+        String cl_ = _context.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         ArrayStruct array_ = new ArrayStruct(count_+ lenArrCtx_, cl_);
         for (int i = 0; i < count_; i++) {
             array_.set(i, newStackTraceElement(_configuration.getImporting().get(i)));
         }
         for (int i = 0; i < lenArrCtx_; i++) {
-            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_configuration.getContext(),i));
+            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_context,i));
         }
         return array_;
     }

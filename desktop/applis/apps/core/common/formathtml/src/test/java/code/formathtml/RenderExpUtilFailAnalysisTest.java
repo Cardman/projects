@@ -305,7 +305,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
     private static void setStack(AnalyzedTestConfiguration cont_) {
-        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration()));
+        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration(), cont_.getContext()));
     }
 
     private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration configuration, String s) {
@@ -324,7 +324,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        analyzingDoc_.setup(_conf.getConfiguration());
+        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getAdvStandards());
         AnalyzingDoc.setupInts(page_, analyzingDoc_);
         page_.setGlobalClass(globalClass_);
         page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));

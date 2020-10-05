@@ -56,13 +56,13 @@ public final class AnalyzingDoc {
         return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
     }
 
-    public void setup(Configuration _conf) {
+    public void setup(Configuration _conf, BeanLgNames _standards) {
         rendKeyWords = _conf.getRendKeyWords();
         prefix = _conf.getPrefix();
         properties = _conf.getProperties();
         messagesFolder = _conf.getMessagesFolder();
         files = _conf.getFiles();
-        standards = _conf.getAdvStandards();
+        standards = _standards;
         beansInfosBefore = _conf.getBeansInfos();
     }
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {

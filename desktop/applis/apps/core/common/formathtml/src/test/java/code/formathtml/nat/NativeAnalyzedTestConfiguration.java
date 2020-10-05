@@ -15,6 +15,7 @@ class NativeAnalyzedTestConfiguration {
     private final Forwards forwards;
     private final BeanNatLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
+    private final ContextEl context;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
     NativeAnalyzedTestConfiguration(Configuration configuration, NativeAnalyzedTestContext analyzing, Forwards _forwards, BeanNatLgNames _standards) {
@@ -22,8 +23,8 @@ class NativeAnalyzedTestConfiguration {
         forwards = _forwards;
         adv= _standards;
         analyzingDoc.setContent(adv);
-        this.configuration.setContext(analyzing.getContext());
         this.analyzing = analyzing.getAnalyzing();
+        context = analyzing.getContext();
     }
 
     Configuration getConfiguration() {
@@ -43,7 +44,7 @@ class NativeAnalyzedTestConfiguration {
     }
 
     ContextEl getContext() {
-        return configuration.getContext();
+        return context;
     }
 
     boolean isEmptyErrors() {

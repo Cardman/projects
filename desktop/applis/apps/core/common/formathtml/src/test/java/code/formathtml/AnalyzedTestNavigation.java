@@ -10,7 +10,8 @@ import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.util.BeanCustLgNames;
 import code.util.StringMap;
 
-public final class AnalyzedTestConfiguration {
+public final class AnalyzedTestNavigation {
+    private final Navigation nav;
     private final Configuration configuration;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
@@ -18,14 +19,21 @@ public final class AnalyzedTestConfiguration {
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
+    private AnalyzedTestConfiguration gl;
 
-    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanCustLgNames _standards) {
-        this.configuration = configuration;
-        forwards = _forwards;
-        adv= _standards;
+    public AnalyzedTestNavigation(Navigation _nav, AnalyzedTestConfiguration analyzing) {
+        nav = _nav;
+        gl = analyzing;
+        this.configuration = analyzing.getConfiguration();
+        forwards = analyzing.getForwards();
+        adv= analyzing.getAdvStandards();
         analyzingDoc.setContent(adv);
         context = analyzing.getContext();
         this.analyzing = analyzing.getAnalyzing();
+    }
+
+    public Navigation getNav() {
+        return nav;
     }
 
     public Configuration getConfiguration() {
@@ -42,34 +50,6 @@ public final class AnalyzedTestConfiguration {
 
     public AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    public String getAliasPrimLong() {
-        return analyzing.getAliasPrimLong();
-    }
-
-    public String getAliasBoolean() {
-        return analyzing.getAliasBoolean();
-    }
-
-    public String getAliasPrimBoolean() {
-        return analyzing.getAliasPrimBoolean();
-    }
-
-    public String getAliasObject() {
-        return analyzing.getAliasObject();
-    }
-
-    public String getAliasString() {
-        return analyzing.getAliasString();
-    }
-
-    public String getAliasInteger() {
-        return analyzing.getAliasInteger();
-    }
-
-    public String getAliasPrimInteger() {
-        return analyzing.getAliasPrimInteger();
     }
 
     public LgNames getStandards() {
@@ -96,9 +76,6 @@ public final class AnalyzedTestConfiguration {
         return configuration.hasPages();
     }
 
-    public String getAliasByte() {
-        return analyzing.getAliasByte();
-    }
     public void setNavigation(StringMap<StringMap<String>> stringMapStringMap) {
         configuration.setNavigation(stringMapStringMap);
     }
@@ -119,4 +96,7 @@ public final class AnalyzedTestConfiguration {
         this.analyzed = analyzed;
     }
 
+    public AnalyzedTestConfiguration getGl() {
+        return gl;
+    }
 }

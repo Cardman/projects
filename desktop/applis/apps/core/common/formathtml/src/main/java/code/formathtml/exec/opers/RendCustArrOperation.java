@@ -15,6 +15,7 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -36,15 +37,14 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         rootBlock = _rootBlock;
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         if (resultCanBeSet()) {
-            Struct array_;
-            array_ = getPreviousArgument(_nodes,this).getStruct();
+            Struct array_ = getPreviousArgument(_nodes,this).getStruct();
             Argument a_ = new Argument(array_);
-            setQuickNoConvertSimpleArgument(a_, _conf,_nodes);
+            setQuickNoConvertSimpleArgument(a_, _nodes, _context);
             return;
         }
-        processCalling(_nodes,_conf, null);
+        processCalling(_nodes,_conf, null, _advStandards, _context);
     }
 
     @Override
@@ -53,51 +53,51 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return processCalling(_nodes,_conf, _right);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        return processCalling(_nodes,_conf, _right, _advStandards, _context);
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
-        if (_conf.getContext().callsOrException()) {
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context);
+        if (_context.callsOrException()) {
             return res_;
         }
-        return processCalling(_nodes,_conf,res_);
+        return processCalling(_nodes,_conf,res_, _advStandards, _context);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(_stored, _op, _cast);
-        Argument arg_ = processCalling(_nodes, _conf, res_);
+        Argument arg_ = processCalling(_nodes, _conf, res_, _advStandards, _context);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,arg_);
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return processCalling(_nodes, _conf, _right);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        return processCalling(_nodes, _conf, _right, _advStandards, _context);
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
-        processCalling(_nodes, _conf, _right);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        processCalling(_nodes, _conf, _right, _advStandards, _context);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,_right);
     }
 
-    private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+    private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = processCall(this, this, previous_,_nodes,  _conf, _right);
-        setSimpleArgument(argres_,_conf,_nodes);
+        Argument argres_ = processCall(this, this, previous_,_nodes,  _conf, _right, _advStandards, _context);
+        setSimpleArgument(argres_,_conf,_nodes, _context);
         return argres_;
     }
 
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         CustList<Argument> firstArgs_;
@@ -106,9 +106,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         String classNameFound_;
         classNameFound_ = instFctContent.getClassName();
         Struct argPrev_ = _previous.getStruct();
-        ContextEl ctx_ = _conf.getContext();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, ctx_));
-        if (ctx_.callsOrException()) {
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _context));
+        if (_context.callsOrException()) {
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
@@ -120,15 +119,15 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         }
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         Struct pr_ = prev_.getStruct();
-        String cl_ = pr_.getClassName(ctx_);
-        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, ctx_);
+        String cl_ = pr_.getClassName(_context);
+        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(),ctx_,pr_,classNameFound_,rootBlock,fct_);
+        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context,pr_,classNameFound_,rootBlock,fct_);
         fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock dest_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(ctx_.getExiting(), ctx_, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
     }
 
 }

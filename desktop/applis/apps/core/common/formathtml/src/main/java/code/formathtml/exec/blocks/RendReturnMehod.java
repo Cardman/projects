@@ -1,10 +1,12 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
+import code.formathtml.util.BeanLgNames;
 
 public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendWithEl {
     public RendReturnMehod(int _offsetTrim) {
@@ -12,12 +14,12 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
     }
 
     @Override
-    public void processEl(Configuration _cont) {
-        removeBlockFinally(_cont);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
+        removeBlockFinally(_cont, _stds, _ctx);
     }
 
     @Override
-    public void removeBlockFinally(Configuration _conf) {
+    public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         while (ip_.hasBlock()) {
             RendRemovableVars bl_ = ip_.getRendLastStack();

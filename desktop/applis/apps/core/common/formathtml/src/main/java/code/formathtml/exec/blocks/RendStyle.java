@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -13,7 +15,7 @@ public final class RendStyle extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
         ElementList links_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordLink());

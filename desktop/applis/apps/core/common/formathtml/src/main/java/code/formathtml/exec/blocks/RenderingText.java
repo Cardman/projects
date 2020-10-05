@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -12,7 +13,7 @@ public final class RenderingText {
     private RenderingText() {
     }
 
-    public static String render(ExecTextPart _texts, Configuration _cont) {
+    public static String render(ExecTextPart _texts, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
         CustList<CustList<RendDynOperationNode>> _opExp = _texts.getOpExp();
         StringList _texts1 = _texts.getTexts();
         int s_ = _opExp.size();
@@ -20,7 +21,7 @@ public final class RenderingText {
         for (int i = 0; i < s_; i++) {
             str_.append(_texts1.get(i));
             CustList<RendDynOperationNode> exp_ = _opExp.get(i);
-            String st_ = tryCalculate(exp_, _cont);
+            String st_ = tryCalculate(exp_, _cont, _advStandards, _ctx);
             if (st_ == null) {
                 return str_.toString();
             }
@@ -30,7 +31,7 @@ public final class RenderingText {
         return str_.toString();
     }
 
-    public static StringList renderAltList(ExecTextPart _textPart, Configuration _cont) {
+    public static StringList renderAltList(ExecTextPart _textPart, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
         CustList<CustList<RendDynOperationNode>> _opExp = _textPart.getOpExp();
         StringList _texts = _textPart.getTexts();
         int s_ = _opExp.size();
@@ -38,7 +39,7 @@ public final class RenderingText {
         for (int i = 0; i < s_; i++) {
             str_.add(_texts.get(i));
             CustList<RendDynOperationNode> exp_ = _opExp.get(i);
-            String st_ = tryCalculate(exp_, _cont);
+            String st_ = tryCalculate(exp_, _cont, _advStandards, _ctx);
             if (st_ == null) {
                 return str_;
             }
@@ -48,14 +49,13 @@ public final class RenderingText {
         return str_;
     }
 
-    private static String tryCalculate(CustList<RendDynOperationNode> _e, Configuration _cont) {
-        Argument argument_ = RenderExpUtil.calculateReuse(_e, _cont);
-        BeanLgNames standards_ = _cont.getAdvStandards();
-        if (_cont.getContext().callsOrException()) {
+    private static String tryCalculate(CustList<RendDynOperationNode> _e, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
+        Argument argument_ = RenderExpUtil.calculateReuse(_e, _cont, _advStandards, _ctx);
+        if (_ctx.callsOrException()) {
             return null;
         }
-        String string_ = standards_.processString(argument_, _cont);
-        if (_cont.getContext().callsOrException()) {
+        String string_ = _advStandards.processString(argument_, _ctx);
+        if (_ctx.callsOrException()) {
             return null;
         }
         return string_;

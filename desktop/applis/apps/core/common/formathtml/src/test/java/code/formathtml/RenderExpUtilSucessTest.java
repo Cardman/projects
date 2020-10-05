@@ -2826,7 +2826,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument caculateReuse(AnalyzedTestConfiguration conf_, CustList<RendDynOperationNode> out_) {
         conf_.getContext().setExiting(new NoExiting());
-        return RenderExpUtil.calculateReuse(out_, conf_.getConfiguration());
+        return RenderExpUtil.calculateReuse(out_, conf_.getConfiguration(), conf_.getAdvStandards(), conf_.getContext());
     }
 
     private static Delimiters checkDel(String s, int i, AnalyzedTestConfiguration context_) {
@@ -3238,7 +3238,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration context_, Struct str_) {
-        context_.getLastPage().setGlobalArgumentStruct(str_,context_.getConfiguration());
+        context_.getLastPage().setGlobalArgumentStruct(str_, context_.getContext());
     }
 
     @Test
@@ -5454,7 +5454,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
-        context_.getAnalyzingDoc().setup(context_.getConfiguration());
+        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards());
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
     }
 
@@ -5549,7 +5549,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl197Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        context_.getAnalyzingDoc().setup(context_.getConfiguration());
+        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards());
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5671,9 +5671,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(context_.isEmptyErrors());
         Classes.forwardAndClear(context_.getContext(), page_, context_.getForwards());
         Configuration _cont = context_.getConfiguration();
-        for (ClassMetaInfo c: _cont.getContext().getClasses().getClassMetaInfos()) {
+        for (ClassMetaInfo c: context_.getContext().getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_cont.getContext(), name_), c);
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_.getContext(), name_), c);
         }
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
@@ -5813,7 +5813,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_));
+        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         //
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));

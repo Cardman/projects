@@ -1,5 +1,6 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -8,6 +9,7 @@ import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -27,30 +29,30 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Node write_ = rw_.getWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
-        String pageName_ = RenderingText.render(textPart,_cont);
-        if (_cont.getContext().callsOrException()) {
+        String pageName_ = RenderingText.render(textPart,_cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         String link_ = Configuration.getRealFilePath(lg_,pageName_);
         RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
         if (val_ == null) {
-            processBlock(_cont);
+            processBlock(_cont, _stds, _ctx);
             return;
         }
         if (val_.getBodies().size() != 1) {
-            processBlock(_cont);
+            processBlock(_cont, _stds, _ctx);
             return;
         }
         String beanName_ = val_.getBeanName();
@@ -65,20 +67,20 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _cont.getMainBean();
-        _cont.getAdvStandards().setBeanForms(_cont, mainBean_, this, keepField_,
-                beanName_);
-        if (_cont.getContext().callsOrException()) {
+        _stds.setBeanForms(_cont, mainBean_, this, keepField_,
+                beanName_, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         if (newBean_ != null) {
-            String className_ = newBean_.getClassName(_cont.getContext());
+            String className_ = newBean_.getClassName(_ctx);
             for (RendBlock p: getDirectChildren(this)) {
                 for (RendBlock c: getDirectChildren(p)) {
                     if (!(c instanceof RendClass)) {
                         continue;
                     }
                     RendClass cl_ = (RendClass) c;
-                    if (!ExecTemplates.isCorrectExecute(className_,cl_.getFullName(),_cont.getContext())) {
+                    if (!ExecTemplates.isCorrectExecute(className_,cl_.getFullName(), _ctx)) {
                         continue;
                     }
                     for (RendBlock f: getDirectChildren(c)) {
@@ -88,8 +90,8 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                             ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPrepare());
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
-                            RenderExpUtil.calculateReuse(exps_,_cont);
-                            if (_cont.getContext().callsOrException()) {
+                            RenderExpUtil.calculateReuse(exps_,_cont, _stds, _ctx);
+                            if (_ctx.callsOrException()) {
                                 return;
                             }
                             ip_.setInternGlobal(null);
@@ -101,8 +103,8 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
-        beforeDisplaying(newBean_,_cont);
-        if (_cont.getContext().callsOrException()) {
+        beforeDisplaying(newBean_,_cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         rwLoc_.setDocument(rw_.getDocument());
@@ -111,7 +113,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         newIp_.setRoot(val_.getBodies().first());
         newIp_.setRendReadWrite(rwLoc_);
         if (newBean_ != null) {
-            newIp_.setGlobalArgumentStruct(newBean_, _cont);
+            newIp_.setGlobalArgumentStruct(newBean_, _ctx);
         }
         RendIfStack if_ = new RendIfStack();
         if_.setLastBlock(this);

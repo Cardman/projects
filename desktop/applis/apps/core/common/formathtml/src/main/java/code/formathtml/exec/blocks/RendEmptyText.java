@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;
@@ -21,9 +23,9 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         if (!add) {
-            processBlock(_cont);
+            processBlock(_cont, _stds, _ctx);
             return;
         }
         ImportingPage lastPage_ = _cont.getLastPage();
@@ -33,6 +35,6 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
         Text t_ = doc_.createTextNode(EMPTY_STRING);
         ((MutableNode)write_).appendChild(t_);
         t_.appendData(expression);
-        processBlock(_cont);
+        processBlock(_cont, _stds, _ctx);
     }
 }

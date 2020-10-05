@@ -3,7 +3,6 @@ package code.renders;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -17,11 +16,11 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
-import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
 import code.renders.utilcompo.CustBeanFileBuilder;
@@ -83,12 +82,14 @@ public final class CustThreadActions extends AbstractThreadActions {
             RendAnalysisMessages rend_ = new RendAnalysisMessages();
             AbstractFileBuilder fileBuilder_;
             fileBuilder_ = new CustBeanFileBuilder(stds.getContent(),((LgNamesRenderUtils)stds).getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
-            AnalyzedPageEl page_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, rend_, fileBuilder_);
-            if (!getPage().getNavigation().isError()) {
+            DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, rend_, fileBuilder_);
+            ContextEl ctx_ = du_.getContext();
+            getPage().setContext(ctx_);
+            if (ctx_ != null) {
                 HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
                 getPage().getNavigation().setFiles(fileNames);
-                ReportedMessages reportedMessages_ = getPage().getNavigation().setupRendClassesInit(page_, stds, rend_);
+                ReportedMessages reportedMessages_ = getPage().getNavigation().setupRendClassesInit(stds, rend_, du_);
                 if (!reportedMessages_.isAllEmptyErrors()) {
                     if (getPage().getArea() != null) {
                         getPage().getArea().append(reportedMessages_.displayErrors());
@@ -96,9 +97,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                     finish();
                     return;
                 }
-                Configuration conf_ = getPage().getNavigation().getSession();
                 if (fileNames != null) {
-                    ContextEl ctx_ = conf_.getContext();
                     LgNames stds_ = ctx_.getStandards();
                     String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
                     MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
@@ -133,17 +132,17 @@ public final class CustThreadActions extends AbstractThreadActions {
                         getPage().getNavigation().setDataBaseStruct(out_.getStruct());
                     }
                 }
-                getPage().getNavigation().initializeRendSession();
+                getPage().getNavigation().initializeRendSession(ctx_, du_.getStds());
             }
             afterAction();
             return;
         }
         if (form) {
-            getPage().getNavigation().processRendFormRequest();
+            getPage().getNavigation().processRendFormRequest(getPage().getStandards(), getPage().getContext());
             afterAction();
             return;
         }
-        getPage().getNavigation().processRendAnchorRequest(anchor);
+        getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), getPage().getContext());
         afterAction();
     }
 }

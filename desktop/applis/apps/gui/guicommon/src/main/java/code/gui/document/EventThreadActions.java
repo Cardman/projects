@@ -21,11 +21,11 @@ public final class EventThreadActions extends AbstractThreadActions {
     @Override
     public void run() {
         if (form) {
-            getPage().getNavigation().processRendFormRequest();
+            getPage().getNavigation().processRendFormRequest(getPage().getStandards(), getPage().getContext());
             afterAction();
             return;
         }
-        getPage().getNavigation().processRendAnchorRequest(anchor);
+        getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), getPage().getContext());
         afterAction();
     }
 }

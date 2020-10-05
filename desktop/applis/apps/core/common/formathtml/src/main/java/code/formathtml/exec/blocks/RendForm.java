@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -26,7 +28,7 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
         long currentForm_ = _cont.getCurrentForm();
         _cont.getContainersMapStack().add(new LongTreeMap< NodeContainer>());
         _cont.getFormatIdMapStack().add(new StringList());
@@ -48,14 +50,14 @@ public final class RendForm extends RendElement {
             elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), String.valueOf(currentForm_ - 1));
             return;
         }
-        StringList alt_ = RenderingText.renderAltList(textPart, _cont);
+        StringList alt_ = RenderingText.renderAltList(textPart, _cont, _stds, _ctx);
         StringList arg_ = new StringList();
         int len_ = alt_.size();
         for (int i = 1; i < len_; i += 2) {
             arg_.add(alt_.get(i));
         }
         String render_ = StringList.join(alt_,"");
-        if (_cont.getContext().callsOrException()) {
+        if (_ctx.callsOrException()) {
             _cont.getFormsArgs().add(new StringList());
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();

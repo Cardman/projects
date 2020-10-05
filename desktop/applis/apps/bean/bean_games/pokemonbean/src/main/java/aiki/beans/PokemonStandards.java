@@ -2830,7 +2830,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx) {
         if (StringList.quickEq(_className,TYPE_RATE)) {
             ResultErrorStd res_ = new ResultErrorStd();
             String value_;
@@ -2846,7 +2846,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
             return res_;
         }
-        return super.getStructToBeValidated(_values,_className,_context);
+        return super.getStructToBeValidated(_values,_className,_context, _ctx);
     }
 
     public boolean isConveritble(String _className) {

@@ -1,5 +1,6 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -11,7 +12,7 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         super(_content);
     }
 
-    public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         boolean simple_;
         if (getParent() instanceof RendAffectationOperation) {
@@ -21,9 +22,9 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
             simple_ = false;
         }
         if (simple_) {
-            setQuickNoConvertSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes);
+            setQuickNoConvertSimpleArgument(getArgument(_nodes,chidren_.last()), _nodes, _context);
         } else {
-            setSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes);
+            setSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes, _context);
         }
     }
 }

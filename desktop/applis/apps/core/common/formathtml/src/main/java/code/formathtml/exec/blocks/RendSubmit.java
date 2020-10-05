@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -21,7 +23,7 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -33,8 +35,8 @@ public final class RendSubmit extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String,ExecTextPart> e:opExp.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_,_cont));
-            if (_cont.getContext().callsOrException()) {
+            objects_.add(RenderingText.render(r_,_cont, _stds, _ctx));
+            if (_ctx.callsOrException()) {
                 return;
             }
             curWr_.removeAttribute(e.getKey());

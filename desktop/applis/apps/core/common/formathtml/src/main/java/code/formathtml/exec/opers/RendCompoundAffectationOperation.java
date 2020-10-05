@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -43,14 +44,13 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        ContextEl context_ = _conf.getContext();
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         if (settableParent instanceof RendSafeDotOperation) {
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, context_, getResultClass().getNames()));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+                setQuickConvertSimpleArgument(leftArg_, _nodes, _context);
                 return;
             }
         }
@@ -61,8 +61,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         Argument rightArg_ = getArgument(_nodes,right_);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
         if (argumentPair_.isArgumentTest()){
-            Argument arg_ = RendAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_);
-            setSimpleArgument(arg_, _conf,_nodes);
+            Argument arg_ = RendAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_, _advStandards, _context);
+            setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
         }
         if (named != null) {
@@ -70,67 +70,67 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             chidren_.add(left_);
             chidren_.add(right_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null);
+            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null, _advStandards, _context);
             if (converter != null) {
-                Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
+                Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _context);
                 if (conv_ == null) {
                     return;
                 }
                 res_ = conv_;
             }
-            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable);
-            setSimpleArgument(arg_, _conf,_nodes);
+            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable, _advStandards, _context);
+            setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
         }
         if (converter != null) {
             String tres_ = converter.get(0).getImportedParametersTypes().get(0);
             Argument res_;
             StringList arg = new StringList(tres_);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, context_.getStandards().getPrimTypes());
-            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_);
-            Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
+            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_, _context);
+            Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _context);
             if (conv_ == null) {
                 return;
             }
             res_ = conv_;
-            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable);
-            setSimpleArgument(arg_, _conf,_nodes);
+            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable, _advStandards, _context);
+            setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
         }
-        Argument arg_ = calculateCompoundChSetting(_nodes, _conf, rightArg_);
-        setSimpleArgument(arg_, _conf,_nodes);
+        Argument arg_ = calculateCompoundChSetting(_nodes, _conf, rightArg_, _advStandards, _context);
+        setSimpleArgument(arg_, _conf,_nodes, _context);
     }
 
-    private static Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument res_, RendDynOperationNode _settable) {
+    private static Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument res_, RendDynOperationNode _settable, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (_settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes, _conf, res_);
+            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes, _conf, res_, _advStandards, _context);
         }
         if (_settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes, _conf, res_);
+            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes, _conf, res_, _advStandards, _context);
         }
         if (_settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes, _conf, res_);
+            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes, _conf, res_, _advStandards, _context);
         }
         if (_settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes, _conf, res_);
+            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes, _conf, res_, _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }
 
-    private Argument calculateCompoundChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument rightArg_) {
+    private Argument calculateCompoundChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument rightArg_, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((RendCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }
@@ -140,10 +140,10 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(_conf.getContext().getExiting(),_conf.getContext(), rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

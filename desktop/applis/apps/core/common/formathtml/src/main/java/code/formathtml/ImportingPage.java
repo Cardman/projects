@@ -134,8 +134,8 @@ public final class ImportingPage {
         return pageEl.getGlobalArgument();
     }
 
-    public void setGlobalArgumentStruct(Struct _obj, Configuration _context) {
-        pageEl.setGlobalClass(_obj.getClassName(_context.getContext()));
+    public void setGlobalArgumentStruct(Struct _obj, ContextEl _context) {
+        pageEl.setGlobalClass(_obj.getClassName(_context));
         pageEl.setGlobalArgumentStruct(_obj);
     }
 

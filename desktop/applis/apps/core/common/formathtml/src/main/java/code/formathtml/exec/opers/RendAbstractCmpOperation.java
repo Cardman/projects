@@ -1,10 +1,12 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -20,14 +22,14 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendDynOperationNode opOne_ = chidren_.first();
         RendDynOperationNode opTwo_ = chidren_.last();
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
         Argument arg_ = calculateCommon(first_, second_);
-        setSimpleArgument(arg_, _conf,_nodes);
+        setSimpleArgument(arg_, _conf,_nodes, _context);
     }
 
     private Argument calculateCommon(Argument _one, Argument _two) {

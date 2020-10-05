@@ -1,11 +1,13 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.*;
 
@@ -37,7 +39,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         int l_ = args.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
@@ -47,17 +49,17 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 anchorArg_.add(args.get(i));
                 continue;
             }
-            Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _cont);
-            if (_cont.getContext().callsOrException()) {
+            Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _cont, _stds, _ctx);
+            if (_ctx.callsOrException()) {
                 return;
             }
             String res_;
             if (escaped.get(i)) {
-                res_ = escapeParam(_cont,arg_);
+                res_ = escapeParam(arg_, _stds, _ctx);
             } else {
-                res_ = _cont.getAdvStandards().processString(arg_,_cont);
+                res_ = _stds.processString(arg_, _ctx);
             }
-            if (_cont.getContext().callsOrException()) {
+            if (_ctx.callsOrException()) {
                 return;
             }
             objects_.add(res_);
@@ -82,7 +84,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 Text t_ = doc_.createTextNode(EMPTY_STRING);
                 ((MutableNode)write_).appendChild(t_);
                 t_.appendData(preRend_);
-                processBlock(_cont);
+                processBlock(_cont, _stds, _ctx);
                 return;
             }
         }
@@ -137,7 +139,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             }
         }
         rw_.setWrite(oldWrite_);
-        processBlock(_cont);
+        processBlock(_cont, _stds, _ctx);
     }
 
     private void processImportedNode(Configuration _conf,

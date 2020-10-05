@@ -1,10 +1,12 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecUnaryOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -17,11 +19,11 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = getArgument(_nodes,chidren_.first());
         Argument a_ = getArgument(_conf, arg_);
-        setSimpleArgument(a_, _conf,_nodes);
+        setSimpleArgument(a_, _conf,_nodes, _context);
     }
 
     Argument getArgument(Configuration _conf,

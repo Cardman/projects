@@ -1,11 +1,13 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
 public final class RendIfCondition extends RendCondition implements RendBreakableBlock {
@@ -23,14 +25,14 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
-        ConditionReturn assert_ = evaluateCondition(_cont);
+        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx);
         if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -51,12 +53,12 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
             rw_.setRead(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            exitStack(_cont);
+            exitStack(_cont, _stds, _ctx);
         }
     }
 
     @Override
-    public void exitStack(Configuration _conf) {
+    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();

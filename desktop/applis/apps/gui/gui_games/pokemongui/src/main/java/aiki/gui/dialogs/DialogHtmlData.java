@@ -105,7 +105,7 @@ public final class DialogHtmlData extends Dialog {
 
     public void initSession(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         session.setFrame(this);
-        session.initializeOnlyConf(_dataBase,_pre.isOk(),_pre.getBeanNatLgNames(),_pre.getNavigation(),_lg);
+        session.initializeOnlyConf(_dataBase,_pre.isOk(),_pre.getBeanNatLgNames(),_pre.getNavigation(),_lg, _pre.getContext());
 
         setVisible(true);
     }

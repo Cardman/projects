@@ -2,12 +2,14 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.*;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -16,20 +18,20 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
-    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg) {
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg, BeanLgNames _advStandards, ContextEl _ctx) {
         Argument globalArgument_ = _context.getLastPage().getGlobalArgument();
-        _context.getLastPage().setGlobalArgumentStruct(_arg.getStruct(),_context);
-        Argument argument_ = calculateReuse(_nodes, _context);
-        _context.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct(),_context);
+        _context.getLastPage().setGlobalArgumentStruct(_arg.getStruct(), _ctx);
+        Argument argument_ = calculateReuse(_nodes, _context, _advStandards, _ctx);
+        _context.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct(), _ctx);
         return argument_;
     }
-    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context) {
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
-        arguments_ = getAllArgs(_nodes,_context);
+        arguments_ = getAllArgs(_nodes,_context, _advStandards, _ctx);
         return Argument.getNullableValue(arguments_.lastValue().getArgument());
     }
 
-    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, Configuration _context) {
+    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
         for (RendDynOperationNode o: _nodes) {
@@ -46,24 +48,24 @@ public final class RenderExpUtil {
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                o.setSimpleArgument(a_,_context,arguments_);
-                fr_ = getNextIndex(_context,len_,o, pair_);
+                o.setSimpleArgument(a_,_context,arguments_, _ctx);
+                fr_ = getNextIndex(len_,o, pair_, _ctx);
                 continue;
             }
             if (pair_.getArgument() != null) {
-                o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
-                fr_ = getNextIndex(_context,len_,o, pair_);
+                o.setSimpleArgument(pair_.getArgument(),_context,arguments_, _ctx);
+                fr_ = getNextIndex(len_,o, pair_, _ctx);
                 continue;
             }
             RendCalculableOperation a_ = (RendCalculableOperation)o;
-            a_.calculate(arguments_, _context);
-            fr_ = getNextIndex(_context,len_,o, pair_);
+            a_.calculate(arguments_, _context, _advStandards, _ctx);
+            fr_ = getNextIndex(len_,o, pair_, _ctx);
         }
         return arguments_;
     }
 
-    private static int getNextIndex(Configuration _conf, int _max,RendDynOperationNode o, ArgumentsPair pair_) {
-        if (_conf.getContext().callsOrException()) {
+    private static int getNextIndex(int _max, RendDynOperationNode o, ArgumentsPair pair_, ContextEl _context) {
+        if (_context.callsOrException()) {
             return _max;
         }
         Argument res_ = Argument.getNullableValue(pair_.getArgument());

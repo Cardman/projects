@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -18,9 +20,9 @@ public final class RendSpan extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        String txt_ = RenderingText.render(result, _cont);
-        if (_cont.getContext().callsOrException()) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+        String txt_ = RenderingText.render(result, _cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             ((Element)_nextWrite).removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;
         }

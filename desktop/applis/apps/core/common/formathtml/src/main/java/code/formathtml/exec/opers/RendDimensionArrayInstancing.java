@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -28,19 +27,16 @@ public final class RendDimensionArrayInstancing extends
 
     @Override
     Argument getArgument(CustList<Argument> _arguments,
-                         Configuration _conf) {
+                         Configuration _conf, ContextEl _ctx) {
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
-        PageEl page_ = _conf.getPageEl();
-        className_ = page_.formatVarType(className_, _conf.getContext());
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
-        int[] args_;
+        int[] args_ = new int[filter_.size()];
 
-        args_ = new int[filter_.size()];
         int i_ = CustList.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
@@ -57,21 +53,20 @@ public final class RendDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct res_ = newCustomArrayOrExc(offs_,className_, dims_, _conf);
+        Struct res_ = newCustomArrayOrExc(offs_,className_, dims_, _conf, _ctx);
         if (res_ instanceof ErrorStruct) {
-            _conf.setException(res_);
+            _ctx.setException(res_);
             return new Argument();
         }
         return new Argument(res_);
     }
-    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, Configuration _cont) {
+    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, Configuration _cont, ContextEl _context) {
         Ints dims_ = new Ints();
         String size_;
-        ContextEl ctx_ = _cont.getContext();
-        LgNames lgNames_ = ctx_.getStandards();
+        LgNames lgNames_ = _context.getStandards();
         size_ = lgNames_.getContent().getCoreNames().getAliasBadSize();
         if (_dims.isEmpty()) {
-            return new ErrorStruct(ctx_,size_);
+            return new ErrorStruct(_context,size_);
         }
         int j_ = 0;
         for (int s: _dims) {
@@ -80,11 +75,11 @@ public final class RendDimensionArrayInstancing extends
                     int off_ = _filter.get(j_);
                     _cont.setOpOffset(off_);
                 }
-                return new ErrorStruct(ctx_,StringList.concat(Integer.toString(s),"<0"),size_);
+                return new ErrorStruct(_context,StringList.concat(Integer.toString(s),"<0"),size_);
             }
             dims_.add(s);
             j_++;
         }
-        return ExecTemplates.newCustomArray(_className, dims_, ctx_);
+        return ExecTemplates.newCustomArray(_className, dims_, _context);
     }
 }

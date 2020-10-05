@@ -9,6 +9,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 
 public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
 
@@ -17,18 +18,17 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     }
 
     @Override
-    Argument getCommonArgument(Argument _previous, Configuration _conf) {
+    Argument getCommonArgument(Argument _previous, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
         Struct inst_ = _previous.getStruct();
         if (inst_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) inst_;
             return new Argument(new IntStruct(arr_.getLength()));
         }
-        ContextEl _context = _conf.getContext();
         String npe_;
-        npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
+        npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        _conf.setException(new ErrorStruct(_conf.getContext(),npe_));
+        _ctx.setException(new ErrorStruct(_ctx,npe_));
         return new Argument();
     }
 }

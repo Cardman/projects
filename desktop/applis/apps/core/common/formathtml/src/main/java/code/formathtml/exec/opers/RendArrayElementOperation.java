@@ -1,7 +1,7 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -19,22 +19,18 @@ public final class RendArrayElementOperation extends
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
+    Argument getArgument(CustList<Argument> _arguments, Configuration _conf, ContextEl _ctx) {
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String cl_ = getClassName();
-        String className_;
-        PageEl page_ = _conf.getPageEl();
-        className_ = page_.formatVarType(cl_, _conf.getContext());
+        String className_ = getClassName();
 
         int nbCh_ = _arguments.size();
 
-        Ints dims_;
-        dims_ = new Ints();
+        Ints dims_ = new Ints();
         dims_.add(nbCh_);
-        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf.getContext());
-        ExecTemplates.setCheckedElements(_arguments,str_,_conf.getContext());
+        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _ctx);
+        ExecTemplates.setCheckedElements(_arguments,str_,_ctx);
         return new Argument(str_);
     }
 }

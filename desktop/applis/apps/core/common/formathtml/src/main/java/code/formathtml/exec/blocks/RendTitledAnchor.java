@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -29,7 +31,7 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -41,8 +43,8 @@ public final class RendTitledAnchor extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String, ExecTextPart> e:opExpTitle.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_,_cont));
-            if (_cont.getContext().callsOrException()) {
+            objects_.add(RenderingText.render(r_,_cont, _stds, _ctx));
+            if (_ctx.callsOrException()) {
                 incrAncNb(_cont, (Element) _nextWrite);
                 return;
             }
@@ -50,7 +52,7 @@ public final class RendTitledAnchor extends RendElement {
         }
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
-        processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch);
+        processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch, _stds, _ctx);
     }
 
 }

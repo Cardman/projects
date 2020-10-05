@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
+import code.formathtml.util.BeanLgNames;
 
 public final class RendDefaultCondition extends RendSwitchPartCondition implements RendWithEl {
 
@@ -20,7 +22,7 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
         }
     }
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         rw_.setRead(getFirstChild());
@@ -28,7 +30,7 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
     }
 
     @Override
-    public void exitStack(Configuration _conf) {
+    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendSwitchBlockStack if_ = (RendSwitchBlockStack) ip_.getRendLastStack();

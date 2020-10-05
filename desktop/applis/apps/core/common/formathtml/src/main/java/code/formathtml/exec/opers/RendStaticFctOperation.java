@@ -1,6 +1,7 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -8,6 +9,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -26,17 +28,17 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null);
-        setSimpleArgument(argres_,_conf,_nodes);
+        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null, _advStandards, _context);
+        setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
-        return getArgument(_all,_conf);
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+        return getArgument(_all,_conf, _context);
     }
-    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf) {
+    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -48,6 +50,6 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
         classNameFound_ = staticFctContent.getClassName();
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_conf.getContext().getExiting(),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named, staticFctContent.getKind(), "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_,rootBlock, prev_, firstArgs_, null,named, staticFctContent.getKind(), "");
     }
 }

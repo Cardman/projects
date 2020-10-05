@@ -3,7 +3,7 @@ package code.gui.document;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
@@ -15,6 +15,7 @@ import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
+import code.formathtml.util.DualAnalyzedContext;
 import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
@@ -46,6 +47,8 @@ public final class RenderedPage implements ProcessingSession {
     private ProgressingWebDialog dialog;
 
     private ChangeableTitle frame;
+
+    private ContextEl context;
 
     private BeanLgNames standards;
 
@@ -96,28 +99,31 @@ public final class RenderedPage implements ProcessingSession {
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()));
-        if (navigation.isError()) {
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()));
+        ContextEl ctx_ = du_.getContext();
+        setContext(ctx_);
+        if (ctx_ == null) {
             setupText();
             return;
         }
         setFiles();
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_, _stds, rend_);
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(_stds, rend_, du_);
         if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }
-        navigation.initializeRendSession();
+        navigation.initializeRendSession(ctx_, du_.getStds());
         setupText();
     }
 
-    public void initializeOnlyConf(Object _dataBase, boolean _ok, BeanNatLgNames _stds,Navigation _navigation, String _lg) {
+    public void initializeOnlyConf(Object _dataBase, boolean _ok, BeanNatLgNames _stds, Navigation _navigation, String _lg, ContextEl _context) {
         if (processing.get()) {
             return;
         }
         navigation = _navigation;
+        setContext(_context);
         _stds.setDataBase(_dataBase);
         navigation.setLanguage(_lg);
-        standards = _navigation.getSession().getAdvStandards();
+        standards = _stds;
         threadAction = CustComponent.newThread(new ThreadActions(this,_ok));
         threadAction.start();
         animateProcess();
@@ -267,7 +273,7 @@ public final class RenderedPage implements ProcessingSession {
         area = _area;
     }
 
-    BeanLgNames getStandards() {
+    public BeanLgNames getStandards() {
         return standards;
     }
 
@@ -289,5 +295,13 @@ public final class RenderedPage implements ProcessingSession {
         }
         finding = new FindEvent(field, this);
         find.addMouseListener(finding);
+    }
+
+    public ContextEl getContext() {
+        return context;
+    }
+
+    public void setContext(ContextEl context) {
+        this.context = context;
     }
 }

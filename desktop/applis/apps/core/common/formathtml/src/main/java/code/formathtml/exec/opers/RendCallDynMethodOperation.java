@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -19,26 +20,25 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        ContextEl context_ = _conf.getContext();
-        if (StringList.quickEq(fctName, context_.getStandards().getContent().getReflect().getAliasMetaInfo())) {
-            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, context_);
-            setSimpleArgument(res_, _conf, _nodes);
+        if (StringList.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasMetaInfo())) {
+            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _context);
+            setSimpleArgument(res_, _conf, _nodes, _context);
             return;
         }
-        if (StringList.quickEq(fctName, context_.getStandards().getContent().getReflect().getAliasInstance())) {
-            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, context_);
-            setSimpleArgument(res_, _conf, _nodes);
+        if (StringList.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasInstance())) {
+            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _context);
+            setSimpleArgument(res_, _conf, _nodes, _context);
             return;
         }
-        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null);
-        setSimpleArgument(argres_,_conf,_nodes);
+        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null, _advStandards, _context);
+        setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<Argument> arguments_ = getArguments(_all,this);
-        return ExecInvokingOperation.prepareCallDyn(_previous, arguments_, _conf.getContext());
+        return ExecInvokingOperation.prepareCallDyn(_previous, arguments_, _context);
     }
 }

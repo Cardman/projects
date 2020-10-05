@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;
@@ -21,17 +23,17 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage lastPage_ = _cont.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Node write_ = rend_.getWrite();
         Document doc_ = write_.getOwnerDocument();
         Text t_ = doc_.createTextNode(EMPTY_STRING);
         ((MutableNode)write_).appendChild(t_);
-        t_.appendData(RenderingText.render(textPart,_cont));
-        if (_cont.getContext().callsOrException()) {
+        t_.appendData(RenderingText.render(textPart,_cont, _stds, _ctx));
+        if (_ctx.callsOrException()) {
             return;
         }
-        processBlock(_cont);
+        processBlock(_cont, _stds, _ctx);
     }
 }

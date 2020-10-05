@@ -1,9 +1,11 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -21,7 +23,7 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument first_ = getArgument(_nodes,chidren_.first());
         Argument second_ = getArgument(_nodes,chidren_.last());
@@ -35,6 +37,6 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
             b_ = !b_;
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));
-        setSimpleArgument(arg_, _conf,_nodes);
+        setSimpleArgument(arg_, _conf,_nodes, _context);
     }
 }

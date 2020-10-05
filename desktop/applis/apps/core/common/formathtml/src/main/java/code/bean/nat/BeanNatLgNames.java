@@ -39,6 +39,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.maths.montecarlo.DefaultGenerator;
@@ -111,17 +112,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public void initBeans(Configuration _conf,String _language,Struct _db) {
+    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(),_conf));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx));
             index_++;
         }
     }
 
-    private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
+    private Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContext(), id_, Argument.toArgArray(new CustList<Argument>()));
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
@@ -143,7 +144,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx) {
 
         StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
         StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
@@ -151,36 +152,34 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
+    protected ContextEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "validators")) {
                 setValidators(loadValidator(c));
             }
         }
-        return setupNative(_configuration);
+        return setupNative(_page);
     }
 
     @Override
-    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context) {
         ClassField fieldId_ = _rend.getClassField();
         Struct default_ = _previous.getStruct();
-        ContextEl _cont = _conf.getContext();
-        ResultErrorStd res_ = getOtherResult(_cont, fieldId_, default_);
+        ResultErrorStd res_ = getOtherResult(_context, fieldId_, default_);
         return new Argument(res_.getResult());
     }
 
     @Override
-    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context) {
         ClassField fieldId_ = _rend.getClassField();
-        ContextEl _cont = _conf.getContext();
         Object value_ = adaptedArg(_right.getStruct());
-        setOtherResult(_cont, fieldId_, _previous.getStruct(), value_);
+        setOtherResult(_context, fieldId_, _previous.getStruct(), value_);
         return _right;
     }
 
     @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf) {
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
@@ -196,7 +195,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             a.setStruct(NumParsers.convertToInt(cast_, NumParsers.convertToNumber(cast_,a.getStruct())));
             i_++;
         }
-        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), null, Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }
 
@@ -214,7 +213,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return validators_;
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx) {
         ImportingPage ip_ = new ImportingPage();
         ip_.setPrefix(_conf.getPrefix());
         _conf.addPage(ip_);
@@ -226,7 +225,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
         _conf.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf);
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx);
     }
 
     private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
@@ -237,7 +236,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
     @Override
-    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx) {
         Validator validator_ = validators.getVal(_validatorId);
         if (validator_ == null) {
             return null;
@@ -245,8 +244,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf);
-        if (_conf.getContext().callsOrException()) {
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx);
+        if (_ctx.callsOrException()) {
             return null;
         }
         Struct obj_ = resError_.getResult();
@@ -308,11 +307,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
 
     @Override
-    public String getStringKey(Configuration _conf, Struct _instance) {
-        ContextEl cont_ = _conf.getContext();
-        ResultErrorStd res_ = getName(cont_, _instance);
+    public String getStringKey(Struct _instance, ContextEl _ctx) {
+        ResultErrorStd res_ = getName(_ctx, _instance);
         Struct str_ = res_.getResult();
-        return processString(new Argument(str_),_conf);
+        return processString(new Argument(str_), _ctx);
     }
 
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
@@ -320,13 +318,13 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
 
 
     @Override
-    public Argument iteratorMultTable(Struct _arg, Configuration _cont) {
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
@@ -334,50 +332,50 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument hasNextPair(Struct _arg, Configuration _conf) {
+    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
         return new Argument(BooleanStruct.of(it_.hasNext()));
     }
 
     @Override
-    public Argument nextPair(Struct _arg, Configuration _conf) {
+    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleEntry resObj_ = (SimpleEntry) ((SimpleItr)instance_).next();
         return new Argument(newId(resObj_, TYPE_ENTRY));
     }
 
     @Override
-    public Argument first(Struct _arg, Configuration _conf) {
+    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleKey();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument second(Struct _arg, Configuration _conf) {
+    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleValue();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument iterator(Struct _arg, Configuration _cont) {
+    public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
-        String typeInst_ = _arg.getClassName(_cont.getContext());
+        String typeInst_ = _arg.getClassName(_ctx);
         String it_ = getIterables().getVal(typeInst_);
         return new Argument(newId(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
 
     @Override
-    public Argument next(Struct _arg, Configuration _cont) {
+    public Argument next(Struct _arg, Configuration _cont, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleItr)instance_).next();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument hasNext(Struct _arg, Configuration _cont) {
+    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
         return new Argument(BooleanStruct.of(it_.hasNext()));
@@ -385,22 +383,23 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page, RendAnalysisMessages _rend) {
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
-        _page.setForEachFetch(new NativeForEachFetch(this));
-        _nav.initInstancesPattern(_page, analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, this, _rend, analyzingDoc_);
+        AnalyzedPageEl page_ = _dual.getAnalyzed();
+        page_.setForEachFetch(new NativeForEachFetch(this));
+        _nav.initInstancesPattern(page_, analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
-        return _page.getMessages();
+        return page_.getMessages();
     }
     public abstract Struct wrapStd(Object _element);
 
     @Override
-    public String processString(Argument _arg, Configuration _cont) {
+    public String processString(Argument _arg, ContextEl _ctx) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
-            return ((DisplayableStruct)struct_).getDisplayedString(_cont.getContext()).getInstance();
+            return ((DisplayableStruct)struct_).getDisplayedString(_ctx).getInstance();
         }
         if (struct_ instanceof RealInstanceStruct) {
             Object inst_ = ((RealInstanceStruct) struct_).getInstance();
@@ -408,8 +407,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
                 return ((Displayable)inst_).display();
             }
         }
-        ContextEl context_ = _cont.getContext();
-        return struct_.getClassName(context_);
+        return struct_.getClassName(_ctx);
     }
 
     @Override
@@ -446,17 +444,15 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return null;
     }
 
-    private AnalyzedPageEl setupNative(Configuration _conf) {
+    private ContextEl setupNative(AnalyzedPageEl _page) {
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, di_, _options, this, tabWidth_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, page_);
-        _conf.setContext(contextEl_);
-        return page_;
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
+        return contextEl_;
     }
 
     @Override
@@ -467,12 +463,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         dataBase = _dataBase;
     }
 
-    public void rendRefresh(Navigation _navigation) {
+    public void rendRefresh(Navigation _navigation, ContextEl _context) {
         for (Bean b: beans.values()) {
             b.setLanguage(_navigation.getLanguage());
         }
         _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
-        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl());
+        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context);
     }
 
     public StringMap<Bean> getBeans() {

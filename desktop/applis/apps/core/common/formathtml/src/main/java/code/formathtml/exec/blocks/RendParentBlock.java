@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.util.BeanLgNames;
 
 public abstract class RendParentBlock extends RendBlock {
 
@@ -43,7 +45,7 @@ public abstract class RendParentBlock extends RendBlock {
         }
     }
 
-    public void exitStack(Configuration _conf) {
+    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         //overrides
     }
 

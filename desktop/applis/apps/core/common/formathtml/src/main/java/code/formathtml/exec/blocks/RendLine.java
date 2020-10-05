@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
 public final class RendLine extends RendLeaf implements RendWithEl, RendReducableOperations {
@@ -19,14 +21,14 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        RenderExpUtil.calculateReuse(opExp, _cont);
-        if (_cont.getContext().callsOrException()) {
+        RenderExpUtil.calculateReuse(opExp, _cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
-        processBlock(_cont);
+        processBlock(_cont, _stds, _ctx);
     }
 }

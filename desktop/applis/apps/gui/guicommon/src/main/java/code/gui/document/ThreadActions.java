@@ -1,13 +1,14 @@
 package code.gui.document;
 
 import code.bean.nat.BeanNatLgNames;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.HtmlPage;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 
 public final class ThreadActions extends AbstractThreadActions {
@@ -39,11 +40,13 @@ public final class ThreadActions extends AbstractThreadActions {
 
     @Override
     public void run() {
+        RenderedPage page_ = getPage();
         if (directFirst) {
-            if (!ok) {
+            ContextEl ctx_ = page_.getContext();
+            if (ctx_ == null) {
                 return;
             }
-            getPage().getNavigation().initializeRendSession();
+            page_.getNavigation().initializeRendSession(ctx_, page_.getStandards());
             afterAction();
             return;
         }
@@ -56,20 +59,22 @@ public final class ThreadActions extends AbstractThreadActions {
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = DefaultFileBuilder.newInstance(stds.getContent());
-        AnalyzedPageEl page_ = getPage().getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_);
-        if (!getPage().getNavigation().isError()) {
-            HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();
+        DualAnalyzedContext du_ = page_.getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_);
+        ContextEl ctx_ = du_.getContext();
+        page_.setContext(ctx_);
+        if (ctx_ != null) {
+            HtmlPage htmlPage_ = page_.getNavigation().getHtmlPage();
             htmlPage_.setUrl(-1);
-            getPage().setFiles();
-            ReportedMessages reportedMessages_ = getPage().getNavigation().setupRendClassesInit(page_, stds, rend_);
+            page_.setFiles();
+            ReportedMessages reportedMessages_ = page_.getNavigation().setupRendClassesInit(stds, rend_, du_);
             if (!reportedMessages_.isAllEmptyErrors()) {
-                if (getPage().getArea() != null) {
-                    getPage().getArea().append(reportedMessages_.displayErrors());
+                if (page_.getArea() != null) {
+                    page_.getArea().append(reportedMessages_.displayErrors());
                 }
                 finish();
                 return;
             }
-            getPage().getNavigation().initializeRendSession();
+            page_.getNavigation().initializeRendSession(ctx_, du_.getStds());
         }
         afterAction();
     }

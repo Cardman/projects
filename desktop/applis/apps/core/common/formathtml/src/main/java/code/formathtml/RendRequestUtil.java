@@ -9,6 +9,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.Numbers;
@@ -20,39 +21,38 @@ final class RendRequestUtil {
     }
 
 
-    static Struct redirect(Configuration _conf, Argument _bean, int _url) {
+    static Struct redirect(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context) {
         StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
         CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
         StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
-        return calculate(_conf, _bean, varNames_, exps_, args_);
+        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context);
     }
 
-    private static Struct calculate(Configuration _conf, Argument _bean, StringList varNames_, CustList<RendDynOperationNode> exps_, StringList args_) {
+    private static Struct calculate(Configuration _conf, Argument _bean, StringList varNames_, CustList<RendDynOperationNode> exps_, StringList args_, BeanLgNames _advStandards, ContextEl _context) {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
-        ContextEl context_ = _conf.getContext();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), _conf.getAdvStandards().getAliasPrimLong());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), _advStandards.getAliasPrimLong());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
-        Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);
+        Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean, _advStandards, _context);
         for (String n: varNames_) {
             ip_.removeLocalVar(n);
         }
-        if (context_.callsOrException()) {
+        if (_context.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
     }
 
-    static Struct redirectForm(Configuration _conf, Argument _bean, int _url) {
+    static Struct redirectForm(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context) {
         StringList varNames_ = _conf.getHtmlPage().getFormsVars().get(_url);
         CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsFormExps().get(_url);
         StringList args_ = _conf.getHtmlPage().getFormsArgs().get(_url);
-        return calculate(_conf, _bean, varNames_, exps_, args_);
+        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context);
     }
     static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
-                          Struct _attribute) {
+                              Struct _attribute, BeanLgNames _advStandards, ContextEl _context) {
         Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();
@@ -69,11 +69,10 @@ final class RendRequestUtil {
             ip_.putLocalVar(p, lv_);
             i_++;
         }
-        ContextEl context_ = _conf.getContext();
-        String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), context_.getStandards());
+        String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putLocalVar(attrName_, lv_);
-        RenderExpUtil.calculateReuse(wr_,_conf);
+        RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context);
         ip_.removeLocalVar(prev_);
         for (String p: _nodeContainer.getVarParamName()) {
             ip_.removeLocalVar(p);

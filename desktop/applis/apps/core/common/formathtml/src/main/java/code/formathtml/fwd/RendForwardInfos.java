@@ -32,7 +32,7 @@ import code.util.StringMap;
 public final class RendForwardInfos {
     private RendForwardInfos() {
     }
-    public static RendDocumentBlock build(AnaRendDocumentBlock _ana, Configuration _cont, Forwards _forwards) {
+    private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset().getOffsetTrim(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendParentBlock curPar_ = rendDoc_;
         AnaRendBlock en_ = _ana;
@@ -40,7 +40,7 @@ public final class RendForwardInfos {
             RendBlock loc_ = newRendBlock(en_, _forwards);
             if (loc_ != null) {
                 if (loc_ instanceof RendStdElement) {
-                    if (StringList.quickEq(((RendStdElement) loc_).getRead().getTagName(), _cont.getRendKeyWords().getKeyWordBody())) {
+                    if (StringList.quickEq(((RendStdElement) loc_).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                         rendDoc_.getBodies().add(loc_);
                     }
                 }
@@ -960,14 +960,14 @@ public final class RendForwardInfos {
     }
 
     public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> d_, Forwards _forwards, Configuration _conf) {
-        buildExec(d_, _forwards, _conf);
+        buildExec(d_, _forwards, _conf, _analyzingDoc);
         initBeansInstances(_analyzingDoc, _forwards);
         initValidatorsInstance(_analyzingDoc, _forwards);
     }
 
-    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
+    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
-            RendDocumentBlock rendDoc_ = build(v.getValue(), _conf, _forwards);
+            RendDocumentBlock rendDoc_ = build(v.getValue(), _forwards, _anaDoc);
             _conf.getRenders().put(v.getKey(), rendDoc_);
         }
         String currentUrl2_ = _conf.getFirstUrl();

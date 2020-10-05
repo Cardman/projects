@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -11,6 +12,7 @@ import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -44,17 +46,17 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont);
-        if (_cont.getContext().callsOrException()) {
+        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont, _stds, _ctx);
+        if (_ctx.callsOrException()) {
             return;
         }
         if (!instanceTest.isEmpty()) {
@@ -87,7 +89,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                         RendCaseCondition c_ = (RendCaseCondition) b;
                         if (!c_.getImportedClassName().isEmpty()) {
                             RendCaseCondition b_ = (RendCaseCondition) b;
-                            found_ = fetch(_cont,if_,arg_,found_,b_);
+                            found_ = fetch(_cont,if_,arg_,found_,b_, _ctx);
                         }
                     }
                 }
@@ -96,7 +98,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 for (RendParentBlock b: children_) {
                     if (b instanceof RendDefaultCondition) {
                         RendDefaultCondition b_ = (RendDefaultCondition) b;
-                        found_ = fetch(_cont,if_,arg_,found_,b_);
+                        found_ = fetch(_cont,if_,arg_,found_,b_, _ctx);
                     }
                 }
             }
@@ -177,13 +179,13 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         ip_.addBlock(if_);
     }
     private static RendParentBlock fetch(Configuration _cont, RendSwitchBlockStack if_, Argument arg_,
-                                         RendParentBlock _found, RendSwitchPartCondition _s) {
+                                         RendParentBlock _found, RendSwitchPartCondition _s, ContextEl _ctx) {
         if (_found != null) {
             return _found;
         }
         String type_ = _s.getImportedClassName();
         ImportingPage ip_ = _cont.getLastPage();
-        if (ExecTemplates.safeObject(type_, arg_, _cont.getContext()) == ErrorType.NOTHING) {
+        if (ExecTemplates.safeObject(type_, arg_, _ctx) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(arg_.getStruct(),type_));
             if_.setLastVisitedBlock(_s);

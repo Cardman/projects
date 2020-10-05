@@ -120,7 +120,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
-        context_.getAnalyzingDoc().setup(context_.getConfiguration());
+        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards());
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
     }
 
@@ -2301,14 +2301,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
         _an.getContext().setExiting(new NoExiting());
-        RenderExpUtil.calculateReuse(out_, _an.getConfiguration());
+        RenderExpUtil.calculateReuse(out_, _an.getConfiguration(), _an.getAdvStandards(), _an.getContext());
         assertNotNull(getException(_an));
     }
 
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files, String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration()));
+        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration(), a_.getContext()));
         Classes.validateWithoutInit(_files, a_.getAnalyzing());
         assertTrue(isEmptyErrors(a_));
         ForwardInfos.generalForward( a_.getAnalyzing(), a_.getForwards(), a_.getContext());
@@ -2331,7 +2331,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         }
         out_ = CommonRender.getReducedNodes(out_.last());
         _conf.getContext().setExiting(new NoExiting());
-        RenderExpUtil.calculateReuse(out_, _conf.getConfiguration());
+        RenderExpUtil.calculateReuse(out_, _conf.getConfiguration(), _conf.getAdvStandards(), _conf.getContext());
     }
 
 }

@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -14,7 +16,7 @@ public final class RendStdInput extends RendInput {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        processIndexes(_cont,_read, (Element) _nextWrite);
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+        processIndexes(_cont,_read, (Element) _nextWrite, _stds, _ctx);
     }
 }

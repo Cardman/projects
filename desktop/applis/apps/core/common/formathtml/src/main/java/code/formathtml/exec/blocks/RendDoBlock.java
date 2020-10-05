@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanLgNames;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
@@ -24,7 +26,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
@@ -35,7 +37,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
                     nextSibling_ = nextSibling_.getNextSibling();
                 }
                 RendBlock next_ = nextSibling_;
-                next_.processBlockAndRemove(_cont);
+                next_.processBlockAndRemove(_cont, _stds, _ctx);
                 return;
             }
             rw_.setRead(getFirstChild());
@@ -49,12 +51,12 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void exitStack(Configuration _context) {
-        processLastElementLoop(_context);
+    public void exitStack(Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
+        processLastElementLoop(_context, _advStandards, _ctx);
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock nextSibling_ = getNextSibling();

@@ -24,10 +24,10 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
-        return _stds.load(_configuration,_lgCode,_document, _rend, _fileBuilder);
+    public static ContextEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
+        return _stds.load(_configuration,_lgCode,_document, _rend, _fileBuilder, _page);
     }
-    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, Initializer _init) {
+    public static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, Initializer _init, AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options opt_ = new Options();
@@ -53,38 +53,33 @@ public final class ReadConfiguration {
             }
         }
         ContextEl context_ = ContextFactory.simpleBuild(stack_, _init, opt_, _stds, tab_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, page_);
-        _conf.setContext(context_);
-        AnalysisMessages.validateMessageContents(_rend.allMessages(), page_);
-        if (!page_.isEmptyMessageError()) {
-            _conf.setContext(null);
-            return page_;
+        ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, _page);
+        AnalysisMessages.validateMessageContents(_rend.allMessages(), _page);
+        if (!_page.isEmptyMessageError()) {
+            return null;
         }
         StringMap<String> allTags_ = rkw_.allTags();
-        rkw_.validateTagContents(allTags_, page_);
-        rkw_.validateDuplicates(allTags_, page_);
+        rkw_.validateTagContents(allTags_, _page);
+        rkw_.validateDuplicates(allTags_, _page);
         StringMap<String> allAttrs_ = rkw_.allAttrs();
-        rkw_.validateAttrContents(allAttrs_, page_);
-        rkw_.validateDuplicates(allAttrs_, page_);
+        rkw_.validateAttrContents(allAttrs_, _page);
+        rkw_.validateDuplicates(allAttrs_, _page);
         StringMap<String> allValues_ = rkw_.allValues();
-        rkw_.validateValueContents(allValues_, page_);
-        rkw_.validateDuplicates(allValues_, page_);
+        rkw_.validateValueContents(allValues_, _page);
+        rkw_.validateDuplicates(allValues_, _page);
         StringMap<String> allStyleAttrs_ = rkw_.allStyleAttrs();
-        rkw_.validateAttrContents(allStyleAttrs_, page_);
-        rkw_.validateDuplicates(allStyleAttrs_, page_);
+        rkw_.validateAttrContents(allStyleAttrs_, _page);
+        rkw_.validateDuplicates(allStyleAttrs_, _page);
         StringMap<String> allSyleValues_ = rkw_.allStyleValues();
-        rkw_.validateStyleValueContents(allSyleValues_, page_);
-        rkw_.validateDuplicates(allSyleValues_, page_);
+        rkw_.validateStyleValueContents(allSyleValues_, _page);
+        rkw_.validateDuplicates(allSyleValues_, _page);
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
-        rkw_.validateStyleUnitContents(allStyleUnits_, page_);
-        rkw_.validateDuplicates(allStyleUnits_, page_);
-        if (!page_.isEmptyStdError()) {
-            _conf.setContext(null);
-            return page_;
+        rkw_.validateStyleUnitContents(allStyleUnits_, _page);
+        rkw_.validateDuplicates(allStyleUnits_, _page);
+        if (!_page.isEmptyStdError()) {
+            return null;
         }
-        _conf.setContext(context_);
-        return page_;
+        return context_;
     }
     private static Options loadOptions(Element _elt) {
         Options options_ = new Options();

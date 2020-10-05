@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -25,8 +27,8 @@ public final class RendAnchor extends RendElement {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch);
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+        processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch, _stds, _ctx);
     }
 
 }

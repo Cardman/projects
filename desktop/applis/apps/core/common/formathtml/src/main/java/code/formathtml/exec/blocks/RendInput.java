@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
@@ -39,7 +41,7 @@ public abstract class RendInput extends RendElement {
         this.className = className;
     }
 
-    protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
+    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx) {
         FieldUpdates f_ = new FieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
@@ -50,8 +52,8 @@ public abstract class RendInput extends RendElement {
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setClassName(className);
-        Argument arg_ = fetchName(_cont, _read, _write, f_);
-        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField);
+        Argument arg_ = fetchName(_cont, _read, _write, f_, _advStandards, _ctx);
+        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _advStandards, _ctx);
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));

@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
+import code.formathtml.util.BeanLgNames;
 
 public final class RendTryEval extends RendParentBlock implements RendBreakableBlock,RendEval {
 
@@ -20,7 +22,7 @@ public final class RendTryEval extends RendParentBlock implements RendBreakableB
     }
 
     @Override
-    public void processEl(Configuration _cont) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendBlock n_ = getNextSibling();
         RendTryBlockStack tryStack_ = new RendTryBlockStack();
@@ -37,7 +39,7 @@ public final class RendTryEval extends RendParentBlock implements RendBreakableB
     }
 
     @Override
-    public void exitStack(Configuration _context) {
+    public void exitStack(Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
         ImportingPage ip_ = _context.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         rw_.setRead(getNextSibling());

@@ -1,9 +1,11 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.*;
+import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 
 public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendCallingFinally {
@@ -16,12 +18,12 @@ public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendCal
 
 
     @Override
-    public void processEl(Configuration _cont) {
-        removeBlockFinally(_cont);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
+        removeBlockFinally(_cont, _stds, _ctx);
     }
 
     @Override
-    public void removeBlockFinally(Configuration _conf) {
+    public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendRemovableVars stack_;
