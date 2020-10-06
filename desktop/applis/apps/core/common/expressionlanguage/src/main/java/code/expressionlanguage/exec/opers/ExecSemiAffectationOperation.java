@@ -56,7 +56,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 if (pairBefore_ instanceof TwoStepsArgumentsPair) {
                     ((TwoStepsArgumentsPair)pairBefore_).setCalledIndexer(true);
                 }
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }

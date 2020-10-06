@@ -22,7 +22,7 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        String formatted_ = ip_.formatVarType(importedClassName, _cont);
+        String formatted_ = _cont.formatVarType(importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
         for (String v: variableNames) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);

@@ -36,6 +36,6 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation impl
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        return ExecExplicitOperation.prepare(_context.getExiting(),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getPageEl(),_context);
+        return RendExplicitOperation.prepare(_context.getExiting(),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_context);
     }
 }

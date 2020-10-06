@@ -106,7 +106,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context);
+        res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context);
         if (_context.callsOrException()) {
             return _stored;
         }

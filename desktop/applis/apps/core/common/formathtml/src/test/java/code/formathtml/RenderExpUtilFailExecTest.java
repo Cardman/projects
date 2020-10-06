@@ -3,12 +3,10 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
@@ -17,7 +15,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringMap;
@@ -2286,7 +2283,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void processEl(String _el, AnalyzedTestConfiguration _cont) {
         if (_cont.hasPages() && _cont.getAnalyzing() != null) {
-            _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
+            _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
         }
         processEl(_el, 0, _cont);
         assertTrue(_cont.isEmptyErrors());

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.structs.Struct;
@@ -15,6 +16,10 @@ import code.util.StringMap;
 public abstract class AbstractPageEl extends PageEl {
 
     protected static final String EMPTY_STRING = "";
+
+    private String globalClass = "";
+
+    private ExecRootBlock blockRootType;
 
     private ReadWrite readWrite;
     private ExecBlock blockRoot;
@@ -39,6 +44,12 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void receive(Argument _argument, ContextEl _context) {
         basicReceive(_argument,_context);
+    }
+    public String formatVarType(String _varType) {
+        if (getGlobalArgument().isNull()) {
+            return _varType;
+        }
+        return ExecTemplates.quickFormat(blockRootType, globalClass, _varType);
     }
 
     void basicReceive(Argument _argument, ContextEl _context) {
@@ -263,4 +274,20 @@ public abstract class AbstractPageEl extends PageEl {
     public void setLastTry(TryBlockStack lastTry) {
         this.lastTry = lastTry;
     }
+
+    public String getGlobalClass() {
+        return globalClass;
+    }
+
+    public void setGlobalClass(String _globalClass) {
+        globalClass = _globalClass;
+    }
+    public ExecRootBlock getBlockRootType() {
+        return blockRootType;
+    }
+
+    public void setBlockRootType(ExecRootBlock _blockRootType) {
+        blockRootType = _blockRootType;
+    }
+
 }

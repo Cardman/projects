@@ -22,14 +22,14 @@ public final class ExecNullSafeOperation extends ExecMethodOperation implements 
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (abs_ != NullStruct.NULL_VALUE) {
-            f_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), abs_,_conf, getResultClass().getNames()));
+            f_ = new Argument(ExecClassArgumentMatching.convertFormatted(abs_,_conf, getResultClass().getNames()));
             setQuickConvertSimpleArgument(f_, _conf, _nodes);
             return;
         }
         ExecOperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = getArgument(_nodes,last_);
-        a_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), a_.getStruct(),_conf, getResultClass().getNames()));
+        a_ = new Argument(ExecClassArgumentMatching.convertFormatted(a_.getStruct(),_conf, getResultClass().getNames()));
         setSimpleArgument(a_, _conf, _nodes);
 
     }

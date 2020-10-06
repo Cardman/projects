@@ -3,11 +3,10 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -42,28 +41,25 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf, _nodes);
     }
     public static Argument prepare(AbstractExiting _exit, ExecRootBlock _rootBlock, boolean _direct, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,
-                                   String _classNameOwner, PageEl _page, ContextEl _conf) {
-        if (_direct) {
+                                   String _classNameOwner, AbstractPageEl _page, ContextEl _conf) {
+        if (direct(_direct, _castOpId, _className)) {
             return getArgument(_arguments, _className, _page, _conf);
         }
-        if (!StringExpUtil.customCast(_className)) {
-            return getArgument(_arguments,_className, _page,_conf);
-        }
-        return checkCustomCast(_exit, _rootBlock,_castOpId, _arguments, _className,_classNameOwner, _page, _conf);
-    }
-
-
-    private static Argument checkCustomCast(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments,
-                                            String _className, String _classNameOwner, PageEl _page, ContextEl _conf) {
-        if (_castOpId == null) {
-            return getArgument(_arguments,_className, _page,_conf);
-        }
-        checkCustomOper(_exit,_rootBlock, _castOpId, _arguments, _classNameOwner, _page, _conf,null);
+        checkCustomOper(_exit, _rootBlock, _castOpId, _arguments, _classNameOwner, _page, _conf,null);
         return Argument.createVoid();
     }
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _classNameOwner, PageEl _page, ContextEl _conf, Argument _fwd) {
-        String paramNameOwner_ = _page.formatVarType(_classNameOwner, _conf);
+    public static boolean direct(boolean _direct, ExecNamedFunctionBlock _castOpId, String _className) {
+        return _direct || !StringExpUtil.customCast(_className) || _castOpId == null;
+    }
+
+
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _classNameOwner, AbstractPageEl _page, ContextEl _conf, Argument _fwd) {
+        String paramNameOwner_ = _conf.formatVarType(_classNameOwner);
+        return checkCustomOper(_exit, _rootBlock, _castOpId, _arguments, paramNameOwner_, _conf, _fwd);
+    }
+
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String paramNameOwner_, ContextEl _conf, Argument _fwd) {
         if (_exit.hasToExit(paramNameOwner_,_fwd)) {
             return true;
         }
@@ -75,9 +71,13 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         return false;
     }
 
-    static Argument getArgument(CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf) {
+    public static Argument getArgument(CustList<Argument> _arguments, String _className, AbstractPageEl _page, ContextEl _conf) {
+        String paramName_ = _conf.formatVarType(_className);
+        return getArgument(_arguments, paramName_, _conf);
+    }
+
+    public static Argument getArgument(CustList<Argument> _arguments, String paramName_, ContextEl _conf) {
         Argument objArg_ = new Argument(_arguments.first().getStruct());
-        String paramName_ = _page.formatVarType(_className, _conf);
         ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }

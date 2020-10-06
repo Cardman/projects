@@ -230,7 +230,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
-        String className_ = ip_.formatVarType(importedClassName, _cont);
+        String className_ = _cont.formatVarType(importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);

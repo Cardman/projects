@@ -128,16 +128,11 @@ public final class ImportingPage {
         rendReadWrite = _rendReadWrite;
     }
 
-    public String getGlobalClass() {
-        return pageEl.getGlobalClass();
-    }
-
     public Argument getGlobalArgument() {
         return pageEl.getGlobalArgument();
     }
 
-    public void setGlobalArgumentStruct(Struct _obj, ContextEl _context) {
-        pageEl.setGlobalClass(_obj.getClassName(_context));
+    public void setGlobalArgumentStruct(Struct _obj) {
         pageEl.setGlobalArgumentStruct(_obj);
     }
 

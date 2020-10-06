@@ -24,14 +24,14 @@ public final class RendNullSafeOperation extends RendMethodOperation implements 
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (abs_ != NullStruct.NULL_VALUE) {
-            f_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), abs_, _context, getResultClass().getNames()));
+            f_ = new Argument(ExecClassArgumentMatching.convert(abs_, _context, getResultClass().getNames()));
             setQuickConvertSimpleArgument(f_, _nodes, _context);
             return;
         }
         RendDynOperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = getArgument(_nodes,last_);
-        a_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), a_.getStruct(), _context, getResultClass().getNames()));
+        a_ = new Argument(ExecClassArgumentMatching.convert(a_.getStruct(), _context, getResultClass().getNames()));
         setSimpleArgument(a_, _conf, _nodes, _context);
     }
 }

@@ -50,18 +50,17 @@ public final class DefaultLockingClass {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
-    public Struct processErrorClass(ContextEl _context, Struct _cause) {
-        AbstractPageEl pageEl_ = _context.getLastPage();
-        if (!(pageEl_ instanceof StaticInitPageEl)) {
-            if (pageEl_ instanceof AbstractReflectPageEl) {
-                AbstractReflectPageEl p_ = (AbstractReflectPageEl) pageEl_;
+    public Struct processErrorClass(ContextEl _context, Struct _cause, AbstractPageEl _lastPage) {
+        if (!(_lastPage instanceof StaticInitPageEl)) {
+            if (_lastPage instanceof AbstractReflectPageEl) {
+                AbstractReflectPageEl p_ = (AbstractReflectPageEl) _lastPage;
                 if (p_.isWrapException()) {
                     return new InvokeTargetErrorStruct(_cause,_context);
                 }
             }
             return _cause;
         }
-        String curClass_ = pageEl_.getGlobalClass();
+        String curClass_ = _lastPage.getGlobalClass();
         errorClass(_context, curClass_);
         return new CausingErrorStruct(_cause,_context);
     }

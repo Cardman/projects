@@ -51,7 +51,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 ArgumentsPair pair_ = getArgumentPair(_nodes,this);
                 pair_.setIndexImplicitCompound(-1);
                 pair_.setEndCalculate(true);
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }

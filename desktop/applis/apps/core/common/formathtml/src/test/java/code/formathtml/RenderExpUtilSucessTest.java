@@ -20,7 +20,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
@@ -3238,7 +3237,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration context_, Struct str_) {
-        context_.getLastPage().setGlobalArgumentStruct(str_, context_.getContext());
+        context_.getLastPage().setGlobalArgumentStruct(str_);
     }
 
     @Test
@@ -5664,13 +5663,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument calc(String s, AnalyzedTestConfiguration context_) {
         if (context_.hasPages() && context_.getAnalyzing() != null) {
-            context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalClass());
+            context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
         }
         CustList<RendDynOperationNode> out_ = getAnalyzed(s, 0, context_, context_.getAnalyzingDoc());
         AnalyzedPageEl page_ = context_.getAnalyzing();
         assertTrue(context_.isEmptyErrors());
         Classes.forwardAndClear(context_.getContext(), page_, context_.getForwards());
-        Configuration _cont = context_.getConfiguration();
         for (ClassMetaInfo c: context_.getContext().getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_.getContext(), name_), c);

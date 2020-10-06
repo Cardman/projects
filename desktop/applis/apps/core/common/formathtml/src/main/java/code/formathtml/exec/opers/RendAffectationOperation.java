@@ -70,7 +70,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_context, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE,_context, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _nodes, _context);
                 return;
             }

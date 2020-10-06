@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
@@ -21,7 +20,17 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
 
     static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {
         ResultErrorStd res_= new ResultErrorStd();
-        calculateOperator(_conf.getLastPage(),_conf, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cls, _cast);
+        String op_ = _op.substring(0, _op.length() - 1);
+        if (StringList.quickEq(op_, "??")) {
+            Struct first_ = _left.getStruct();
+            if (first_ != NullStruct.NULL_VALUE) {
+                res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls));
+            } else {
+                res_.setResult(ExecClassArgumentMatching.convertFormatted(_right.getStruct(),_conf, _cls));
+            }
+            return new Argument(res_.getResult());
+        }
+        calculateOperator(_conf, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast);
         return new Argument(res_.getResult());
     }
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
@@ -43,9 +52,9 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return new Argument(res_);
     }
 
-    public static void calculateOperator(PageEl _page, ContextEl _cont, ResultErrorStd _res,
+    public static void calculateOperator(ContextEl _cont, ResultErrorStd _res,
                                          String _op, boolean _catString,
-                                         Struct _first, Struct _second, StringList _cls, byte _cast) {
+                                         Struct _first, Struct _second, byte _cast) {
         if (_catString) {
             catenize(_cont, _res, _first, _second);
             return;
@@ -105,14 +114,6 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         }
         if (StringList.quickEq(op_, ">>>>")) {
             _res.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
-        }
-        if (StringList.quickEq(op_, "??")) {
-            if (_first != NullStruct.NULL_VALUE) {
-                _res.setResult(ExecClassArgumentMatching.convert(_page, _first,_cont, _cls));
-                return;
-            }
-            _res.setResult(ExecClassArgumentMatching.convert(_page, _second,_cont, _cls));
             return;
         }
         if (StringList.quickEq(op_, "&&")) {

@@ -34,7 +34,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (!StringExpUtil.customCast(res_)) {
             return false;
         }
-        String paramNameOwner_ = _cont.getLastPage().formatVarType(res_, _cont);
+        String paramNameOwner_ = _cont.formatVarType(res_);
         return _cont.getExiting().hasToExit(paramNameOwner_);
     }
 
@@ -57,11 +57,11 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setCallingState(new ErrorStruct(_context,_className,null_));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.prepare(_context.getExiting(),getMethodToCallType(),direct,getMethodToCallBody(),_args,res_,res_,_context.getLastPage(),_context);
+        return ExecExplicitOperation.prepare(_context.getExiting(),getMethodToCallType(),direct,getMethodToCallBody(),_args,res_,res_,this,_context);
     }
 
     @Override
-    public String formatVarType(String _varType, ContextEl _cont) {
+    public String formatVarType(String _varType) {
         return _varType;
     }
 }

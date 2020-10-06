@@ -28,6 +28,6 @@ public final class RendDefaultOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl() + offset, _conf);
-        return new Argument(ExecClassArgumentMatching.convertWide(_conf.getPageEl(), _arguments.first().getStruct(), _context, getResultClass().getNames()));
+        return new Argument(ExecClassArgumentMatching.convertWide(_arguments.first().getStruct(), _context, getResultClass().getNames()));
     }
 }

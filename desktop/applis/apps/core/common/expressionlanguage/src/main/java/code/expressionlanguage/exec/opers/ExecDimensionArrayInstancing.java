@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -32,13 +31,11 @@ public final class ExecDimensionArrayInstancing extends
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
-        PageEl page_ = _conf.getLastPage();
-        className_ = page_.formatVarType(className_, _conf);
+        className_ = _conf.formatVarType(className_);
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
-        int[] args_;
+        int[] args_ = new int[filter_.size()];
 
-        args_ = new int[filter_.size()];
         int i_ = CustList.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (ExecOperationNode o: filter_) {

@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
@@ -13,14 +12,11 @@ import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperation {
-    private ExecLambdaAnoContent lambdaAnoContent;
-    private ExecNamedFunctionBlock functionBlock;
-    private ExecNamedFunctionBlock function;
-    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
+    private final ExecLambdaAnoContent lambdaAnoContent;
+    private final ExecAnonymousFunctionBlock functionBlock;
+    private final ExecAnonymousFunctionBlock function;
+    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecAnonymousFunctionBlock _r, ExecLambdaAnoContent _lambdaAnoContent) {
         super(_opCont, _lamCont);
-    }
-
-    public void setExecAnonymousLambdaOperation(ExecAnonymousFunctionBlock _r, ExecLambdaAnoContent _lambdaAnoContent) {
         lambdaAnoContent = _lambdaAnoContent;
         function = _r;
         functionBlock = _r;
@@ -38,7 +34,7 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType) {
-        return ExecMethodLambdaOperation.newLambda(_previous, _conf, foundClass, method, returnFieldType, 0, false, false, false, false, isShiftArgument(), isSafeInstance(),
+        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, foundClass, method, returnFieldType, 0, false, false, false, false, isShiftArgument(), isSafeInstance(),
                 getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(),functionBlock,function, lambdaAnoContent.getDeclaring());
     }
 }

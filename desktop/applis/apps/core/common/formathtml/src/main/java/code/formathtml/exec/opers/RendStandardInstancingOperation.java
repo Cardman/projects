@@ -55,7 +55,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         CustList<Argument> first_ = args_.getArguments();
         CustList<RendDynOperationNode> filter_ = args_.getFilter();
         CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), lastType_, first_);
-        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_context, className_,rootBlock,ctor, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return ExecInvokingOperation.instancePrepareFormat(_context, className_,rootBlock,ctor, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
 }

@@ -30,7 +30,7 @@ public final class AdvancedFullStack implements AbstractFullStack {
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         ArrayStruct array_ = new ArrayStruct(count_+ lenArrCtx_, cl_);
         for (int i = 0; i < count_; i++) {
-            array_.set(i, newStackTraceElement(_configuration.getImporting().get(i)));
+            array_.set(i, newStackTraceElement(_configuration.getImporting().get(i), _context));
         }
         for (int i = 0; i < lenArrCtx_; i++) {
             array_.set(i+count_, ExecutingUtil.newStackTraceElement(_context,i));
@@ -38,12 +38,12 @@ public final class AdvancedFullStack implements AbstractFullStack {
         return array_;
     }
 
-    private static StackTraceElementStruct newStackTraceElement(ImportingPage _page) {
+    private static StackTraceElementStruct newStackTraceElement(ImportingPage _page, ContextEl _context) {
         int indexFileType_ = _page.getSum();
         int row_ = _page.getRowFile(indexFileType_);
         int col_ = _page.getColFile(indexFileType_,row_);
         String fileName_ = _page.getReadUrl();
-        String currentClassName_ = _page.getGlobalClass();
+        String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
     }
 

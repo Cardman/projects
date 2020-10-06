@@ -6,7 +6,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
@@ -37,15 +36,15 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField) {
-        return newLambda(_previous, _conf, foundClass, returnFieldType, fieldId, ancestor, affField, staticField, finalField, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock());
+        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String ownerType_ = foundClass;
+        ownerType_ = _conf.formatVarType(ownerType_);
+        clArg_ = _conf.formatVarType(clArg_);
+        String formatType_ = _conf.formatVarType(returnFieldType);
+        return newLambda(_previous, ownerType_, returnFieldType, fieldId, ancestor, affField, staticField, finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecRootBlock rootBlock,ExecAnnotableBlock infoBlock) {
-        String clArg_ = name;
-        String ownerType_ = foundClass;
-        ownerType_ = lastPage.formatVarType(ownerType_, _conf);
-        clArg_ = lastPage.formatVarType(clArg_, _conf);
-        String formatType_ = lastPage.formatVarType(returnFieldType, _conf);
+    public static Struct newLambda(Argument _previous, String ownerType_, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField, boolean shiftArgument, boolean safeInstance, String clArg_, String fileName, ExecRootBlock rootBlock, ExecAnnotableBlock infoBlock, String formatType_) {
         LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_,ownerType_, fieldId, shiftArgument, ancestor, affField, formatType_);
         l_.setInstanceCall(_previous);
         l_.setStaticField(staticField);

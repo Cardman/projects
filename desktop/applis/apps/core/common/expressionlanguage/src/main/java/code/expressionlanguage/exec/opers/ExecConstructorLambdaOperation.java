@@ -7,7 +7,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -38,14 +37,14 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType) {
-        return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
+        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String ownerType_ = foundClass;
+        ownerType_ = _conf.formatVarType(ownerType_);
+        clArg_ = _conf.formatVarType(clArg_);
+        return newLambda(_previous, _conf, ownerType_, realId, returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecNamedFunctionBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
-        String clArg_ = name;
-        String ownerType_ = foundClass;
-        ownerType_ = lastPage.formatVarType(ownerType_, _conf);
-        clArg_ = lastPage.formatVarType(clArg_, _conf);
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String ownerType_, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String clArg_, String fileName, ExecNamedFunctionBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
         LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, shiftArgument);
         l_.setInstanceCall(_previous);
         l_.setSafeInstance(safeInstance);

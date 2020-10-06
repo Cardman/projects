@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
@@ -36,8 +35,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        PageEl page_ = _conf.getLastPage();
-        String lastType_ = page_.formatVarType(getLastType(), _conf);
+        String lastType_ = _conf.formatVarType(getLastType());
         return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }
 

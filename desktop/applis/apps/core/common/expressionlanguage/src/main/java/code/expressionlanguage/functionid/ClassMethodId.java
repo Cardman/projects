@@ -17,7 +17,7 @@ public final class ClassMethodId {
 
     public static String formatType(String _type, ContextEl _conf, MethodAccessKind _kind) {
         if (_kind == MethodAccessKind.STATIC_CALL) {
-            return _conf.getLastPage().formatVarType(_type,_conf);
+            return _conf.formatVarType(_type);
         }
         return _type;
     }

@@ -29,7 +29,7 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
+        String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();

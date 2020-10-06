@@ -43,10 +43,10 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
-        return prepareStaticCall(getMethodToCallType(),getMethodToCallBody(),method_.getCache(),_args,res_,_context.getLastPage(),_context);
+        return prepareStaticCall(getMethodToCallType(),getMethodToCallBody(),method_.getCache(),_args,res_, _context);
     }
-    private static Argument prepareStaticCall(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,
-                                              PageEl _page, ContextEl _conf) {
+    private static Argument prepareStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,
+                                              ContextEl _conf) {
         if (!StringExpUtil.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
             String null_;
@@ -54,12 +54,12 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _conf.setCallingState(new ErrorStruct(_conf,_className,null_));
             return Argument.createVoid();
         }
-        return checkStaticCall(_rootBlock,_castOpId,_cache, _arguments, _className, _page, _conf);
+        return checkStaticCall(_rootBlock,_castOpId,_cache, _arguments, _className, _conf);
     }
 
     private static Argument checkStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments,
-                                            String _className, PageEl _page, ContextEl _conf) {
-        String paramName_ = _page.formatVarType(_className, _conf);
+                                            String _className, ContextEl _conf) {
+        String paramName_ = _conf.formatVarType(_className);
         Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _castOpId, true, paramName_,_cache, _arguments, _conf, null);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
@@ -69,7 +69,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
     }
     @Override
-    public String formatVarType(String _varType, ContextEl _cont) {
+    public String formatVarType(String _varType) {
         return _varType;
     }
 }

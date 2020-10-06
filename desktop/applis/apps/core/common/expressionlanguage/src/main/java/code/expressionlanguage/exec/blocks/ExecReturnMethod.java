@@ -63,7 +63,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
                 return;
             }
             ip_.clearCurrentEls();
-            String type_ = ip_.formatVarType(returnMethod,_cont);
+            String type_ = _cont.formatVarType(returnMethod);
             if (!ExecTemplates.checkQuick(type_,arg_,_cont)) {
                 return;
             }

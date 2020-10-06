@@ -6057,7 +6057,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static void addImportingPage(ContextEl _conf) {
-        ExecutingUtil.addPage(_conf,new MethodPageEl(_conf,"",Argument.createVoid(),"",Argument.createVoid()));
+        ExecutingUtil.addPage(_conf,new MethodPageEl(Argument.createVoid(),""));
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {

@@ -118,10 +118,8 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(idCl_,_method);
-        String ret_ = _method.getImportedReturnType();
-        MethodPageEl pageLoc_ = new MethodPageEl(_context,ret_,_gl,_class,_args.getRight());
-        pageLoc_.setBlockRootType(_rootBlock);
-        setMethodInfos(pageLoc_,_method, _args);
+        MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
+        setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
         return pageLoc_;
     }
 
@@ -136,13 +134,14 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(idCl_,_method);
-        String ret_ = _method.getImportedReturnType();
-        CastPageEl pageLoc_ = new CastPageEl(_context,ret_,Argument.createVoid(),_class);
-        pageLoc_.setBlockRootType(_rootBlock);
-        setMethodInfos(pageLoc_,_method, _args);
+        CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
+        setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
         return pageLoc_;
     }
-    private static void setMethodInfos(AbstractMethodPageEl _page, ExecNamedFunctionBlock _block, Parameters _args) {
+    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _block, Parameters _args) {
+        _page.setBlockRootType(_rootBlock);
+        String ret_ = _block.getImportedReturnType();
+        _page.initReturnType(_context,ret_,_args.getRight());
         _page.getValueVars().putAllMap(_args.getParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
@@ -165,7 +164,6 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         CallConstructorPageEl page_;
         Argument global_ = _e.getCurrentObject();
-        ExecNamedFunctionBlock ctor_ = _e.getId();
         page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
@@ -175,8 +173,7 @@ public final class ExecutingUtil {
         int ordinal_ = _e.getChildIndex();
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
-        page_.setBlockRootTypes(type_);
-        setInstanciationInfos(_context,page_,cl_,type_, args_, ctor_);
+        setInstanciationInfos(_context,page_,cl_, args_, _e);
         return page_;
     }
 
@@ -202,28 +199,29 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         String cl_ = _e.getClassName();
-        ExecRootBlock type_ = _e.getType();
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
         page_.setGlobalArgument(global_);
-        page_.setBlockRootTypes(type_);
-        setInstanciationInfos(_context,page_,cl_,type_, args_, _e.getId());
+        setInstanciationInfos(_context,page_,cl_, args_, _e);
         return page_;
     }
 
-    private static void setInstanciationInfos(ContextEl _context, AbstractPageEl _page, String _class, ExecRootBlock _type, Parameters _args, ExecNamedFunctionBlock _ctor) {
-        ExecFileBlock file_ = _type.getFile();
+    private static void setInstanciationInfos(ContextEl _context, AbstractCallingInstancingPageEl _page, String _class, Parameters _args, CustomFoundConstructor _e) {
+        ExecRootBlock type_ = _e.getType();
+        ExecFileBlock file_ = type_.getFile();
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
-        if (_ctor != null) {
+        _page.setBlockRootTypes(type_);
+        ExecNamedFunctionBlock ctor_ = _e.getId();
+        if (ctor_ != null) {
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-            _context.getCoverage().passCalls(idCl_,_ctor);
+            _context.getCoverage().passCalls(idCl_,ctor_);
             _page.getValueVars().putAllMap(_args.getParameters());
-            ExecBlock firstChild_ = _ctor.getFirstChild();
+            ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);
         }
         _page.setReadWrite(rw_);
-        _page.setBlockRoot(_ctor);
+        _page.setBlockRoot(ctor_);
         _page.setFile(file_);
     }
     private static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {

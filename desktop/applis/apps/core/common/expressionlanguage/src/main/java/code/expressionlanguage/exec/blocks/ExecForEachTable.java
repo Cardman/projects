@@ -134,14 +134,14 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         l_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String className_;
-        className_ = ip_.formatVarType(importedClassNameFirst, _cont);
+        className_ = _cont.formatVarType(importedClassNameFirst);
         Struct defFirst_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameFirst, lv_);
         ip_.putValueVar(variableNameFirst, LocalVariable.newLocalVariable(defFirst_,className_));
-        className_ = ip_.formatVarType(importedClassNameSecond, _cont);
+        className_ = _cont.formatVarType(importedClassNameSecond);
         Struct defSecond_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         lv_ = new LoopVariable();
         lv_.setIndex(-1);

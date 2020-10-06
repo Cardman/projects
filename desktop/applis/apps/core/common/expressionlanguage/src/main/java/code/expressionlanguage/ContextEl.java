@@ -199,6 +199,10 @@ public abstract class ContextEl {
         buildIterable(getClasses(), this);
     }
 
+    public String formatVarType(String _varType) {
+        return getLastPage().formatVarType(_varType);
+    }
+
     public AbstractPageEl getLastPage() {
         return importing.last();
     }

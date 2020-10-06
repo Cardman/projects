@@ -9,11 +9,18 @@ import code.expressionlanguage.exec.blocks.WithEl;
 
 public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    public AbstractMethodPageEl(ContextEl _context,String _ret, Argument _gl, String _glClass) {
+    protected AbstractMethodPageEl(Argument _gl, String _glClass) {
         setGlobalArgument(_gl);
         setGlobalClass(_glClass);
-        String ret_ = formatVarType(_ret, _context);
-        setReturnedArgument(new Argument(ExecClassArgumentMatching.defaultValue(ret_,_context)));
+    }
+
+    public void initReturnType(ContextEl _context, String _ret, Argument _right) {
+        if (_right != null) {
+            setReturnedArgument(_right);
+        } else {
+            String ret_ = formatVarType(_ret);
+            setReturnedArgument(new Argument(ExecClassArgumentMatching.defaultValue(ret_,_context)));
+        }
     }
 
     @Override

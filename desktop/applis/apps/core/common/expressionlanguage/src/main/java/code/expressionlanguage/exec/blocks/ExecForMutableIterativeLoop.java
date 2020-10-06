@@ -123,7 +123,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         ip_.setOffset(0);
         int index_ = 0;
         if (ip_.isEmptyEl()) {
-            String formatted_ = ip_.formatVarType(importedClassName, _cont);
+            String formatted_ = _cont.formatVarType(importedClassName);
             Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
                 LoopVariable lv_ = new LoopVariable();

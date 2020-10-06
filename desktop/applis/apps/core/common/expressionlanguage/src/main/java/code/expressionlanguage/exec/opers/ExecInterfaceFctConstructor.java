@@ -31,7 +31,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
-            String form_ = _conf.getLastPage().formatVarType(className, _conf);
+            String form_ = _conf.formatVarType(className);
             Argument ref_ = new Argument(lda_.getStruct());
             ExecCastOperation.wrapFct(form_,true, _conf, ref_);
             if (!ExecTemplates.checkObject(form_, ref_, _conf)) {
@@ -50,7 +50,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument, ContextEl _conf) {
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
+        String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();

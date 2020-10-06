@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
@@ -42,14 +41,14 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType) {
-        return newLambda(_previous, _conf, foundClass, method, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), function);
+        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String ownerType_ = foundClass;
+        ownerType_ = _conf.formatVarType(ownerType_);
+        clArg_ = _conf.formatVarType(clArg_);
+        return newLambda(_previous, _conf, ownerType_, method, returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, function);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, StandardMethod function) {
-        String clArg_ = name;
-        String ownerType_ = foundClass;
-        ownerType_ = lastPage.formatVarType(ownerType_, _conf);
-        clArg_ = lastPage.formatVarType(clArg_, _conf);
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String ownerType_, ClassMethodId method, String returnFieldType, boolean shiftArgument, boolean safeInstance, String clArg_, StandardMethod function) {
         MethodId id_ = method.getConstraints();
         LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, false, shiftArgument, 0, false);
         l_.setInstanceCall(_previous);

@@ -5,7 +5,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.FormattedParameters;
@@ -147,10 +147,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                            Argument _previous, CustList<Argument> _arguments) {
         return instancePrepareCust(_conf, _className,_root, _constId, _previous, _arguments, "", -1);
     }
-    public static Argument instancePrepareFormat(PageEl _page, ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor,
-                                                 Argument _previous, CustList<Argument> _arguments, String _fieldName,
-                                                 int _blockIndex) {
-        String className_ = _page.formatVarType(_className,_conf);
+    public static Argument instancePrepareFormatted(ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor,
+                                                    Argument _previous, CustList<Argument> _arguments, String _fieldName,
+                                                    int _blockIndex) {
+        String className_ = _conf.formatVarType(_className);
+        return instancePrepareFormat(_conf, className_, _rootBlock, _ctor, _previous, _arguments, _fieldName, _blockIndex);
+    }
+
+    public static Argument instancePrepareFormat(ContextEl _conf, String className_, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
         return instancePrepareCust(_conf,className_, _rootBlock,_ctor,_previous,_arguments,_fieldName,_blockIndex);
     }
 
@@ -307,6 +311,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                                 CustList<Argument> _firstArgs, String _className, MethodAccessKind _kind) {
         String classNameFound_ = _className;
         classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, _kind);
+        checkParametersOperators(_exit, _conf, _rootBlock, _named, _firstArgs, classNameFound_);
+    }
+
+    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named, CustList<Argument> _firstArgs, String classNameFound_) {
         if (_exit.hasToExit(classNameFound_)) {
             return;
         }
@@ -348,7 +356,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return classFormat_;
         }
         if (_rootBlock == null) {
-            _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound,_rootBlock, _methodId, parameters_));
+            _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, null, _methodId, parameters_));
             return classFormat_;
         }
         _conf.setCallingState(new CustomFoundCast(_classNameFound,_rootBlock,  _methodId, parameters_));

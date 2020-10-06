@@ -28,7 +28,7 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ parentInstanceContent.getOff(), _conf);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Struct struct_ = previous_.getStruct();
-        return new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), struct_.getParent(),_conf, getResultClass().getNames()));
+        return new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(),_conf, getResultClass().getNames()));
     }
 
     @Override

@@ -24,9 +24,7 @@ public final class ExecArrayElementOperation extends
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String cl_ = getClassName();
-        String className_;
-        PageEl page_ = _conf.getLastPage();
-        className_ = page_.formatVarType(cl_, _conf);
+        String className_ = _conf.formatVarType(cl_);
 
         int nbCh_ = _arguments.size();
 

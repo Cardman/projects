@@ -50,7 +50,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _nodes, _context);
                 return;
             }
@@ -157,7 +157,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticPostEltContent.getClassName());
         return Argument.createVoid();
     }
 }

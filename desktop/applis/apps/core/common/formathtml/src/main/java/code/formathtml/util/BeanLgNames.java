@@ -72,7 +72,7 @@ public abstract class BeanLgNames extends LgNames {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
             _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
-            _conf.getLastPage().setGlobalArgumentStruct(_container.getBean(), _context);
+            _conf.getLastPage().setGlobalArgumentStruct(_container.getBean());
             Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf, this, _context);
             _conf.getLastPage().removeLocalVar(varNameConvert_);
             ResultErrorStd out_ = new ResultErrorStd();

@@ -26,6 +26,6 @@ public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        return new Argument(ExecClassArgumentMatching.convertWide(_conf.getLastPage(), _arguments.first().getStruct(), _conf, getResultClass().getNames()));
+        return new Argument(ExecClassArgumentMatching.convertFormattedWide(_arguments.first().getStruct(), _conf, getResultClass().getNames()));
     }
 }

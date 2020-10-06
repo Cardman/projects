@@ -35,7 +35,7 @@ public final class LocalThrowing {
                                 n_ = n_.getNextSibling();
                                 continue;
                             }
-                            name_ = bkIp_.formatVarType(name_, _conf);
+                            name_ = _conf.formatVarType(name_);
                             Argument arg_ = new Argument(custCause_);
                             if (ExecTemplates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
@@ -66,7 +66,7 @@ public final class LocalThrowing {
                     return;
                 }
             }
-            custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_);
+            custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_, bkIp_);
             _conf.removeLastPage();
         }
         _conf.setCallingState(custCause_);

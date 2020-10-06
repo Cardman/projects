@@ -70,7 +70,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         }
         String type_ = _s.getImportedClassName();
         AbstractPageEl ip_ = _cont.getLastPage();
-        type_ = ip_.formatVarType(type_,_cont);
+        type_ = _cont.formatVarType(type_);
         if (ExecTemplates.safeObject(type_, arg_, _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(arg_.getStruct(),type_));

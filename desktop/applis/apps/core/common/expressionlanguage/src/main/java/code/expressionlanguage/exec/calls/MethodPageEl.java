@@ -6,11 +6,8 @@ import code.expressionlanguage.ContextEl;
 public final class MethodPageEl extends AbstractMethodPageEl {
 
 
-    public MethodPageEl(ContextEl _context, String _ret, Argument _gl, String _glClass, Argument _right) {
-        super(_context,_ret,_gl,_glClass);
-        if (_right != null) {
-            setReturnedArgument(_right);
-        }
+    public MethodPageEl(Argument _gl, String _glClass) {
+        super(_gl,_glClass);
     }
 
 }

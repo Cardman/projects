@@ -369,7 +369,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration conf_, Struct build_) {
-        conf_.getLastPage().setGlobalArgumentStruct(build_, conf_.getContext());
+        conf_.getLastPage().setGlobalArgumentStruct(build_);
     }
 
 

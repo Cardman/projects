@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -34,8 +33,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         if (objArg_.isNull()) {
             return new Argument(BooleanStruct.of(false));
         }
-        PageEl page_ = _conf.getLastPage();
-        String str_ = page_.formatVarType(typeCheckContent.getClassName(), _conf);
+        String str_ = _conf.formatVarType(typeCheckContent.getClassName());
         boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         return new Argument(BooleanStruct.of(res_));
     }

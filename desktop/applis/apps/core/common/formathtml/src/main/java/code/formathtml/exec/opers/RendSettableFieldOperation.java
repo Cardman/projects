@@ -70,7 +70,7 @@ public final class RendSettableFieldOperation extends
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _context);
+        res_ = RendNumericOperation.calculateAffect(left_, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _context);
         return getCommonSetting(_previous,_conf,res_, _advStandards, _context);
     }
     private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context) {

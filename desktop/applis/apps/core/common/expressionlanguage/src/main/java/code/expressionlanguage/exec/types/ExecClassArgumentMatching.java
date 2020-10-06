@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
@@ -36,9 +35,13 @@ public final class ExecClassArgumentMatching {
         convertToString = _convertToString;
     }
 
-    public static Struct convert(PageEl _page, Struct _arg,
-                                 ContextEl _exec, StringList _names) {
-        StringList className_ = formatted(_page, _exec, _names);
+    public static Struct convertFormatted(Struct _arg,
+                                          ContextEl _exec, StringList _names) {
+        StringList className_ = formatted(_exec, _names);
+        return convert(_arg, _exec, className_);
+    }
+
+    public static Struct convert(Struct _arg, ContextEl _exec, StringList className_) {
         if (StringList.equalsSet(className_,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
             return NumParsers.convertToNumber(_arg);
         }
@@ -55,13 +58,13 @@ public final class ExecClassArgumentMatching {
         return _arg;
     }
 
-    public static Struct convertWide(PageEl _page, Struct _arg,
-                                     ContextEl _exec, StringList _names) {
-        StringList className_ = formatted(_page, _exec, _names);
+    public static Struct convertFormattedWide(Struct _arg,
+                                              ContextEl _exec, StringList _names) {
+        StringList className_ = formatted(_exec, _names);
         return convertWide(_arg, _exec, className_);
     }
 
-    private static Struct convertWide(Struct _arg, ContextEl _exec, StringList _names) {
+    public static Struct convertWide(Struct _arg, ContextEl _exec, StringList _names) {
         if (isPrimitive(_exec, _names)) {
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(_names, _exec.getStandards().getPrimTypes());
             if (cast_ == PrimitiveTypes.BOOL_WRAP) {
@@ -80,10 +83,10 @@ public final class ExecClassArgumentMatching {
         return isPrimitive(stds_, _names);
     }
 
-    private static StringList formatted(PageEl _page, ContextEl _exec, StringList _clNames) {
+    private static StringList formatted(ContextEl _exec, StringList _clNames) {
         StringList className_ = new StringList();
         for (String s: _clNames) {
-            className_.add(_page.formatVarType(s,_exec));
+            className_.add(_exec.formatVarType(s));
         }
         return className_;
     }

@@ -164,62 +164,6 @@ public final class ForwardInfos {
             Members mem_ = e.getValue();
             String fullName_ = c.getFullName();
             coverage_.putCalls(fullName_);
-            mem_.getAllAnnotables().addEntry(c,mem_.getRootBlock());
-            mem_.getAllAnnotablesRoots().addEntry(c,mem_.getRootBlock());
-            for (Block b: ClassesUtil.getDirectChildren(c)) {
-                if (b instanceof RootBlock) {
-                    ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
-                    _forwards.getMapMembers().getValue(c.getNumberAll()).getRootBlock().getChildrenTypes().add(val_);
-                    mem_.getAllAnnotables().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
-                    mem_.getAllAnnotablesRoots().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
-                }
-            }
-            for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
-                mem_.getAllAnnotables().addEntry(f.getKey(),f.getValue());
-                mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
-            }
-            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
-                _page.setGlobalClass(c.getGenericString());
-                _page.setGlobalType(c);
-                _page.setGlobalDirType(c);
-                _page.setCurrentFct(null);
-                InnerElementBlock method_ = f.getKey();
-                _page.setCurrentBlock(f.getKey());
-                _page.setCurrentAnaBlock(f.getKey());
-                ExecInnerElementBlock val_ = f.getValue();
-                mem_.getRootBlock().getEnumElements().add(val_);
-                mem_.getAllAnnotables().addEntry(method_,val_);
-                mem_.getAllAnnotablesRoots().addEntry(method_,val_);
-                fwdExpressionLanguageReadOnly(method_, val_, _page, coverage_, _forwards);
-            }
-            for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
-                _page.setGlobalClass(c.getGenericString());
-                _page.setGlobalType(c);
-                _page.setGlobalDirType(c);
-                _page.setCurrentFct(null);
-                ElementBlock method_ = f.getKey();
-                _page.setCurrentBlock(f.getKey());
-                _page.setCurrentAnaBlock(f.getKey());
-                ExecElementBlock val_ = f.getValue();
-                mem_.getRootBlock().getEnumElements().add(val_);
-                mem_.getAllAnnotables().addEntry(method_,val_);
-                fwdExpressionLanguageReadOnly(method_, val_, _page, coverage_, _forwards);
-            }
-            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
-                _page.setGlobalClass(c.getGenericString());
-                _page.setGlobalType(c);
-                _page.setGlobalDirType(c);
-                FieldBlock method_ = f.getKey();
-                _page.setCurrentBlock(f.getKey());
-                _page.setCurrentAnaBlock(f.getKey());
-                _page.setCurrentFct(null);
-                ExecFieldBlock exp_ = f.getValue();
-                mem_.getAllAnnotables().addEntry(method_,exp_);
-                fwdExpressionLanguageReadOnly(method_, exp_, _page, coverage_, _forwards);
-                if (!method_.isStaticField()) {
-                    mem_.getRootBlock().getInstanceFields().add(exp_);
-                }
-            }
             for (EntryCust<InitBlock, ExecInitBlock> f: mem_.getAllInits().entryList()) {
                 _page.setGlobalClass(c.getGenericString());
                 _page.setGlobalType(c);
@@ -253,6 +197,95 @@ public final class ForwardInfos {
             ExecOperatorBlock value_ = e.getValue();
             coverage_.putCalls("",o);
             _forwards.getAllFct().addEntry(o,value_);
+        }
+        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
+            AnonymousFunctionBlock method_ = e.getBlock();
+            RootBlock c_ = method_.getParentType();
+            coverage_.putCalls(c_.getFullName(),method_);
+            ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
+            _forwards.getAllFct().addEntry(method_, function_);
+            int numberFile_ = method_.getFile().getNumberFile();
+            ExecFileBlock value_ = files_.getValue(numberFile_);
+            function_.setFile(value_);
+        }
+        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+            RootBlock c = e.getKey();
+            Members mem_ = e.getValue();
+            mem_.getAllAnnotables().addEntry(c,mem_.getRootBlock());
+            mem_.getAllAnnotablesRoots().addEntry(c,mem_.getRootBlock());
+            for (Block b: ClassesUtil.getDirectChildren(c)) {
+                if (b instanceof RootBlock) {
+                    ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
+                    _forwards.getMapMembers().getValue(c.getNumberAll()).getRootBlock().getChildrenTypes().add(val_);
+                    mem_.getAllAnnotables().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
+                    mem_.getAllAnnotablesRoots().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
+                }
+            }
+            for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
+                mem_.getAllAnnotables().addEntry(f.getKey(),f.getValue());
+                mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
+            }
+            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
+                InnerElementBlock method_ = f.getKey();
+                ExecInnerElementBlock val_ = f.getValue();
+                mem_.getRootBlock().getEnumElements().add(val_);
+                mem_.getAllAnnotables().addEntry(method_,val_);
+                mem_.getAllAnnotablesRoots().addEntry(method_,val_);
+            }
+            for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
+                ElementBlock method_ = f.getKey();
+                ExecElementBlock val_ = f.getValue();
+                mem_.getRootBlock().getEnumElements().add(val_);
+                mem_.getAllAnnotables().addEntry(method_,val_);
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+                FieldBlock method_ = f.getKey();
+                ExecFieldBlock exp_ = f.getValue();
+                mem_.getAllAnnotables().addEntry(method_,exp_);
+                if (!method_.isStaticField()) {
+                    mem_.getRootBlock().getInstanceFields().add(exp_);
+                }
+            }
+        }
+        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+            RootBlock c = e.getKey();
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            Members mem_ = e.getValue();
+            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                _page.setCurrentFct(null);
+                InnerElementBlock method_ = f.getKey();
+                _page.setCurrentBlock(f.getKey());
+                _page.setCurrentAnaBlock(f.getKey());
+                ExecInnerElementBlock val_ = f.getValue();
+                fwdExpressionLanguageReadOnly(method_, val_, _page, coverage_, _forwards);
+            }
+            for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                _page.setCurrentFct(null);
+                ElementBlock method_ = f.getKey();
+                _page.setCurrentBlock(f.getKey());
+                _page.setCurrentAnaBlock(f.getKey());
+                ExecElementBlock val_ = f.getValue();
+                fwdExpressionLanguageReadOnly(method_, val_, _page, coverage_, _forwards);
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+                _page.setGlobalClass(c.getGenericString());
+                _page.setGlobalType(c);
+                _page.setGlobalDirType(c);
+                FieldBlock method_ = f.getKey();
+                _page.setCurrentBlock(f.getKey());
+                _page.setCurrentAnaBlock(f.getKey());
+                _page.setCurrentFct(null);
+                ExecFieldBlock exp_ = f.getValue();
+                fwdExpressionLanguageReadOnly(method_, exp_, _page, coverage_, _forwards);
+            }
         }
         _page.setAnnotAnalysis(true);
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
@@ -337,29 +370,8 @@ public final class ForwardInfos {
             fwdAnnotationsParameters(o, value_, _page, coverage_, _forwards);
         }
         _page.setAnnotAnalysis(false);
-        for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
-            AnonymousFunctionBlock method_ = e.getBlock();
-            RootBlock c_ = method_.getParentType();
-            coverage_.putCalls(c_.getFullName(),method_);
-            ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
-            _forwards.getAllFct().addEntry(method_, function_);
-            int numberFile_ = method_.getFile().getNumberFile();
-            ExecFileBlock value_ = files_.getValue(numberFile_);
-            function_.setFile(value_);
-        }
         for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _forwards.getAllFct().entryList()) {
             buildExec(_page,e.getKey(),e.getValue(), coverage_, _forwards);
-        }
-        for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: _forwards.getMapAnonymousLambda().entryList()) {
-            AnonymousLambdaOperation key_ = e.getKey();
-            AnonymousFunctionBlock method_ = key_.getBlock();
-            ExecMemberCallingsBlock r_ = _forwards.getAllFct().getVal(method_);
-            e.getValue().setExecAnonymousLambdaOperation((ExecAnonymousFunctionBlock) r_, new ExecLambdaAnoContent(key_.getLambdaAnoContent(), _forwards));
-        }
-        for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: _forwards.getMapAnonymous().entryList()) {
-            AnonymousInstancingOperation key_ = e.getKey();
-            ExecAnonymousInstancingOperation value_ = e.getValue();
-            value_.setExecAnonymousInstancingOperation(new ExecInstancingCommonContent(key_.getInstancingCommonContent()), _forwards.getMapMembers().getValue(key_.getBlock().getNumberAll()).getRootBlock(), fetchFunctionOp(key_.getRootNumber(), key_.getMemberNumber(), _forwards));
         }
 
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
@@ -1234,9 +1246,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
-            ExecAnonymousInstancingOperation exec_ = new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()));
-            _forwards.getMapAnonymous().addEntry(s_,exec_);
-            return exec_;
+            return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), _forwards.getMapMembers().getValue(s_.getBlock().getNumberAll()).getRootBlock(), fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
@@ -1319,9 +1329,10 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AnonymousLambdaOperation) {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
-            ExecAnonymousLambdaOperation exec_ = new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()));
-            _forwards.getMapAnonymousLambda().addEntry(s_,exec_);
-            return exec_;
+
+            AnonymousFunctionBlock method_ = s_.getBlock();
+            ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
+            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), r_, new ExecLambdaAnoContent(s_.getLambdaAnoContent(), _forwards));
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;

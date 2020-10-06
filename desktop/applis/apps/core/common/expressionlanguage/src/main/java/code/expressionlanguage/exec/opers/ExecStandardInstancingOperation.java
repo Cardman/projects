@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
@@ -45,8 +44,7 @@ public final class ExecStandardInstancingOperation extends
             off_ --;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl page_ = _conf.getLastPage();
-        String className_ = page_.formatVarType(getClassName(), _conf);
+        String className_ = _conf.formatVarType(getClassName());
         if (instancingStdContent.getFieldName().isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
             if (_conf.getExiting().hasToExit(base_)) {
@@ -54,7 +52,7 @@ public final class ExecStandardInstancingOperation extends
             }
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return instancePrepareFormatted(_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_) {

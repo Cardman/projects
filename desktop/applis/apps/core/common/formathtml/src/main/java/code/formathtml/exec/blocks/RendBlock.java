@@ -68,7 +68,7 @@ public abstract class RendBlock {
         ip_.setFile(_rend.getFile());
         ip_.setPrefix(_conf.getPrefix());
         if (bean_ != null) {
-            ip_.setGlobalArgumentStruct(bean_, _ctx);
+            ip_.setGlobalArgumentStruct(bean_);
         }
         _conf.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);

@@ -30,8 +30,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        PageEl page_ = _conf.getLastPage();
-        String superClass_ = page_.formatVarType(getClassFromName(), _conf);
+        String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();

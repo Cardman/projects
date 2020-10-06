@@ -28,7 +28,7 @@ public class RendParentInstanceOperation extends RendLeafOperation implements Re
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ parentInstanceContent.getOff(), _conf);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Struct struct_ = previous_.getStruct();
-        return new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), struct_.getParent(), _context, getResultClass().getNames()));
+        return new Argument(ExecClassArgumentMatching.convert(struct_.getParent(), _context, getResultClass().getNames()));
     }
 
     @Override

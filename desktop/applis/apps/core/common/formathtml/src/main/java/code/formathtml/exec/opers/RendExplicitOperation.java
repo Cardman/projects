@@ -1,5 +1,6 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -36,6 +37,15 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        return ExecExplicitOperation.prepare(_context.getExiting(),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getPageEl(),_context);
+        return prepare(_context.getExiting(),rootBlock,false,named,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_context);
     }
+    public static Argument prepare(AbstractExiting _exit, ExecRootBlock _rootBlock, boolean _direct, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,
+                                   String _classNameOwner, ContextEl _conf) {
+        if (ExecExplicitOperation.direct(_direct,_castOpId,_className)) {
+            return ExecExplicitOperation.getArgument(_arguments, _className, _conf);
+        }
+        ExecExplicitOperation.checkCustomOper(_exit, _rootBlock, _castOpId, _arguments, _classNameOwner, _conf,null);
+        return Argument.createVoid();
+    }
+
 }
