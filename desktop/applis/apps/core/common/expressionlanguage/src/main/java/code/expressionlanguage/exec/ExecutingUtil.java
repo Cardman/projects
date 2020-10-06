@@ -36,13 +36,12 @@ public final class ExecutingUtil {
         }
     }
 
-    static void processTagsBase(ContextEl _context) {
+    static void processTagsBase(ContextEl _context, ReadWrite _readWrite) {
         AbstractPageEl ip_ = _context.getLastPage();
         if (!ip_.checkCondition(_context)) {
             return;
         }
-        ReadWrite rw_ = ip_.getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
+        ExecBlock en_ = _readWrite.getBlock();
         if (en_ != null) {
             ip_.setGlobalOffset(en_.getOffsetTrim());
             ip_.setOffset(0);
@@ -81,33 +80,6 @@ public final class ExecutingUtil {
         return null;
     }
 
-
-    static EndCallValue removeCallBase(ContextEl _context) {
-        AbstractPageEl p_ = _context.getLastPage();
-        if (p_.getReadWrite() == null) {
-            if (p_ instanceof StaticInitPageEl) {
-                ((StaticInitPageEl)p_).sucessClass(_context);
-            }
-            _context.removeLastPage();
-            if (_context.nbPages() == 0) {
-                return EndCallValue.EXIT;
-            }
-            if (p_ instanceof ForwardPageEl) {
-                ((ForwardPageEl)p_).forwardTo(_context.getLastPage(), _context);
-            } else if (p_ instanceof StaticInitPageEl) {
-                StaticInitPageEl s_ = (StaticInitPageEl) p_;
-                Argument fwd_ = s_.getFwd();
-                if (fwd_ != null) {
-                    _context.getLastPage().receive(fwd_, _context);
-                }
-            }
-            if (_context.callsOrException()) {
-                return EndCallValue.NEXT;
-            }
-            return EndCallValue.FORWARD;
-        }
-        return EndCallValue.NEXT;
-    }
 
     private static AbstractPageEl createInstancingClass(ContextEl _context,NotInitializedClass _e) {
         return createInstancingClass(_context,_e.getRootBlock(),_e.getClassName(),_e.getArgument());

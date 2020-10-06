@@ -116,7 +116,6 @@ public final class ParsedType {
                         }
                     }
                 }
-                ok = false;
                 break;
             }
             i_++;

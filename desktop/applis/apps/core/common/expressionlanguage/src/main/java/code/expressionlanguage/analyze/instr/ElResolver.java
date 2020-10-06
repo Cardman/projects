@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.inherits.Templates;
@@ -34,7 +35,7 @@ public final class ElResolver {
     public static final int UNARY_PRIO = 16;
     public static final int POST_INCR_PRIO = 17;
     public static final int FCT_OPER_PRIO = 18;
-    public static final byte UNICODE_SIZE = 4;
+    private static final byte UNICODE_SIZE = 4;
 
     private static final String EMPTY_STRING = "";
     private static final char LINE_RETURN = '\n';
@@ -666,7 +667,7 @@ public final class ElResolver {
         return next_;
     }
 
-    private static int indexAfterPossibleCastQuick(String _string, int _from, Ints _callings, AnalyzedPageEl _page) {
+    private static int indexAfterPossibleCastQuick(String _string, int _from, Ints _callings) {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
         if (indexParRight_ < 0) {
             return _from;
@@ -676,7 +677,6 @@ public final class ElResolver {
         }
 
         String sub_ = _string.substring(_from + 1, indexParRight_);
-        int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String subTrim_ = sub_.trim();
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
         for (String s: StringList.wrapStringArray("+=","-=",
@@ -695,10 +695,7 @@ public final class ElResolver {
                 return _from;
             }
         }
-        CustList<PartOffset> curr_ = _page.getCurrentParts();
-        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_from + 1 + off_, subTrim_, true, curr_, _page);
-        curr_.clear();
-        if (!typeOut_.isEmpty()) {
+        if (AnaPartTypeUtil.isCorrectType(subTrim_,new StringList())) {
             return indexParRight_ + 1;
         }
         return _from;
@@ -791,7 +788,7 @@ public final class ElResolver {
                     }
                 }
             }
-            int j_ = indexAfterPossibleCastQuick(_string,i_,_callings, _page);
+            int j_ = indexAfterPossibleCastQuick(_string,i_,_callings);
             if (j_ > i_) {
                 return j_;
             }

@@ -1,11 +1,15 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.ForwardPageEl;
+import code.expressionlanguage.exec.calls.StaticInitPageEl;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -68,18 +72,40 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner) {
         while (true) {
-            EndCallValue res_ = ExecutingUtil.removeCallBase(_owner);
-            if (res_ == EndCallValue.EXIT) {
-                break;
+            AbstractPageEl p_ = _owner.getLastPage();
+            ReadWrite rw_ = p_.getReadWrite();
+            if (rw_ == null) {
+                if (p_ instanceof StaticInitPageEl) {
+                    ((StaticInitPageEl)p_).sucessClass(_owner);
+                }
+                _owner.removeLastPage();
+                if (_owner.nbPages() == 0) {
+                    break;
+                }
+                AbstractPageEl b_ = _owner.getLastPage();
+                tryForward(_owner, p_, b_);
+                rw_ = b_.getReadWrite();
             }
-            if (res_ == EndCallValue.FORWARD) {
-                continue;
+            if (_owner.callsOrException()) {
+                rw_ = null;
             }
-            if (!_owner.callsOrException()) {
-                ExecutingUtil.processTagsBase(_owner);
+            if (rw_ != null) {
+                ExecutingUtil.processTagsBase(_owner, rw_);
             }
             if (exitAfterCall(_owner)) {
                 break;
+            }
+        }
+    }
+
+    private static void tryForward(ContextEl _owner, AbstractPageEl p_, AbstractPageEl b_) {
+        if (p_ instanceof ForwardPageEl) {
+            ((ForwardPageEl)p_).forwardTo(b_, _owner);
+        } else if (p_ instanceof StaticInitPageEl) {
+            StaticInitPageEl s_ = (StaticInitPageEl) p_;
+            Argument fwd_ = s_.getFwd();
+            if (fwd_ != null) {
+                b_.receive(fwd_, _owner);
             }
         }
     }
