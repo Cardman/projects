@@ -19,7 +19,6 @@ import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
@@ -60,12 +59,8 @@ public abstract class CommonRender {
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf.getConfiguration());
         ContextEl context_ = _conf.getContext();
-        setStack(nav_.getSession(), context_);
-        return nav_;
-    }
 
-    private static void setStack(Configuration conf_1, ContextEl cont_) {
-        cont_.setFullStack(new AdvancedFullStack(conf_1, cont_));
+        return nav_;
     }
 
     protected static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
@@ -231,7 +226,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(files_, a_);
         assertTrue(isEmptyErrors(a_));
         
@@ -253,7 +247,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -275,7 +268,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -297,7 +289,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -321,7 +312,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         
@@ -348,7 +338,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -366,7 +355,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -386,7 +374,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -407,7 +394,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(files_, a_);
         assertTrue(isEmptyErrors(a_));
         
@@ -419,7 +405,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -435,7 +420,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(files_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -450,7 +434,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         
@@ -473,7 +456,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -499,7 +481,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -523,7 +504,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -540,7 +520,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         
@@ -554,7 +533,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -569,7 +547,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -607,15 +584,10 @@ public abstract class CommonRender {
         return ops2_;
     }
 
-    private static void setStack(AnalyzedTestConfiguration cont_) {
-        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration(), cont_.getContext()));
-    }
-
     protected static AnalyzedTestConfiguration simulateNav2(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -642,7 +614,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -667,7 +638,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -716,7 +686,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -741,7 +710,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -762,7 +730,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -791,7 +758,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -827,7 +793,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -857,7 +822,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -888,7 +852,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -913,7 +876,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -949,7 +911,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -990,7 +951,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -1030,7 +990,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -1056,7 +1015,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -1083,7 +1041,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -1105,7 +1062,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         StringMap<String> files_ = new StringMap<String>();
@@ -1129,7 +1085,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, s);
@@ -1146,7 +1101,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
@@ -1188,7 +1142,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -1207,7 +1160,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
@@ -1227,7 +1179,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1254,7 +1205,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1281,7 +1231,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1305,7 +1254,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1366,7 +1314,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1399,7 +1346,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);
@@ -1418,7 +1364,6 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         AnalyzedTestConfiguration a_ = build(conf_);
-        setStack(a_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, conf_);

@@ -11,7 +11,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
-import code.formathtml.exec.AdvancedFullStack;
+import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
@@ -65,12 +65,19 @@ public final class RenderInitStdsTest extends CommonRender {
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         BeanLgNames standards_ = (BeanLgNames) contextEl_.getStandards();
         CommonRender.getHeaders(new StringMap<String>(), a_);
-        contextEl_.setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), conf_, analyzing.getContext()).getClassName(contextEl_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), conf_, analyzing.getContext()).getClassName(contextEl_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         new Navigation().initializeRendSessionDoc(null, null, null);
+        a_.getConfiguration().addPage(new ImportingPage());
+        RendBlock.processDo(a_.getConfiguration(),null,null,null);
+        RendBlock.processElse(a_.getConfiguration(),null,null,null);
+        RendBlock.processElseIf(a_.getConfiguration(),null,null,null);
+        RendBlock.processFinally(a_.getConfiguration(),null,null,null);
+        RendBlock.setVisited(a_.getConfiguration().getLastPage(),null);
+        assertTrue(!RendBlock.hasBlockBreak(a_.getConfiguration().getLastPage(),""));
+        assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null,a_.getConfiguration().getLastPage(),""));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);
@@ -88,7 +95,6 @@ public final class RenderInitStdsTest extends CommonRender {
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, analyzing, analyzing.getForwards(), _beanLgNames);
         contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         CommonRender.getHeaders(_files, a_);
-        contextEl_.setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         return isEmptyErrors(a_);
     }
 

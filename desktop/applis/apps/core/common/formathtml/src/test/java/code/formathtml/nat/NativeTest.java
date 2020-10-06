@@ -26,7 +26,6 @@ import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.MyValidator;
 import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
@@ -1439,12 +1438,8 @@ public final class NativeTest {
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf.getConfiguration());
         ContextEl context_ = _conf.getContext();
-        setStack(nav_.getSession(), context_);
-        return nav_;
-    }
 
-    private static void setStack(Configuration conf_1, ContextEl cont_) {
-        cont_.setFullStack(new AdvancedFullStack(conf_1, cont_));
+        return nav_;
     }
 
     private static void setFiles(StringMap<String> files_, NativeAnalyzedTestConfiguration conf_) {

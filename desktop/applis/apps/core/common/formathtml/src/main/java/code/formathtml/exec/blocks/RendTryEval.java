@@ -3,11 +3,10 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendTryEval extends RendParentBlock implements RendBreakableBlock,RendEval {
+public final class RendTryEval extends RendParentBlock implements RendWithEl,RendEval {
 
     private String label;
 
@@ -17,16 +16,12 @@ public final class RendTryEval extends RendParentBlock implements RendBreakableB
     }
 
     @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendBlock n_ = getNextSibling();
         RendTryBlockStack tryStack_ = new RendTryBlockStack();
-        while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendFinallyEval || n_ instanceof RendPossibleEmpty) {
+        tryStack_.setLabel(label);
+        while (isNextTryParts(n_)) {
             if (n_ instanceof RendParentBlock) {
                 tryStack_.setLastBlock((RendParentBlock) n_);
             }
@@ -38,10 +33,4 @@ public final class RendTryEval extends RendParentBlock implements RendBreakableB
         ip_.getRendReadWrite().setRead(getFirstChild());
     }
 
-    @Override
-    public void exitStack(Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _context.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        rw_.setRead(getNextSibling());
-    }
 }

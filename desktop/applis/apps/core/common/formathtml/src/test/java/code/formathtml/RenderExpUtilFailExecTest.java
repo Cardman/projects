@@ -2308,13 +2308,10 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files, String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration(), a_.getContext()));
         Classes.validateWithoutInit(_files, a_.getAnalyzing());
         assertTrue(isEmptyErrors(a_));
         ForwardInfos.generalForward( a_.getAnalyzing(), a_.getForwards(), a_.getContext());
         AnalyzedPageEl page_ = a_.getAnalyzing();
-        AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
-        ReportedMessages messages_ = page_.getMessages();
         Classes.tryInitStaticlyTypes(a_.getContext(), page_.getOptions());
         return a_;
     }

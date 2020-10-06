@@ -1,9 +1,11 @@
 package code.formathtml.stacks;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.RendParentBlock;
 
-public final class RendTryBlockStack implements RendRemovableVars {
+public final class RendTryBlockStack extends RendAbstractStask {
 
     private RendAbruptCallingFinally calling;
+    private Struct exception;
 
     private RendParentBlock block;
 
@@ -56,4 +58,11 @@ public final class RendTryBlockStack implements RendRemovableVars {
         calling = _calling;
     }
 
+    public Struct getException() {
+        return exception;
+    }
+
+    public void setException(Struct exception) {
+        this.exception = exception;
+    }
 }

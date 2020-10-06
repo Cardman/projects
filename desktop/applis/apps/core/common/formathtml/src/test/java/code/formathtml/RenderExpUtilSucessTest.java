@@ -5813,7 +5813,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         //
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));

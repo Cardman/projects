@@ -18,14 +18,6 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         super(_offsetTrim,_op,_offset);
         label = _label;
     }
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return getLabel();
-    }
 
 
     @Override
@@ -42,12 +34,13 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLoop(this);
+        l_.setLabel(label);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
         l_.setFinished(res_ == ConditionReturn.NO);
         ip_.addBlock(l_);
-        c_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        if (c_.isFinished()) {
+        if (l_.isFinished()) {
             processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
@@ -55,22 +48,16 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
     }
 
     @Override
-    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        processLastElementLoop(_conf, _advStandards, _ctx);
-    }
-
-    @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        RendBlock forLoopLoc_ = l_.getBlock();
+        RendBlock forLoopLoc_ = _loopBlock.getBlock();
         ConditionReturn keep_ = keepLoop(_conf, _advStandards, _ctx);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
         if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
+            _loopBlock.setFinished(true);
         } else {
             rw_.setRead(forLoopLoc_.getFirstChild());
         }

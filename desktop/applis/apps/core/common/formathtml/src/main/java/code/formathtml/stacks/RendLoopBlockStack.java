@@ -1,11 +1,13 @@
 package code.formathtml.stacks;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.blocks.RendLoop;
 import code.formathtml.exec.blocks.RendParentBlock;
 
 
-public final class RendLoopBlockStack implements RendRemovableVars {
+public final class RendLoopBlockStack extends RendAbstractStask {
 
     private RendParentBlock block;
+    private RendLoop loop;
 
     private boolean finished;
 
@@ -68,6 +70,14 @@ public final class RendLoopBlockStack implements RendRemovableVars {
     @Override
     public RendParentBlock getCurrentVisitedBlock() {
         return block;
+    }
+
+    public RendLoop getLoop() {
+        return loop;
+    }
+
+    public void setLoop(RendLoop loop) {
+        this.loop = loop;
     }
 
     @Override

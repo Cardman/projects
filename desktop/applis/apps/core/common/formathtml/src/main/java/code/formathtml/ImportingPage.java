@@ -20,7 +20,7 @@ public final class ImportingPage {
 
     private String processingAttribute = EMPTY_STRING;
 
-    private CustList<RendRemovableVars> rendBlockStacks = new CustList<RendRemovableVars>();
+    private CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
 
     private String beanName;
 
@@ -41,7 +41,9 @@ public final class ImportingPage {
 
     private boolean enabledOp=true;
 
-    private RendBlock root;
+    private RendLoopBlockStack lastLoop;
+    private RendIfStack lastIf;
+    private RendTryBlockStack lastTry;
 
     public int getRowFile(int _sum) {
         int i_ = 0;
@@ -155,11 +157,11 @@ public final class ImportingPage {
         pageEl.removeLocalVar(_key);
     }
 
-    public void addBlock(RendRemovableVars _b) {
+    public void addBlock(RendAbstractStask _b) {
         rendBlockStacks.add(_b);
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(ImportingPage _ip, RendRemovableVars _vars, RendCallingFinally _call, Struct _ex) {
+    public static boolean setRemovedCallingFinallyToProcess(ImportingPage _ip, RendRemovableVars _vars, Object _call, Struct _ex) {
         if (!(_vars instanceof RendTryBlockStack)) {
             _ip.removeRendLastBlock();
             return false;
@@ -171,15 +173,17 @@ public final class ImportingPage {
         }
         RendParentBlock br_ = try_.getLastBlock();
         if (br_ instanceof RendFinallyEval) {
+            _ip.setLastTry(try_);
             _ip.getRendReadWrite().setRead(br_);
-            try_.setCalling(_call.newAbruptCallingFinally(_ex));
+            try_.setException(_ex);
+            try_.setCalling(new RendAbruptCallingFinally(_call));
             return true;
         }
         _ip.removeRendLastBlock();
         return false;
     }
     public void removeRendLastBlock() {
-        RendRemovableVars last_ = rendBlockStacks.last();
+        RendAbstractStask last_ = rendBlockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         if (last_ instanceof RendIfStack) {
             if (last_.getBlock() instanceof RendElement) {
@@ -201,6 +205,18 @@ public final class ImportingPage {
             }
         }
         rendBlockStacks.removeLast();
+        if (hasBlock()) {
+            RendAbstractStask before_ = rendBlockStacks.last();
+            if (before_ instanceof RendLoopBlockStack) {
+                setLastLoop((RendLoopBlockStack) before_);
+            }
+            if (before_ instanceof RendIfStack) {
+                setLastIf((RendIfStack) before_);
+            }
+            if (before_ instanceof RendTryBlockStack) {
+                setLastTry((RendTryBlockStack) before_);
+            }
+        }
     }
 
     public String getReadUrl() {
@@ -235,7 +251,7 @@ public final class ImportingPage {
         internGlobal = _internGlobal;
     }
 
-    public RendRemovableVars getRendLastStack() {
+    public RendAbstractStask getRendLastStack() {
         return rendBlockStacks.last();
     }
 
@@ -282,15 +298,31 @@ public final class ImportingPage {
         enabledOp = _enabledOp;
     }
 
-    public RendBlock getRoot() {
-        return root;
-    }
-
-    public void setRoot(RendBlock _root) {
-        root = _root;
-    }
-
     public void putValueVar(String _var, LocalVariable _local) {
         pageEl.putValueVar(_var,_local);
+    }
+
+    public RendTryBlockStack getLastTry() {
+        return lastTry;
+    }
+
+    public void setLastTry(RendTryBlockStack lastTry) {
+        this.lastTry = lastTry;
+    }
+
+    public RendIfStack getLastIf() {
+        return lastIf;
+    }
+
+    public void setLastIf(RendIfStack lastIf) {
+        this.lastIf = lastIf;
+    }
+
+    public RendLoopBlockStack getLastLoop() {
+        return lastLoop;
+    }
+
+    public void setLastLoop(RendLoopBlockStack lastLoop) {
+        this.lastLoop = lastLoop;
     }
 }

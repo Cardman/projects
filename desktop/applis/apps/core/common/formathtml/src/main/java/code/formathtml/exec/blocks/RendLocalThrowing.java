@@ -9,16 +9,14 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.stacks.RendAbruptCallingFinally;
-import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
-import code.formathtml.util.BeanLgNames;
 
-public final class RendLocalThrowing implements RendCallingFinally {
-    @Override
-    public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx) {
+public final class RendLocalThrowing {
+
+    private RendLocalThrowing() {
+    }
+    public static void removeBlockFinally(Configuration _conf, ContextEl _ctx, Struct _str) {
         RendAbstractCatchEval catchElt_ = null;
-        Struct custCause_ = (Struct) _ctx.getCallingState();
         while (_conf.hasPages()) {
             _ctx.setCallingState(null);
             ImportingPage bkIp_ = _conf.getLastPage();
@@ -36,22 +34,22 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         if (n_ instanceof RendCatchEval) {
                             RendCatchEval ca_ = (RendCatchEval) n_;
                             String name_ = ca_.getImportedClassName();
-                            if (custCause_ == NullStruct.NULL_VALUE) {
+                            if (_str == NullStruct.NULL_VALUE) {
                                 n_ = n_.getNextSibling();
                                 continue;
                             }
-                            Argument arg_ = new Argument(custCause_);
+                            Argument arg_ = new Argument(_str);
                             if (ExecTemplates.safeObject(name_, arg_, _ctx) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 String var_ = ca_.getVariableName();
-                                LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,name_);
+                                LocalVariable lv_ = LocalVariable.newLocalVariable(_str,name_);
                                 bkIp_.getValueVars().put(var_, lv_);
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;
                             }
                         } else {
                             RendNullCatchEval ca_ = (RendNullCatchEval) n_;
-                            if (custCause_ == NullStruct.NULL_VALUE) {
+                            if (_str == NullStruct.NULL_VALUE) {
                                 catchElt_ = ca_;
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;
@@ -65,17 +63,13 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         return;
                     }
                 }
-                if (ImportingPage.setRemovedCallingFinallyToProcess(bkIp_,bl_,this,custCause_)) {
+                if (ImportingPage.setRemovedCallingFinallyToProcess(bkIp_,bl_, null,_str)) {
                     return;
                 }
             }
             _conf.removeLastPage();
         }
-        _ctx.setCallingState(custCause_);
+        _ctx.setCallingState(_str);
     }
 
-    @Override
-    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new RendExceptionCallingFinally(this,_struct);
-    }
 }

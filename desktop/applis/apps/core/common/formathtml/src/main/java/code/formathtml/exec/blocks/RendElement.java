@@ -59,6 +59,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
             ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
         }
         RendIfStack if_ = new RendIfStack();
+        if_.setLabel("");
         if_.setLastBlock(this);
         if_.setBlock(this);
         if_.setCurrentVisitedBlock(this);

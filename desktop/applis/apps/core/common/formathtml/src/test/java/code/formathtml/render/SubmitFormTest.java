@@ -979,7 +979,6 @@ public final class SubmitFormTest extends CommonRender {
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(a_.getConfiguration(), a_.getContext()));
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);
@@ -1010,7 +1009,6 @@ public final class SubmitFormTest extends CommonRender {
 
 
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_,conf_);

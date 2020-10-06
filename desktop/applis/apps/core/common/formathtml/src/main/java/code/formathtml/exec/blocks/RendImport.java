@@ -110,16 +110,17 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(write_);
         rwLoc_.setRead(val_.getBodies().first().getFirstChild());
-        newIp_.setRoot(val_.getBodies().first());
         newIp_.setRendReadWrite(rwLoc_);
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_, _ctx);
         }
         RendIfStack if_ = new RendIfStack();
+        if_.setLabel("");
         if_.setLastBlock(this);
         if_.setBlock(this);
         if_.setCurrentVisitedBlock(this);
         ip_.addBlock(if_);
+        ip_.setLastIf(if_);
         if_.setEntered(true);
         _cont.addPage(newIp_);
     }

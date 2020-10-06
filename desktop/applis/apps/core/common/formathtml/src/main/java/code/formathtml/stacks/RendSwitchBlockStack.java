@@ -1,7 +1,7 @@
 package code.formathtml.stacks;
 import code.formathtml.exec.blocks.RendParentBlock;
 
-public final class RendSwitchBlockStack implements RendRemovableVars {
+public final class RendSwitchBlockStack extends RendAbstractStask {
 
     private RendParentBlock block;
 

@@ -19,7 +19,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
@@ -418,7 +417,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ContextEl context_ = _dual.getContext();
         context_.setFullStack(new DefaultFullStack(context_));
         Classes.tryInitStaticlyTypes(context_, options_);
-        context_.setFullStack(new AdvancedFullStack(_conf, _dual.getContext()));
         return messages_;
     }
 

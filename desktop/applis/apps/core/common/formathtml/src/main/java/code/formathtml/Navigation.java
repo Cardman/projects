@@ -183,7 +183,6 @@ public final class Navigation {
             }
             String beanName_ = _anchorRef
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
-            ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, _ctx);

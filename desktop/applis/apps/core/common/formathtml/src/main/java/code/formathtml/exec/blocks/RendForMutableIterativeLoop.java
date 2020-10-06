@@ -58,15 +58,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         opStep = _opStep;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return getLabel();
-    }
-
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
@@ -96,6 +87,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLoop(this);
+        l_.setLabel(label);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
         l_.setFinished(res_ == ConditionReturn.NO);
@@ -135,13 +128,9 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         return ConditionReturn.NO;
     }
-    @Override
-    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        processLastElementLoop(_conf, _advStandards, _ctx);
-    }
 
     @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();

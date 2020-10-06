@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodId;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
 import org.junit.Test;
@@ -284,7 +283,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
-        setStack(a_);
         getHeaders(files_, a_);
         assertTrue(isEmptyErrors(a_));
         getCheckedConfiguration(a_, s);
@@ -295,17 +293,12 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
-        setStack(a_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
         processFail(s, a_, new PairVar("v", lv_));
         return a_.getAnalyzing();
-    }
-
-    private static void setStack(AnalyzedTestConfiguration cont_) {
-        cont_.getContext().setFullStack(new AdvancedFullStack(cont_.getConfiguration(), cont_.getContext()));
     }
 
     private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration configuration, String s) {

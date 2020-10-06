@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.blocks.RendLocalThrowing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -62,7 +61,6 @@ public final class Configuration {
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
 
-    private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
     private LongMap<LongTreeMap<NodeContainer>> containersMap;
@@ -316,10 +314,6 @@ public final class Configuration {
 
     public boolean hasPages() {
         return !noPages();
-    }
-
-    public RendLocalThrowing getRendLocalThrowing() {
-        return rendLocalThrowing;
     }
 
     public StringMap<RendDocumentBlock> getRenders() {

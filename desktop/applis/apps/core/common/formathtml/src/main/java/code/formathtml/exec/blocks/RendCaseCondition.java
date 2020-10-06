@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendSwitchBlockStack;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendCaseCondition extends RendSwitchPartCondition implements RendWithEl {
@@ -37,19 +36,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         rw_.setRead(getFirstChild());
-        ip_.getRendLastStack().setCurrentVisitedBlock(this);
-    }
-
-    @Override
-    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendSwitchBlockStack if_ = (RendSwitchBlockStack) ip_.getRendLastStack();
-        if (if_.getLastVisitedBlock() == this) {
-            rw_.setRead(if_.getBlock());
-        } else {
-            rw_.setRead(getNextSibling());
-        }
+        setVisited(ip_,this);
     }
 
     public Argument getArgument() {

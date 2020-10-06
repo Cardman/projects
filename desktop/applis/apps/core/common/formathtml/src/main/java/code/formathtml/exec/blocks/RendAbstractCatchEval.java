@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendTryBlockStack;
 import code.formathtml.util.BeanLgNames;
 
 public abstract class RendAbstractCatchEval extends RendParentBlock implements RendEval {
@@ -16,12 +15,14 @@ public abstract class RendAbstractCatchEval extends RendParentBlock implements R
     public final void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
-        if (ts_.getLastBlock() == this) {
-            processBlockAndRemove(_cont, _stds, _ctx);
+        RendBlock n_ = getNextSibling();
+        if (n_ instanceof RendPossibleEmpty) {
+            n_ = n_.getNextSibling();
+        }
+        if (isStrictNextTryParts(n_)) {
+            rw_.setRead(n_);
         } else {
-            ts_.setCurrentVisitedBlock(this);
-            rw_.setRead(getNextSibling());
+            processBlockAndRemove(_cont, _stds, _ctx);
         }
     }
 

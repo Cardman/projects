@@ -61,15 +61,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         opStep = _opStep;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return getLabel();
-    }
-
     public String getVariableName() {
         return variableName;
     }
@@ -183,6 +174,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             finished_ = true;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLoop(this);
+        l_.setLabel(label);
         l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
@@ -200,11 +193,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     @Override
-    public void exitStack(Configuration _context, BeanLgNames _advStandards, ContextEl _ctx) {
-        processLastElementLoop(_context, _advStandards,_ctx);
-    }
-
-    @Override
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
@@ -215,7 +203,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();

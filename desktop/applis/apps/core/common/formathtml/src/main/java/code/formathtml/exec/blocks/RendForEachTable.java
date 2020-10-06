@@ -54,15 +54,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     @Override
-    public String getRealLabel() {
-        return getLabel();
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
@@ -82,6 +73,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLoop(this);
+        l_.setLabel(label);
         l_.setIndex(-1);
         l_.setFinished(false);
         l_.setBlock(this);
@@ -103,7 +96,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameSecond, lv_);
         ip_.putValueVar(variableNameSecond, LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond));
-        processLastElementLoop(_cont, _stds, _ctx);
+        processLastElementLoop(_cont, _stds, _ctx, l_);
     }
 
     Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
@@ -124,11 +117,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     @Override
-    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        processLastElementLoop(_conf, _advStandards, _ctx);
-    }
-
-    @Override
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
@@ -140,20 +128,19 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
-        RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        ConditionReturn has_ = iteratorHasNext(_conf, _advStandards, _ctx);
+        ConditionReturn has_ = iteratorHasNext(_conf, _advStandards, _ctx, _loopBlock);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
         boolean hasNext_ = has_ == ConditionReturn.YES;
         if (hasNext_) {
-            incrementLoop(_conf, l_, vars_,varsInfos_, _advStandards, _ctx);
+            incrementLoop(_conf, _loopBlock, vars_,varsInfos_, _advStandards, _ctx);
         } else {
-            l_.setFinished(true);
+            _loopBlock.setFinished(true);
         }
     }
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
@@ -190,10 +177,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
-    private ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        Struct strIter_ = l_.getStructIterator();
+    private ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack) {
+        Struct strIter_ = _rendLastStack.getStructIterator();
         Argument arg_ = hasNextPair(strIter_,_conf, _advStandards, _ctx);
         if (_ctx.callsOrException()) {
             return ConditionReturn.CALL_EX;

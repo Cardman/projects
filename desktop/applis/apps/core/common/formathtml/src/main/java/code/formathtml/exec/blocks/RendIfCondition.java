@@ -10,18 +10,13 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class RendIfCondition extends RendCondition implements RendBreakableBlock {
+public final class RendIfCondition extends RendCondition implements RendWithEl {
 
     private String label;
 
     public RendIfCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset, String _label) {
         super(_offsetTrim,_op,_offset);
         label = _label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
     }
 
     @Override
@@ -37,9 +32,10 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
             return;
         }
         RendIfStack if_ = new RendIfStack();
+        if_.setLabel(label);
         if_.setLastBlock(this);
         RendBlock n_ = getNextSibling();
-        while (n_ instanceof RendElseIfCondition || n_ instanceof RendElseCondition || n_ instanceof RendPossibleEmpty) {
+        while (isNextIfParts(n_)) {
             if (n_ instanceof RendParentBlock) {
                 if_.setLastBlock((RendParentBlock) n_);
             }
@@ -53,17 +49,11 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
             rw_.setRead(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            exitStack(_cont, _stds, _ctx);
+            if (if_.getLastBlock() != this) {
+                rw_.setRead(getNextSibling());
+                ip_.setLastIf(if_);
+            }
         }
     }
 
-    @Override
-    public void exitStack(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
-        if (if_.getLastBlock() != this) {
-            rw_.setRead(getNextSibling());
-        }
-    }
 }

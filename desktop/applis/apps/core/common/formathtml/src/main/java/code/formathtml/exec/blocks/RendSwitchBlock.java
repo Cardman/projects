@@ -16,7 +16,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendSwitchBlock extends RendParentBlock implements RendBreakableBlock,RendReducableOperations,RendWithEl {
+public final class RendSwitchBlock extends RendParentBlock implements RendReducableOperations,RendWithEl {
 
     private String label;
 
@@ -37,15 +37,6 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     }
 
     @Override
-    public String getRealLabel() {
-        return getLabel();
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
@@ -61,6 +52,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         }
         if (!instanceTest.isEmpty()) {
             RendSwitchBlockStack if_ = new RendSwitchBlockStack();
+            if_.setLabel(label);
             RendBlock n_ = getFirstChild();
             CustList<RendParentBlock> children_;
             children_ = new CustList<RendParentBlock>();
@@ -112,6 +104,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             return;
         }
         RendSwitchBlockStack if_ = new RendSwitchBlockStack();
+        if_.setLabel(label);
         RendBlock n_ = getFirstChild();
         CustList<RendParentBlock> children_;
         children_ = new CustList<RendParentBlock>();

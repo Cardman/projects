@@ -37,7 +37,6 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -79,7 +78,6 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -118,7 +116,6 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -156,7 +153,6 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -462,7 +458,6 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        a_.getContext().setFullStack(new AdvancedFullStack(conf_, a_.getContext()));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

@@ -1,14 +1,12 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendWithEl {
+public final class RendReturnMehod extends RendLeaf implements RendMethodCallingFinally,RendWithEl {
     public RendReturnMehod(int _offsetTrim) {
         super(_offsetTrim);
     }
@@ -30,8 +28,4 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
         ip_.setNullRendReadWrite();
     }
 
-    @Override
-    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new RendAbruptCallingFinally(this);
-    }
 }
