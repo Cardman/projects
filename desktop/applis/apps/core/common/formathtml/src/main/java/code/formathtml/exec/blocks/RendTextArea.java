@@ -53,10 +53,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
-        Element write_ = (Element) rw_.getWrite();
-        Document doc_ = write_.getOwnerDocument();
-        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
-        write_.appendChild(docElementSelect_);
+        Document doc_ = rw_.getDocument();
+        Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordTextarea());
         FieldUpdates f_ = new FieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);

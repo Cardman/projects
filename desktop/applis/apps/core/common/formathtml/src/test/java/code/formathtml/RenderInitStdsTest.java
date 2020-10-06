@@ -16,6 +16,7 @@ import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.formathtml.util.BeanLgNames;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringMap;
@@ -78,6 +79,7 @@ public final class RenderInitStdsTest extends CommonRender {
         RendBlock.setVisited(a_.getConfiguration().getLastPage(),null);
         assertTrue(!RendBlock.hasBlockBreak(a_.getConfiguration().getLastPage(),""));
         assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null,a_.getConfiguration().getLastPage(),""));
+        assertNull(RendBlock.getParentNode((Element)null));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);

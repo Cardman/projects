@@ -5,10 +5,7 @@ import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.sml.Document;
-import code.sml.MutableNode;
-import code.sml.Node;
-import code.sml.Text;
+import code.sml.*;
 
 public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPossibleEmpty {
 
@@ -30,10 +27,9 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
         }
         ImportingPage lastPage_ = _cont.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
-        Node write_ = rend_.getWrite();
-        Document doc_ = write_.getOwnerDocument();
+        Document doc_ = rend_.getDocument();
         Text t_ = doc_.createTextNode(EMPTY_STRING);
-        ((MutableNode)write_).appendChild(t_);
+        simpleAppendChild(doc_,rend_,t_);
         t_.appendData(expression);
         processBlock(_cont, _stds, _ctx);
     }

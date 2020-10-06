@@ -79,10 +79,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             if (d == null) {
                 ImportingPage lastPage_ = _cont.getLastPage();
                 RendReadWrite rend_ = lastPage_.getRendReadWrite();
-                Node write_ = rend_.getWrite();
-                Document doc_ = write_.getOwnerDocument();
+                Document doc_ = rend_.getDocument();
                 Text t_ = doc_.createTextNode(EMPTY_STRING);
-                ((MutableNode)write_).appendChild(t_);
+                simpleAppendChild(doc_,rend_,t_);
                 t_.appendData(preRend_);
                 processBlock(_cont, _stds, _ctx);
                 return;
@@ -90,7 +89,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         }
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        Node oldWrite_ = rw_.getWrite();
+        Element write_ = rw_.getWrite();
         MutableNode root_ = docLoc_.getDocumentElement();
         MutableNode read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
@@ -98,26 +97,23 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
-                appendChild(ownerDocument_, rw_.getWrite(), eltRead_);
-                MutableNode nextWrite_ = rw_.getWrite().getLastChild();
-                Element nextEltWrite_ = (Element) nextWrite_;
-                processImportedNode(_cont,ip_, nextEltWrite_);
-                if (StringList.quickEq(nextEltWrite_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
+                Element created_ = appendChild(ownerDocument_, write_, eltRead_);
+                processImportedNode(_cont,ip_, created_);
+                if (StringList.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
                     _cont.getAnchorsArgs().add(anchorArg_);
                     _cont.getAnchorsVars().add(varNames);
                 }
-                incrAncNb(_cont, nextEltWrite_);
+                incrAncNb(_cont, created_);
+                MutableNode firstChild_ = read_.getFirstChild();
+                if (firstChild_ != null) {
+                    write_ = created_;
+                    read_ = firstChild_;
+                    continue;
+                }
             } else {
                 Text txt_ = (Text) read_;
                 Text t_ = ownerDocument_.createTextNode(txt_.getTextContent());
-                ((MutableNode)rw_.getWrite()).appendChild(t_);
-            }
-            MutableNode firstChild_ = read_.getFirstChild();
-            if (firstChild_ != null) {
-                MutableNode nextWrite_ = rw_.getWrite().getLastChild();
-                rw_.setWrite(nextWrite_);
-                read_ = firstChild_;
-                continue;
+                simpleAppendChild(ownerDocument_,write_,t_);
             }
             boolean stop_ = false;
             while (true) {
@@ -131,14 +127,13 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                     stop_ = true;
                     break;
                 }
-                rw_.setWrite(rw_.getWrite().getParentNode());
+                write_ = getParentNode(write_);
                 read_ = parentNode_;
             }
             if (stop_) {
                 break;
             }
         }
-        rw_.setWrite(oldWrite_);
         processBlock(_cont, _stds, _ctx);
     }
 

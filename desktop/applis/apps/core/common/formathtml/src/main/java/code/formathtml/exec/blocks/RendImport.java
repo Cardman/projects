@@ -11,7 +11,6 @@ import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
-import code.sml.Node;
 import code.util.CustList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations {
@@ -31,8 +30,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        Node write_ = rw_.getWrite();
         if (ip_.matchStatement(this)) {
             processBlockAndRemove(_cont, _stds, _ctx);
             return;
@@ -56,14 +53,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             return;
         }
         String beanName_ = val_.getBeanName();
-        ImportingPage newIp_ = new ImportingPage();
-        newIp_.setTabWidth(_cont.getTabWidth());
-        newIp_.setOffset(0);
-        newIp_.setFile(val_.getFile());
-        newIp_.setReadUrl(link_);
-        newIp_.setBeanName(beanName_);
-        RendReadWrite rwLoc_ = new RendReadWrite();
-        rwLoc_.setConf(_cont);
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _cont.getMainBean();
@@ -107,8 +96,17 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         if (_ctx.callsOrException()) {
             return;
         }
+        ImportingPage newIp_ = new ImportingPage();
+        newIp_.setTabWidth(_cont.getTabWidth());
+        newIp_.setOffset(0);
+        newIp_.setFile(val_.getFile());
+        newIp_.setReadUrl(link_);
+        newIp_.setBeanName(beanName_);
+        RendReadWrite rwLoc_ = new RendReadWrite();
+        rwLoc_.setConf(_cont);
+        RendReadWrite rw_ = ip_.getRendReadWrite();
         rwLoc_.setDocument(rw_.getDocument());
-        rwLoc_.setWrite(write_);
+        rwLoc_.setWrite(rw_.getWrite());
         rwLoc_.setRead(val_.getBodies().first().getFirstChild());
         newIp_.setRendReadWrite(rwLoc_);
         if (newBean_ != null) {

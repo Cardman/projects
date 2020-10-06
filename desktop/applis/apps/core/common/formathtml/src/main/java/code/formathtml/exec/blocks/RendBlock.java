@@ -23,18 +23,15 @@ public abstract class RendBlock {
     static final String RETURN_LINE = "\n";
     static final String CALL_METHOD = "$";
     static final String EMPTY_STRING = "";
-    static final char RIGHT_EL = '}';
-    static final char LEFT_EL = '{';
-    static final char QUOTE = 39;
     static final String TMP_BLOCK_TAG = "tmp";
     static final String LT_END_TAG = "</";
     static final char GT_TAG = '>';
     static final char LT_BEGIN_TAG = '<';
 
     static final String DOT = ".";
-
-    static final String LEFT_PAR = "(";
-    static final String RIGHT_PAR = ")";
+    private static final char RIGHT_EL = '}';
+    private static final char LEFT_EL = '{';
+    private static final char QUOTE = 39;
 
     private RendParentBlock parent;
 
@@ -75,11 +72,10 @@ public abstract class RendBlock {
         }
         _conf.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
-        appendChild(doc_, doc_, _rend.getElt());
+        appendChild(doc_, (Element)null, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
         rw_.setConf(_conf);
         rw_.setRead(_rend.getFirstChild());
-        rw_.setWrite(doc_);
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {
@@ -198,17 +194,43 @@ public abstract class RendBlock {
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
     }
 
-    static void appendChild(Document _doc, Node _parent, Element _read) {
-        Element currentNode_;
-        if (_parent instanceof Document) {
-            currentNode_ = _doc.createElement(_read.getTagName());
-            setNormalAttributes(_read, currentNode_);
-            ((Document)_parent).appendChild(currentNode_);
-            return;
-        }
-        currentNode_ = _doc.createElement(_read.getTagName());
+    static Element appendChild(Document _doc, RendReadWrite _rw, Element _read) {
+        return appendChild(_doc,_rw.getWrite(),_read);
+    }
+    static Element appendChild(Document _doc, Element _parent, Element _read) {
+        String tagName_ = _read.getTagName();
+        Element currentNode_ = _doc.createElement(tagName_);
         setNormalAttributes(_read, currentNode_);
-        ((MutableNode)_parent).appendChild(currentNode_);
+        simpleAppendChild(_doc, _parent, currentNode_);
+        return currentNode_;
+    }
+
+    static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
+        Element currentNode_ = _doc.createElement(_read);
+        simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
+        return currentNode_;
+    }
+
+    static void simpleAppendChild(Document _doc, RendReadWrite _rw, MutableNode currentNode_) {
+        simpleAppendChild(_doc,_rw.getWrite(),currentNode_);
+    }
+    static void simpleAppendChild(Document _doc, Element _parent, MutableNode currentNode_) {
+        if (_parent == null) {
+            _doc.appendChild(currentNode_);
+        } else {
+            _parent.appendChild(currentNode_);
+        }
+    }
+    public static Element getParentNode(RendReadWrite _rw) {
+        Element wr_ = _rw.getWrite();
+        return getParentNode(wr_);
+    }
+
+    public static Element getParentNode(Element _elt) {
+        if (_elt == null) {
+            return null;
+        }
+        return _elt.getParentNode();
     }
 
     private static void setNormalAttributes(Element _read, Element _write) {
@@ -364,9 +386,6 @@ public abstract class RendBlock {
     }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx) {
-//        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
-//        _conf.getLastPage().setLookForAttrValue(true);
-//        _conf.getLastPage().setOffset(0);
         if (_ctx.callsOrException()) {
             return;
         }

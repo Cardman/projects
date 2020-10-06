@@ -12,8 +12,8 @@ import code.util.StringMap;
 
 public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private Element read;
-    private StringMap<ExecTextPart> execAttributes = new StringMap<ExecTextPart>();
-    private StringMap<ExecTextPart> execAttributesText = new StringMap<ExecTextPart>();
+    private StringMap<ExecTextPart> execAttributes;
+    private StringMap<ExecTextPart> execAttributesText;
 
     public RendElement(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText) {
         super(_offsetTrim);
@@ -30,23 +30,21 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        Node write_ = rw_.getWrite();
         if (ip_.matchStatement(this)) {
             processBlockAndRemove(_cont, _stds, _ctx);
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
-        appendChild(ownerDocument_, write_,read);
-        MutableNode nextWrite_ = write_.getLastChild();
+        Element created_ = appendChild(ownerDocument_, rw_, read);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
             if (_ctx.callsOrException()) {
                 return;
             }
-            ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
+            created_.setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,nextWrite_,read, _stds, _ctx);
+        processExecAttr(_cont,created_,read, _stds, _ctx);
         if (_ctx.callsOrException()) {
             return;
         }
@@ -56,7 +54,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
             if (_ctx.callsOrException()) {
                 return;
             }
-            ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
+            created_.setAttribute(e.getKey(),txt_);
         }
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
@@ -66,7 +64,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         ip_.addBlock(if_);
         if_.setEntered(true);
         rw_.setRead(getFirstChild());
-        rw_.setWrite(nextWrite_);
+        rw_.setWrite(created_);
     }
 
     protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx);

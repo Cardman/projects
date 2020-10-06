@@ -3,7 +3,7 @@ import code.util.StringList;
 
 /**
  */
-public class Message {
+public final class Message {
 
     private static final String EMPTY_STRING = "";
 

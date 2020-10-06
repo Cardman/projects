@@ -4,6 +4,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.util.NodeContainer;
 import code.sml.Document;
+import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
 import code.util.LongTreeMap;
@@ -13,7 +14,7 @@ import code.util.StringList;
 public final class RendReadWrite {
 
     private RendBlock read;
-    private Node write;
+    private Element write;
     private Document document;
     private Configuration conf;
 
@@ -25,11 +26,11 @@ public final class RendReadWrite {
         read = _read;
     }
 
-    public Node getWrite() {
+    public Element getWrite() {
         return write;
     }
 
-    public void setWrite(Node _write) {
+    public void setWrite(Element _write) {
         write = _write;
     }
 

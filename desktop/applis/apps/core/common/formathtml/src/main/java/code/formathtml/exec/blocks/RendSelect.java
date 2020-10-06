@@ -73,9 +73,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             return;
         }
         RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
-        Element write_ = (Element) rw_.getWrite();
-        Document doc_ = write_.getOwnerDocument();
-        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordSelect());
+        Document doc_ = rw_.getDocument();
+        Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
         if (multiple) {
             docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrMultiple(), _cont.getRendKeyWords().getAttrMultiple());
         }
@@ -104,7 +103,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
-        write_.appendChild(docElementSelect_);
         processIndexes(_cont,elt,docElementSelect_, _stds, _ctx);
         if (_ctx.callsOrException()) {
             return;

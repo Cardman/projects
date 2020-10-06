@@ -187,7 +187,7 @@ public final class ImportingPage {
         last_.getCurrentVisitedBlock().removeAllVars(this);
         if (last_ instanceof RendIfStack) {
             if (last_.getBlock() instanceof RendElement) {
-                rendReadWrite.setWrite(rendReadWrite.getWrite().getParentNode());
+                rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
             if (last_.getBlock() instanceof RendForm) {
                 CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getContainersMap();

@@ -18,6 +18,13 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
+    public void processEmptyTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html/>";
+        assertEq("<html/>", getRes2(folder_, relative_, html_, new StringMap<String>()));
+    }
+    @Test
     public void process0Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
