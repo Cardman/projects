@@ -222,9 +222,9 @@ public final class RenderAnalysis {
     }
 
     private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
-        return block_ instanceof StandardInstancingOperation
+        return block_ instanceof AbstractInstancingOperation
                 && _index == CustList.FIRST_INDEX
-                && ((StandardInstancingOperation) block_).isNewBefore();
+                && ((AbstractInstancingOperation) block_).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -234,10 +234,8 @@ public final class RenderAnalysis {
         }
         IntTreeMap<String> children_ = p_.getChildren();
         int delta_ = 1;
-        if (p_ instanceof StandardInstancingOperation) {
-            if (p_.getFirstChild() instanceof StaticInitOperation) {
-                delta_ = 0;
-            }
+        if (p_ instanceof AbstractInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
+            delta_ = 0;
         }
         if (_block.getIndexChild() + delta_ >= children_.size()) {
             return null;
