@@ -257,12 +257,12 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         AbstractPageEl ip_ = _cont.getLastPage();
         if (_finished) {
             ip_.clearCurrentEls();
-            _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
+            _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(false)));
             _l.setEvaluatingKeepLoop(false);
             _l.setFinished(true);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
+        _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
         incrementLoop(_cont, _l);
     }
 

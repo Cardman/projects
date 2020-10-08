@@ -5,12 +5,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualConfigurationContext;
 
 public final class AnalyzedTestContext {
     private final ContextEl context;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
     private final BeanCustLgNames stds;
+    private DualConfigurationContext dual = new DualConfigurationContext();
 
     public AnalyzedTestContext(ContextEl context, AnalyzedPageEl analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.context = context;
@@ -33,5 +35,9 @@ public final class AnalyzedTestContext {
 
     public BeanCustLgNames getStds() {
         return stds;
+    }
+
+    public DualConfigurationContext getDual() {
+        return dual;
     }
 }

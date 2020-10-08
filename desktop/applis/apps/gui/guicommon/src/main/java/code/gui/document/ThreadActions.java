@@ -1,13 +1,13 @@
 package code.gui.document;
 
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.HtmlPage;
 import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 
@@ -17,7 +17,7 @@ public final class ThreadActions extends AbstractThreadActions {
 
     private boolean directFirst;
 
-    private BeanLgNames stds;
+    private BeanNatLgNames stds;
 
 
     ThreadActions(RenderedPage _page) {
@@ -59,14 +59,15 @@ public final class ThreadActions extends AbstractThreadActions {
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = DefaultFileBuilder.newInstance(stds.getContent());
-        DualAnalyzedContext du_ = page_.getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_);
-        ContextEl ctx_ = du_.getContext();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds);
+        DualAnalyzedContext du_ = page_.getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_, nat_);
+        ContextEl ctx_ = du_.getContext().getContext();
         page_.setContext(ctx_);
         if (ctx_ != null) {
             HtmlPage htmlPage_ = page_.getNavigation().getHtmlPage();
             htmlPage_.setUrl(-1);
-            page_.setFiles();
-            ReportedMessages reportedMessages_ = page_.getNavigation().setupRendClassesInit(stds, rend_, du_);
+            page_.setFiles(du_);
+            ReportedMessages reportedMessages_ = stds.setupAll(page_.getNavigation(), page_.getNavigation().getSession(), page_.getNavigation().getFiles(), rend_, du_);
             if (!reportedMessages_.isAllEmptyErrors()) {
                 if (page_.getArea() != null) {
                     page_.getArea().append(reportedMessages_.displayErrors());

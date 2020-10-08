@@ -14,6 +14,7 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualConfigurationContext;
 import code.util.*;
 
 public final class AnalyzingDoc {
@@ -56,11 +57,11 @@ public final class AnalyzingDoc {
         return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
     }
 
-    public void setup(Configuration _conf, BeanLgNames _standards) {
+    public void setup(Configuration _conf, BeanLgNames _standards, DualConfigurationContext _dual) {
         rendKeyWords = _conf.getRendKeyWords();
         prefix = _conf.getPrefix();
-        properties = _conf.getProperties();
-        messagesFolder = _conf.getMessagesFolder();
+        properties = _dual.getProperties();
+        messagesFolder = _dual.getMessagesFolder();
         files = _conf.getFiles();
         standards = _standards;
         beansInfosBefore = _conf.getBeansInfos();

@@ -19,7 +19,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.HtmlPage;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
@@ -36,7 +36,7 @@ public final class CustThreadActions extends AbstractThreadActions {
     private String fileName;
     private StringMap<String> fileNames;
 
-    private BeanLgNames stds;
+    private BeanCustLgNames stds;
 
     private String classDbName;
 
@@ -71,17 +71,18 @@ public final class CustThreadActions extends AbstractThreadActions {
             afterActionWithoutRemove(null);
             return;
         }
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(stds);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
         AbstractFileBuilder fileBuilder_;
-        fileBuilder_ = new CustBeanFileBuilder(stds.getContent(),((LgNamesRenderUtils)stds).getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
-        DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, rend_, fileBuilder_);
-        ContextEl ctx_ = du_.getContext();
+        fileBuilder_ = new CustBeanFileBuilder(stds.getContent(), stds.getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
+        DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, rend_, fileBuilder_, def_);
+        ContextEl ctx_ = du_.getContext().getContext();
         getPage().setContext(ctx_);
         if (ctx_ != null) {
             HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();
             htmlPage_.setUrl(-1);
             getPage().getNavigation().setFiles(fileNames);
-            ReportedMessages reportedMessages_ = getPage().getNavigation().setupRendClassesInit(stds, rend_, du_);
+            ReportedMessages reportedMessages_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), rend_, du_);
             if (!reportedMessages_.isAllEmptyErrors()) {
                 if (getPage().getArea() != null) {
                     getPage().getArea().append(reportedMessages_.displayErrors());

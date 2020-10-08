@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 
 class NativeAnalyzedTestConfiguration {
@@ -16,12 +17,14 @@ class NativeAnalyzedTestConfiguration {
     private final BeanNatLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
+    private DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
     NativeAnalyzedTestConfiguration(Configuration configuration, NativeAnalyzedTestContext analyzing, Forwards _forwards, BeanNatLgNames _standards) {
         this.configuration = configuration;
         forwards = _forwards;
         adv= _standards;
+        dual = analyzing.getDual();
         analyzingDoc.setContent(adv);
         this.analyzing = analyzing.getAnalyzing();
         context = analyzing.getContext();
@@ -69,5 +72,9 @@ class NativeAnalyzedTestConfiguration {
 
     void setAnalyzed(StringMap<AnaRendDocumentBlock> analyzed) {
         this.analyzed = analyzed;
+    }
+
+    DualConfigurationContext getDual() {
+        return dual;
     }
 }

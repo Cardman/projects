@@ -152,17 +152,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected ContextEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
-        for (Element c: _document.getDocumentElement().getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "validators")) {
-                setValidators(loadValidator(c));
-            }
-        }
-        return setupNative(_page);
-    }
-
-    @Override
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context) {
         ClassField fieldId_ = _rend.getClassField();
         Struct default_ = _previous.getStruct();
@@ -199,7 +188,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return new Argument(res_.getResult());
     }
 
-    private StringMap<Validator> loadValidator(Element _elt) {
+    StringMap<Validator> loadValidator(Element _elt) {
         StringMap<Validator> validators_ = new StringMap<Validator>();
         int i_ = 0;
         String key_ = "";
@@ -215,7 +204,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx) {
         ImportingPage ip_ = new ImportingPage();
-        ip_.setPrefix(_conf.getPrefix());
         _conf.addPage(ip_);
         StringMapObject stringMapObject_ = storeForms(_bean);
         _conf.setCurrentUrl(_dest);
@@ -389,7 +377,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeForEachFetch(this));
         _nav.initInstancesPattern(page_, analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_, _dual.getContext());
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return page_.getMessages();
     }
@@ -444,7 +432,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return null;
     }
 
-    private ContextEl setupNative(AnalyzedPageEl _page) {
+    ContextEl setupNative(AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();

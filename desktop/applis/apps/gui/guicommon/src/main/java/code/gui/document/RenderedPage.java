@@ -3,6 +3,7 @@ package code.gui.document;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
@@ -101,15 +102,16 @@ public final class RenderedPage implements ProcessingSession {
         contextCreator = new NativeContextCreator();
         String content_ = ResourceFiles.ressourceFichier(_conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()));
-        ContextEl ctx_ = du_.getContext();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(_stds);
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()), nat_);
+        ContextEl ctx_ = du_.getContext().getContext();
         setContext(ctx_);
         if (ctx_ == null) {
             setupText();
             return;
         }
-        setFiles();
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(_stds, rend_, du_);
+        setFiles(du_);
+        ReportedMessages reportedMessages_ = _stds.setupAll(navigation, navigation.getSession(), navigation.getFiles(), rend_, du_);
         if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }
@@ -178,16 +180,16 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    void setFiles() {
+    void setFiles(DualAnalyzedContext _dual) {
         String lg_ = navigation.getLanguage();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
-        for (String a: session_.getAddedFiles()) {
+        for (String a: _dual.getContext().getAddedFiles()) {
             files_.put(a,ResourceFiles.ressourceFichier(a));
         }
         for (String l: navigation.getLanguages()) {
-            for (String a: session_.getProperties().values()) {
-                String folder_ = session_.getMessagesFolder();
+            for (String a: _dual.getContext().getProperties().values()) {
+                String folder_ = _dual.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
                 files_.put(fileName_,ResourceFiles.ressourceFichier(fileName_));
             }

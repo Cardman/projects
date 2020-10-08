@@ -58,32 +58,25 @@ public final class Navigation {
 
     private String title = EMPTY_STRING;
 
-    private boolean error;
-
     public Navigation(){
         //instance
     }
-    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder) {
-        error = false;
+    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         if (doc_ == null) {
-            error = true;
             return new DualAnalyzedContext(page_,_lgNames,null);
         }
         session = new Configuration();
-        ContextEl ctx_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames, _rend, _fileBuilder, page_);
-        if (ctx_ == null) {
-            error = true;
+        DualConfigurationContext ctx_ = _confLoad.load(session,_lgCode, doc_, _fileBuilder, page_);
+        if (ctx_.getContext() == null) {
             return new DualAnalyzedContext(page_,_lgNames,null);
         }
-        session.init();
+        session.init(ctx_);
         return new DualAnalyzedContext(page_,_lgNames,ctx_);
     }
-    public boolean isError() {
-        return error;
-    }
+
     public void setLanguage(String _language) {
         language = _language;
         session.setCurrentLanguage(language);
@@ -115,28 +108,26 @@ public final class Navigation {
         }
         String currentUrl_ = session.getFirstUrl();
         session.setCurrentUrl(currentUrl_);
-        String currentBeanName_;
         htmlText = RendBlock.getRes(_doc,session, _stds, _ctx);
         if (htmlText.isEmpty()) {
             return;
         }
         //For title
-        currentBeanName_ = session.getBeanName();
-        currentBeanName = currentBeanName_;
+        currentBeanName = session.getBeanName();
         currentUrl = currentUrl_;
         setupText(htmlText);
     }
 
-    public ReportedMessages setupRendClassesInit(BeanLgNames _stds, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
-        return _stds.setupAll(this,session,files, _rend, _dual);
-    }
-
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend, AnalyzingDoc _analyzingDoc) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
         _stds.preInitBeans(session);
         _analyzingDoc.setRendAnalysisMessages(_rend);
         _analyzingDoc.setLanguages(languages);
         session.setCurrentLanguage(language);
-        return session.analyzedRenders(files, _analyzingDoc, _page, _stds);
+        return session.analyzedRenders(files, _analyzingDoc, _page, _stds, _dual);
+    }
+
+    public StringMap<String> getFiles() {
+        return files;
     }
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
@@ -159,7 +150,6 @@ public final class Navigation {
             session.clearPages();
             HtmlPage htmlPage_ = session.getHtmlPage();
             ImportingPage ip_ = new ImportingPage();
-            ip_.setPrefix(session.getPrefix());
             session.addPage(ip_);
             int indexPoint_ = _anchorRef.indexOf(DOT);
             String action_ = _anchorRef
@@ -250,7 +240,6 @@ public final class Navigation {
         session.clearPages();
         HtmlPage htmlPage_ = session.getHtmlPage();
         ImportingPage ip_ = new ImportingPage();
-        ip_.setPrefix(session.getPrefix());
         session.addPage(ip_);
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -266,7 +255,7 @@ public final class Navigation {
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
-        actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),session.getRendKeyWords().getAttrCommand()));
+        actionCommand_ = formElement_.getAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrCommand()));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
@@ -291,7 +280,7 @@ public final class Navigation {
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
             Element elt_ = spansForm_.item(j);
-            if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),session.getRendKeyWords().getAttrFor()))) {
+            if (!elt_.hasAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor()))) {
                 continue;
             }
             NodeList children_ = elt_.getChildNodes();

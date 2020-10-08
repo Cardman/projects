@@ -1,6 +1,7 @@
 package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
+import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
@@ -35,17 +36,18 @@ public final class PreparedRenderedPages implements Runnable {
         beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, rend_, DefaultFileBuilder.newInstance(stds_.getContent()));
-        context = du_.getContext();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_);
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, rend_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
+        context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
-        for (String a: session_.getAddedFiles()) {
+        for (String a: du_.getContext().getAddedFiles()) {
             String name_ = StringList.concat(relative, a);
             files_.put(a,ResourceFiles.ressourceFichier(name_));
         }
         for (String l: navigation.getLanguages()) {
-            for (String a: session_.getProperties().values()) {
-                String folder_ = session_.getMessagesFolder();
+            for (String a: du_.getContext().getProperties().values()) {
+                String folder_ = du_.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
                 files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(relative,fileName_)));
             }
@@ -54,7 +56,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        navigation.setupRendClassesInit(stds_, rend_, du_);
+        stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), rend_, du_);
     }
 
     public Navigation getNavigation() {

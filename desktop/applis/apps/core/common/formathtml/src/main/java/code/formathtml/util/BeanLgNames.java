@@ -1,8 +1,6 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DoubleInfo;
@@ -24,7 +22,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 
@@ -185,46 +182,6 @@ public abstract class BeanLgNames extends LgNames {
         }
         gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx);
     }
-
-    public ContextEl load(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
-        for (Element c: _document.getDocumentElement().getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "firstUrl")) {
-                _configuration.setFirstUrl(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "prefix")) {
-                _configuration.setPrefix(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "messagesFolder")) {
-                _configuration.setMessagesFolder(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "beans")) {
-                _configuration.setBeansInfos(ReadConfiguration.loadBeans(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "properties")) {
-                _configuration.setProperties(ReadConfiguration.loadStringMapString(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "navigation")) {
-                _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(c));
-                continue;
-            }
-
-            if (StringList.quickEq(fieldName_, "addedFiles")) {
-                _configuration.setAddedFiles(ReadConfiguration.getStringList(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "renderFiles")) {
-                _configuration.setRenderFiles(ReadConfiguration.getStringList(c));
-            }
-        }
-        return specificLoad(_configuration,_lgCode,_document, _rend, _fileBuilder, _page);
-    }
-    protected abstract ContextEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page);
 
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context);

@@ -66,7 +66,6 @@ public abstract class RendBlock {
         ip_.setReadUrl(_conf.getCurrentUrl());
         ip_.setBeanName(beanName_);
         ip_.setFile(_rend.getFile());
-        ip_.setPrefix(_conf.getPrefix());
         if (bean_ != null) {
             ip_.setGlobalArgumentStruct(bean_);
         }

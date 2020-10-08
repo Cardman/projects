@@ -3,7 +3,6 @@ package code.formathtml.render;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.AdvancedFullStack;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.common.ClassField;
@@ -981,19 +980,19 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,conf_);
+        setup(folder_, relative_,a_.getDual());
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
-        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc);
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc, a_.getDual());
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
@@ -1011,20 +1010,20 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,conf_);
+        setup(folder_, relative_,a_.getDual());
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
         AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
-        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc);
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc, a_.getDual());
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
@@ -1032,13 +1031,13 @@ public final class SubmitFormTest extends CommonRender {
         return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc) {
+    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc, DualConfigurationContext _dual) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _anaDoc.setup(_nav.getSession(), _stds);
+        _anaDoc.setup(_nav.getSession(), _stds, _dual);
         setupAna(_anaDoc, page_);
         _nav.initInstancesPattern(page_, _anaDoc);
         _nav.getSession().setPrefix("c:");
-        return _nav.analyzedRenders(page_, _stds, _anaDoc.getRendAnalysisMessages(), _anaDoc);
+        return _nav.analyzedRenders(page_, _stds, _anaDoc.getRendAnalysisMessages(), _anaDoc, _dual);
     }
 
 

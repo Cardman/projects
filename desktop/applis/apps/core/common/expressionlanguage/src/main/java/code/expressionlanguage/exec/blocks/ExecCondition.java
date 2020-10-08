@@ -39,7 +39,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        _context.getCoverage().passConditions(_context,arg_,opCondition.last());
+        _context.getCoverage().passConditions(_context, this, arg_,opCondition.last());
         if (BooleanStruct.isTrue(NumParsers.convertToBoolean(arg_.getStruct()))) {
             return ConditionReturn.YES;
         }

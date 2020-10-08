@@ -5453,7 +5453,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards());
+        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards(), context_.getDual());
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
     }
 
@@ -5548,7 +5548,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     public void processEl197Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards());
+        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards(), context_.getDual());
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
         Delimiters d_ = checkSyntax(context_, elr_, 0);

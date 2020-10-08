@@ -14,12 +14,9 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
         setGlobalClass(_glClass);
     }
 
-    public void initReturnType(ContextEl _context, String _ret, Argument _right) {
+    public void initReturnType(Argument _right) {
         if (_right != null) {
             setReturnedArgument(_right);
-        } else {
-            String ret_ = formatVarType(_ret);
-            setReturnedArgument(new Argument(ExecClassArgumentMatching.defaultValue(ret_,_context)));
         }
     }
 

@@ -23,9 +23,7 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static ContextEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
-        return _stds.load(_configuration,_lgCode,_document, _rend, _fileBuilder, _page);
-    }
+
     public static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();

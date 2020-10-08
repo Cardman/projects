@@ -43,10 +43,10 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
             found_ = process(children_,arg_);
         }
         if (found_ == null) {
-            _cont.getCoverage().passSwitch(_cont,arg_);
+            _cont.getCoverage().passSwitch(_cont, this, arg_);
             if_.setCurrentVisitedBlock(this);
         } else {
-            _cont.getCoverage().passSwitch(_cont,found_,arg_);
+            _cont.getCoverage().passSwitch(_cont, this, found_,arg_);
             rw_.setBlock(found_);
             if_.setCurrentVisitedBlock(found_);
         }

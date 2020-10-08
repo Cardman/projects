@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.NativeForEachFetch;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
@@ -14,10 +15,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
-import code.formathtml.Configuration;
-import code.formathtml.EquallableExUtil;
-import code.formathtml.HtmlPage;
-import code.formathtml.Navigation;
+import code.formathtml.*;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
@@ -36,10 +34,7 @@ import code.expressionlanguage.structs.Struct;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualAnalyzedContext;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
@@ -217,7 +212,7 @@ public final class NativeTest {
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        BeanLgNames lgNames_ = new CustBeanLgNames();
+        BeanNatLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -269,10 +264,11 @@ public final class NativeTest {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_);
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit(lgNames_, rend_, du_);
-        n_.initializeRendSession(du_.getContext(), du_.getStds());
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), rend_, du_);
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
     @Test
@@ -291,8 +287,8 @@ public final class NativeTest {
         conf_.setPrefix("c");
         NativeAnalyzedTestConfiguration a_ = buildNat(conf_);
         conf_.setFirstUrl("page2.html");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanOne");
@@ -301,11 +297,11 @@ public final class NativeTest {
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit(a_.getAdv(), new RendAnalysisMessages(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getContext()));
+        a_.getAdv().setupAll(n_, n_.getSession(), n_.getFiles(), new RendAnalysisMessages(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
         n_.initializeRendSession(a_.getContext(), a_.getAdv());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
@@ -350,8 +346,8 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
@@ -467,7 +463,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -521,7 +517,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -575,7 +571,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -640,8 +636,8 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -702,7 +698,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select id=\"combo\" name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -734,7 +730,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
@@ -766,7 +762,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
@@ -798,7 +794,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("<html><body>5</body></html>", nav_.getHtmlText());
@@ -829,7 +825,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -883,7 +879,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -937,7 +933,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -991,7 +987,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1045,7 +1041,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1099,7 +1095,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
         initSessionNat(conf_,nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
 
@@ -1130,7 +1126,7 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select id=\"combo\" name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1169,8 +1165,8 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
@@ -1218,8 +1214,8 @@ public final class NativeTest {
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        conf_.getDual().getRenderFiles().add("page1.html");
+        conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
@@ -1257,12 +1253,12 @@ public final class NativeTest {
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getAdv());
+        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getAdv(), _conf.getDual());
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
         AnalyzedPageEl _page = _conf.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_.getRendAnalysisMessages(), analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_.getRendAnalysisMessages(), analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv());
@@ -1271,7 +1267,7 @@ public final class NativeTest {
     private boolean hasNatErr(String folder_, String relative_, String html_, BeanOne bean_) {
         NativeAnalyzedTestConfiguration context_ = contextElSec();
 
-        setupNative(folder_, relative_, context_.getConfiguration());
+        setupNative(folder_, relative_, context_.getDual());
         putBean(bean_, "bean_one", context_.getAdv());
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.getAnalyzing().setForEachFetch(new NativeForEachFetch(context_.getAdv()));
@@ -1282,7 +1278,7 @@ public final class NativeTest {
     private String getNatRes(String folder_, String relative_, String html_, BeanOne bean_) {
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
-        setupNative(folder_, relative_, conf_.getConfiguration());
+        setupNative(folder_, relative_, conf_.getDual());
         putBean(bean_, "bean_one", conf_.getAdv());
         addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
@@ -1321,12 +1317,8 @@ public final class NativeTest {
     private static void setLocalFiles(NativeAnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = context_.getAnalyzing();
         Configuration conf_ = context_.getConfiguration();
-        setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_, context_.getAdv());
-    }
-
-    private static void setInnerLocalFilesLg(AnalyzingDoc _analyzingDoc, AnalyzedPageEl analyzing_, Configuration conf_, BeanLgNames _advStandards) {
         conf_.setCurrentLanguage("en");
-        _analyzingDoc.setup(conf_, _advStandards);
+        _analyzingDoc.setup(conf_, context_.getAdv(), context_.getDual());
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 
@@ -1380,7 +1372,7 @@ public final class NativeTest {
     }
 
 
-    private static void setupNative(String folder_, String relative_, Configuration context_) {
+    private static void setupNative(String folder_, String relative_, DualConfigurationContext context_) {
         setup(folder_, relative_, context_);
     }
 
@@ -1389,16 +1381,16 @@ public final class NativeTest {
     }
 
     private static void setupNative(String folder_, String relative_, NativeAnalyzedTestConfiguration context_) {
-        setup(folder_, relative_, context_.getConfiguration());
+        setup(folder_, relative_, context_.getDual());
     }
 
     private static void setupNative2(String folder_, String relative_, NativeAnalyzedTestConfiguration conf_) {
         conf_.getConfiguration().setFirstUrl("page2.html");
-        setup(folder_, relative_, conf_.getConfiguration());
+        setup(folder_, relative_, conf_.getDual());
     }
     private static void setupVal(String folder_, String relative_, NativeAnalyzedTestConfiguration conf_) {
         conf_.getConfiguration().setFirstUrl("page1.html");
-        setup(folder_, relative_, conf_.getConfiguration());
+        setup(folder_, relative_, conf_.getDual());
         conf_.getAdv().getValidators().put("rate_val", new MyValidator());
     }
 
@@ -1454,12 +1446,12 @@ public final class NativeTest {
         return null;
     }
 
-    private static void setup(String folder_, String relative_, Configuration conf_) {
+    private static void setup(String folder_, String relative_, DualConfigurationContext conf_) {
         setup(folder_, conf_);
         conf_.getProperties().put("msg_example", relative_);
     }
 
-    private static void setup(String folder_, Configuration conf_) {
+    private static void setup(String folder_, DualConfigurationContext conf_) {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
     }

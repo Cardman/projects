@@ -105,7 +105,7 @@ public abstract class CommonRender {
     private static void setLocalFiles(AnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = context_.getAnalyzing();
         Configuration conf_ = context_.getConfiguration();
-        _analyzingDoc.setup(conf_, context_.getAdvStandards());
+        _analyzingDoc.setup(conf_, context_.getAdvStandards(), context_.getDual());
         setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_);
     }
 
@@ -155,7 +155,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getAdvStandards());
+        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getAdvStandards(), _conf.getDual());
         setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
@@ -212,12 +212,12 @@ public abstract class CommonRender {
         return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getAnalyzing());
     }
 
-    protected static void setup(String folder_, String relative_, Configuration conf_) {
+    protected static void setup(String folder_, String relative_, DualConfigurationContext conf_) {
         setup(folder_, conf_);
         conf_.getProperties().put("msg_example", relative_);
     }
 
-    private static void setup(String folder_, Configuration conf_) {
+    private static void setup(String folder_, DualConfigurationContext conf_) {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
     }
@@ -250,7 +250,7 @@ public abstract class CommonRender {
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
 
         setFiles(files_, conf_);
         
@@ -271,7 +271,7 @@ public abstract class CommonRender {
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, conf_);
+        setup(folder_, a_.getDual());
         setFiles(files_, conf_);
 
         
@@ -291,7 +291,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         analyzeInner(conf_, a_, html_);
         assertTrue(isEmptyErrors(a_));
@@ -340,7 +340,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         analyzeInner(conf_, a_, html_);
         assertTrue(isEmptyErrors(a_));
@@ -358,7 +358,7 @@ public abstract class CommonRender {
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, conf_);
+        setup(folder_, a_.getDual());
         setFiles(files_, conf_);
 
         
@@ -377,7 +377,7 @@ public abstract class CommonRender {
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
 
         setFiles(files_, conf_);
         
@@ -408,7 +408,7 @@ public abstract class CommonRender {
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
 
         setFiles(files_, conf_);
         
@@ -422,7 +422,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(files_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         analyzeInner(conf_, a_, html_);
         return !isEmptyErrors(a_);
@@ -459,7 +459,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -483,7 +483,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_,_types);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -507,7 +507,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -536,7 +536,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         analyzeInner(conf_, a_, html_);
@@ -550,7 +550,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -592,7 +592,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
 
         String firstUrl_ = "page1.html";
-        setup(folder_, relative_, conf_, firstUrl_);
+        conf_.setFirstUrl(firstUrl_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -617,7 +618,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        simpleSetup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -641,7 +642,7 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
 
-        simpleSetup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         setFiles(files_, conf_);
 
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -658,29 +659,6 @@ public abstract class CommonRender {
         return a_;
     }
 
-    private static void simpleSetup(String folder_, String relative_, Configuration conf_) {
-        setup(folder_, relative_, conf_);
-    }
-
-    private static void setup(String folder_, String relative_, Configuration conf_, String _firstUrl) {
-        conf_.setFirstUrl(_firstUrl);
-        setup(folder_, relative_, conf_);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     protected static AnalyzedTestNavigation initSession(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
@@ -688,12 +666,13 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -712,12 +691,13 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -735,12 +715,13 @@ public abstract class CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -763,7 +744,8 @@ public abstract class CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.validate",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.validate").addEntry("val1","page2.html");
@@ -771,7 +753,7 @@ public abstract class CommonRender {
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -784,11 +766,6 @@ public abstract class CommonRender {
         return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    private static void setupNav(String folder_, String relative_, Configuration conf_, String s) {
-        conf_.setFirstUrl(s);
-        setup(folder_,relative_,conf_);
-    }
-
     protected static AnalyzedTestNavigation initSession4(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
@@ -799,13 +776,14 @@ public abstract class CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -828,13 +806,14 @@ public abstract class CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -854,11 +833,12 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -881,12 +861,13 @@ public abstract class CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(_scope);
         i_.setClassName(_className);
@@ -918,7 +899,8 @@ public abstract class CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry(s,new StringMap<String>());
         conf_.getNavigation().getVal(s).addEntry("val1", s2);
@@ -927,9 +909,9 @@ public abstract class CommonRender {
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
-        nav_.getSession().getRenderFiles().add("page3.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page3.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope(session);
         i_.setClassName(s4);
@@ -958,7 +940,8 @@ public abstract class CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
@@ -967,9 +950,9 @@ public abstract class CommonRender {
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
-        nav_.getSession().getRenderFiles().add("page3.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page3.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
@@ -992,7 +975,8 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
@@ -1001,8 +985,8 @@ public abstract class CommonRender {
         i_.setScope(_scope);
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         analyze(a_,nav_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
@@ -1017,7 +1001,8 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
@@ -1026,8 +1011,8 @@ public abstract class CommonRender {
         i_.setScope(_scope);
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         analyze(a_,nav_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
@@ -1043,13 +1028,14 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        nav_.getSession().getRenderFiles().add("page2.html");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         analyze(a_,nav_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
@@ -1067,12 +1053,13 @@ public abstract class CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         analyze(a_, nav_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
@@ -1087,12 +1074,13 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, s);
+        conf_.setFirstUrl(s);
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         analyze(a_,nav_);
         return !isEmptyErrors(a_);
     }
@@ -1103,12 +1091,13 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_, a_.getDual());
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
 
         nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("page");
         i_.setClassName("pkg.BeanOne");
@@ -1126,16 +1115,12 @@ public abstract class CommonRender {
     protected static void analyze(AnalyzedTestConfiguration _cont,Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = _cont.getAnalyzingDoc();
-        anaDoc_.setup(_cont.getConfiguration(), _cont.getAdvStandards());
+        anaDoc_.setup(_cont.getConfiguration(), _cont.getAdvStandards(), _cont.getDual());
         setupAna(anaDoc_, _cont.getAnalyzing());
         _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
         AnalyzedPageEl _page = _cont.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, _cont.getAdvStandards(), anaDoc_.getRendAnalysisMessages(), anaDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, _cont.getAdvStandards(), anaDoc_.getRendAnalysisMessages(), anaDoc_, _cont.getDual());
         _cont.setAnalyzed(d_);
-    }
-
-    private static void setupFirstUrl(String folder_, String relative_, Configuration conf_, String _firstUrl) {
-        setupNav(folder_, relative_, conf_, _firstUrl);
     }
 
     protected static Struct getExTwoPages(String folder_, String relative_, String html_, String htmlTwo_) {
@@ -1145,7 +1130,7 @@ public abstract class CommonRender {
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         analyzeInner(conf_, a_, html_, htmlTwo_);
         assertTrue(isEmptyErrors(a_));
@@ -1163,7 +1148,7 @@ public abstract class CommonRender {
         getHeaders(new StringMap<String>(), a_);
         assertTrue(isEmptyErrors(a_));
 
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         analyzeInner(conf_, a_, html_, htmlTwo_);
         assertTrue(isEmptyErrors(a_));
@@ -1181,7 +1166,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
         analyzeInner(conf_, a_, html_, htmlTwo_);
@@ -1207,7 +1192,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
@@ -1233,7 +1218,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         analyzeInner(conf_, a_, html_, htmlTwo_);
         assertTrue(isEmptyErrors(a_));
@@ -1256,7 +1241,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
@@ -1316,7 +1301,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
@@ -1348,7 +1333,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
@@ -1366,7 +1351,7 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = build(conf_);
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_, conf_);
+        setup(folder_, relative_, a_.getDual());
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");

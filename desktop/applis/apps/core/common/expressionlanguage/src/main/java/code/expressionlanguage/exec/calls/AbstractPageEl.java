@@ -203,7 +203,7 @@ public abstract class AbstractPageEl extends PageEl {
     public boolean isEmptyEl() {
         return currentEls.isEmpty();
     }
-    ExpressionLanguage getLastEl() {
+    private ExpressionLanguage getLastEl() {
         return currentEls.last();
     }
 

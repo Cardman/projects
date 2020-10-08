@@ -34,13 +34,7 @@ public final class Configuration {
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
-    private StringMap<String> properties = new StringMap<String>();
-
-    private String messagesFolder = EMPTY_STRING;
-
     private int tabWidth = DEFAULT_TAB_WIDTH;
-
-    private String filesConfName = "";
 
     private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
 
@@ -57,9 +51,6 @@ public final class Configuration {
     private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
 
     private String currentUrl = "";
-
-    private StringList addedFiles = new StringList();
-    private StringList renderFiles = new StringList();
 
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
@@ -90,24 +81,24 @@ public final class Configuration {
         return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
-    public void init() {
+    public void init(DualConfigurationContext _dual) {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
         prefix = StringList.concat(prefix,SEP);
-        renderFiles.removeAllString(firstUrl);
-        renderFiles.add(firstUrl);
+        _dual.getRenderFiles().removeAllString(firstUrl);
+        _dual.getRenderFiles().add(firstUrl);
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, BeanLgNames _advStandards) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, BeanLgNames _advStandards, DualConfigurationContext _dual) {
         renders.clear();
         setFiles(_files);
-        _analyzingDoc.setup(this, _advStandards);
+        _analyzingDoc.setup(this, _advStandards, _dual);
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
-        for (String s: renderFiles) {
+        for (String s: _dual.getRenderFiles()) {
             String link_ = getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
@@ -182,22 +173,6 @@ public final class Configuration {
         navigation = _navigation;
     }
 
-    public StringMap<String> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(StringMap<String> _properties) {
-        properties = _properties;
-    }
-
-    public String getMessagesFolder() {
-        return messagesFolder;
-    }
-
-    public void setMessagesFolder(String _messagesFolder) {
-        messagesFolder = _messagesFolder;
-    }
-
     public HtmlPage getHtmlPage() {
         return htmlPage;
     }
@@ -254,26 +229,12 @@ public final class Configuration {
         prefix = _prefix;
     }
 
-    public String getFilesConfName() {
-        return filesConfName;
-    }
-
-    public void setFilesConfName(String _filesConfName) {
-        filesConfName = _filesConfName;
-    }
-
     public StringMap<ValidatorInfo> getLateValidators() {
         return lateValidators;
     }
 
-    public void setLateValidators(StringMap<String> _lateValidators) {
-        StringMap<ValidatorInfo> lateValidators_ = new StringMap<ValidatorInfo>();
-        for (EntryCust<String, String> e: _lateValidators.entryList()) {
-            ValidatorInfo val_ = new ValidatorInfo();
-            val_.setClassName(e.getValue());
-            lateValidators_.addEntry(e.getKey(), val_);
-        }
-        lateValidators = lateValidators_;
+    public void setLateValidators(StringMap<ValidatorInfo> lateValidators) {
+        this.lateValidators = lateValidators;
     }
 
     public StringMap<Struct> getBuiltBeans() {
@@ -304,28 +265,12 @@ public final class Configuration {
         return getLastPage().getInternGlobal();
     }
 
-    public StringList getAddedFiles() {
-        return addedFiles;
-    }
-
-    public void setAddedFiles(StringList _addedFiles) {
-        addedFiles = _addedFiles;
-    }
-
     public boolean hasPages() {
         return !noPages();
     }
 
     public StringMap<RendDocumentBlock> getRenders() {
         return renders;
-    }
-
-    public void setRenderFiles(StringList _renderFiles) {
-        renderFiles = _renderFiles;
-    }
-
-    public StringList getRenderFiles() {
-        return renderFiles;
     }
 
     public IndexesFormInput getIndexes() {

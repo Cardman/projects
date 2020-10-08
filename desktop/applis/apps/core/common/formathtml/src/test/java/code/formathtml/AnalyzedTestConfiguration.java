@@ -8,6 +8,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 
 public final class AnalyzedTestConfiguration {
@@ -17,6 +18,7 @@ public final class AnalyzedTestConfiguration {
     private final BeanCustLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
+    private DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
     public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanCustLgNames _standards) {
@@ -25,6 +27,8 @@ public final class AnalyzedTestConfiguration {
         adv= _standards;
         analyzingDoc.setContent(adv);
         context = analyzing.getContext();
+        dual = analyzing.getDual();
+        dual.setContext(context);
         this.analyzing = analyzing.getAnalyzing();
     }
 
@@ -119,4 +123,7 @@ public final class AnalyzedTestConfiguration {
         this.analyzed = analyzed;
     }
 
+    public DualConfigurationContext getDual() {
+        return dual;
+    }
 }

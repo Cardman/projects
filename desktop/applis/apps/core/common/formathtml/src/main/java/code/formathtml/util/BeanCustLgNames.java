@@ -403,18 +403,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
         Forwards forwards_ = new Forwards();
         AnalyzedPageEl page_ = _dual.getAnalyzed();
-        setupRendClasses(_files, page_, _conf.getFilesConfName());
+        setupRendClasses(_files, page_, _dual.getContext().getFilesConfName());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         _nav.initInstancesPattern(page_, analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_, _dual.getContext());
         ReportedMessages messages_ = page_.getMessages();
         if (!messages_.isAllEmptyErrors()) {
             return messages_;
         }
-        forwardAndClear(_conf, page_, analyzingDoc_, forwards_, d_, _dual.getContext());
+        forwardAndClear(_conf, page_, analyzingDoc_, forwards_, d_, _dual.getContext().getContext());
         Options options_ = page_.getOptions();
-        ContextEl context_ = _dual.getContext();
+        ContextEl context_ = _dual.getContext().getContext();
         context_.setFullStack(new DefaultFullStack(context_));
         Classes.tryInitStaticlyTypes(context_, options_);
         return messages_;
@@ -513,7 +513,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx) {
         ImportingPage ip_ = new ImportingPage();
-        ip_.setPrefix(_conf.getPrefix());
         _conf.addPage(ip_);
         Struct forms_ = NullStruct.NULL_VALUE;
         if (!_beanName.isEmpty()) {
@@ -703,30 +702,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf, _ctx);
         }
         _conf.getLastPage().setEnabledOp(true);
-    }
-
-    @Override
-    protected ContextEl specificLoad(Configuration _configuration, String _lgCode, Document _document, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
-        ContextEl page_ = null;
-        for (Element c: _document.getDocumentElement().getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "lateValidators")) {
-                _configuration.setLateValidators(ReadConfiguration.loadStringMapString(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "tabWidth")) {
-                _configuration.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "filesConfName")) {
-                _configuration.setFilesConfName(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "context")) {
-                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration, _rend, _fileBuilder, _page);
-            }
-        }
-        return page_;
     }
 
     public DefaultBeanAliases getBeanAliases() {

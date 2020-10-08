@@ -195,23 +195,19 @@ public final class Coverage {
         toStringOwners.add(_owner);
     }
 
-    public void passLoop(ContextEl _context, Argument _value) {
+    public void passLoop(ContextEl _context, ExecBlock _loop, Argument _value) {
         if (!isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
-        BooleanCoverageResult cov_ = coverLoops.getVal(mappingBlocks.getVal(en_));
+        BooleanCoverageResult cov_ = coverLoops.getVal(mappingBlocks.getVal(_loop));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passConditions(ContextEl _context, Argument _value, ExecOperationNode _exec) {
+    public void passConditions(ContextEl _context, ExecBlock _condition, Argument _value, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
-        BooleanCoverageResult cov_ = coversConditions.getVal(mappingBlocks.getVal(en_));
+        BooleanCoverageResult cov_ = coversConditions.getVal(mappingBlocks.getVal(_condition));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             cov_.fullCover();
@@ -219,23 +215,19 @@ public final class Coverage {
             cov_.cover(_value);
         }
     }
-    public void passSwitch(ContextEl _context, ExecBlock _child,Argument _value) {
+    public void passSwitch(ContextEl _context, ExecBlock _parent, ExecBlock _child, Argument _value) {
         if (!isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
-        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(en_)).getVal(mappingBlocks.getVal(_child));
+        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(_parent)).getVal(mappingBlocks.getVal(_child));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passSwitch(ContextEl _context, Argument _value) {
+    public void passSwitch(ContextEl _context, ExecBlock _parent, Argument _value) {
         if (!isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
-        StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(mappingBlocks.getVal(en_));
+        StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(mappingBlocks.getVal(_parent));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
@@ -246,9 +238,8 @@ public final class Coverage {
         AbstractPageEl lastPage_ = _context.getLastPage();
         ReadWrite rw_ = lastPage_.getReadWrite();
         ExecBlock en_ = rw_.getBlock();
-        IdMap<OperationNode,AbstractCoverageResult> instr_;
         Block bl_ = mappingBlocks.getVal(en_);
-        instr_ = covers.getVal(bl_);
+        IdMap<OperationNode, AbstractCoverageResult> instr_ = covers.getVal(bl_);
         if (instr_ == null) {
             return;
         }

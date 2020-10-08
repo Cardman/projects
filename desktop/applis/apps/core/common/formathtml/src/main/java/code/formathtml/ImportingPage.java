@@ -15,7 +15,7 @@ public final class ImportingPage {
 
     private static final String EMPTY_STRING = "";
 
-    private PageEl pageEl = new SimplePageEl();
+    private final PageEl pageEl = new SimplePageEl();
     private Struct internGlobal;
 
     private String processingAttribute = EMPTY_STRING;
@@ -27,8 +27,6 @@ public final class ImportingPage {
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private String readUrl = "";
-
-    private String prefix = EMPTY_STRING;
 
     private RendReadWrite rendReadWrite;
 
@@ -228,14 +226,6 @@ public final class ImportingPage {
 
     public void setProcessingAttribute(String _processingAttribute) {
         processingAttribute = _processingAttribute;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String _prefix) {
-        prefix = _prefix;
     }
 
     public Struct getInternGlobal() {

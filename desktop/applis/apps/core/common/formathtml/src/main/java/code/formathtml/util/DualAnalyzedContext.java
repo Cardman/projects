@@ -1,20 +1,19 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 
 public final class DualAnalyzedContext {
     private final AnalyzedPageEl analyzed;
     private final BeanLgNames stds;
-    private final ContextEl context;
+    private final DualConfigurationContext context;
 
-    public DualAnalyzedContext(AnalyzedPageEl _analyzed, BeanLgNames _stds,ContextEl _context) {
+    public DualAnalyzedContext(AnalyzedPageEl _analyzed, BeanLgNames _stds,DualConfigurationContext _context) {
         analyzed = _analyzed;
         stds = _stds;
         context = _context;
     }
 
-    public ContextEl getContext() {
+    public DualConfigurationContext getContext() {
         return context;
     }
 

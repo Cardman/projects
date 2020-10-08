@@ -59,10 +59,10 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         boolean hasNext_ = has_ == ConditionReturn.YES;
 
         if (hasNext_) {
-            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
+            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(true)));
             incrementLoop(_conf, _l);
         } else {
-            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
+            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(false)));
             _conf.getLastPage().clearCurrentEls();
             _l.setFinished(true);
             _l.setEvaluatingKeepLoop(false);

@@ -65,11 +65,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         if (_l.hasNext()) {
             incrementLoop(_conf, _l);
-            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
+            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(true)));
             return;
         }
         _l.setFinished(true);
-        _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
+        _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(false)));
 
     }
 
@@ -120,11 +120,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         }
         c_ = l_;
         if (c_.isFinished()) {
-            _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
+            _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(false)));
             processBlockAndRemove(_cont);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
+        _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
         ip_.getReadWrite().setBlock(getFirstChild());
     }
     private LoopBlockStack processLoop(ContextEl _conf) {

@@ -116,8 +116,6 @@ public final class ExecutingUtil {
     }
     public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-        _context.getCoverage().passCalls(idCl_,_method);
         MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
         setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
         return pageLoc_;
@@ -132,16 +130,15 @@ public final class ExecutingUtil {
     }
     public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-        _context.getCoverage().passCalls(idCl_,_method);
         CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
         setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
         return pageLoc_;
     }
     private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _block, Parameters _args) {
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_page.getGlobalClass());
+        _context.getCoverage().passCalls(idCl_,_block);
         _page.setBlockRootType(_rootBlock);
-        String ret_ = _block.getImportedReturnType();
-        _page.initReturnType(_context,ret_,_args.getRight());
+        _page.initReturnType(_args.getRight());
         _page.getValueVars().putAllMap(_args.getParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();

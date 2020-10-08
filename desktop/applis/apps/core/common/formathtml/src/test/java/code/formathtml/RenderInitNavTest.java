@@ -3,11 +3,7 @@ package code.formathtml;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.structs.NullStruct;
-import code.formathtml.exec.AdvancedFullStack;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanFileBuilder;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.*;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -41,14 +37,14 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setFilesConfName("conf");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().setFilesConfName("conf");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -82,14 +78,14 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setFilesConfName("conf");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().setFilesConfName("conf");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -120,14 +116,14 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setFilesConfName("conf");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().setFilesConfName("conf");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -157,14 +153,14 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setFilesConfName("conf2");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().setFilesConfName("conf2");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
@@ -247,9 +243,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
-        n_.initializeRendSession(page_.getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
-        assertEq(2,n_.getSession().getAddedFiles().size());
+        assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
     }
     @Test
@@ -335,7 +331,7 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
-        n_.initializeRendSession(page_.getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -428,12 +424,13 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
-        n_.initializeRendSession(page_.getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames lgNames_, String xmlConf_, Navigation n_, RendAnalysisMessages rend_) {
-        return n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()));
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(lgNames_);
+        return n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), def_);
     }
 
     @Test
@@ -462,14 +459,14 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setFilesConfName("conf");
-        conf_.getRenderFiles().add("page1.html");
-        conf_.getRenderFiles().add("page2.html");
+        a_.getDual().setFilesConfName("conf");
+        a_.getDual().getRenderFiles().add("page1.html");
+        a_.getDual().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init();
+        conf_.init(a_.getDual());
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -478,12 +475,13 @@ public final class RenderInitNavTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
     private static boolean setupRendClassesInitStdMess(AnalyzedTestConfiguration a_, Navigation n_) {
-        DualAnalyzedContext dual_ = new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdvStandards(),a_.getContext());
+        DualConfigurationContext d_ = a_.getDual();
+        DualAnalyzedContext dual_ = new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdvStandards(),d_);
         return setupRendClassesInit(n_, a_.getAdvStandards(), new RendAnalysisMessages(), dual_);
     }
 
     private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
-        return _nav.setupRendClassesInit(_stds, _rend, _dual).isAllEmptyErrors();
+        return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _rend, _dual).isAllEmptyErrors();
     }
     @Test
     public void process1FailTest() {
@@ -557,8 +555,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
-        assertTrue(n_.isError());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
     }
     @Test
     public void process2FailTest() {
@@ -593,8 +590,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
         Navigation n_ = new Navigation();
-        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
-        assertTrue(n_.isError());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
     }
     @Test
     public void process3FailTest() {
@@ -675,8 +671,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
-        assertTrue(n_.isError());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
     }
     @Test
     public void process4FailTest() {
@@ -757,8 +752,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages());
-        assertTrue(n_.isError());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
     }
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");
