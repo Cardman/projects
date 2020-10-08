@@ -183,15 +183,15 @@ public final class ImportingPage {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
             if (last_.getBlock() instanceof RendForm) {
-                CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getContainersMap();
-                Longs formsNb_ = rendReadWrite.getFormsNb();
+                CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
+                Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 Long nb_ = formsNb_.last();
                 LongTreeMap<NodeContainer> containers_ = map_.last();
                 rendReadWrite.getConf().getContainersMap().put(nb_, containers_);
-                CustList<StringList> formatId_ = rendReadWrite.getFormatIdMap();
+                CustList<StringList> formatId_ = rendReadWrite.getConf().getFormatIdMapStack();
                 StringList fid_ = formatId_.last();
                 rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
-                rendReadWrite.getInputs().removeLast();
+                rendReadWrite.getConf().getInputs().removeLast();
                 map_.removeLast();
                 formatId_.removeLast();
                 formsNb_.removeLast();

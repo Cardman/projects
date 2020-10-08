@@ -401,8 +401,8 @@ public final class RenderRequestUtilTest extends CommonRender {
         AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         Configuration conf_ = session_.getConfiguration();
         addInnerPage(conf_);
-        NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
-        NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
+        NodeContainer nCont_ = conf_.getFormParts().getContainersMap().firstValue().getValue(0);
+        NodeContainer nContBis_ = conf_.getFormParts().getContainersMap().firstValue().getValue(1);
         setRendObject(session_, nCont_, new IntStruct(2));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(2, ((NumberStruct)getStruct(build_,nCont_.getIdField())).intStruct());
@@ -437,7 +437,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         Configuration conf_ = session_.getConfiguration();
         addInnerPage(conf_);
-        NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
+        NodeContainer nCont_ = conf_.getFormParts().getContainersMap().firstValue().getValue(0);
         setRendObject(session_, nCont_, new IntStruct(2));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         Struct dto_ = getStruct(build_,new ClassField("pkg.BeanOne", "first"));
@@ -471,7 +471,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         Configuration conf_ = session_.getConfiguration();
         addInnerPage(conf_);
-        NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
+        NodeContainer nCont_ = conf_.getFormParts().getContainersMap().firstValue().getValue(0);
         setRendObject(session_, nCont_, new IntStruct(9));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());
@@ -515,7 +515,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         Configuration conf_ = session_.getConfiguration();
         addInnerPage(conf_);
-        NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
+        NodeContainer nCont_ = conf_.getFormParts().getContainersMap().firstValue().getValue(0);
         setRendObject(session_, nCont_, new IntStruct(9));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());

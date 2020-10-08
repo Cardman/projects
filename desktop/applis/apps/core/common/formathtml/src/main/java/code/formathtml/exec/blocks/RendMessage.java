@@ -93,15 +93,15 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         MutableNode root_ = docLoc_.getDocumentElement();
         MutableNode read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
-        _cont.getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
+        _cont.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont,ip_, created_);
                 if (StringList.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
-                    _cont.getAnchorsArgs().add(anchorArg_);
-                    _cont.getAnchorsVars().add(varNames);
+                    _cont.getFormParts().getAnchorsArgs().add(anchorArg_);
+                    _cont.getFormParts().getAnchorsVars().add(varNames);
                 }
                 incrAncNb(_cont, created_);
                 MutableNode firstChild_ = read_.getFirstChild();

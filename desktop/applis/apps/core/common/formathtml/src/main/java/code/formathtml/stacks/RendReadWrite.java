@@ -1,22 +1,16 @@
 package code.formathtml.stacks;
 
-import code.formathtml.Configuration;
+import code.formathtml.FormParts;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.util.NodeContainer;
 import code.sml.Document;
 import code.sml.Element;
-import code.sml.Node;
-import code.util.CustList;
-import code.util.LongTreeMap;
-import code.util.Longs;
-import code.util.StringList;
 
 public final class RendReadWrite {
 
     private RendBlock read;
     private Element write;
     private Document document;
-    private Configuration conf;
+    private FormParts conf;
 
     public RendBlock getRead() {
         return read;
@@ -42,25 +36,11 @@ public final class RendReadWrite {
         document = _document;
     }
 
-    public CustList<LongTreeMap<NodeContainer>> getContainersMap() {
-        return conf.getContainersMapStack();
-    }
-
-    public CustList<StringList> getFormatIdMap() {
-        return conf.getFormatIdMapStack();
-    }
-    public Longs getFormsNb() {
-        return conf.getFormsNb();
-    }
-    public Longs getInputs() {
-        return conf.getInputs();
-    }
-
-    public Configuration getConf() {
+    public FormParts getConf() {
         return conf;
     }
 
-    public void setConf(Configuration _conf) {
+    public void setConf(FormParts _conf) {
         conf = _conf;
     }
 }

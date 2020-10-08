@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -53,23 +52,7 @@ public final class Configuration {
     private String currentUrl = "";
 
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
-
-    private LongMap<LongTreeMap<NodeContainer>> containersMap;
-    private CustList<LongTreeMap<NodeContainer>> containersMapStack;
-    private IndexesFormInput indexes;
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
-    private CustList<StringList> anchorsArgs = new CustList<StringList>();
-    private CustList<StringList> anchorsVars = new CustList<StringList>();
-
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
-    private CustList<StringList> formsArgs = new CustList<StringList>();
-    private CustList<StringList> formsVars = new CustList<StringList>();
-    private StringList formsNames = new StringList();
-    private LongMap<StringList> formatIdMap = new LongMap<StringList>();
-    private CustList<StringList> formatIdMapStack = new CustList<StringList>();
-    private Longs formsNb = new Longs();
-    private Longs inputs = new Longs();
-    private long currentForm;
+    private FormParts formParts = new FormParts();
 
     private Struct mainBean;
     private String currentLanguage = "";
@@ -131,24 +114,6 @@ public final class Configuration {
         return d_;
     }
 
-    public void initForms() {
-        callsExps = new CustList<CustList<RendDynOperationNode>>();
-        anchorsArgs = new CustList<StringList>();
-        anchorsVars = new CustList<StringList>();
-        containersMap = new LongMap<LongTreeMap<NodeContainer>>();
-        containersMapStack = new CustList<LongTreeMap<NodeContainer>>();
-        indexes = new IndexesFormInput();
-        callsFormExps = new CustList<CustList<RendDynOperationNode>>();
-        formatIdMap = new LongMap<StringList>();
-        formatIdMapStack = new CustList<StringList>();
-        formsNb = new Longs();
-        inputs = new Longs();
-        formsArgs = new CustList<StringList>();
-        formsVars = new CustList<StringList>();
-        formsNames = new StringList();
-        currentForm = 0;
-    }
-
     public String getFirstUrl() {
         return firstUrl;
     }
@@ -194,9 +159,6 @@ public final class Configuration {
     }
 
 
-    public boolean noPages() {
-        return importing.isEmpty();
-    }
     public void clearPages() {
         importing.clear();
     }
@@ -266,75 +228,15 @@ public final class Configuration {
     }
 
     public boolean hasPages() {
-        return !noPages();
+        return !importing.isEmpty();
     }
 
     public StringMap<RendDocumentBlock> getRenders() {
         return renders;
     }
 
-    public IndexesFormInput getIndexes() {
-        return indexes;
-    }
-
-    public CustList<LongTreeMap<NodeContainer>> getContainersMapStack() {
-        return containersMapStack;
-    }
-
-    public LongMap<LongTreeMap<NodeContainer>> getContainersMap() {
-        return containersMap;
-    }
-
-    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
-        return callsExps;
-    }
-
-    public CustList<StringList> getAnchorsArgs() {
-        return anchorsArgs;
-    }
-
-    public CustList<StringList> getAnchorsVars() {
-        return anchorsVars;
-    }
-
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
-        return callsFormExps;
-    }
-
-    public CustList<StringList> getFormatIdMapStack() {
-        return formatIdMapStack;
-    }
-
-    public Longs getFormsNb() {
-        return formsNb;
-    }
-
-    public Longs getInputs() {
-        return inputs;
-    }
-
-    public LongMap<StringList> getFormatIdMap() {
-        return formatIdMap;
-    }
-
-    public StringList getFormsNames() {
-        return formsNames;
-    }
-
-    public CustList<StringList> getFormsVars() {
-        return formsVars;
-    }
-
-    public CustList<StringList> getFormsArgs() {
-        return formsArgs;
-    }
-
-    public long getCurrentForm() {
-        return currentForm;
-    }
-
-    public void setCurrentForm(long _currentForm) {
-        currentForm = _currentForm;
+    public FormParts getFormParts() {
+        return formParts;
     }
 
     public Struct getMainBean() {

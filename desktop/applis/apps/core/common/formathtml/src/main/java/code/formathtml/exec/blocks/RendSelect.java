@@ -107,11 +107,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (_ctx.callsOrException()) {
             return;
         }
-        Longs stack_ = _cont.getFormsNb();
+        Longs stack_ = _cont.getFormParts().getFormsNb();
         if (!stack_.isEmpty()) {
             FormInputCoords inputs_ = new FormInputCoords();
             inputs_.setForm(stack_.last());
-            inputs_.setInput(_cont.getIndexes().getNb());
+            inputs_.setInput(_cont.getFormParts().getIndexes().getNb());
             StringList allOptions_ = new StringList();
             ElementList elts_ = docElementSelect_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
             int nbElts_ = elts_.getLength();

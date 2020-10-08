@@ -26,6 +26,16 @@ public final class HtmlPage {
 
     private boolean form;
 
+    public void set(FormParts _form) {
+        setContainers(_form.getContainersMap());
+        setFormatIdMap(_form.getFormatIdMap());
+        setCallsExps(_form.getCallsExps());
+        setAnchorsArgs(_form.getAnchorsArgs());
+        setAnchorsVars(_form.getAnchorsVars());
+        setCallsFormExps(_form.getCallsFormExps());
+        setFormsArgs(_form.getFormsArgs());
+        setFormsVars(_form.getFormsVars());
+    }
 
     public LongMap<LongTreeMap<NodeContainer>> getContainers() {
         return containers;

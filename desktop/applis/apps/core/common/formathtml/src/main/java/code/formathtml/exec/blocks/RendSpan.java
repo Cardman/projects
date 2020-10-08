@@ -27,7 +27,7 @@ public final class RendSpan extends RendElement {
             return;
         }
         ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()),txt_);
-        CustList<StringList> stack_ = _cont.getFormatIdMapStack();
+        CustList<StringList> stack_ = _cont.getFormParts().getFormatIdMapStack();
         if (stack_.isEmpty()) {
             return;
         }
