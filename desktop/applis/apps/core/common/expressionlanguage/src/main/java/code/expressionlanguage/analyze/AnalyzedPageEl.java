@@ -28,7 +28,6 @@ import code.expressionlanguage.stds.AliasCharSequence;
 import code.expressionlanguage.stds.AliasCore;
 import code.expressionlanguage.stds.AliasMath;
 import code.expressionlanguage.stds.AliasNumber;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.PrimitiveType;
@@ -111,7 +110,6 @@ public final class AnalyzedPageEl {
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
     private AnalyzingEl analysisAss;
-    private boolean annotAnalysisField;
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private boolean okNumOp;
@@ -674,14 +672,6 @@ public final class AnalyzedPageEl {
 
     public void setAnnotAnalysis(boolean _annotAnalysis) {
         annotAnalysis = _annotAnalysis;
-    }
-
-    public boolean isAnnotAnalysisField() {
-        return annotAnalysisField;
-    }
-
-    public void setAnnotAnalysisField(boolean _annotAnalysisField) {
-        annotAnalysisField = _annotAnalysisField;
     }
 
     public String getLookLocalClass() {

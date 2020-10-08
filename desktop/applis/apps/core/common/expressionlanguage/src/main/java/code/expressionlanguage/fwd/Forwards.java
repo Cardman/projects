@@ -5,6 +5,10 @@ import code.expressionlanguage.exec.blocks.*;
 import code.util.IdMap;
 
 public final class Forwards {
+    private boolean annotAnalysisField;
+    private boolean annotAnalysis;
+    private String aliasPrimBoolean="";
+    private String aliasBoolean="";
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
@@ -34,5 +38,37 @@ public final class Forwards {
 
     public IdMap<RootBlock, Members> getMapMembers() {
         return mapMembers;
+    }
+
+    public boolean isAnnotAnalysis() {
+        return annotAnalysis;
+    }
+
+    public void setAnnotAnalysis(boolean annotAnalysis) {
+        this.annotAnalysis = annotAnalysis;
+    }
+
+    public boolean isAnnotAnalysisField() {
+        return annotAnalysisField;
+    }
+
+    public void setAnnotAnalysisField(boolean annotAnalysisField) {
+        this.annotAnalysisField = annotAnalysisField;
+    }
+
+    public String getAliasBoolean() {
+        return aliasBoolean;
+    }
+
+    public void setAliasBoolean(String aliasBoolean) {
+        this.aliasBoolean = aliasBoolean;
+    }
+
+    public String getAliasPrimBoolean() {
+        return aliasPrimBoolean;
+    }
+
+    public void setAliasPrimBoolean(String aliasPrimBoolean) {
+        this.aliasPrimBoolean = aliasPrimBoolean;
     }
 }

@@ -2141,24 +2141,19 @@ public final class ClassesUtil {
                 _page.setCurrentBlock(b);
                 _page.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
-                    _page.setAnnotAnalysisField(true);
                     _page.setGlobalDirType(c);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
-                    _page.setAnnotAnalysisField(false);
                 }
                 if (b instanceof RootBlock) {
-                    _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
                     ((RootBlock)b).buildAnnotations(_page);
                 }
                 if (b instanceof NamedFunctionBlock) {
-                    _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
                     ((NamedFunctionBlock)b).buildAnnotations(_page);
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_page);
                 }
                 if (b instanceof InfoBlock) {
-                    _page.setAnnotAnalysisField(false);
                     _page.setGlobalDirType(c);
                     ((InfoBlock)b).buildAnnotations(_page);
                 }
@@ -2174,7 +2169,6 @@ public final class ClassesUtil {
             _page.setImportingTypes(o);
             _page.setCurrentBlock(o);
             _page.setCurrentAnaBlock(o);
-            _page.setAnnotAnalysisField(false);
             _page.getMappingLocal().clear();
             o.buildAnnotations(_page);
             o.buildAnnotationsParameters(_page);

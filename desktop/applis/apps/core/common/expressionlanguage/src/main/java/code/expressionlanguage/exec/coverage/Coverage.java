@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -14,6 +13,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -105,7 +105,7 @@ public final class Coverage {
         }
         getMappingBlocks().put(_exec,_block);
     }
-    public void putBlockOperationsField(AnalyzedPageEl _analyzing, Block _block) {
+    public void putBlockOperationsField(Forwards _analyzing, Block _block) {
         if (!isCovering()) {
             return;
         }
@@ -115,12 +115,12 @@ public final class Coverage {
         }
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
-    public void putBlockOperation(AnalyzedPageEl _analyzing, Block _block, OperationNode _op, ExecOperationNode _exec) {
+    public void putBlockOperation(Forwards _fwd, Block _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
-        if (_analyzing.isAnnotAnalysis()) {
-            if (_analyzing.isAnnotAnalysisField()) {
+        if (_fwd.isAnnotAnalysis()) {
+            if (_fwd.isAnnotAnalysisField()) {
                 IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
                 mapping_.put(_exec,_op);
                 return;
@@ -139,9 +139,11 @@ public final class Coverage {
                 return;
             }
         }
+        String prim_ = _fwd.getAliasPrimBoolean();
+        String boolType_ = _fwd.getAliasBoolean();
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_op.getArgument() == null) {
-                if (_op.getResultClass().isBoolType(_analyzing)) {
+                if (_op.getResultClass().isBoolType(boolType_,prim_)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -154,7 +156,7 @@ public final class Coverage {
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
             if (StringList.quickEq(c_.getOper(),Block.NULL_EQ)) {
-                if (_op.getResultClass().isBoolType(_analyzing)) {
+                if (_op.getResultClass().isBoolType(boolType_,prim_)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -162,8 +164,7 @@ public final class Coverage {
                 return;
             }
         }
-        String b_ = _analyzing.getAliasPrimBoolean();
-        if ((_op.getResultClass().matchClass(b_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
+        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
             instr_.put(_op,new BooleanCoverageResult());
         } else {
             instr_.put(_op,new StandardCoverageResult());

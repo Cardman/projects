@@ -111,14 +111,18 @@ public final class AnaClassArgumentMatching {
     public boolean isBoolType(AnalyzedPageEl _context) {
         String aliasBoolean_ = _context.getAliasBoolean();
         String aliasPrBoolean_ = _context.getAliasPrimBoolean();
+        return isBoolType(aliasBoolean_, aliasPrBoolean_);
+    }
+
+    public boolean isBoolType(String _aliasBoolean, String _aliasPrBoolean) {
         for (String b: className) {
             if (b.isEmpty()) {
                 return true;
             }
-            if (matchClass(aliasBoolean_)) {
+            if (matchClass(_aliasBoolean)) {
                 return true;
             }
-            if (matchClass(aliasPrBoolean_)) {
+            if (matchClass(_aliasPrBoolean)) {
                 return true;
             }
         }
