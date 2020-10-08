@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
@@ -101,9 +100,8 @@ public final class RenderedPage implements ProcessingSession {
         standards = _stds;
         contextCreator = new NativeContextCreator();
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(_stds);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, rend_, DefaultFileBuilder.newInstance(_stds.getContent()), nat_);
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, DefaultFileBuilder.newInstance(_stds.getContent()), nat_);
         ContextEl ctx_ = du_.getContext().getContext();
         setContext(ctx_);
         if (ctx_ == null) {
@@ -111,7 +109,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         setFiles(du_);
-        ReportedMessages reportedMessages_ = _stds.setupAll(navigation, navigation.getSession(), navigation.getFiles(), rend_, du_);
+        ReportedMessages reportedMessages_ = _stds.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
         if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }

@@ -1,6 +1,5 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
@@ -44,7 +43,6 @@ import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 
@@ -400,14 +398,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         Forwards forwards_ = new Forwards();
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         _nav.initInstancesPattern(page_, analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, _rend, analyzingDoc_, _dual.getContext());
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         ReportedMessages messages_ = page_.getMessages();
         if (!messages_.isAllEmptyErrors()) {
             return messages_;

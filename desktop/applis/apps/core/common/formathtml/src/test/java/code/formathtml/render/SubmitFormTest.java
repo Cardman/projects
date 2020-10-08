@@ -1037,7 +1037,7 @@ public final class SubmitFormTest extends CommonRender {
         setupAna(_anaDoc, page_);
         _nav.initInstancesPattern(page_, _anaDoc);
         _nav.getSession().setPrefix("c:");
-        return _nav.analyzedRenders(page_, _stds, _anaDoc.getRendAnalysisMessages(), _anaDoc, _dual);
+        return _nav.analyzedRenders(page_, _stds, _anaDoc, _dual);
     }
 
 

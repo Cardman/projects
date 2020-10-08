@@ -1119,7 +1119,7 @@ public abstract class CommonRender {
         setupAna(anaDoc_, _cont.getAnalyzing());
         _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
         AnalyzedPageEl _page = _cont.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, _cont.getAdvStandards(), anaDoc_.getRendAnalysisMessages(), anaDoc_, _cont.getDual());
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, _cont.getAdvStandards(), anaDoc_, _cont.getDual());
         _cont.setAnalyzed(d_);
     }
 

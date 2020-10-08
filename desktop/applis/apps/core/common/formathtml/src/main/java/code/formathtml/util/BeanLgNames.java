@@ -9,7 +9,6 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -169,7 +168,7 @@ public abstract class BeanLgNames extends LgNames {
 
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, getPrimitiveTypes());
     }
-    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, RendAnalysisMessages _rend, DualAnalyzedContext _dual);
+    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual);
 
     public void setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx) {

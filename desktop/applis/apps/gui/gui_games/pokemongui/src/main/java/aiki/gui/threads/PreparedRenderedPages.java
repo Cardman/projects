@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
@@ -35,9 +34,8 @@ public final class PreparedRenderedPages implements Runnable {
         PokemonStandards stds_ = new PokemonStandards();
         beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, rend_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
         context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
@@ -56,7 +54,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), rend_, du_);
+        stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
     }
 
     public Navigation getNavigation() {

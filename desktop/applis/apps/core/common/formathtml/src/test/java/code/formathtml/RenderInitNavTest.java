@@ -240,7 +240,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
+        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
@@ -328,7 +328,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
+        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
@@ -421,16 +421,16 @@ public final class RenderInitNavTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         RendAnalysisMessages rend_ = new RendAnalysisMessages();
-        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_, rend_);
+        DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
-    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames lgNames_, String xmlConf_, Navigation n_, RendAnalysisMessages rend_) {
+    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames lgNames_, String xmlConf_, Navigation n_) {
         DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(lgNames_);
-        return n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), def_);
+        return n_.loadConfiguration(xmlConf_, "", lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), def_);
     }
 
     @Test
@@ -481,7 +481,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
-        return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _rend, _dual).isAllEmptyErrors();
+        return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _dual).isAllEmptyErrors();
     }
     @Test
     public void process1FailTest() {
@@ -555,7 +555,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
     }
     @Test
     public void process2FailTest() {
@@ -590,7 +590,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
     }
     @Test
     public void process3FailTest() {
@@ -671,7 +671,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
     }
     @Test
     public void process4FailTest() {
@@ -752,7 +752,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_, new RendAnalysisMessages()).getContext());
+        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
     }
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");

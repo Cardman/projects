@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.HtmlPage;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 
@@ -56,18 +55,17 @@ public final class ThreadActions extends AbstractThreadActions {
             afterAction(ctx_);
             return;
         }
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = DefaultFileBuilder.newInstance(stds.getContent());
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds);
-        DualAnalyzedContext du_ = page_.getNavigation().loadConfiguration(content_, "", stds, rend_, fileBuilder_, nat_);
+        DualAnalyzedContext du_ = page_.getNavigation().loadConfiguration(content_, "", stds, fileBuilder_, nat_);
         ContextEl ctx_ = du_.getContext().getContext();
         page_.setContext(ctx_);
         if (ctx_ != null) {
             HtmlPage htmlPage_ = page_.getNavigation().getHtmlPage();
             htmlPage_.setUrl(-1);
             page_.setFiles(du_);
-            ReportedMessages reportedMessages_ = stds.setupAll(page_.getNavigation(), page_.getNavigation().getSession(), page_.getNavigation().getFiles(), rend_, du_);
+            ReportedMessages reportedMessages_ = stds.setupAll(page_.getNavigation(), page_.getNavigation().getSession(), page_.getNavigation().getFiles(), du_);
             if (!reportedMessages_.isAllEmptyErrors()) {
                 if (page_.getArea() != null) {
                     page_.getArea().append(reportedMessages_.displayErrors());

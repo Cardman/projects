@@ -2,12 +2,10 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
@@ -61,7 +59,7 @@ public final class Navigation {
     public Navigation(){
         //instance
     }
-    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
+    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -118,9 +116,9 @@ public final class Navigation {
         setupText(htmlText);
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, RendAnalysisMessages _rend, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
         _stds.preInitBeans(session);
-        _analyzingDoc.setRendAnalysisMessages(_rend);
+        _analyzingDoc.setRendAnalysisMessages(_dual.getAnalysisMessages());
         _analyzingDoc.setLanguages(languages);
         session.setCurrentLanguage(language);
         return session.analyzedRenders(files, _analyzingDoc, _page, _stds, _dual);

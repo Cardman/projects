@@ -23,7 +23,6 @@ import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.MyValidator;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
@@ -263,11 +262,10 @@ public final class NativeTest {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_);
-        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, rend_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), rend_, du_);
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
         n_.initializeRendSession(du_.getContext().getContext(), du_.getStds());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -301,7 +299,7 @@ public final class NativeTest {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(n_, n_.getSession(), n_.getFiles(), new RendAnalysisMessages(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
         n_.initializeRendSession(a_.getContext(), a_.getAdv());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
@@ -1258,7 +1256,7 @@ public final class NativeTest {
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
         AnalyzedPageEl _page = _conf.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_.getRendAnalysisMessages(), analyzingDoc_, _conf.getDual());
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv());

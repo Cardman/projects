@@ -13,8 +13,6 @@ import code.expressionlanguage.options.Options;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
-import code.sml.Document;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.*;
