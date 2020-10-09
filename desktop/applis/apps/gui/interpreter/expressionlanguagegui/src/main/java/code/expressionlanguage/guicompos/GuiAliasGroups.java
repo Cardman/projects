@@ -41,6 +41,12 @@ public class GuiAliasGroups extends CustAliasGroups {
     }
 
     @Override
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
+        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames();
+        m_.addAllElts(guiAliases.allTableTypeMethodParamNames());
+        return m_;
+    }
+    @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> ref_ =  super.allRefTypes();
         for (EntryCust<String, String> o: guiAliases.allRefTypes().entryList()) {

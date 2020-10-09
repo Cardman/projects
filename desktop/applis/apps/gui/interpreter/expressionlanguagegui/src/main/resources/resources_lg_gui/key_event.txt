@@ -1,5 +1,5 @@
 {public} {interface} {KeyListener} '{'
- {void} {keyPressed}({KeyEvent} {e}){endLine}
- {void} {keyTyped}({KeyEvent} {e}){endLine}
- {void} {keyReleased}({KeyEvent} {e}){endLine}
+ {void} {keyPressed}({KeyEvent} {a}){endLine}
+ {void} {keyTyped}({KeyEvent} {b}){endLine}
+ {void} {keyReleased}({KeyEvent} {c}){endLine}
 '}'

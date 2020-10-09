@@ -1,9 +1,9 @@
 {public} {interface} {MouseListener} '{'
- {void} {mouseClicked}({MouseEvent} {e}){endLine}
- {void} {mousePressed}({MouseEvent} {e}){endLine}
- {void} {mouseReleased}({MouseEvent} {e}){endLine}
- {void} {mouseEntered}({MouseEvent} {e}){endLine}
+ {void} {mouseClicked}({MouseEvent} {a}){endLine}
+ {void} {mousePressed}({MouseEvent} {b}){endLine}
+ {void} {mouseReleased}({MouseEvent} {c}){endLine}
+ {void} {mouseEntered}({MouseEvent} {d}){endLine}
  {void} {mouseExited}({MouseEvent} {e}){endLine}
- {void} {mouseDragged}({MouseEvent} {e}){endLine}
- {void} {mouseMoved}({MouseEvent} {e}){endLine}
+ {void} {mouseDragged}({MouseEvent} {f}){endLine}
+ {void} {mouseMoved}({MouseEvent} {g}){endLine}
 '}'

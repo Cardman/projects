@@ -814,6 +814,7 @@ public final class GuiAliases {
     private String aliasMenuItemCheck;
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
+    private GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
@@ -851,7 +852,7 @@ public final class GuiAliases {
         map_.put("{actionPerformed}", aliasActionPerformed);
         map_.put("{ActionEvent}", aliasActionEvent);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasActionListener);
@@ -877,7 +878,7 @@ public final class GuiAliases {
         map_.put("{valueChanged}", aliasTreeListenerValueChanged);
         map_.put("{TreeNode}", aliasTreeNode);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasTreeListener);
@@ -891,8 +892,8 @@ public final class GuiAliases {
         map_.put("{valueChanged}", aliasTableValueTableChanged);
         map_.put("{int}", primTypes_.getAliasPrimInteger());
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
-        map_.put("{f}", tr("f", _keyWords, pr_, co_));
+        map_.put("{e}", guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
+        map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasTableListener);
@@ -912,7 +913,13 @@ public final class GuiAliases {
         map_.put("{mouseMoved}", aliasMouseMoved);
         map_.put("{MouseEvent}", aliasMouseEvent);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{a}", guiAliasParameters.getAliasMouseListener0MouseClicked0());
+        map_.put("{b}", guiAliasParameters.getAliasMouseListener0MousePressed0());
+        map_.put("{c}", guiAliasParameters.getAliasMouseListener0MouseReleased0());
+        map_.put("{d}", guiAliasParameters.getAliasMouseListener0MouseEntered0());
+        map_.put("{e}", guiAliasParameters.getAliasMouseListener0MouseExited0());
+        map_.put("{f}", guiAliasParameters.getAliasMouseListener0MouseDragged0());
+        map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasMouseListener);
@@ -925,7 +932,7 @@ public final class GuiAliases {
         map_.put("{WheelListener}", aliasWheelListener);
         map_.put("{mouseMoveWheel}", aliasWheelMove);
         map_.put("{MouseWheelEvent}", aliasWheelEvent);
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{e}", guiAliasParameters.getAliasWheelListener0WheelMove0());
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
@@ -942,7 +949,9 @@ public final class GuiAliases {
         map_.put("{keyReleased}", aliasKeyReleased);
         map_.put("{KeyEvent}", aliasKeyEvent);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{a}", guiAliasParameters.getAliasKeyListener0KeyPressed0());
+        map_.put("{b}", guiAliasParameters.getAliasKeyListener0KeyTyped0());
+        map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasKeyListener);
@@ -962,7 +971,13 @@ public final class GuiAliases {
         map_.put("{windowDeactivated}", aliasWindowDeactivated);
         map_.put("{WindowEvent}", aliasWindowEvent);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
+        map_.put("{a}", guiAliasParameters.getAliasWindowListener0WindowOpened0());
+        map_.put("{b}", guiAliasParameters.getAliasWindowListener0WindowClosing0());
+        map_.put("{c}", guiAliasParameters.getAliasWindowListener0WindowClosed0());
+        map_.put("{d}", guiAliasParameters.getAliasWindowListener0WindowIconified0());
+        map_.put("{e}", guiAliasParameters.getAliasWindowListener0WindowDeiconified0());
+        map_.put("{f}", guiAliasParameters.getAliasWindowListener0WindowActivated0());
+        map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasWindowListener);
@@ -976,8 +991,8 @@ public final class GuiAliases {
         map_.put("{valueChanged}", aliasValueChanged);
         map_.put("{int}", primTypes_.getAliasPrimInteger());
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
-        map_.put("{f}", tr("f", _keyWords, pr_, co_));
+        map_.put("{e}", guiAliasParameters.getAliasListSelection0ValueChanged0());
+        map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         predefinedClasses_.add(aliasListSelection);
@@ -995,7 +1010,14 @@ public final class GuiAliases {
         map_.put("{class}", class_);
         map_.put("{Paint}", aliasPaint);
         map_.put("{paint}", aliasPaintMethod);
+        map_.put("{paintPar}", guiAliasParameters.getAliasPaint0PaintMethod0());
         map_.put("{add}", aliasPaintAdd);
+        map_.put("{addPar00}", guiAliasParameters.getAliasPaint0TabbedPaneAdd0());
+        map_.put("{addPar01}", guiAliasParameters.getAliasPaint0TabbedPaneAdd1());
+        map_.put("{addPar02}", guiAliasParameters.getAliasPaint0TabbedPaneAdd2());
+        map_.put("{addPar10}", guiAliasParameters.getAliasPaint1TabbedPaneAdd0());
+        map_.put("{addPar11}", guiAliasParameters.getAliasPaint1TabbedPaneAdd1());
+        map_.put("{refreshPar}", guiAliasParameters.getAliasPaint0PaintRefresh0());
         map_.put("{refresh}", aliasPaintRefresh);
         map_.put("{static}", static_);
         map_.put("{if}", if_);
@@ -1021,23 +1043,118 @@ public final class GuiAliases {
         map_.put("{next}", aliasGetNextCompo);
         map_.put("{getParent}", aliasGetParentCompo);
         map_.put("{getPainting}", aliasComponentGetPaint);
-        map_.put("{e}", tr("e", _keyWords, pr_, co_));
-        map_.put("{c}", tr("c", _keyWords, pr_, co_));
-        map_.put("{p}", tr("p", _keyWords, pr_, co_));
-        map_.put("{r}", tr("r", _keyWords, pr_, co_));
-        map_.put("{o}", tr("o", _keyWords, pr_, co_));
-        map_.put("{i}", tr("i", _keyWords, pr_, co_));
-        map_.put("{l}", tr("l", _keyWords, pr_, co_));
-        map_.put("{la}", tr("la", _keyWords, pr_, co_));
-        map_.put("{h}", tr("h", _keyWords, pr_, co_));
-        map_.put("{hf}", tr("hf", _keyWords, pr_, co_));
-        map_.put("{lf}", tr("lf", _keyWords, pr_, co_));
-        map_.put("{pf}", tr("pf", _keyWords, pr_, co_));
-        map_.put("{par}", tr("par", _keyWords, pr_, co_));
-        map_.put("{pan}", tr("pan", _keyWords, pr_, co_));
-        map_.put("{fct}", tr("fct", _keyWords, pr_, co_));
-        map_.put("{nb}", tr("nb", _keyWords, pr_, co_));
-        map_.put("{img}", tr("img", _keyWords, pr_, co_));
+        map_.put("{c}", tr("c", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{p}", tr("p", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{r}", tr("r", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{o}", tr("o", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{la}", tr("la", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{h}", tr("h", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{hf}", tr("hf", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{lf}", tr("lf", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{pf}", tr("pf", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{par}", tr("par", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{pan}", tr("pan", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{fct}", tr("fct", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{nb}", tr("nb", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+        map_.put("{img}", tr("img", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0()));
         map_.put("{endLine}", endLine_);
         map_.put("{suffix}", suffix_);
         map_.put("{getRender}",aliasGrListGetRender);
@@ -1081,10 +1198,10 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasPanel);
-        method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetContent0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasWindowTypeRelative, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWindowTypeRelative, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0WindowTypeRelative0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPack, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1093,16 +1210,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasIsVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSetVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0ComponentSetVisible0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetMenuBar, params_, aliasMenuBar, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasMenuBar);
-        method_ = new StandardMethod(aliasSetMenuBar, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetMenuBar, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetMenuBar0()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowListener);
-        method_ = new StandardMethod(aliasAddWindowListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddWindowListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0AddWindowListener0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1115,34 +1232,34 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasConfirm, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmField0(),guiAliasParameters.getAliasConfirm0ConfirmField1(),guiAliasParameters.getAliasConfirm0ConfirmField2(),guiAliasParameters.getAliasConfirm0ConfirmField3(),guiAliasParameters.getAliasConfirm0ConfirmField4(),guiAliasParameters.getAliasConfirm0ConfirmField5(),guiAliasParameters.getAliasConfirm0ConfirmField6()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmField0(),guiAliasParameters.getAliasConfirm1ConfirmField1(),guiAliasParameters.getAliasConfirm1ConfirmField2(),guiAliasParameters.getAliasConfirm1ConfirmField3(),guiAliasParameters.getAliasConfirm1ConfirmField4(),guiAliasParameters.getAliasConfirm1ConfirmField5()));
         methods_.add( method_);
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmFull0(),guiAliasParameters.getAliasConfirm0ConfirmFull1(),guiAliasParameters.getAliasConfirm0ConfirmFull2(),guiAliasParameters.getAliasConfirm0ConfirmFull3(),guiAliasParameters.getAliasConfirm0ConfirmFull4(),guiAliasParameters.getAliasConfirm0ConfirmFull5(),guiAliasParameters.getAliasConfirm0ConfirmFull6()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmFull0(),guiAliasParameters.getAliasConfirm1ConfirmFull1(),guiAliasParameters.getAliasConfirm1ConfirmFull2(),guiAliasParameters.getAliasConfirm1ConfirmFull3(),guiAliasParameters.getAliasConfirm1ConfirmFull4(),guiAliasParameters.getAliasConfirm1ConfirmFull5()));
         methods_.add( method_);
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmYesNo0(),guiAliasParameters.getAliasConfirm0ConfirmYesNo1(),guiAliasParameters.getAliasConfirm0ConfirmYesNo2(),guiAliasParameters.getAliasConfirm0ConfirmYesNo3(),guiAliasParameters.getAliasConfirm0ConfirmYesNo4(),guiAliasParameters.getAliasConfirm0ConfirmYesNo5()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmYesNo0(),guiAliasParameters.getAliasConfirm1ConfirmYesNo1(),guiAliasParameters.getAliasConfirm1ConfirmYesNo2(),guiAliasParameters.getAliasConfirm1ConfirmYesNo3(),guiAliasParameters.getAliasConfirm1ConfirmYesNo4()));
         methods_.add( method_);
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmOk0(),guiAliasParameters.getAliasConfirm0ConfirmOk1(),guiAliasParameters.getAliasConfirm0ConfirmOk2(),guiAliasParameters.getAliasConfirm0ConfirmOk3(),guiAliasParameters.getAliasConfirm0ConfirmOk4()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmOk0(),guiAliasParameters.getAliasConfirm1ConfirmOk1(),guiAliasParameters.getAliasConfirm1ConfirmOk2(),guiAliasParameters.getAliasConfirm1ConfirmOk3()));
         methods_.add( method_);
         params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmMessage0(),guiAliasParameters.getAliasConfirm0ConfirmMessage1(),guiAliasParameters.getAliasConfirm0ConfirmMessage2(),guiAliasParameters.getAliasConfirm0ConfirmMessage3(),guiAliasParameters.getAliasConfirm0ConfirmMessage4()));
         methods_.add( method_);
         params_ = new StringList(aliasWindowType,_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmMessage0(),guiAliasParameters.getAliasConfirm1ConfirmMessage1(),guiAliasParameters.getAliasConfirm1ConfirmMessage2(),guiAliasParameters.getAliasConfirm1ConfirmMessage3()));
         methods_.add( method_);
         fields_.add(new StandardField(aliasConfirmFieldOk,_content.getPrimTypes().getAliasPrimInteger(),true,true,stdcl_));
         fields_.add(new StandardField(aliasConfirmFieldYes,_content.getPrimTypes().getAliasPrimInteger(),true,true,stdcl_));
@@ -1151,19 +1268,21 @@ public final class GuiAliases {
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasConfirm, std_);
 
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindowSetAll, params_, aliasWindowSet, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWindowSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0WindowSetContains0()));
         methods_.add( method_);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWindowSetRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindowSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL);
@@ -1194,7 +1313,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasDialogIsModal, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasDialogSetModal, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasDialogSetModal, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasDialog0DialogSetModal0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -1215,37 +1334,37 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGetFont, params_, aliasFont, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasFont);
-        method_ = new StandardMethod(aliasSetFont, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetFont, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0SetFont0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompBack, params_, aliasColor, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasColor);
-        method_ = new StandardMethod(aliasCompBack, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompBack, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompBack0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompFore, params_, aliasColor, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasColor);
-        method_ = new StandardMethod(aliasCompFore, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompFore, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompFore0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompFocusable, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasCompFocusable, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompFocusable, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompFocusable0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompOpaque, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasCompOpaque, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompOpaque, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompOpaque0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompToolTip, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasCompToolTip, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompToolTip, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompToolTip0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompGetFirstPos, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -1254,16 +1373,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasCompGetSecondPos, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasCompLoc, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompLoc, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompLoc0(),guiAliasParameters.getAliasComponent0CompLoc1()));
         methods_.add( method_);
         params_ = new StringList(aliasColor);
-        method_ = new StandardMethod(aliasCompBorLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompBorLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompBorLine0()));
         methods_.add( method_);
         params_ = new StringList(aliasColor,_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasCompBorLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompBorLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent1CompBorLine0(),guiAliasParameters.getAliasComponent1CompBorLine1()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasCompBorTitle, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCompBorTitle, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0CompBorTitle0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompBorLower, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1277,7 +1396,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComponentGetPaint, params_, type_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(type_);
-        method_ = new StandardMethod(aliasComponentSetPaint, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComponentSetPaint, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0ComponentSetPaint0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentRepaint, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1287,31 +1406,31 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComponentIsAutoscrolls, params_, type_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(type_);
-        method_ = new StandardMethod(aliasComponentSetAutoscrolls, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComponentSetAutoscrolls, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0ComponentSetAutoscrolls0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentGetPreferredSize, params_, aliasDimension, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasDimension);
-        method_ = new StandardMethod(aliasComponentSetPreferredSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComponentSetPreferredSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0ComponentSetPreferredSize0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentIsVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasComponentSetVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComponentSetVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0ComponentSetVisible0()));
         methods_.add( method_);
         params_ = new StringList(_cust.getAliasRunnable());
-        method_ = new StandardMethod(aliasComponentInvokeLater, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasComponentInvokeLater, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasComponent0ComponentInvokeLater0()));
         methods_.add( method_);
         params_ = new StringList(aliasKeyListener);
-        method_ = new StandardMethod(aliasAddKeyListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddKeyListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddKeyListener0()));
         methods_.add( method_);
         params_ = new StringList(aliasWheelListener);
-        method_ = new StandardMethod(aliasAddWheelListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddWheelListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddWheelListener0()));
         methods_.add( method_);
         params_ = new StringList(aliasMouseListener);
-        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddListener0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRequestFocus, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1338,10 +1457,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasDimensionGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension0Dimension0(),guiAliasParameters.getAliasDimension0Dimension1()));
         constructors_.add(ctor_);
         params_ = new StringList(aliasDimension);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension1Dimension0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasDimension, std_);
@@ -1351,16 +1470,16 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasTreeNode, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeAdd0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeInsert, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeInsert, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeInsert0(),guiAliasParameters.getAliasTreeNode0TreeNodeInsert1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode1TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeNodeRemoveFromParent, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1369,7 +1488,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeNodeRemoveAllChildren, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTreeNodeSetUserObject, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeSetUserObject, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeSetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeNodeGetUserObject, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
@@ -1393,16 +1512,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeNodeGetParentNode, params_,aliasTreeNode, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeIsAncestor, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeIsAncestor, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsAncestor0()));
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsDescendant0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTreeNode0TreeNode0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTreeNode, std_);
@@ -1412,10 +1531,10 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasTree, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasTreeListener);
-        method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeAddTreeListener0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTreeSetRootVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeSetRootVisible, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeSetRootVisible0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeIsRootVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
@@ -1424,13 +1543,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeGetSelected, params_, aliasTreeNode, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeGetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeGetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeGetSelected0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeReload, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTree0Tree0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTree, std_);
@@ -1441,43 +1560,43 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasTableGui, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasMouseListener);
-        method_ = new StandardMethod(aliasTableAddHeader, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableAddHeader, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddHeader0()));
         methods_.add( method_);
         params_ = new StringList(aliasTableListener);
-        method_ = new StandardMethod(aliasTableAddSelect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableAddSelect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddSelect0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableIsMultiple, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTableSetMultiple, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableSetMultiple, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetMultiple0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableIsReorder, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTableSetReorder, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableSetReorder, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetReorder0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetColumnName, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetColumnName, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnName0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableGetColumnCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetColumnAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetColumnAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetRowAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetRowAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetRowAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetRowAtPoint1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableGetRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableSetRowCount, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableSetRowCount, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetRowCount0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTableSetColumns, params_, _content.getCoreNames(). getAliasVoid(), true, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableSetColumns, params_, _content.getCoreNames(). getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetColumns0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableGetSelectedRow, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -1489,25 +1608,25 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTableGetSelectedRows, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableMoveColumn, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableMoveColumn, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableMoveColumn0(),guiAliasParameters.getAliasTableGui0TableMoveColumn1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableAddInterval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableAddInterval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddInterval0(),guiAliasParameters.getAliasTableGui0TableAddInterval1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableRemoveInterval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableRemoveInterval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableRemoveInterval0(),guiAliasParameters.getAliasTableGui0TableRemoveInterval1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableApplyChanges, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject1(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject2()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetValue, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetValue, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject1()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,true);
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasTableGui0TableGui0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTableGui, std_);
@@ -1519,19 +1638,19 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasPanel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(aliasComponent,_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1TabbedPaneAdd0(),guiAliasParameters.getAliasPanel1TabbedPaneAdd1()));
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasRemoveCompo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRemoveCompo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0RemoveCompo0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasRemoveCompo, params_, aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRemoveCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1RemoveCompo0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGetIndexCompo, params_, aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetIndexCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TreeNodeGetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -1546,7 +1665,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasPanelPageBox, params_, aliasPanel, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasPanel0PanelGrid0(),guiAliasParameters.getAliasPanel0PanelGrid1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRemoveAll, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -1565,7 +1684,7 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent,_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -1587,34 +1706,34 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSelIndex0()));
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneIndex0()));
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane1TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTabbedPaneSetTitle, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneSetTitle, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneGet, params_, aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneGet, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeGetUserObject0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneGetTitle, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneGetTitle, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneGetTitle0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTabbedPaneNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -1633,13 +1752,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneHorizontalValue0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneVerticalValue0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL);
@@ -1648,13 +1767,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasScrollPaneValidate, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasScrollPaneSetView, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneSetView, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneSetView0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(aliasComponent);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPane0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasScrollPane, std_);
@@ -1667,43 +1786,43 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSplitPaneGetLeft, params_,aliasComponent, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasSplitPaneSetLeft, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetLeft, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetLeft0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneGetRight, params_,aliasComponent, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasSplitPaneSetRight, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetRight, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetRight0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneGetDividerLocation, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSplitPaneSetDividerLocation, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetDividerLocation, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerLocation0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneGetDividerSize, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSplitPaneSetDividerSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetDividerSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerSize0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneIsOneTouchExpandable, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSplitPaneSetOneTouchExpandable, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetOneTouchExpandable, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetOneTouchExpandable0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneIsContinuousLayout, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSplitPaneSetContinuousLayout, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneSetContinuousLayout, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetContinuousLayout0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSplitPaneValidate, params_,_content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasComponent,aliasComponent);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSplitPane0SplitPane0(),guiAliasParameters.getAliasSplitPane0SplitPane1(),guiAliasParameters.getAliasSplitPane0SplitPane2()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasSplitPane, std_);
@@ -1716,7 +1835,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasInputIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasInputSetEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasInputSetEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasInput0InputSetEnabled0()));
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasInput, std_);
@@ -1727,13 +1846,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasButton, std_);
@@ -1742,25 +1861,25 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasProgBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMin0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasProgBarMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0TreeNodeGetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasProgBarValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMax0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasProgBarMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarOr0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasProgBarOr, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
@@ -1772,13 +1891,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasTextLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasSetLabelText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetLabelText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextLabel0SetLabelText0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextLabel0TextLabel0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTextLabel, std_);
@@ -1788,13 +1907,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasImage);
-        method_ = new StandardMethod(aliasSetLabelImage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSetLabelImage, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImageLabel0SetLabelImage0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(aliasImage);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImageLabel0ImageLabel0()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasImageLabel, std_);
@@ -1816,19 +1935,19 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasFontIsItalic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasFont0FontStringWidth0()));
         methods_.add( method_);
         params_ = new StringList(aliasImage,_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont0Font0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont1Font0(),guiAliasParameters.getAliasFont1Font1(),guiAliasParameters.getAliasFont1Font2(),guiAliasParameters.getAliasFont1Font3()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasFont, stdcl_);
 
@@ -1852,16 +1971,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasColorIsTransparent, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor0Color0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor1Color0(),guiAliasParameters.getAliasColor1Color1()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor2Color0(),guiAliasParameters.getAliasColor2Color1(),guiAliasParameters.getAliasColor2Color2()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor3Color0(),guiAliasParameters.getAliasColor3Color1(),guiAliasParameters.getAliasColor3Color2(),guiAliasParameters.getAliasColor3Color3()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasColor, stdcl_);
 
@@ -1879,59 +1998,59 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasImageGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageGet, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageGet, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeGetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeGetUserObject1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeSetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject1(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject2()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageGetColor, params_, aliasColor, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasColor);
-        method_ = new StandardMethod(aliasImageSetColor, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageSetColor, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageSetColor0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageGetFont, params_, aliasFont, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasFont);
-        method_ = new StandardMethod(aliasImageSetFont, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageSetFont, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0SetFont0()));
         methods_.add( method_);
 
         params_ = new StringList(aliasImage,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDraw0(),guiAliasParameters.getAliasImage0ImageDraw1(),guiAliasParameters.getAliasImage0ImageDraw2()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage1ImageDraw0(),guiAliasParameters.getAliasImage1ImageDraw1(),guiAliasParameters.getAliasImage1ImageDraw2()));
         methods_.add( method_);
 
         String arrInt_ = StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger());
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDrawLine, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawLine0(),guiAliasParameters.getAliasImage0ImageDrawLine1(),guiAliasParameters.getAliasImage0ImageDrawLine2(),guiAliasParameters.getAliasImage0ImageDrawLine3()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawRect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDrawRect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawRect0(),guiAliasParameters.getAliasImage0ImageDrawRect1(),guiAliasParameters.getAliasImage0ImageDrawRect2(),guiAliasParameters.getAliasImage0ImageDrawRect3()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawOval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDrawOval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawOval0(),guiAliasParameters.getAliasImage0ImageDrawOval1(),guiAliasParameters.getAliasImage0ImageDrawOval2(),guiAliasParameters.getAliasImage0ImageDrawOval3()));
         methods_.add( method_);
         params_ = new StringList(arrInt_,arrInt_);
-        method_ = new StandardMethod(aliasImageDrawPolygon, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDrawPolygon, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawPolygon0(),guiAliasParameters.getAliasImage0ImageDrawPolygon1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageFillRect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageFillRect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillRect0(),guiAliasParameters.getAliasImage0ImageFillRect1(),guiAliasParameters.getAliasImage0ImageFillRect2(),guiAliasParameters.getAliasImage0ImageFillRect3()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageFillOval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageFillOval, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillOval0(),guiAliasParameters.getAliasImage0ImageFillOval1(),guiAliasParameters.getAliasImage0ImageFillOval2(),guiAliasParameters.getAliasImage0ImageFillOval3()));
         methods_.add( method_);
         params_ = new StringList(arrInt_,arrInt_);
-        method_ = new StandardMethod(aliasImageFillPolygon, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageFillPolygon, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillPolygon0(),guiAliasParameters.getAliasImage0ImageFillPolygon1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageDispose, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
 
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
         buildInputs(_content);
@@ -1993,7 +2112,7 @@ public final class GuiAliases {
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMouseEvent0MouseEvent0(),guiAliasParameters.getAliasMouseEvent0MouseEvent1(),guiAliasParameters.getAliasMouseEvent0MouseEvent2(),guiAliasParameters.getAliasMouseEvent0MouseEvent3(),guiAliasParameters.getAliasMouseEvent0MouseEvent4(),guiAliasParameters.getAliasMouseEvent0MouseEvent5(),guiAliasParameters.getAliasMouseEvent0MouseEvent6(),guiAliasParameters.getAliasMouseEvent0MouseEvent7(),guiAliasParameters.getAliasMouseEvent0MouseEvent8()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasMouseEvent, std_);
@@ -2008,7 +2127,7 @@ public final class GuiAliases {
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasWheelEvent0WheelEvent0(),guiAliasParameters.getAliasWheelEvent0WheelEvent1(),guiAliasParameters.getAliasWheelEvent0WheelEvent2(),guiAliasParameters.getAliasWheelEvent0WheelEvent3(),guiAliasParameters.getAliasWheelEvent0WheelEvent4(),guiAliasParameters.getAliasWheelEvent0WheelEvent5(),guiAliasParameters.getAliasWheelEvent0WheelEvent6(),guiAliasParameters.getAliasWheelEvent0WheelEvent7(),guiAliasParameters.getAliasWheelEvent0WheelEvent8(),guiAliasParameters.getAliasWheelEvent0WheelEvent9()));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWheelEvent, std_);
@@ -2034,7 +2153,7 @@ public final class GuiAliases {
         params_ = new StringList(
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasKeyEvent0KeyEvent0(),guiAliasParameters.getAliasKeyEvent0KeyEvent1(),guiAliasParameters.getAliasKeyEvent0KeyEvent2(),guiAliasParameters.getAliasKeyEvent0KeyEvent3(),guiAliasParameters.getAliasKeyEvent0KeyEvent4()));
         constructors_.add(ctor_);
 
         std_ = stdcl_;
@@ -2053,13 +2172,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasMenu);
-        method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(aliasMenu);
-        method_ = new StandardMethod(aliasMenuBarRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuBarRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeGetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMenuBarNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -2073,19 +2192,19 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetText0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasAbsMenuGetText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0InputSetEnabled0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasAbsMenuIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetDeepEnabled0()));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasAbsMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2093,13 +2212,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasMenuAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasMenuRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeRemove0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeGetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -2111,7 +2230,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenu0Menu0()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2119,7 +2238,7 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasAbsMenuItem, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenuItem0TabbedPaneAdd0()));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasAbsMenuItem, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2130,7 +2249,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItem0MenuItem0()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenuItem, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2138,7 +2257,7 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasMenuItemCheck, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuItemCheck0RadioSetSelected0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMenuItemCheckIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
@@ -2147,7 +2266,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItemCheck0MenuItemCheck0()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenuItemCheck, stdcl_);
 
@@ -2169,21 +2288,21 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typeHeight_);
-        method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetHeight0()));
         methods_.add( method_);
         String typeWidth_ = StringList.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typeWidth_);
-        method_ = new StandardMethod(aliasRenderSetWidth, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderSetWidth, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetWidth0()));
         methods_.add( method_);
         String typePaint_ = StringList.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",aliasImage,",?>");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetPaint, params_, typePaint_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typePaint_);
-        method_ = new StandardMethod(aliasRenderSetPaint, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderSetPaint, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0ComponentSetPaint0()));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasRender, stdcl_);
 
@@ -2196,28 +2315,28 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasRender);
-        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetSelection, params_, aliasListSelection, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListSetSelection, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListSetSelection, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelection0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TabbedPaneAdd0(),guiAliasParameters.getAliasGrList1TabbedPaneAdd1(),guiAliasParameters.getAliasGrList1TabbedPaneAdd2()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject1(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject2()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL);
@@ -2226,7 +2345,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames(). getAliasVoid(), true, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames(). getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelectedIndexes0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListClearSelection, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -2235,13 +2354,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0RemoveCompo0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasGrList, stdcl_);
 
@@ -2253,13 +2372,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComboGetListener, params_, aliasListSelection, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasComboSetListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboSetListener, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboSetListener0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasComboAddItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboAddItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasComboSelectItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboSelectItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboSelectItem0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetItemCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -2274,7 +2393,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComboGetSelectedItem, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasComboRemoveItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboRemoveItem, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveItem0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboRemoveAllItems, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -2283,10 +2402,10 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,true);
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo0Combo0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,true);
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo1Combo0(),guiAliasParameters.getAliasCombo1Combo1()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasCombo, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2294,7 +2413,7 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasRadio);
-        method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasButtonGroup, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2302,31 +2421,31 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuGetComp, params_, aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuGetComp, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetComp0()));
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasPopupMenuRemoveComp, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuRemoveComp, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveComp0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPopupMenuNbComp, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuAddMenu, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuAddMenu, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuAddMenu0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetMenu0()));
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveMenu0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPopupMenuNbMenu, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasComponent,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuShow, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuShow, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuShow0(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow1(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow2()));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasPopupMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2337,25 +2456,25 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasRadioIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasRadioSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRadioSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0RadioSetSelected0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRadioGetText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasRadioSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRadioSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0SetLabelText0()));
         methods_.add( method_);
         params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0AddChange0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio0Radio0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio1Radio0(),guiAliasParameters.getAliasRadio1Radio1()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasRadio, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2366,22 +2485,22 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasCheckBoxIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasCheckBoxSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCheckBoxSetSelected, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0RadioSetSelected0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCheckBoxGetText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasCheckBoxSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCheckBoxSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0SetLabelText0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox0CheckBox0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox1CheckBox0(),guiAliasParameters.getAliasCheckBox1CheckBox1()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasCheckBox, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2392,22 +2511,22 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTextFieldGetText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTextFieldSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextFieldSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0SetLabelText0()));
         methods_.add( method_);
         params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasTextFieldAddAction, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextFieldAddAction, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0TextFieldAddAction0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField0TextField0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField1TextField0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField2TextField0(),guiAliasParameters.getAliasTextField2TextField1()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasTextField, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2418,37 +2537,37 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0SetLabelText0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTextAreaAppend, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaAppend, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TabbedPaneAdd0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeInsert0(),guiAliasParameters.getAliasTextArea0TreeNodeInsert1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, _content.getCharSeq(). getAliasString(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionStart0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionEnd0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaGetTabSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetTabSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSetTabSize, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetTabSize0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceRange0(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange1(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange2()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceSelection0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeGetSelected0(),guiAliasParameters.getAliasTextArea0TreeGetSelected1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
@@ -2457,13 +2576,13 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea0TextArea0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea1TextArea0(),guiAliasParameters.getAliasTextArea1TextArea1()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq(). getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea2TextArea0(),guiAliasParameters.getAliasTextArea2TextArea1(),guiAliasParameters.getAliasTextArea2TextArea2()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasTextArea, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2474,37 +2593,37 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSpinnerGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetMax0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetMin0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0TreeNodeSetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetStep, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetStep, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetStep, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetStep0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetRange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetRange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetRange0(),guiAliasParameters.getAliasSpinner0SpinnerSetRange1()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSpinnerSetRangeValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSpinnerSetRangeValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue0(),guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue1(),guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue2()));
         methods_.add( method_);
         params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0AddChange0()));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSpinner0Spinner0(),guiAliasParameters.getAliasSpinner0Spinner1(),guiAliasParameters.getAliasSpinner0Spinner2(),guiAliasParameters.getAliasSpinner0Spinner3()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasSpinner, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2515,43 +2634,43 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSliderGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMax0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMin0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0TreeNodeSetUserObject0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSliderGetOrientation, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetOrientation, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderSetOrientation, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SliderSetOrientation0()));
         methods_.add( method_);
         params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames(). getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0AddChange0()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider0Slider0()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider1Slider0(),guiAliasParameters.getAliasSlider1Slider1()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider2Slider0(),guiAliasParameters.getAliasSlider2Slider1(),guiAliasParameters.getAliasSlider2Slider2()));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider3Slider0(),guiAliasParameters.getAliasSlider3Slider1(),guiAliasParameters.getAliasSlider3Slider2(),guiAliasParameters.getAliasSlider3Slider3()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasSlider, stdcl_);
     }
@@ -5236,6 +5355,7 @@ public final class GuiAliases {
         setAliasMenuItem(LgNamesContent.get(_util, _cust, MENU_ITEM));
         setAliasAbsMenu(LgNamesContent.get(_util, _cust, ABS_MENU));
         setAliasMenuGet(LgNamesContent.get(_util, _cust, MENU_GET));
+        guiAliasParameters.build(_util, _cust);
     }
 
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(CustAliases _custAliases,LgNamesContent _content) {
@@ -5465,6 +5585,11 @@ public final class GuiAliases {
         return m_;
     }
 
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
+        CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
+        m_.addAllElts(guiAliasParameters.allTableTypeMethodParamNames());
+        return m_;
+    }
     private void allComponents(StringMap<CustList<KeyValueMemberName>> _m) {
         CustList<KeyValueMemberName> names_ = getCompoMethodNames();
         _m.addEntry(getAliasPanel(),merge(new CustList<KeyValueMemberName>(
