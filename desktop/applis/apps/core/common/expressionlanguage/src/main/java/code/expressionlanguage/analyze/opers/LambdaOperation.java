@@ -562,11 +562,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (3 < _len && StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
                 String nameId_ = _args.get(3).trim();
                 int offset_ = _args.first().length() + className.indexOf('(')+1;
-                offset_ ++;
+                offset_++;
                 offset_ += _args.get(1).length();
-                offset_ ++;
+                offset_++;
                 offset_ += _args.get(2).length();
-                offset_ ++;
+                offset_++;
                 offset_ += StringExpUtil.getOffset(_args.get(3));
                 String cl_ = ResolvingImportTypes.resolveAccessibleIdType(offset_,nameId_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
@@ -1302,7 +1302,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 int offset_ = className.indexOf('(')+1;
                 for (int i = 0; i < i_; i++) {
                     offset_ += _args.get(i).length();
-                    offset_ ++;
+                    offset_++;
                 }
                 offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
@@ -1362,7 +1362,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 int offset_ = className.indexOf('(')+1;
                 for (int i = 0; i < i_; i++) {
                     offset_ += _args.get(i).length();
-                    offset_ ++;
+                    offset_++;
                 }
                 offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
@@ -1515,7 +1515,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             for (int i = 0; i < i_; i++) {
                 offset_ += _args.get(i).length();
-                offset_ ++;
+                offset_++;
             }
             offset_ += StringExpUtil.getOffset(_args.get(i_));
             String type_ = _args.get(i_).trim();

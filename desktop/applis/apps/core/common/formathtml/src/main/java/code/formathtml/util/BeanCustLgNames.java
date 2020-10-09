@@ -47,7 +47,6 @@ import code.sml.Element;
 import code.util.*;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
-    private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
     private static final String REF_TAG = "#";
 
@@ -56,6 +55,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private static final String SESSION = "session";
 
     private static final String RETURN_LINE = "\n";
+
+    private DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
     private String iteratorVar;
     private String hasNextVar;

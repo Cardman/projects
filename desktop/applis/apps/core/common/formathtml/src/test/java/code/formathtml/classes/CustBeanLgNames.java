@@ -1994,8 +1994,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         }
         if (StringList.quickEq(_className, TYPE_ENUM_NUMBER)) {
             EnumNumber en_ = EnumNumber.getByName(_values.first());
-            if (en_ == null) {
-            } else {
+            if (en_ != null) {
                 res_.setResult(StdStruct.newInstance(en_, _className));
             }
             return res_;

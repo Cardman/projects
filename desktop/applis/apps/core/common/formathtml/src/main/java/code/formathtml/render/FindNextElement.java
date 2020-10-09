@@ -11,8 +11,8 @@ public final class FindNextElement {
     private MetaSearchableLabel label;
     private MetaDocument document;
     private boolean setup;
-    private int row = 0;
-    private int group = 0;
+    private int row;
+    private int group;
     private IdMap<MetaSearchableLabel, CustList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, CustList<SegmentPart>>();
 
     public FindNextElement(MetaDocument _document) {

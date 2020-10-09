@@ -7,7 +7,7 @@ import code.gui.Panel;
 import code.util.*;
 import code.util.StringList;
 
-public class MiniCarpet {
+public final class MiniCarpet {
 
     private boolean horaire;
 

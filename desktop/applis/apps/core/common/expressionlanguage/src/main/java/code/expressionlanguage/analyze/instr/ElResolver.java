@@ -614,8 +614,8 @@ public final class ElResolver {
         return i_;
     }
 
-    private static int incrInstanceOf(String _string, int len_, int next_) {
-        next_ = incrType(next_,_string);
+    private static int incrInstanceOf(String _string, int len_, int _next) {
+        int next_ = incrType(_next,_string);
         if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
             int nbOpened_ = 1;
             next_++;

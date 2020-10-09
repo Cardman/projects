@@ -18,13 +18,13 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnaRendSelect extends AnaRendParentBlock {
-    private OperationNode rootRead ;
-    private OperationNode rootValue ;
-    private OperationNode rootMap ;
-    private OperationNode rootDefault ;
-    private OperationNode rootConverter ;
-    private OperationNode rootConverterField ;
-    private OperationNode rootConverterFieldValue ;
+    private OperationNode rootRead;
+    private OperationNode rootValue;
+    private OperationNode rootMap;
+    private OperationNode rootDefault;
+    private OperationNode rootConverter;
+    private OperationNode rootConverterField;
+    private OperationNode rootConverterFieldValue;
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private StringMap<ResultText> attributes = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;

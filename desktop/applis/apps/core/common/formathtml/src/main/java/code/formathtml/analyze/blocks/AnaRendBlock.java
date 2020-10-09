@@ -16,8 +16,11 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 
 public abstract class AnaRendBlock implements AnalyzedBlock {
-    static final String CALL_METHOD = "$";
     public static final String COMMA = ",";
+    public static final String AND_ERR = "&";
+    public static final String LEFT_PAR = "(";
+    public static final String RIGHT_PAR = ")";
+    static final String CALL_METHOD = "$";
     static final String EMPTY_STRING = "";
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
@@ -30,10 +33,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     static final String DOT = ".";
     static final String TMP_LOC = "tmpLoc";
 
-    public static final String AND_ERR = "&";
     static final String OR_ERR = "|";
-    public static final String LEFT_PAR = "(";
-    public static final String RIGHT_PAR = ")";
     static final String ZERO = "0";
     static final String STR = "\"";
 

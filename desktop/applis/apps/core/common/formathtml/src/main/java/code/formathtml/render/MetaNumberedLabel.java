@@ -53,7 +53,7 @@ public final class MetaNumberedLabel extends MetaLabel {
             } else {
                 int d_ = i/1000-1;
                 if (d_ < 3) {
-                    for (int j = 0; j <= d_ ; j++) {
+                    for (int j = 0; j <= d_; j++) {
                         str_.append(fourthUnit_);
                     }
                 } else if (d_ == 3){

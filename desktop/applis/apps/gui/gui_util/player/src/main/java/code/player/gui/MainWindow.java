@@ -166,7 +166,7 @@ public class MainWindow extends GroupFrame {
 
     public void playOrPause(boolean _click) {
         if (clipStream == null) {
-            noSong ++;
+            noSong++;
             if (_click && random.isSelected()) {
                 songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
@@ -205,7 +205,7 @@ public class MainWindow extends GroupFrame {
                     if (c_ != null) {
                         break;
                     }
-                    noSong ++;
+                    noSong++;
                     if (noSong >= songsList.size()) {
                         break;
                     }
@@ -287,7 +287,7 @@ public class MainWindow extends GroupFrame {
                     if (c_ != null) {
                         break;
                     }
-                    noSong ++;
+                    noSong++;
                     if (noSong >= songsList.size()) {
                         break;
                     }

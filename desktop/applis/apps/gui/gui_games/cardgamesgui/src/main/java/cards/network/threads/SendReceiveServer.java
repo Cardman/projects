@@ -104,9 +104,9 @@ import code.util.consts.Constants;
 Thread safe class*/
 public final class SendReceiveServer extends BasicServer {
 
-    private final AbstractLock lock;
-
     private static final String EMPTY_STRING = "";
+
+    private final AbstractLock lock;
 
     /**This class thread is independant from EDT*/
     public SendReceiveServer(Socket _socket, NetGroupFrame _net) {

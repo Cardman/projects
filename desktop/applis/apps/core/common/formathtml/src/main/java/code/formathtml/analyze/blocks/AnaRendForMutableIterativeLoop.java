@@ -107,8 +107,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrInit());
         _page.setForLoopPartState(ForLoopPart.INIT);
         _page.setAcceptCommaInstr(true);
-        if (init.trim().isEmpty()) {
-        } else {
+        if (!init.trim().isEmpty()) {
             rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page);
         }
         if (_page.isMerged()) {
@@ -123,8 +122,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.setOffset(0);
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         _page.setForLoopPartState(ForLoopPart.CONDITION);
-        if (expression.trim().isEmpty()) {
-        } else {
+        if (!expression.trim().isEmpty()) {
             rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         }
         if (rootExp != null) {
@@ -158,21 +156,19 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         buildIncrementPart(_anaDoc, _page);
     }
 
-    public void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        page_.setMerged(false);
-        page_.setGlobalOffset(stepOffset);
-        page_.setOffset(0);
-        page_.setForLoopPartState(ForLoopPart.STEP);
-        page_.setMerged(true);
-        page_.setAcceptCommaInstr(true);
+    private void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setMerged(false);
+        _page.setGlobalOffset(stepOffset);
+        _page.setOffset(0);
+        _page.setForLoopPartState(ForLoopPart.STEP);
+        _page.setMerged(true);
+        _page.setAcceptCommaInstr(true);
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
-        if (step.trim().isEmpty()) {
-        } else {
+        if (!step.trim().isEmpty()) {
             rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);
         }
-        page_.setMerged(false);
-        page_.setAcceptCommaInstr(false);
+        _page.setMerged(false);
+        _page.setAcceptCommaInstr(false);
     }
 
     @Override

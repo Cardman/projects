@@ -556,7 +556,7 @@ public abstract class ProcessMethodCommon {
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         validateWithoutInit(_files, cont_);
-        assertTrue(! isEmptyErrors(cont_));
+        assertTrue(!isEmptyErrors(cont_));
         return cont_.getContext();
     }
     protected static AnalyzedTestContext unfullValidateInheriting(StringMap<String> _files) {

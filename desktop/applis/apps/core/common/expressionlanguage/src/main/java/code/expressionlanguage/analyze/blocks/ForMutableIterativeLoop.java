@@ -169,29 +169,19 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setOffset(0);
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
-//        CustList<ExecOperationNode> init_;
-        if (init.trim().isEmpty()) {
-//            init_ = new CustList<ExecOperationNode>();
-        } else {
+        if (!init.trim().isEmpty()) {
             rootInit = ElUtil.getRootAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
-//            rootInit = _page.getCurrentRoot();
         }
         addVars(_page);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
         _page.setForLoopPartState(ForLoopPart.CONDITION);
-//        CustList<ExecOperationNode> exp_;
         if (expression.trim().isEmpty()) {
-//            exp_ = new CustList<ExecOperationNode>();
             alwaysTrue = true;
         } else {
             rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-//            ExecOperationNode l_ = exp_.last();
-//            argument = l_.getArgument();
             checkBoolCondition(rootExp, _page);
-//            rootExp = _page.getCurrentRoot();
         }
-//        _page.getCoverage().putBlockOperationsConditions(this);
         MemberCallingsBlock f_1 = _page.getCurrentFct();
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
@@ -200,22 +190,11 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
         MethodAccessKind static_1 = f_1.getStaticContext();
-//        CustList<ExecOperationNode> step_;
-        if (step.trim().isEmpty()) {
-//            step_ = new CustList<ExecOperationNode>();
-        } else {
+        if (!step.trim().isEmpty()) {
             rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_1), _page);
-//            rootStep = _page.getCurrentRoot();
         }
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
-//        ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label, importedClassName, importedClassIndexName,
-//                variableNames, initOffset, expressionOffset, stepOffset,
-//                init_,exp_,step_);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
 
     }
 

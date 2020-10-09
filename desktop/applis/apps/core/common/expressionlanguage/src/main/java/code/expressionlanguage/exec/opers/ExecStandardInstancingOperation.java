@@ -41,7 +41,7 @@ public final class ExecStandardInstancingOperation extends
         if (!instancingStdContent.getFieldName().isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
             off_ -= instancingStdContent.getFieldName().length();
-            off_ --;
+            off_--;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = _conf.formatVarType(getClassName());

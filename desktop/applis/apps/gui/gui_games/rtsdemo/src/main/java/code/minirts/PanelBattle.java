@@ -28,13 +28,6 @@ public class PanelBattle {
     private Selecting selecting;
     private Panel container = Panel.newAbsolute();
     private Panel content = Panel.newAbsolute();
-    public void addMouseMotionListener(MouseMotionListener _l) {
-        content.addMouseMotionListener(_l);
-    }
-
-    public void addMouseWheelListener(MouseWheelListener _l) {
-        content.addMouseWheelListener(_l);
-    }
 
     public PanelBattle(Facade _facade) {
         facade = _facade;
@@ -45,6 +38,14 @@ public class PanelBattle {
         selecting = new Selecting(_facade);
         container.add(selecting);
         container.add(content);
+    }
+
+    public void addMouseMotionListener(MouseMotionListener _l) {
+        content.addMouseMotionListener(_l);
+    }
+
+    public void addMouseWheelListener(MouseWheelListener _l) {
+        content.addMouseWheelListener(_l);
     }
 
     public void addNewSoldier(int _x, int _y, long _next) {
