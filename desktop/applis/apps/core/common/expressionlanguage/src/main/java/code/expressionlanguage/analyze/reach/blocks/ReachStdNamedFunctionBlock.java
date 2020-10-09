@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     private NamedFunctionBlock meta;
@@ -23,7 +23,7 @@ public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     }
 
     private void checkReturnFct(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        if (!StringList.quickEq(meta.getImportedReturnType(), _page.getAliasVoid())) {
+        if (!StringUtil.quickEq(meta.getImportedReturnType(), _page.getAliasVoid())) {
             if (!abstractMethod&&_anEl.canCompleteNormally(this)) {
                 //error
                 FoundErrorInterpret miss_ = new FoundErrorInterpret();

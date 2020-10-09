@@ -2,9 +2,9 @@ package cards.president;
 import java.util.Iterator;
 
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
+import code.util.core.IndexConstants;
 
 
 public final class TrickPresident implements Iterable<HandPresident> {
@@ -32,7 +32,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
         Ints l_ = new Ints();
         byte pl_ = starter;
         int len_ = cards.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (pl_ == _player) {
                 l_.add(i);
             }
@@ -53,7 +53,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     public Ints getFilledHandsIndexesBefore(int _index) {
         Ints l_ = new Ints();
         int len_ = cards.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (i >= _index) {
                 break;
             }
@@ -81,13 +81,13 @@ public final class TrickPresident implements Iterable<HandPresident> {
 
     public HandPresident getBestCards() {
         int index_ = cards.size() - 1;
-        while (index_ >= CustList.FIRST_INDEX) {
+        while (index_ >= IndexConstants.FIRST_INDEX) {
             if (!cards.get(index_).estVide()) {
                 break;
             }
             index_--;
         }
-        if (index_ < CustList.FIRST_INDEX) {
+        if (index_ < IndexConstants.FIRST_INDEX) {
             return new HandPresident();
         }
         return cards.get(index_);
@@ -96,13 +96,13 @@ public final class TrickPresident implements Iterable<HandPresident> {
     /**Retourne le ramasseur du pli lorsque le pli est termine*/
     public byte getRamasseur(byte _nbPlayers) {
         int index_ = cards.size() - 1;
-        while (index_ >= CustList.FIRST_INDEX) {
+        while (index_ >= IndexConstants.FIRST_INDEX) {
             if (!cards.get(index_).estVide()) {
                 break;
             }
             index_--;
         }
-        if (index_ < CustList.FIRST_INDEX) {
+        if (index_ < IndexConstants.FIRST_INDEX) {
 //            return CustList.INDEX_NOT_FOUND_ELT;
             index_ = total();
         }

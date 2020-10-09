@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         GeneCustStaticMethod {
@@ -77,10 +78,10 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (r_ instanceof EnumBlock) {
             return;
         }
-        if (StringList.quickEq(type_, string_)) {
+        if (StringUtil.quickEq(type_, string_)) {
             return;
         }
-        if (StringList.quickEq(type_, class_)) {
+        if (StringUtil.quickEq(type_, class_)) {
             return;
         }
         FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -138,7 +139,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(arg_.getNames(),"&"),
+                    StringUtil.join(arg_.getNames(),"&"),
                     import_);
             _page.addLocError(cast_);
             addNameErrors(cast_);

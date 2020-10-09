@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class StaticAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
@@ -29,7 +30,7 @@ public final class StaticAccessOperation extends LeafOperation {
             return;
         }
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));

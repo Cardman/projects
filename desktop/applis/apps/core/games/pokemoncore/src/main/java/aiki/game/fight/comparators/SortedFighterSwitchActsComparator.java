@@ -4,7 +4,7 @@ import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.CustList;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class SortedFighterSwitchActsComparator implements
@@ -28,12 +28,12 @@ public final class SortedFighterSwitchActsComparator implements
             permuter_=true;
         }
         if(permuter_){
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if(Rate.eq(vitesseTwo_,vitesseOne_)){
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

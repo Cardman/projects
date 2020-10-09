@@ -10,7 +10,8 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 final class AfterUnaryParts {
     private static final String EMPTY_STRING = "";
@@ -88,7 +89,7 @@ final class AfterUnaryParts {
         if (preIncr_) {
             prio = ElResolver.UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
-            operators.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
+            operators.put(firstPrintChar_, StringUtil.concat(EMPTY_STRING,ch_,ch_));
             index = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
             return;
         }
@@ -120,7 +121,7 @@ final class AfterUnaryParts {
         }
         int indexTwoDots_ = _string.indexOf(':',firstPrintChar_);
         if (indexTwoDots_ > -1) {
-            if (StringList.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
+            if (StringUtil.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
                 prio = ElResolver.NAME_PRIO;
             }
         }
@@ -166,7 +167,7 @@ final class AfterUnaryParts {
             if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO) {
                 if (enPars) {
                     leftParFirstOperator = true;
-                    fctName = _string.substring(CustList.FIRST_INDEX, index);
+                    fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                     operators.put(index, String.valueOf(PAR_LEFT));
                 } else if (enabledId) {
                     instance = false;
@@ -212,7 +213,7 @@ final class AfterUnaryParts {
                 if (ElResolver.FCT_OPER_PRIO == prio) {
                     leftParFirstOperator = false;
                     if (instance) {
-                        fctName = _string.substring(CustList.FIRST_INDEX, index);
+                        fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                         if (operators.isEmpty()) {
                             operators.put(index, ANN_ARR);
                         }
@@ -245,11 +246,11 @@ final class AfterUnaryParts {
 
                     if (instance) {
                         if (operators.isEmpty()) {
-                            fctName = _string.substring(CustList.FIRST_INDEX, index);
+                            fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                             operators.put(index, ARR);
                         } else {
                             String op_ = operators.firstValue();
-                            if (StringList.quickEq(op_,ARR)) {
+                            if (StringUtil.quickEq(op_,ARR)) {
                                 operators.put(index, ARR);
                             } else {
                                 fctName = EMPTY_STRING;

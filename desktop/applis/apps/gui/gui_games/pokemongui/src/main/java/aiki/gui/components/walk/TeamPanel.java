@@ -2,10 +2,8 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonHostEvent;
@@ -20,17 +18,17 @@ import aiki.map.pokemon.UsablePokemon;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class TeamPanel {
     public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
 
     private static final String SPACE = " ";
 
-    private static final String SPACES = StringList.concat(SPACE,SPACE);
+    private static final String SPACES = StringUtil.concat(SPACE,SPACE);
 
     private static final String ROOMS = "rooms";
 
@@ -84,7 +82,7 @@ public class TeamPanel {
         }
         int rem_ = facade.getRemainingRooms();
         String message_ = _mess.getVal(ROOMS);
-        nbRemainPlaces.setText(StringList.simpleNumberFormat(message_, rem_));
+        nbRemainPlaces.setText(StringUtil.simpleNumberFormat(message_, rem_));
     }
 
     int getDeltaName(ByteTreeMap<UsablePokemon> _team) {
@@ -93,22 +91,22 @@ public class TeamPanel {
         for (UsablePokemon l: _team.values()) {
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer pk_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(facade.translatePokemon(pk_.getName()),SPACES));
+                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(facade.translateAbility(pk_.getAbility()),SPACES));
+                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(pk_.getRemainingHp().toNumberString(),SPACES));
+                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
             }
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer egg_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(egg_.getName(),SPACES));
+                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(egg_.getName(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
@@ -149,7 +147,7 @@ public class TeamPanel {
 //    }
 
     public boolean isSelected() {
-        return liste.getSelectedIndex() != CustList.INDEX_NOT_FOUND_ELT;
+        return liste.getSelectedIndex() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public int getSelectedIndex() {
@@ -158,7 +156,7 @@ public class TeamPanel {
 
     public int getSelectedIndexSingle() {
         int index_ = liste.getSelectedIndex();
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return index_;
         }
         return indexes.get(index_);

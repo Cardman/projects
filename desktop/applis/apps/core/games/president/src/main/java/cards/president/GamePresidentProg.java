@@ -3,6 +3,7 @@ package cards.president;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 final class GamePresidentProg {
 
@@ -51,7 +52,7 @@ final class GamePresidentProg {
                 return notEmptyWorst_.first();
             }
         }
-        int midHand_ = CustList.FIRST_INDEX;
+        int midHand_ = IndexConstants.FIRST_INDEX;
         for (CardPresident c: _fullHand) {
             midHand_ += c.strength(_reversed);
         }
@@ -85,14 +86,14 @@ final class GamePresidentProg {
                 }
             }
         }
-        if (notEmpty_.size() == CustList.ONE_ELEMENT) {
+        if (notEmpty_.size() == IndexConstants.ONE_ELEMENT) {
             if (notEmpty_.first().total() == nb_) {
                 return notEmpty_.first();
             }
             //notEmpty_.first().total() > progressingTrick.getNombreDeCartesParJoueur()
             if (GamePresidentCommon.dominantGroup(_reversed, _rules, notEmpty_.first(), nb_, _rep, m_)) {
                 HandPresident h_ = new HandPresident();
-                for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
                     h_.ajouter(notEmpty_.first().carte(i));
                 }
                 return h_;
@@ -108,7 +109,7 @@ final class GamePresidentProg {
             int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
             HandPresident h_ = GamePresidentCommon.getNotEmpty(m_).first();
             HandPresident hSub_ = new HandPresident();
-            for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
                 hSub_.ajouter(h_.carte(i));
             }
             return hSub_;
@@ -129,7 +130,7 @@ final class GamePresidentProg {
                 continue;
             }
             HandPresident hSub_ = new HandPresident();
-            for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
                 hSub_.ajouter(h_.carte(i));
             }
             notEmptyWorst_.add(hSub_);
@@ -167,7 +168,7 @@ final class GamePresidentProg {
             }
         }
         HandPresident hSub_ = new HandPresident();
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             hSub_.ajouter(notEmpty_.first().carte(i));
         }
         return hSub_;
@@ -183,9 +184,7 @@ final class GamePresidentProg {
                         existBestCards_ = true;
                     }
                 }
-                if (existBestCards_) {
-                    return true;
-                }
+                return existBestCards_;
             }
             return false;
         }

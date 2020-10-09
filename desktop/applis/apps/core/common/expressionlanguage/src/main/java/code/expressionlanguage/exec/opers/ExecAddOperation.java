@@ -4,8 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NumberStruct;
-import code.util.StringList;
-
+import code.util.core.StringUtil;
 
 
 public final class ExecAddOperation extends ExecStdNumericOperation {
@@ -30,7 +29,7 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
 
     private Argument localSumDiff(Argument _a, String _op, Argument _b,
                                   ContextEl _cont) {
-        if (StringList.quickEq(_op.trim(), PLUS)) {
+        if (StringUtil.quickEq(_op.trim(), PLUS)) {
             return new Argument(NumParsers.calculateSum(NumParsers.convertToNumber(_a.getStruct()),
                     NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
         }

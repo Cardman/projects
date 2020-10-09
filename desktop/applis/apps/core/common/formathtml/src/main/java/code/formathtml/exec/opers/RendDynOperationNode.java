@@ -25,7 +25,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class RendDynOperationNode {
 
@@ -154,7 +154,7 @@ public abstract class RendDynOperationNode {
         RendMethodOperation par_ = _operation.getParent();
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (StringList.quickEq(p_.getOper(),"??=")) {
+            if (StringUtil.quickEq(p_.getOper(),"??=")) {
                 if (_value != NullStruct.NULL_VALUE) {
                     return par_.getOrder();
                 }
@@ -162,12 +162,12 @@ public abstract class RendDynOperationNode {
         }
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (StringList.quickEq(p_.getOper(),"&&=")) {
+            if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                 if (BooleanStruct.isFalse(_value)) {
                     return par_.getOrder();
                 }
             }
-            if (StringList.quickEq(p_.getOper(),"||=")) {
+            if (StringUtil.quickEq(p_.getOper(),"||=")) {
                 if (BooleanStruct.isTrue(_value)) {
                     return par_.getOrder();
                 }
@@ -276,10 +276,10 @@ public abstract class RendDynOperationNode {
                 RendMethodOperation parent_ = getParent();
                 if (parent_ instanceof RendCompoundAffectationOperation) {
                     RendCompoundAffectationOperation par_ = (RendCompoundAffectationOperation) parent_;
-                    if (StringList.quickEq(par_.getOper(), "&&=")){
+                    if (StringUtil.quickEq(par_.getOper(), "&&=")){
                         pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
                     }
-                    if (StringList.quickEq(par_.getOper(), "||=")){
+                    if (StringUtil.quickEq(par_.getOper(), "||=")){
                         pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                     }
                 } else if (parent_ instanceof RendAndOperation) {

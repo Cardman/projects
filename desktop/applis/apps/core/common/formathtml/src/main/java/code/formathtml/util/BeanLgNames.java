@@ -23,6 +23,8 @@ import code.formathtml.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public abstract class BeanLgNames extends LgNames {
 
@@ -38,7 +40,7 @@ public abstract class BeanLgNames extends LgNames {
         if (value_.isEmpty()) {
             return _def;
         }
-        return Numbers.parseInt(value_);
+        return NumberUtil.parseInt(value_);
     }
 
 
@@ -60,7 +62,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx);
 
     public String getInputClass(Element _write, Configuration _conf) {
-        return _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
+        return _write.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
     }
     public ResultErrorStd convert(NodeContainer _container, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
@@ -99,7 +101,7 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_className, getAliasString())) {
+        if (StringUtil.quickEq(_className, getAliasString())) {
             String v_;
             if (_values.isEmpty()) {
                 v_ = null;
@@ -115,7 +117,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
-            res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
+            res_.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
             return res_;
         }
         if (cast_ == PrimitiveTypes.CHAR_WRAP) {
@@ -162,7 +164,7 @@ public abstract class BeanLgNames extends LgNames {
         return new StringStruct(_element);
     }
     public boolean isConveritble(String _className) {
-        if (StringList.quickEq(_className, getAliasString())) {
+        if (StringUtil.quickEq(_className, getAliasString())) {
             return true;
         }
 

@@ -11,6 +11,7 @@ import code.expressionlanguage.fwd.blocks.AnaFieldContent;
 import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
@@ -98,7 +99,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         if (in_) {
             ip_.setGlobalOffset(fieldContent.getValueOffset());
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,el_,0);
             if (_cont.callsOrException()) {
                 return;

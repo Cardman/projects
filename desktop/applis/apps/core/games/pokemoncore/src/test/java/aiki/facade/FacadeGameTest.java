@@ -1,10 +1,10 @@
 package aiki.facade;
 import static aiki.db.EquallablePkUtil.assertEq;
 
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
-import code.util.CustList;
 
 
 public class FacadeGameTest extends InitializationDataBase {
@@ -14,7 +14,7 @@ public class FacadeGameTest extends InitializationDataBase {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setSelectPkToHost((short) 1);
         assertEq(1, facadeGame_.getFirstSelectPkToHost());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
     }
 
     @Test
@@ -22,8 +22,8 @@ public class FacadeGameTest extends InitializationDataBase {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setSelectPkToHost((short) 1);
         facadeGame_.setSelectPkToHost((short) 1);
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, facadeGame_.getFirstSelectPkToHost());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getFirstSelectPkToHost());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class FacadeGameTest extends InitializationDataBase {
         facadeGame_.setSelectPkToHost((short) 2);
         facadeGame_.setSelectPkToHost((short) 1);
         assertEq(2, facadeGame_.getFirstSelectPkToHost());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class FacadeGameTest extends InitializationDataBase {
         facadeGame_.setSelectPkToHost((short) 2);
         facadeGame_.setSelectPkToHost((short) 2);
         assertEq(1, facadeGame_.getFirstSelectPkToHost());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getSecondSelectPkToHost());
     }
 
     @Test

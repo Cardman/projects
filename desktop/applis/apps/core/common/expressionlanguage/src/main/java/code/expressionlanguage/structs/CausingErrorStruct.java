@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.util.CollCapacity;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class CausingErrorStruct extends WithoutParentIdStruct implements ErroneousStruct {
 
@@ -66,6 +67,6 @@ public final class CausingErrorStruct extends WithoutParentIdStruct implements E
         for (Struct s: _arrInst.getInstance()) {
             str_.add(StackTraceElementStruct.getStack(s).getStringRep());
         }
-        return StringList.join(str_, "\n");
+        return StringUtil.join(str_, "\n");
     }
 }

@@ -17,6 +17,7 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class CallDynMethodOperation extends InvokingOperation {
     private String sepErr = "";
@@ -33,7 +34,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         String fctName_ = getOperations().getFctName().trim();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (StringList.quickEq(fctName_, _page.getAliasMetaInfo())) {
+        if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -50,7 +51,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasAnnotated()));
             return;
         }
-        if (StringList.quickEq(fctName_, _page.getAliasInstance())) {
+        if (StringUtil.quickEq(fctName_, _page.getAliasInstance())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -67,7 +68,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (!StringList.quickEq(fctName_, _page.getAliasCall())) {
+        if (!StringUtil.quickEq(fctName_, _page.getAliasCall())) {
             FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_page.getLocalizer().getCurrentFileName());
             und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -82,7 +83,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         String fct_ = clCur_.getName();
         StringList all_ = StringExpUtil.getAllTypes(fct_);
         String ret_ = all_.last();
-        CustList<String> param_ = all_.mid(1, all_.size() - 2);
+        CustList<String> param_ = all_.leftMinusOne(all_.size() - 2);
         CustList<AnaClassArgumentMatching> firstArgs_ = new CustList<AnaClassArgumentMatching>();
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
@@ -123,7 +124,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         }
         boolean allParamWildCard_ = true;
         for (String p :param_) {
-            if (!StringList.quickEq(p, Templates.SUB_TYPE)) {
+            if (!StringUtil.quickEq(p, Templates.SUB_TYPE)) {
                 allParamWildCard_ = false;
                 break;
             }
@@ -141,7 +142,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 m_.setArg(a_);
                 m_.setParam(pa_);
                 m_.setMapping(map_);
-                if (!StringList.quickEq("?",pa_)&&!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!StringUtil.quickEq("?",pa_)&&!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
                     ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
                     if (res_.isFoundMethod()) {
                         ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
@@ -155,7 +156,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                         cast_.setIndexFile(i_);
                         //character before
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringList.join(a_.getNames(),"&"),
+                                StringUtil.join(a_.getNames(),"&"),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
                         parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
@@ -169,7 +170,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             }
         }
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(ret_, void_) || StringList.quickEq(ret_, Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(ret_, void_) || StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
             ret_ = _page.getAliasObject();
         }
         setResultClass(new AnaClassArgumentMatching(ret_));

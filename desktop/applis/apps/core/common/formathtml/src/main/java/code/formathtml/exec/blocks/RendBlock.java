@@ -17,6 +17,7 @@ import code.formathtml.stacks.*;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class RendBlock {
     public static final String SPACE = " ";
@@ -101,9 +102,9 @@ public abstract class RendBlock {
             return EMPTY_STRING;
         }
         _conf.getHtmlPage().set(_conf.getFormParts());
-        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
-        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
-        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
+        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
+        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
+        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
         _conf.setDocument(doc_);
         _conf.clearPages();
         return doc_.export();
@@ -124,12 +125,12 @@ public abstract class RendBlock {
     }
 
     protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc, BeanLgNames _advStandards, ContextEl _ctx) {
-        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _cont.getFormParts().getCallsExps().add(_anc);
         _cont.getFormParts().getAnchorsVars().add(_varNames);
         if (!href_.startsWith(CALL_METHOD)) {
             _cont.getFormParts().getAnchorsArgs().add(new StringList());
-            if (_nextWrite.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
+            if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
                 _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
             incrAncNb(_cont, _nextWrite);
@@ -142,20 +143,20 @@ public abstract class RendBlock {
             arg_.add(alt_.get(i));
         }
         _cont.getFormParts().getAnchorsArgs().add(arg_);
-        String render_ = StringList.join(alt_,"");
+        String render_ = StringUtil.join(alt_,"");
         if (_ctx.callsOrException()) {
             incrAncNb(_cont, _nextWrite);
             return;
         }
         String beanName_ = _cont.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
+        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont, _nextWrite);
     }
 
     protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
-        if (StringList.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
-                && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
+        if (StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
+                && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
             long currentAnchor_ = _cont.getFormParts().getIndexes().getAnchor();
             _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), String.valueOf(currentAnchor_));
@@ -175,7 +176,7 @@ public abstract class RendBlock {
         }
     }
     static String getCssHref(Configuration _cont,Element _link) {
-        if (!StringList.quickEq(_link.getAttribute(_cont.getRendKeyWords().getAttrRel()),_cont.getRendKeyWords().getValueStyle())) {
+        if (!StringUtil.quickEq(_link.getAttribute(_cont.getRendKeyWords().getAttrRel()),_cont.getRendKeyWords().getValueStyle())) {
             return null;
         }
         if (!_link.hasAttribute(_cont.getRendKeyWords().getAttrHref())){
@@ -325,7 +326,7 @@ public abstract class RendBlock {
             if (!e.getValue().eqObj(obj_)) {
                 continue;
             }
-            if (!StringList.quickEq(e.getValue().getIdClass(),idCl_)) {
+            if (!StringUtil.quickEq(e.getValue().getIdClass(),idCl_)) {
                 continue;
             }
             found_ = e.getKey();
@@ -340,9 +341,9 @@ public abstract class RendBlock {
             nodeCont_.setIdClass(idCl_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setStruct(obj_);
-            StringList strings_ = StringList.splitChar(varName_, ',');
+            StringList strings_ = StringUtil.splitChar(varName_, ',');
             nodeCont_.setVarPrevName(strings_.first());
-            nodeCont_.setVarParamName(strings_.mid(1,strings_.size()-2));
+            nodeCont_.setVarParamName(strings_.leftMinusOne(strings_.size()-2));
             nodeCont_.setVarName(strings_.last());
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setOpsConvert(_f.getOpsConverter());
@@ -353,13 +354,13 @@ public abstract class RendBlock {
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _write.getAttribute(_cont.getRendKeyWords().getAttrId());
             if (id_.isEmpty()) {
-                id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrGroupId()));
+                id_ = _write.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrGroupId()));
             }
             String class_ = _advStandards.getInputClass(_write,_cont);
             if (class_.isEmpty()) {
                 class_ = _f.getClassName();
             }
-            nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
+            nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
             stack_.last().put(currentInput_, nodeCont_);
@@ -371,7 +372,7 @@ public abstract class RendBlock {
         }
         _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), String.valueOf(_cont.getFormParts().getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
-        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringUtil.concat(_cont.getLastPage().getBeanName(),DOT,name_));
         return arg_;
     }
 
@@ -386,12 +387,12 @@ public abstract class RendBlock {
         if (_ops.isEmpty()) {
             return;
         }
-        if (StringList.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
+        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx);
             if (_ctx.callsOrException()) {
                 return;
             }
-            if (StringList.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
+            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
                 if (Argument.isTrueValue(o_)) {
                     _write.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
                 } else {
@@ -409,7 +410,7 @@ public abstract class RendBlock {
                 _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
             }
         }
-        if (StringList.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordTextarea())) {
+        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordTextarea())) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx);
             if (_ctx.callsOrException()) {
                 return;
@@ -426,7 +427,7 @@ public abstract class RendBlock {
             Text text_ = doc_.createTextNode(value_);
             _write.appendChild(text_);
         }
-        _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
+        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
     private static Argument convertField(Configuration _cont, Argument _o, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx) {
         Struct o_ = _o.getStruct();
@@ -453,10 +454,10 @@ public abstract class RendBlock {
         }
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);
-        rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
-        rep_.put(String.valueOf(RIGHT_EL), StringList.concat(quote_,String.valueOf(RIGHT_EL),quote_));
-        rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
-        return StringList.replaceMultiple(str_, rep_);
+        rep_.put(String.valueOf(LEFT_EL), StringUtil.concat(quote_,String.valueOf(LEFT_EL),quote_));
+        rep_.put(String.valueOf(RIGHT_EL), StringUtil.concat(quote_,String.valueOf(RIGHT_EL),quote_));
+        rep_.put(String.valueOf(QUOTE), StringUtil.concat(quote_,quote_));
+        return StringUtil.replaceMultiple(str_, rep_);
     }
 
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
@@ -647,7 +648,7 @@ public abstract class RendBlock {
                 return false;
             }
         } else {
-            if (StringList.quickEq(_label, bl_.getLabel())){
+            if (StringUtil.quickEq(_label, bl_.getLabel())){
                 RendBlock forLoopLoc_ = bl_.getLastBlock();
                 rw_.setRead(forLoopLoc_);
                 if (bl_ instanceof RendLoopBlockStack) {
@@ -683,7 +684,7 @@ public abstract class RendBlock {
                 loop_.processLastElementLoop(_config,_stds,_conf,lSt_);
                 return false;
             }
-            if (StringList.quickEq(_label, bl_.getLabel())){
+            if (StringUtil.quickEq(_label, bl_.getLabel())){
                 RendLoopBlockStack lSt_;
                 lSt_ = (RendLoopBlockStack) bl_;
                 br_.removeLocalVars(_ip);

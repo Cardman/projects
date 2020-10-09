@@ -2,13 +2,12 @@ package cards.gui.labels.selection;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
-
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.*;
-import code.util.*;
+import code.util.core.NumberUtil;
+
 /**
     */
 
@@ -58,7 +57,7 @@ public class SuitCellRenderer extends CustCellRender {
             _g.setColor(Color.BLACK);
             _g.fillOval(0,2,5,5);
             _g.fillOval(5,2,5,5);
-            _g.fillPolygon(Numbers.wrapIntArray(5,8,5,2),Numbers.wrapIntArray(5,12,8,12),4);
+            _g.fillPolygon(NumberUtil.wrapIntArray(5,8,5,2), NumberUtil.wrapIntArray(5,12,8,12),4);
             _g.fillRect(3,-2,5,7);
             if(!selectionne) {
                 _g.setColor(Color.WHITE);
@@ -69,16 +68,16 @@ public class SuitCellRenderer extends CustCellRender {
             _g.fillOval(5,-3,5,5);
         } else if(couleur==Suit.DIAMOND) {
             _g.setColor(Color.RED);
-            _g.fillPolygon(Numbers.wrapIntArray(0,5,10,5),Numbers.wrapIntArray(5,0,5,10),4);
+            _g.fillPolygon(NumberUtil.wrapIntArray(0,5,10,5), NumberUtil.wrapIntArray(5,0,5,10),4);
         } else {
             _g.setColor(Color.BLACK);
             _g.fillOval(0,3,4,4);
             _g.fillOval(6,3,4,4);
             _g.fillOval(3,0,4,4);
-            _g.fillPolygon(Numbers.wrapIntArray(3,5,3),Numbers.wrapIntArray(4,5,6),3);
-            _g.fillPolygon(Numbers.wrapIntArray(6,5,6),Numbers.wrapIntArray(4,5,6),3);
-            _g.fillPolygon(Numbers.wrapIntArray(4,5,6),Numbers.wrapIntArray(3,5,3),3);
-            _g.fillPolygon(Numbers.wrapIntArray(3,5,6,5),Numbers.wrapIntArray(10,5,10,8),4);
+            _g.fillPolygon(NumberUtil.wrapIntArray(3,5,3), NumberUtil.wrapIntArray(4,5,6),3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(6,5,6), NumberUtil.wrapIntArray(4,5,6),3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(4,5,6), NumberUtil.wrapIntArray(3,5,3),3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(3,5,6,5), NumberUtil.wrapIntArray(10,5,10,8),4);
         }
         if(!selectionne) {
             _g.setColor(Color.BLACK);

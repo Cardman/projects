@@ -3,6 +3,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.core.IndexConstants;
 
 
 public final class TricksHandsTarot {
@@ -17,14 +18,14 @@ public final class TricksHandsTarot {
 
     public void sortHands(DisplayingTarot _displaying,
             byte _nombreJoueurs) {
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             trier(joueur_,_displaying.getSuits(),
                     _displaying.isDecreasing());
         }
     }
     public void restoreHandsAtSelectedNumberedTrick(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli) {
-        for (byte p = CustList.FIRST_INDEX; p<_nombreJoueurs; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p<_nombreJoueurs; p++) {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
@@ -46,7 +47,7 @@ public final class TricksHandsTarot {
             }
             key_++;
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             trier(joueur_,_displaying.getSuits(),
                     _displaying.isDecreasing());
         }
@@ -54,7 +55,7 @@ public final class TricksHandsTarot {
 
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli, byte _numeroCarte) {
-        for (byte p = CustList.FIRST_INDEX; p<_nombreJoueurs; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p<_nombreJoueurs; p++) {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
@@ -87,7 +88,7 @@ public final class TricksHandsTarot {
             }
             key_++;
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             trier(joueur_,_displaying.getSuits(),
                     _displaying.isDecreasing());
         }
@@ -139,7 +140,7 @@ public final class TricksHandsTarot {
     public void setTricks(CustList<TrickTarot> _tricks, byte _nbPlayers) {
         tricks = _tricks;
         cardsHandsAtInitialState = new CustList<HandTarot>();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickTarot pli_ : tricks) {

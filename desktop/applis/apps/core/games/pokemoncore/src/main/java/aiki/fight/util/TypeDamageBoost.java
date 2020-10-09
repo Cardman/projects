@@ -1,6 +1,7 @@
 package aiki.fight.util;
 import code.maths.Rate;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class TypeDamageBoost implements Displayable {
@@ -12,7 +13,7 @@ public final class TypeDamageBoost implements Displayable {
     private final Rate boost;
 
     public TypeDamageBoost(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         type = elements_.first();
         boost = new Rate(elements_.last());
     }

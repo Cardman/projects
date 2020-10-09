@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.*;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -843,7 +844,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
     }
     private int nbTakenObjects(ObjectMap<Coords,Boolean> _map,boolean _taken) {
-        int n_ = CustList.FIRST_INDEX;
+        int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
             for (EntryCust<Coords, Boolean> e: _map.entryList()) {
                 if (e.getValue()) {

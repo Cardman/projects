@@ -3,6 +3,7 @@ package aiki.map.pokemon;
 import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class PkTrainer extends Pokemon {
@@ -49,7 +50,7 @@ public final class PkTrainer extends Pokemon {
     public void validateAsNpc(DataBase _data) {
         super.validateAsNpc(_data);
         for (String m : moves) {
-            if (StringList.quickEq(m, _data.getDefaultMove())) {
+            if (StringUtil.quickEq(m, _data.getDefaultMove())) {
                 _data.setError(true);
             }
             if (!_data.getMoves().contains(m)) {

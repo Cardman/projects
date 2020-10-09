@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.assign.util.AssignmentBefore;
 import code.expressionlanguage.analyze.assign.util.BooleanAssignment;
 import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AssDoWhileCondition extends AssCondition {
     AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, Condition _c) {
@@ -82,7 +83,7 @@ public final class AssDoWhileCondition extends AssCondition {
             String key_ = e.getKey();
             AssignmentBefore ass_ = e.getValue().copy();
             for (EntryCust<String,BooleanAssignment> f: _last.entryList()) {
-                if (!StringList.quickEq(f.getKey(),key_)) {
+                if (!StringUtil.quickEq(f.getKey(),key_)) {
                     continue;
                 }
                 if (!f.getValue().isUnassignedAfterWhenTrue()) {

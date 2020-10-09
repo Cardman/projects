@@ -1,6 +1,7 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TargetCoords;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -16,7 +17,7 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
     }
 
     public MoveTarget(String _str) {
-        StringList list_ = StringList.splitChars(_str, SEPARATOR);
+        StringList list_ = StringUtil.splitChars(_str, SEPARATOR);
         move = list_.first();
         target = new TargetCoords(list_.last());
     }
@@ -32,13 +33,10 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
 
     @Override
     public boolean eq(MoveTarget _obj) {
-        if (!StringList.quickEq(move, _obj.getMove())) {
+        if (!StringUtil.quickEq(move, _obj.getMove())) {
             return false;
         }
-        if (!TargetCoords.eq(target, _obj.getTarget())) {
-            return false;
-        }
-        return true;
+        return TargetCoords.eq(target, _obj.getTarget());
     }
 
     public String getMove() {

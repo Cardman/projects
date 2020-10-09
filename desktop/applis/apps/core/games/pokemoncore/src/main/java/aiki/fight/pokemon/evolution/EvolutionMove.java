@@ -2,7 +2,7 @@ package aiki.fight.pokemon.evolution;
 
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class EvolutionMove extends Evolution {
@@ -11,10 +11,10 @@ public final class EvolutionMove extends Evolution {
 
     @Override
     public void validate(DataBase _dataBase, PokemonData _fPk) {
-        if (StringList.quickEq(move, _dataBase.getDefaultMove())) {
+        if (StringUtil.quickEq(move, _dataBase.getDefaultMove())) {
             _dataBase.setError(true);
         }
-        if (!StringList.contains(_fPk.getMoveTutors(), move)) {
+        if (!StringUtil.contains(_fPk.getMoveTutors(), move)) {
             _dataBase.setError(true);
         }
     }

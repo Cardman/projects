@@ -7,6 +7,7 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.StringUtil;
 
 
 public final class EffectGlobal extends Effect {
@@ -72,7 +73,7 @@ public final class EffectGlobal extends Effect {
             _data.setError(true);
         }
         for (String k : multDamagePrepaRound.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k)) {
+            if (!StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
             if (!multDamagePrepaRound.getVal(k).isZeroOrGt()) {
@@ -80,7 +81,7 @@ public final class EffectGlobal extends Effect {
             }
         }
         for (String k : multDamageTypesMoves.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k)) {
+            if (!StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
             if (!multDamageTypesMoves.getVal(k).isZeroOrGt()) {
@@ -96,10 +97,10 @@ public final class EffectGlobal extends Effect {
             }
         }
         for (TypesDuo k : efficiencyMoves.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k.getDamageType())) {
+            if (!StringUtil.contains(_data.getTypes(), k.getDamageType())) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), k.getPokemonType())) {
+            if (!StringUtil.contains(_data.getTypes(), k.getPokemonType())) {
                 _data.setError(true);
             }
             if (!efficiencyMoves.getVal(k).isZeroOrGt()) {
@@ -110,7 +111,7 @@ public final class EffectGlobal extends Effect {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), k.getType())) {
+            if (!StringUtil.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
             }
             if (!multStatIfContainsType.getVal(k).isZeroOrGt()) {

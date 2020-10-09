@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class TernaryOperation extends AbstractTernaryOperation {
 
@@ -17,7 +17,7 @@ public final class TernaryOperation extends AbstractTernaryOperation {
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
         String fct_ = getOperations().getFctName();
-        setOffsetLocal(StringList.getFirstPrintableCharIndex(fct_));
+        setOffsetLocal(StringUtil.getFirstPrintableCharIndex(fct_));
     }
 
 }

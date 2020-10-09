@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnaClassArgumentMatching {
 
@@ -79,16 +80,16 @@ public final class AnaClassArgumentMatching {
     }
     public boolean matchVoid(AnalyzedPageEl _page) {
         StringList l_ = new StringList(_page.getAliasVoid());
-        return StringList.equalsSet(className, l_);
+        return StringUtil.equalsSet(className, l_);
     }
 
     public boolean matchClass(String _class) {
         StringList l_ = new StringList(_class);
-        return StringList.equalsSet(className, l_);
+        return StringUtil.equalsSet(className, l_);
     }
 
     public boolean isVariable() {
-        return StringList.contains(className, "");
+        return StringUtil.contains(className, "");
     }
 
     public boolean isPrimitive(AnalyzedPageEl _page) {
@@ -144,7 +145,7 @@ public final class AnaClassArgumentMatching {
     public void setUnwrapObject(String _unwrapObject, StringMap<PrimitiveType> _primitiveTypes) {
         unwrapObjectNb = (byte)-1;
         for (EntryCust<String,PrimitiveType> p: _primitiveTypes.entryList()) {
-            if (StringList.quickEq(p.getKey(),_unwrapObject)) {
+            if (StringUtil.quickEq(p.getKey(),_unwrapObject)) {
                 unwrapObjectNb = p.getValue().getCastNb();
             }
         }

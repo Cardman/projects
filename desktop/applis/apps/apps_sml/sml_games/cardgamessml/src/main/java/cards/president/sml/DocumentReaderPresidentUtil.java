@@ -21,7 +21,9 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderPresidentUtil {
 
     private static final String ATTR_FIELD = "field";
@@ -69,15 +71,15 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getDealPresident(DealPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getListHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
@@ -101,19 +103,19 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getDisplayingPresident(DisplayingPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CLOCKWISE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOCKWISE)) {
             _object.setClockwise(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUITS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUITS)) {
             _object.setSuits(DocumentReaderCardsCommonUtil.getListSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECREASING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECREASING)) {
             _object.setDecreasing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -133,39 +135,39 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getGamePresident(GamePresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCardsCommonUtil.getGameType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getDealPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
             _object.setProgressingTrick(getTrickPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NUMBER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NUMBER)) {
             _object.setNumber(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES)) {
             _object.setRules(getRulesPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANKS)) {
             _object.setRanks(DocumentReaderCoreUtil.getListByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCHED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SWITCHED_CARDS)) {
             _object.setSwitchedCards(getMapByteHandPresident(_element));
             return;
         }
@@ -189,26 +191,26 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getHandPresident(HandPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getListCardPresident(_element));
             return;
         }
     }
 
     public static void getResultsPresident(ResultsPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GAME)) {
             _object.setGame(getGamePresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAMES)) {
             _object.setNicknames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USER)) {
             _object.setUser(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOC)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOC)) {
             _object.setLoc(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -233,43 +235,43 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getRulesPresident(RulesPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
             _object.setMixedCards(DocumentReaderCardsCommonUtil.getMixCardsChoice(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_PLAYERS)) {
             _object.setNbPlayers(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_STACKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_STACKS)) {
             _object.setNbStacks(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EQUALTY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EQUALTY)) {
             _object.setEqualty(getEqualtyPlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POSSIBLE_REVERSING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POSSIBLE_REVERSING)) {
             _object.setPossibleReversing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAS_TO_PLAY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAS_TO_PLAY)) {
             _object.setHasToPlay(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOOSING_IF_FINISH_BY_BEST_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOOSING_IF_FINISH_BY_BEST_CARDS)) {
             _object.setLoosingIfFinishByBestCards(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCH_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SWITCH_CARDS)) {
             _object.setSwitchCards(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOOSER_STARTS_FIRST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOOSER_STARTS_FIRST)) {
             _object.setLooserStartsFirst(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -285,7 +287,7 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getTrickPresident(TrickPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getListHandPresident(_element));
             return;
         }
@@ -301,35 +303,35 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static void getTricksHandsPresident(TricksHandsPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_REVERSED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REVERSED)) {
             _object.setReversed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
             _object.setDistribution(getDealPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
             _object.setProgressingTrick(getTrickPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NUMBER_MAX_SWITCHED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NUMBER_MAX_SWITCHED_CARDS)) {
             _object.setNumberMaxSwitchedCards(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANKS)) {
             _object.setRanks(DocumentReaderCoreUtil.getListByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCHED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SWITCHED_CARDS)) {
             _object.setSwitchedCards(getMapByteHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
             _object.setCardsHandsAtInitialState(getListHandPresident(_element));
             return;
         }
@@ -337,7 +339,7 @@ public final class DocumentReaderPresidentUtil {
 
     public static CardPresident getCardPresident(Element _elt) {
         for (CardPresident e: CardPresident.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -346,7 +348,7 @@ public final class DocumentReaderPresidentUtil {
 
     private static EqualtyPlaying getEqualtyPlaying(Element _elt) {
         for (EqualtyPlaying e: EqualtyPlaying.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -355,7 +357,7 @@ public final class DocumentReaderPresidentUtil {
 
     public static Playing getPlaying(Element _elt) {
         for (Playing e: Playing.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -421,7 +423,7 @@ public final class DocumentReaderPresidentUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(values_.get(i));
         }
         return map_;
@@ -441,7 +443,7 @@ public final class DocumentReaderPresidentUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;

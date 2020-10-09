@@ -17,7 +17,7 @@ import cards.tarot.enumerations.Miseres;
 import code.gui.ConfirmDialog;
 import code.gui.Panel;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
 
@@ -37,13 +37,13 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
     @Override
     protected void verifierRegles() {
         String lg_ = container.getOwner().getLanguageKey();
-        if(StringList.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
+        if(StringUtil.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
             GameTarot partie_=container.partieTarot();
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String messErr_ = Games.isValidHandfulMessage(partie_, container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps(), lg_);
                 if (!partie_.isValidHandful(container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps())) {
-                    String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), Games.toString(container.getChoosenHandful(),lg_));
-                    String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
+                    String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), Games.toString(container.getChoosenHandful(),lg_));
+                    String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
                     String title_ = container.getMessages().getVal(MainWindow.CANT_DECLARE_TITLE);
                     ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_, JOptionPane.ERROR_MESSAGE);
                     return;
@@ -60,7 +60,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     panelToSet_.add(carte_);
                 }
                 partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);
-                container.ajouterTexteDansZone(StringList.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(container.getChoosenHandful(),lg_),ContainerGame.RETURN_LINE));
+                container.ajouterTexteDansZone(StringUtil.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(container.getChoosenHandful(),lg_),ContainerGame.RETURN_LINE));
             }
             EnumList<Miseres> selectedMiseres_ = container.getAllowedMiseres();
             if (!selectedMiseres_.isEmpty()) {
@@ -70,7 +70,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     if (!miseres_.containsObj(m)) {
                         continue;
                     }
-                    container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(m,lg_)));
+                    container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(m,lg_)));
                     allowedSelectedMiseres_.add(m);
                 }
                 partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
@@ -83,13 +83,13 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 container.setaJoueCarte(true);
                 container.finPliTarot(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
-                String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
+                String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
+                String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_,JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
+            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_, lg_,JOptionPane.ERROR_MESSAGE);
         }

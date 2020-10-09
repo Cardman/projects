@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
 
@@ -36,7 +37,7 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
         AbstractPageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
         ip_.setGlobalOffset(expressionOffset);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;

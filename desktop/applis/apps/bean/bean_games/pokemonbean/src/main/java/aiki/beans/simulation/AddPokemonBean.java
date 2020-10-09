@@ -14,6 +14,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 public class AddPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
@@ -127,7 +128,7 @@ public class AddPokemonBean extends CommonBean {
         StringList pokedex_ = new StringList();
         for (String k: data_.getPokedex().getKeys()) {
             String displayName_ = translationsPk_.getVal(k);
-            if (!StringList.match(displayName_, typedName)) {
+            if (!StringUtil.match(displayName_, typedName)) {
                 continue;
             }
             PokemonData pkData_ = data_.getPokedex().getVal(k);
@@ -139,11 +140,11 @@ public class AddPokemonBean extends CommonBean {
                     if (typedType == null) {
                         continue;
                     }
-                    if (!StringList.quickEq(displayType_, typedType)) {
+                    if (!StringUtil.quickEq(displayType_, typedType)) {
                         continue;
                     }
                 } else {
-                    if (!StringList.match(displayType_, typedType)) {
+                    if (!StringUtil.match(displayType_, typedType)) {
                         continue;
                     }
                 }
@@ -155,7 +156,7 @@ public class AddPokemonBean extends CommonBean {
             if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(hasEvo),pkData_.getEvolutions().isEmpty())) {
                 continue;
             }
-            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringList.quickEq(k, pkData_.getBaseEvo()))) {
+            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringUtil.quickEq(k, pkData_.getBaseEvo()))) {
                 continue;
             }
             if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isLeg),pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {

@@ -1,6 +1,7 @@
 package aiki.fight.util;
 import code.maths.Rate;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class EfficiencyRate implements Displayable {
@@ -12,7 +13,7 @@ public final class EfficiencyRate implements Displayable {
     private final Rate hpRate;
 
     public EfficiencyRate(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         eff = new Rate(elements_.first());
         hpRate = new Rate(elements_.last());
     }

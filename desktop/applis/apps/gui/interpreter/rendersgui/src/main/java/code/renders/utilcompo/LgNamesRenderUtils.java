@@ -22,6 +22,7 @@ import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
 
@@ -64,7 +65,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
     @Override
     public Argument defaultInstance(ContextEl _cont, String _id) {
-        if (StringList.contains(getBeanAliases().allRefTypes().values(),_id)) {
+        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_id)) {
             return Argument.createVoid();
         }
         return custAliases.defaultInstance(_cont, _id);
@@ -77,7 +78,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
-        if (StringList.contains(getBeanAliases().allRefTypes().values(),_method.getName())) {
+        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getName())) {
             ResultErrorStd resultErrorStd_ = new ResultErrorStd();
             resultErrorStd_.setResult(NullStruct.NULL_VALUE);
             return resultErrorStd_;
@@ -91,7 +92,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        if (StringList.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
+        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
             return getBeanAliases().getOtherResult(_cont, _instance, _method, _args);
         }
         return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _args);
@@ -120,34 +121,34 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringBuilder styleUnitsPart_ = new StringBuilder();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "messages")) {
+            if (StringUtil.quickEq(fieldName_, "messages")) {
                 messPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "rendmessages")) {
+            if (StringUtil.quickEq(fieldName_, "rendmessages")) {
                 rendMessPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "keywords")) {
+            if (StringUtil.quickEq(fieldName_, "keywords")) {
                 keyWordsPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "aliases")) {
+            if (StringUtil.quickEq(fieldName_, "aliases")) {
                 aliasesPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "tags")) {
+            if (StringUtil.quickEq(fieldName_, "tags")) {
                 tagsPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "attrs")) {
+            if (StringUtil.quickEq(fieldName_, "attrs")) {
                 attrsPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "values")) {
+            if (StringUtil.quickEq(fieldName_, "values")) {
                 valuesPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "styleAttrs")) {
+            if (StringUtil.quickEq(fieldName_, "styleAttrs")) {
                 styleAttrsPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "styleValues")) {
+            if (StringUtil.quickEq(fieldName_, "styleValues")) {
                 styleValuesPart_.append(c.getAttribute("value"));
             }
-            if (StringList.quickEq(fieldName_, "styleUnits")) {
+            if (StringUtil.quickEq(fieldName_, "styleUnits")) {
                 styleUnitsPart_.append(c.getAttribute("value"));
             }
         }
@@ -171,7 +172,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleAttrsPart_, styleAttrs_);
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
-        if (StringList.quickEq(_lg, "en")) {
+        if (StringUtil.quickEq(_lg, "en")) {
             messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
             keyWord(_kw,_lg,kw_);
@@ -182,7 +183,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             otherStyleAttrs(_rkw,_lg,styleAttrs_);
             otherStyleValues(_rkw,_lg,styleValues_);
             otherStyleUnits(_rkw,_lg,styleUnits_);
-        } else if (StringList.quickEq(_lg, "fr")) {
+        } else if (StringUtil.quickEq(_lg, "fr")) {
             messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
             keyWord(_kw,_lg,kw_);
@@ -209,14 +210,14 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
     private static void buildMap(StringBuilder _parts, StringMap<String> _map) {
         if (_parts.length() > 0) {
-            StringList infos_ = StringList.splitChars(_parts.toString(),',');
+            StringList infos_ = StringUtil.splitChars(_parts.toString(),',');
             for (String l: infos_) {
                 int sep_ = l.indexOf('=');
                 if (sep_ < 0) {
                     continue;
                 }
                 String key_ = l.substring(0, sep_).trim();
-                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
                 value_ = ParseLinesArgUtil.parseValue(value_);
                 _map.put(key_,value_);
             }

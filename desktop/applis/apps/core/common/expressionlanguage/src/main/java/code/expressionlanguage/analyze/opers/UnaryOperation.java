@@ -11,7 +11,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
@@ -67,7 +67,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringList.join(clMatch_.getNames(),"&"),
+                    StringUtil.join(clMatch_.getNames(),"&"),
                     oper_);
             _page.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){

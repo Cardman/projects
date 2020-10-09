@@ -1,6 +1,9 @@
 package code.sml;
 
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.opers.MessagesUtil;
 
 public final class DocumentBuilder {
@@ -552,9 +555,9 @@ public final class DocumentBuilder {
     public static Element getFirstElementByAttribute(Document _doc, String _attr, String _value) {
         NodeList all_ = _doc.getElementsByTagName();
         int lengthAll_ = all_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < lengthAll_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lengthAll_; i++) {
             Node n_ = all_.item(i);
-            if (StringList.quickEq(((Element) n_).getAttribute(_attr),_value)) {
+            if (StringUtil.quickEq(((Element) n_).getAttribute(_attr),_value)) {
                 return (Element) n_;
             }
         }
@@ -565,13 +568,13 @@ public final class DocumentBuilder {
         Element element_ = null;
         NodeList all_ = _doc.getElementsByTagName();
         int lengthAll_ = all_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < lengthAll_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lengthAll_; i++) {
             Node n_ = all_.item(i);
-            if (StringList.quickEq(((Element) n_).getAttribute(_attr),_id)) {
+            if (StringUtil.quickEq(((Element) n_).getAttribute(_attr),_id)) {
                 element_ = (Element) n_;
                 break;
             }
-            if (StringList.quickEq(((Element) n_).getAttribute(_secAttr),_id)) {
+            if (StringUtil.quickEq(((Element) n_).getAttribute(_secAttr),_id)) {
                 element_ = (Element) n_;
                 break;
             }
@@ -601,262 +604,262 @@ public final class DocumentBuilder {
 
     public static String transformSpecialChars(String _htmlText, boolean _affectEamp, boolean _affectLtGt) {
         StringMap<String> map_ = new StringMap<String>();
-        map_.put(E_NBSP, StringList.simpleNumberFormat(ENCODE, (int)NBSP));
-        map_.put(E_IEXCL, StringList.simpleNumberFormat(ENCODE, (int)IEXCL));
-        map_.put(E_CENT, StringList.simpleNumberFormat(ENCODE, (int)CENT));
-        map_.put(E_POUND, StringList.simpleNumberFormat(ENCODE, (int)POUND));
-        map_.put(E_CURREN, StringList.simpleNumberFormat(ENCODE, (int)CURREN));
-        map_.put(E_YEN, StringList.simpleNumberFormat(ENCODE, (int)YEN));
-        map_.put(E_BRVBAR, StringList.simpleNumberFormat(ENCODE, (int)BRVBAR));
-        map_.put(E_SECT, StringList.simpleNumberFormat(ENCODE, (int)SECT));
-        map_.put(E_UML, StringList.simpleNumberFormat(ENCODE, (int)UML));
-        map_.put(E_COPY, StringList.simpleNumberFormat(ENCODE, (int)COPY));
-        map_.put(E_ORDF, StringList.simpleNumberFormat(ENCODE, (int)ORDF));
-        map_.put(E_LAQUO, StringList.simpleNumberFormat(ENCODE, (int)LAQUO));
-        map_.put(E_NOT, StringList.simpleNumberFormat(ENCODE, (int)NOT));
-        map_.put(E_SHY, StringList.simpleNumberFormat(ENCODE, (int)SHY));
-        map_.put(E_REG, StringList.simpleNumberFormat(ENCODE, (int)REG));
-        map_.put(E_MACR, StringList.simpleNumberFormat(ENCODE, (int)MACR));
-        map_.put(E_DEG, StringList.simpleNumberFormat(ENCODE, (int)DEG));
-        map_.put(E_PLUSMN, StringList.simpleNumberFormat(ENCODE, (int)PLUSMN));
-        map_.put(E_SUP2, StringList.simpleNumberFormat(ENCODE, (int)SUP2));
-        map_.put(E_SUP3, StringList.simpleNumberFormat(ENCODE, (int)SUP3));
-        map_.put(E_ACUTE, StringList.simpleNumberFormat(ENCODE, (int)ACUTE));
-        map_.put(E_MICRO, StringList.simpleNumberFormat(ENCODE, (int)MICRO));
-        map_.put(E_PARA, StringList.simpleNumberFormat(ENCODE, (int)PARA));
-        map_.put(E_MIDDOT, StringList.simpleNumberFormat(ENCODE, (int)MIDDOT));
-        map_.put(E_CEDIL, StringList.simpleNumberFormat(ENCODE, (int)CEDIL));
-        map_.put(E_SUP1, StringList.simpleNumberFormat(ENCODE, (int)SUP1));
-        map_.put(E_ORDM, StringList.simpleNumberFormat(ENCODE, (int)ORDM));
-        map_.put(E_RAQUO, StringList.simpleNumberFormat(ENCODE, (int)RAQUO));
-        map_.put(E_FRAC14, StringList.simpleNumberFormat(ENCODE, (int)FRAC14));
-        map_.put(E_FRAC12, StringList.simpleNumberFormat(ENCODE, (int)FRAC12));
-        map_.put(E_FRAC34, StringList.simpleNumberFormat(ENCODE, (int)FRAC34));
-        map_.put(E_IQUEST, StringList.simpleNumberFormat(ENCODE, (int)IQUEST));
-        map_.put(E_U_AGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_A_GRAVE));
-        map_.put(E_U_AACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_A_ACUTE));
-        map_.put(E_U_ACIRC, StringList.simpleNumberFormat(ENCODE, (int)U_A_CIRC));
-        map_.put(E_U_ATILDE, StringList.simpleNumberFormat(ENCODE, (int)U_A_TILDE));
-        map_.put(E_U_AUML, StringList.simpleNumberFormat(ENCODE, (int)U_A_UML));
-        map_.put(E_U_ARING, StringList.simpleNumberFormat(ENCODE, (int)U_A_RING));
-        map_.put(E_U_AELIG, StringList.simpleNumberFormat(ENCODE, (int)U_AE_LIG));
-        map_.put(E_U_CCEDIL, StringList.simpleNumberFormat(ENCODE, (int)U_C_CEDIL));
-        map_.put(E_U_EGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_E_GRAVE));
-        map_.put(E_U_EACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_E_ACUTE));
-        map_.put(E_U_ECIRC, StringList.simpleNumberFormat(ENCODE, (int)U_E_CIRC));
-        map_.put(E_U_EUML, StringList.simpleNumberFormat(ENCODE, (int)U_E_UML));
-        map_.put(E_U_IGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_I_GRAVE));
-        map_.put(E_U_IACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_I_ACUTE));
-        map_.put(E_U_ICIRC, StringList.simpleNumberFormat(ENCODE, (int)U_I_CIRC));
-        map_.put(E_U_IUML, StringList.simpleNumberFormat(ENCODE, (int)U_I_UML));
-        map_.put(E_U_ETH, StringList.simpleNumberFormat(ENCODE, (int)U_ETH));
-        map_.put(E_U_NTILDE, StringList.simpleNumberFormat(ENCODE, (int)U_N_TILDE));
-        map_.put(E_U_OGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_O_GRAVE));
-        map_.put(E_U_OACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_O_ACUTE));
-        map_.put(E_U_OCIRC, StringList.simpleNumberFormat(ENCODE, (int)U_O_CIRC));
-        map_.put(E_U_OTILDE, StringList.simpleNumberFormat(ENCODE, (int)U_O_TILDE));
-        map_.put(E_U_OUML, StringList.simpleNumberFormat(ENCODE, (int)U_O_UML));
-        map_.put(E_TIMES, StringList.simpleNumberFormat(ENCODE, (int)TIMES));
-        map_.put(E_U_OSLASH, StringList.simpleNumberFormat(ENCODE, (int)U_O_SLASH));
-        map_.put(E_U_UGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_U_GRAVE));
-        map_.put(E_U_UACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_U_ACUTE));
-        map_.put(E_U_UCIRC, StringList.simpleNumberFormat(ENCODE, (int)U_U_CIRC));
-        map_.put(E_U_UUML, StringList.simpleNumberFormat(ENCODE, (int)U_U_UML));
-        map_.put(E_U_YACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_Y_ACUTE));
-        map_.put(E_U_THORN, StringList.simpleNumberFormat(ENCODE, (int)U_THORN));
-        map_.put(E_SZLIG, StringList.simpleNumberFormat(ENCODE, (int)SZLIG));
-        map_.put(E_AGRAVE, StringList.simpleNumberFormat(ENCODE, (int)AGRAVE));
-        map_.put(E_AACUTE, StringList.simpleNumberFormat(ENCODE, (int)AACUTE));
-        map_.put(E_ACIRC, StringList.simpleNumberFormat(ENCODE, (int)ACIRC));
-        map_.put(E_ATILDE, StringList.simpleNumberFormat(ENCODE, (int)ATILDE));
-        map_.put(E_AUML, StringList.simpleNumberFormat(ENCODE, (int)AUML));
-        map_.put(E_ARING, StringList.simpleNumberFormat(ENCODE, (int)ARING));
-        map_.put(E_AELIG, StringList.simpleNumberFormat(ENCODE, (int)AELIG));
-        map_.put(E_CCEDIL, StringList.simpleNumberFormat(ENCODE, (int)CCEDIL));
-        map_.put(E_EGRAVE, StringList.simpleNumberFormat(ENCODE, (int)EGRAVE));
-        map_.put(E_EACUTE, StringList.simpleNumberFormat(ENCODE, (int)EACUTE));
-        map_.put(E_ECIRC, StringList.simpleNumberFormat(ENCODE, (int)ECIRC));
-        map_.put(E_EUML, StringList.simpleNumberFormat(ENCODE, (int)EUML));
-        map_.put(E_IGRAVE, StringList.simpleNumberFormat(ENCODE, (int)IGRAVE));
-        map_.put(E_IACUTE, StringList.simpleNumberFormat(ENCODE, (int)IACUTE));
-        map_.put(E_ICIRC, StringList.simpleNumberFormat(ENCODE, (int)ICIRC));
-        map_.put(E_IUML, StringList.simpleNumberFormat(ENCODE, (int)IUML));
-        map_.put(E_ETH, StringList.simpleNumberFormat(ENCODE, (int)ETH));
-        map_.put(E_NTILDE, StringList.simpleNumberFormat(ENCODE, (int)NTILDE));
-        map_.put(E_OGRAVE, StringList.simpleNumberFormat(ENCODE, (int)OGRAVE));
-        map_.put(E_OACUTE, StringList.simpleNumberFormat(ENCODE, (int)OACUTE));
-        map_.put(E_OCIRC, StringList.simpleNumberFormat(ENCODE, (int)OCIRC));
-        map_.put(E_OTILDE, StringList.simpleNumberFormat(ENCODE, (int)OTILDE));
-        map_.put(E_OUML, StringList.simpleNumberFormat(ENCODE, (int)OUML));
-        map_.put(E_DIVIDE, StringList.simpleNumberFormat(ENCODE, (int)DIVIDE));
-        map_.put(E_OSLASH, StringList.simpleNumberFormat(ENCODE, (int)OSLASH));
-        map_.put(E_UGRAVE, StringList.simpleNumberFormat(ENCODE, (int)UGRAVE));
-        map_.put(E_UACUTE, StringList.simpleNumberFormat(ENCODE, (int)UACUTE));
-        map_.put(E_UCIRC, StringList.simpleNumberFormat(ENCODE, (int)UCIRC));
-        map_.put(E_UUML, StringList.simpleNumberFormat(ENCODE, (int)UUML));
-        map_.put(E_YACUTE, StringList.simpleNumberFormat(ENCODE, (int)YACUTE));
-        map_.put(E_THORN, StringList.simpleNumberFormat(ENCODE, (int)THORN));
-        map_.put(E_YUML, StringList.simpleNumberFormat(ENCODE, (int)YUML));
-        map_.put(E_QUOT, StringList.simpleNumberFormat(ENCODE, (int)QUOT));
+        map_.put(E_NBSP, StringUtil.simpleNumberFormat(ENCODE, (int)NBSP));
+        map_.put(E_IEXCL, StringUtil.simpleNumberFormat(ENCODE, (int)IEXCL));
+        map_.put(E_CENT, StringUtil.simpleNumberFormat(ENCODE, (int)CENT));
+        map_.put(E_POUND, StringUtil.simpleNumberFormat(ENCODE, (int)POUND));
+        map_.put(E_CURREN, StringUtil.simpleNumberFormat(ENCODE, (int)CURREN));
+        map_.put(E_YEN, StringUtil.simpleNumberFormat(ENCODE, (int)YEN));
+        map_.put(E_BRVBAR, StringUtil.simpleNumberFormat(ENCODE, (int)BRVBAR));
+        map_.put(E_SECT, StringUtil.simpleNumberFormat(ENCODE, (int)SECT));
+        map_.put(E_UML, StringUtil.simpleNumberFormat(ENCODE, (int)UML));
+        map_.put(E_COPY, StringUtil.simpleNumberFormat(ENCODE, (int)COPY));
+        map_.put(E_ORDF, StringUtil.simpleNumberFormat(ENCODE, (int)ORDF));
+        map_.put(E_LAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LAQUO));
+        map_.put(E_NOT, StringUtil.simpleNumberFormat(ENCODE, (int)NOT));
+        map_.put(E_SHY, StringUtil.simpleNumberFormat(ENCODE, (int)SHY));
+        map_.put(E_REG, StringUtil.simpleNumberFormat(ENCODE, (int)REG));
+        map_.put(E_MACR, StringUtil.simpleNumberFormat(ENCODE, (int)MACR));
+        map_.put(E_DEG, StringUtil.simpleNumberFormat(ENCODE, (int)DEG));
+        map_.put(E_PLUSMN, StringUtil.simpleNumberFormat(ENCODE, (int)PLUSMN));
+        map_.put(E_SUP2, StringUtil.simpleNumberFormat(ENCODE, (int)SUP2));
+        map_.put(E_SUP3, StringUtil.simpleNumberFormat(ENCODE, (int)SUP3));
+        map_.put(E_ACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)ACUTE));
+        map_.put(E_MICRO, StringUtil.simpleNumberFormat(ENCODE, (int)MICRO));
+        map_.put(E_PARA, StringUtil.simpleNumberFormat(ENCODE, (int)PARA));
+        map_.put(E_MIDDOT, StringUtil.simpleNumberFormat(ENCODE, (int)MIDDOT));
+        map_.put(E_CEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)CEDIL));
+        map_.put(E_SUP1, StringUtil.simpleNumberFormat(ENCODE, (int)SUP1));
+        map_.put(E_ORDM, StringUtil.simpleNumberFormat(ENCODE, (int)ORDM));
+        map_.put(E_RAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RAQUO));
+        map_.put(E_FRAC14, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC14));
+        map_.put(E_FRAC12, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC12));
+        map_.put(E_FRAC34, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC34));
+        map_.put(E_IQUEST, StringUtil.simpleNumberFormat(ENCODE, (int)IQUEST));
+        map_.put(E_U_AGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_GRAVE));
+        map_.put(E_U_AACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_ACUTE));
+        map_.put(E_U_ACIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_CIRC));
+        map_.put(E_U_ATILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_TILDE));
+        map_.put(E_U_AUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_UML));
+        map_.put(E_U_ARING, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_RING));
+        map_.put(E_U_AELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_AE_LIG));
+        map_.put(E_U_CCEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)U_C_CEDIL));
+        map_.put(E_U_EGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_GRAVE));
+        map_.put(E_U_EACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_ACUTE));
+        map_.put(E_U_ECIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_CIRC));
+        map_.put(E_U_EUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_UML));
+        map_.put(E_U_IGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_GRAVE));
+        map_.put(E_U_IACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_ACUTE));
+        map_.put(E_U_ICIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_CIRC));
+        map_.put(E_U_IUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_UML));
+        map_.put(E_U_ETH, StringUtil.simpleNumberFormat(ENCODE, (int)U_ETH));
+        map_.put(E_U_NTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_N_TILDE));
+        map_.put(E_U_OGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_GRAVE));
+        map_.put(E_U_OACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_ACUTE));
+        map_.put(E_U_OCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_CIRC));
+        map_.put(E_U_OTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_TILDE));
+        map_.put(E_U_OUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_UML));
+        map_.put(E_TIMES, StringUtil.simpleNumberFormat(ENCODE, (int)TIMES));
+        map_.put(E_U_OSLASH, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_SLASH));
+        map_.put(E_U_UGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_GRAVE));
+        map_.put(E_U_UACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_ACUTE));
+        map_.put(E_U_UCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_CIRC));
+        map_.put(E_U_UUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_UML));
+        map_.put(E_U_YACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_Y_ACUTE));
+        map_.put(E_U_THORN, StringUtil.simpleNumberFormat(ENCODE, (int)U_THORN));
+        map_.put(E_SZLIG, StringUtil.simpleNumberFormat(ENCODE, (int)SZLIG));
+        map_.put(E_AGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)AGRAVE));
+        map_.put(E_AACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)AACUTE));
+        map_.put(E_ACIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ACIRC));
+        map_.put(E_ATILDE, StringUtil.simpleNumberFormat(ENCODE, (int)ATILDE));
+        map_.put(E_AUML, StringUtil.simpleNumberFormat(ENCODE, (int)AUML));
+        map_.put(E_ARING, StringUtil.simpleNumberFormat(ENCODE, (int)ARING));
+        map_.put(E_AELIG, StringUtil.simpleNumberFormat(ENCODE, (int)AELIG));
+        map_.put(E_CCEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)CCEDIL));
+        map_.put(E_EGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)EGRAVE));
+        map_.put(E_EACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)EACUTE));
+        map_.put(E_ECIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ECIRC));
+        map_.put(E_EUML, StringUtil.simpleNumberFormat(ENCODE, (int)EUML));
+        map_.put(E_IGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)IGRAVE));
+        map_.put(E_IACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)IACUTE));
+        map_.put(E_ICIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ICIRC));
+        map_.put(E_IUML, StringUtil.simpleNumberFormat(ENCODE, (int)IUML));
+        map_.put(E_ETH, StringUtil.simpleNumberFormat(ENCODE, (int)ETH));
+        map_.put(E_NTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)NTILDE));
+        map_.put(E_OGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)OGRAVE));
+        map_.put(E_OACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)OACUTE));
+        map_.put(E_OCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)OCIRC));
+        map_.put(E_OTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)OTILDE));
+        map_.put(E_OUML, StringUtil.simpleNumberFormat(ENCODE, (int)OUML));
+        map_.put(E_DIVIDE, StringUtil.simpleNumberFormat(ENCODE, (int)DIVIDE));
+        map_.put(E_OSLASH, StringUtil.simpleNumberFormat(ENCODE, (int)OSLASH));
+        map_.put(E_UGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)UGRAVE));
+        map_.put(E_UACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)UACUTE));
+        map_.put(E_UCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)UCIRC));
+        map_.put(E_UUML, StringUtil.simpleNumberFormat(ENCODE, (int)UUML));
+        map_.put(E_YACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)YACUTE));
+        map_.put(E_THORN, StringUtil.simpleNumberFormat(ENCODE, (int)THORN));
+        map_.put(E_YUML, StringUtil.simpleNumberFormat(ENCODE, (int)YUML));
+        map_.put(E_QUOT, StringUtil.simpleNumberFormat(ENCODE, (int)QUOT));
         if (_affectLtGt) {
-            map_.put(E_LT, StringList.simpleNumberFormat(ENCODE, (int)LT));
-            map_.put(E_GT, StringList.simpleNumberFormat(ENCODE, (int)GT));
+            map_.put(E_LT, StringUtil.simpleNumberFormat(ENCODE, (int)LT));
+            map_.put(E_GT, StringUtil.simpleNumberFormat(ENCODE, (int)GT));
         }
-        map_.put(E_APOS, StringList.simpleNumberFormat(ENCODE, (int)APOS));
-        map_.put(E_U_OELIG, StringList.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
-        map_.put(E_OELIG, StringList.simpleNumberFormat(ENCODE, (int)OELIG));
-        map_.put(E_S_CARON, StringList.simpleNumberFormat(ENCODE, (int)U_SCARON));
-        map_.put(E_SCARON, StringList.simpleNumberFormat(ENCODE, (int)SCARON));
-        map_.put(E_U_YUML, StringList.simpleNumberFormat(ENCODE, (int)U_Y_UML));
-        map_.put(E_CIRC, StringList.simpleNumberFormat(ENCODE, (int)CIRC));
-        map_.put(E_TILDE, StringList.simpleNumberFormat(ENCODE, (int)TILDE));
-        map_.put(E_ENSP, StringList.simpleNumberFormat(ENCODE, (int)ENSP));
-        map_.put(E_EMSP, StringList.simpleNumberFormat(ENCODE, (int)EMSP));
-        map_.put(E_THINSP, StringList.simpleNumberFormat(ENCODE, (int)THINSP));
-        map_.put(E_ZWNJ, StringList.simpleNumberFormat(ENCODE, (int)ZWNJ));
-        map_.put(E_ZWJ, StringList.simpleNumberFormat(ENCODE, (int)ZWJ));
-        map_.put(E_LRM, StringList.simpleNumberFormat(ENCODE, (int)LRM));
-        map_.put(E_RLM, StringList.simpleNumberFormat(ENCODE, (int)RLM));
-        map_.put(E_NDASH, StringList.simpleNumberFormat(ENCODE, (int)NDASH));
-        map_.put(E_MDASH, StringList.simpleNumberFormat(ENCODE, (int)MDASH));
-        map_.put(E_LSQUO, StringList.simpleNumberFormat(ENCODE, (int)LSQUO));
-        map_.put(E_RSQUO, StringList.simpleNumberFormat(ENCODE, (int)RSQUO));
-        map_.put(E_SBQUO, StringList.simpleNumberFormat(ENCODE, (int)SBQUO));
-        map_.put(E_LDQUO, StringList.simpleNumberFormat(ENCODE, (int)LDQUO));
-        map_.put(E_RDQUO, StringList.simpleNumberFormat(ENCODE, (int)RDQUO));
-        map_.put(E_BDQUO, StringList.simpleNumberFormat(ENCODE, (int)BDQUO));
-        map_.put(E_DAGGER, StringList.simpleNumberFormat(ENCODE, (int)D_AGGER));
-        map_.put(E_U_DAGGER, StringList.simpleNumberFormat(ENCODE, (int)DAGGER));
-        map_.put(E_PERMIL, StringList.simpleNumberFormat(ENCODE, (int)PERMIL));
-        map_.put(E_LSAQUO, StringList.simpleNumberFormat(ENCODE, (int)LSAQUO));
-        map_.put(E_RSAQUO, StringList.simpleNumberFormat(ENCODE, (int)RSAQUO));
-        map_.put(E_EURO, StringList.simpleNumberFormat(ENCODE, (int)EURO));
-        map_.put(E_FNOF, StringList.simpleNumberFormat(ENCODE, (int)FNOF));
-        map_.put(E_U_ALPHA, StringList.simpleNumberFormat(ENCODE, (int)U_A_LPHA));
-        map_.put(E_U_BETA, StringList.simpleNumberFormat(ENCODE, (int)U_B_ETA));
-        map_.put(E_U_GAMMA, StringList.simpleNumberFormat(ENCODE, (int)U_G_AMMA));
-        map_.put(E_U_DELTA, StringList.simpleNumberFormat(ENCODE, (int)U_D_ELTA));
-        map_.put(E_U_EPSILON, StringList.simpleNumberFormat(ENCODE, (int)U_E_PSILON));
-        map_.put(E_U_ZETA, StringList.simpleNumberFormat(ENCODE, (int)U_Z_ETA));
-        map_.put(E_U_ETA, StringList.simpleNumberFormat(ENCODE, (int)U_E_TA));
-        map_.put(E_U_THETA, StringList.simpleNumberFormat(ENCODE, (int)U_T_HETA));
-        map_.put(E_U_IOTA, StringList.simpleNumberFormat(ENCODE, (int)U_I_OTA));
-        map_.put(E_U_KAPPA, StringList.simpleNumberFormat(ENCODE, (int)U_K_APPA));
-        map_.put(E_U_LAMBDA, StringList.simpleNumberFormat(ENCODE, (int)U_L_AMBDA));
-        map_.put(E_U_MU, StringList.simpleNumberFormat(ENCODE, (int)U_M_U));
-        map_.put(E_U_NU, StringList.simpleNumberFormat(ENCODE, (int)U_N_U));
-        map_.put(E_U_XI, StringList.simpleNumberFormat(ENCODE, (int)U_X_I));
-        map_.put(E_U_OMICRON, StringList.simpleNumberFormat(ENCODE, (int)U_O_MICRON));
-        map_.put(E_U_PI, StringList.simpleNumberFormat(ENCODE, (int)U_P_I));
-        map_.put(E_U_RHO, StringList.simpleNumberFormat(ENCODE, (int)U_R_HO));
-        map_.put(E_U_SIGMA, StringList.simpleNumberFormat(ENCODE, (int)U_S_IGMA));
-        map_.put(E_U_TAU, StringList.simpleNumberFormat(ENCODE, (int)U_T_AU));
-        map_.put(E_U_UPSILON, StringList.simpleNumberFormat(ENCODE, (int)U_U_PSILON));
-        map_.put(E_U_PHI, StringList.simpleNumberFormat(ENCODE, (int)U_P_HI));
-        map_.put(E_U_CHI, StringList.simpleNumberFormat(ENCODE, (int)U_C_HI));
-        map_.put(E_U_PSI, StringList.simpleNumberFormat(ENCODE, (int)U_P_SI));
-        map_.put(E_U_OMEGA, StringList.simpleNumberFormat(ENCODE, (int)U_O_MEGA));
-        map_.put(E_ALPHA, StringList.simpleNumberFormat(ENCODE, (int)ALPHA));
-        map_.put(E_BETA, StringList.simpleNumberFormat(ENCODE, (int)BETA));
-        map_.put(E_GAMMA, StringList.simpleNumberFormat(ENCODE, (int)GAMMA));
-        map_.put(E_DELTA, StringList.simpleNumberFormat(ENCODE, (int)DELTA));
-        map_.put(E_EPSILON, StringList.simpleNumberFormat(ENCODE, (int)EPSILON));
-        map_.put(E_ZETA, StringList.simpleNumberFormat(ENCODE, (int)ZETA));
-        map_.put(E_ETA, StringList.simpleNumberFormat(ENCODE, (int)ETA));
-        map_.put(E_THETA, StringList.simpleNumberFormat(ENCODE, (int)THETA));
-        map_.put(E_IOTA, StringList.simpleNumberFormat(ENCODE, (int)IOTA));
-        map_.put(E_KAPPA, StringList.simpleNumberFormat(ENCODE, (int)KAPPA));
-        map_.put(E_LAMBDA, StringList.simpleNumberFormat(ENCODE, (int)LAMBDA));
-        map_.put(E_MU, StringList.simpleNumberFormat(ENCODE, (int)MU));
-        map_.put(E_NU, StringList.simpleNumberFormat(ENCODE, (int)NU));
-        map_.put(E_XI, StringList.simpleNumberFormat(ENCODE, (int)XI));
-        map_.put(E_OMICRON, StringList.simpleNumberFormat(ENCODE, (int)OMICRON));
-        map_.put(E_PI, StringList.simpleNumberFormat(ENCODE, (int)PI));
-        map_.put(E_RHO, StringList.simpleNumberFormat(ENCODE, (int)RHO));
-        map_.put(E_SIGMAF, StringList.simpleNumberFormat(ENCODE, (int)SIGMAF));
-        map_.put(E_SIGMA, StringList.simpleNumberFormat(ENCODE, (int)SIGMA));
-        map_.put(E_TAU, StringList.simpleNumberFormat(ENCODE, (int)TAU));
-        map_.put(E_UPSILON, StringList.simpleNumberFormat(ENCODE, (int)UPSILON));
-        map_.put(E_PHI, StringList.simpleNumberFormat(ENCODE, (int)PHI));
-        map_.put(E_CHI, StringList.simpleNumberFormat(ENCODE, (int)CHI));
-        map_.put(E_PSI, StringList.simpleNumberFormat(ENCODE, (int)PSI));
-        map_.put(E_OMEGA, StringList.simpleNumberFormat(ENCODE, (int)OMEGA));
-        map_.put(E_THETASYM, StringList.simpleNumberFormat(ENCODE, (int)THETASYM));
-        map_.put(E_UPSIH, StringList.simpleNumberFormat(ENCODE, (int)UPSIH));
-        map_.put(E_PIV, StringList.simpleNumberFormat(ENCODE, (int)PIV));
-        map_.put(E_BULL, StringList.simpleNumberFormat(ENCODE, (int)BULL));
-        map_.put(E_HELLIP, StringList.simpleNumberFormat(ENCODE, (int)HELLIP));
-        map_.put(E_PRIME, StringList.simpleNumberFormat(ENCODE, (int)PRIME));
-        map_.put(E_P_RIME, StringList.simpleNumberFormat(ENCODE, (int)U_PRIME));
-        map_.put(E_OLINE, StringList.simpleNumberFormat(ENCODE, (int)OLINE));
-        map_.put(E_FRASL, StringList.simpleNumberFormat(ENCODE, (int)FRASL));
-        map_.put(E_WEIERP, StringList.simpleNumberFormat(ENCODE, (int)WEIERP));
-        map_.put(E_IMAGE, StringList.simpleNumberFormat(ENCODE, (int)IMAGE));
-        map_.put(E_REAL, StringList.simpleNumberFormat(ENCODE, (int)REAL));
-        map_.put(E_TRADE, StringList.simpleNumberFormat(ENCODE, (int)TRADE));
-        map_.put(E_ALEFSYM, StringList.simpleNumberFormat(ENCODE, (int)ALEFSYM));
-        map_.put(E_LARR, StringList.simpleNumberFormat(ENCODE, (int)LARR));
-        map_.put(E_UARR, StringList.simpleNumberFormat(ENCODE, (int)UARR));
-        map_.put(E_RARR, StringList.simpleNumberFormat(ENCODE, (int)RARR));
-        map_.put(E_DARR, StringList.simpleNumberFormat(ENCODE, (int)DARR));
-        map_.put(E_HARR, StringList.simpleNumberFormat(ENCODE, (int)HARR));
-        map_.put(E_CRARR, StringList.simpleNumberFormat(ENCODE, (int)CRARR));
-        map_.put(E_L_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_LARR));
-        map_.put(E_U_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_UARR));
-        map_.put(E_R_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_RARR));
-        map_.put(E_D_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_DARR));
-        map_.put(E_H_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_HARR));
-        map_.put(E_FORALL, StringList.simpleNumberFormat(ENCODE, (int)FORALL));
-        map_.put(E_PART, StringList.simpleNumberFormat(ENCODE, (int)PART));
-        map_.put(E_EXIST, StringList.simpleNumberFormat(ENCODE, (int)EXIST));
-        map_.put(E_EMPTY, StringList.simpleNumberFormat(ENCODE, (int)EMPTY));
-        map_.put(E_NABLA, StringList.simpleNumberFormat(ENCODE, (int)NABLA));
-        map_.put(E_ISIN, StringList.simpleNumberFormat(ENCODE, (int)ISIN));
-        map_.put(E_NOTIN, StringList.simpleNumberFormat(ENCODE, (int)NOTIN));
-        map_.put(E_NI, StringList.simpleNumberFormat(ENCODE, (int)NI));
-        map_.put(E_PROD, StringList.simpleNumberFormat(ENCODE, (int)PROD));
-        map_.put(E_SUM, StringList.simpleNumberFormat(ENCODE, (int)SUM));
-        map_.put(E_MINUS, StringList.simpleNumberFormat(ENCODE, (int)MINUS));
-        map_.put(E_LOWAST, StringList.simpleNumberFormat(ENCODE, (int)LOWAST));
-        map_.put(E_RADIC, StringList.simpleNumberFormat(ENCODE, (int)RADIC));
-        map_.put(E_PROP, StringList.simpleNumberFormat(ENCODE, (int)PROP));
-        map_.put(E_INFIN, StringList.simpleNumberFormat(ENCODE, (int)INFIN));
-        map_.put(E_ANG, StringList.simpleNumberFormat(ENCODE, (int)ANG));
-        map_.put(E_AND, StringList.simpleNumberFormat(ENCODE, (int)AND));
-        map_.put(E_OR, StringList.simpleNumberFormat(ENCODE, (int)OR));
-        map_.put(E_CAP, StringList.simpleNumberFormat(ENCODE, (int)CAP));
-        map_.put(E_CUP, StringList.simpleNumberFormat(ENCODE, (int)CUP));
-        map_.put(E_INT, StringList.simpleNumberFormat(ENCODE, (int)INT));
-        map_.put(E_THERE4, StringList.simpleNumberFormat(ENCODE, (int)THERE4));
-        map_.put(E_SIM, StringList.simpleNumberFormat(ENCODE, (int)SIM));
-        map_.put(E_CONG, StringList.simpleNumberFormat(ENCODE, (int)CONG));
-        map_.put(E_ASYMP, StringList.simpleNumberFormat(ENCODE, (int)ASYMP));
-        map_.put(E_NE, StringList.simpleNumberFormat(ENCODE, (int)NE));
-        map_.put(E_EQUIV, StringList.simpleNumberFormat(ENCODE, (int)EQUIV));
-        map_.put(E_LE, StringList.simpleNumberFormat(ENCODE, (int)LE));
-        map_.put(E_GE, StringList.simpleNumberFormat(ENCODE, (int)GE));
-        map_.put(E_SUB, StringList.simpleNumberFormat(ENCODE, (int)SUB));
-        map_.put(E_SUP, StringList.simpleNumberFormat(ENCODE, (int)SUP));
-        map_.put(E_NSUB, StringList.simpleNumberFormat(ENCODE, (int)NSUB));
-        map_.put(E_SUBE, StringList.simpleNumberFormat(ENCODE, (int)SUBE));
-        map_.put(E_SUPE, StringList.simpleNumberFormat(ENCODE, (int)SUPE));
-        map_.put(E_OPLUS, StringList.simpleNumberFormat(ENCODE, (int)OPLUS));
-        map_.put(E_OTIMES, StringList.simpleNumberFormat(ENCODE, (int)OTIMES));
-        map_.put(E_PERP, StringList.simpleNumberFormat(ENCODE, (int)PERP));
-        map_.put(E_SDOT, StringList.simpleNumberFormat(ENCODE, (int)SDOT));
-        map_.put(E_LCEIL, StringList.simpleNumberFormat(ENCODE, (int)LCEIL));
-        map_.put(E_RCEIL, StringList.simpleNumberFormat(ENCODE, (int)RCEIL));
-        map_.put(E_LFLOOR, StringList.simpleNumberFormat(ENCODE, (int)LFLOOR));
-        map_.put(E_RFLOOR, StringList.simpleNumberFormat(ENCODE, (int)RFLOOR));
-        map_.put(E_LANG, StringList.simpleNumberFormat(ENCODE, (int)LANG));
-        map_.put(E_RANG, StringList.simpleNumberFormat(ENCODE, (int)RANG));
-        map_.put(E_LOZ, StringList.simpleNumberFormat(ENCODE, (int)LOZ));
-        map_.put(E_SPADES, StringList.simpleNumberFormat(ENCODE, (int)SPADES));
-        map_.put(E_CLUBS, StringList.simpleNumberFormat(ENCODE, (int)CLUBS));
-        map_.put(E_HEARTS, StringList.simpleNumberFormat(ENCODE, (int)HEARTS));
-        map_.put(E_DIAMS, StringList.simpleNumberFormat(ENCODE, (int)DIAMS));
+        map_.put(E_APOS, StringUtil.simpleNumberFormat(ENCODE, (int)APOS));
+        map_.put(E_U_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
+        map_.put(E_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)OELIG));
+        map_.put(E_S_CARON, StringUtil.simpleNumberFormat(ENCODE, (int)U_SCARON));
+        map_.put(E_SCARON, StringUtil.simpleNumberFormat(ENCODE, (int)SCARON));
+        map_.put(E_U_YUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_Y_UML));
+        map_.put(E_CIRC, StringUtil.simpleNumberFormat(ENCODE, (int)CIRC));
+        map_.put(E_TILDE, StringUtil.simpleNumberFormat(ENCODE, (int)TILDE));
+        map_.put(E_ENSP, StringUtil.simpleNumberFormat(ENCODE, (int)ENSP));
+        map_.put(E_EMSP, StringUtil.simpleNumberFormat(ENCODE, (int)EMSP));
+        map_.put(E_THINSP, StringUtil.simpleNumberFormat(ENCODE, (int)THINSP));
+        map_.put(E_ZWNJ, StringUtil.simpleNumberFormat(ENCODE, (int)ZWNJ));
+        map_.put(E_ZWJ, StringUtil.simpleNumberFormat(ENCODE, (int)ZWJ));
+        map_.put(E_LRM, StringUtil.simpleNumberFormat(ENCODE, (int)LRM));
+        map_.put(E_RLM, StringUtil.simpleNumberFormat(ENCODE, (int)RLM));
+        map_.put(E_NDASH, StringUtil.simpleNumberFormat(ENCODE, (int)NDASH));
+        map_.put(E_MDASH, StringUtil.simpleNumberFormat(ENCODE, (int)MDASH));
+        map_.put(E_LSQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LSQUO));
+        map_.put(E_RSQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RSQUO));
+        map_.put(E_SBQUO, StringUtil.simpleNumberFormat(ENCODE, (int)SBQUO));
+        map_.put(E_LDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LDQUO));
+        map_.put(E_RDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RDQUO));
+        map_.put(E_BDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)BDQUO));
+        map_.put(E_DAGGER, StringUtil.simpleNumberFormat(ENCODE, (int)D_AGGER));
+        map_.put(E_U_DAGGER, StringUtil.simpleNumberFormat(ENCODE, (int)DAGGER));
+        map_.put(E_PERMIL, StringUtil.simpleNumberFormat(ENCODE, (int)PERMIL));
+        map_.put(E_LSAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LSAQUO));
+        map_.put(E_RSAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RSAQUO));
+        map_.put(E_EURO, StringUtil.simpleNumberFormat(ENCODE, (int)EURO));
+        map_.put(E_FNOF, StringUtil.simpleNumberFormat(ENCODE, (int)FNOF));
+        map_.put(E_U_ALPHA, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_LPHA));
+        map_.put(E_U_BETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_B_ETA));
+        map_.put(E_U_GAMMA, StringUtil.simpleNumberFormat(ENCODE, (int)U_G_AMMA));
+        map_.put(E_U_DELTA, StringUtil.simpleNumberFormat(ENCODE, (int)U_D_ELTA));
+        map_.put(E_U_EPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_PSILON));
+        map_.put(E_U_ZETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_Z_ETA));
+        map_.put(E_U_ETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_TA));
+        map_.put(E_U_THETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_T_HETA));
+        map_.put(E_U_IOTA, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_OTA));
+        map_.put(E_U_KAPPA, StringUtil.simpleNumberFormat(ENCODE, (int)U_K_APPA));
+        map_.put(E_U_LAMBDA, StringUtil.simpleNumberFormat(ENCODE, (int)U_L_AMBDA));
+        map_.put(E_U_MU, StringUtil.simpleNumberFormat(ENCODE, (int)U_M_U));
+        map_.put(E_U_NU, StringUtil.simpleNumberFormat(ENCODE, (int)U_N_U));
+        map_.put(E_U_XI, StringUtil.simpleNumberFormat(ENCODE, (int)U_X_I));
+        map_.put(E_U_OMICRON, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_MICRON));
+        map_.put(E_U_PI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_I));
+        map_.put(E_U_RHO, StringUtil.simpleNumberFormat(ENCODE, (int)U_R_HO));
+        map_.put(E_U_SIGMA, StringUtil.simpleNumberFormat(ENCODE, (int)U_S_IGMA));
+        map_.put(E_U_TAU, StringUtil.simpleNumberFormat(ENCODE, (int)U_T_AU));
+        map_.put(E_U_UPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_PSILON));
+        map_.put(E_U_PHI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_HI));
+        map_.put(E_U_CHI, StringUtil.simpleNumberFormat(ENCODE, (int)U_C_HI));
+        map_.put(E_U_PSI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_SI));
+        map_.put(E_U_OMEGA, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_MEGA));
+        map_.put(E_ALPHA, StringUtil.simpleNumberFormat(ENCODE, (int)ALPHA));
+        map_.put(E_BETA, StringUtil.simpleNumberFormat(ENCODE, (int)BETA));
+        map_.put(E_GAMMA, StringUtil.simpleNumberFormat(ENCODE, (int)GAMMA));
+        map_.put(E_DELTA, StringUtil.simpleNumberFormat(ENCODE, (int)DELTA));
+        map_.put(E_EPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)EPSILON));
+        map_.put(E_ZETA, StringUtil.simpleNumberFormat(ENCODE, (int)ZETA));
+        map_.put(E_ETA, StringUtil.simpleNumberFormat(ENCODE, (int)ETA));
+        map_.put(E_THETA, StringUtil.simpleNumberFormat(ENCODE, (int)THETA));
+        map_.put(E_IOTA, StringUtil.simpleNumberFormat(ENCODE, (int)IOTA));
+        map_.put(E_KAPPA, StringUtil.simpleNumberFormat(ENCODE, (int)KAPPA));
+        map_.put(E_LAMBDA, StringUtil.simpleNumberFormat(ENCODE, (int)LAMBDA));
+        map_.put(E_MU, StringUtil.simpleNumberFormat(ENCODE, (int)MU));
+        map_.put(E_NU, StringUtil.simpleNumberFormat(ENCODE, (int)NU));
+        map_.put(E_XI, StringUtil.simpleNumberFormat(ENCODE, (int)XI));
+        map_.put(E_OMICRON, StringUtil.simpleNumberFormat(ENCODE, (int)OMICRON));
+        map_.put(E_PI, StringUtil.simpleNumberFormat(ENCODE, (int)PI));
+        map_.put(E_RHO, StringUtil.simpleNumberFormat(ENCODE, (int)RHO));
+        map_.put(E_SIGMAF, StringUtil.simpleNumberFormat(ENCODE, (int)SIGMAF));
+        map_.put(E_SIGMA, StringUtil.simpleNumberFormat(ENCODE, (int)SIGMA));
+        map_.put(E_TAU, StringUtil.simpleNumberFormat(ENCODE, (int)TAU));
+        map_.put(E_UPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)UPSILON));
+        map_.put(E_PHI, StringUtil.simpleNumberFormat(ENCODE, (int)PHI));
+        map_.put(E_CHI, StringUtil.simpleNumberFormat(ENCODE, (int)CHI));
+        map_.put(E_PSI, StringUtil.simpleNumberFormat(ENCODE, (int)PSI));
+        map_.put(E_OMEGA, StringUtil.simpleNumberFormat(ENCODE, (int)OMEGA));
+        map_.put(E_THETASYM, StringUtil.simpleNumberFormat(ENCODE, (int)THETASYM));
+        map_.put(E_UPSIH, StringUtil.simpleNumberFormat(ENCODE, (int)UPSIH));
+        map_.put(E_PIV, StringUtil.simpleNumberFormat(ENCODE, (int)PIV));
+        map_.put(E_BULL, StringUtil.simpleNumberFormat(ENCODE, (int)BULL));
+        map_.put(E_HELLIP, StringUtil.simpleNumberFormat(ENCODE, (int)HELLIP));
+        map_.put(E_PRIME, StringUtil.simpleNumberFormat(ENCODE, (int)PRIME));
+        map_.put(E_P_RIME, StringUtil.simpleNumberFormat(ENCODE, (int)U_PRIME));
+        map_.put(E_OLINE, StringUtil.simpleNumberFormat(ENCODE, (int)OLINE));
+        map_.put(E_FRASL, StringUtil.simpleNumberFormat(ENCODE, (int)FRASL));
+        map_.put(E_WEIERP, StringUtil.simpleNumberFormat(ENCODE, (int)WEIERP));
+        map_.put(E_IMAGE, StringUtil.simpleNumberFormat(ENCODE, (int)IMAGE));
+        map_.put(E_REAL, StringUtil.simpleNumberFormat(ENCODE, (int)REAL));
+        map_.put(E_TRADE, StringUtil.simpleNumberFormat(ENCODE, (int)TRADE));
+        map_.put(E_ALEFSYM, StringUtil.simpleNumberFormat(ENCODE, (int)ALEFSYM));
+        map_.put(E_LARR, StringUtil.simpleNumberFormat(ENCODE, (int)LARR));
+        map_.put(E_UARR, StringUtil.simpleNumberFormat(ENCODE, (int)UARR));
+        map_.put(E_RARR, StringUtil.simpleNumberFormat(ENCODE, (int)RARR));
+        map_.put(E_DARR, StringUtil.simpleNumberFormat(ENCODE, (int)DARR));
+        map_.put(E_HARR, StringUtil.simpleNumberFormat(ENCODE, (int)HARR));
+        map_.put(E_CRARR, StringUtil.simpleNumberFormat(ENCODE, (int)CRARR));
+        map_.put(E_L_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_LARR));
+        map_.put(E_U_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_UARR));
+        map_.put(E_R_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_RARR));
+        map_.put(E_D_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_DARR));
+        map_.put(E_H_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_HARR));
+        map_.put(E_FORALL, StringUtil.simpleNumberFormat(ENCODE, (int)FORALL));
+        map_.put(E_PART, StringUtil.simpleNumberFormat(ENCODE, (int)PART));
+        map_.put(E_EXIST, StringUtil.simpleNumberFormat(ENCODE, (int)EXIST));
+        map_.put(E_EMPTY, StringUtil.simpleNumberFormat(ENCODE, (int)EMPTY));
+        map_.put(E_NABLA, StringUtil.simpleNumberFormat(ENCODE, (int)NABLA));
+        map_.put(E_ISIN, StringUtil.simpleNumberFormat(ENCODE, (int)ISIN));
+        map_.put(E_NOTIN, StringUtil.simpleNumberFormat(ENCODE, (int)NOTIN));
+        map_.put(E_NI, StringUtil.simpleNumberFormat(ENCODE, (int)NI));
+        map_.put(E_PROD, StringUtil.simpleNumberFormat(ENCODE, (int)PROD));
+        map_.put(E_SUM, StringUtil.simpleNumberFormat(ENCODE, (int)SUM));
+        map_.put(E_MINUS, StringUtil.simpleNumberFormat(ENCODE, (int)MINUS));
+        map_.put(E_LOWAST, StringUtil.simpleNumberFormat(ENCODE, (int)LOWAST));
+        map_.put(E_RADIC, StringUtil.simpleNumberFormat(ENCODE, (int)RADIC));
+        map_.put(E_PROP, StringUtil.simpleNumberFormat(ENCODE, (int)PROP));
+        map_.put(E_INFIN, StringUtil.simpleNumberFormat(ENCODE, (int)INFIN));
+        map_.put(E_ANG, StringUtil.simpleNumberFormat(ENCODE, (int)ANG));
+        map_.put(E_AND, StringUtil.simpleNumberFormat(ENCODE, (int)AND));
+        map_.put(E_OR, StringUtil.simpleNumberFormat(ENCODE, (int)OR));
+        map_.put(E_CAP, StringUtil.simpleNumberFormat(ENCODE, (int)CAP));
+        map_.put(E_CUP, StringUtil.simpleNumberFormat(ENCODE, (int)CUP));
+        map_.put(E_INT, StringUtil.simpleNumberFormat(ENCODE, (int)INT));
+        map_.put(E_THERE4, StringUtil.simpleNumberFormat(ENCODE, (int)THERE4));
+        map_.put(E_SIM, StringUtil.simpleNumberFormat(ENCODE, (int)SIM));
+        map_.put(E_CONG, StringUtil.simpleNumberFormat(ENCODE, (int)CONG));
+        map_.put(E_ASYMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASYMP));
+        map_.put(E_NE, StringUtil.simpleNumberFormat(ENCODE, (int)NE));
+        map_.put(E_EQUIV, StringUtil.simpleNumberFormat(ENCODE, (int)EQUIV));
+        map_.put(E_LE, StringUtil.simpleNumberFormat(ENCODE, (int)LE));
+        map_.put(E_GE, StringUtil.simpleNumberFormat(ENCODE, (int)GE));
+        map_.put(E_SUB, StringUtil.simpleNumberFormat(ENCODE, (int)SUB));
+        map_.put(E_SUP, StringUtil.simpleNumberFormat(ENCODE, (int)SUP));
+        map_.put(E_NSUB, StringUtil.simpleNumberFormat(ENCODE, (int)NSUB));
+        map_.put(E_SUBE, StringUtil.simpleNumberFormat(ENCODE, (int)SUBE));
+        map_.put(E_SUPE, StringUtil.simpleNumberFormat(ENCODE, (int)SUPE));
+        map_.put(E_OPLUS, StringUtil.simpleNumberFormat(ENCODE, (int)OPLUS));
+        map_.put(E_OTIMES, StringUtil.simpleNumberFormat(ENCODE, (int)OTIMES));
+        map_.put(E_PERP, StringUtil.simpleNumberFormat(ENCODE, (int)PERP));
+        map_.put(E_SDOT, StringUtil.simpleNumberFormat(ENCODE, (int)SDOT));
+        map_.put(E_LCEIL, StringUtil.simpleNumberFormat(ENCODE, (int)LCEIL));
+        map_.put(E_RCEIL, StringUtil.simpleNumberFormat(ENCODE, (int)RCEIL));
+        map_.put(E_LFLOOR, StringUtil.simpleNumberFormat(ENCODE, (int)LFLOOR));
+        map_.put(E_RFLOOR, StringUtil.simpleNumberFormat(ENCODE, (int)RFLOOR));
+        map_.put(E_LANG, StringUtil.simpleNumberFormat(ENCODE, (int)LANG));
+        map_.put(E_RANG, StringUtil.simpleNumberFormat(ENCODE, (int)RANG));
+        map_.put(E_LOZ, StringUtil.simpleNumberFormat(ENCODE, (int)LOZ));
+        map_.put(E_SPADES, StringUtil.simpleNumberFormat(ENCODE, (int)SPADES));
+        map_.put(E_CLUBS, StringUtil.simpleNumberFormat(ENCODE, (int)CLUBS));
+        map_.put(E_HEARTS, StringUtil.simpleNumberFormat(ENCODE, (int)HEARTS));
+        map_.put(E_DIAMS, StringUtil.simpleNumberFormat(ENCODE, (int)DIAMS));
         if (_affectEamp) {
-            map_.put(E_AMP, StringList.simpleNumberFormat(ENCODE, (int)ASCII_38));
+            map_.put(E_AMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASCII_38));
         }
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
@@ -899,7 +902,7 @@ public final class DocumentBuilder {
                 if (equals_) {
                     String strValue_ = k.getValue();
                     strValue_ = strValue_.substring(2, strValue_.length() - 1);
-                    int ascii_ = Numbers.parseInt(strValue_);
+                    int ascii_ = NumberUtil.parseInt(strValue_);
                     char char_ = (char) ascii_;
                     str_.append(char_);
                     i_++;
@@ -910,7 +913,7 @@ public final class DocumentBuilder {
             if (!add_) {
                 if (_htmlText.charAt(iBegin_ + 1) == NUMBERED_CHAR) {
                     String strValue_ = _htmlText.substring(iBegin_ + 2, i_);
-                    int ascii_ = (int) Numbers.parseLongZero(strValue_);
+                    int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
                     char char_ = (char) ascii_;
                     str_.append(char_);
                     i_++;
@@ -924,259 +927,259 @@ public final class DocumentBuilder {
     }
     public static String encodeHtml(String _htmlText) {
         StringMap<String> map_ = new StringMap<String>();
-        map_.put(E_NBSP, StringList.simpleNumberFormat(ENCODE, (int)NBSP));
-        map_.put(E_IEXCL, StringList.simpleNumberFormat(ENCODE, (int)IEXCL));
-        map_.put(E_CENT, StringList.simpleNumberFormat(ENCODE, (int)CENT));
-        map_.put(E_POUND, StringList.simpleNumberFormat(ENCODE, (int)POUND));
-        map_.put(E_CURREN, StringList.simpleNumberFormat(ENCODE, (int)CURREN));
-        map_.put(E_YEN, StringList.simpleNumberFormat(ENCODE, (int)YEN));
-        map_.put(E_BRVBAR, StringList.simpleNumberFormat(ENCODE, (int)BRVBAR));
-        map_.put(E_SECT, StringList.simpleNumberFormat(ENCODE, (int)SECT));
-        map_.put(E_UML, StringList.simpleNumberFormat(ENCODE, (int)UML));
-        map_.put(E_COPY, StringList.simpleNumberFormat(ENCODE, (int)COPY));
-        map_.put(E_ORDF, StringList.simpleNumberFormat(ENCODE, (int)ORDF));
-        map_.put(E_LAQUO, StringList.simpleNumberFormat(ENCODE, (int)LAQUO));
-        map_.put(E_NOT, StringList.simpleNumberFormat(ENCODE, (int)NOT));
-        map_.put(E_SHY, StringList.simpleNumberFormat(ENCODE, (int)SHY));
-        map_.put(E_REG, StringList.simpleNumberFormat(ENCODE, (int)REG));
-        map_.put(E_MACR, StringList.simpleNumberFormat(ENCODE, (int)MACR));
-        map_.put(E_DEG, StringList.simpleNumberFormat(ENCODE, (int)DEG));
-        map_.put(E_PLUSMN, StringList.simpleNumberFormat(ENCODE, (int)PLUSMN));
-        map_.put(E_SUP2, StringList.simpleNumberFormat(ENCODE, (int)SUP2));
-        map_.put(E_SUP3, StringList.simpleNumberFormat(ENCODE, (int)SUP3));
-        map_.put(E_ACUTE, StringList.simpleNumberFormat(ENCODE, (int)ACUTE));
-        map_.put(E_MICRO, StringList.simpleNumberFormat(ENCODE, (int)MICRO));
-        map_.put(E_PARA, StringList.simpleNumberFormat(ENCODE, (int)PARA));
-        map_.put(E_MIDDOT, StringList.simpleNumberFormat(ENCODE, (int)MIDDOT));
-        map_.put(E_CEDIL, StringList.simpleNumberFormat(ENCODE, (int)CEDIL));
-        map_.put(E_SUP1, StringList.simpleNumberFormat(ENCODE, (int)SUP1));
-        map_.put(E_ORDM, StringList.simpleNumberFormat(ENCODE, (int)ORDM));
-        map_.put(E_RAQUO, StringList.simpleNumberFormat(ENCODE, (int)RAQUO));
-        map_.put(E_FRAC14, StringList.simpleNumberFormat(ENCODE, (int)FRAC14));
-        map_.put(E_FRAC12, StringList.simpleNumberFormat(ENCODE, (int)FRAC12));
-        map_.put(E_FRAC34, StringList.simpleNumberFormat(ENCODE, (int)FRAC34));
-        map_.put(E_IQUEST, StringList.simpleNumberFormat(ENCODE, (int)IQUEST));
-        map_.put(E_U_AGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_A_GRAVE));
-        map_.put(E_U_AACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_A_ACUTE));
-        map_.put(E_U_ACIRC, StringList.simpleNumberFormat(ENCODE, (int)U_A_CIRC));
-        map_.put(E_U_ATILDE, StringList.simpleNumberFormat(ENCODE, (int)U_A_TILDE));
-        map_.put(E_U_AUML, StringList.simpleNumberFormat(ENCODE, (int)U_A_UML));
-        map_.put(E_U_ARING, StringList.simpleNumberFormat(ENCODE, (int)U_A_RING));
-        map_.put(E_U_AELIG, StringList.simpleNumberFormat(ENCODE, (int)U_AE_LIG));
-        map_.put(E_U_CCEDIL, StringList.simpleNumberFormat(ENCODE, (int)U_C_CEDIL));
-        map_.put(E_U_EGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_E_GRAVE));
-        map_.put(E_U_EACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_E_ACUTE));
-        map_.put(E_U_ECIRC, StringList.simpleNumberFormat(ENCODE, (int)U_E_CIRC));
-        map_.put(E_U_EUML, StringList.simpleNumberFormat(ENCODE, (int)U_E_UML));
-        map_.put(E_U_IGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_I_GRAVE));
-        map_.put(E_U_IACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_I_ACUTE));
-        map_.put(E_U_ICIRC, StringList.simpleNumberFormat(ENCODE, (int)U_I_CIRC));
-        map_.put(E_U_IUML, StringList.simpleNumberFormat(ENCODE, (int)U_I_UML));
-        map_.put(E_U_ETH, StringList.simpleNumberFormat(ENCODE, (int)U_ETH));
-        map_.put(E_U_NTILDE, StringList.simpleNumberFormat(ENCODE, (int)U_N_TILDE));
-        map_.put(E_U_OGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_O_GRAVE));
-        map_.put(E_U_OACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_O_ACUTE));
-        map_.put(E_U_OCIRC, StringList.simpleNumberFormat(ENCODE, (int)U_O_CIRC));
-        map_.put(E_U_OTILDE, StringList.simpleNumberFormat(ENCODE, (int)U_O_TILDE));
-        map_.put(E_U_OUML, StringList.simpleNumberFormat(ENCODE, (int)U_O_UML));
-        map_.put(E_TIMES, StringList.simpleNumberFormat(ENCODE, (int)TIMES));
-        map_.put(E_U_OSLASH, StringList.simpleNumberFormat(ENCODE, (int)U_O_SLASH));
-        map_.put(E_U_UGRAVE, StringList.simpleNumberFormat(ENCODE, (int)U_U_GRAVE));
-        map_.put(E_U_UACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_U_ACUTE));
-        map_.put(E_U_UCIRC, StringList.simpleNumberFormat(ENCODE, (int)U_U_CIRC));
-        map_.put(E_U_UUML, StringList.simpleNumberFormat(ENCODE, (int)U_U_UML));
-        map_.put(E_U_YACUTE, StringList.simpleNumberFormat(ENCODE, (int)U_Y_ACUTE));
-        map_.put(E_U_THORN, StringList.simpleNumberFormat(ENCODE, (int)U_THORN));
-        map_.put(E_SZLIG, StringList.simpleNumberFormat(ENCODE, (int)SZLIG));
-        map_.put(E_AGRAVE, StringList.simpleNumberFormat(ENCODE, (int)AGRAVE));
-        map_.put(E_AACUTE, StringList.simpleNumberFormat(ENCODE, (int)AACUTE));
-        map_.put(E_ACIRC, StringList.simpleNumberFormat(ENCODE, (int)ACIRC));
-        map_.put(E_ATILDE, StringList.simpleNumberFormat(ENCODE, (int)ATILDE));
-        map_.put(E_AUML, StringList.simpleNumberFormat(ENCODE, (int)AUML));
-        map_.put(E_ARING, StringList.simpleNumberFormat(ENCODE, (int)ARING));
-        map_.put(E_AELIG, StringList.simpleNumberFormat(ENCODE, (int)AELIG));
-        map_.put(E_CCEDIL, StringList.simpleNumberFormat(ENCODE, (int)CCEDIL));
-        map_.put(E_EGRAVE, StringList.simpleNumberFormat(ENCODE, (int)EGRAVE));
-        map_.put(E_EACUTE, StringList.simpleNumberFormat(ENCODE, (int)EACUTE));
-        map_.put(E_ECIRC, StringList.simpleNumberFormat(ENCODE, (int)ECIRC));
-        map_.put(E_EUML, StringList.simpleNumberFormat(ENCODE, (int)EUML));
-        map_.put(E_IGRAVE, StringList.simpleNumberFormat(ENCODE, (int)IGRAVE));
-        map_.put(E_IACUTE, StringList.simpleNumberFormat(ENCODE, (int)IACUTE));
-        map_.put(E_ICIRC, StringList.simpleNumberFormat(ENCODE, (int)ICIRC));
-        map_.put(E_IUML, StringList.simpleNumberFormat(ENCODE, (int)IUML));
-        map_.put(E_ETH, StringList.simpleNumberFormat(ENCODE, (int)ETH));
-        map_.put(E_NTILDE, StringList.simpleNumberFormat(ENCODE, (int)NTILDE));
-        map_.put(E_OGRAVE, StringList.simpleNumberFormat(ENCODE, (int)OGRAVE));
-        map_.put(E_OACUTE, StringList.simpleNumberFormat(ENCODE, (int)OACUTE));
-        map_.put(E_OCIRC, StringList.simpleNumberFormat(ENCODE, (int)OCIRC));
-        map_.put(E_OTILDE, StringList.simpleNumberFormat(ENCODE, (int)OTILDE));
-        map_.put(E_OUML, StringList.simpleNumberFormat(ENCODE, (int)OUML));
-        map_.put(E_DIVIDE, StringList.simpleNumberFormat(ENCODE, (int)DIVIDE));
-        map_.put(E_OSLASH, StringList.simpleNumberFormat(ENCODE, (int)OSLASH));
-        map_.put(E_UGRAVE, StringList.simpleNumberFormat(ENCODE, (int)UGRAVE));
-        map_.put(E_UACUTE, StringList.simpleNumberFormat(ENCODE, (int)UACUTE));
-        map_.put(E_UCIRC, StringList.simpleNumberFormat(ENCODE, (int)UCIRC));
-        map_.put(E_UUML, StringList.simpleNumberFormat(ENCODE, (int)UUML));
-        map_.put(E_YACUTE, StringList.simpleNumberFormat(ENCODE, (int)YACUTE));
-        map_.put(E_THORN, StringList.simpleNumberFormat(ENCODE, (int)THORN));
-        map_.put(E_YUML, StringList.simpleNumberFormat(ENCODE, (int)YUML));
-        map_.put(E_QUOT, StringList.simpleNumberFormat(ENCODE, (int)QUOT));
-        map_.put(E_LT, StringList.simpleNumberFormat(ENCODE, (int)LT));
-        map_.put(E_GT, StringList.simpleNumberFormat(ENCODE, (int)GT));
-        map_.put(E_APOS, StringList.simpleNumberFormat(ENCODE, (int)APOS));
-        map_.put(E_U_OELIG, StringList.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
-        map_.put(E_OELIG, StringList.simpleNumberFormat(ENCODE, (int)OELIG));
-        map_.put(E_S_CARON, StringList.simpleNumberFormat(ENCODE, (int)U_SCARON));
-        map_.put(E_SCARON, StringList.simpleNumberFormat(ENCODE, (int)SCARON));
-        map_.put(E_U_YUML, StringList.simpleNumberFormat(ENCODE, (int)U_Y_UML));
-        map_.put(E_CIRC, StringList.simpleNumberFormat(ENCODE, (int)CIRC));
-        map_.put(E_TILDE, StringList.simpleNumberFormat(ENCODE, (int)TILDE));
-        map_.put(E_ENSP, StringList.simpleNumberFormat(ENCODE, (int)ENSP));
-        map_.put(E_EMSP, StringList.simpleNumberFormat(ENCODE, (int)EMSP));
-        map_.put(E_THINSP, StringList.simpleNumberFormat(ENCODE, (int)THINSP));
-        map_.put(E_ZWNJ, StringList.simpleNumberFormat(ENCODE, (int)ZWNJ));
-        map_.put(E_ZWJ, StringList.simpleNumberFormat(ENCODE, (int)ZWJ));
-        map_.put(E_LRM, StringList.simpleNumberFormat(ENCODE, (int)LRM));
-        map_.put(E_RLM, StringList.simpleNumberFormat(ENCODE, (int)RLM));
-        map_.put(E_NDASH, StringList.simpleNumberFormat(ENCODE, (int)NDASH));
-        map_.put(E_MDASH, StringList.simpleNumberFormat(ENCODE, (int)MDASH));
-        map_.put(E_LSQUO, StringList.simpleNumberFormat(ENCODE, (int)LSQUO));
-        map_.put(E_RSQUO, StringList.simpleNumberFormat(ENCODE, (int)RSQUO));
-        map_.put(E_SBQUO, StringList.simpleNumberFormat(ENCODE, (int)SBQUO));
-        map_.put(E_LDQUO, StringList.simpleNumberFormat(ENCODE, (int)LDQUO));
-        map_.put(E_RDQUO, StringList.simpleNumberFormat(ENCODE, (int)RDQUO));
-        map_.put(E_BDQUO, StringList.simpleNumberFormat(ENCODE, (int)BDQUO));
-        map_.put(E_DAGGER, StringList.simpleNumberFormat(ENCODE, (int)D_AGGER));
-        map_.put(E_U_DAGGER, StringList.simpleNumberFormat(ENCODE, (int)DAGGER));
-        map_.put(E_PERMIL, StringList.simpleNumberFormat(ENCODE, (int)PERMIL));
-        map_.put(E_LSAQUO, StringList.simpleNumberFormat(ENCODE, (int)LSAQUO));
-        map_.put(E_RSAQUO, StringList.simpleNumberFormat(ENCODE, (int)RSAQUO));
-        map_.put(E_EURO, StringList.simpleNumberFormat(ENCODE, (int)EURO));
-        map_.put(E_FNOF, StringList.simpleNumberFormat(ENCODE, (int)FNOF));
-        map_.put(E_U_ALPHA, StringList.simpleNumberFormat(ENCODE, (int)U_A_LPHA));
-        map_.put(E_U_BETA, StringList.simpleNumberFormat(ENCODE, (int)U_B_ETA));
-        map_.put(E_U_GAMMA, StringList.simpleNumberFormat(ENCODE, (int)U_G_AMMA));
-        map_.put(E_U_DELTA, StringList.simpleNumberFormat(ENCODE, (int)U_D_ELTA));
-        map_.put(E_U_EPSILON, StringList.simpleNumberFormat(ENCODE, (int)U_E_PSILON));
-        map_.put(E_U_ZETA, StringList.simpleNumberFormat(ENCODE, (int)U_Z_ETA));
-        map_.put(E_U_ETA, StringList.simpleNumberFormat(ENCODE, (int)U_E_TA));
-        map_.put(E_U_THETA, StringList.simpleNumberFormat(ENCODE, (int)U_T_HETA));
-        map_.put(E_U_IOTA, StringList.simpleNumberFormat(ENCODE, (int)U_I_OTA));
-        map_.put(E_U_KAPPA, StringList.simpleNumberFormat(ENCODE, (int)U_K_APPA));
-        map_.put(E_U_LAMBDA, StringList.simpleNumberFormat(ENCODE, (int)U_L_AMBDA));
-        map_.put(E_U_MU, StringList.simpleNumberFormat(ENCODE, (int)U_M_U));
-        map_.put(E_U_NU, StringList.simpleNumberFormat(ENCODE, (int)U_N_U));
-        map_.put(E_U_XI, StringList.simpleNumberFormat(ENCODE, (int)U_X_I));
-        map_.put(E_U_OMICRON, StringList.simpleNumberFormat(ENCODE, (int)U_O_MICRON));
-        map_.put(E_U_PI, StringList.simpleNumberFormat(ENCODE, (int)U_P_I));
-        map_.put(E_U_RHO, StringList.simpleNumberFormat(ENCODE, (int)U_R_HO));
-        map_.put(E_U_SIGMA, StringList.simpleNumberFormat(ENCODE, (int)U_S_IGMA));
-        map_.put(E_U_TAU, StringList.simpleNumberFormat(ENCODE, (int)U_T_AU));
-        map_.put(E_U_UPSILON, StringList.simpleNumberFormat(ENCODE, (int)U_U_PSILON));
-        map_.put(E_U_PHI, StringList.simpleNumberFormat(ENCODE, (int)U_P_HI));
-        map_.put(E_U_CHI, StringList.simpleNumberFormat(ENCODE, (int)U_C_HI));
-        map_.put(E_U_PSI, StringList.simpleNumberFormat(ENCODE, (int)U_P_SI));
-        map_.put(E_U_OMEGA, StringList.simpleNumberFormat(ENCODE, (int)U_O_MEGA));
-        map_.put(E_ALPHA, StringList.simpleNumberFormat(ENCODE, (int)ALPHA));
-        map_.put(E_BETA, StringList.simpleNumberFormat(ENCODE, (int)BETA));
-        map_.put(E_GAMMA, StringList.simpleNumberFormat(ENCODE, (int)GAMMA));
-        map_.put(E_DELTA, StringList.simpleNumberFormat(ENCODE, (int)DELTA));
-        map_.put(E_EPSILON, StringList.simpleNumberFormat(ENCODE, (int)EPSILON));
-        map_.put(E_ZETA, StringList.simpleNumberFormat(ENCODE, (int)ZETA));
-        map_.put(E_ETA, StringList.simpleNumberFormat(ENCODE, (int)ETA));
-        map_.put(E_THETA, StringList.simpleNumberFormat(ENCODE, (int)THETA));
-        map_.put(E_IOTA, StringList.simpleNumberFormat(ENCODE, (int)IOTA));
-        map_.put(E_KAPPA, StringList.simpleNumberFormat(ENCODE, (int)KAPPA));
-        map_.put(E_LAMBDA, StringList.simpleNumberFormat(ENCODE, (int)LAMBDA));
-        map_.put(E_MU, StringList.simpleNumberFormat(ENCODE, (int)MU));
-        map_.put(E_NU, StringList.simpleNumberFormat(ENCODE, (int)NU));
-        map_.put(E_XI, StringList.simpleNumberFormat(ENCODE, (int)XI));
-        map_.put(E_OMICRON, StringList.simpleNumberFormat(ENCODE, (int)OMICRON));
-        map_.put(E_PI, StringList.simpleNumberFormat(ENCODE, (int)PI));
-        map_.put(E_RHO, StringList.simpleNumberFormat(ENCODE, (int)RHO));
-        map_.put(E_SIGMAF, StringList.simpleNumberFormat(ENCODE, (int)SIGMAF));
-        map_.put(E_SIGMA, StringList.simpleNumberFormat(ENCODE, (int)SIGMA));
-        map_.put(E_TAU, StringList.simpleNumberFormat(ENCODE, (int)TAU));
-        map_.put(E_UPSILON, StringList.simpleNumberFormat(ENCODE, (int)UPSILON));
-        map_.put(E_PHI, StringList.simpleNumberFormat(ENCODE, (int)PHI));
-        map_.put(E_CHI, StringList.simpleNumberFormat(ENCODE, (int)CHI));
-        map_.put(E_PSI, StringList.simpleNumberFormat(ENCODE, (int)PSI));
-        map_.put(E_OMEGA, StringList.simpleNumberFormat(ENCODE, (int)OMEGA));
-        map_.put(E_THETASYM, StringList.simpleNumberFormat(ENCODE, (int)THETASYM));
-        map_.put(E_UPSIH, StringList.simpleNumberFormat(ENCODE, (int)UPSIH));
-        map_.put(E_PIV, StringList.simpleNumberFormat(ENCODE, (int)PIV));
-        map_.put(E_BULL, StringList.simpleNumberFormat(ENCODE, (int)BULL));
-        map_.put(E_HELLIP, StringList.simpleNumberFormat(ENCODE, (int)HELLIP));
-        map_.put(E_PRIME, StringList.simpleNumberFormat(ENCODE, (int)PRIME));
-        map_.put(E_P_RIME, StringList.simpleNumberFormat(ENCODE, (int)U_PRIME));
-        map_.put(E_OLINE, StringList.simpleNumberFormat(ENCODE, (int)OLINE));
-        map_.put(E_FRASL, StringList.simpleNumberFormat(ENCODE, (int)FRASL));
-        map_.put(E_WEIERP, StringList.simpleNumberFormat(ENCODE, (int)WEIERP));
-        map_.put(E_IMAGE, StringList.simpleNumberFormat(ENCODE, (int)IMAGE));
-        map_.put(E_REAL, StringList.simpleNumberFormat(ENCODE, (int)REAL));
-        map_.put(E_TRADE, StringList.simpleNumberFormat(ENCODE, (int)TRADE));
-        map_.put(E_ALEFSYM, StringList.simpleNumberFormat(ENCODE, (int)ALEFSYM));
-        map_.put(E_LARR, StringList.simpleNumberFormat(ENCODE, (int)LARR));
-        map_.put(E_UARR, StringList.simpleNumberFormat(ENCODE, (int)UARR));
-        map_.put(E_RARR, StringList.simpleNumberFormat(ENCODE, (int)RARR));
-        map_.put(E_DARR, StringList.simpleNumberFormat(ENCODE, (int)DARR));
-        map_.put(E_HARR, StringList.simpleNumberFormat(ENCODE, (int)HARR));
-        map_.put(E_CRARR, StringList.simpleNumberFormat(ENCODE, (int)CRARR));
-        map_.put(E_L_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_LARR));
-        map_.put(E_U_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_UARR));
-        map_.put(E_R_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_RARR));
-        map_.put(E_D_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_DARR));
-        map_.put(E_H_ARR, StringList.simpleNumberFormat(ENCODE, (int)U_HARR));
-        map_.put(E_FORALL, StringList.simpleNumberFormat(ENCODE, (int)FORALL));
-        map_.put(E_PART, StringList.simpleNumberFormat(ENCODE, (int)PART));
-        map_.put(E_EXIST, StringList.simpleNumberFormat(ENCODE, (int)EXIST));
-        map_.put(E_EMPTY, StringList.simpleNumberFormat(ENCODE, (int)EMPTY));
-        map_.put(E_NABLA, StringList.simpleNumberFormat(ENCODE, (int)NABLA));
-        map_.put(E_ISIN, StringList.simpleNumberFormat(ENCODE, (int)ISIN));
-        map_.put(E_NOTIN, StringList.simpleNumberFormat(ENCODE, (int)NOTIN));
-        map_.put(E_NI, StringList.simpleNumberFormat(ENCODE, (int)NI));
-        map_.put(E_PROD, StringList.simpleNumberFormat(ENCODE, (int)PROD));
-        map_.put(E_SUM, StringList.simpleNumberFormat(ENCODE, (int)SUM));
-        map_.put(E_MINUS, StringList.simpleNumberFormat(ENCODE, (int)MINUS));
-        map_.put(E_LOWAST, StringList.simpleNumberFormat(ENCODE, (int)LOWAST));
-        map_.put(E_RADIC, StringList.simpleNumberFormat(ENCODE, (int)RADIC));
-        map_.put(E_PROP, StringList.simpleNumberFormat(ENCODE, (int)PROP));
-        map_.put(E_INFIN, StringList.simpleNumberFormat(ENCODE, (int)INFIN));
-        map_.put(E_ANG, StringList.simpleNumberFormat(ENCODE, (int)ANG));
-        map_.put(E_AND, StringList.simpleNumberFormat(ENCODE, (int)AND));
-        map_.put(E_OR, StringList.simpleNumberFormat(ENCODE, (int)OR));
-        map_.put(E_CAP, StringList.simpleNumberFormat(ENCODE, (int)CAP));
-        map_.put(E_CUP, StringList.simpleNumberFormat(ENCODE, (int)CUP));
-        map_.put(E_INT, StringList.simpleNumberFormat(ENCODE, (int)INT));
-        map_.put(E_THERE4, StringList.simpleNumberFormat(ENCODE, (int)THERE4));
-        map_.put(E_SIM, StringList.simpleNumberFormat(ENCODE, (int)SIM));
-        map_.put(E_CONG, StringList.simpleNumberFormat(ENCODE, (int)CONG));
-        map_.put(E_ASYMP, StringList.simpleNumberFormat(ENCODE, (int)ASYMP));
-        map_.put(E_NE, StringList.simpleNumberFormat(ENCODE, (int)NE));
-        map_.put(E_EQUIV, StringList.simpleNumberFormat(ENCODE, (int)EQUIV));
-        map_.put(E_LE, StringList.simpleNumberFormat(ENCODE, (int)LE));
-        map_.put(E_GE, StringList.simpleNumberFormat(ENCODE, (int)GE));
-        map_.put(E_SUB, StringList.simpleNumberFormat(ENCODE, (int)SUB));
-        map_.put(E_SUP, StringList.simpleNumberFormat(ENCODE, (int)SUP));
-        map_.put(E_NSUB, StringList.simpleNumberFormat(ENCODE, (int)NSUB));
-        map_.put(E_SUBE, StringList.simpleNumberFormat(ENCODE, (int)SUBE));
-        map_.put(E_SUPE, StringList.simpleNumberFormat(ENCODE, (int)SUPE));
-        map_.put(E_OPLUS, StringList.simpleNumberFormat(ENCODE, (int)OPLUS));
-        map_.put(E_OTIMES, StringList.simpleNumberFormat(ENCODE, (int)OTIMES));
-        map_.put(E_PERP, StringList.simpleNumberFormat(ENCODE, (int)PERP));
-        map_.put(E_SDOT, StringList.simpleNumberFormat(ENCODE, (int)SDOT));
-        map_.put(E_LCEIL, StringList.simpleNumberFormat(ENCODE, (int)LCEIL));
-        map_.put(E_RCEIL, StringList.simpleNumberFormat(ENCODE, (int)RCEIL));
-        map_.put(E_LFLOOR, StringList.simpleNumberFormat(ENCODE, (int)LFLOOR));
-        map_.put(E_RFLOOR, StringList.simpleNumberFormat(ENCODE, (int)RFLOOR));
-        map_.put(E_LANG, StringList.simpleNumberFormat(ENCODE, (int)LANG));
-        map_.put(E_RANG, StringList.simpleNumberFormat(ENCODE, (int)RANG));
-        map_.put(E_LOZ, StringList.simpleNumberFormat(ENCODE, (int)LOZ));
-        map_.put(E_SPADES, StringList.simpleNumberFormat(ENCODE, (int)SPADES));
-        map_.put(E_CLUBS, StringList.simpleNumberFormat(ENCODE, (int)CLUBS));
-        map_.put(E_HEARTS, StringList.simpleNumberFormat(ENCODE, (int)HEARTS));
-        map_.put(E_DIAMS, StringList.simpleNumberFormat(ENCODE, (int)DIAMS));
-        map_.put(E_AMP, StringList.simpleNumberFormat(ENCODE, (int)ASCII_38));
+        map_.put(E_NBSP, StringUtil.simpleNumberFormat(ENCODE, (int)NBSP));
+        map_.put(E_IEXCL, StringUtil.simpleNumberFormat(ENCODE, (int)IEXCL));
+        map_.put(E_CENT, StringUtil.simpleNumberFormat(ENCODE, (int)CENT));
+        map_.put(E_POUND, StringUtil.simpleNumberFormat(ENCODE, (int)POUND));
+        map_.put(E_CURREN, StringUtil.simpleNumberFormat(ENCODE, (int)CURREN));
+        map_.put(E_YEN, StringUtil.simpleNumberFormat(ENCODE, (int)YEN));
+        map_.put(E_BRVBAR, StringUtil.simpleNumberFormat(ENCODE, (int)BRVBAR));
+        map_.put(E_SECT, StringUtil.simpleNumberFormat(ENCODE, (int)SECT));
+        map_.put(E_UML, StringUtil.simpleNumberFormat(ENCODE, (int)UML));
+        map_.put(E_COPY, StringUtil.simpleNumberFormat(ENCODE, (int)COPY));
+        map_.put(E_ORDF, StringUtil.simpleNumberFormat(ENCODE, (int)ORDF));
+        map_.put(E_LAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LAQUO));
+        map_.put(E_NOT, StringUtil.simpleNumberFormat(ENCODE, (int)NOT));
+        map_.put(E_SHY, StringUtil.simpleNumberFormat(ENCODE, (int)SHY));
+        map_.put(E_REG, StringUtil.simpleNumberFormat(ENCODE, (int)REG));
+        map_.put(E_MACR, StringUtil.simpleNumberFormat(ENCODE, (int)MACR));
+        map_.put(E_DEG, StringUtil.simpleNumberFormat(ENCODE, (int)DEG));
+        map_.put(E_PLUSMN, StringUtil.simpleNumberFormat(ENCODE, (int)PLUSMN));
+        map_.put(E_SUP2, StringUtil.simpleNumberFormat(ENCODE, (int)SUP2));
+        map_.put(E_SUP3, StringUtil.simpleNumberFormat(ENCODE, (int)SUP3));
+        map_.put(E_ACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)ACUTE));
+        map_.put(E_MICRO, StringUtil.simpleNumberFormat(ENCODE, (int)MICRO));
+        map_.put(E_PARA, StringUtil.simpleNumberFormat(ENCODE, (int)PARA));
+        map_.put(E_MIDDOT, StringUtil.simpleNumberFormat(ENCODE, (int)MIDDOT));
+        map_.put(E_CEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)CEDIL));
+        map_.put(E_SUP1, StringUtil.simpleNumberFormat(ENCODE, (int)SUP1));
+        map_.put(E_ORDM, StringUtil.simpleNumberFormat(ENCODE, (int)ORDM));
+        map_.put(E_RAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RAQUO));
+        map_.put(E_FRAC14, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC14));
+        map_.put(E_FRAC12, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC12));
+        map_.put(E_FRAC34, StringUtil.simpleNumberFormat(ENCODE, (int)FRAC34));
+        map_.put(E_IQUEST, StringUtil.simpleNumberFormat(ENCODE, (int)IQUEST));
+        map_.put(E_U_AGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_GRAVE));
+        map_.put(E_U_AACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_ACUTE));
+        map_.put(E_U_ACIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_CIRC));
+        map_.put(E_U_ATILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_TILDE));
+        map_.put(E_U_AUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_UML));
+        map_.put(E_U_ARING, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_RING));
+        map_.put(E_U_AELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_AE_LIG));
+        map_.put(E_U_CCEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)U_C_CEDIL));
+        map_.put(E_U_EGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_GRAVE));
+        map_.put(E_U_EACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_ACUTE));
+        map_.put(E_U_ECIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_CIRC));
+        map_.put(E_U_EUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_UML));
+        map_.put(E_U_IGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_GRAVE));
+        map_.put(E_U_IACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_ACUTE));
+        map_.put(E_U_ICIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_CIRC));
+        map_.put(E_U_IUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_UML));
+        map_.put(E_U_ETH, StringUtil.simpleNumberFormat(ENCODE, (int)U_ETH));
+        map_.put(E_U_NTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_N_TILDE));
+        map_.put(E_U_OGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_GRAVE));
+        map_.put(E_U_OACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_ACUTE));
+        map_.put(E_U_OCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_CIRC));
+        map_.put(E_U_OTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_TILDE));
+        map_.put(E_U_OUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_UML));
+        map_.put(E_TIMES, StringUtil.simpleNumberFormat(ENCODE, (int)TIMES));
+        map_.put(E_U_OSLASH, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_SLASH));
+        map_.put(E_U_UGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_GRAVE));
+        map_.put(E_U_UACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_ACUTE));
+        map_.put(E_U_UCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_CIRC));
+        map_.put(E_U_UUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_UML));
+        map_.put(E_U_YACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)U_Y_ACUTE));
+        map_.put(E_U_THORN, StringUtil.simpleNumberFormat(ENCODE, (int)U_THORN));
+        map_.put(E_SZLIG, StringUtil.simpleNumberFormat(ENCODE, (int)SZLIG));
+        map_.put(E_AGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)AGRAVE));
+        map_.put(E_AACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)AACUTE));
+        map_.put(E_ACIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ACIRC));
+        map_.put(E_ATILDE, StringUtil.simpleNumberFormat(ENCODE, (int)ATILDE));
+        map_.put(E_AUML, StringUtil.simpleNumberFormat(ENCODE, (int)AUML));
+        map_.put(E_ARING, StringUtil.simpleNumberFormat(ENCODE, (int)ARING));
+        map_.put(E_AELIG, StringUtil.simpleNumberFormat(ENCODE, (int)AELIG));
+        map_.put(E_CCEDIL, StringUtil.simpleNumberFormat(ENCODE, (int)CCEDIL));
+        map_.put(E_EGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)EGRAVE));
+        map_.put(E_EACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)EACUTE));
+        map_.put(E_ECIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ECIRC));
+        map_.put(E_EUML, StringUtil.simpleNumberFormat(ENCODE, (int)EUML));
+        map_.put(E_IGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)IGRAVE));
+        map_.put(E_IACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)IACUTE));
+        map_.put(E_ICIRC, StringUtil.simpleNumberFormat(ENCODE, (int)ICIRC));
+        map_.put(E_IUML, StringUtil.simpleNumberFormat(ENCODE, (int)IUML));
+        map_.put(E_ETH, StringUtil.simpleNumberFormat(ENCODE, (int)ETH));
+        map_.put(E_NTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)NTILDE));
+        map_.put(E_OGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)OGRAVE));
+        map_.put(E_OACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)OACUTE));
+        map_.put(E_OCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)OCIRC));
+        map_.put(E_OTILDE, StringUtil.simpleNumberFormat(ENCODE, (int)OTILDE));
+        map_.put(E_OUML, StringUtil.simpleNumberFormat(ENCODE, (int)OUML));
+        map_.put(E_DIVIDE, StringUtil.simpleNumberFormat(ENCODE, (int)DIVIDE));
+        map_.put(E_OSLASH, StringUtil.simpleNumberFormat(ENCODE, (int)OSLASH));
+        map_.put(E_UGRAVE, StringUtil.simpleNumberFormat(ENCODE, (int)UGRAVE));
+        map_.put(E_UACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)UACUTE));
+        map_.put(E_UCIRC, StringUtil.simpleNumberFormat(ENCODE, (int)UCIRC));
+        map_.put(E_UUML, StringUtil.simpleNumberFormat(ENCODE, (int)UUML));
+        map_.put(E_YACUTE, StringUtil.simpleNumberFormat(ENCODE, (int)YACUTE));
+        map_.put(E_THORN, StringUtil.simpleNumberFormat(ENCODE, (int)THORN));
+        map_.put(E_YUML, StringUtil.simpleNumberFormat(ENCODE, (int)YUML));
+        map_.put(E_QUOT, StringUtil.simpleNumberFormat(ENCODE, (int)QUOT));
+        map_.put(E_LT, StringUtil.simpleNumberFormat(ENCODE, (int)LT));
+        map_.put(E_GT, StringUtil.simpleNumberFormat(ENCODE, (int)GT));
+        map_.put(E_APOS, StringUtil.simpleNumberFormat(ENCODE, (int)APOS));
+        map_.put(E_U_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
+        map_.put(E_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)OELIG));
+        map_.put(E_S_CARON, StringUtil.simpleNumberFormat(ENCODE, (int)U_SCARON));
+        map_.put(E_SCARON, StringUtil.simpleNumberFormat(ENCODE, (int)SCARON));
+        map_.put(E_U_YUML, StringUtil.simpleNumberFormat(ENCODE, (int)U_Y_UML));
+        map_.put(E_CIRC, StringUtil.simpleNumberFormat(ENCODE, (int)CIRC));
+        map_.put(E_TILDE, StringUtil.simpleNumberFormat(ENCODE, (int)TILDE));
+        map_.put(E_ENSP, StringUtil.simpleNumberFormat(ENCODE, (int)ENSP));
+        map_.put(E_EMSP, StringUtil.simpleNumberFormat(ENCODE, (int)EMSP));
+        map_.put(E_THINSP, StringUtil.simpleNumberFormat(ENCODE, (int)THINSP));
+        map_.put(E_ZWNJ, StringUtil.simpleNumberFormat(ENCODE, (int)ZWNJ));
+        map_.put(E_ZWJ, StringUtil.simpleNumberFormat(ENCODE, (int)ZWJ));
+        map_.put(E_LRM, StringUtil.simpleNumberFormat(ENCODE, (int)LRM));
+        map_.put(E_RLM, StringUtil.simpleNumberFormat(ENCODE, (int)RLM));
+        map_.put(E_NDASH, StringUtil.simpleNumberFormat(ENCODE, (int)NDASH));
+        map_.put(E_MDASH, StringUtil.simpleNumberFormat(ENCODE, (int)MDASH));
+        map_.put(E_LSQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LSQUO));
+        map_.put(E_RSQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RSQUO));
+        map_.put(E_SBQUO, StringUtil.simpleNumberFormat(ENCODE, (int)SBQUO));
+        map_.put(E_LDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LDQUO));
+        map_.put(E_RDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RDQUO));
+        map_.put(E_BDQUO, StringUtil.simpleNumberFormat(ENCODE, (int)BDQUO));
+        map_.put(E_DAGGER, StringUtil.simpleNumberFormat(ENCODE, (int)D_AGGER));
+        map_.put(E_U_DAGGER, StringUtil.simpleNumberFormat(ENCODE, (int)DAGGER));
+        map_.put(E_PERMIL, StringUtil.simpleNumberFormat(ENCODE, (int)PERMIL));
+        map_.put(E_LSAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)LSAQUO));
+        map_.put(E_RSAQUO, StringUtil.simpleNumberFormat(ENCODE, (int)RSAQUO));
+        map_.put(E_EURO, StringUtil.simpleNumberFormat(ENCODE, (int)EURO));
+        map_.put(E_FNOF, StringUtil.simpleNumberFormat(ENCODE, (int)FNOF));
+        map_.put(E_U_ALPHA, StringUtil.simpleNumberFormat(ENCODE, (int)U_A_LPHA));
+        map_.put(E_U_BETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_B_ETA));
+        map_.put(E_U_GAMMA, StringUtil.simpleNumberFormat(ENCODE, (int)U_G_AMMA));
+        map_.put(E_U_DELTA, StringUtil.simpleNumberFormat(ENCODE, (int)U_D_ELTA));
+        map_.put(E_U_EPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_PSILON));
+        map_.put(E_U_ZETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_Z_ETA));
+        map_.put(E_U_ETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_E_TA));
+        map_.put(E_U_THETA, StringUtil.simpleNumberFormat(ENCODE, (int)U_T_HETA));
+        map_.put(E_U_IOTA, StringUtil.simpleNumberFormat(ENCODE, (int)U_I_OTA));
+        map_.put(E_U_KAPPA, StringUtil.simpleNumberFormat(ENCODE, (int)U_K_APPA));
+        map_.put(E_U_LAMBDA, StringUtil.simpleNumberFormat(ENCODE, (int)U_L_AMBDA));
+        map_.put(E_U_MU, StringUtil.simpleNumberFormat(ENCODE, (int)U_M_U));
+        map_.put(E_U_NU, StringUtil.simpleNumberFormat(ENCODE, (int)U_N_U));
+        map_.put(E_U_XI, StringUtil.simpleNumberFormat(ENCODE, (int)U_X_I));
+        map_.put(E_U_OMICRON, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_MICRON));
+        map_.put(E_U_PI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_I));
+        map_.put(E_U_RHO, StringUtil.simpleNumberFormat(ENCODE, (int)U_R_HO));
+        map_.put(E_U_SIGMA, StringUtil.simpleNumberFormat(ENCODE, (int)U_S_IGMA));
+        map_.put(E_U_TAU, StringUtil.simpleNumberFormat(ENCODE, (int)U_T_AU));
+        map_.put(E_U_UPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)U_U_PSILON));
+        map_.put(E_U_PHI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_HI));
+        map_.put(E_U_CHI, StringUtil.simpleNumberFormat(ENCODE, (int)U_C_HI));
+        map_.put(E_U_PSI, StringUtil.simpleNumberFormat(ENCODE, (int)U_P_SI));
+        map_.put(E_U_OMEGA, StringUtil.simpleNumberFormat(ENCODE, (int)U_O_MEGA));
+        map_.put(E_ALPHA, StringUtil.simpleNumberFormat(ENCODE, (int)ALPHA));
+        map_.put(E_BETA, StringUtil.simpleNumberFormat(ENCODE, (int)BETA));
+        map_.put(E_GAMMA, StringUtil.simpleNumberFormat(ENCODE, (int)GAMMA));
+        map_.put(E_DELTA, StringUtil.simpleNumberFormat(ENCODE, (int)DELTA));
+        map_.put(E_EPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)EPSILON));
+        map_.put(E_ZETA, StringUtil.simpleNumberFormat(ENCODE, (int)ZETA));
+        map_.put(E_ETA, StringUtil.simpleNumberFormat(ENCODE, (int)ETA));
+        map_.put(E_THETA, StringUtil.simpleNumberFormat(ENCODE, (int)THETA));
+        map_.put(E_IOTA, StringUtil.simpleNumberFormat(ENCODE, (int)IOTA));
+        map_.put(E_KAPPA, StringUtil.simpleNumberFormat(ENCODE, (int)KAPPA));
+        map_.put(E_LAMBDA, StringUtil.simpleNumberFormat(ENCODE, (int)LAMBDA));
+        map_.put(E_MU, StringUtil.simpleNumberFormat(ENCODE, (int)MU));
+        map_.put(E_NU, StringUtil.simpleNumberFormat(ENCODE, (int)NU));
+        map_.put(E_XI, StringUtil.simpleNumberFormat(ENCODE, (int)XI));
+        map_.put(E_OMICRON, StringUtil.simpleNumberFormat(ENCODE, (int)OMICRON));
+        map_.put(E_PI, StringUtil.simpleNumberFormat(ENCODE, (int)PI));
+        map_.put(E_RHO, StringUtil.simpleNumberFormat(ENCODE, (int)RHO));
+        map_.put(E_SIGMAF, StringUtil.simpleNumberFormat(ENCODE, (int)SIGMAF));
+        map_.put(E_SIGMA, StringUtil.simpleNumberFormat(ENCODE, (int)SIGMA));
+        map_.put(E_TAU, StringUtil.simpleNumberFormat(ENCODE, (int)TAU));
+        map_.put(E_UPSILON, StringUtil.simpleNumberFormat(ENCODE, (int)UPSILON));
+        map_.put(E_PHI, StringUtil.simpleNumberFormat(ENCODE, (int)PHI));
+        map_.put(E_CHI, StringUtil.simpleNumberFormat(ENCODE, (int)CHI));
+        map_.put(E_PSI, StringUtil.simpleNumberFormat(ENCODE, (int)PSI));
+        map_.put(E_OMEGA, StringUtil.simpleNumberFormat(ENCODE, (int)OMEGA));
+        map_.put(E_THETASYM, StringUtil.simpleNumberFormat(ENCODE, (int)THETASYM));
+        map_.put(E_UPSIH, StringUtil.simpleNumberFormat(ENCODE, (int)UPSIH));
+        map_.put(E_PIV, StringUtil.simpleNumberFormat(ENCODE, (int)PIV));
+        map_.put(E_BULL, StringUtil.simpleNumberFormat(ENCODE, (int)BULL));
+        map_.put(E_HELLIP, StringUtil.simpleNumberFormat(ENCODE, (int)HELLIP));
+        map_.put(E_PRIME, StringUtil.simpleNumberFormat(ENCODE, (int)PRIME));
+        map_.put(E_P_RIME, StringUtil.simpleNumberFormat(ENCODE, (int)U_PRIME));
+        map_.put(E_OLINE, StringUtil.simpleNumberFormat(ENCODE, (int)OLINE));
+        map_.put(E_FRASL, StringUtil.simpleNumberFormat(ENCODE, (int)FRASL));
+        map_.put(E_WEIERP, StringUtil.simpleNumberFormat(ENCODE, (int)WEIERP));
+        map_.put(E_IMAGE, StringUtil.simpleNumberFormat(ENCODE, (int)IMAGE));
+        map_.put(E_REAL, StringUtil.simpleNumberFormat(ENCODE, (int)REAL));
+        map_.put(E_TRADE, StringUtil.simpleNumberFormat(ENCODE, (int)TRADE));
+        map_.put(E_ALEFSYM, StringUtil.simpleNumberFormat(ENCODE, (int)ALEFSYM));
+        map_.put(E_LARR, StringUtil.simpleNumberFormat(ENCODE, (int)LARR));
+        map_.put(E_UARR, StringUtil.simpleNumberFormat(ENCODE, (int)UARR));
+        map_.put(E_RARR, StringUtil.simpleNumberFormat(ENCODE, (int)RARR));
+        map_.put(E_DARR, StringUtil.simpleNumberFormat(ENCODE, (int)DARR));
+        map_.put(E_HARR, StringUtil.simpleNumberFormat(ENCODE, (int)HARR));
+        map_.put(E_CRARR, StringUtil.simpleNumberFormat(ENCODE, (int)CRARR));
+        map_.put(E_L_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_LARR));
+        map_.put(E_U_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_UARR));
+        map_.put(E_R_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_RARR));
+        map_.put(E_D_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_DARR));
+        map_.put(E_H_ARR, StringUtil.simpleNumberFormat(ENCODE, (int)U_HARR));
+        map_.put(E_FORALL, StringUtil.simpleNumberFormat(ENCODE, (int)FORALL));
+        map_.put(E_PART, StringUtil.simpleNumberFormat(ENCODE, (int)PART));
+        map_.put(E_EXIST, StringUtil.simpleNumberFormat(ENCODE, (int)EXIST));
+        map_.put(E_EMPTY, StringUtil.simpleNumberFormat(ENCODE, (int)EMPTY));
+        map_.put(E_NABLA, StringUtil.simpleNumberFormat(ENCODE, (int)NABLA));
+        map_.put(E_ISIN, StringUtil.simpleNumberFormat(ENCODE, (int)ISIN));
+        map_.put(E_NOTIN, StringUtil.simpleNumberFormat(ENCODE, (int)NOTIN));
+        map_.put(E_NI, StringUtil.simpleNumberFormat(ENCODE, (int)NI));
+        map_.put(E_PROD, StringUtil.simpleNumberFormat(ENCODE, (int)PROD));
+        map_.put(E_SUM, StringUtil.simpleNumberFormat(ENCODE, (int)SUM));
+        map_.put(E_MINUS, StringUtil.simpleNumberFormat(ENCODE, (int)MINUS));
+        map_.put(E_LOWAST, StringUtil.simpleNumberFormat(ENCODE, (int)LOWAST));
+        map_.put(E_RADIC, StringUtil.simpleNumberFormat(ENCODE, (int)RADIC));
+        map_.put(E_PROP, StringUtil.simpleNumberFormat(ENCODE, (int)PROP));
+        map_.put(E_INFIN, StringUtil.simpleNumberFormat(ENCODE, (int)INFIN));
+        map_.put(E_ANG, StringUtil.simpleNumberFormat(ENCODE, (int)ANG));
+        map_.put(E_AND, StringUtil.simpleNumberFormat(ENCODE, (int)AND));
+        map_.put(E_OR, StringUtil.simpleNumberFormat(ENCODE, (int)OR));
+        map_.put(E_CAP, StringUtil.simpleNumberFormat(ENCODE, (int)CAP));
+        map_.put(E_CUP, StringUtil.simpleNumberFormat(ENCODE, (int)CUP));
+        map_.put(E_INT, StringUtil.simpleNumberFormat(ENCODE, (int)INT));
+        map_.put(E_THERE4, StringUtil.simpleNumberFormat(ENCODE, (int)THERE4));
+        map_.put(E_SIM, StringUtil.simpleNumberFormat(ENCODE, (int)SIM));
+        map_.put(E_CONG, StringUtil.simpleNumberFormat(ENCODE, (int)CONG));
+        map_.put(E_ASYMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASYMP));
+        map_.put(E_NE, StringUtil.simpleNumberFormat(ENCODE, (int)NE));
+        map_.put(E_EQUIV, StringUtil.simpleNumberFormat(ENCODE, (int)EQUIV));
+        map_.put(E_LE, StringUtil.simpleNumberFormat(ENCODE, (int)LE));
+        map_.put(E_GE, StringUtil.simpleNumberFormat(ENCODE, (int)GE));
+        map_.put(E_SUB, StringUtil.simpleNumberFormat(ENCODE, (int)SUB));
+        map_.put(E_SUP, StringUtil.simpleNumberFormat(ENCODE, (int)SUP));
+        map_.put(E_NSUB, StringUtil.simpleNumberFormat(ENCODE, (int)NSUB));
+        map_.put(E_SUBE, StringUtil.simpleNumberFormat(ENCODE, (int)SUBE));
+        map_.put(E_SUPE, StringUtil.simpleNumberFormat(ENCODE, (int)SUPE));
+        map_.put(E_OPLUS, StringUtil.simpleNumberFormat(ENCODE, (int)OPLUS));
+        map_.put(E_OTIMES, StringUtil.simpleNumberFormat(ENCODE, (int)OTIMES));
+        map_.put(E_PERP, StringUtil.simpleNumberFormat(ENCODE, (int)PERP));
+        map_.put(E_SDOT, StringUtil.simpleNumberFormat(ENCODE, (int)SDOT));
+        map_.put(E_LCEIL, StringUtil.simpleNumberFormat(ENCODE, (int)LCEIL));
+        map_.put(E_RCEIL, StringUtil.simpleNumberFormat(ENCODE, (int)RCEIL));
+        map_.put(E_LFLOOR, StringUtil.simpleNumberFormat(ENCODE, (int)LFLOOR));
+        map_.put(E_RFLOOR, StringUtil.simpleNumberFormat(ENCODE, (int)RFLOOR));
+        map_.put(E_LANG, StringUtil.simpleNumberFormat(ENCODE, (int)LANG));
+        map_.put(E_RANG, StringUtil.simpleNumberFormat(ENCODE, (int)RANG));
+        map_.put(E_LOZ, StringUtil.simpleNumberFormat(ENCODE, (int)LOZ));
+        map_.put(E_SPADES, StringUtil.simpleNumberFormat(ENCODE, (int)SPADES));
+        map_.put(E_CLUBS, StringUtil.simpleNumberFormat(ENCODE, (int)CLUBS));
+        map_.put(E_HEARTS, StringUtil.simpleNumberFormat(ENCODE, (int)HEARTS));
+        map_.put(E_DIAMS, StringUtil.simpleNumberFormat(ENCODE, (int)DIAMS));
+        map_.put(E_AMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASCII_38));
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
@@ -1284,7 +1287,7 @@ public final class DocumentBuilder {
         }
         FullElement expElt_ = (FullElement) expDoc_.getDocumentElement();
         FullElement foundElt_ = (FullElement) foundDoc_.getDocumentElement();
-        return StringList.quickEq(expElt_.exportSorted(),foundElt_.exportSorted());
+        return StringUtil.quickEq(expElt_.exportSorted(),foundElt_.exportSorted());
     }
     public FullDocument newDocument() {
         return new FullDocument(getTabWidth());
@@ -1292,7 +1295,7 @@ public final class DocumentBuilder {
     public DocumentResult parseNoText(String _input) {
         DocumentResult res_ = new DocumentResult();
         NoTextDocument doc_ = new NoTextDocument(getTabWidth());
-        int firstPrint_ = StringList.getFirstPrintableCharIndex(_input);
+        int firstPrint_ = StringUtil.getFirstPrintableCharIndex(_input);
         if (firstPrint_ < 0) {
             res_.setLocation(new RowCol());
             return res_;
@@ -1312,7 +1315,7 @@ public final class DocumentBuilder {
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
         CustList<Attr> attrs_ = new CustList<Attr>();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (input_.charAt(i_) != LT) {
             RowCol rc_ = new RowCol();
             rc_.setRow(1);
@@ -1362,7 +1365,7 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    tagName_.delete(IndexConstants.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
                         break;
                     }
@@ -1485,7 +1488,7 @@ public final class DocumentBuilder {
                 String foundName_ = attributeName_.toString();
                 boolean ok_ = true;
                 for (Attr a: attrs_) {
-                    if (StringList.quickEq(a.getName(), foundName_)) {
+                    if (StringUtil.quickEq(a.getName(), foundName_)) {
                         ok_ = false;
                         break;
                     }
@@ -1562,7 +1565,7 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    tagName_.delete(IndexConstants.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
                         break;
                     }
@@ -1626,7 +1629,7 @@ public final class DocumentBuilder {
             }
             if (input_.charAt(i_) == GT_CHAR) {
                 //end tag
-                stack_.removeLast();
+                stack_.removeQuicklyLast();
                 Node parent_ = currentElement_.getParentNode();
                 if (parent_ instanceof Element) {
                     currentElement_ = (Element) parent_;
@@ -1671,7 +1674,7 @@ public final class DocumentBuilder {
             }
             int row_ = 1;
             int col_ = 1;
-            int j_ = CustList.FIRST_INDEX;
+            int j_ = IndexConstants.FIRST_INDEX;
             while (j_ <= max_) {
                 char curChar_ = input_.charAt(j_);
                 if (curChar_ == LINE_RETURN) {
@@ -1697,7 +1700,7 @@ public final class DocumentBuilder {
     public DocumentResult parse(String _input) {
         DocumentResult res_ = new DocumentResult();
         FullDocument doc_ = new FullDocument(getTabWidth());
-        int firstPrint_ = StringList.getFirstPrintableCharIndex(_input);
+        int firstPrint_ = StringUtil.getFirstPrintableCharIndex(_input);
         if (firstPrint_ < 0) {
             res_.setLocation(new RowCol());
             return res_;
@@ -1717,7 +1720,7 @@ public final class DocumentBuilder {
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
         CustList<Attr> attrs_ = new CustList<Attr>();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (input_.charAt(i_) != LT) {
             RowCol rc_ = new RowCol();
             rc_.setRow(1);
@@ -1767,7 +1770,7 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    tagName_.delete(IndexConstants.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
                         break;
                     }
@@ -1890,7 +1893,7 @@ public final class DocumentBuilder {
                 String foundName_ = attributeName_.toString();
                 boolean ok_ = true;
                 for (Attr a: attrs_) {
-                    if (StringList.quickEq(a.getName(), foundName_)) {
+                    if (StringUtil.quickEq(a.getName(), foundName_)) {
                         ok_ = false;
                         break;
                     }
@@ -1967,7 +1970,7 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    tagName_.delete(IndexConstants.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
                         break;
                     }
@@ -2031,7 +2034,7 @@ public final class DocumentBuilder {
             }
             if (input_.charAt(i_) == GT_CHAR) {
                 //end tag
-                stack_.removeLast();
+                stack_.removeQuicklyLast();
                 Node parent_ = currentElement_.getParentNode();
                 if (parent_ instanceof Element) {
                     currentElement_ = (Element) parent_;
@@ -2076,7 +2079,7 @@ public final class DocumentBuilder {
             }
             int row_ = 1;
             int col_ = 1;
-            int j_ = CustList.FIRST_INDEX;
+            int j_ = IndexConstants.FIRST_INDEX;
             while (j_ <= max_) {
                 char curChar_ = input_.charAt(j_);
                 if (curChar_ == LINE_RETURN) {
@@ -2101,8 +2104,8 @@ public final class DocumentBuilder {
     }
 
     public static String indent(String _xml) {
-        int index_ = CustList.FIRST_INDEX;
-        int indentation_ = CustList.SIZE_EMPTY;
+        int index_ = IndexConstants.FIRST_INDEX;
+        int indentation_ = IndexConstants.SIZE_EMPTY;
         StringBuilder indented_ = new StringBuilder();
         while (true) {
             if (index_ >= _xml.length()) {
@@ -2133,7 +2136,7 @@ public final class DocumentBuilder {
             if (end_) {
                 indentation_--;
             }
-            for (int i = CustList.FIRST_INDEX; i < indentation_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < indentation_; i++) {
                 indented_.append(TAB);
             }
             indented_.append(_xml, index_, i_ + 1);
@@ -2148,8 +2151,8 @@ public final class DocumentBuilder {
     }
 
     public static String indentWithoutTextNode(String _xml) {
-        int index_ = CustList.FIRST_INDEX;
-        int indentation_ = CustList.SIZE_EMPTY;
+        int index_ = IndexConstants.FIRST_INDEX;
+        int indentation_ = IndexConstants.SIZE_EMPTY;
         StringBuilder indented_ = new StringBuilder();
         while (true) {
             if (index_ >= _xml.length()) {
@@ -2169,7 +2172,7 @@ public final class DocumentBuilder {
             if (end_) {
                 indentation_--;
             }
-            for (int i = CustList.FIRST_INDEX; i < indentation_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < indentation_; i++) {
                 indented_.append(TAB);
             }
             indented_.append(_xml, index_, i_ + 1);
@@ -2243,8 +2246,8 @@ public final class DocumentBuilder {
     public static RowCol getRowColOfString(String _string, int _index, int _tabWidth) {
         int lastIndex_ = _string.lastIndexOf(LINE_RETURN, _index);
         int nbChars_ = 0;
-        int nbLine_ = CustList.ONE_ELEMENT;
-        for (int i = lastIndex_; i >= CustList.FIRST_INDEX; i--) {
+        int nbLine_ = IndexConstants.ONE_ELEMENT;
+        for (int i = lastIndex_; i >= IndexConstants.FIRST_INDEX; i--) {
             if (_string.charAt(i) == LINE_RETURN) {
                 nbLine_++;
             }
@@ -2270,7 +2273,7 @@ public final class DocumentBuilder {
             ElementOffsetsNext getIndexesOfElementOrAttribute(
                     String _xml, ElementOffsetsNext _previous,
                     Element _node, int _tabWidth) {
-        int next_ = CustList.INDEX_NOT_FOUND_ELT;
+        int next_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         StringMap<RowCol> m_ = new StringMap<RowCol>();
         StringMap<Ints> offsetsMap_;
         offsetsMap_ = new StringMap<Ints>();
@@ -2280,7 +2283,7 @@ public final class DocumentBuilder {
         Ints tabs_ = new Ints();
         int index_ = _previous.getNextElt();
         String nodeName_ = _node.getTagName();
-        int found_ = _xml.indexOf(StringList.concat(String.valueOf(LT),nodeName_), index_);
+        int found_ = _xml.indexOf(StringUtil.concat(String.valueOf(LT),nodeName_), index_);
         int nbLineReturns_ = 0;
         int minLine_ = _previous.getNextCol().getRow();
         int indexLoc_ = _previous.getNextCol().getCol();
@@ -2398,16 +2401,16 @@ public final class DocumentBuilder {
         Ints tabs_ = _tabs.getVal(_attribute);
         RowCol ret_ = new RowCol();
         boolean exist_ = false;
-        int index_ = CustList.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         if (!offsets_.isEmpty()) {
-            int i_ = CustList.FIRST_INDEX;
+            int i_ = IndexConstants.FIRST_INDEX;
             while (i_ < offsets_.size()) {
                 if (offsets_.get(i_) > delta_) {
                     break;
                 }
                 i_++;
             }
-            if (i_ > CustList.FIRST_INDEX) {
+            if (i_ > IndexConstants.FIRST_INDEX) {
                 exist_ = true;
                 index_ = offsets_.get(i_ - 1);
             }
@@ -2517,23 +2520,23 @@ public final class DocumentBuilder {
         Document doc_ = _node.getOwnerDocument();
         Element root_ = doc_.getDocumentElement();
         CustList<Node> nodesBefore_ = getDeepChildNodesDocOrder(root_, _node);
-        int nbSameNamedNodes_ = CustList.SIZE_EMPTY;
+        int nbSameNamedNodes_ = IndexConstants.SIZE_EMPTY;
         if (_node instanceof Element) {
             String nodeName_ = ((Element) _node).getTagName();
             for (Node n: nodesBefore_) {
                 if (!(n instanceof Element)) {
                     continue;
                 }
-                if (StringList.quickEq(((Element) n).getTagName(), nodeName_)) {
+                if (StringUtil.quickEq(((Element) n).getTagName(), nodeName_)) {
                     nbSameNamedNodes_++;
                 }
             }
             int index_ = 0;
             int count_ = 0;
             int nb_ = nbSameNamedNodes_ + 1;
-            int found_ = CustList.INDEX_NOT_FOUND_ELT;
+            int found_ = IndexConstants.INDEX_NOT_FOUND_ELT;
             while (count_ < nb_) {
-                found_ = _xml.indexOf(StringList.concat(String.valueOf(LT),nodeName_), index_) + 1;
+                found_ = _xml.indexOf(StringUtil.concat(String.valueOf(LT),nodeName_), index_) + 1;
                 boolean isTag_ = true;
                 int j_ = found_ + nodeName_.length();
                 if (!Character.isWhitespace(_xml.charAt(j_))) {
@@ -2559,7 +2562,7 @@ public final class DocumentBuilder {
             int beginToken_ = firstIndex_;
             StringBuilder str_ = new StringBuilder();
             int delimiter_ = -1;
-            int foundAttr_ = CustList.INDEX_NOT_FOUND_ELT;
+            int foundAttr_ = IndexConstants.INDEX_NOT_FOUND_ELT;
             for (int i = firstIndex_; i < lastIndex_; i++) {
                 char ch_ = _xml.charAt(i);
                 if (delimiter_ == -1) {
@@ -2580,7 +2583,7 @@ public final class DocumentBuilder {
                 }
                 if (delimiter_ == -1) {
                     if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
-                        if (StringList.quickEq(str_.toString(), _attribute)) {
+                        if (StringUtil.quickEq(str_.toString(), _attribute)) {
                             foundAttr_ = beginToken_;
                             break;
                         }
@@ -2592,7 +2595,7 @@ public final class DocumentBuilder {
                     str_.append(ch_);
                 }
             }
-            if (foundAttr_ == CustList.INDEX_NOT_FOUND_ELT) {
+            if (foundAttr_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return lastIndex_;
             }
             if (_attrValue) {
@@ -2615,13 +2618,13 @@ public final class DocumentBuilder {
             if (!(n instanceof Text)) {
                 continue;
             }
-            if (StringList.quickEq(n.getTextContent(), searchedText_)) {
+            if (StringUtil.quickEq(n.getTextContent(), searchedText_)) {
                 nbSameNamedNodes_++;
             }
         }
         StringBuilder arg_ = new StringBuilder();
         int i_ = _xml.indexOf(LT) + 1;
-        int found_ = CustList.INDEX_NOT_FOUND_ELT;
+        int found_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         int count_ = 0;
         int nb_ = nbSameNamedNodes_ + 1;
         boolean inside_ = false;
@@ -2654,7 +2657,7 @@ public final class DocumentBuilder {
                                 nbArg_.append(charArg_);
                                 charArg_ = arg_.charAt(j_);
                             }
-                            int intArg_ = Numbers.parseInt(nbArg_.toString());
+                            int intArg_ = NumberUtil.parseInt(nbArg_.toString());
                             formatted_.append((char)intArg_);
                             j_++;
                             continue;
@@ -2667,15 +2670,15 @@ public final class DocumentBuilder {
                             charArg_ = arg_.charAt(j_);
                         }
                         String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString());
-                        convered_ = convered_.substring(CustList.SECOND_INDEX + 1, convered_.length() - 1);
-                        int intArg_ = Numbers.parseInt(convered_);
+                        convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
+                        int intArg_ = NumberUtil.parseInt(convered_);
                         formatted_.append((char)intArg_);
                         j_++;
                         continue;
                     }
                     j_++;
                 }
-                if (StringList.quickEq(formatted_.toString(), searchedText_)) {
+                if (StringUtil.quickEq(formatted_.toString(), searchedText_)) {
                     count_++;
                 }
                 arg_ = new StringBuilder();
@@ -2741,10 +2744,10 @@ public final class DocumentBuilder {
         Node currentParent_ = par_;
         Node current_ = _node;
         while (current_ != root_) {
-            int index_ = CustList.FIRST_INDEX;
+            int index_ = IndexConstants.FIRST_INDEX;
             for (Node c : currentParent_.getChildNodes()) {
                 if (c == current_) {
-                    indexes_.add(CustList.FIRST_INDEX, index_);
+                    indexes_.add(IndexConstants.FIRST_INDEX, index_);
                 }
                 index_++;
             }

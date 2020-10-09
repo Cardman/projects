@@ -16,6 +16,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnaRendSelect extends AnaRendParentBlock {
     private OperationNode rootRead;
@@ -65,7 +66,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             attributesText.put(_anaDoc.getRendKeyWords().getAttrId(),rId_);
         }
         String prefixWrite_ = _anaDoc.getPrefix();
-        String prefGr_ = StringList.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
+        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
         String groupId_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrGroupId());
         if (!groupId_.isEmpty()) {
             ResultText rId_ = new ResultText();
@@ -96,7 +97,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             arrayConverter = true;
             lv_.setClassName(StringExpUtil.getPrettyArrayType(string_));
             _page.getInfosVars().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
+            String preRend_ = StringUtil.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
             rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
@@ -111,7 +112,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offConvValue_);
                     badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(candidates_,AND_ERR));
+                            StringUtil.join(candidates_,AND_ERR));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
                 Mapping m_ = new Mapping();
@@ -122,8 +123,8 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
-                            StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
+                            StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
@@ -149,7 +150,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 lv_.setClassName(string_);
                 _page.getInfosVars().addEntry(varLoc_,lv_);
                 int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
-                String preRend_ = StringList.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
+                String preRend_ = StringUtil.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
@@ -161,8 +162,8 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offConvValue_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
-                            StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
+                            StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (!converterValue_.trim().isEmpty()) {
@@ -174,7 +175,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
                 _page.getInfosVars().addEntry(varLoc_,lv_);
-                String preRend_ = StringList.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
+                String preRend_ = StringUtil.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
                 int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
@@ -187,8 +188,8 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offConvValue_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(rootConverter.getResultClass().getNames(),AND_ERR),
-                            StringList.join(rootRead.getResultClass().getNames(),AND_ERR));
+                            StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }
@@ -203,7 +204,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _page.getInfosVars().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterField_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
+            String preRend_ = StringUtil.concat(converterField_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertField());
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
@@ -217,7 +218,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(rootConverterField.getResultClass().getNames(),AND_ERR),
+                        StringUtil.join(rootConverterField.getResultClass().getNames(),AND_ERR),
                         _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
@@ -232,7 +233,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _page.getInfosVars().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterFieldValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
+            String preRend_ = StringUtil.concat(converterFieldValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
@@ -246,7 +247,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
+                        StringUtil.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
                         _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
@@ -262,7 +263,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                         _anaDoc.getRendKeyWords().getAttrConvert());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
-            String concat_ = StringList.concat(mName_,LEFT_PAR,STR,default_,STR,RIGHT_PAR);
+            String concat_ = StringUtil.concat(mName_,LEFT_PAR,STR,default_,STR,RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvert());
             rootDefault = RenderAnalysis.getRootAnalyzedOperations(concat_, 0, _anaDoc, _page);
             Mapping m_ = new Mapping();
@@ -274,7 +275,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(rootDefault.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(rootDefault.getResultClass().getNames(),AND_ERR),
                             _anaDoc.getAliasCharSequence());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
@@ -286,7 +287,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrDefault()));
                     badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(candidates_,AND_ERR));
+                            StringUtil.join(candidates_,AND_ERR));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             }

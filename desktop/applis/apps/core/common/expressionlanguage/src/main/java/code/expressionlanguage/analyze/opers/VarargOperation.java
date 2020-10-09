@@ -13,7 +13,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class VarargOperation extends LeafOperation {
 
@@ -66,7 +66,7 @@ public final class VarargOperation extends LeafOperation {
         }
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
-        int off_ = StringList.getFirstPrintableCharIndex(str_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(str_);
         str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         setResultClass(new AnaClassArgumentMatching(str_));
@@ -112,7 +112,7 @@ public final class VarargOperation extends LeafOperation {
             return true;
         }
         String wc_ = geneFormatted.getParametersType(geneFormatted.getParametersTypesLength() - 1);
-        return !StringList.quickEq(wc_, className);
+        return !StringUtil.quickEq(wc_, className);
     }
 
     public String getClassName() {

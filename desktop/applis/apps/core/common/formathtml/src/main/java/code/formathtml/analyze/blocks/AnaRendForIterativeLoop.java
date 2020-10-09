@@ -21,7 +21,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
 
@@ -165,7 +165,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
                 cast_.setIndexFile(_offset);
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         _result,
-                        StringList.join(_currentRoot.getResultClass().getNames(),AND_ERR));
+                        StringUtil.join(_currentRoot.getResultClass().getNames(),AND_ERR));
                 AnalyzingDoc.addError(cast_, _anaDoc, _page);
             }
         }

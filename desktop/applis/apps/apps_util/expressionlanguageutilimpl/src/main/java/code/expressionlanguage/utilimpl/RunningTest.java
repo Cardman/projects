@@ -7,10 +7,11 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.util.CustList;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class RunningTest implements Runnable {
     private String fileConfOrContent;
@@ -51,7 +52,7 @@ public final class RunningTest implements Runnable {
     }
 
     public static void launchByConfContent(String _content, ProgressingTests _progressingTests, FileInfos _infos) {
-        StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
+        StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
             if (s.trim().isEmpty()) {
@@ -67,7 +68,7 @@ public final class RunningTest implements Runnable {
         StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_);
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
-        if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
+        if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
             setupOptionals(1, opt_, exec_,linesFiles_);
         } else {
             setupOptionals(2, opt_, exec_, linesFiles_);
@@ -120,7 +121,7 @@ public final class RunningTest implements Runnable {
             }
             if (l.startsWith("tabWidth=")) {
                 String output_ = l.substring("tabWidth=".length());
-                int t_ = Numbers.parseInt(output_);
+                int t_ = NumberUtil.parseInt(output_);
                 if (t_ > 0) {
                     _exec.setTabWidth(t_);
                 }
@@ -146,10 +147,10 @@ public final class RunningTest implements Runnable {
             }
             if (l.startsWith("comments=")) {
                 CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-                for (String c: StringList.splitChar(
+                for (String c: StringUtil.splitChar(
                         l.substring("comments=".length()).trim(),
                         ';')) {
-                    StringList parts_ = StringList.splitChar(
+                    StringList parts_ = StringUtil.splitChar(
                             c.trim(),
                             ',');
                     if (parts_.size() <= 2) {
@@ -172,7 +173,7 @@ public final class RunningTest implements Runnable {
             _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
         }
         if (aliasesPart_.length() > 0) {
-            StringList infos_ = StringList.splitChars(aliasesPart_.toString(),',');
+            StringList infos_ = StringUtil.splitChars(aliasesPart_.toString(),',');
             StringMap<String> al_ = new StringMap<String>();
             for (String l: infos_) {
                 int sep_ = l.indexOf('=');
@@ -180,14 +181,14 @@ public final class RunningTest implements Runnable {
                     continue;
                 }
                 String key_ = l.substring(0, sep_).trim();
-                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
                 value_ = ParseLinesArgUtil.parseValue(value_);
                 al_.put(key_,value_);
             }
             _exec.setAliases(al_);
         }
         if (messagesPart_.length() > 0) {
-            StringList infos_ = StringList.splitChars(messagesPart_.toString(),',');
+            StringList infos_ = StringUtil.splitChars(messagesPart_.toString(),',');
             StringMap<String> kw_ = new StringMap<String>();
             for (String l: infos_) {
                 int sep_ = l.indexOf('=');
@@ -195,14 +196,14 @@ public final class RunningTest implements Runnable {
                     continue;
                 }
                 String key_ = l.substring(0, sep_).trim();
-                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
                 value_ = ParseLinesArgUtil.parseValue(value_);
                 kw_.put(key_,value_);
             }
             _exec.setMessages(kw_);
         }
         if (keyWordsPart_.length() > 0) {
-            StringList infos_ = StringList.splitChars(keyWordsPart_.toString(),',');
+            StringList infos_ = StringUtil.splitChars(keyWordsPart_.toString(),',');
             StringMap<String> kw_ = new StringMap<String>();
             for (String l: infos_) {
                 int sep_ = l.indexOf('=');
@@ -210,7 +211,7 @@ public final class RunningTest implements Runnable {
                     continue;
                 }
                 String key_ = l.substring(0, sep_).trim();
-                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
                 value_ = ParseLinesArgUtil.parseValue(value_);
                 kw_.put(key_,value_);
             }

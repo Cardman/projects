@@ -10,9 +10,9 @@ import code.bean.nat.BeanNatLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.StringUtil;
 
 public final class PreparedRenderedPages implements Runnable {
     private Navigation navigation;
@@ -40,18 +40,18 @@ public final class PreparedRenderedPages implements Runnable {
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: du_.getContext().getAddedFiles()) {
-            String name_ = StringList.concat(relative, a);
+            String name_ = StringUtil.concat(relative, a);
             files_.put(a,ResourceFiles.ressourceFichier(name_));
         }
         for (String l: navigation.getLanguages()) {
             for (String a: du_.getContext().getProperties().values()) {
                 String folder_ = du_.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(relative,fileName_)));
+                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
             }
         }
         String realFilePath_ = session_.getFirstUrl();
-        String rel_ = StringList.concat(relative,realFilePath_);
+        String rel_ = StringUtil.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
         stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);

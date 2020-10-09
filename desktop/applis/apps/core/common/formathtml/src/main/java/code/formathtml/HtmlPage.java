@@ -6,6 +6,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class HtmlPage {
 
@@ -22,7 +23,7 @@ public final class HtmlPage {
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
 
-    private long url = CustList.INDEX_NOT_FOUND_ELT;
+    private long url = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean form;
 

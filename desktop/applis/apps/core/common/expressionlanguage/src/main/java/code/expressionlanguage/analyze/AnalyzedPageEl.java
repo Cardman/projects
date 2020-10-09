@@ -36,6 +36,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AnalyzedPageEl {
 
@@ -451,7 +452,7 @@ public final class AnalyzedPageEl {
     public StringMap<Boolean> getDeclaredAssignments() {
         StringMap<Boolean> o_ = new StringMap<Boolean>();
         for (String f: allDeclaredFields) {
-            o_.addEntry(f, !StringList.contains(assignedDeclaredFields,f));
+            o_.addEntry(f, !StringUtil.contains(assignedDeclaredFields,f));
         }
         return o_;
     }
@@ -569,7 +570,7 @@ public final class AnalyzedPageEl {
         if (w_.isEmpty()) {
             return false;
         }
-        return StringList.equalsSet(new StringList(w_),_second);
+        return StringUtil.equalsSet(new StringList(w_),_second);
     }
     public StringList getTernary(StringList _list) {
         String w_ = getWrap(_list);
@@ -584,7 +585,7 @@ public final class AnalyzedPageEl {
         String uniq_ = first_.getSingleNameOrEmpty();
         String w_ = "";
         for (EntryCust<String, PrimitiveType> e: content.getPrimTypes().getPrimitiveTypes().entryList()) {
-            if (StringList.quickEq(e.getKey(), uniq_)) {
+            if (StringUtil.quickEq(e.getKey(), uniq_)) {
                 w_ = e.getValue().getWrapper();
                 break;
             }
@@ -595,10 +596,10 @@ public final class AnalyzedPageEl {
     public StringList getAllGenericSuperTypesWrapper(String _prim, int _d) {
         StringList list_ = new StringList();
         for (EntryCust<String, PrimitiveType> e: content.getPrimTypes().getPrimitiveTypes().entryList()) {
-            if (StringList.quickEq(e.getKey(), _prim)) {
+            if (StringUtil.quickEq(e.getKey(), _prim)) {
                 for (EntryCust<String,StandardType> f: content.getStandards().entryList()) {
                     String wrapper_ = e.getValue().getWrapper();
-                    if (StringList.quickEq(wrapper_,f.getKey())) {
+                    if (StringUtil.quickEq(wrapper_,f.getKey())) {
                         list_.add(StringExpUtil.getPrettyArrayType(wrapper_,_d));
                         for (String t: f.getValue().getAllGenericSuperTypes()) {
                             list_.add(StringExpUtil.getPrettyArrayType(t,_d));
@@ -618,7 +619,7 @@ public final class AnalyzedPageEl {
     }
     public RootBlock getAnaClassBody(String _type) {
         for (RootBlock r: refFoundTypes) {
-            if (StringList.quickEq(r.getFullName(),_type)) {
+            if (StringUtil.quickEq(r.getFullName(),_type)) {
                 return r;
             }
         }
@@ -970,7 +971,7 @@ public final class AnalyzedPageEl {
         FileMetrics metrics_ = file_.getMetrics(analyzing.getTabWidth());
         int r_ = metrics_.getRowFile(_sum);
         int c_ = metrics_.getColFile(_sum,r_);
-        return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
+        return StringUtil.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
     }
 
     public void addError(FoundErrorInterpret _error) {

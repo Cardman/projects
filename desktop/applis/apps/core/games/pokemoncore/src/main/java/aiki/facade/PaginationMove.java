@@ -13,6 +13,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
 public final class PaginationMove extends
@@ -64,7 +65,7 @@ public final class PaginationMove extends
     public void search(CustList<String> _list, DataBase _data) {
         moves.clear();
         int len_ = _list.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             MoveData i_ = _data.getMove(_list.get(i));
             int price_ = 0;
             // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
@@ -116,14 +117,14 @@ public final class PaginationMove extends
 
     protected void search(Listable<String> _list) {
         if (!_list.isEmpty()) {
-            setNumberPage(CustList.FIRST_INDEX);
+            setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
-            setLine(CustList.INDEX_NOT_FOUND_ELT);
-            setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
             getRendered().clear();
             return;
         }
-        setLine(CustList.INDEX_NOT_FOUND_ELT);
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
         if (sortable()) {
             sort();
         }

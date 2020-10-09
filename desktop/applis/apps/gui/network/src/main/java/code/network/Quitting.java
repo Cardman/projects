@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 
 import code.gui.ConfirmDialog;
 import code.sml.stream.ExtractFromFiles;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 /**Thread safe class*/
 public final class Quitting implements Runnable {
@@ -47,7 +47,7 @@ public final class Quitting implements Runnable {
         if (bye != null && bye.isBusy()) {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
-            message_ = StringList.simpleNumberFormat(message_, window.getPort());
+            message_ = StringUtil.simpleNumberFormat(message_, window.getPort());
             ConfirmDialog.showMessage(window, message_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
         window.quitNetwork(bye, socket);

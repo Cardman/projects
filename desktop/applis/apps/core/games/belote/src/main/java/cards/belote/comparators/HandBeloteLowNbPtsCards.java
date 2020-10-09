@@ -4,7 +4,7 @@ import cards.belote.GameBeloteBeginTrick;
 import cards.belote.HandBelote;
 import cards.consts.Suit;
 import code.util.EnumMap;
-import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class HandBeloteLowNbPtsCards implements Comparing<Suit> {
@@ -21,6 +21,6 @@ public final class HandBeloteLowNbPtsCards implements Comparing<Suit> {
     public int compare(Suit _suit1, Suit _suit2) {
         int total1_ = GameBeloteBeginTrick.nombreCartesPoints(hand, bid, _suit1);
         int total2_ = GameBeloteBeginTrick.nombreCartesPoints(hand, bid, _suit2);
-        return Numbers.compareLg(total1_, total2_);
+        return NumberUtil.compareLg(total1_, total2_);
     }
 }

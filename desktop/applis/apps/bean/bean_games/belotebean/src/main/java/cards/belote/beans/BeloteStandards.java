@@ -19,6 +19,7 @@ import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.util.*;
+import code.util.core.StringUtil;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
 import code.util.ints.SimpleList;
@@ -208,19 +209,19 @@ public final class BeloteStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_BELOTE_BEAN)) {
+        if (StringUtil.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_BELOTE_BEAN)) {
             DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();
             details_.setClassName(TYPE_DETAILS_RESULTS_BELOTE_BEAN);
             res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), TYPE_RESULTS_BELOTE_BEAN)) {
+        if (StringUtil.quickEq(_method.getName(), TYPE_RESULTS_BELOTE_BEAN)) {
             ResultsBeloteBean details_ = new ResultsBeloteBean();
             details_.setClassName(TYPE_RESULTS_BELOTE_BEAN);
             res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), TYPE_RULES_BELOTE_BEAN)) {
+        if (StringUtil.quickEq(_method.getName(), TYPE_RULES_BELOTE_BEAN)) {
             RulesBeloteBean details_ = new RulesBeloteBean();
             details_.setClassName(TYPE_RULES_BELOTE_BEAN);
             res_.setResult(new BeanStruct(details_));
@@ -233,128 +234,128 @@ public final class BeloteStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
-            if (StringList.quickEq(fieldName_, DECLARING)) {
+            if (StringUtil.quickEq(fieldName_, DECLARING)) {
                 res_.setResult(new DefaultStruct(((DetailsResultsBeloteBean)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof SumDeclaringPlayer) {
-            if (StringList.quickEq(fieldName_, DECLARING)) {
+            if (StringUtil.quickEq(fieldName_, DECLARING)) {
                 res_.setResult(new DefaultStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, SUM)) {
+            if (StringUtil.quickEq(fieldName_, SUM)) {
                 res_.setResult(new IntStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getSum()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, NICKNAME)) {
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, STATUT)) {
+            if (StringUtil.quickEq(fieldName_, STATUT)) {
                 res_.setResult(new StringStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getStatut()));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof DeclaringPlayerValue) {
-            if (StringList.quickEq(fieldName_, DECLARING)) {
+            if (StringUtil.quickEq(fieldName_, DECLARING)) {
                 res_.setResult(new StringStruct(((DeclaringPlayerValue)((RealInstanceStruct)_instance).getInstance()).getDeclaring()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, VALUE)) {
+            if (StringUtil.quickEq(fieldName_, VALUE)) {
                 res_.setResult(new IntStruct(((DeclaringPlayerValue)((RealInstanceStruct)_instance).getInstance()).getValue()));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
             ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
-            if (StringList.quickEq(fieldName_, POINTS_ATTAQUE_SANS_PRIME)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_ATTAQUE_SANS_PRIME)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueSansPrime()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POINTS_ATTAQUE_TEMPORAIRE)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_ATTAQUE_TEMPORAIRE)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueTemporaire()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POINTS_ATTAQUE_DEFINITIF)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_ATTAQUE_DEFINITIF)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueDefinitif()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POINTS_DEFENSE_SANS_PRIME)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_DEFENSE_SANS_PRIME)) {
                 res_.setResult(new IntStruct(instance_.getPointsDefenseSansPrime()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POINTS_DEFENSE_TEMPORAIRE)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_DEFENSE_TEMPORAIRE)) {
                 res_.setResult(new IntStruct(instance_.getPointsDefenseTemporaire()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POINTS_DEFENSE_DEFINITIF)) {
+            if (StringUtil.quickEq(fieldName_, POINTS_DEFENSE_DEFINITIF)) {
                 res_.setResult(new IntStruct(instance_.getPointsDefenseDefinitif()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
+            if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
                 res_.setResult(new IntStruct(instance_.getDifferenceScoreTaker()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, BID_STRING)) {
+            if (StringUtil.quickEq(fieldName_, BID_STRING)) {
                 res_.setResult(new StringStruct(instance_.getBidString()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, TAKER_NICKNAME)) {
+            if (StringUtil.quickEq(fieldName_, TAKER_NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getTakerNickname()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, CALLED_PLAYERS_LIST)) {
+            if (StringUtil.quickEq(fieldName_, CALLED_PLAYERS_LIST)) {
                 res_.setResult(new DefaultStruct(instance_.getCalledPlayersList(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, LINES_DEAL)) {
+            if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
                 res_.setResult(new DefaultStruct(instance_.getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
             LineDeal instance_ = (LineDeal) ((RealInstanceStruct)_instance).getInstance();
-            if (StringList.quickEq(fieldName_, NUMBER)) {
+            if (StringUtil.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(instance_.getNumber()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, SCORES)) {
+            if (StringUtil.quickEq(fieldName_, SCORES)) {
                 res_.setResult(DefaultStruct.newListLong(instance_.getScores(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof RulesBeloteBean) {
             RulesBeloteBean instance_ = (RulesBeloteBean) ((RealInstanceStruct)_instance).getInstance();
-            if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
+            if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, DEAL_ALL)) {
+            if (StringUtil.quickEq(fieldName_, DEAL_ALL)) {
                 res_.setResult(BooleanStruct.of(instance_.isDealAll()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, ENCHERES_AUTORISEES)) {
+            if (StringUtil.quickEq(fieldName_, ENCHERES_AUTORISEES)) {
                 res_.setResult(new DefaultStruct(instance_.getEncheresAutorisees(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, SOUS_COUPE_ADV)) {
+            if (StringUtil.quickEq(fieldName_, SOUS_COUPE_ADV)) {
                 res_.setResult(BooleanStruct.of(instance_.isSousCoupeAdv()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, ANNONCES_AUTORISEES)) {
+            if (StringUtil.quickEq(fieldName_, ANNONCES_AUTORISEES)) {
                 res_.setResult(new DefaultStruct(instance_.getAnnoncesAutorisees(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, GESTION_COUPE_PARTENAIRE)) {
+            if (StringUtil.quickEq(fieldName_, GESTION_COUPE_PARTENAIRE)) {
                 res_.setResult(new StringStruct(instance_.getGestionCoupePartenaire()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, REPARTITION)) {
+            if (StringUtil.quickEq(fieldName_, REPARTITION)) {
                 res_.setResult(new StringStruct(instance_.getRepartition()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, COMPTE_POINTS_CLASSIQUE)) {
+            if (StringUtil.quickEq(fieldName_, COMPTE_POINTS_CLASSIQUE)) {
                 res_.setResult(BooleanStruct.of(instance_.isComptePointsClassique()));
                 return res_;
             }
@@ -445,50 +446,50 @@ public final class BeloteStandards extends BeanNatLgNames {
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((RealInstanceStruct)_instance).getInstance() instanceof BeloteBean) {
-            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
                 res_.setResult(BooleanStruct.of(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).playGame()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
                 res_.setResult(new DefaultStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
                 res_.setResult(new DefaultStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
             ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
-            if (StringList.quickEq(_method.getConstraints().getName(), WIN)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), WIN)) {
                 res_.setResult(BooleanStruct.of(instance_.win()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), EQUALITY)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), EQUALITY)) {
                 res_.setResult(BooleanStruct.of(instance_.equality()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), LOOSE)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), LOOSE)) {
                 res_.setResult(BooleanStruct.of(instance_.loose()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), SUCCESSFUL_BID)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), SUCCESSFUL_BID)) {
                 res_.setResult(BooleanStruct.of(instance_.successfulBid()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), MID_BID)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), MID_BID)) {
                 res_.setResult(BooleanStruct.of(instance_.midBid()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), FAILED_BID)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), FAILED_BID)) {
                 res_.setResult(BooleanStruct.of(instance_.failedBid()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), SLAM)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), SLAM)) {
                 res_.setResult(BooleanStruct.of(instance_.slam()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), ABSOLUTE_DIFF)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), ABSOLUTE_DIFF)) {
                 res_.setResult(new IntStruct(instance_.absoluteDiff()));
                 return res_;
             }

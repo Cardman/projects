@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -12,7 +11,7 @@ import code.expressionlanguage.fwd.opers.ExecStdFctContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecStdFctOperation extends ExecInvokingOperation {
 
@@ -31,7 +30,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(stdFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(stdFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         MethodId methodId_ = stdFctContent.getClassMethodId().getConstraints();
         String classNameFound_;

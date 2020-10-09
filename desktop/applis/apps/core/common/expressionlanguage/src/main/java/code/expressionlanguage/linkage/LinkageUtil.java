@@ -22,6 +22,8 @@ import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class LinkageUtil {
 
@@ -178,7 +180,7 @@ public final class LinkageUtil {
             if (vars_.getStack().last().getCurrent() == null) {
                 if (child_.isReachableError()) {
                     if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
-                        String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                        String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                         int off_ = child_.getBegin();
                         int l_ = child_.getLengthHeader();
                         list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
@@ -284,7 +286,7 @@ public final class LinkageUtil {
             }
             if (child_.isReachableError()) {
                 if (child_ instanceof Line) {
-                    String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                    String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                     int off_ = child_.getBegin();
                     int l_ = child_.getLengthHeader();
                     list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
@@ -294,7 +296,7 @@ public final class LinkageUtil {
             child_ = next(child_, _ex);
             if (child_ == null) {
                 int indexEnd_ = vars_.getStack().last().getIndexEnd();
-                vars_.getStack().removeLast();
+                vars_.getStack().removeQuicklyLast();
                 if (!vars_.getStack().isEmpty()) {
                     list_.add(new PartOffset("</span>",indexEnd_));
                     child_ = vars_.getStack().last().getBlock();
@@ -456,7 +458,7 @@ public final class LinkageUtil {
             child_ = next(child_, _ex);
             if (child_ == null) {
                 int indexEnd_ = vars_.getStack().last().getIndexEnd();
-                vars_.getStack().removeLast();
+                vars_.getStack().removeQuicklyLast();
                 if (!vars_.getStack().isEmpty()) {
                     list_.add(new PartOffset("</span>",indexEnd_));
                     child_ = vars_.getStack().last().getBlock();
@@ -794,7 +796,7 @@ public final class LinkageUtil {
             if (!variableName_.isEmpty()) {
                 StringList errs_ = _cond.getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringList.join(errs_,"\n\n"));
+                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
                     String tag_ = "<a name=\"m"+variableOffset_ +"\" title=\""+err_+"\" class=\"e\"\">";
                     _parts.add(new PartOffset(tag_, variableOffset_));
                     tag_ = "</a>";
@@ -842,7 +844,7 @@ public final class LinkageUtil {
         if (!_cond.getVariableName().trim().isEmpty()) {
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringList.join(errs_,"\n\n"));
+                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 int off_ = _cond.getVariableOffset();
                 String tag_ = "<a name=\"m"+off_ +"\" title=\""+err_+"\" class=\"e\"\">";
                 _parts.add(new PartOffset(tag_, off_));
@@ -902,7 +904,7 @@ public final class LinkageUtil {
         _parts.addAllElts(_cond.getPartOffsets());
         StringList errs_ = _cond.getNameErrors();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String err_ = transform(StringUtil.join(errs_,"\n\n"));
             String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\" title=\""+err_+"\" class=\"e\"\">";
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
             tag_ = "</a>";
@@ -929,7 +931,7 @@ public final class LinkageUtil {
     private static void processDeclareVariableReport(VariablesOffsets _vars, DeclareVariable _cond, CustList<PartOffset> _parts) {
         KeyWords keyWords_ = _vars.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
+        if (StringUtil.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
             String tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
             tag_ = "</b>";
@@ -950,7 +952,7 @@ public final class LinkageUtil {
     }
 
     private static void procInferVar(CustList<PartOffset> _parts, String keyWordVar_, String clName_, String errInf_, String importedClassName_, int classNameOffset_, CustList<PartOffset> partOffsets_) {
-        if (StringList.quickEq(clName_, keyWordVar_)) {
+        if (StringUtil.quickEq(clName_, keyWordVar_)) {
             if (errInf_.isEmpty()) {
                 String tag_ = "<b title=\""+transform(importedClassName_)+"\">";
                 _parts.add(new PartOffset(tag_, classNameOffset_));
@@ -995,7 +997,7 @@ public final class LinkageUtil {
         }
         StringList errs_ = _cond.getErrorsRefLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String err_ = transform(StringUtil.join(errs_,"\n\n"));
             String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
             _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
             tag_ = "</a>";
@@ -1022,7 +1024,7 @@ public final class LinkageUtil {
         }
         StringList errs_ = _cond.getErrorsRefLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String err_ = transform(StringUtil.join(errs_,"\n\n"));
             String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
             _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
             tag_ = "</a>";
@@ -1123,7 +1125,7 @@ public final class LinkageUtil {
         if (_vars.getStack().last().getCurrent() == null) {
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringList.join(errs_, "\n\n"));
+                String err_ = transform(StringUtil.join(errs_, "\n\n"));
                 String tag_;
                 tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
@@ -1201,7 +1203,7 @@ public final class LinkageUtil {
             appendVars(_vars,_cond, _parts);
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringList.join(errs_,"\n\n"));
+                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 String tag_;
                 tag_ = "<a title=\""+err_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
@@ -1215,7 +1217,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             }
             if (!_cond.getSepErrors().isEmpty()) {
-                String err_ = transform(StringList.join(_cond.getSepErrors(),"\n\n"));
+                String err_ = transform(StringUtil.join(_cond.getSepErrors(),"\n\n"));
                 String tag_;
                 tag_ = "<a title=\""+err_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
@@ -1233,7 +1235,7 @@ public final class LinkageUtil {
     private static void appendVars(VariablesOffsets _vars, ForEachLoop _cond, CustList<PartOffset> _parts) {
         KeyWords keyWords_ = _vars.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
+        if (StringUtil.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
             String tag_;
             tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
@@ -1283,7 +1285,7 @@ public final class LinkageUtil {
     }
 
     private static void appendSecondVar(ForEachTable _cond, CustList<PartOffset> _parts, String keyWordVar_) {
-        if (StringList.quickEq(_cond.getClassNameSecond().trim(), keyWordVar_)) {
+        if (StringUtil.quickEq(_cond.getClassNameSecond().trim(), keyWordVar_)) {
             String tag_;
             tag_ = "<b title=\""+transform(_cond.getImportedClassNameSecond())+"\">";
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetSecond()));
@@ -1301,7 +1303,7 @@ public final class LinkageUtil {
             appendFirstVar(_cond, _parts, keyWordVar_);
             StringList errs_ = _cond.getNameErrorsFirst();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringList.join(errs_, "\n\n"));
+                String err_ = transform(StringUtil.join(errs_, "\n\n"));
                 String tagVar_;
                 tagVar_ = "<a title=\"" + err_ + "\" class=\"e\"\">";
                 _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst()));
@@ -1317,7 +1319,7 @@ public final class LinkageUtil {
             appendSecondVar(_cond, _parts, keyWordVar_);
             errs_ = _cond.getNameErrorsSecond();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringList.join(errs_, "\n\n"));
+                String err_ = transform(StringUtil.join(errs_, "\n\n"));
                 String tag_;
                 tag_ = "<a title=\"" + err_ + "\" class=\"e\"\">";
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
@@ -1331,7 +1333,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
             }
             if (!_cond.getSepErrors().isEmpty()) {
-                String err_ = transform(StringList.join(_cond.getSepErrors(), "\n\n"));
+                String err_ = transform(StringUtil.join(_cond.getSepErrors(), "\n\n"));
                 String tag_;
                 tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
@@ -1347,7 +1349,7 @@ public final class LinkageUtil {
     }
 
     private static void appendFirstVar(ForEachTable _cond, CustList<PartOffset> _parts, String keyWordVar_) {
-        if (StringList.quickEq(_cond.getClassNameFirst().trim(), keyWordVar_)) {
+        if (StringUtil.quickEq(_cond.getClassNameFirst().trim(), keyWordVar_)) {
             String tag_;
             tag_ = "<b title=\""+transform(_cond.getImportedClassNameFirst())+"\">";
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetFirst()));
@@ -1502,7 +1504,7 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getTypePartOffsets());
             StringList errs_ = _cond.getNameRetErrors();
             if (!errs_.isEmpty()) {
-                String err_ = StringList.join(errs_, "\n\n");
+                String err_ = StringUtil.join(errs_, "\n\n");
                 if (_cond.getValue().trim().isEmpty()) {
                     blOffset_ = _cond.getClassNameOffset() + _cond.getClassName().length();
                 }
@@ -1594,7 +1596,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
                 _parts.add(new PartOffset("</a>", _cond.getLeftPar()));
             } else {
-                String err_ = transform(StringList.join(errsName_,"\n\n"));
+                String err_ = transform(StringUtil.join(errsName_,"\n\n"));
                 _parts.add(new PartOffset("<a name=\"m"+begName_+"\" title=\""+err_+"\" class=\"e\">",begName_));
                 _parts.add(new PartOffset("</a>", _cond.getLeftPar()));
             }
@@ -1614,7 +1616,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
                 _parts.add(new PartOffset("</a>",off_+param_.length()));
             } else {
-                String err_ = transform(StringList.join(errs_,"\n\n"));
+                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\" title=\""+err_+"\" class=\"e\">",off_));
                 _parts.add(new PartOffset("</a>",off_+param_.length()));
             }
@@ -1832,7 +1834,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset("</a>",endName_));
             return;
         }
-        String err_ = transform(StringList.join(errs_,"\n\n"));
+        String err_ = transform(StringUtil.join(errs_,"\n\n"));
         int endName_ = begName_ + Math.max(_len,1);
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\" title=\""+err_+"\" class=\"e\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));
@@ -1933,7 +1935,7 @@ public final class LinkageUtil {
     private static String getLineErr(StringList _list) {
         String err_="";
         if (!_list.isEmpty()) {
-            err_ = LinkageUtil.transform(StringList.join(_list,"\n\n"));
+            err_ = LinkageUtil.transform(StringUtil.join(_list,"\n\n"));
         }
         return err_;
     }
@@ -1973,7 +1975,7 @@ public final class LinkageUtil {
         }
         if (_cond.isReachableError()) {
             StringList listCat_ = _cond.getErrorsBlock();
-            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringList.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getBegin()));
+            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getBegin()));
             _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
 
         }
@@ -1987,7 +1989,7 @@ public final class LinkageUtil {
         if (nameLength_ > 0) {
             StringList list_ = _cond.getNameErrors();
             if (!list_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ LinkageUtil.transform(StringList.join(list_,"\n\n"))+"\" class=\"e\">", _cond.getIdRowCol()));
+                _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ LinkageUtil.transform(StringUtil.join(list_,"\n\n"))+"\" class=\"e\">", _cond.getIdRowCol()));
             } else {
                 _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\">", _cond.getIdRowCol()));
             }
@@ -2154,7 +2156,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
                 _parts.add(new PartOffset("</a>",off_+param_.length()));
             } else {
-                String err_ = transform(StringList.join(errs_,"\n\n"));
+                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
                 _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
             }
@@ -2173,7 +2175,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
                 _parts.add(new PartOffset("</a>",off_+param_.length()));
             } else {
-                String err_ = transform(StringList.join(errs_,"\n\n"));
+                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
                 _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
             }
@@ -2477,9 +2479,9 @@ public final class LinkageUtil {
                         par_ = before_;
                     } else if (parentBefore_ instanceof CompoundAffectationOperation) {
                         CompoundAffectationOperation p_ = (CompoundAffectationOperation) parentBefore_;
-                        if (StringList.quickEq(p_.getOper(),"&&=")
-                                ||StringList.quickEq(p_.getOper(),"||=")
-                                ||StringList.quickEq(p_.getOper(),"??=")) {
+                        if (StringUtil.quickEq(p_.getOper(),"&&=")
+                                || StringUtil.quickEq(p_.getOper(),"||=")
+                                || StringUtil.quickEq(p_.getOper(),"??=")) {
                             par_ = before_;
                         }
                     }
@@ -2599,7 +2601,7 @@ public final class LinkageUtil {
             if (!errEmpt_.isEmpty()) {
                 int off_ = val_.getOperations().getOffset();
                 int begin_ = sum_ + off_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+transform(StringList.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+transform(StringUtil.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+val_.getOperations().getDelimiter().getLength()));
             }
         } else {
@@ -2612,7 +2614,7 @@ public final class LinkageUtil {
                 if (!l_.isEmpty()) {
                     s_ = sum_ + par_.getIndexInEl() + operators_.getKey(indexChild_);
                     len_ = operators_.getValue(indexChild_).length();
-                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
+                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">",s_));
                     _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
                 } else {
                     appendPossibleParts(_parts, par_, indexChild_);
@@ -2670,11 +2672,11 @@ public final class LinkageUtil {
             ArrayFieldOperation aField_ = (ArrayFieldOperation) val_;
             OperationsSequence op_ = aField_.getOperations();
             int relativeOff_ = op_.getOffset();
-            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+            String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
             String str_ = originalStr_.trim();
             int begin_ = sum_ + relativeOff_ + val_.getIndexInEl();
             if (!aField_.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+transform(StringList.join(aField_.getErrs(),"\n\n"))+"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+transform(StringUtil.join(aField_.getErrs(),"\n\n"))+"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+str_.length()));
             } else {
                 _parts.add(new PartOffset("<b>",begin_));
@@ -2691,7 +2693,7 @@ public final class LinkageUtil {
                 int begin_ = sum_ + off_ + val_.getIndexInEl();
                 _parts.add(new PartOffset(tag_, begin_));
                 if (!val_.getErrs().isEmpty()) {
-                    tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    tag_ = "<a title=\""+transform(StringUtil.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,begin_));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
@@ -2705,7 +2707,7 @@ public final class LinkageUtil {
                 int begin_ = sum_ + off_ + val_.getIndexInEl();
                 _parts.add(new PartOffset(tag_,begin_));
                 if (!val_.getErrs().isEmpty()) {
-                    tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    tag_ = "<a title=\""+transform(StringUtil.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,begin_));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
@@ -2715,7 +2717,7 @@ public final class LinkageUtil {
             }
             if (val_.getOperations().getConstType() == ConstType.NUMBER) {
                 if (!val_.getErrs().isEmpty()) {
-                    String tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    String tag_ = "<a title=\""+transform(StringUtil.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
                     int off_ = val_.getOperations().getOffset();
                     int begin_ = sum_ + off_ + val_.getIndexInEl();
                     _parts.add(new PartOffset(tag_,begin_));
@@ -2735,7 +2737,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((CallDynMethodOperation) val_).getFctName().length()));
             } else {
                 String fctName_ = val_.getOperations().getFctName().trim();
-                String tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                String tag_ = "<a title=\""+transform(StringUtil.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+fctName_.length()));
@@ -2775,7 +2777,7 @@ public final class LinkageUtil {
                 addParts(_vars, _refFoundTypes,_refOperators,currentFileName_,className_,id_,offsetEnd_,1,val_.getErrs(),val_.getErrs(),_parts);
             } else if (!val_.getErrs().isEmpty()) {
                 int i_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
                 _parts.add(new PartOffset("</a>",i_+1));
             }
         }
@@ -2893,12 +2895,12 @@ public final class LinkageUtil {
                         String tag_ = "<a name=\"m"+idValueOffset_+"\">";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                     } else {
-                        String err_ = StringList.join(errCst_,"\n\n");
+                        String err_ = StringUtil.join(errCst_,"\n\n");
                         String tag_ = "<a name=\"m"+idValueOffset_+"\" title=\""+err_+"\" class=\"e\">";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                     }
                 } else {
-                    String err_ = StringList.join(errs_,"\n\n");
+                    String err_ = StringUtil.join(errs_,"\n\n");
                     String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                 }
@@ -2922,7 +2924,7 @@ public final class LinkageUtil {
                 StringList errs_ = ((VariableOperation) val_).getNameErrors();
                 int id_ = ((VariableOperation) val_).getRef();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringList.join(errs_,"\n\n"));
+                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
                     String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
                     tag_ = "</a>";
@@ -2949,7 +2951,7 @@ public final class LinkageUtil {
                 int id_ = ((MutableLoopVariableOperation) val_).getRef();
                 StringList errs_ = ((MutableLoopVariableOperation) val_).getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringList.join(errs_,"\n\n"));
+                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
                     String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
                     tag_ = "</a>";
@@ -2974,7 +2976,7 @@ public final class LinkageUtil {
             int delta_ = ((FinalVariableOperation) val_).getOff();
             if (!val_.getErrs().isEmpty()) {
                 int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
-                String err_ = transform(StringList.join(val_.getErrs(),"\n\n"));
+                String err_ = transform(StringUtil.join(val_.getErrs(),"\n\n"));
                 String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()));
                 tag_ = "</a>";
@@ -3004,7 +3006,7 @@ public final class LinkageUtil {
             ConstructorId c_ = ((AbstractInstancingOperation)val_).getConstId();
             AbstractInstancingOperation inst_ = (AbstractInstancingOperation) val_;
             if (!(inst_ instanceof StandardInstancingOperation)||!((StandardInstancingOperation)inst_).isHasFieldName()) {
-                int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
+                int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
                 addParts(_vars, _refFoundTypes,_refOperators,currentFileName_,cl_,c_,
                         offsetNew_+sum_ + val_.getIndexInEl(),_vars.getKeyWords().getKeyWordNew().length(),
                         val_.getErrs(),val_.getErrs(),_parts);
@@ -3034,7 +3036,7 @@ public final class LinkageUtil {
             ForwardOperation f_ = (ForwardOperation) val_;
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ f_.getLength()));
             }
             _parts.addAllElts(((ForwardOperation)val_).getPartOffsets());
@@ -3048,7 +3050,7 @@ public final class LinkageUtil {
         if (val_ instanceof StaticAccessOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordStatic().length()));
             }
             _parts.addAllElts(((StaticAccessOperation)val_).getPartOffsets());
@@ -3056,7 +3058,7 @@ public final class LinkageUtil {
         if (val_ instanceof StaticCallAccessOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
             }
             _parts.addAllElts(((StaticCallAccessOperation)val_).getPartOffsets());
@@ -3064,7 +3066,7 @@ public final class LinkageUtil {
         if (val_ instanceof ThisOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordThis().length()));
             }
         }
@@ -3113,7 +3115,7 @@ public final class LinkageUtil {
                 updateFieldAnchor(_refFoundTypes, val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
             } else if (!val_.getErrs().isEmpty()) {
                 int begin_ = off_+sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordLambda().length()));
             }
         }
@@ -3125,7 +3127,7 @@ public final class LinkageUtil {
         if (val_ instanceof EnumValueOfOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordValueOf().length()));
             }
             _parts.addAllElts(((EnumValueOfOperation)val_).getPartOffsets());
@@ -3133,7 +3135,7 @@ public final class LinkageUtil {
         if (val_ instanceof ValuesOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordValues().length()));
             }
             _parts.addAllElts(((ValuesOperation)val_).getPartOffsets());
@@ -3217,7 +3219,7 @@ public final class LinkageUtil {
                         val_.getErrs(),val_.getErrs(),_parts);
             } else if (!val_.getErrs().isEmpty()){
                 int i_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
                 _parts.add(new PartOffset("</a>",i_+1));
             }
         }
@@ -3231,7 +3233,7 @@ public final class LinkageUtil {
                 l_ = _vars.getKeyWords().getKeyWordCast().length();
             }
             if (!val_.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
                 _parts.add(new PartOffset("</a>",i_+l_));
             }
             _parts.addAllElts(((CastOperation)val_).getPartOffsets());
@@ -3285,7 +3287,7 @@ public final class LinkageUtil {
                 if (err_) {
                     if (!par_.getErrs().isEmpty()) {
                         int begin_ = par_.getOpOffset()+sum_ + par_.getIndexInEl();
-                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(par_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(par_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                         _parts.add(new PartOffset("</a>",begin_+ 2));
                     }
                 }
@@ -3294,14 +3296,14 @@ public final class LinkageUtil {
         if (val_ instanceof IdOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ 1));
             }
         }
         if (val_ instanceof FirstOptOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
             }
         }
@@ -3358,7 +3360,7 @@ public final class LinkageUtil {
             }
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
             } else {
                 if (refOne_ != -1){
@@ -3379,7 +3381,7 @@ public final class LinkageUtil {
         if (val_ instanceof DefaultOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordDefault().length()));
             }
         }
@@ -3477,7 +3479,7 @@ public final class LinkageUtil {
             } else if (!l_.isEmpty()) {
                 s_ = offsetEnd_;
                 len_ = operators_.getValue(index_).length();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">",s_));
                 _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
             } else {
                 appendPossibleParts(_parts, parent_, index_);
@@ -3593,13 +3595,13 @@ public final class LinkageUtil {
             addParts(_vars, _refFoundTypes,_refOperators,currentFileName_,className_,id_,begin_,1, parentOp_.getErrs(),title_,_parts);
             begin_++;
             len_--;
-        } else if (StringList.quickEq(par_.getOper(),"&&=")
-                ||StringList.quickEq(par_.getOper(),"||=")){
+        } else if (StringUtil.quickEq(par_.getOper(),"&&=")
+                || StringUtil.quickEq(par_.getOper(),"||=")){
             AbstractCoverageResult resultFirst_ = getCovers(_block, curOp_, _cov);
             safe(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
             len_--;
-        } else if (StringList.quickEq(par_.getOper(),"??=")){
+        } else if (StringUtil.quickEq(par_.getOper(),"??=")){
             AbstractCoverageResult resultFirst_ = getCovers(_block, curOp_, _cov);
             safe(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
@@ -3613,7 +3615,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(tag_, begin_));
             tag_ = "</i>";
             _parts.add(new PartOffset(tag_,begin_+len_));
-        } else if (StringList.quickEq(par_.getOper(),"??=")){
+        } else if (StringUtil.quickEq(par_.getOper(),"??=")){
             AbstractCoverageResult resultLast_ = getCovers(_block, nextSiblingOp_, _cov);
             safe(_vars, resultLast_, begin_,_parts, 1);
         } else {
@@ -3719,7 +3721,7 @@ public final class LinkageUtil {
         if (curOp_.getIndexChild() == 0 &&parent_ instanceof InstanceOfOperation) {
             if (!parent_.getErrs().isEmpty()) {
                 int begin_ = ((InstanceOfOperation)parent_).getOffset()+sum_ + parent_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+_vars.getKeyWords().getKeyWordInstanceof().length()));
             }
             _parts.addAllElts(((InstanceOfOperation)parent_).getPartOffsets());
@@ -3752,7 +3754,7 @@ public final class LinkageUtil {
                 if (err_) {
                     if (!parent_.getErrs().isEmpty()) {
                         int begin_ = ((SemiAffectationOperation)parent_).getOpOffset()+sum_ + parent_.getIndexInEl();
-                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                         _parts.add(new PartOffset("</a>",begin_+2));
                     }
                 }
@@ -3821,7 +3823,7 @@ public final class LinkageUtil {
     }
 
     private static void basicValue(int offsetEnd_, CustList<PartOffset> _parts, int _delta, StringList founds_) {
-        String tag_ = "<a title=\""+ transform(StringList.join(founds_,","))+"\">";
+        String tag_ = "<a title=\""+ transform(StringUtil.join(founds_,","))+"\">";
         _parts.add(new PartOffset(tag_, offsetEnd_));
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_,offsetEnd_+ _delta));
@@ -3872,7 +3874,7 @@ public final class LinkageUtil {
         if (_id == null) {
             if (!_errors.isEmpty()) {
                 String tag_;
-                tag_ = "<a title=\""+ transform(StringList.join(_errors,"\n\n"))+"\" class=\"e\">";
+                tag_ = "<a title=\""+ transform(StringUtil.join(_errors,"\n\n"))+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_,_begin));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,_begin+_length));
@@ -3884,7 +3886,7 @@ public final class LinkageUtil {
         if (rel_.isEmpty()) {
             if (!_errors.isEmpty()) {
                 String tag_;
-                tag_ = "<a title=\""+ transform(StringList.join(_errors,"\n\n"))+"\" class=\"e\">";
+                tag_ = "<a title=\""+ transform(StringUtil.join(_errors,"\n\n"))+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_,_begin));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,_begin+_length));
@@ -3893,7 +3895,7 @@ public final class LinkageUtil {
         }
         String tag_;
         if (_id instanceof MethodId) {
-            if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
+            if (!StringUtil.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
                 tag_ = "<a"+name(_name)+"title=\""+ merge(_title,_id.getSignature(dis_))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             } else {
                 tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ _id.getSignature(dis_))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
@@ -3910,7 +3912,7 @@ public final class LinkageUtil {
         StringList list_ = new StringList();
         list_.addAllElts(_errors);
         list_.add(_link);
-        return transform(StringList.join(list_,"\n\n"));
+        return transform(StringUtil.join(list_,"\n\n"));
     }
 
     private static String name(int _name) {
@@ -3979,7 +3981,7 @@ public final class LinkageUtil {
         RootBlock type_ = VariablesOffsets.getClassBody(className_,_refFoundTypes);
         if (!ContextUtil.isFromCustFile(type_)) {
             if (!_errs.isEmpty()) {
-                String err_ = transform(StringList.join(_errs,"\n\n"));
+                String err_ = transform(StringUtil.join(_errs,"\n\n"));
                 _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",_begin));
                 _parts.add(new PartOffset("</a>",_begin+_length));
             }
@@ -4017,7 +4019,7 @@ public final class LinkageUtil {
             return relFile_;
         }
         StringBuilder b_ = new StringBuilder();
-        int count_ = StringList.indexesOfChar(_currentFile,'/').size() - countCommon_;
+        int count_ = StringUtil.indexesOfChar(_currentFile,'/').size() - countCommon_;
         for (int i = 0; i < count_; i++) {
             b_.append("../");
         }
@@ -4046,7 +4048,7 @@ public final class LinkageUtil {
         }
         for (String s: _type.getNames()) {
             String id_ = StringExpUtil.getIdFromAllTypes(s);
-            if (StringList.contains(_vars.getToStringOwners(),id_)) {
+            if (StringUtil.contains(_vars.getToStringOwners(),id_)) {
                 return true;
             }
         }
@@ -4073,7 +4075,7 @@ public final class LinkageUtil {
         }
         StringList errs_ = _bl.getErrorsLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String err_ = transform(StringUtil.join(errs_,"\n\n"));
             _parts.add(new PartOffset("<a name=\"m"+_offset+"\" title=\""+err_+"\" class=\"e\">",_offset));
             _parts.add(new PartOffset("</a>",_offset+_label.length()));
         } else {
@@ -4172,7 +4174,7 @@ public final class LinkageUtil {
         CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         for (RootBlock c: _refFoundTypes) {
-            if (!StringList.quickEq(c.getFullName(), base_)) {
+            if (!StringUtil.quickEq(c.getFullName(), base_)) {
                 continue;
             }
             CustList<Block> bl_ = ClassesUtil.getDirectChildren(c);

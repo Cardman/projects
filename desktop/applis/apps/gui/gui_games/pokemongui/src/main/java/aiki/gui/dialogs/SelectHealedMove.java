@@ -1,7 +1,6 @@
 package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.WindowConstants;
 
 import aiki.comparators.TrMovesComparator;
@@ -15,6 +14,7 @@ import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class SelectHealedMove extends Dialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealedmove";
@@ -61,7 +61,7 @@ public final class SelectHealedMove extends Dialog {
         movesLearnt.removeAll();
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(StringList.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addMouseListener(new HealedMoveEvent(this,facade, m));
             movesLearnt.add(check_);
         }

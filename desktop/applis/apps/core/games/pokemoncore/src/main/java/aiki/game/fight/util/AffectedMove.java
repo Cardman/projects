@@ -1,6 +1,7 @@
 package aiki.game.fight.util;
 import aiki.game.fight.ActivityOfMove;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class AffectedMove implements Displayable {
@@ -12,7 +13,7 @@ public final class AffectedMove implements Displayable {
     private final ActivityOfMove activity;
 
     public AffectedMove(String _string) {
-        StringList elts_ = StringList.splitChars(_string, SEPARATOR);
+        StringList elts_ = StringUtil.splitChars(_string, SEPARATOR);
         move = elts_.first();
         activity = new ActivityOfMove(elts_.last());
     }

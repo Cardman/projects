@@ -70,6 +70,9 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 
 public final class Game {
@@ -324,7 +327,7 @@ public final class Game {
                 return false;
             }
         }
-        if (!Numbers.equalsSetShorts(beatGymTrainer.getKeys(), map_.getBeatGymTrainer().getKeys())) {
+        if (!NumberUtil.equalsSetShorts(beatGymTrainer.getKeys(), map_.getBeatGymTrainer().getKeys())) {
             return false;
         }
         for (Short k: beatGymTrainer.getKeys()) {
@@ -512,15 +515,10 @@ public final class Game {
             if (rankLeague < playerCoords.getLevel().getLevelIndex()) {
                 return false;
             }
-            if (rankLeague > playerCoords.getLevel().getLevelIndex() + 1) {
-                return false;
-            }
+            return rankLeague <= playerCoords.getLevel().getLevelIndex() + 1;
         } else {
-            if (rankLeague != 0) {
-                return false;
-            }
+            return rankLeague == 0;
         }
-        return true;
     }
 
     private boolean checkLevel(Level _l) {
@@ -758,18 +756,18 @@ public final class Game {
                     canStore_ = false;
                     _commentGame.addMessage(mess_.getVal(SAME_GENDER));
                 }
-                if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
+                if (StringUtil.contains(groupsOne_, _d.getDefaultEggGroup())) {
                     return canStore_;
                 }
-                if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
+                if (StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup())) {
                     return canStore_;
                 }
-                if (StringList.quickEq(pkDataOne_.getBaseEvo(), pkDataTwo_.getBaseEvo())) {
+                if (StringUtil.quickEq(pkDataOne_.getBaseEvo(), pkDataTwo_.getBaseEvo())) {
                     return canStore_;
                 }
                 boolean vide_=true;
                 for(String e:groupsOne_){
-                    if(StringList.contains(groupsTwo_, e)){
+                    if(StringUtil.contains(groupsTwo_, e)){
                         vide_=false;
                         break;
                     }
@@ -780,23 +778,23 @@ public final class Game {
                 }
                 return canStore_;
             }
-            if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
+            if (StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup())) {
                 return true;
             }
             _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
         if(Gender.getGendersWithSex().containsObj(_pkTwo.getGender())){
-            if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
+            if (StringUtil.contains(groupsOne_, _d.getDefaultEggGroup())) {
                 return true;
             }
             _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
-        if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
+        if (StringUtil.contains(groupsOne_, _d.getDefaultEggGroup())) {
             return true;
         }
-        if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
+        if (StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup())) {
             return true;
         }
         _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
@@ -813,10 +811,7 @@ public final class Game {
 
     boolean takablePokemonFromHost(DataBase _import){
         int nb_ = player.getTeam().size();
-        if (nb_ + NB_HOSTED_POKEMON > _import.getNbMaxTeam()) {
-            return false;
-        }
-        return true;
+        return nb_ + NB_HOSTED_POKEMON <= _import.getNbMaxTeam();
     }
 
     void takePokemonFromHost(Coords _coords){
@@ -845,7 +840,7 @@ public final class Game {
         HostPokemonDuo valeur_=hostedPk.getVal(_coords);
         PokemonData pkDataOne_=_d.getPokedex().getVal(valeur_.getFirstPokemon().getName());
         PokemonData pkDataTwo_=_d.getPokedex().getVal(valeur_.getSecondPokemon().getName());
-        if(StringList.quickEq(pkDataOne_.getBaseEvo(),pkDataTwo_.getBaseEvo())){
+        if(StringUtil.quickEq(pkDataOne_.getBaseEvo(),pkDataTwo_.getBaseEvo())){
             return _d.getNbMaxStepsSameEvoBase()-valeur_.getNbSteps();
         }
         return _d.getNbMaxSteps()-valeur_.getNbSteps();
@@ -883,13 +878,13 @@ public final class Game {
             String event_ = fPk_.getBaseEvo();
             law_.addEvent(event_, DataBase.defElementaryEvent());
             fPk_ = _d.getPokemon(secondPokemon_.getName());
-            if (!StringList.quickEq(fPk_.getBaseEvo(), event_)) {
+            if (!StringUtil.quickEq(fPk_.getBaseEvo(), event_)) {
                 law_.addEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
             }
             return law_;
         }
         PokemonData fPk_ = _d.getPokemon(firstPokemon_.getName());
-        if (StringList.contains(fPk_.getEggGroups(), _d.getDefaultEggGroup())) {
+        if (StringUtil.contains(fPk_.getEggGroups(), _d.getDefaultEggGroup())) {
             fPk_ = _d.getPokemon(secondPokemon_.getName());
         }
         law_.addEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
@@ -1099,9 +1094,7 @@ public final class Game {
         }
         if(l_.getCharacters().contains(voisin_.getLevel().getPoint())) {
             CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
-            if (ch_ instanceof TrainerMultiFights) {
-                return true;
-            }
+            return ch_ instanceof TrainerMultiFights;
         }
         return false;
     }
@@ -1150,7 +1143,7 @@ public final class Game {
         if (area_.isVirtual()) {
             return;
         }
-        if (area_.getPokemonListLength(false) == CustList.SIZE_EMPTY) {
+        if (area_.getPokemonListLength(false) == IndexConstants.SIZE_EMPTY) {
             return;
         }
         if(!difficulty.getRandomWildFight()){
@@ -1565,10 +1558,10 @@ public final class Game {
         partiallyAccessiblePlaces = partiallyAccessiblePlaces_;
         StringMap<String> mess_ = _import.getMessagesGame();
         if (!fullAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER_FULL), StringList.join(fullAccessiblePlaces_, SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER_FULL), StringUtil.join(fullAccessiblePlaces_, SEPARATOR_TRAINERS));
         }
         if (!partiallyAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER), StringList.join(partiallyAccessiblePlaces_, SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER), StringUtil.join(partiallyAccessiblePlaces_, SEPARATOR_TRAINERS));
         }
     }
 
@@ -1627,7 +1620,7 @@ public final class Game {
         if (!_enableAnimation) {
             for(String c:fight.getUsedItemsWhileRound().getKeys()){
                 short quantite_=fight.getUsedItemsWhileRound().getVal(c);
-                for(byte i=CustList.FIRST_INDEX;i<quantite_;i++){
+                for(byte i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                     player.useInInventory(c);
                 }
             }
@@ -1652,7 +1645,7 @@ public final class Game {
         commentGame.addComment(fight.getComment());
         for(String c:fight.getUsedItemsWhileRound().getKeys()){
             short quantite_=fight.getUsedItemsWhileRound().getVal(c);
-            for(byte i=CustList.FIRST_INDEX;i<quantite_;i++){
+            for(byte i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                 player.useInInventory(c);
             }
         }
@@ -1840,9 +1833,7 @@ public final class Game {
         Level level_ = place_.getLevelByCoords(n_);
         Point pt_ = n_.getLevel().getPoint();
         if (level_ instanceof LevelWithWildPokemon) {
-            if (((LevelWithWildPokemon)level_).containsPokemon(pt_)) {
-                return true;
-            }
+            return ((LevelWithWildPokemon) level_).containsPokemon(pt_);
         }
         return false;
     }
@@ -2044,7 +2035,7 @@ public final class Game {
             }
         }
         int nbPlaces_ = map_.getPlaces().size();
-        for (short p=CustList.FIRST_INDEX;p<nbPlaces_;p++) {
+        for (short p = IndexConstants.FIRST_INDEX; p<nbPlaces_; p++) {
             Place place_ = map_.getPlace(p);
             if (!(place_ instanceof League)) {
                 continue;
@@ -2150,7 +2141,7 @@ public final class Game {
         if (pl_ instanceof League) {
             LevelLeague level_ = ((League)pl_).getRooms().get(_voisin.getLevel().getLevelIndex());
             if (Point.eq(level_.getTrainerCoords(),_voisin.getLevel().getPoint())) {
-                if (Numbers.eq(rankLeague,_voisin.getLevel().getLevelIndex())){
+                if (NumberUtil.eq(rankLeague,_voisin.getLevel().getLevelIndex())){
                     interfaceType=InterfaceType.DRESSEUR;
                 } else {
                     interfaceType=InterfaceType.PERSONNAGE;
@@ -2321,7 +2312,7 @@ public final class Game {
         //tmpIndexPeriod_ >= 0
         int i_ = tmpIndexPeriod_;
         //i_ >= 0
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
 //            WildPokemon pk_ = _pokemon.get((i + i_) % nb_);
             WildPk pk_ = _area.getWildPokemon((i + i_) % nb_, _walking);
             if (player.estAttrape(pk_.getName())) {

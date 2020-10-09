@@ -23,6 +23,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansHelpStd {
     public static final String TYPE_FIGHT_HELP_BEAN = "aiki.beans.help.FightHelpBean";
@@ -2232,627 +2233,627 @@ public final class AikiBeansHelpStd {
         ResultErrorStd res_ = new ResultErrorStd();
         FightHelpBean instance_ = (FightHelpBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DEFAULT_BOOST_VALUE)) {
+        if (StringUtil.quickEq(fieldName_,DEFAULT_BOOST_VALUE)) {
             res_.setResult(new IntStruct(instance_.getDefaultBoostValue()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PRIVATING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,PRIVATING_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getPrivatingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_HEALING_SUBSTITUTE)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_HEALING_SUBSTITUTE)) {
             res_.setResult(new DefaultStruct(instance_.getMovesHealingSubstitute(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_SENT_BEGIN_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_SENT_BEGIN_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesSentBeginWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_SENT_BEGIN_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_SENT_BEGIN_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getItemsSentBeginWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_SENT_BEGIN_OTHER)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_SENT_BEGIN_OTHER)) {
             res_.setResult(new DefaultStruct(instance_.getItemsSentBeginOther(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CHANGING_TYPES_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,CHANGING_TYPES_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getChangingTypesAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COPY_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,COPY_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getCopyAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_SENT_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_SENT_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesSentStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SUBSTITUTING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,SUBSTITUTING_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getSubstitutingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_PRIO)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_PRIO)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesPrio(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SLOW_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,SLOW_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getSlowAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SLOW_ITEMS)) {
+        if (StringUtil.quickEq(fieldName_,SLOW_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getSlowItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REVERSE_SPEED_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,REVERSE_SPEED_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getReverseSpeedMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BERRY_SPEED)) {
+        if (StringUtil.quickEq(fieldName_,BERRY_SPEED)) {
             res_.setResult(new DefaultStruct(instance_.getBerrySpeed(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEM_SPEED)) {
+        if (StringUtil.quickEq(fieldName_,ITEM_SPEED)) {
             res_.setResult(new DefaultStruct(instance_.getItemSpeed(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_SWITCH)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_SWITCH)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesSwitch(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DELETED_STATUS_SWITCH)) {
+        if (StringUtil.quickEq(fieldName_,DELETED_STATUS_SWITCH)) {
             res_.setResult(new DefaultStruct(instance_.getDeletedStatusSwitch(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENTRY_HAZARD)) {
+        if (StringUtil.quickEq(fieldName_,ENTRY_HAZARD)) {
             res_.setResult(new DefaultStruct(instance_.getEntryHazard(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BEGIN_ROUND_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,BEGIN_ROUND_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getBeginRoundStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DELETE_STATUS_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,DELETE_STATUS_MOVE)) {
             res_.setResult(new DefaultStruct(instance_.getDeleteStatusMove(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_STATUS_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_STATUS_ABILITY)) {
             res_.setResult(new DefaultStruct(instance_.getImmuStatusAbility(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,AUTO_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,AUTO_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAutoDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAP_AUTO_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MAP_AUTO_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMapAutoDamage(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PREPA_ROUND_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,PREPA_ROUND_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getPrepaRoundMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SPEED_PREPARING_ITEMS)) {
+        if (StringUtil.quickEq(fieldName_,SPEED_PREPARING_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getSpeedPreparingItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DISAPPEARING_ROUND_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,DISAPPEARING_ROUND_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getDisappearingRoundMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RECHARGE_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,RECHARGE_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getRechargeMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_RECHARGING)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_RECHARGING)) {
             res_.setResult(new DefaultStruct(instance_.getImmuRecharging(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_INVOKING)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_INVOKING)) {
             res_.setResult(new DefaultStruct(instance_.getMovesInvoking(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COPY_MOVE_TYPES_AB)) {
+        if (StringUtil.quickEq(fieldName_,COPY_MOVE_TYPES_AB)) {
             res_.setResult(new DefaultStruct(instance_.getCopyMoveTypesAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_THIEVING)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_THIEVING)) {
             res_.setResult(new DefaultStruct(instance_.getMovesThieving(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_SEC_EFF_ITEMS)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_SEC_EFF_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getMovesSecEffItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_ATTRACTING)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_ATTRACTING)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAttracting(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BEGIN_ROUND_STATUS_FOE)) {
+        if (StringUtil.quickEq(fieldName_,BEGIN_ROUND_STATUS_FOE)) {
             res_.setResult(new DefaultStruct(instance_.getBeginRoundStatusFoe(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PRESSURE_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,PRESSURE_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getPressureAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROTECT_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,PROTECT_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getProtectAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROTECT_ITEMS)) {
+        if (StringUtil.quickEq(fieldName_,PROTECT_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getProtectItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROTECT_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,PROTECT_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getProtectMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EFF_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,EFF_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getEffMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_MIRROR)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_MIRROR)) {
             res_.setResult(new DefaultStruct(instance_.getMovesMirror(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_PART_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_PART_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesPartStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TEAM)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TEAM)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS_VAR)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS_VAR)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesFighterStatisVar(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_RATE_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_RATE_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesRateStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COMBO_EVT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,COMBO_EVT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getComboEvtStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesFighterStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_FIGHTER_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getItemsFighterStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SUCCESSFUL_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,SUCCESSFUL_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getSuccessfulStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GLOBAL_MOVES_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,GLOBAL_MOVES_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getGlobalMovesStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_PART_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_PART_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesPartStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_FIGHTER_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesFighterStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_FIGHTER_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getItemsFighterStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAWS_RATES)) {
+        if (StringUtil.quickEq(fieldName_,LAWS_RATES)) {
             res_.setResult(new DefaultStruct(instance_.getLawsRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_PROT_AGAINST_KO)) {
             res_.setResult(new DefaultStruct(instance_.getMovesProtAgainstKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MIN_HP_NOT_KO)) {
+        if (StringUtil.quickEq(fieldName_,MIN_HP_NOT_KO)) {
             res_.setResult(new DefaultStruct(instance_.getMinHpNotKo(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_PROT_AGAINST_KO)) {
             res_.setResult(new DefaultStruct(instance_.getItemsProtAgainstKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_CANNOT_KO)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_CANNOT_KO)) {
             res_.setResult(new DefaultStruct(instance_.getMovesCannotKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_ABS)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_ABS)) {
             res_.setResult(new DefaultStruct(instance_.getItemsAbs(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_REV_ABS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_REV_ABS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesRevAbs(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_DAMAGE_STATIS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_DAMAGE_STATIS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesDamageStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_CHANGING_TYPES_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_CHANGING_TYPES_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesChangingTypesDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_TAKING_ITEM)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_TAKING_ITEM)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesTakingItem(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_STATIS_VAR_USER)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_STATIS_VAR_USER)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesStatisVarUser(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_COPY_AB)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_COPY_AB)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesCopyAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RECOIL_ITEMS)) {
+        if (StringUtil.quickEq(fieldName_,RECOIL_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getRecoilItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RECOIL_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,RECOIL_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getRecoilAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_KO_TARGET)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_KO_TARGET)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesKoTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_KO_TARGET)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_KO_TARGET)) {
             res_.setResult(new DefaultStruct(instance_.getMovesKoTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BERRY_USER)) {
+        if (StringUtil.quickEq(fieldName_,BERRY_USER)) {
             res_.setResult(new DefaultStruct(instance_.getBerryUser(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BERRY_TARGET)) {
+        if (StringUtil.quickEq(fieldName_,BERRY_TARGET)) {
             res_.setResult(new DefaultStruct(instance_.getBerryTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_END_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BERRY_END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,BERRY_END_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getBerryEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_CHANGING_ATT_ORDER)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_CHANGING_ATT_ORDER)) {
             res_.setResult(new DefaultStruct(instance_.getMovesChangingAttOrder(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RATES)) {
+        if (StringUtil.quickEq(fieldName_,RATES)) {
             res_.setResult(new DefaultStruct(instance_.getRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,VAR_RATES)) {
+        if (StringUtil.quickEq(fieldName_,VAR_RATES)) {
             res_.setResult(new DefaultStruct(instance_.getVarRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WON_HAPPINESS_POINTS_LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,WON_HAPPINESS_POINTS_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getWonHappinessPointsLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HAPPINESS_POINTS)) {
+        if (StringUtil.quickEq(fieldName_,HAPPINESS_POINTS)) {
             res_.setResult(new IntStruct(instance_.getHappinessPoints()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DAMGE_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,DAMGE_FORMULA)) {
             res_.setResult(new StringStruct(instance_.getDamgeFormula()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAP_VAR)) {
+        if (StringUtil.quickEq(fieldName_,MAP_VAR)) {
             res_.setResult(new DefaultStruct(instance_.getMapVar(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STRONG_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,STRONG_MOVE)) {
             res_.setResult(new DefaultStruct(instance_.getStrongMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DAMAGING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,DAMAGING_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getDamagingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_USER_POWER)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_USER_POWER)) {
             res_.setResult(new DefaultStruct(instance_.getItemsUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_USER_POWER)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_USER_POWER)) {
             res_.setResult(new DefaultStruct(instance_.getMovesUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TARGET_POWER)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TARGET_POWER)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTargetPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_USER_POWER)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_USER_POWER)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_USER_ALLY_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_USER_ALLY_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMovesUserAllyDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_TARGET_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TARGET_TEAM_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TARGET_TEAM_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTargetTeamDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_USER_IGN_TARGET_TEAM)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_USER_IGN_TARGET_TEAM)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesUserIgnTargetTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_GLOBAL)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_GLOBAL)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesGlobal(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobal(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_USER_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_USER_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getItemsUserDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_USER_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_USER_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesUserDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_INVOK_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_INVOK_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMovesInvokDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_TARGET_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getItemsTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL_PREPA_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL_PREPA_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobalPrepaDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATUS_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,STATUS_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getStatusDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_USER_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_USER_TARGET_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesUserTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_USER_STAB_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_USER_STAB_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesUserStabDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TYPES_DEF_ITEM)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TYPES_DEF_ITEM)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTypesDefItem(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_TYPES_DEF)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_TYPES_DEF)) {
             res_.setResult(new DefaultStruct(instance_.getItemsTypesDef(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TYPES_DEF_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TYPES_DEF_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTypesDefWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_TYPE_DEF_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesTypeDefMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TYPE_DEF_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTypeDefMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_CHANGE_TYPE_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_CHANGE_TYPE_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getMovesChangeTypeMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobalBreakImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_UNPROTECTING_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_UNPROTECTING_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getMovesUnprotectingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_BREAK_IMMU)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_BREAK_IMMU)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesBreakImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_CANCEL_IMMU)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_CANCEL_IMMU)) {
             res_.setResult(new DefaultStruct(instance_.getItemsCancelImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPES)) {
+        if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EFFICIENCY)) {
+        if (StringUtil.quickEq(fieldName_,EFFICIENCY)) {
             res_.setResult(new DefaultStruct(instance_.getEfficiency(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_IGN_LOW_ATT)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_IGN_LOW_ATT)) {
             res_.setResult(new DefaultStruct(instance_.getMovesIgnLowAtt(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_IGN_INC_DEF)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_IGN_INC_DEF)) {
             res_.setResult(new DefaultStruct(instance_.getMovesIgnIncDef(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_BOOSTING_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesBoostingStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_BOOSTING_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getItemsBoostingStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getItemsMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobalMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_TEAM_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getMovesTeamMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_ALLY_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_ALLY_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesAllyMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_FOE_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_FOE_TEAM_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getMovesFoeTeamMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATUS_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,STATUS_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getStatusMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COMBO_MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,COMBO_MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getComboMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_BREAK_PROTECT_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_BREAK_PROTECT_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesBreakProtectMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_IGN_ACC)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_IGN_ACC)) {
             res_.setResult(new DefaultStruct(instance_.getMovesIgnAcc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_IGN_EVA)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_IGN_EVA)) {
             res_.setResult(new DefaultStruct(instance_.getMovesIgnEva(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL_ACC)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL_ACC)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobalAcc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_CH)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_CH)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_BOOST_CH)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_BOOST_CH)) {
             res_.setResult(new DefaultStruct(instance_.getMovesBoostCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITES_MULT_EVT_CH)) {
+        if (StringUtil.quickEq(fieldName_,ABILITES_MULT_EVT_CH)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitesMultEvtCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITES_MULT_RATE_CH)) {
+        if (StringUtil.quickEq(fieldName_,ABILITES_MULT_RATE_CH)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitesMultRateCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RATE_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,RATE_FORMULA)) {
             res_.setResult(new StringStruct(instance_.getRateFormula()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BOOSTS)) {
+        if (StringUtil.quickEq(fieldName_,BOOSTS)) {
             res_.setResult(new DefaultStruct(instance_.getBoosts(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RATE_FORMULA_CH)) {
+        if (StringUtil.quickEq(fieldName_,RATE_FORMULA_CH)) {
             res_.setResult(new StringStruct(instance_.getRateFormulaCh()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BOOSTS_CH)) {
+        if (StringUtil.quickEq(fieldName_,BOOSTS_CH)) {
             res_.setResult(new DefaultStruct(instance_.getBoostsCh(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_PROTECTING_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_PROTECTING_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getMovesProtectingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU_AB)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU_AB)) {
             res_.setResult(new DefaultStruct(instance_.getMovesGlobalBreakImmuAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_BREAKABLE)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_BREAKABLE)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesBreakable(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_IMMU_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_IMMU_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getItemsImmuTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_ALLIES)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_ALLIES)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuAllies(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_ALLIES_DAM)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_ALLIES_DAM)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuAlliesDam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEMS_IMMU)) {
+        if (StringUtil.quickEq(fieldName_,ITEMS_IMMU)) {
             res_.setResult(new DefaultStruct(instance_.getItemsImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OTHER)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OTHER)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuSecEffOther(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OWNER)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OWNER)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesImmuSecEffOwner(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES_ACHIEVE_TARGET)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES_ACHIEVE_TARGET)) {
             res_.setResult(new DefaultStruct(instance_.getAbilitiesAchieveTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_PROTECTING)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_PROTECTING)) {
             res_.setResult(new DefaultStruct(instance_.getMovesProtecting(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CATCHING_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,CATCHING_FORMULA)) {
             res_.setResult(new StringStruct(instance_.getCatchingFormula()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,VAR_CATCHING_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,VAR_CATCHING_FORMULA)) {
             res_.setResult(new DefaultStruct(instance_.getVarCatchingFormula(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FLEEING_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,FLEEING_FORMULA)) {
             res_.setResult(new StringStruct(instance_.getFleeingFormula()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,VAR_FLEEING_FORMULA)) {
+        if (StringUtil.quickEq(fieldName_,VAR_FLEEING_FORMULA)) {
             res_.setResult(new DefaultStruct(instance_.getVarFleeingFormula(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATISTIC_ANIM)) {
+        if (StringUtil.quickEq(fieldName_,STATISTIC_ANIM)) {
             res_.setResult(new DefaultStruct(instance_.getStatisticAnim(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -2863,79 +2864,79 @@ public final class AikiBeansHelpStd {
         ResultErrorStd res_ = new ResultErrorStd();
         GeneralHelpBean instance_ = (GeneralHelpBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,MAX_LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,MAX_LEVEL)) {
             res_.setResult(new IntStruct(instance_.getMaxLevel()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAX_EV)) {
+        if (StringUtil.quickEq(fieldName_,MAX_EV)) {
             res_.setResult(new IntStruct(instance_.getMaxEv()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAX_IV)) {
+        if (StringUtil.quickEq(fieldName_,MAX_IV)) {
             res_.setResult(new IntStruct(instance_.getMaxIv()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HAPPINESS_MAX)) {
+        if (StringUtil.quickEq(fieldName_,HAPPINESS_MAX)) {
             res_.setResult(new IntStruct(instance_.getHappinessMax()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BEGIN)) {
+        if (StringUtil.quickEq(fieldName_,BEGIN)) {
             res_.setResult(new StringStruct(instance_.getBegin()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MINI_MAP)) {
+        if (StringUtil.quickEq(fieldName_,MINI_MAP)) {
             res_.setResult(new DefaultStruct(instance_.getMiniMap(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,UNLOCKED_CITY)) {
+        if (StringUtil.quickEq(fieldName_,UNLOCKED_CITY)) {
             res_.setResult(new StringStruct(instance_.getUnlockedCity()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_MAX_TEAM)) {
+        if (StringUtil.quickEq(fieldName_,NB_MAX_TEAM)) {
             res_.setResult(new ByteStruct(instance_.getNbMaxTeam()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MIN_LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,MIN_LEVEL)) {
             res_.setResult(new IntStruct(instance_.getMinLevel()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_MAX_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,NB_MAX_MOVES)) {
             res_.setResult(new IntStruct(instance_.getNbMaxMoves()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAX_PP)) {
+        if (StringUtil.quickEq(fieldName_,MAX_PP)) {
             res_.setResult(new LongStruct(instance_.getMaxPp()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_NEC_STEPS_INCR_HAPPINESS)) {
+        if (StringUtil.quickEq(fieldName_,NB_NEC_STEPS_INCR_HAPPINESS)) {
             res_.setResult(new IntStruct(instance_.getNbNecStepsIncrHappiness()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_MAX_STEPS_SAME_EVO_BASE)) {
+        if (StringUtil.quickEq(fieldName_,NB_MAX_STEPS_SAME_EVO_BASE)) {
             res_.setResult(new ShortStruct(instance_.getNbMaxStepsSameEvoBase()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_MAX_STEPS)) {
+        if (StringUtil.quickEq(fieldName_,NB_MAX_STEPS)) {
             res_.setResult(new ShortStruct(instance_.getNbMaxSteps()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,POKEMON_DEFAULT_EGG_GROUP)) {
+        if (StringUtil.quickEq(fieldName_,POKEMON_DEFAULT_EGG_GROUP)) {
             res_.setResult(new DefaultStruct(instance_.getPokemonDefaultEggGroup(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DEFAULT_MONEY)) {
+        if (StringUtil.quickEq(fieldName_,DEFAULT_MONEY)) {
             res_.setResult(new DefaultStruct(instance_.getDefaultMoney(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TM)) {
+        if (StringUtil.quickEq(fieldName_,TM)) {
             res_.setResult(new DefaultStruct(instance_.getTm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HM)) {
+        if (StringUtil.quickEq(fieldName_,HM)) {
             res_.setResult(new DefaultStruct(instance_.getHm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPES)) {
+        if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -2946,7 +2947,7 @@ public final class AikiBeansHelpStd {
         ResultErrorStd res_ = new ResultErrorStd();
         LangsBean instance_ = (LangsBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,LANGUAGES)) {
+        if (StringUtil.quickEq(fieldName_,LANGUAGES)) {
             res_.setResult(new DefaultStruct(instance_.getLanguages(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -2956,1555 +2957,1555 @@ public final class AikiBeansHelpStd {
         FightHelpBean instance_ = (FightHelpBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_PRIVATING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PRIVATING_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickPrivatingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PRIVATING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PRIVATING_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrPrivatingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_HEALING_SUBSTITUTE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_HEALING_SUBSTITUTE)) {
             res_.setResult(new StringStruct(instance_.clickMovesHealingSubstitute((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_HEALING_SUBSTITUTE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_HEALING_SUBSTITUTE)) {
             res_.setResult(new StringStruct(instance_.getTrMovesHealingSubstitute((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DEFAULT_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DEFAULT_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickDefaultMove()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DEFAULT_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DEFAULT_MOVE)) {
             res_.setResult(new StringStruct(instance_.getTrDefaultMove()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_SENT_BEGIN)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_SENT_BEGIN)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesSentBegin((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_SENT_BEGIN)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_SENT_BEGIN)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesSentBegin((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_SENT_BEGIN)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_SENT_BEGIN)) {
             res_.setResult(new StringStruct(instance_.clickItemsSentBegin((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_SENT_BEGIN)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_SENT_BEGIN)) {
             res_.setResult(new StringStruct(instance_.getTrItemsSentBegin((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_SENT_BEGIN_OTH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_SENT_BEGIN_OTH)) {
             res_.setResult(new StringStruct(instance_.clickItemsSentBeginOth((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_SENT_BEGIN_OTH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_SENT_BEGIN_OTH)) {
             res_.setResult(new StringStruct(instance_.getTrItemsSentBeginOth((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_CHANGING_TYPES_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_CHANGING_TYPES_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickChangingTypesAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_CHANGING_TYPES_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_TYPES_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrChangingTypesAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_COPY_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_COPY_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickCopyAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_COPY_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_COPY_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrCopyAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_SENT_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_SENT_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesSentStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_SENT_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_SENT_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesSentStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SUBSTITUTING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SUBSTITUTING_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickSubstitutingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SUBSTITUTING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SUBSTITUTING_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrSubstitutingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_PRIO)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_PRIO)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesPrio((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_PRIO)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_PRIO)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesPrio((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SLOW_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SLOW_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickSlowAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SLOW_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SLOW_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrSlowAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SLOW_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SLOW_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickSlowItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SLOW_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SLOW_ITEMS)) {
             res_.setResult(new StringStruct(instance_.getTrSlowItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_REVERSE_SPEED_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_REVERSE_SPEED_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickReverseSpeedMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_REVERSE_SPEED_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_REVERSE_SPEED_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrReverseSpeedMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BERRY_SPEED)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BERRY_SPEED)) {
             res_.setResult(new StringStruct(instance_.clickBerrySpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BERRY_SPEED)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BERRY_SPEED)) {
             res_.setResult(new StringStruct(instance_.getTrBerrySpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM_SPEED)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM_SPEED)) {
             res_.setResult(new StringStruct(instance_.clickItemSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEM_SPEED)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEM_SPEED)) {
             res_.setResult(new StringStruct(instance_.getTrItemSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_SWITCH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_SWITCH)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesSwitch((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_SWITCH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_SWITCH)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesSwitch((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DELETED_STATUS_SWITCH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DELETED_STATUS_SWITCH)) {
             res_.setResult(new StringStruct(instance_.clickDeletedStatusSwitch((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DELETED_STATUS_SWITCH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DELETED_STATUS_SWITCH)) {
             res_.setResult(new StringStruct(instance_.getTrDeletedStatusSwitch((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ENTRY_HAZARD)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ENTRY_HAZARD)) {
             res_.setResult(new StringStruct(instance_.clickEntryHazard((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ENTRY_HAZARD)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ENTRY_HAZARD)) {
             res_.setResult(new StringStruct(instance_.getTrEntryHazard((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BEGIN_ROUND_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BEGIN_ROUND_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickBeginRoundStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BEGIN_ROUND_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BEGIN_ROUND_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrBeginRoundStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DELETE_STATUS_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DELETE_STATUS_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickDeleteStatusMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DELETE_STATUS_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DELETE_STATUS_MOVE)) {
             res_.setResult(new StringStruct(instance_.getTrDeleteStatusMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickImmuStatusAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatusAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,HAS_LAW_FOR_ATTACK_ANY)) {
+        if (StringUtil.quickEq(methodName_,HAS_LAW_FOR_ATTACK_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.hasLawForAttackAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,HAS_LAW_FOR_ATTACK)) {
+        if (StringUtil.quickEq(methodName_,HAS_LAW_FOR_ATTACK)) {
             res_.setResult(BooleanStruct.of(instance_.hasLawForAttack((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,HAS_LAW_FOR_HEAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,HAS_LAW_FOR_HEAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.hasLawForHealAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,HAS_LAW_FOR_HEAL)) {
+        if (StringUtil.quickEq(methodName_,HAS_LAW_FOR_HEAL)) {
             res_.setResult(BooleanStruct.of(instance_.hasLawForHeal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_AUTO_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_AUTO_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAutoDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_AUTO_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_AUTO_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAutoDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_FOMULA)) {
+        if (StringUtil.quickEq(methodName_,GET_FOMULA)) {
             res_.setResult(new StringStruct(instance_.getFomula((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_PREPA_ROUND_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PREPA_ROUND_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickPrepaRoundMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PREPA_ROUND_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PREPA_ROUND_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrPrepaRoundMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SPEED_PREPARING_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SPEED_PREPARING_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickSpeedPreparingItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SPEED_PREPARING_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SPEED_PREPARING_ITEMS)) {
             res_.setResult(new StringStruct(instance_.getTrSpeedPreparingItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_DISAPPEARING_USER)) {
+        if (StringUtil.quickEq(methodName_,IS_DISAPPEARING_USER)) {
             res_.setResult(BooleanStruct.of(instance_.isDisappearingUser((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_RECHARGE_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_RECHARGE_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrRechargeMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_RECHARGING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_RECHARGING)) {
             res_.setResult(new StringStruct(instance_.clickImmuRecharging((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_RECHARGING)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_RECHARGING)) {
             res_.setResult(new StringStruct(instance_.getTrImmuRecharging((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_INVOKING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_INVOKING)) {
             res_.setResult(new StringStruct(instance_.clickMovesInvoking((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_INVOKING)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_INVOKING)) {
             res_.setResult(new StringStruct(instance_.getTrMovesInvoking((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_COPY_MOVE_TYPES_AB)) {
+        if (StringUtil.quickEq(methodName_,CLICK_COPY_MOVE_TYPES_AB)) {
             res_.setResult(new StringStruct(instance_.clickCopyMoveTypesAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_COPY_MOVE_TYPES_AB)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_COPY_MOVE_TYPES_AB)) {
             res_.setResult(new StringStruct(instance_.getTrCopyMoveTypesAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_THIEVING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_THIEVING)) {
             res_.setResult(new StringStruct(instance_.clickMovesThieving((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_THIEVING)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_THIEVING)) {
             res_.setResult(new StringStruct(instance_.getTrMovesThieving((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_SEC_EFF_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_SEC_EFF_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickMovesSecEffItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_SEC_EFF_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_SEC_EFF_ITEMS)) {
             res_.setResult(new StringStruct(instance_.getTrMovesSecEffItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_ATTRACTING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_ATTRACTING)) {
             res_.setResult(new StringStruct(instance_.clickMovesAttracting((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_ATTRACTING)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_ATTRACTING)) {
             res_.setResult(new StringStruct(instance_.getTrMovesAttracting((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BEGIN_ROUND_STATUS_FOE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BEGIN_ROUND_STATUS_FOE)) {
             res_.setResult(new StringStruct(instance_.clickBeginRoundStatusFoe((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BEGIN_ROUND_STATUS_FOE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BEGIN_ROUND_STATUS_FOE)) {
             res_.setResult(new StringStruct(instance_.getTrBeginRoundStatusFoe((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_PRESSURE_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PRESSURE_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickPressureAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PRESSURE_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PRESSURE_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrPressureAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_PROTECT_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PROTECT_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickProtectAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PROTECT_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PROTECT_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrProtectAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_PROTECT_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PROTECT_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickProtectItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PROTECT_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PROTECT_ITEMS)) {
             res_.setResult(new StringStruct(instance_.getTrProtectItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_PROTECT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PROTECT_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickProtectMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_PROTECT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_PROTECT_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrProtectMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_EFF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_EFF_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickEffMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_EFF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_EFF_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrEffMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_MIRROR)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_MIRROR)) {
             res_.setResult(new StringStruct(instance_.clickMovesMirror((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_MIRROR)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_MIRROR)) {
             res_.setResult(new StringStruct(instance_.getTrMovesMirror((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_PART_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_PART_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesPartStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_PART_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_PART_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesPartStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE_ANY)) {
+        if (StringUtil.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.immuStatisTeamMoveAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE)) {
+        if (StringUtil.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.immuStatisTeamMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TEAM)) {
             res_.setResult(new StringStruct(instance_.clickMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TEAM)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATIS_VAR)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATIS_VAR)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesFighterStatisVar((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATIS_VAR)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATIS_VAR)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesFighterStatisVar((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_RATE_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_RATE_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesRateStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_RATE_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_RATE_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesRateStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_COMBO_EVT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_COMBO_EVT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickComboEvtStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_COMBO_EVT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_COMBO_EVT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrComboEvtStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesFighterStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesFighterStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_FIGHTER_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickItemsFighterStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_FIGHTER_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_FIGHTER_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrItemsFighterStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SUCCESSFUL_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SUCCESSFUL_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickSuccessfulStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SUCCESSFUL_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SUCCESSFUL_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrSuccessfulStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_GLOBAL_MOVES_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_GLOBAL_MOVES_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickGlobalMovesStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_GLOBAL_MOVES_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_GLOBAL_MOVES_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrGlobalMovesStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_PART_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_PART_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesPartStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_PART_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_PART_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesPartStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE_ANY)) {
+        if (StringUtil.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.immuStatusTeamMoveAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE)) {
+        if (StringUtil.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.immuStatusTeamMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesFighterStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_FIGHTER_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesFighterStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_FIGHTER_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickItemsFighterStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_FIGHTER_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_FIGHTER_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrItemsFighterStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_LAW_RATE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_LAW_RATE)) {
             res_.setResult(new StringStruct(instance_.getTrLawRate((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_PROT_AGAINST_KO)) {
             res_.setResult(new StringStruct(instance_.clickMovesProtAgainstKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_PROT_AGAINST_KO)) {
             res_.setResult(new StringStruct(instance_.getTrMovesProtAgainstKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_PROT_AGAINST_KO)) {
             res_.setResult(new StringStruct(instance_.clickItemsProtAgainstKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_PROT_AGAINST_KO)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_PROT_AGAINST_KO)) {
             res_.setResult(new StringStruct(instance_.getTrItemsProtAgainstKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_CANNOT_KO)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_CANNOT_KO)) {
             res_.setResult(new StringStruct(instance_.clickMovesCannotKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_CANNOT_KO)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_CANNOT_KO)) {
             res_.setResult(new StringStruct(instance_.getTrMovesCannotKo((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_ABS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_ABS)) {
             res_.setResult(new StringStruct(instance_.clickItemsAbs((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_ABS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_ABS)) {
             res_.setResult(new StringStruct(instance_.getTrItemsAbs((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_REV_ABS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_REV_ABS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesRevAbs((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_REV_ABS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_REV_ABS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesRevAbs((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_DAMAGE_STATIS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_DAMAGE_STATIS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesDamageStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_DAMAGE_STATIS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_DAMAGE_STATIS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesDamageStatis((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_CHANGING_TYPES_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_CHANGING_TYPES_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesChangingTypesDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_CHANGING_TYPES_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_CHANGING_TYPES_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesChangingTypesDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_TAKING_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_TAKING_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesTakingItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_TAKING_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_TAKING_ITEM)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesTakingItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_STATIS_VAR_USER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_STATIS_VAR_USER)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesStatisVarUser((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_STATIS_VAR_USER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_STATIS_VAR_USER)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesStatisVarUser((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_COPY_AB)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_COPY_AB)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesCopyAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_COPY_AB)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_COPY_AB)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesCopyAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_RECOIL_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_RECOIL_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickRecoilItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_RECOIL_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_RECOIL_ITEMS)) {
             res_.setResult(new StringStruct(instance_.getTrRecoilItems((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_RECOIL_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_RECOIL_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickRecoilAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_RECOIL_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_RECOIL_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrRecoilAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_KO_TARGET)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_KO_TARGET)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesKoTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_KO_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_KO_TARGET)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesKoTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_KO_TARGET)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_KO_TARGET)) {
             res_.setResult(new StringStruct(instance_.clickMovesKoTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_KO_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_KO_TARGET)) {
             res_.setResult(new StringStruct(instance_.getTrMovesKoTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BERRY_USER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BERRY_USER)) {
             res_.setResult(new StringStruct(instance_.clickBerryUser((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BERRY_USER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BERRY_USER)) {
             res_.setResult(new StringStruct(instance_.getTrBerryUser((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BERRY_TARGET)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BERRY_TARGET)) {
             res_.setResult(new StringStruct(instance_.clickBerryTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BERRY_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BERRY_TARGET)) {
             res_.setResult(new StringStruct(instance_.getTrBerryTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_END_ROUND)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_END_ROUND)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesEndRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_END_ROUND)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_END_ROUND)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesEndRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BERRY_END_ROUND)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BERRY_END_ROUND)) {
             res_.setResult(new StringStruct(instance_.clickBerryEndRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BERRY_END_ROUND)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BERRY_END_ROUND)) {
             res_.setResult(new StringStruct(instance_.getTrBerryEndRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ATTACK_FIRST)) {
+        if (StringUtil.quickEq(methodName_,ATTACK_FIRST)) {
             res_.setResult(BooleanStruct.of(instance_.attackFirst()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ATTACK_LAST)) {
+        if (StringUtil.quickEq(methodName_,ATTACK_LAST)) {
             res_.setResult(BooleanStruct.of(instance_.attackLast((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_CHANGING_ATT_ORDER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_CHANGING_ATT_ORDER)) {
             res_.setResult(new StringStruct(instance_.clickMovesChangingAttOrder((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_CHANGING_ATT_ORDER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_CHANGING_ATT_ORDER)) {
             res_.setResult(new StringStruct(instance_.getTrMovesChangingAttOrder((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ATTACK_LAST_ANY)) {
+        if (StringUtil.quickEq(methodName_,ATTACK_LAST_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.attackLastAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DIFFICULTY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DIFFICULTY)) {
             res_.setResult(new StringStruct(instance_.getTrDifficulty((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_CONST_DAMAGE_ANY)) {
+        if (StringUtil.quickEq(methodName_,WITH_CONST_DAMAGE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.withConstDamageAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_CONST_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,WITH_CONST_DAMAGE)) {
             res_.setResult(BooleanStruct.of(instance_.withConstDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DAMAGING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DAMAGING_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickDamagingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DAMAGING_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DAMAGING_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrDamagingMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_RAND_DAMAGE_ANY)) {
+        if (StringUtil.quickEq(methodName_,WITH_RAND_DAMAGE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.withRandDamageAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_RAND_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,WITH_RAND_DAMAGE)) {
             res_.setResult(BooleanStruct.of(instance_.withRandDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_MULT_DAMAGE_ANY)) {
+        if (StringUtil.quickEq(methodName_,WITH_MULT_DAMAGE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.withMultDamageAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITH_MULT_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,WITH_MULT_DAMAGE)) {
             res_.setResult(BooleanStruct.of(instance_.withMultDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.clickItemsUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.getTrItemsUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.clickMovesUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.getTrMovesUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TARGET_POWER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TARGET_POWER)) {
             res_.setResult(new StringStruct(instance_.clickMovesTargetPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TARGET_POWER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TARGET_POWER)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTargetPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_USER_POWER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_USER_POWER)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesUserPower((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_USER_ALLYA_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_USER_ALLYA_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickMovesUserAllyaDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_USER_ALLY_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_USER_ALLY_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrMovesUserAllyDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TARGET_TEAM_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TARGET_TEAM_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickMovesTargetTeamDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TARGET_TEAM_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TARGET_TEAM_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTargetTeamDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_USER_IGN_TARGET_TEAM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_USER_IGN_TARGET_TEAM)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesUserIgnTargetTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_USER_IGN_TARGET_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_USER_IGN_TARGET_TEAM)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesUserIgnTargetTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_GLOBAL)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_GLOBAL)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesGlobal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_GLOBAL)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_GLOBAL)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesGlobal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_USER_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_USER_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickItemsUserDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_USER_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_USER_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrItemsUserDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_USER_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_USER_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesUserDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_USER_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_USER_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesUserDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_INVOK_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_INVOK_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickMovesInvokDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_INVOK_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_INVOK_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrMovesInvokDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickItemsTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrItemsTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_PREPA_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL_PREPA_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobalPrepaDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL_PREPA_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL_PREPA_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobalPrepaDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_STATUS_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_STATUS_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickStatusDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_STATUS_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_STATUS_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrStatusDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_USER_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_USER_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesUserTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_USER_TARGET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_USER_TARGET_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesUserTargetDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_STAB)) {
+        if (StringUtil.quickEq(methodName_,GET_STAB)) {
             res_.setResult(new StringStruct(instance_.getStab()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_USER_STAB_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_USER_STAB_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesUserStabDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_USER_STAB_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_USER_STAB_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesUserStabDamage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TYPES_DEF_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TYPES_DEF_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickMovesTypesDefItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TYPES_DEF_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TYPES_DEF_ITEM)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTypesDefItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_TYPES_DEF)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_TYPES_DEF)) {
             res_.setResult(new StringStruct(instance_.clickItemsTypesDef((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_TYPES_DEF)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_TYPES_DEF)) {
             res_.setResult(new StringStruct(instance_.getTrItemsTypesDef((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TYPES_DEF_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TYPES_DEF_WEATHER)) {
             res_.setResult(new StringStruct(instance_.clickMovesTypesDefWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TYPES_DEF_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TYPES_DEF_WEATHER)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTypesDefWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_TYPE_DEF_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesTypeDefMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_TYPE_DEF_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesTypeDefMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_CHANGE_TYPE_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_CHANGE_TYPE_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesChangeTypeMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_CHANGE_TYPE_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_CHANGE_TYPE_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesChangeTypeMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TYPE_DEF_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickMovesTypeDefMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TYPE_DEF_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TYPE_DEF_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTypeDefMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_CHANGE_TYPE_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_CHANGE_TYPE_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrMovesChangeTypeMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_BREAK_IMMU)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL_BREAK_IMMU)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobalBreakImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL_BREAK_IMMU)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL_BREAK_IMMU)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobalBreakImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_UNPROTECTING_TYPES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_UNPROTECTING_TYPES)) {
             res_.setResult(new StringStruct(instance_.clickMovesUnprotectingTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_UNPROTECTING_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_UNPROTECTING_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrMovesUnprotectingTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_BREAK_IMMU)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_BREAK_IMMU)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesBreakImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_BREAK_IMMU)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_BREAK_IMMU)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesBreakImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_CANCEL_IMMU)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_CANCEL_IMMU)) {
             res_.setResult(new StringStruct(instance_.clickItemsCancelImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_CANCEL_IMMU)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_CANCEL_IMMU)) {
             res_.setResult(new StringStruct(instance_.getTrItemsCancelImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,NEXT_ROW_AFTER)) {
+        if (StringUtil.quickEq(methodName_,NEXT_ROW_AFTER)) {
             res_.setResult(BooleanStruct.of(instance_.nextRowAfter((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EFFICIENCY)) {
+        if (StringUtil.quickEq(methodName_,GET_EFFICIENCY)) {
             res_.setResult(new StringStruct(instance_.getEfficiency((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_IGN_LOW_ATT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_IGN_LOW_ATT)) {
             res_.setResult(new StringStruct(instance_.clickMovesIgnLowAtt((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_IGN_LOW_ATT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_IGN_LOW_ATT)) {
             res_.setResult(new StringStruct(instance_.getTrMovesIgnLowAtt((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_IGN_INC_DEF)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_IGN_INC_DEF)) {
             res_.setResult(new StringStruct(instance_.clickMovesIgnIncDef((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_IGN_INC_DEF)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_IGN_INC_DEF)) {
             res_.setResult(new StringStruct(instance_.getTrMovesIgnIncDef((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_BOOSTING_STAT)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesBoostingStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_BOOSTING_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesBoostingStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_BOOSTING_STAT)) {
             res_.setResult(new StringStruct(instance_.clickItemsBoostingStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_BOOSTING_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_BOOSTING_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrItemsBoostingStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickItemsMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrItemsMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobalMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobalMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_TEAM_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickMovesTeamMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TEAM_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrMovesTeamMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_ALLY_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_ALLY_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesAllyMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_ALLY_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_ALLY_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesAllyMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_FOE_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_FOE_TEAM_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickMovesFoeTeamMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_FOE_TEAM_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_FOE_TEAM_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrMovesFoeTeamMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_STATUS_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_STATUS_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickStatusMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_STATUS_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_STATUS_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrStatusMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_NORMAL_ANY)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_NORMAL_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultNormalAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_NORMAL)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_NORMAL)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultNormal((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_COMBO_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,CLICK_COMBO_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.clickComboMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_COMBO_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_COMBO_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrComboMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_BREAK_PROTECT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_BREAK_PROTECT_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesBreakProtectMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_BREAK_PROTECT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_BREAK_PROTECT_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesBreakProtectMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_IGN_ACC)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_IGN_ACC)) {
             res_.setResult(new StringStruct(instance_.clickMovesIgnAcc((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_IGN_ACC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_IGN_ACC)) {
             res_.setResult(new StringStruct(instance_.getTrMovesIgnAcc((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_IGN_EVA)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_IGN_EVA)) {
             res_.setResult(new StringStruct(instance_.clickMovesIgnEva((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_IGN_EVA)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_IGN_EVA)) {
             res_.setResult(new StringStruct(instance_.getTrMovesIgnEva((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_ACC)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL_ACC)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobalAcc((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL_ACC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL_ACC)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobalAcc((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_ACCURACY_ANY)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_ACCURACY_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultAccuracyAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_ACCURACY)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultAccuracy((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_EVASINESS_ANY)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_EVASINESS_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultEvasinessAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_EVASINESS)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_EVASINESS)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultEvasiness((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_CH_TEAM_MOVE_ANY)) {
+        if (StringUtil.quickEq(methodName_,IMMU_CH_TEAM_MOVE_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.immuChTeamMoveAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IMMU_CH_TEAM_MOVE)) {
+        if (StringUtil.quickEq(methodName_,IMMU_CH_TEAM_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.immuChTeamMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_CH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_CH)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_CH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_CH)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_CH_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_CH_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostChAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_CH)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_CH)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_CH_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_CH_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostChAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_CH)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_CH)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_BOOST_CH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_BOOST_CH)) {
             res_.setResult(new StringStruct(instance_.clickMovesBoostCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_BOOST_CH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_BOOST_CH)) {
             res_.setResult(new StringStruct(instance_.getTrMovesBoostCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_MULT_EVT_CH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_MULT_EVT_CH)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesMultEvtCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_MULT_EVT_CH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_MULT_EVT_CH)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesMultEvtCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_MULT_RATE_CH)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_MULT_RATE_CH)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesMultRateCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_MULT_RATE_CH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_MULT_RATE_CH)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesMultRateCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_BOOST_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_BOOST_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.abilityBoostSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_BOOST_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ITEM_BOOST_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.itemBoostSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ITEM_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ITEM_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.itemMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.abilityMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.moveGlobalMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,MOVE_TEAM_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.moveTeamMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.abilityAllyMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,STATUS_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,STATUS_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.statusMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.abilityImmuMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_SPEED_ANY)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_SPEED_ANY)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultSpeedAny()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,COMBO_MULT_SPEED)) {
+        if (StringUtil.quickEq(methodName_,COMBO_MULT_SPEED)) {
             res_.setResult(BooleanStruct.of(instance_.comboMultSpeed((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_PROTECTING_TYPES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_PROTECTING_TYPES)) {
             res_.setResult(new StringStruct(instance_.clickMovesProtectingTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_PROTECTING_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_PROTECTING_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrMovesProtectingTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_BREAK_IMMU_AB)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_GLOBAL_BREAK_IMMU_AB)) {
             res_.setResult(new StringStruct(instance_.clickMovesGlobalBreakImmuAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_GLOBAL_BREAK_IMMU_AB)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_GLOBAL_BREAK_IMMU_AB)) {
             res_.setResult(new StringStruct(instance_.getTrMovesGlobalBreakImmuAb((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_BREAKABLE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_BREAKABLE)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesBreakable((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_BREAKABLE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_BREAKABLE)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesBreakable((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_TYPES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_TYPES)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_IMMU_TYPES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_IMMU_TYPES)) {
             res_.setResult(new StringStruct(instance_.clickItemsImmuTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_IMMU_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_IMMU_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrItemsImmuTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_ALLIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_ALLIES)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuAllies((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_ALLIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_ALLIES)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuAllies((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_ALLIES_DAM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_ALLIES_DAM)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuAlliesDam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_ALLIES_DAM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_ALLIES_DAM)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuAlliesDam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS_IMMU)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS_IMMU)) {
             res_.setResult(new StringStruct(instance_.clickItemsImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ITEMS_IMMU)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ITEMS_IMMU)) {
             res_.setResult(new StringStruct(instance_.getTrItemsImmu((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_SEC_EFF_OTHER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_SEC_EFF_OTHER)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuSecEffOther((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_SEC_EFF_OTHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_SEC_EFF_OTHER)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuSecEffOther((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_SEC_EFF_OWNER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_IMMU_SEC_EFF_OWNER)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesImmuSecEffOwner((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_IMMU_SEC_EFF_OWNER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_IMMU_SEC_EFF_OWNER)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesImmuSecEffOwner((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES_ACHIEVE_TARGET)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES_ACHIEVE_TARGET)) {
             res_.setResult(new StringStruct(instance_.clickAbilitiesAchieveTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITIES_ACHIEVE_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITIES_ACHIEVE_TARGET)) {
             res_.setResult(new StringStruct(instance_.getTrAbilitiesAchieveTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVES_PROTECTING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVES_PROTECTING)) {
             res_.setResult(new StringStruct(instance_.clickMovesProtecting((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MOVES_PROTECTING)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MOVES_PROTECTING)) {
             res_.setResult(new StringStruct(instance_.getTrMovesProtecting((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_STATISTIC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_STATISTIC)) {
             res_.setResult(new StringStruct(instance_.getTrStatistic((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ANIM_STATISTIC)) {
+        if (StringUtil.quickEq(methodName_,GET_ANIM_STATISTIC)) {
             res_.setResult(new StringStruct(instance_.getAnimStatistic((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ANIM_ABSORB)) {
+        if (StringUtil.quickEq(methodName_,GET_ANIM_ABSORB)) {
             res_.setResult(new StringStruct(instance_.getAnimAbsorb()));
             return res_;
         }
@@ -4515,111 +4516,111 @@ public final class AikiBeansHelpStd {
         GeneralHelpBean instance_ = (GeneralHelpBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+        if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
             res_.setResult(new IntStruct(instance_.getMapWidth()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
+        if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
             res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_PLACE_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_PLACE_NAME)) {
             res_.setResult(new StringStruct(instance_.getPlaceName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getMiniMapImage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_NAME)) {
+        if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
             res_.setResult(new StringStruct(instance_.clickName()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_GENDER)) {
+        if (StringUtil.quickEq(methodName_,GET_GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getAbility()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,FIRST_POKEMON_HAS_ITEM)) {
+        if (StringUtil.quickEq(methodName_,FIRST_POKEMON_HAS_ITEM)) {
             res_.setResult(BooleanStruct.of(instance_.firstPokemonHasItem()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickItem()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
             res_.setResult(new StringStruct(instance_.clickPokemon((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
             res_.setResult(new StringStruct(instance_.getTrPokemon((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_TM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_TM)) {
             res_.setResult(new StringStruct(instance_.clickTm((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_TM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_TM)) {
             res_.setResult(new StringStruct(instance_.getTrTm((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TM_PRICE)) {
+        if (StringUtil.quickEq(methodName_,GET_TM_PRICE)) {
             res_.setResult(new StringStruct(instance_.getTmPrice((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_HM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_HM)) {
             res_.setResult(new StringStruct(instance_.clickHm((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_HM)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_HM)) {
             res_.setResult(new StringStruct(instance_.getTrHm((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_TYPE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
             res_.setResult(new StringStruct(instance_.getTrType((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IMAGE_TYPE)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE_TYPE)) {
             res_.setResult(new StringStruct(instance_.getImageType((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_COLOR_TYPE)) {
+        if (StringUtil.quickEq(methodName_,GET_COLOR_TYPE)) {
             res_.setResult(new StringStruct(instance_.getColorType((Long)_args[0])));
             return res_;
         }
@@ -4630,119 +4631,119 @@ public final class AikiBeansHelpStd {
         LangsBean instance_ = (LangsBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_TR_LANG)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_LANG)) {
             res_.setResult(new StringStruct(instance_.getTrLang((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_GENDERS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_GENDERS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysGenders(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_GENDER)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_GENDER)) {
             res_.setResult(new DefaultStruct(instance_.getRowGender((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_BOOLEANS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_BOOLEANS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysBooleans(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_BOOLEAN)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_BOOLEAN)) {
             res_.setResult(new DefaultStruct(instance_.getRowBoolean((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_ENVIRONMENTS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_ENVIRONMENTS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysEnvironments(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_ENVIRONMENT)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_ENVIRONMENT)) {
             res_.setResult(new DefaultStruct(instance_.getRowEnvironment((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_STATISTICS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_STATISTICS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_STATISTIC)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_STATISTIC)) {
             res_.setResult(new DefaultStruct(instance_.getRowStatistic((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_TARGETS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_TARGETS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysTargets(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_TARGET)) {
             res_.setResult(new DefaultStruct(instance_.getRowTarget((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_CATEGORIES)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_CATEGORIES)) {
             res_.setResult(new DefaultStruct(instance_.getKeysCategories(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_CATEGORY)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_CATEGORY)) {
             res_.setResult(new DefaultStruct(instance_.getRowCategory((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getKeysTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_TYPE)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_TYPE)) {
             res_.setResult(new DefaultStruct(instance_.getRowType((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_POKEMON)) {
             res_.setResult(new DefaultStruct(instance_.getKeysPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_POKEMON)) {
             res_.setResult(new DefaultStruct(instance_.getRowPokemon((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getKeysMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_MOVE)) {
             res_.setResult(new DefaultStruct(instance_.getRowMove((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_ITEMS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_ITEM)) {
             res_.setResult(new DefaultStruct(instance_.getRowItem((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getKeysAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_ABILITY)) {
             res_.setResult(new DefaultStruct(instance_.getRowAbility((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getKeysStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getRowStatus((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_MATH)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_MATH)) {
             res_.setResult(new DefaultStruct(instance_.getKeysMath(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_MATH)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_MATH)) {
             res_.setResult(new DefaultStruct(instance_.getRowMath((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEYS_DESC)) {
+        if (StringUtil.quickEq(methodName_,GET_KEYS_DESC)) {
             res_.setResult(new DefaultStruct(instance_.getKeysDesc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ROW_DESC)) {
+        if (StringUtil.quickEq(methodName_,GET_ROW_DESC)) {
             res_.setResult(new DefaultStruct(instance_.getRowDesc((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }

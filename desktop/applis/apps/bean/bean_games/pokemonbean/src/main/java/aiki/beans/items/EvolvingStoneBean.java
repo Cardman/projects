@@ -6,6 +6,7 @@ import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.pokemon.evolution.EvolutionStone;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class EvolvingStoneBean extends ItemBean {
     private StringList pokemon;
@@ -27,7 +28,7 @@ public class EvolvingStoneBean extends ItemBean {
                     continue;
                 }
                 EvolutionStone evo_ = (EvolutionStone) e;
-                if (!StringList.quickEq(evo_.getStone(), getName())) {
+                if (!StringUtil.quickEq(evo_.getStone(), getName())) {
                     continue;
                 }
                 pokemon_.add(p);

@@ -4,9 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class RendStyle extends RendElement {
 
@@ -21,7 +22,7 @@ public final class RendStyle extends RendElement {
         ElementList links_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordLink());
         int len_ = links_.getLength();
         StringList refs_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             Element link_ = links_.item(i);
             String href_ = getCssHref(_cont,link_);
             if (href_ != null) {
@@ -36,6 +37,6 @@ public final class RendStyle extends RendElement {
                 filesContents_.add(file_);
             }
         }
-        appendText(StringList.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
+        appendText(StringUtil.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
     }
 }

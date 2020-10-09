@@ -12,8 +12,8 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
-import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class SelectTm extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecttm";
@@ -69,7 +69,7 @@ public final class SelectTm extends SelectDialog {
 
     public static boolean isSelectedIndex() {
         DIALOG.setVisible(true);
-        return DIALOG.facade.getLineMove() != CustList.INDEX_NOT_FOUND_ELT;
+        return DIALOG.facade.getLineMove() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk() {

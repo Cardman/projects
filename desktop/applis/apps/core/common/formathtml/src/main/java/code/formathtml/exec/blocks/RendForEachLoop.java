@@ -16,6 +16,7 @@ import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class RendForEachLoop extends RendParentBlock implements RendLoop, RendReducableOperations {
 
@@ -55,12 +56,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return;
         }
         Struct iterStr_ = null;
-        long length_ = CustList.INDEX_NOT_FOUND_ELT;
+        long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
         RendDynOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
             length_ = getLength(its_, _ctx);
-            if (length_ == CustList.SIZE_EMPTY) {
+            if (length_ == IndexConstants.SIZE_EMPTY) {
                 finished_ = true;
             }
             if (_ctx.callsOrException()) {

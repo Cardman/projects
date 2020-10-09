@@ -7,6 +7,7 @@ import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.*;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
@@ -5229,7 +5230,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
             confidence_.add(c_);
         }
         if (!b_ || !_b.isJouerDonne()) {
-            for (byte i = CustList.FIRST_INDEX; i < nbPl_; i++) {
+            for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
                 for (byte p: _r.getRepartition().getAppelesDetermines(i)) {
                     confidence_.get(i).set(p,true);
                 }
@@ -5257,7 +5258,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
             }
         } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
             Bytes defenseurs_=new Bytes();
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPl_;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPl_; joueur_++) {
                 if(joueur_==_taker) {
                     continue;
                 }

@@ -5,9 +5,10 @@ import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
 import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 
 public final class Nicknames {
@@ -28,7 +29,7 @@ public final class Nicknames {
         StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
         pseudo = messages_.getVal(USER);
         String player_ = messages_.getVal(NICKNAME);
-        int maxJoueurs_=DealingBelote.values()[CustList.FIRST_INDEX].getNombreJoueurs();
+        int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
         for(DealingBelote r:DealingBelote.values()){
             if(maxJoueurs_<r.getNombreJoueurs()){
                 maxJoueurs_=r.getNombreJoueurs();
@@ -36,10 +37,10 @@ public final class Nicknames {
         }
         int nBots_ = maxJoueurs_;
         nBots_--;
-        for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosBelote.add(StringList.simpleNumberFormat(player_, b));
+        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+            pseudosBelote.add(StringUtil.simpleNumberFormat(player_, b));
         }
-        maxJoueurs_=DealingTarot.values()[CustList.FIRST_INDEX].getNombreJoueurs();
+        maxJoueurs_=DealingTarot.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
         for(DealingTarot r:DealingTarot.values()){
             if(maxJoueurs_<r.getNombreJoueurs()){
                 maxJoueurs_=r.getNombreJoueurs();
@@ -47,14 +48,14 @@ public final class Nicknames {
         }
         nBots_ = maxJoueurs_;
         nBots_--;
-        for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosTarot.add(StringList.simpleNumberFormat(player_, b));
+        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+            pseudosTarot.add(StringUtil.simpleNumberFormat(player_, b));
         }
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
         nBots_--;
-        for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosPresident.add(StringList.simpleNumberFormat(player_, b));
+        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+            pseudosPresident.add(StringUtil.simpleNumberFormat(player_, b));
         }
     }
     public Nicknames(Nicknames _pseudos){
@@ -65,7 +66,7 @@ public final class Nicknames {
     }
 
     public boolean isValidNicknames() {
-        int maxJoueurs_=DealingBelote.values()[CustList.FIRST_INDEX].getNombreJoueurs();
+        int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
         for(DealingBelote r:DealingBelote.values()){
             if(maxJoueurs_<r.getNombreJoueurs()){
                 maxJoueurs_=r.getNombreJoueurs();
@@ -76,7 +77,7 @@ public final class Nicknames {
         if (pseudosBelote.size() < nBots_) {
             return false;
         }
-        maxJoueurs_=DealingTarot.values()[CustList.FIRST_INDEX].getNombreJoueurs();
+        maxJoueurs_=DealingTarot.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
         for(DealingTarot r:DealingTarot.values()){
             if(maxJoueurs_<r.getNombreJoueurs()){
                 maxJoueurs_=r.getNombreJoueurs();
@@ -90,10 +91,7 @@ public final class Nicknames {
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
         nBots_--;
-        if (pseudosPresident.size() < nBots_) {
-            return false;
-        }
-        return true;
+        return pseudosPresident.size() >= nBots_;
     }
 
     public String getPseudo() {

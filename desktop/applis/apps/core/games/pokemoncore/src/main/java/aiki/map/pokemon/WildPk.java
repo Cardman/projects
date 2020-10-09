@@ -1,7 +1,7 @@
 package aiki.map.pokemon;
 import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Equallable;
 
 
@@ -37,7 +37,7 @@ public final class WildPk extends Pokemon implements Equallable<WildPk> {
     //For laws of apparition in areas
     @Override
     public boolean eq(WildPk _obj) {
-        if (!StringList.quickEq(getName(),_obj.getName())) {
+        if (!StringUtil.quickEq(getName(),_obj.getName())) {
             return false;
         }
         if (getLevel() != _obj.getLevel()) {
@@ -46,13 +46,10 @@ public final class WildPk extends Pokemon implements Equallable<WildPk> {
         if (getGender() != _obj.getGender()) {
             return false;
         }
-        if (!StringList.quickEq(getAbility(),_obj.getAbility())) {
+        if (!StringUtil.quickEq(getAbility(),_obj.getAbility())) {
             return false;
         }
-        if (!StringList.quickEq(getItem(),_obj.getItem())) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(getItem(), _obj.getItem());
     }
 
     @Override

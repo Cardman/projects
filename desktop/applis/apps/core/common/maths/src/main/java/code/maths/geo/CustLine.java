@@ -2,7 +2,7 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public class CustLine {
 
@@ -137,7 +137,7 @@ public class CustLine {
     public RatePoint incPoint(RatePoint _rate) {
         RatePoint r_ = new RatePoint(_rate);
         int i_;
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         long dx_ = 0;
         long dy_ = 0;
         if (!xRate.isZero()) {
@@ -164,7 +164,7 @@ public class CustLine {
             r_.getXcoords().addNb(Rate.one());
             i_++;
         }
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         while (i_ < dy_) {
             r_.getYcoords().addNb(Rate.one());
             i_++;
@@ -177,12 +177,12 @@ public class CustLine {
     public RatePoint incPoint(RatePoint _rate, int _dx, int _dy) {
         RatePoint r_ = new RatePoint(_rate);
         int i_;
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         while (i_ < _dx) {
             r_.getXcoords().addNb(Rate.one());
             i_++;
         }
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         while (i_ < _dy) {
             r_.getYcoords().addNb(Rate.one());
             i_++;

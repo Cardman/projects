@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaRendEval {
     AnaRendFinallyEval(OffsetsBlock _offset) {
@@ -22,7 +23,7 @@ public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaR
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordFinally(),
-                            StringList.join(
+                            StringUtil.join(
                                     new StringList(
                                             _page.getKeyWords().getKeyWordCatch(),
                                             _page.getKeyWords().getKeyWordTry()
@@ -36,7 +37,7 @@ public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaR
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordFinally(),
-                                StringList.join(
+                                StringUtil.join(
                                         new StringList(
                                                 _page.getKeyWords().getKeyWordCatch(),
                                                 _page.getKeyWords().getKeyWordTry()

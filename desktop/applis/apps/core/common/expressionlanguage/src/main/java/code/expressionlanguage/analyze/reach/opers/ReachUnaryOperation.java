@@ -8,7 +8,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachUnaryOperation extends ReachMethodOperation implements ReachCalculable {
     private String oper;
@@ -30,7 +30,7 @@ public final class ReachUnaryOperation extends ReachMethodOperation implements R
         }
         AnaClassArgumentMatching to_ = getInfo().getResultClass();
         Argument out_;
-        if (StringList.quickEq(oper, PLUS)) {
+        if (StringUtil.quickEq(oper, PLUS)) {
             out_ = new Argument(NumParsers.idNumber(NumParsers.convertToNumber(nb_), to_.getUnwrapObjectNb()));
         } else {
             out_ = new Argument(NumParsers.opposite(NumParsers.convertToNumber(nb_), to_.getUnwrapObjectNb()));

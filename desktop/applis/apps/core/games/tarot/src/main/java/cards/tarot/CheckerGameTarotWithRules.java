@@ -5,6 +5,7 @@ import cards.tarot.enumerations.*;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class CheckerGameTarotWithRules {
 
@@ -106,8 +107,8 @@ public final class CheckerGameTarotWithRules {
             }
         }
         int nbTricks_ = allTricks_.size();
-        for (int i = CustList.FIRST_INDEX; i < nbTricks_; i++) {
-            if (i == CustList.FIRST_INDEX) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbTricks_; i++) {
+            if (i == IndexConstants.FIRST_INDEX) {
                 if (allTricks_.get(i).getVuParToutJoueur()) {
                     _loadedGame.setError(BAD_TRICK);
                     return;

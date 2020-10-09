@@ -13,6 +13,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 final class AnaTemplatePartType extends AnaBinaryType {
     private Ints indexesChildConstraints = new Ints();
@@ -66,9 +67,9 @@ final class AnaTemplatePartType extends AnaBinaryType {
         String t_ = getBegin();
         int len_ = ch_.size() - 1;
         for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+            t_ = StringUtil.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
         }
-        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        t_ = StringUtil.concat(t_, ch_.last().getAnalyzedType(),getEnd());
         setAnalyzedType(t_);
     }
 
@@ -89,7 +90,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
                 break;
             }
             String arg_ = f_.getAnalyzedType();
-            if (StringList.quickEq(arg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, Templates.SUB_TYPE)) {
                 i_++;
                 continue;
             }
@@ -144,7 +145,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         for (int i: indexesChildConstraints) {
             int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().getKey(i);
             int len_ = getOperators().getValue(i).length();
-            String err_ = LinkageUtil.transform(StringList.join(getErrsList().get(i),"\n\n"));
+            String err_ = LinkageUtil.transform(StringUtil.join(getErrsList().get(i),"\n\n"));
             getBeginOps().set(i,new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
             getEndOps().set(i,new PartOffset("</a>",begin_+len_));
         }
@@ -157,7 +158,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         if (errLen_.isEmpty()) {
             return;
         }
-        String err_ = LinkageUtil.transform(StringList.join(errLen_,"\n\n"));
+        String err_ = LinkageUtil.transform(StringUtil.join(errLen_,"\n\n"));
         lastPartBegin=(new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
         lastPartEnd=(new PartOffset("</a>",begin_+len_));
     }
@@ -172,9 +173,9 @@ final class AnaTemplatePartType extends AnaBinaryType {
         String t_ = getBegin();
         int len_ = ch_.size() - 1;
         for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+            t_ = StringUtil.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
         }
-        return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        return StringUtil.concat(t_, ch_.last().getAnalyzedType(),getEnd());
     }
 
     @Override

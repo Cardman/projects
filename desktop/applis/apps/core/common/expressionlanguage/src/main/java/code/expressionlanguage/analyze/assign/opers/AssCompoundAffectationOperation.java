@@ -10,8 +10,8 @@ import code.expressionlanguage.analyze.assign.util.Assignment;
 import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
 import code.expressionlanguage.common.ClassField;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AssCompoundAffectationOperation extends AssMultMethodOperation {
     private AssOperationNode settable;
@@ -40,7 +40,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
             StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             String str_ = ((AssStdVariableOperation)firstChild_).getVariableName();
             for (EntryCust<String, Assignment> e: variablesAfterLast_.entryList()) {
-                if (StringList.quickEq(str_, e.getKey())) {
+                if (StringUtil.quickEq(str_, e.getKey())) {
                     if (!e.getValue().isUnassignedAfter()) {
                         if (_a.isFinalLocalVar(str_)) {
                             //error

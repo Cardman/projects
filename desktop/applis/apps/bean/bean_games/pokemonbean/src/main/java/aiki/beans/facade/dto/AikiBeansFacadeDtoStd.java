@@ -20,6 +20,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeDtoStd {
     public static final String TYPE_ITEM_LINE = "aiki.beans.facade.dto.ItemLine";
@@ -140,15 +141,15 @@ public final class AikiBeansFacadeDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         ItemLine instance_ = (ItemLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PRICE)) {
+        if (StringUtil.quickEq(fieldName_,PRICE)) {
             res_.setResult(new IntStruct(instance_.getPrice()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DESCRIPTION_CLASS)) {
+        if (StringUtil.quickEq(fieldName_,DESCRIPTION_CLASS)) {
             res_.setResult(new StringStruct(instance_.getDescriptionClass()));
             return res_;
         }
@@ -158,19 +159,19 @@ public final class AikiBeansFacadeDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PP)) {
+        if (StringUtil.quickEq(fieldName_,PP)) {
             res_.setResult(new ShortStruct(instance_.getPp()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CATEGORY)) {
+        if (StringUtil.quickEq(fieldName_,CATEGORY)) {
             res_.setResult(new StringStruct(instance_.getCategory()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PRIORITY)) {
+        if (StringUtil.quickEq(fieldName_,PRIORITY)) {
             res_.setResult(new ShortStruct(instance_.getPriority()));
             return res_;
         }
@@ -181,15 +182,15 @@ public final class AikiBeansFacadeDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonLine instance_ = (PokemonLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPES)) {
+        if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
+        if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
             res_.setResult(new IntStruct(instance_.getEvolutions()));
             return res_;
         }
@@ -200,15 +201,15 @@ public final class AikiBeansFacadeDtoStd {
         MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,IS_DAMAGE_MOVE)) {
+        if (StringUtil.quickEq(methodName_,IS_DAMAGE_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.isDamageMove()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_DIRECT)) {
+        if (StringUtil.quickEq(methodName_,IS_DIRECT)) {
             res_.setResult(BooleanStruct.of(instance_.isDirect()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }

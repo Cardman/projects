@@ -23,6 +23,8 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class Games {
     private static final String FOLDER = "resources_cards/classes";
@@ -157,7 +159,7 @@ public final class Games {
         }
         if (enCoursDePartiePresident()) {
 //            return false;
-            return _players.size() == CustList.ONE_ELEMENT;
+            return _players.size() == IndexConstants.ONE_ELEMENT;
         }
         return true;
     }
@@ -383,21 +385,21 @@ public final class Games {
         for (CardBelote c: _b.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return StringList.join(retString_, SEPARATOR);
+        return StringUtil.join(retString_, SEPARATOR);
     }
     public static String toString(HandPresident _b, String _lg) {
         StringList retString_= new StringList();
         for (CardPresident c: _b.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return StringList.join(retString_, SEPARATOR);
+        return StringUtil.join(retString_, SEPARATOR);
     }
     public static String toString(HandTarot _t, String _lg) {
         StringList retString_= new StringList();
         for (CardTarot c: _t.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return StringList.join(retString_, SEPARATOR);
+        return StringUtil.join(retString_, SEPARATOR);
     }
     public static String getSymbol(CardTarot _c,String _loc) {
         if (_c.getNomFigure() != CardChar.UNDEFINED) {

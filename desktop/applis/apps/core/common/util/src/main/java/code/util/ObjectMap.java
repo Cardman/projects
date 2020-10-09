@@ -1,8 +1,9 @@
 package code.util;
+import code.util.core.IndexConstants;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
-public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V> {
+public final class ObjectMap<K extends Equallable<K>, V> extends AbsBasicMap<K,V> {
 
     public ObjectMap() {
     }
@@ -17,7 +18,7 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V
     }
 
     @Override
-    protected boolean eq(K _one, K _two) {
+    protected boolean matchKeys(K _one, K _two) {
         return _one.eq(_two);
     }
 }

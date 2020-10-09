@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.util;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class FormattedMethodId {
 
@@ -23,7 +24,7 @@ public final class FormattedMethodId {
     }
 
     public boolean eq(FormattedMethodId _obj) {
-        if (!StringList.quickEq(_obj.name, name)) {
+        if (!StringUtil.quickEq(_obj.name, name)) {
             return false;
         }
         return eqPartial(_obj);
@@ -40,7 +41,7 @@ public final class FormattedMethodId {
         for (int i = 0; i < len_; i++) {
             String param_ = classNames.get(i);
             String paramOther_ = _other.classNames.get(i);
-            if (!StringList.eq(param_,paramOther_)) {
+            if (!StringUtil.eq(param_,paramOther_)) {
                 return false;
             }
         }

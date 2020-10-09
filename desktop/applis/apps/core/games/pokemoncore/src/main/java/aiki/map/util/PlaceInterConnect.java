@@ -2,6 +2,7 @@ package aiki.map.util;
 import aiki.map.enums.Direction;
 import aiki.util.Point;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -24,7 +25,7 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
     }
 
     public PlaceInterConnect(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         source = new Point(elements_.first());
         dir = Direction.getDirectionByName(elements_.last());
     }
@@ -39,10 +40,7 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
         if (!Point.eq(source, _obj.source)) {
             return false;
         }
-        if (dir != _obj.dir) {
-            return false;
-        }
-        return true;
+        return dir == _obj.dir;
     }
 
     public Point getSource() {

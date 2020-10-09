@@ -4,8 +4,8 @@ import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 final class GameBeloteDeclaring {
     private GameBeloteTrickInfo doneTrickInfo;
@@ -48,7 +48,7 @@ final class GameBeloteDeclaring {
             }
             boolean equals_ = true;
             int min_ = Math.min(declarationsTakerFoesTeam_.size(), declarationsTakerTeam_.size());
-            for (int i = CustList.FIRST_INDEX; i<min_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
                 int res_ = comparateur_.compare(declarationsTakerTeam_.get(i), declarationsTakerFoesTeam_.get(i));
                 if (res_ < 0) {
                     cancelDeclaring(takerFoesTeam_);

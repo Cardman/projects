@@ -5,6 +5,7 @@ import code.util.AbsMap;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.ObjectMap;
+import code.util.core.IndexConstants;
 
 
 public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
@@ -47,7 +48,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         LgInt sumDenTwo_=LgInt.zero();
         int maxIndice_;
         int nbEvenements_=evenements_.size();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
             sumDenTwo_.addNb(law_.getVal(evenements_.get(i_)));
             if (LgInt.strLower(remain_, sumDenTwo_)) {
@@ -61,7 +62,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
             for (Rate c:evenements_) {
                 lawTwo_.put(c, new LgInt(law_.getVal(c)));
             }
-            for (int i = CustList.FIRST_INDEX;i<nbEvenements_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEvenements_; i++){
                 LgInt effectif_=lawTwo_.getVal(evenements_.get(i));
                 LgInt tmp_=new LgInt(effectif_);
                 effectif_.multiplyBy(quotient_);
@@ -69,7 +70,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                     effectif_.addNb(tmp_);
                 } else if (i==maxIndice_) {
                     sumDenTwo_.affectZero();
-                    for (int j = CustList.FIRST_INDEX;j<maxIndice_;j++){
+                    for (int j = IndexConstants.FIRST_INDEX; j<maxIndice_; j++){
                         sumDenTwo_.addNb(law_.getVal(evenements_.get(j)));
                     }
                     effectif_.addNb(LgInt.minus(remain_,sumDenTwo_));

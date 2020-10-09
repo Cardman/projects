@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
 
@@ -97,7 +98,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _page.getAliasString())) {
+                if (!StringUtil.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;
@@ -137,7 +138,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),
-                    StringList.join(
+                    StringUtil.join(
                             new StringList(
                                     _page.getKeyWords().getKeyWordCase(),
                                     _page.getKeyWords().getKeyWordDefault()

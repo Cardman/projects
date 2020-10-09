@@ -11,6 +11,7 @@ import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.RealInstanceStruct;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class CustLgNames extends BeanNatLgNames {
 
@@ -224,67 +225,67 @@ public final class CustLgNames extends BeanNatLgNames {
             instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_method.getClassName(), aliasInts)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasAdd)) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasInts)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasAdd)) {
                 Integer arg_ = ((NumberStruct) _args[0]).intStruct();
                 ((Ints)instance_).add(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
         }
-        if (StringList.quickEq(_method.getClassName(), aliasGeneObjects)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasAdd)) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasGeneObjects)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasAdd)) {
                 Object arg_ = _args[0];
                 ((GeneObjects)instance_).add(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasSize)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasSize)) {
                 res_.setResult(new IntStruct(((GeneObjects)instance_).size()));
                 return res_;
             }
 
         }
-        if (StringList.quickEq(_method.getClassName(), aliasPickableList)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetList)) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasPickableList)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetList)) {
                 res_.setResult(new StdStruct(((PickableList)instance_).getList(), aliasGeneObjects));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasRemoveAndExistAfter)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasRemoveAndExistAfter)) {
                 Integer arg_ = ((NumberStruct) _args[0]).intStruct();
                 res_.setResult(BooleanStruct.of(((PickableList)instance_).removeAndExistAfter(arg_)));
                 return res_;
             }
         }
-        if (StringList.quickEq(_method.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenOne)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasObject())) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasComposite)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenOne)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasObject())) {
                     Object arg_ = _args[0];
                     String resLoc_ = ((Composite)instance_).getOverridenOne(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasNumber())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasNumber())) {
                     Object arg_ = _args[0];
                     String resLoc_ = ((Composite)instance_).getOverridenOne(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasString())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasString())) {
                     String arg_ = ((StringStruct) _args[0]).getInstance();
                     String resLoc_ = ((Composite)instance_).getOverridenOne(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenTwo)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasObject())) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenTwo)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasObject())) {
                     Object arg_ = _args[0];
                     String resLoc_ = ((Composite)instance_).getOverridenTwo(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasString())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasString())) {
                     if (_args[0] == NullStruct.NULL_VALUE) {
                         String resLoc_ = ((Composite)instance_).getOverridenTwo(null);
                         res_.setResult(new StringStruct(resLoc_));
@@ -296,34 +297,34 @@ public final class CustLgNames extends BeanNatLgNames {
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenThree)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenThree)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenFour)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenFour)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     if (_args[0] == NullStruct.NULL_VALUE) {
                         String resLoc_ = ((Composite)instance_).getOverridenFour(null);
                         res_.setResult(new StringStruct(resLoc_));
@@ -334,65 +335,65 @@ public final class CustLgNames extends BeanNatLgNames {
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFour(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenFive)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenFive)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenSix)) {
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetOverridenSix)) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getPrimTypes().getAliasPrimLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasLong())) {
                     Long arg_ = ((NumberStruct) _args[0]).longStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
-                if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
+                if (StringUtil.quickEq(_method.getConstraints().getParametersTypes().first(), getContent().getNbAlias().getAliasDouble())) {
                     Double arg_ = ((NumberStruct) _args[0]).doubleStruct();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetPrivateInt)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasGetPrivateInt)) {
                 res_.setResult(new IntStruct(((Composite)instance_).getPrivateInt()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasSetPrivateInt)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasSetPrivateInt)) {
                 Integer arg_ = ((NumberStruct) _args[0]).intStruct();
                 ((Composite)instance_).setPrivateInt(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
         }
-        if (StringList.quickEq(_method.getClassName(), aliasFailMethods)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasFailMethods)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasFail)) {
                 return res_;
             }
         }
-        if (StringList.quickEq(_method.getClassName(), aliasStrangeInit)) {
-            if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
+        if (StringUtil.quickEq(_method.getClassName(), aliasStrangeInit)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), aliasFail)) {
                 return res_;
             }
         }
@@ -409,26 +410,26 @@ public final class CustLgNames extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_method.getName(), aliasInts)) {
+        if (StringUtil.quickEq(_method.getName(), aliasInts)) {
             res_.setResult(StdStruct.newInstance(new Ints(), aliasInts));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), aliasPickableList)) {
+        if (StringUtil.quickEq(_method.getName(), aliasPickableList)) {
             res_.setResult(StdStruct.newInstance(new PickableList(), aliasPickableList));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), aliasStringList)) {
+        if (StringUtil.quickEq(_method.getName(), aliasStringList)) {
             res_.setResult(new StdStruct(new StringList(), aliasStringList));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), aliasInheritedComposite)) {
+        if (StringUtil.quickEq(_method.getName(), aliasInheritedComposite)) {
             res_.setResult(new StdStruct(new InheritedComposite(), aliasInheritedComposite));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), aliasFailMethods)) {
+        if (StringUtil.quickEq(_method.getName(), aliasFailMethods)) {
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), aliasStrangeInit)) {
+        if (StringUtil.quickEq(_method.getName(), aliasStrangeInit)) {
             return res_;
         }
         return res_;
@@ -438,13 +439,13 @@ public final class CustLgNames extends BeanNatLgNames {
             ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
+        if (StringUtil.quickEq(_classField.getClassName(), aliasComposite)) {
+            if (StringUtil.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
+            if (StringUtil.quickEq(fieldName_, aliasObjIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 Integer i_ = cpt_.getObjInteger();
                 if (i_ != null) {
@@ -454,27 +455,27 @@ public final class CustLgNames extends BeanNatLgNames {
                 }
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, aliasCompositeField)) {
+            if (StringUtil.quickEq(fieldName_, aliasCompositeField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 CompositeSec i_ = cpt_.getComposite();
                 res_.setResult(StdStruct.newInstance(i_, aliasCompositeSec));
                 return res_;
             }
         }
-        if (StringList.quickEq(_classField.getClassName(), aliasCompositeSec)) {
+        if (StringUtil.quickEq(_classField.getClassName(), aliasCompositeSec)) {
             CompositeSec cpt_ = (CompositeSec) ((RealInstanceStruct)_instance).getInstance();
             res_.setResult(new IntStruct(cpt_.getInteger()));
             return res_;
         }
-        if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
-            if (StringList.quickEq(fieldName_, aliasCompositeField)) {
+        if (StringUtil.quickEq(_classField.getClassName(), aliasBeanOne)) {
+            if (StringUtil.quickEq(fieldName_, aliasCompositeField)) {
                 BeanOne cpt_ = (BeanOne) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(new StdStruct(cpt_.getComposite(), aliasComposite));
                 return res_;
             }
         }
-        if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
-            if (StringList.quickEq(fieldName_, aliasNotRead)) {
+        if (StringUtil.quickEq(_classField.getClassName(), aliasStrangeInit)) {
+            if (StringUtil.quickEq(fieldName_, aliasNotRead)) {
                 return res_;
             }
         }
@@ -488,14 +489,14 @@ public final class CustLgNames extends BeanNatLgNames {
             ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
+        if (StringUtil.quickEq(_classField.getClassName(), aliasComposite)) {
+            if (StringUtil.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 cpt_.setInteger((Integer) _value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
+            if (StringUtil.quickEq(fieldName_, aliasObjIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 cpt_.setObjInteger((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);

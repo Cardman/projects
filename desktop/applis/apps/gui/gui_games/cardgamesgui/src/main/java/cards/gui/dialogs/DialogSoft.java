@@ -1,11 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
@@ -16,8 +11,8 @@ import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DialogSoft extends DialogCards {
 
@@ -70,7 +65,7 @@ public final class DialogSoft extends DialogCards {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
         Panel container_=Panel.newBorder();
-        if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
+        if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
             list = new ComboBoxGameEnum();
@@ -91,7 +86,7 @@ public final class DialogSoft extends DialogCards {
             saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
-        } else if(StringList.quickEq(menu,MainWindow.TIMING)) {
+        } else if(StringUtil.quickEq(menu,MainWindow.TIMING)) {
             Panel panneau_=Panel.newGrid(0,1);
             TextLabel label_;
             int valeur_=0;
@@ -104,8 +99,8 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=2000;
             String sentence_ = messages.getVal(WAITING_SENTENCE);
             String prefix_ = messages.getVal(WAITING_BIDDING);
-            String values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            String values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
+            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitBids=new Slider(minValeur_,maxValeur_);
             delayWaitBids.setValue(valeur_);
@@ -116,8 +111,8 @@ public final class DialogSoft extends DialogCards {
             minValeur_=300;
             maxValeur_=2000;
             prefix_ = messages.getVal(WAITING_PLAYED_CARD);
-            values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
+            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitCards=new Slider(minValeur_,maxValeur_);
             delayWaitCards.setValue(valeur_);
@@ -128,8 +123,8 @@ public final class DialogSoft extends DialogCards {
             minValeur_=500;
             maxValeur_=3000;
             prefix_ = messages.getVal(WAITING_TRICK);
-            values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
+            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitTricks=new Slider(minValeur_,maxValeur_);
             delayWaitTricks.setValue(valeur_);
@@ -157,7 +152,7 @@ public final class DialogSoft extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateParams() {
-        if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
+        if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
 //            Object rep_ = liste.getSelectedItem();
             GameEnum rep_ = list.getCurrent();
             EnumList<GameEnum> lancement_ = new EnumList<GameEnum>();
@@ -168,7 +163,7 @@ public final class DialogSoft extends DialogCards {
             parametres.setLancement(lancement_);
             parametres.setSaveHomeFolder(saveHomeFolder.isSelected());
             closeWindow();
-        } else if(StringList.quickEq(menu,MainWindow.TIMING)) {
+        } else if(StringUtil.quickEq(menu,MainWindow.TIMING)) {
 //            JPanel panneau_=(JPanel)getContentPane().getComponent(0);
 //            JSlider slide_=null;
 //            int indiceInfo_=1;

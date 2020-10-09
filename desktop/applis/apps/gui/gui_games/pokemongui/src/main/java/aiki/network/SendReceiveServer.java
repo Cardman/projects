@@ -15,8 +15,8 @@ import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
 import code.threads.AbstractLock;
-import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -72,27 +72,27 @@ public final class SendReceiveServer extends BasicServer {
                 removePlayer(newPlayer_.getIndex(), forcedBye_);
                 return;
             }
-            if (newPlayer_.getIndex() == CustList.SECOND_INDEX) {
+            if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
                 InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),init_);
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.SECOND_INDEX),init_);
                 return;
             }
-            if (newPlayer_.getIndex() == CustList.FIRST_INDEX) {
+            if (newPlayer_.getIndex() == IndexConstants.FIRST_INDEX) {
                 //init trading condition
                 InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),init_);
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.FIRST_INDEX),init_);
                 return;
             }
             return;
         }
         if (_readObject instanceof CheckCompatibility) {
             CheckCompatibility check_ = (CheckCompatibility) _readObject;
-            if (check_.getIndex() == CustList.FIRST_INDEX) {
-                Net.getCheckCompatibility().put((int)CustList.FIRST_INDEX, check_);
+            if (check_.getIndex() == IndexConstants.FIRST_INDEX) {
+                Net.getCheckCompatibility().put((int) IndexConstants.FIRST_INDEX, check_);
                 return;
             }
-            if (check_.getIndex() == CustList.SECOND_INDEX) {
-                CheckCompatibility first_ = Net.getCheckCompatibility().getVal((int)CustList.FIRST_INDEX);
+            if (check_.getIndex() == IndexConstants.SECOND_INDEX) {
+                CheckCompatibility first_ = Net.getCheckCompatibility().getVal((int) IndexConstants.FIRST_INDEX);
                 ByteTreeMap< PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
                 ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
                 if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
@@ -106,25 +106,25 @@ public final class SendReceiveServer extends BasicServer {
 //                    Net.getReadyPlayers().removeKey(CustList.SECOND_INDEX);
 //                    Net.getPlacesPlayers().removeKey(CustList.SECOND_INDEX);
 //                    Net.sendObject(socket_,forcedBye_);
-                    removePlayer(CustList.SECOND_INDEX, forcedBye_);
+                    removePlayer(IndexConstants.SECOND_INDEX, forcedBye_);
                     return;
                 }
                 NetPokemon net_ = new NetPokemon();
                 net_.setTradablePokemon(pkFirst_);
-                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),net_);
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.FIRST_INDEX),net_);
                 net_ = new NetPokemon();
                 net_.setTradablePokemon(pkSecond_);
-                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),net_);
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.SECOND_INDEX),net_);
                 return;
             }
         }
         if (_readObject instanceof SentPokemon) {
             SentPokemon sent_ = (SentPokemon) _readObject;
-            if (sent_.getIndex() == CustList.FIRST_INDEX) {
-                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),sent_.getPokemon());
+            if (sent_.getIndex() == IndexConstants.FIRST_INDEX) {
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.SECOND_INDEX),sent_.getPokemon());
             }
-            if (sent_.getIndex() == CustList.SECOND_INDEX) {
-                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),sent_.getPokemon());
+            if (sent_.getIndex() == IndexConstants.SECOND_INDEX) {
+                Net.sendObject(Net.getSockets().getVal((int) IndexConstants.FIRST_INDEX),sent_.getPokemon());
             }
             return;
         }
@@ -151,11 +151,11 @@ public final class SendReceiveServer extends BasicServer {
             forcedBye_.setServer(false);
             forcedBye_.setTooManyPlayers(false);
             Socket socket_;
-            socket_ = Net.getSockets().getVal((int)CustList.FIRST_INDEX);
-            Net.getConnectionsServer().removeKey((int)CustList.FIRST_INDEX);
-            Net.getReadyPlayers().removeKey((int)CustList.FIRST_INDEX);
-            Net.getPlacesPlayers().removeKey((int)CustList.FIRST_INDEX);
-            if (bye_.getPlace() == CustList.FIRST_INDEX) {
+            socket_ = Net.getSockets().getVal((int) IndexConstants.FIRST_INDEX);
+            Net.getConnectionsServer().removeKey((int) IndexConstants.FIRST_INDEX);
+            Net.getReadyPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
+            Net.getPlacesPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
+            if (bye_.getPlace() == IndexConstants.FIRST_INDEX) {
                 forcedBye_.setClosing(bye_.isClosing());
             } else {
                 forcedBye_.setClosing(false);
@@ -163,11 +163,11 @@ public final class SendReceiveServer extends BasicServer {
             if (socket_ != null) {
                 Net.sendObject(socket_,forcedBye_);
             }
-            socket_ = Net.getSockets().getVal((int)CustList.SECOND_INDEX);
-            Net.getConnectionsServer().removeKey((int)CustList.SECOND_INDEX);
-            Net.getReadyPlayers().removeKey((int)CustList.SECOND_INDEX);
-            Net.getPlacesPlayers().removeKey((int)CustList.SECOND_INDEX);
-            if (bye_.getPlace() == CustList.SECOND_INDEX) {
+            socket_ = Net.getSockets().getVal((int) IndexConstants.SECOND_INDEX);
+            Net.getConnectionsServer().removeKey((int) IndexConstants.SECOND_INDEX);
+            Net.getReadyPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
+            Net.getPlacesPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
+            if (bye_.getPlace() == IndexConstants.SECOND_INDEX) {
                 forcedBye_.setClosing(bye_.isClosing());
             } else {
                 forcedBye_.setClosing(false);

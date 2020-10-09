@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaThisContent;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
 
@@ -57,7 +57,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 return;
             }
             for (RootBlock r: g_.getSelfAndParentTypes().getReverse()) {
-                if (StringList.quickEq(r.getFullName(), id_)) {
+                if (StringUtil.quickEq(r.getFullName(), id_)) {
                     if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
                         MethodOperation root_ = getParent();
                         while (true) {
@@ -102,7 +102,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                     _page.getKeyWords().getKeyWordThis());
             _page.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
-            int off_ = StringList.getFirstPrintableCharIndex(access_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             setResultClass(new AnaClassArgumentMatching(arg_));
             return;

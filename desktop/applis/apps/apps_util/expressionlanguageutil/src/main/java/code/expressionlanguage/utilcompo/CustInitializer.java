@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.ThreadUtil;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class CustInitializer extends DefaultInitializer {
 
@@ -77,7 +77,7 @@ public class CustInitializer extends DefaultInitializer {
 
     private void log(RunnableContextEl _cont,String _txt) {
         String toFile_ = getCurrentFileThread(_cont);
-        String text_ = StringList.concat(CustAliases.getDateTimeText("_", "_", "_"),":",_txt);
+        String text_ = StringUtil.concat(CustAliases.getDateTimeText("_", "_", "_"),":",_txt);
         ExecutingOptions ex_ = _cont.getExecutingOptions();
         String folder_ = ex_.getLogFolder();
         ((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().log(folder_, toFile_,text_,_cont);

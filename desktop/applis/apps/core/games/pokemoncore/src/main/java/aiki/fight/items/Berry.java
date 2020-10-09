@@ -6,6 +6,7 @@ import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.StringUtil;
 
 
 public final class Berry extends Item {
@@ -51,7 +52,7 @@ public final class Berry extends Item {
 
         }
         for (String s : multFoesDamage.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), s)) {
+            if (!StringUtil.contains(_data.getTypes(), s)) {
                 _data.setError(true);
             }
             if (!multFoesDamage.getVal(s).getEff().isZeroOrGt()) {
@@ -106,7 +107,7 @@ public final class Berry extends Item {
             _data.setError(true);
         }
         if (!categoryBoosting.isEmpty()) {
-            if (!StringList.contains(_data.getAllCategories(), categoryBoosting)) {
+            if (!StringUtil.contains(_data.getAllCategories(), categoryBoosting)) {
                 _data.setError(true);
             }
         }

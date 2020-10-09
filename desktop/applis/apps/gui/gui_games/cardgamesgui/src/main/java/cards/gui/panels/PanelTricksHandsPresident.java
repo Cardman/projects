@@ -22,6 +22,7 @@ import code.util.NatCmpTreeMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
@@ -64,7 +65,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         container = Panel.newBorder();
         cards=Panel.newLineBox();
         Panel players_ = Panel.newGrid(0,1);
-        for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
+        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
 //        int nbBots_ = _numberPlayers - 1;
@@ -77,7 +78,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         hands=Panel.newGrid(0,1);
         Panel sousPanneau3_;
         //boolean entered_ = false;
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= Panel.newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
@@ -121,7 +122,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        numerosPlis_=new Integer[nbNumbers_];
         IntMap<String> map_ = new IntMap<String>();
 //        Ints list_ = new Ints();
-        for(byte indicePli_=CustList.FIRST_INDEX;indicePli_<nbNumbers_;indicePli_++) {
+        for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbNumbers_; indicePli_++) {
 //            numerosPlis_[indicePli_]=indicePli_-1;
 //            list_.add(indicePli_-1);
             map_.put(indicePli_-1, String.valueOf(indicePli_-1));
@@ -181,7 +182,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
             hands.removeAll();
             DealPresident dealt_ = tricksHands.getDistribution();
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 Panel sousPanneau4_= Panel.newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
@@ -245,7 +246,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             cards.add(gr_,indexRem_);
             int nbCards_ = tricksHands.getProgressingTrick().total();
             Integer[] numerosJoueurs_=new Integer[nbCards_+1];
-            for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<=nbCards_;indiceJoueur_++) {
+            for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
                 numerosJoueurs_[indiceJoueur_]=(int) indiceJoueur_;
             }
 //            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
@@ -260,7 +261,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         hands.removeAll();
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
@@ -337,7 +338,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             gr_.repaintSecondChildren();
             int nbCards_ = tricks_.get(numeroPli_).total();
             Integer[] numerosJoueurs_=new Integer[nbCards_ + 1];
-            for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<=nbCards_;indiceJoueur_++) {
+            for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
                 numerosJoueurs_[indiceJoueur_]=(int) indiceJoueur_;
             }
 //            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
@@ -361,7 +362,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             DealPresident dealt_ = tricksHands.getDistribution();
             tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
             hands.removeAll();
-            for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
+            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 Panel sousPanneau4_= Panel.newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
@@ -444,7 +445,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers,numeroPli_,numeroCarte_);
         hands.removeAll();
-        for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
+        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);

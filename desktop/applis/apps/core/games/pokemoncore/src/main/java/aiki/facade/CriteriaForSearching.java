@@ -1,8 +1,9 @@
 package aiki.facade;
-import code.util.*;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public abstract class CriteriaForSearching {
 
@@ -14,7 +15,7 @@ public abstract class CriteriaForSearching {
             return false;
         }
         if (_searchMode == SearchingMode.WHOLE_STRING) {
-            if (!StringList.quickEq(_string,_typedString)) {
+            if (!StringUtil.quickEq(_string,_typedString)) {
                 return false;
             }
         }
@@ -24,24 +25,22 @@ public abstract class CriteriaForSearching {
             }
         }
         if (_searchMode == SearchingMode.MATCH_SPACE) {
-            if (!StringList.matchSpace(_string, _typedString)) {
+            if (!StringUtil.matchSpace(_string, _typedString)) {
                 return false;
             }
         }
         if (_searchMode == SearchingMode.BEGIN) {
-            if (!StringList.startsWith(_string, _typedString)) {
+            if (!StringUtil.startsWith(_string, _typedString)) {
                 return false;
             }
         }
         if (_searchMode == SearchingMode.END) {
-            if (!StringList.endsWith(_string, _typedString)) {
+            if (!StringUtil.endsWith(_string, _typedString)) {
                 return false;
             }
         }
         if (_searchMode == SearchingMode.META_CHARACTER) {
-            if (!StringList.match(_string, _typedString)) {
-                return false;
-            }
+            return StringUtil.match(_string, _typedString);
         }
         return true;
     }
@@ -51,20 +50,14 @@ public abstract class CriteriaForSearching {
             if (_max == null) {
                 return true;
             }
-            if (Numbers.compareLg(_max,_number) < 0) {
-                return false;
-            }
-            return true;
+            return NumberUtil.compareLg(_max, _number) >= 0;
         }
         if (_max != null) {
-            if (Numbers.compareLg(_max,_number) < 0) {
+            if (NumberUtil.compareLg(_max,_number) < 0) {
                 return false;
             }
         }
-        if (Numbers.compareLg(_min,_number) > 0) {
-            return false;
-        }
-        return true;
+        return NumberUtil.compareLg(_min, _number) <= 0;
     }
 
     public static boolean match(SelectedBoolean _selectedBoolean, boolean _boolean) {
@@ -74,10 +67,7 @@ public abstract class CriteriaForSearching {
         if (_selectedBoolean == SelectedBoolean.YES && _boolean) {
             return true;
         }
-        if (_selectedBoolean == SelectedBoolean.NO && !_boolean) {
-            return true;
-        }
-        return false;
+        return _selectedBoolean == SelectedBoolean.NO && !_boolean;
     }
 
     protected static boolean match(SearchingMode _searchMode, String _typedString, StringList _list) {
@@ -90,7 +80,7 @@ public abstract class CriteriaForSearching {
                 if (s == null) {
                     continue;
                 }
-                if (StringList.quickEq(s,_typedString)) {
+                if (StringUtil.quickEq(s,_typedString)) {
                     contained_ = true;
                     break;
                 }
@@ -120,7 +110,7 @@ public abstract class CriteriaForSearching {
                 if (s == null) {
                     continue;
                 }
-                if (StringList.startsWith(s, _typedString)) {
+                if (StringUtil.startsWith(s, _typedString)) {
                     contained_ = true;
                     break;
                 }
@@ -135,7 +125,7 @@ public abstract class CriteriaForSearching {
                 if (s == null) {
                     continue;
                 }
-                if (StringList.endsWith(s, _typedString)) {
+                if (StringUtil.endsWith(s, _typedString)) {
                     contained_ = true;
                     break;
                 }
@@ -150,7 +140,7 @@ public abstract class CriteriaForSearching {
                 if (s == null) {
                     continue;
                 }
-                if (StringList.matchSpace(s, _typedString)) {
+                if (StringUtil.matchSpace(s, _typedString)) {
                     contained_ = true;
                     break;
                 }
@@ -160,9 +150,7 @@ public abstract class CriteriaForSearching {
             }
         }
         if (_searchMode == SearchingMode.META_CHARACTER) {
-            if (_list.filterByMultiWords(_typedString).isEmpty()) {
-                return false;
-            }
+            return !_list.filterByMultiWords(_typedString).isEmpty();
         }
         return true;
     }

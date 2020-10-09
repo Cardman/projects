@@ -1,7 +1,8 @@
 package aiki.map.pokemon;
 import aiki.db.DataBase;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class Egg implements UsablePokemon, Displayable {
@@ -19,11 +20,11 @@ public final class Egg implements UsablePokemon, Displayable {
 
     /**@param _name the name of the pokemon which will hatch of its egg*/
     public Egg(String _name) {
-        StringList list_ = StringList.splitChars(_name, SEPARATOR);
+        StringList list_ = StringUtil.splitChars(_name, SEPARATOR);
         name = list_.first();
         String steps_ = list_.last();
-        if (StringList.isNumber(steps_)) {
-            steps = Numbers.parseInt(steps_);
+        if (StringUtil.isNumber(steps_)) {
+            steps = NumberUtil.parseInt(steps_);
         }
     }
 
@@ -55,10 +56,7 @@ public final class Egg implements UsablePokemon, Displayable {
         if (!_data.getPokedex().contains(name)) {
             return false;
         }
-        if (steps < 0) {
-            return false;
-        }
-        return true;
+        return steps >= 0;
     }
 
     public String getName() {

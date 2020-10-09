@@ -4,8 +4,8 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionHeal;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 /** Comparator without case eq*/
@@ -29,14 +29,14 @@ public final class SortedFighterHealActsComparator implements
         ActionHeal ac1_ = (ActionHeal) actionOne_;
         ActionHeal ac2_ = (ActionHeal) actionTwo_;
         if(ac2_.isTeam()&&!ac1_.isTeam()){
-            if(Numbers.eq(_fighterOne.getTeam(),_fighterTwo.getTeam())){
+            if(NumberUtil.eq(_fighterOne.getTeam(),_fighterTwo.getTeam())){
                 permuter_=true;
             }
         }
         if(permuter_){
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

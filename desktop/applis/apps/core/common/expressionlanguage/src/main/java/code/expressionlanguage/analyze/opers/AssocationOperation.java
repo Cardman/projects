@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AssocationOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
@@ -23,7 +23,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op, String _fieldName) {
         super(_index, _indexChild, _m, _op);
-        delta = StringList.getFirstPrintableCharIndex(_fieldName);
+        delta = StringUtil.getFirstPrintableCharIndex(_fieldName);
         offEq = getOperations().getOperators().firstKey();
         fieldName = _fieldName.trim();
     }
@@ -59,7 +59,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                     continue;
                 }
                 AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-                if (StringList.quickEq(a_.getName(), fieldName)) {
+                if (StringUtil.quickEq(a_.getName(), fieldName)) {
                     ok_ = true;
                     break;
                 }

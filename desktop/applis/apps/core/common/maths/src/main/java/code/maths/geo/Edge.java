@@ -1,6 +1,7 @@
 package code.maths.geo;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
 public final class Edge implements Displayable {
@@ -23,9 +24,7 @@ public final class Edge implements Displayable {
             }
         }
         if (first == _other.second) {
-            if (second == _other.first) {
-                return true;
-            }
+            return second == _other.first;
         }
         return false;
     }
@@ -37,9 +36,7 @@ public final class Edge implements Displayable {
             }
         }
         if (first.eq(_other.second)) {
-            if (second.eq(_other.first)) {
-                return true;
-            }
+            return second.eq(_other.first);
         }
         return false;
     }
@@ -82,28 +79,28 @@ public final class Edge implements Displayable {
     }
 
     private boolean lookForIntersectEdges(EqList<CustPoint> _points) {
-        int index_ = CustList.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         for (CustPoint p: _points) {
             EqList<CustPoint> others_ = new EqList<CustPoint>();
             int next_;
             int nextOthOne_;
             int nextOthTwo_;
-            if (index_ <= CustList.SECOND_INDEX) {
-                if (index_ == CustList.FIRST_INDEX) {
-                    next_ = CustList.SECOND_INDEX;
+            if (index_ <= IndexConstants.SECOND_INDEX) {
+                if (index_ == IndexConstants.FIRST_INDEX) {
+                    next_ = IndexConstants.SECOND_INDEX;
                 } else {
-                    next_ = CustList.FIRST_INDEX;
+                    next_ = IndexConstants.FIRST_INDEX;
                 }
-                nextOthOne_ = CustList.SECOND_INDEX + CustList.ONE_ELEMENT;
-                nextOthTwo_ = nextOthOne_ + CustList.ONE_ELEMENT;
+                nextOthOne_ = IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT;
+                nextOthTwo_ = nextOthOne_ + IndexConstants.ONE_ELEMENT;
             } else {
-                if (index_ == CustList.SECOND_INDEX + CustList.ONE_ELEMENT) {
-                    next_ = index_ + CustList.ONE_ELEMENT;
+                if (index_ == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
+                    next_ = index_ + IndexConstants.ONE_ELEMENT;
                 } else {
-                    next_ = index_ - CustList.ONE_ELEMENT;
+                    next_ = index_ - IndexConstants.ONE_ELEMENT;
                 }
-                nextOthOne_ = CustList.FIRST_INDEX;
-                nextOthTwo_ = CustList.SECOND_INDEX;
+                nextOthOne_ = IndexConstants.FIRST_INDEX;
+                nextOthTwo_ = IndexConstants.SECOND_INDEX;
             }
             CustPoint o_ = _points.get(next_);
             others_.add(_points.get(nextOthOne_));

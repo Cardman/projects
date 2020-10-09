@@ -20,6 +20,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class StandardInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation,RetrieveConstructor {
@@ -59,7 +60,7 @@ public final class StandardInstancingOperation extends
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
@@ -77,7 +78,7 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else if (!hasFieldName) {
-                int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
+                int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
                 realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
@@ -91,7 +92,7 @@ public final class StandardInstancingOperation extends
             analyzeCtor(getTypeInfer(), varargParam_, _page);
             return;
         }
-        int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
+        int offset_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
         AnaClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
@@ -164,13 +165,13 @@ public final class StandardInstancingOperation extends
         String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(realClassName_).mid(1)) {
-            int loc_ = StringList.getFirstPrintableCharIndex(a);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(a);
             partsArgs_.add(ResolvingImportTypes.resolveCorrectType(offset_+loc_,a, _page));
             getPartOffsets().addAllElts(_page.getCurrentParts());
             offset_ += a.length() + 1;
         }
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        realClassName_ = AnaTemplates.check(getErrs(),StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+        realClassName_ = AnaTemplates.check(getErrs(), StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
 

@@ -7,11 +7,12 @@ import aiki.fight.util.LevelMove;
 import aiki.game.fight.util.LevelExpPoints;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class PseudoPlayerFighter extends PseudoFighter {
 
@@ -61,7 +62,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         String oldName_ = getName();
         setLevel(achievedLevel_);
         changeLevelsEvolutions(_import);
-        boolean evolve_ = !StringList.quickEq(oldName_, getName());
+        boolean evolve_ = !StringUtil.quickEq(oldName_, getName());
         StringList abilities_ = new StringList();
         if (evolve_) {
             infosRealEvolutions.add(new NameLevel(getName(), achievedLevel_));
@@ -104,11 +105,11 @@ public class PseudoPlayerFighter extends PseudoFighter {
         PokemonData fPk_=_import.getPokemon(getName());
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau));
         Rate next_;
         next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau - 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau - 1));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
@@ -116,7 +117,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
         short maxNiveau_=(short) _import.getMaxLevel();
-        if(Numbers.eq(_niveauTmp,maxNiveau_)){
+        if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
             //cas gainExperience+gainExperienceDepuisDernierNiveau>=sommeDiffNiveaux_:
             //==> gainExperience+gainExperienceDepuisDernierNiveau-sommeDiffNiveaux_>=0
             //==> apres affectation gainExperience>=0
@@ -156,7 +157,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
     }
 
     void changeLevelsEvolutions(DataBase _import) {
-        int index_ = CustList.INDEX_NOT_FOUND_ELT;
+        int index_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         PokemonData data_ = _import.getPokemon(getName());
         for (NameLevel p: evoLevels) {
             index_++;
@@ -164,7 +165,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
                 break;
             }
         }
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         if (evoLevels.get(index_).getLevel() <= getLevel()) {

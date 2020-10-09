@@ -5,7 +5,8 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class SuperFieldOperation extends
         SettableAbstractFieldOperation {
@@ -29,7 +30,7 @@ public final class SuperFieldOperation extends
     @Override
     String getFieldName() {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return originalStr_.trim();
     }
 
@@ -37,8 +38,8 @@ public final class SuperFieldOperation extends
     public int getDelta() {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getDelta();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        return relativeOff_+StringList.getFirstPrintableCharIndex(originalStr_);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        return relativeOff_+StringUtil.getFirstPrintableCharIndex(originalStr_);
     }
 
     @Override

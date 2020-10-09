@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
@@ -62,7 +63,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         Struct strIter_ = _l.getStructIterator();
         String locName_ = getHasNextVar(_conf);
         _conf.getLastPage().putInternVars(locName_, strIter_,_conf);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
+        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
             return ConditionReturn.CALL_EX;
@@ -86,7 +87,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         if (!el_.getResultClass().isArray()) {
             String locName_ = getNextVar(_conf);
             abs_.putInternVars(locName_, iterator_,_conf);
-            ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
+            ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
             arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         } else {
             Struct container_ = _l.getContainer();
@@ -113,7 +114,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         AbstractPageEl ip_ = _conf.getLastPage();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
@@ -191,12 +192,12 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             return;
         }
         Struct iterStr_ = null;
-        long length_ = CustList.INDEX_NOT_FOUND_ELT;
+        long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
         ExecOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
             length_ = getLength(its_,_cont);
-            if (length_ == CustList.SIZE_EMPTY) {
+            if (length_ == IndexConstants.SIZE_EMPTY) {
                 finished_ = true;
             }
             if (_cont.callsOrException()) {
@@ -210,7 +211,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             }
             String locName_ = getIteratorVar(_cont);
             ip_.putInternVars(locName_, its_,_cont);
-            ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
+            ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
             Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
             if (_cont.callsOrException()) {
                 return;

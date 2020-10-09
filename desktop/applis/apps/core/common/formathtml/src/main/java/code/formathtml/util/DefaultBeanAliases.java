@@ -17,9 +17,9 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.MessageStruct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DefaultBeanAliases {
     private static final String BEAN = "Bean";
@@ -610,12 +610,12 @@ public final class DefaultBeanAliases {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
         String type_ = _method.getClassName();
-        if (StringList.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
+        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
             return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
         }
         String name_ = _method.getConstraints().getName();
         MessageStruct instance_ = getMessageStruct(_instance, aliasMessage);
-        if (StringList.quickEq(name_, aliasNewMessage)) {
+        if (StringUtil.quickEq(name_, aliasNewMessage)) {
             if (list_.isEmpty()) {
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
@@ -624,11 +624,11 @@ public final class DefaultBeanAliases {
             }
             return res_;
         }
-        if (StringList.quickEq(name_, aliasMessageFormat)) {
+        if (StringUtil.quickEq(name_, aliasMessageFormat)) {
             res_.setResult(BeanLgNames.wrapStd(instance_.getMessage()));
             return res_;
         }
-        if (StringList.quickEq(name_, aliasMessageGetArgs)) {
+        if (StringUtil.quickEq(name_, aliasMessageGetArgs)) {
             StringList resArgs_ = instance_.getArgs();
             String arrStr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString());
             int len_ = resArgs_.size();

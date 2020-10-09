@@ -18,6 +18,7 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ContainerPresident extends ContainerGame {
 
@@ -84,7 +85,7 @@ public class ContainerPresident extends ContainerGame {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosPresident();
-        pseudosTwo_.addAllElts(pseudos_.mid(0, _nbPlayers - 1));
+        pseudosTwo_.addAllElts(pseudos_.left(_nbPlayers - 1));
         return pseudosTwo_;
     }
 
@@ -92,7 +93,7 @@ public class ContainerPresident extends ContainerGame {
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks) {
         return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
-                StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
                         Long.toString(_nbStacks),FileConst.DECK_EXT)));
     }

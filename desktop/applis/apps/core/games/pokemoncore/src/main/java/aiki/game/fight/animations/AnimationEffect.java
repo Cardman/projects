@@ -1,7 +1,7 @@
 package aiki.game.fight.animations;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 public class AnimationEffect implements AnimationInt {
 
@@ -22,7 +22,7 @@ public class AnimationEffect implements AnimationInt {
     }
 
     public boolean isPlayerFromFighter() {
-        return Numbers.eq(fromFighter.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(fromFighter.getTeam(), Fight.PLAYER);
     }
 
     public TargetCoords getToFighter() {
@@ -50,6 +50,6 @@ public class AnimationEffect implements AnimationInt {
     }
 
     public boolean isPlayerToFighter() {
-        return Numbers.eq(toFighter.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(toFighter.getTeam(), Fight.PLAYER);
     }
 }

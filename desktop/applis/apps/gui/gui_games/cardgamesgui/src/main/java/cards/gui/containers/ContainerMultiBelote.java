@@ -80,12 +80,14 @@ import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti {
 
     private int noClient;
-    private byte indexInGame = CustList.INDEX_NOT_FOUND_ELT;
+    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesBelote rulesBeloteMulti = new RulesBelote();
     private boolean annonceBelote;
     private boolean annonceBeloteRebelote;
@@ -93,7 +95,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private CustCheckBox ready;
 
     private DealingBelote repBelote;
-    private int nbChoosenPlayers = CustList.INDEX_NOT_FOUND_ELT;
+    private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
     private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
@@ -243,7 +245,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox();
-        for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
@@ -258,7 +260,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(panel_);
         panel_ = Panel.newGrid(0, 3);
         playersPseudos.clear();
-        for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             TextLabel pseudo_ = new TextLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
@@ -414,7 +416,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void errorForBidding(ErrorBiddingBelote _error) {
         String lg_ = getOwner().getLanguageKey();
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), Games.toString(_error.getBid(),lg_));
+        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(), mes_, getMessages().getVal(MainWindow.CANT_BID_TITLE),
@@ -427,7 +429,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             bidMax = bid_.getBidBelote();
         }
         String lg_ = getOwner().getLanguageKey();
-        getEvents().append(StringList.concat(getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
+        getEvents().append(StringUtil.concat(getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
                 Games.toString(bid_.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
@@ -463,7 +465,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
             Panel panneau_ = getPanneauBoutonsJeu();
-            CustCheckBox caseCoche_ = new CustCheckBox(StringList.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+            CustCheckBox caseCoche_ = new CustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
                     INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(caseCoche_);
@@ -489,7 +491,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
-            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_), RETURN_LINE));
+            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_), RETURN_LINE));
         }
         if (_card.isDeclaring()) {
             if (bidMax.getCouleurDominante()) {
@@ -505,7 +507,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                                 getDisplayingBelote().isDecreasing(),
                                 bidMax.getOrdre());
             }
-            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
+            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
                     RETURN_LINE));
             if (!_card.getDeclare().getHand().estVide()) {
                 getHandfuls().getVal(relative_).setText(
@@ -543,10 +545,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
             return;
         }
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
-        String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
+        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
+        String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
         ConfirmDialog.showMessage(getOwner(),
-                StringList.concat(mes_, RETURN_LINE, mesReason_),
+                StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),
                 lg_, JOptionPane.ERROR_MESSAGE);
     }
@@ -714,14 +716,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel panneau2_ = Panel.newPageBox();
         setEvents(new TextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
-        getEvents().append(StringList.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
+        getEvents().append(StringUtil.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = Panel.newGrid(0, 1);
-        for (byte i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
@@ -768,7 +770,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             iter_++;
         }
-        for (byte p = CustList.FIRST_INDEX; p < indexInGame; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p < indexInGame; p++) {
             if (p == _otherPlayerIndex) {
                 return iter_;
             }
@@ -855,7 +857,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         Panel panel_ = Panel.newGrid(0,3);
 
-        for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             panel_.add(playersPseudos.get(i));
             panel_.add(playersPlaces.get(i));
             panel_.add(playersReady.get(i));

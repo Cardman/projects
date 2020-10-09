@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
@@ -109,11 +110,11 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return;
         }
         Struct iterStr_;
-        long length_ = CustList.INDEX_NOT_FOUND_ELT;
+        long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
         _cont.getLastPage().putInternVars(locName_, its_,_cont);
-        ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
+        ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
         if (_cont.callsOrException()) {
             return;
@@ -154,7 +155,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         AbstractPageEl ip_ = _conf.getLastPage();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
@@ -188,7 +189,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             String locName_ = cls_.getNextPairVarCust();
             _conf.getLastPage().putInternVars(locName_, iterator_,_conf);
         }
-        ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
+        ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
         ExpressionLanguage.tryToCalculate(_conf,nextEl_,0);
         if (_conf.callsOrException()) {
             return;
@@ -232,7 +233,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         Classes cls_ = _conf.getClasses();
         String locName_ = cls_.getHasNextPairVarCust();
         _conf.getLastPage().putInternVars(locName_, strIter_,_conf);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
+        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
             return ConditionReturn.CALL_EX;

@@ -9,7 +9,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
@@ -22,12 +22,12 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        if (StringList.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasMetaInfo())) {
+        if (StringUtil.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasMetaInfo())) {
             Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _context);
             setSimpleArgument(res_, _conf, _nodes, _context);
             return;
         }
-        if (StringList.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasInstance())) {
+        if (StringUtil.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasInstance())) {
             Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _context);
             setSimpleArgument(res_, _conf, _nodes, _context);
             return;

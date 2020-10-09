@@ -2,8 +2,8 @@ package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
 
@@ -31,7 +31,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         Object o_ = arg_.getObject();
         a_.setArgClass(MathType.RATE);
         int key_ = getOperations().getOperators().firstKey();
-        if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
+        if (StringUtil.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
             a_.setObject(((Rate)o_).opposNb());
         } else {
             a_.setObject(o_);

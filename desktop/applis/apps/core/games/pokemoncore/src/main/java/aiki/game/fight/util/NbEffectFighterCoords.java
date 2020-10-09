@@ -1,7 +1,8 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TeamPosition;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -14,8 +15,8 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
     private final TeamPosition position;
 
     public NbEffectFighterCoords(String _str) {
-        StringList list_ = StringList.splitChars(_str, SEPARATOR);
-        number = Numbers.parseInt(list_.first());
+        StringList list_ = StringUtil.splitChars(_str, SEPARATOR);
+        number = NumberUtil.parseInt(list_.first());
         position = new TeamPosition(list_.last());
     }
 
@@ -31,13 +32,10 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
 
     @Override
     public boolean eq(NbEffectFighterCoords _obj) {
-        if (!Numbers.eq(number, _obj.getNumber())) {
+        if (!NumberUtil.eq(number, _obj.getNumber())) {
             return false;
         }
-        if (!TeamPosition.eq(position, _obj.getPosition())) {
-            return false;
-        }
-        return true;
+        return TeamPosition.eq(position, _obj.getPosition());
     }
 
     public int getNumber() {

@@ -3,6 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class Templates {
 
@@ -79,7 +80,7 @@ public final class Templates {
                 if (!inner_) {
                     boolean foundPkg_ = false;
                     for (String p: _page.getPackagesFound()) {
-                        if (StringList.quickEq(p, StringExpUtil.removeDottedSpaces(foundId_))) {
+                        if (StringUtil.quickEq(p, StringExpUtil.removeDottedSpaces(foundId_))) {
                             foundPkg_ = true;
                             break;
                         }

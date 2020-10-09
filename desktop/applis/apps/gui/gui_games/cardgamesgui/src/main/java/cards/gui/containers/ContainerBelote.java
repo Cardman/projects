@@ -23,6 +23,7 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ContainerBelote extends ContainerGame {
 
@@ -123,14 +124,14 @@ public class ContainerBelote extends ContainerGame {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosBelote();
-        pseudosTwo_.addAllElts(pseudos_.mid(0, _nbPlayers - 1));
+        pseudosTwo_.addAllElts(pseudos_.left(_nbPlayers - 1));
         return pseudosTwo_;
     }
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandBelote chargerPileBelote() {
         return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                  StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                  StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
                           StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
     }
     public String pseudo() {

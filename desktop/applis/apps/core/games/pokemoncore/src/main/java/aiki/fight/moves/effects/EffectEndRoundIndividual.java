@@ -7,8 +7,8 @@ import aiki.fight.status.StatusType;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class EffectEndRoundIndividual extends EffectEndRound {
@@ -36,7 +36,7 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
             }
         }
         CustList<String> keys_ = healHpByOwnerTypes.getKeys();
-        StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+        StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
         if (!_data.getTypes().containsAllObj(keys_)) {
             _data.setError(true);
         }

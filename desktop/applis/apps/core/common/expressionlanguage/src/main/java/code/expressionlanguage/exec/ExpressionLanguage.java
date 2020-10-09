@@ -10,7 +10,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExpressionLanguage {
 
@@ -206,10 +206,10 @@ public final class ExpressionLanguage {
             }
             if (par_ instanceof ExecCompoundAffectationOperation){
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     v_ = BooleanStruct.of(false);
                 }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
+                if (StringUtil.quickEq(p_.getOper(),"||=")) {
                     v_ = BooleanStruct.of(true);
                 }
             }

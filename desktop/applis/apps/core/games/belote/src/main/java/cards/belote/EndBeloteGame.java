@@ -1,6 +1,5 @@
 package cards.belote;
 
-import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -8,6 +7,7 @@ import cards.consts.EndGameState;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
@@ -132,7 +132,7 @@ public final class EndBeloteGame {
     Shorts scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
         byte nombreJoueurs_=getNombreDeJoueurs();
         Shorts scores_=new Shorts();
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             if(!relations.aPourDefenseur(joueur_)) {
                 scores_.add((short)_scoreDefinitifAttaque);
             } else {

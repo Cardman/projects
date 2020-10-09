@@ -192,12 +192,12 @@ public final class ImportingPage {
                 StringList fid_ = formatId_.last();
                 rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
                 rendReadWrite.getConf().getInputs().removeLast();
-                map_.removeLast();
-                formatId_.removeLast();
-                formsNb_.removeLast();
+                map_.removeQuicklyLast();
+                formatId_.removeQuicklyLast();
+                formsNb_.removeQuicklyLast();
             }
         }
-        rendBlockStacks.removeLast();
+        rendBlockStacks.removeQuicklyLast();
         if (hasBlock()) {
             RendAbstractStask before_ = rendBlockStacks.last();
             if (before_ instanceof RendLoopBlockStack) {

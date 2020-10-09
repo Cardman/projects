@@ -12,8 +12,8 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
-import code.util.Numbers;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 final class RendRequestUtil {
 
@@ -32,7 +32,7 @@ final class RendRequestUtil {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))), _advStandards.getAliasPrimLong());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(args_.get(i))), _advStandards.getAliasPrimLong());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean, _advStandards, _context);

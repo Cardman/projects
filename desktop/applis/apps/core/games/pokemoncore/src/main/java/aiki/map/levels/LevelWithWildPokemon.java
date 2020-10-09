@@ -10,6 +10,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
 import code.util.*;
+import code.util.core.StringUtil;
 
 
 public abstract class LevelWithWildPokemon extends Level {
@@ -95,7 +96,7 @@ public abstract class LevelWithWildPokemon extends Level {
                 _data.setError(true);
             }
             e.getValue().validateAsNpc(_data);
-            if (!StringList.contains(_data.getLegPks(),e.getValue().getName())) {
+            if (!StringUtil.contains(_data.getLegPks(),e.getValue().getName())) {
                 _data.setError(true);
             }
             keys_.add(e.getKey());

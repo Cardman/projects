@@ -1,6 +1,6 @@
 package code.sml;
 
-import code.util.CustList;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 import static code.sml.EquallableRowColUtil.assertEq;
@@ -114,12 +114,12 @@ public class DocReqTest {
         rcOne_.setCol(5);
         rcTwo_ = new RowCol();
         assertTrue(!rcOne_.eq(rcTwo_));
-        assertTrue(rcOne_.cmp(rcTwo_) > CustList.EQ_CMP);
+        assertTrue(rcOne_.cmp(rcTwo_) > SortConstants.EQ_CMP);
         rcOne_ = new RowCol();
         rcTwo_ = new RowCol();
         rcTwo_.setRow(5);
         assertTrue(!rcOne_.eq(rcTwo_));
-        assertTrue(rcOne_.cmp(rcTwo_) < CustList.EQ_CMP);
+        assertTrue(rcOne_.cmp(rcTwo_) < SortConstants.EQ_CMP);
     }
     @Test
     public void parseNullTest() {

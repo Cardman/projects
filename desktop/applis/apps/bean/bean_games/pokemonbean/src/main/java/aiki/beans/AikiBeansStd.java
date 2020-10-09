@@ -13,6 +13,7 @@ import code.expressionlanguage.structs.Struct;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansStd {
     public static final String TYPE_COMMON_BEAN = "aiki.beans.CommonBean";
@@ -83,35 +84,35 @@ public final class AikiBeansStd {
         WelcomeBean instance_ = (WelcomeBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_POKEDEX)) {
+        if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {
             res_.setResult(new StringStruct(instance_.clickPokedex()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEMS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEMS)) {
             res_.setResult(new StringStruct(instance_.clickItems()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,SEE_ALL_MOVES)) {
+        if (StringUtil.quickEq(methodName_,SEE_ALL_MOVES)) {
             res_.setResult(new StringStruct(instance_.seeAllMoves()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,SEE_LEARNT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,SEE_LEARNT_MOVES)) {
             res_.setResult(new StringStruct(instance_.seeLearntMoves()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,SEE_NOT_LEARNT_MOVES)) {
+        if (StringUtil.quickEq(methodName_,SEE_NOT_LEARNT_MOVES)) {
             res_.setResult(new StringStruct(instance_.seeNotLearntMoves()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickAbilities()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickStatus()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SIMULATION)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SIMULATION)) {
             res_.setResult(new StringStruct(instance_.clickSimulation()));
             return res_;
         }

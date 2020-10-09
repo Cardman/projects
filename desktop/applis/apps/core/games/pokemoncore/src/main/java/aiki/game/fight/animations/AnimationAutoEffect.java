@@ -1,7 +1,7 @@
 package aiki.game.fight.animations;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 public class AnimationAutoEffect implements AnimationInt {
 
@@ -10,7 +10,7 @@ public class AnimationAutoEffect implements AnimationInt {
     private boolean koUser;
 
     public boolean isPlayer() {
-        return Numbers.eq(user.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(user.getTeam(), Fight.PLAYER);
     }
 
     public TargetCoords getUser() {

@@ -9,6 +9,7 @@ import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AliasStackTraceElement {
 
@@ -50,11 +51,11 @@ public final class AliasStackTraceElement {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         AliasStackTraceElement ref_ = lgNames_.getStackElt();
-        if (StringList.quickEq(name_, ref_.aliasCurrentStack)) {
+        if (StringUtil.quickEq(name_, ref_.aliasCurrentStack)) {
             result_.setResult(ExecutingUtil.newStackTraceElementArray(_cont));
             return result_;
         }
-        if (StringList.quickEq(name_, ref_.aliasCurrentFullStack)) {
+        if (StringUtil.quickEq(name_, ref_.aliasCurrentFullStack)) {
             result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_cont));
             return result_;
         }

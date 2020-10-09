@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;
@@ -102,7 +103,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //operator
                 cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchLeft_.getNames(),"&"));
                 _page.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
             }

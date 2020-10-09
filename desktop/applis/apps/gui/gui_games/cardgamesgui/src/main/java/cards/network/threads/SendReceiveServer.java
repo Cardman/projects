@@ -99,6 +99,7 @@ import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.core.IndexConstants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -1641,7 +1642,7 @@ public final class SendReceiveServer extends BasicServer {
     private static void endGameBelote() {
         StringList players_ = new StringList();
         int nbPlayers_ = Net.getGames().partieBelote().getNombreDeJoueurs();
-        for (int i = CustList.FIRST_INDEX; i < nbPlayers_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
             if (Net.getNicknames().contains(i)) {
                 players_.add(Net.getNicknames().getVal(i));
             } else {
@@ -1666,7 +1667,7 @@ public final class SendReceiveServer extends BasicServer {
     private static void endGamePresident() {
         StringList players_ = new StringList();
         int nbPlayers_ = Net.getGames().partiePresident().getNombreDeJoueurs();
-        for (int i = CustList.FIRST_INDEX; i < nbPlayers_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
             if (Net.getNicknames().contains(i)) {
                 players_.add(Net.getNicknames().getVal(i));
             } else {
@@ -1691,7 +1692,7 @@ public final class SendReceiveServer extends BasicServer {
     private static void endGameTarot() {
         StringList players_ = new StringList();
         int nbPlayers_ = Net.getGames().partieTarot().getNombreDeJoueurs();
-        for (int i = CustList.FIRST_INDEX; i < nbPlayers_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
             if (Net.getNicknames().contains(i)) {
                 players_.add(Net.getNicknames().getVal(i));
             } else {

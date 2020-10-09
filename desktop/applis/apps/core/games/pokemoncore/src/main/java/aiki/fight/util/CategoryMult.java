@@ -1,6 +1,7 @@
 package aiki.fight.util;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -21,9 +22,9 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
     }
 
     public CategoryMult(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         category = elements_.first();
-        mult = (short) Numbers.parseInt(elements_.last());
+        mult = (short) NumberUtil.parseInt(elements_.last());
     }
 
     
@@ -32,13 +33,10 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
     }
     @Override
     public boolean eq(CategoryMult _obj) {
-        if (!Numbers.eq(mult, _obj.mult)) {
+        if (!NumberUtil.eq(mult, _obj.mult)) {
             return false;
         }
-        if (!StringList.quickEq(category, _obj.category)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(category, _obj.category);
     }
 
     public String getCategory() {

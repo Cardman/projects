@@ -7,7 +7,7 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
+import code.util.core.IndexConstants;
 
 public final class GameBeloteCommon {
 
@@ -242,7 +242,7 @@ public final class GameBeloteCommon {
 
             HandBelote cartesMaitresses_ = new HandBelote(ordre_);
             int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
-            for (byte c = CustList.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+            for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
                 if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
                         couleurTotale_.carte(c))) {
                     break;

@@ -14,6 +14,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
+import code.util.core.IndexConstants;
 
 public class LevelArea {
 
@@ -37,7 +38,7 @@ public class LevelArea {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {
-                if (block_.getIndexApparition() != CustList.INDEX_NOT_FOUND_ELT) {
+                if (block_.getIndexApparition() != IndexConstants.INDEX_NOT_FOUND_ELT) {
                     indexes.put(id_, block_.getIndexApparition());
                 }
                 dimsBlocks.put(id_,
@@ -87,10 +88,7 @@ public class LevelArea {
         if (_pt.getx() >= leftTop.getx() + width) {
             return false;
         }
-        if (_pt.gety() >= leftTop.gety() + height) {
-            return false;
-        }
-        return true;
+        return _pt.gety() < leftTop.gety() + height;
     }
 
     public boolean isAccessible(Point _pt) {
@@ -107,7 +105,7 @@ public class LevelArea {
 
     public CustList<GenderName> getPokemon(Point _pt) {
         int index_ = getIndex(_pt);
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return new CustList<GenderName>();
         }
         return pokemon.get(index_);
@@ -136,7 +134,7 @@ public class LevelArea {
             // _pt.gety() < k.gety() + height
             return indexes.getVal(k);
         }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public Point getLeftTop() {

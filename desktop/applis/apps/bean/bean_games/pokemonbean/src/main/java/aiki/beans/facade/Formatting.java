@@ -1,9 +1,10 @@
 package aiki.beans.facade;
 import aiki.db.DataBase;
-import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 final class Formatting {
 
@@ -35,7 +36,7 @@ final class Formatting {
         reasons_ = new StringList();
         for (String f: _reasons) {
             String formula_ = _data.getFormula(f, _language);
-            formula_ = StringList.replaceMultiple(formula_, locHtml_);
+            formula_ = StringUtil.replaceMultiple(formula_, locHtml_);
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            formula_ = formula_.replace(EAMP, E_AMP);
@@ -59,8 +60,8 @@ final class Formatting {
     public static StringList getReasons(String _booleanString) {
         StringList reasons_;
         reasons_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        int iPostSep_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
+        int iPostSep_ = IndexConstants.FIRST_INDEX;
         int nbLeftPar_ = 0;
         int nbRightPar_ = 0;
         String fail_ = _booleanString;

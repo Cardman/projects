@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class FieldMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
@@ -125,15 +125,15 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
             return false;
         }
         FieldMetaInfo f_ = (FieldMetaInfo) _other;
-        if (!StringList.quickEq(declaringClass, f_.declaringClass)) {
+        if (!StringUtil.quickEq(declaringClass, f_.declaringClass)) {
             return false;
         }
-        return StringList.quickEq(name, f_.name);
+        return StringUtil.quickEq(name, f_.name);
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringList.concat(declaringClass,".",name));
+        return new StringStruct(StringUtil.concat(declaringClass,".",name));
     }
 
     public boolean isInvokable() {

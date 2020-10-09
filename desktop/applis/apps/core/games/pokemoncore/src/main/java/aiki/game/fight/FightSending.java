@@ -20,15 +20,16 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightSending {
 
@@ -82,7 +83,7 @@ final class FightSending {
                 }
                 equipeCbtEnvoye_.ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
             }
-        } else if (Numbers.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
+        } else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
             Team team_=_fight.getUserTeam();
             for(byte c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
@@ -117,7 +118,7 @@ final class FightSending {
             if(!FightMoves.existenceAntiClimatActif(_fight,_import)){
                 MoveData fAttGl_=_import.getMove(climat_);
                 int nbEffets_=fAttGl_.nbEffets();
-                for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                     Effect effet_=fAttGl_.getEffet(i);
                     if(!(effet_ instanceof EffectGlobal)){
                         continue;
@@ -192,7 +193,7 @@ final class FightSending {
         for(byte c:equipeAdv_.getMembers().getKeys()){
             Fighter membre_=equipeAdv_.refPartMembres(c);
             byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
-            if (!Numbers.eq(pos_,Fighter.BACK)) {
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
             }
@@ -203,7 +204,7 @@ final class FightSending {
         for(byte c:equipeAdv_.getMembers().getKeys()){
             Fighter membre_=equipeAdv_.refPartMembres(c);
             byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
-            if (Numbers.eq(pos_,Fighter.BACK)) {
+            if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 //not sent
                 continue;
             }
@@ -228,7 +229,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_=_fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (!Numbers.eq(pos_,Fighter.BACK)) {
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
             }
@@ -239,7 +240,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_=_fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (Numbers.eq(pos_,Fighter.BACK)) {
+            if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 //not sent
                 continue;
             }
@@ -256,7 +257,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_=_fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (!Numbers.eq(pos_,Fighter.BACK)) {
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
             }
@@ -271,7 +272,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_=_fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (Numbers.eq(pos_,Fighter.BACK)) {
+            if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 continue;
             }
             if (membre_.estArriere()) {
@@ -283,7 +284,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_=_fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (Numbers.eq(pos_,Fighter.BACK)) {
+            if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 continue;
             }
             if (!membre_.estArriere()) {
@@ -444,7 +445,7 @@ final class FightSending {
                 }
                 _fight.getUserTeam().ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
             }
-        }else if (Numbers.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
+        }else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
             Team team_=_fight.getUserTeam();
             for(byte c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
@@ -542,7 +543,7 @@ final class FightSending {
             //if(effetEquipeEntreeAdv_.getDeletedByFoeTypes()) ==> supprimer l'effet et passer a la suite
             MoveData fAtt_=_import.getMove(c);
             int nbEffets_=fAtt_.nbEffets();
-            for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAtt_.getEffet(i);
                 if(!(effet_ instanceof EffectTeamWhileSendFoe)){
                     continue;
@@ -550,7 +551,7 @@ final class FightSending {
                 EffectTeamWhileSendFoe effetEquipeEntreeAdv_=(EffectTeamWhileSendFoe)effet_;
                 boolean passerReussiteEffet_=false;
                 for(String e:creatureCbt_.getTypes()){
-                    if(StringList.contains(effetEquipeEntreeAdv_.getDeletedByFoeTypes(), e)){
+                    if(StringUtil.contains(effetEquipeEntreeAdv_.getDeletedByFoeTypes(), e)){
                         equipeAdvCbtEnvoye_.supprimerEffetEquipeEntreeAdv(c);
                         passerReussiteEffet_=true;
                         break;
@@ -606,7 +607,7 @@ final class FightSending {
             Rate inflictedHp_ = Rate.multiply(pvInfliges_,creatureCbt_.pvMax());
             if(Rate.greaterEq(inflictedHp_,creatureCbt_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,_cbt,_diff,_import);
-                if(Numbers.eq(_cbt.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_cbt.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -633,7 +634,7 @@ final class FightSending {
                 return;
             }
             short indice_=utilisationBis_;
-            for(short i=utilisationBis_;i>CustList.SIZE_EMPTY;i--){
+            for(short i = utilisationBis_; i> IndexConstants.SIZE_EMPTY; i--){
                 if(statutSiNb_.contains(i)){
                     indice_=i;
                     break;

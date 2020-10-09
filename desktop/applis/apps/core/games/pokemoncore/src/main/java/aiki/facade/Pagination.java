@@ -1,5 +1,5 @@
 package aiki.facade;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public abstract class Pagination {
 
@@ -7,18 +7,18 @@ public abstract class Pagination {
 
     public static final int MIN_PRIORITY = 1;
 
-    private int numberPage = CustList.INDEX_NOT_FOUND_ELT;
+    private int numberPage = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private int nbResultsPerPage = 1;
 
-    private int line = CustList.INDEX_NOT_FOUND_ELT;
+    private int line = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private int delta = 1;
 
     public void clear() {
         clearResults();
-        setLine(CustList.INDEX_NOT_FOUND_ELT);
-        setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
         clearRendered();
     }
 
@@ -36,11 +36,11 @@ public abstract class Pagination {
     protected abstract void excludeResults();
 
     private void afterNewSeach() {
-        checkLine(CustList.INDEX_NOT_FOUND_ELT);
+        checkLine(IndexConstants.INDEX_NOT_FOUND_ELT);
         if (hasResults()) {
             begin();
         } else {
-            setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
             clearRendered();
         }
     }
@@ -53,7 +53,7 @@ public abstract class Pagination {
 
     public void checkLine(int _line) {
         if (line == _line) {
-            line = CustList.INDEX_NOT_FOUND_ELT;
+            line = IndexConstants.INDEX_NOT_FOUND_ELT;
             return;
         }
         line = _line;
@@ -72,7 +72,7 @@ public abstract class Pagination {
     protected abstract boolean isValidIndex(int index_);
 
     protected int getIndex() {
-        if (line == CustList.INDEX_NOT_FOUND_ELT) {
+        if (line == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return line;
         }
         return numberPage * nbResultsPerPage + line;
@@ -92,7 +92,7 @@ public abstract class Pagination {
     protected abstract boolean hasNoRendered();
 
     public boolean enabledPrevious() {
-        return numberPage > CustList.FIRST_INDEX;
+        return numberPage > IndexConstants.FIRST_INDEX;
     }
 
     public void previous() {
@@ -100,11 +100,11 @@ public abstract class Pagination {
     }
 
     public void previousDelta() {
-        changePage(Math.max(numberPage - delta, CustList.FIRST_INDEX));
+        changePage(Math.max(numberPage - delta, IndexConstants.FIRST_INDEX));
     }
 
     public void begin() {
-        changePage(CustList.FIRST_INDEX);
+        changePage(IndexConstants.FIRST_INDEX);
     }
 
     public boolean enabledNext() {
@@ -125,7 +125,7 @@ public abstract class Pagination {
 
     public void changePage(int _page) {
         if (numberPage != _page) {
-            line = CustList.INDEX_NOT_FOUND_ELT;
+            line = IndexConstants.INDEX_NOT_FOUND_ELT;
         }
         numberPage = _page;
         calculateRendered();

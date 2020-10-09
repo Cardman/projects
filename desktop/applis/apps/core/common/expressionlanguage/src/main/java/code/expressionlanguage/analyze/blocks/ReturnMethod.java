@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ReturnMethod extends AbruptBlock {
 
@@ -75,7 +76,7 @@ public final class ReturnMethod extends AbruptBlock {
             }
             par_ = par_.getParent();
         }
-        if (StringList.quickEq(retType_, _page.getAliasVoid())) {
+        if (StringUtil.quickEq(retType_, _page.getAliasVoid())) {
             if (isEmpty()) {
                 return EMPTY_STRING;
             }
@@ -89,7 +90,7 @@ public final class ReturnMethod extends AbruptBlock {
         mapping_.setMapping(vars_);
         mapping_.setArg(ret_);
         mapping_.setParam(_retType);
-        if (StringList.quickEq(_retType, _page.getAliasVoid())) {
+        if (StringUtil.quickEq(_retType, _page.getAliasVoid())) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
@@ -115,7 +116,7 @@ public final class ReturnMethod extends AbruptBlock {
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(ret_.getNames(), "&"),
+                        StringUtil.join(ret_.getNames(), "&"),
                         _retType);
                 _page.addLocError(cast_);
                 setReachableError(true);

@@ -1,6 +1,7 @@
 package aiki.util;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -22,8 +23,8 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
     }
 
     public LevelPoint(String _string) {
-        StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        levelIndex = (byte) Numbers.parseInt(elements_.first());
+        StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
+        levelIndex = (byte) NumberUtil.parseInt(elements_.first());
         point = new Point(elements_.last());
     }
 
@@ -43,13 +44,10 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
 
     @Override
     public boolean eq(LevelPoint _obj) {
-        if (!Numbers.eq(levelIndex,_obj.levelIndex)) {
+        if (!NumberUtil.eq(levelIndex,_obj.levelIndex)) {
             return false;
         }
-        if (!Point.eq(point,_obj.point)) {
-            return false;
-        }
-        return true;
+        return Point.eq(point, _obj.point);
     }
     public byte getLevelIndex() {
         return levelIndex;

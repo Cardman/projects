@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -35,9 +36,9 @@ public class PokemonFamilyTest {
         assertTrue(!dataBase_.isError());
         assertEq(1, pk_.getStages().size());
         assertEq(1, pk_.getStages().first().size());
-        assertTrue(StringList.contains(pk_.getStages().first(), "PIKACHU"));
+        assertTrue(StringUtil.contains(pk_.getStages().first(), "PIKACHU"));
         assertEq(1, pk_.getAllPokemon().size());
-        assertTrue(StringList.contains(pk_.getAllPokemon(), "PIKACHU"));
+        assertTrue(StringUtil.contains(pk_.getAllPokemon(), "PIKACHU"));
     }
 
     private static DataBase newData() {
@@ -66,17 +67,17 @@ public class PokemonFamilyTest {
         assertTrue(!dataBase_.isError());
         assertEq(3, pk_.getStages().size());
         assertEq(1, pk_.getStages().first().size());
-        assertTrue(StringList.contains(pk_.getStages().first(), "PTITARD"));
+        assertTrue(StringUtil.contains(pk_.getStages().first(), "PTITARD"));
         assertEq(1, pk_.getStages().get(1).size());
-        assertTrue(StringList.contains(pk_.getStages().get(1), "TETARTE"));
+        assertTrue(StringUtil.contains(pk_.getStages().get(1), "TETARTE"));
         assertEq(2, pk_.getStages().get(2).size());
-        assertTrue(StringList.contains(pk_.getStages().get(2), "TARTARD"));
-        assertTrue(StringList.contains(pk_.getStages().get(2), "TARPAUD"));
+        assertTrue(StringUtil.contains(pk_.getStages().get(2), "TARTARD"));
+        assertTrue(StringUtil.contains(pk_.getStages().get(2), "TARPAUD"));
         assertEq(4, pk_.getAllPokemon().size());
-        assertTrue(StringList.contains(pk_.getAllPokemon(), "PTITARD"));
-        assertTrue(StringList.contains(pk_.getAllPokemon(), "TETARTE"));
-        assertTrue(StringList.contains(pk_.getAllPokemon(), "TARTARD"));
-        assertTrue(StringList.contains(pk_.getAllPokemon(), "TARPAUD"));
+        assertTrue(StringUtil.contains(pk_.getAllPokemon(), "PTITARD"));
+        assertTrue(StringUtil.contains(pk_.getAllPokemon(), "TETARTE"));
+        assertTrue(StringUtil.contains(pk_.getAllPokemon(), "TARTARD"));
+        assertTrue(StringUtil.contains(pk_.getAllPokemon(), "TARPAUD"));
     }
 
     @Test

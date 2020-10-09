@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AssSimAffectationOperation extends AssSimMultMethodOperation {
     private AssOperationNode settableOp;
@@ -48,7 +49,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
                 for (EntryCust<String, Boolean> e: variables_.entryList()) {
-                    if (StringList.quickEq(str_, e.getKey())) {
+                    if (StringUtil.quickEq(str_, e.getKey())) {
                         if (e.getValue()) {
                             if (_a.isFinalLocalVar(str_)) {
                                 //error

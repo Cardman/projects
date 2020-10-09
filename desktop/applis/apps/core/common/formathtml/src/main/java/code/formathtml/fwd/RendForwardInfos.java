@@ -28,6 +28,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendForwardInfos {
     private RendForwardInfos() {
@@ -40,7 +41,7 @@ public final class RendForwardInfos {
             RendBlock loc_ = newRendBlock(en_, _forwards);
             if (loc_ != null) {
                 if (loc_ instanceof RendStdElement) {
-                    if (StringList.quickEq(((RendStdElement) loc_).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
+                    if (StringUtil.quickEq(((RendStdElement) loc_).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                         rendDoc_.getBodies().add(loc_);
                     }
                 }

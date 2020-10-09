@@ -6,6 +6,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 import static cards.belote.GameBeloteCommon.suite;
 
@@ -116,7 +117,7 @@ public final class GameBeloteCommonPlaying {
                     cartesJouables_.ajouterCartes(trumps_);
                     return cartesJouables_;
                 }
-                byte indexTrump_ = CustList.FIRST_INDEX;
+                byte indexTrump_ = IndexConstants.FIRST_INDEX;
                 while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
                     cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                     indexTrump_++;
@@ -147,7 +148,7 @@ public final class GameBeloteCommonPlaying {
                         return cartesJouables_;
                     }
                     if(trumps_.premiereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                        byte indexTrump_ = CustList.FIRST_INDEX;
+                        byte indexTrump_ = IndexConstants.FIRST_INDEX;
                         while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
                             cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                             indexTrump_++;
@@ -182,7 +183,7 @@ public final class GameBeloteCommonPlaying {
                 return cartesJouables_;
             }
             if(trumps_.premiereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                byte indexTrump_ = CustList.FIRST_INDEX;
+                byte indexTrump_ = IndexConstants.FIRST_INDEX;
                 while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
                     cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                     indexTrump_++;
@@ -220,7 +221,7 @@ public final class GameBeloteCommonPlaying {
             cartesJouables_.ajouterCartes(leadingSuit_);
             return cartesJouables_;
         }
-        byte indexTrump_ = CustList.FIRST_INDEX;
+        byte indexTrump_ = IndexConstants.FIRST_INDEX;
         while (leadingSuit_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
             cartesJouables_.ajouter(leadingSuit_.carte(indexTrump_));
             indexTrump_++;
@@ -246,11 +247,11 @@ public final class GameBeloteCommonPlaying {
             return true;
         }
         Suit couleurAtout_= _bid.getSuit();
-        int max_=CustList.SIZE_EMPTY;
+        int max_= IndexConstants.SIZE_EMPTY;
         /*max designe le nombre maximal de cartes probablement possedees par un joueur*/
         CustList<HandBelote> trumps_ = _cartesPossibles.getVal(couleurAtout_);
         int nbPlayers_ = trumps_.size();
-        for(int joueur_=CustList.FIRST_INDEX;joueur_<nbPlayers_;joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers_; joueur_++) {
             //La taille de cartesPossibles correspond au nombre de joueurs
             if(joueur_!=_numero) {
                 max_=Math.max(trumps_.get(joueur_).total(),max_);
@@ -336,7 +337,7 @@ public final class GameBeloteCommonPlaying {
                                 EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles,
                 _numero, _couleur);
-        if(_maitres >=max_|| _maitres >CustList.SIZE_EMPTY&&suite(_suites, _couleur).size()==CustList.ONE_ELEMENT) {
+        if(_maitres >=max_|| _maitres > IndexConstants.SIZE_EMPTY&&suite(_suites, _couleur).size()== IndexConstants.ONE_ELEMENT) {
             _couleurs.add(_couleur);
         }
     }
@@ -367,11 +368,11 @@ public final class GameBeloteCommonPlaying {
     }
     private static int getNbMaxPossPlayerCards(
             EnumMap<Suit, CustList<HandBelote>> _possibleCards, byte _player, Suit _suit) {
-        int max_=CustList.SIZE_EMPTY;
+        int max_= IndexConstants.SIZE_EMPTY;
         /*max designe le nombre maximal de cartes probablement possedees par un joueur a une couleur donnee*/
         CustList<HandBelote> poss_ = _possibleCards.getVal(_suit);
         int nbPls_ = poss_.size();
-        for(int joueur_=CustList.FIRST_INDEX;joueur_<nbPls_;joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPls_; joueur_++) {
             if(joueur_!=_player) {
                 max_=Math.max(poss_.get(joueur_).total(),max_);
             }
@@ -390,19 +391,19 @@ public final class GameBeloteCommonPlaying {
     private static int getNbLeadingCards(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _seqs,
                                          EnumMap<Suit, HandBelote> _playedCards, Suit _suit, Order _or) {
         boolean existeCarteMaitresse_=true;
-        CardBelote c=GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
+        CardBelote c=GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).premiereCarte();
         for(CardBelote carte_:cartes(_suit,_or)) {
             if(carte_.strength(_suit, _bid)<c.strength(_suit, _bid)) {
                 break;
             }
-            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).contient(carte_)) {
+            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).contient(carte_)) {
                 existeCarteMaitresse_=false;
                 break;
             }
         }
-        int maitres_ = CustList.SIZE_EMPTY;
+        int maitres_ = IndexConstants.SIZE_EMPTY;
         if(existeCarteMaitresse_) {
-            maitres_ = GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).total();
+            maitres_ = GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).total();
         }
         return maitres_;
     }

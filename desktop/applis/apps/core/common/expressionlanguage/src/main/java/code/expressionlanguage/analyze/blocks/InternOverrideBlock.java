@@ -20,6 +20,7 @@ import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class InternOverrideBlock extends Leaf {
     private CustList<OverridingMethodDto> overrides = new CustList<OverridingMethodDto>();
@@ -44,16 +45,16 @@ public final class InternOverrideBlock extends Leaf {
             getErrorsBlock().add(b_.getBuiltError());
         }
         _page.setGlobalOffset(definitionOffset);
-        StringList overrideList_ = StringList.splitChar(definition, ';');
+        StringList overrideList_ = StringUtil.splitChar(definition, ';');
         int sum_ = 0;
         for (String o: overrideList_) {
             _page.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
-            StringList parts_ = StringList.splitInTwo(o, indexDef_);
+            StringList parts_ = StringUtil.splitInTwo(o, indexDef_);
             StringList superMethods_ = new StringList();
             String key_ = parts_.first();
             if (parts_.size() > 1) {
-                superMethods_ = StringList.splitChar(parts_.last().substring(1),'|');
+                superMethods_ = StringUtil.splitChar(parts_.last().substring(1),'|');
             }
             ExtractedParts extKey_ = StringExpUtil.tryToExtract(key_, '(', ')');
             String name_ = extKey_.getFirst().trim();
@@ -87,7 +88,7 @@ public final class InternOverrideBlock extends Leaf {
                 _page.setOffset(sum_+localSum_);
                 StringList args_ = StringExpUtil.getAllSepCommaTypes(extValue_.getSecond());
                 String firstFull_ = args_.first();
-                int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+                int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
                 String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();

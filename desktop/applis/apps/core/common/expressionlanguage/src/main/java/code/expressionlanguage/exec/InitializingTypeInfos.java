@@ -3,7 +3,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 import code.util.IdList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class InitializingTypeInfos {
     private InitPhase initEnums = InitPhase.READ_ONLY_OTHERS;
@@ -14,7 +14,7 @@ public final class InitializingTypeInfos {
             return false;
         }
         String curr_ = getCurInitType(_context);
-        return !StringList.quickEq(curr_, _clName);
+        return !StringUtil.quickEq(curr_, _clName);
     }
     public boolean isContainedSensibleFields(Struct _array) {
         if (!isInitEnums()) {
@@ -30,7 +30,7 @@ public final class InitializingTypeInfos {
             return;
         }
         String curr_ = getCurInitType(_context);
-        if (!StringList.quickEq(curr_, _fc)) {
+        if (!StringUtil.quickEq(curr_, _fc)) {
             getSensibleFields().add(_container);
         }
     }
@@ -75,10 +75,7 @@ public final class InitializingTypeInfos {
         if (_s instanceof ReplacementStruct) {
             return false;
         }
-        if (_s instanceof AnnotationStruct) {
-            return false;
-        }
-        return true;
+        return !(_s instanceof AnnotationStruct);
     }
     public void failInitEnums() {
         if (!isInitEnums()) {

@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.blocks.ContinueBlock;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AssContinueBlock extends AssAbruptBlock {
     private String label;
@@ -18,7 +18,7 @@ public final class AssContinueBlock extends AssAbruptBlock {
                     childOfLoop_ = true;
                     break;
                 }
-                if (StringList.quickEq(label, ((AssBreakableBlock)b_).getRealLabel())){
+                if (StringUtil.quickEq(label, ((AssBreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
                     break;
                 }

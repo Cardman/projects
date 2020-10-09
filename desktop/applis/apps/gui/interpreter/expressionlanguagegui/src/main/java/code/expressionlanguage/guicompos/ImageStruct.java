@@ -2,7 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -203,8 +203,8 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
         }
         int w_ = _imgOne.getWidth();
         int h_ = _imgOne.getHeight();
-        for (int i = CustList.FIRST_INDEX; i < w_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < h_; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < h_; j++) {
                 if (_imgOne.getRGB(i, j) != _imgTwo.getRGB(i, j)) {
                     return false;
                 }

@@ -5,8 +5,8 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ArrayFieldOperation extends AbstractFieldOperation {
 
@@ -19,12 +19,12 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         AnaClassArgumentMatching cl_ = getPreviousResultClass();
         String aliasLength_ = _page.getAliasLength();
-        if (StringList.quickEq(str_, aliasLength_)) {
+        if (StringUtil.quickEq(str_, aliasLength_)) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
             return;
         }
@@ -34,7 +34,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         //str_ len
         und_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 str_,
-                StringList.join(cl_.getNames(), "&"));
+                StringUtil.join(cl_.getNames(), "&"));
         _page.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));

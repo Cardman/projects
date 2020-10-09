@@ -6,7 +6,7 @@ import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
 import code.gui.CustComponent;
 import code.threads.ThreadUtil;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -71,7 +71,7 @@ public final class Painting implements Runnable {
             } else {
                 facade.changeCamera(dir);
                 scene.load(facade, false);
-                for (int i = CustList.FIRST_INDEX; i <= side; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
                     ThreadUtil.sleep(pause);
                     scene.repaintLabel();
@@ -100,7 +100,7 @@ public final class Painting implements Runnable {
         }
         facade.changeCamera(dir);
         scene.load(facade, false);
-        for (int i = CustList.FIRST_INDEX; i <= side; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
             ThreadUtil.sleep(pause);
             scene.repaintLabel();

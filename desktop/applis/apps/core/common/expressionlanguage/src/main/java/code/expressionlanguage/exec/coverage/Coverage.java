@@ -21,6 +21,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class Coverage {
     private CustList<FileBlock> files = new CustList<FileBlock>();
@@ -155,7 +156,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
-            if (StringList.quickEq(c_.getOper(),Block.NULL_EQ)) {
+            if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ)) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
@@ -270,10 +271,10 @@ public final class Coverage {
             }
             if (par_ instanceof ExecCompoundAffectationOperation){
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     v_ = BooleanStruct.of(!_v.isArgumentTest());
                 }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
+                if (StringUtil.quickEq(p_.getOper(),"||=")) {
                     v_ = BooleanStruct.of(_v.isArgumentTest());
                 }
             }

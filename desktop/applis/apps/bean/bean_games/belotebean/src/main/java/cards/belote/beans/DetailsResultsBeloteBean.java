@@ -5,6 +5,7 @@ import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 final class DetailsResultsBeloteBean extends BeloteBean {
 
@@ -22,7 +23,7 @@ final class DetailsResultsBeloteBean extends BeloteBean {
         declaring = new CustList<SumDeclaringPlayer>();
         if (bid_.jouerDonne()) {
             byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-            for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
+            for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
                 SumDeclaringPlayer sumDeclaring_ = new SumDeclaringPlayer();
                 sumDeclaring_.setNickname(getNicknames().get(p));
                 sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p),getLoc()));

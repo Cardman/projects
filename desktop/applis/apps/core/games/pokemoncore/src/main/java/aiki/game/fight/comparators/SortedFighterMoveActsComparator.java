@@ -9,9 +9,9 @@ import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.*;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class SortedFighterMoveActsComparator implements
@@ -94,7 +94,7 @@ public final class SortedFighterMoveActsComparator implements
         prioTwo_+=varPrioTwo_;
         if(prioTwo_>prioOne_){
             permuter_=true;
-        }else if(Numbers.eq(prioTwo_, prioOne_)){
+        }else if(NumberUtil.eq(prioTwo_, prioOne_)){
             if(slowOne_&&!slowTwo_){
                 permuter_=true;
             }else if(ComparatorBoolean.eq(slowOne_,slowTwo_)){
@@ -104,7 +104,7 @@ public final class SortedFighterMoveActsComparator implements
                     Rate speedOne_=FightFacade.speed(fight,_fighterOne,data);
                     Rate speedTwo_=FightFacade.speed(fight,_fighterTwo,data);
                     if (Rate.eq(speedTwo_,speedOne_)) {
-                        return CustList.EQ_CMP;
+                        return SortConstants.EQ_CMP;
                     }
                     if(ComparatorBoolean.diff(Rate.strGreater(speedTwo_,speedOne_), revertedSpeed)){
                         permuter_=true;
@@ -113,9 +113,9 @@ public final class SortedFighterMoveActsComparator implements
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

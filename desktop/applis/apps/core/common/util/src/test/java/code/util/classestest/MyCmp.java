@@ -1,6 +1,6 @@
 package code.util.classestest;
 
-import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.ints.Cmp;
 
 public final class MyCmp implements Cmp<MyCmp> {
@@ -25,7 +25,7 @@ public final class MyCmp implements Cmp<MyCmp> {
 
     @Override
     public int cmp(MyCmp _other) {
-        return Numbers.compareLg(info,_other.info);
+        return NumberUtil.compareLg(info,_other.info);
     }
 
     public String display() {

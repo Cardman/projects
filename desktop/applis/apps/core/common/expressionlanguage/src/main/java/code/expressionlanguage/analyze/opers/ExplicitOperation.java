@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExplicitOperation extends AbstractUnaryOperation {
     private AnaExplicitContent explicitContent;
@@ -64,7 +65,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (AnaTypeUtil.isPrimitive(explicitContent.getClassName(), _page)) {
             getFirstChild().getResultClass().setUnwrapObject(explicitContent.getClassName(), _page.getPrimitiveTypes());
         }
-        if (types_.size() == 2 && StringList.quickEq(types_.last(), _page.getKeyWords().getKeyWordId())) {
+        if (types_.size() == 2 && StringUtil.quickEq(types_.last(), _page.getKeyWords().getKeyWordId())) {
             return;
         }
         ClassMethodId uniq_;
@@ -157,7 +158,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     private void buildError(AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
-            classesNames_.add(StringList.join(c.getNames(), "&"));
+            classesNames_.add(StringUtil.join(c.getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFileName(_page.getLocalizer().getCurrentFileName());

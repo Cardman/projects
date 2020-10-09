@@ -10,6 +10,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class DealBelote implements Iterable<HandBelote> {
@@ -87,7 +88,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         apres_ les_ encheres_*/
         int nbHands_ = _regles.getRepartition().getNombreJoueurs();
         nbHands_++;
-        for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
             deal.add(new HandBelote());
         }
         /*On donne les_ cartes_ aux_ joueurs_.
@@ -98,15 +99,15 @@ public final class DealBelote implements Iterable<HandBelote> {
 
         for(int i: _regles.getRepartition().getDistributionDebut()) {
             for (int j : ordreDisributionJoueurs_) {
-                for (int k = CustList.FIRST_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(deck.jouer(CustList.FIRST_INDEX));
+                for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
+                    deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
                 }
             }
         }
         /*On ajoute_ le_ reste_ des_ cartes_ dans_ le_ talon_*/
         int total_ = deck.total();
-        for (int i = CustList.FIRST_INDEX; i < total_; i++) {
-            deal.last().ajouter(deck.jouer(CustList.FIRST_INDEX));
+        for (int i = IndexConstants.FIRST_INDEX; i < total_; i++) {
+            deal.last().ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
         }
     }
     /**On distribue les cartes en les battant
@@ -116,24 +117,24 @@ public final class DealBelote implements Iterable<HandBelote> {
         int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
         int nbHands_ = nbJoueurs_;
         nbHands_++;
-        for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
             deal.add(new HandBelote());
         }
         HandBelote m = HandBelote.pileBase();
         int nbCartesJoueurDebut_ = _regles.getRepartition().getFirstCards();
         int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getRepartition().getNombreJoueurs();
-        for (int i = CustList.FIRST_INDEX; i < nbCartesJoueursDebut_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbCartesJoueursDebut_; i++) {
             //On distribue_ les_ 1eres cartes_ des_ joueurs_ aleatoirement_
             deal.get(i/nbCartesJoueurDebut_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
         if (!_regles.dealAll()) {
             int total_ = m.total();
-            for (int i = CustList.SECOND_INDEX; i < total_; i++) {
+            for (int i = IndexConstants.SECOND_INDEX; i < total_; i++) {
                 deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
             }
             deal.last().ajouter(m.premiereCarte());
         }
-        for (int i = CustList.FIRST_INDEX; i < nbJoueurs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbJoueurs_; i++) {
             deal.get(i).trier(_displaying.getSuits(), _displaying.isDecreasing(), _displaying.getOrderBeforeBids());
         }
 
@@ -146,17 +147,17 @@ public final class DealBelote implements Iterable<HandBelote> {
         if(talon_.estVide()) {
             return;
         }
-        hand(_preneur).ajouter(talon_.jouer(CustList.FIRST_INDEX));
+        hand(_preneur).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
         Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
         for(int i: _regles.getRepartition().getDistributionFin()) {
             for (int j : ordreDisributionJoueurs_) {
-                for (int k = CustList.SECOND_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(talon_.jouer(CustList.FIRST_INDEX));
+                for (int k = IndexConstants.SECOND_INDEX; k < i; k++) {
+                    deal.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                 }
                 if(j!=_preneur) {
-                    deal.get(j).ajouter(talon_.jouer(CustList.FIRST_INDEX));
+                    deal.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                 }
             }
         }

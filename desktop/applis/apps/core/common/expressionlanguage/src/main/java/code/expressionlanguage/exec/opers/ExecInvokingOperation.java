@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.FormattedParameters;
@@ -23,6 +22,8 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
     private boolean intermediate;
@@ -98,7 +99,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 if (ExecConstLeafOperation.isFilter(_children.get(i))) {
                     natVarArg_++;
                     continue;
@@ -120,7 +121,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
-        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
             if (ExecConstLeafOperation.isFilter(_children.get(i))) {
                 continue;
             }
@@ -186,7 +187,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         //From analyze
         StringList parts_ = StringExpUtil.getAllPartInnerTypes(_className);
-        String param_ = StringList.join(parts_.sub(0, parts_.size()-2), "");
+        String param_ = StringUtil.join(parts_.left(parts_.size()-2), "");
         if (_previous.isNull()) {
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -197,7 +198,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
             cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            _conf.setCallingState(new ErrorStruct(_conf,StringList.concat(arg_, RETURN_LINE,param_, RETURN_LINE),cast_));
+            _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE,param_, RETURN_LINE),cast_));
         }
     }
 
@@ -391,7 +392,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (ls_ instanceof LambdaStruct) {
             String typeFct_ = ls_.getClassName(_conf);
             StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
-            CustList<String> paramsFct_ = parts_.mid(1, parts_.size() - 2);
+            CustList<String> paramsFct_ = parts_.leftMinusOne(parts_.size() - 2);
             int valuesSize_ = _values.size();
             if (valuesSize_ != paramsFct_.size()) {
                 String null_;
@@ -468,7 +469,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     realInstance_ = _values.first();
                 }
-                if (StringList.quickEq(l_.getReturnFieldType(), lgNames_.getContent().getPrimTypes().getAliasPrimBoolean())) {
+                if (StringUtil.quickEq(l_.getReturnFieldType(), lgNames_.getContent().getPrimTypes().getAliasPrimBoolean())) {
                     String ownerType_ = l_.getOwnerType();
                     boolean res_ = ExecTemplates.safeObject(ownerType_,realInstance_,_conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
@@ -570,7 +571,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ArrayStruct arr_ = new ArrayStruct(_values.size()-1,obj_);
             int i_ = 0;
-            for (Argument v: _values.mid(1, _values.size() - 1)) {
+            for (Argument v: _values.leftMinusOne(_values.size() - 1)) {
                 arr_.set(i_, v.getStruct());
                 i_++;
             }
@@ -598,7 +599,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (len_ < 0) {
                 return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf)));
             }
-            if (!StringList.quickEq(_l.getFid().getName(),"[]")) {
+            if (!StringUtil.quickEq(_l.getFid().getName(),"[]")) {
                 len_--;
             }
             for (int i = 0; i < len_; i++) {
@@ -609,7 +610,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
             Struct ind_ = argArr_.get(len_);
-            if (StringList.quickEq(_l.getFid().getName(),"[]")) {
+            if (StringUtil.quickEq(_l.getFid().getName(),"[]")) {
                 return new Argument(ExecTemplates.getElement(arr_,ind_,_conf));
             }
             Struct right_ = argArr_.get(len_ + 1);
@@ -682,7 +683,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String clArr_ = _class;
         clArr_ = StringExpUtil.getPrettyArrayType(clArr_);
         ArrayStruct array_ = new ArrayStruct(enums_.size(), clArr_);
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (Struct o: enums_) {
             array_.set(i_,o);
             i_++;
@@ -701,7 +702,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Classes classes_ = _conf.getClasses();
         for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
             String fieldName_ = b.getUniqueFieldName();
-            if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
+            if (StringUtil.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),b.getImportedClassName(),_conf);
                 _conf.getInitializingTypeInfos().addSensibleField(_conf,enumName_, str_);
                 return new Argument(str_);

@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class ExecArraryPartType extends ExecParentPartType {
     ExecArraryPartType(ExecParentPartType _parent, int _index) {
@@ -33,7 +33,7 @@ final class ExecArraryPartType extends ExecParentPartType {
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
         String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
+        ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
         return true;
     }

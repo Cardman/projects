@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class FinallyEval extends BracedBlock implements Eval {
 
@@ -50,7 +51,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordFinally(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordCatch(),
                                         _page.getKeyWords().getKeyWordTry()

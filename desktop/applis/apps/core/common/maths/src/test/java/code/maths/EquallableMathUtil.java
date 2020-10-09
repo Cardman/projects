@@ -1,11 +1,11 @@
 package code.maths;
 
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 import code.maths.geo.CustPoint;
 import code.maths.geo.CustPointThreeDims;
 import code.util.*;
-import code.util.StringList;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -69,7 +69,7 @@ public final class EquallableMathUtil {
 
     public static void assertEq(BigDec _expected, BigDec _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(StringUtil.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
     public static void assertEq(CustPoint _expected, CustPoint _result) {

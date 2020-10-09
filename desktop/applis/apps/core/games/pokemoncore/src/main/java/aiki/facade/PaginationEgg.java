@@ -10,6 +10,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
 public final class PaginationEgg extends
@@ -41,7 +42,7 @@ public final class PaginationEgg extends
     public void search(CustList<UsablePokemon> _eggs) {
         eggs.clear();
         int len_ = _eggs.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             UsablePokemon us_ = _eggs.get(i);
             if (!(us_ instanceof Egg)) {
                 continue;
@@ -58,14 +59,14 @@ public final class PaginationEgg extends
             eggs.put(s_, pk_);
         }
         if (!eggs.isEmpty()) {
-            setNumberPage(CustList.FIRST_INDEX);
+            setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
-            setLine(CustList.INDEX_NOT_FOUND_ELT);
-            setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
             getRendered().clear();
             return;
         }
-        setLine(CustList.INDEX_NOT_FOUND_ELT);
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
         if (sortable()) {
             sort();
         }

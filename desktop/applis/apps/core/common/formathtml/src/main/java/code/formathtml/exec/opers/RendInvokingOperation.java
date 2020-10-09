@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.IndexConstants;
 
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
     private boolean intermediate;
@@ -57,7 +58,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVararg_ = _natVararg;
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 if (RendConstLeafOperation.isFilter(_children.get(i))) {
                     natVararg_++;
                     continue;
@@ -79,7 +80,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
-        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
             if (RendConstLeafOperation.isFilter(_children.get(i))) {
                 continue;
             }

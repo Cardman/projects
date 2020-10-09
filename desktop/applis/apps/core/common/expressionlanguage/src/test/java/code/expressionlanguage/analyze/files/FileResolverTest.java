@@ -1,17 +1,15 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.Classes;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -9846,7 +9844,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static int countCustomTypes(AnalyzedTestContext _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (!StringList.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
+            if (!StringUtil.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
                 count_++;
             }
         }
@@ -9864,7 +9862,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
     private static RootBlock getClassBody(AnalyzedTestContext _cont, String _className) {
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
+            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }
@@ -9875,7 +9873,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static RootBlock getCustomTypes(AnalyzedTestContext _cont, int _i) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringList.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
+            if (StringUtil.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
                 continue;
             }
             if (count_ == _i) {

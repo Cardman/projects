@@ -74,6 +74,9 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
@@ -183,7 +186,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
-    private byte indexInGame = CustList.INDEX_NOT_FOUND_ELT;
+    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean savedGame;
@@ -287,7 +290,7 @@ public final class MainWindow extends NetGroupFrame {
 
     @Override
     public void quit() {
-        if (indexInGame != CustList.INDEX_NOT_FOUND_ELT) {
+        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
             Quit quit_ = new Quit();
             quit_.setClosing(true);
             quit_.setPlace(indexInGame);
@@ -314,14 +317,14 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
                 if (!new File(name_).exists()) {
-                    name_ = StringList.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                    name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                     int index_ = 0;
                     while (new File(name_).exists()) {
-                        name_ = StringList.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
+                        name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
                         index_++;
                     }
                     loadingConf.setLastSavedGame(name_);
@@ -329,15 +332,15 @@ public final class MainWindow extends NetGroupFrame {
                 }
             } else {
                 String path_ = new File(loadingConf.getLastSavedGame()).getAbsolutePath();
-                path_ = StringList.replaceBackSlash(path_);
+                path_ = StringUtil.replaceBackSlash(path_);
                 save(path_);
             }
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
             //LaunchingPokemon.decrement();
             dispose();
-        } else if (indexInGame == CustList.INDEX_NOT_FOUND_ELT && !savedGame) {
+        } else if (indexInGame == IndexConstants.INDEX_NOT_FOUND_ELT && !savedGame) {
             if (facade.getGame() == null) {
-                StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
                 dispose();
                 return;
@@ -352,7 +355,7 @@ public final class MainWindow extends NetGroupFrame {
                     }
                 }
                 savedGame = true;
-                StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
 //                ecrireCoordonnees();
 //                CustList<FrameHtmlData> frames_ = new CustList<>();
@@ -423,7 +426,7 @@ public final class MainWindow extends NetGroupFrame {
         dataBattle.setText(messages.getVal(TITLE_BATTLE));
         difficulty.setText(messages.getVal(DIFFICULTY));
 //        lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
-        lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         if (!helpInfo.getText().isEmpty()) {
             helpInfo.setText(messages.getVal(HELP_INFO));
         }
@@ -530,14 +533,14 @@ public final class MainWindow extends NetGroupFrame {
     public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param, PerCent _p) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
-            String lastRom_ = StringList.replaceBackSlash(_configuration.getLastRom());
+            String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
             File file_ = new File(lastRom_);
             if (!StreamFolderFile.isAbsolute(lastRom_)) {
-                path_ = StringList.concat(_path,_configuration.getLastRom());
+                path_ = StringUtil.concat(_path,_configuration.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();
             }
-            path_ = StringList.replaceBackSlash(path_);
+            path_ = StringUtil.replaceBackSlash(path_);
             StringMap<String> files_ = StreamFolderFile.getFiles(path_);
             DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
@@ -563,14 +566,14 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         } else {
-            String lastSave_ = StringList.replaceBackSlash(_configuration.getLastSavedGame());
+            String lastSave_ = StringUtil.replaceBackSlash(_configuration.getLastSavedGame());
             File file_ = new File(lastSave_);
             if (!StreamFolderFile.isAbsolute(lastSave_)) {
-                path_ = StringList.concat(_path,_configuration.getLastSavedGame());
+                path_ = StringUtil.concat(_path,_configuration.getLastSavedGame());
             } else {
                 path_ = file_.getAbsolutePath();
             }
-            path_ = StringList.replaceBackSlash(path_);
+            path_ = StringUtil.replaceBackSlash(path_);
             DataBase db_ = facade.getData();
             Game game_ = load(path_, db_);
             if (game_ == null) {
@@ -731,7 +734,7 @@ public final class MainWindow extends NetGroupFrame {
 //        if (!zipLoad.isEnabled()) {
 //            return;
 //        }
-        if (!Numbers.eq(indexInGame, CustList.INDEX_NOT_FOUND_ELT)) {
+        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
         if (battle != null) {
@@ -754,11 +757,11 @@ public final class MainWindow extends NetGroupFrame {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
-                    lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_;
         if (_folder) {
@@ -779,7 +782,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void loadGame() {
-        if (!Numbers.eq(indexInGame, CustList.INDEX_NOT_FOUND_ELT)) {
+        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
         if (battle != null) {
@@ -803,11 +806,11 @@ public final class MainWindow extends NetGroupFrame {
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
 //                    lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
-                    lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
         if (fileName_.isEmpty()) {
@@ -855,10 +858,10 @@ public final class MainWindow extends NetGroupFrame {
             }
         }
         save(fileName_);
-        fileName_ = StringList.replaceBackSlash(fileName_);
+        fileName_ = StringUtil.replaceBackSlash(fileName_);
         loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText();
-        lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
     }
 
@@ -898,7 +901,7 @@ public final class MainWindow extends NetGroupFrame {
         SoftParams.setSoftParams(this, loadingConf);
         SoftParams.setParams(loadingConf);
         if (SoftParams.isOk()) {
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
@@ -911,7 +914,7 @@ public final class MainWindow extends NetGroupFrame {
         while (isPaintingScene()) {
             ThreadUtil.sleep(0);
         }
-        if (!Numbers.eq(indexInGame, CustList.INDEX_NOT_FOUND_ELT)) {
+        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
         addBeginGame();
@@ -1125,7 +1128,7 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public void initIndexInGame(boolean _first) {
         if (_first) {
-            setIndexInGame(CustList.FIRST_INDEX);
+            setIndexInGame(IndexConstants.FIRST_INDEX);
         }
     }
 
@@ -1145,7 +1148,7 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public void loop(Object _readObject, Socket _socket) {
         if (_readObject instanceof AttemptConnecting) {
-            if (!StringList.quickEq(((AttemptConnecting)_readObject).getServerName(),Net.getPokemon())) {
+            if (!StringUtil.quickEq(((AttemptConnecting)_readObject).getServerName(),Net.getPokemon())) {
                 NewPlayer p_ = new NewPlayer();
                 p_.setAcceptable(false);
                 p_.setArriving(true);
@@ -1164,7 +1167,7 @@ public final class MainWindow extends NetGroupFrame {
             //p_.setPseudo(pseudo());
             p_.setLanguage(getLanguageKey());
             p_.setPseudo(facade.getGame().getPlayer().getNickname());
-            if (indexInGame == CustList.FIRST_INDEX) {
+            if (indexInGame == IndexConstants.FIRST_INDEX) {
                 scenePanel.setNetworkPanel();
             }
             pack();
@@ -1172,7 +1175,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         if (_readObject instanceof InitTrading) {
-            if (indexInGame == CustList.FIRST_INDEX) {
+            if (indexInGame == IndexConstants.FIRST_INDEX) {
                 facade.initTrading();
                 CheckCompatibility ch_ = new CheckCompatibility();
                 ch_.setData(facade.getExchangeData());
@@ -1181,7 +1184,7 @@ public final class MainWindow extends NetGroupFrame {
                 Net.sendObject(_socket,ch_);
                 return;
             }
-            if (indexInGame == CustList.SECOND_INDEX) {
+            if (indexInGame == IndexConstants.SECOND_INDEX) {
                 facade.initTrading();
                 CheckCompatibility ch_ = new CheckCompatibility();
                 ch_.setData(facade.getExchangeData());
@@ -1194,7 +1197,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (_readObject instanceof NetPokemon) {
             NetPokemon net_ = (NetPokemon) _readObject;
-            if (indexInGame == CustList.SECOND_INDEX) {
+            if (indexInGame == IndexConstants.SECOND_INDEX) {
                 scenePanel.setNetworkPanel();
             }
             scenePanel.setTradable(net_.getTradablePokemon());
@@ -1262,7 +1265,7 @@ public final class MainWindow extends NetGroupFrame {
         } else if (saveConfig_) {
             loadingConf.setLastSavedGame(path_);
             loadingConf.setLastRom(facade.getZipName());
-            String configPath_ = StringList.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
+            String configPath_ = StringUtil.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
             //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
             StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
             //configPath_ +=
@@ -1345,12 +1348,12 @@ public final class MainWindow extends NetGroupFrame {
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
     public void resetIndexInGame() {
-        setIndexInGame(CustList.INDEX_NOT_FOUND_ELT);
+        setIndexInGame(IndexConstants.INDEX_NOT_FOUND_ELT);
     }
 
     public void setIndexInGame(byte _indexInGame) {

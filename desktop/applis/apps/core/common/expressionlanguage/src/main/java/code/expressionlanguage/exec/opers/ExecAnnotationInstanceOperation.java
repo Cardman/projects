@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -11,6 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecInstancingAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation {
 
@@ -36,7 +36,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     Argument getArgument(CustList<Argument> _arguments,
                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         if (instancingAnnotContent.isArray()) {
             int nbCh_ = chidren_.size();

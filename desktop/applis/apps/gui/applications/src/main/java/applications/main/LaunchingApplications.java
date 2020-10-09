@@ -10,9 +10,7 @@ import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
@@ -29,6 +27,7 @@ import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.converterimages.main.LaunchingConverter;
+import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -86,7 +85,7 @@ public class LaunchingApplications extends SoftApplicationCore {
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof String) {
                 String fileContent_ = (String) readObject_;
-                StringList lines_ = StringList.splitStrings(fileContent_, "\n", "\r\n");
+                StringList lines_ = StringUtil.splitStrings(fileContent_, "\n", "\r\n");
                 StringList linesFiles_ = new StringList();
                 for (String s: lines_) {
                     if (s.trim().isEmpty()) {
@@ -132,8 +131,8 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     public static String getTempFolder() {
-        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     @Override
@@ -172,7 +171,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (loadingGame_ == null) {
             Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
             if (doc_ != null) {
-                if (StringList.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
+                if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
                     SongList list_ = new SongList();
                     list_.addSongs(doc_);
                     return list_;

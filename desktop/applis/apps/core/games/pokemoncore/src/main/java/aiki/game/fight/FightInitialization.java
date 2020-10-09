@@ -14,12 +14,13 @@ import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 final class FightInitialization {
 
@@ -116,7 +117,7 @@ final class FightInitialization {
         //lanceursGlobaux = new Map<>();
         for(String e:_import.getMovesEffectGlobal()){
             _fight.getEnabledMoves().put(e,new ActivityOfMove());
-            if(StringList.contains(_import.getMovesEffectGlobalWeather(), e)){
+            if(StringUtil.contains(_import.getMovesEffectGlobalWeather(), e)){
                 _fight.getStillEnabledMoves().put(e,false);
 //                lanceursGlobaux.put(e,new TeamPosition());
             }
@@ -201,7 +202,7 @@ final class FightInitialization {
     static void initWildPokemon(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon,DataBase _import) {
         _fight.setFightType(FightType.SAUVAGE);
         Team equipe_=new Team(_import);
-        equipe_.initPokemonSauvage(_utilisateur,_diff, CustList.FIRST_INDEX, _pokemon,_import);
+        equipe_.initPokemonSauvage(_utilisateur,_diff, IndexConstants.FIRST_INDEX, _pokemon,_import);
         _fight.getTeams().put(Fight.FOE,equipe_);
     }
 

@@ -2,6 +2,7 @@ package aiki.map;
 import aiki.util.Coords;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 
 public final class Condition extends CustList<Coords> {
 
@@ -21,12 +22,12 @@ public final class Condition extends CustList<Coords> {
 
 
     public void removeDuplicates()  {
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < size()) {
             Coords e_ = get(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
-            while (next_ != INDEX_NOT_FOUND_ELT) {
+            while (next_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 remove(next_);
                 rem_ = true;
                 next_ = indexOfObj(e_, i_ + 1);
@@ -45,11 +46,11 @@ public final class Condition extends CustList<Coords> {
                 return i;
             }
         }
-        return INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean containsObj(Coords _coords) {
-        return indexOfObj(_coords, FIRST_INDEX) > -1;
+        return indexOfObj(_coords, IndexConstants.FIRST_INDEX) > -1;
     }
 
     public boolean containsAllObj(Condition _val) {

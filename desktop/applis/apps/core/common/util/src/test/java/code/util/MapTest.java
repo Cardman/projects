@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import code.util.classestest.MyEnum;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import code.util.classestest.KeyExample;
@@ -631,8 +633,8 @@ public class MapTest {
     }
     private static boolean containsEntry(Listable<EntryCust<String,Integer>> _l, EntryCust<String,Integer> _e) {
         for (EntryCust<String,Integer> e: _l) {
-            if (StringList.quickEq(e.getKey(), _e.getKey())) {
-                if (Numbers.eq(e.getValue(), _e.getValue())) {
+            if (StringUtil.quickEq(e.getKey(), _e.getKey())) {
+                if (NumberUtil.eq(e.getValue(), _e.getValue())) {
                     return true;
                 }
             }
@@ -642,7 +644,7 @@ public class MapTest {
     private static boolean containsEntryTwo(Listable<EntryCust<KeyExample,Integer>> _l, EntryCust<KeyExample,Integer> _e) {
         for (EntryCust<KeyExample,Integer> e: _l) {
             if (e.getKey().eq(_e.getKey())) {
-                if (Numbers.eq(e.getValue(), _e.getValue())) {
+                if (NumberUtil.eq(e.getValue(), _e.getValue())) {
                     return true;
                 }
             }

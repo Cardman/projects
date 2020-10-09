@@ -10,6 +10,7 @@ import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 abstract class AnaPartType {
 
@@ -154,7 +155,7 @@ abstract class AnaPartType {
         if (!errs.isEmpty()) {
             add_ = true;
             pref_.append(" title=\"");
-            pref_.append(LinkageUtil.transform(StringList.join(errs,"\n\n")));
+            pref_.append(LinkageUtil.transform(StringUtil.join(errs,"\n\n")));
             appendTitleRef(pref_, "\n\n"+titleRef);
             pref_.append("\"");
             appendHref(pref_);

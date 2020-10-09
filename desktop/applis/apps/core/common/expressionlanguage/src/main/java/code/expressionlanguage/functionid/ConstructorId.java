@@ -3,8 +3,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ConstructorId implements Identifiable {
 
@@ -33,7 +34,7 @@ public final class ConstructorId implements Identifiable {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             String formatted_ = ExecTemplates.reflectFormat(_genericClass, n_, _classes);
             pTypes_.add(formatted_);
@@ -58,7 +59,7 @@ public final class ConstructorId implements Identifiable {
         if (vararg) {
             suf_ = VARARG;
         }
-        return StringList.concat(name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
+        return StringUtil.concat(name,LEFT, StringUtil.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
     public boolean eq(ConstructorId _obj) {

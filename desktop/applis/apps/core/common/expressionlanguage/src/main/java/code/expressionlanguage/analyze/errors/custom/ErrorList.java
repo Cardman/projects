@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.errors.custom;
 
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ErrorList extends CustList<FoundErrorInterpret> {
 
@@ -15,7 +16,7 @@ public class ErrorList extends CustList<FoundErrorInterpret> {
         for (FoundErrorInterpret e: this) {
             str_.add(e.display());
         }
-        return StringList.join(str_,SEP_INFO);
+        return StringUtil.join(str_,SEP_INFO);
     }
 
 }

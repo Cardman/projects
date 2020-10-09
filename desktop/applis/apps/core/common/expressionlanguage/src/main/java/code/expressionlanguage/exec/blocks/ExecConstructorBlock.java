@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
@@ -23,7 +23,7 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }

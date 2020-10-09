@@ -2,6 +2,7 @@ package aiki.fight.items;
 
 import aiki.db.DataBase;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public abstract class HealingStatus extends HealingItem {
@@ -27,7 +28,7 @@ public abstract class HealingStatus extends HealingItem {
         if (!status.isEmpty()) {
             return;
         }
-        if (StringList.quickEq(getItemType(), ITEM)) {
+        if (StringUtil.quickEq(getItemType(), ITEM)) {
             _data.setError(true);
 
         }

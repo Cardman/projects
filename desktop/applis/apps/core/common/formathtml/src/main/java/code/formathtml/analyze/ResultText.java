@@ -6,12 +6,13 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ResultText {
 
@@ -33,7 +34,7 @@ public final class ResultText {
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < length_) {
             char cur_ = _expression.charAt(i_);
             if (escaped_) {
@@ -110,7 +111,7 @@ public final class ResultText {
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < length_) {
             char cur_ = _expression.charAt(i_);
             if (escaped_) {
@@ -190,14 +191,14 @@ public final class ResultText {
 
     public static ResultText buildAnchor(AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        String href_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         r_.opExpRoot = new CustList<OperationNode>();
         r_.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
-            int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+            int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             r_.buildAna(lk_, colsGrId_, _anaDoc, _page);
             CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
             for (OperationNode e: opExpRoot_) {
@@ -209,7 +210,7 @@ public final class ResultText {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(colsGrId_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(e.getResultClass().getNames(),AnaRendBlock.AND_ERR),
+                            StringUtil.join(e.getResultClass().getNames(),AnaRendBlock.AND_ERR),
                             _page.getAliasLong());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
@@ -227,12 +228,12 @@ public final class ResultText {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(opExpRoot_.get(i_).getResultClass().getSingleNameOrEmpty());
                 _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringList.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
+                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
                 i_++;
             }
             String pref_ = r_.quickRender(lk_, formArg_);
             if (pref_.indexOf('(') < 0) {
-                pref_ = StringList.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
+                pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
             }
             r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
             for (String v:varNames_) {
@@ -244,8 +245,8 @@ public final class ResultText {
     public String quickRender(String _expression,StringList _args) {
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
-        int i_ = CustList.FIRST_INDEX;
-        int iExp_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
+        int iExp_ = IndexConstants.FIRST_INDEX;
         while (i_ < length_) {
             if (expOffsets.isValidIndex(iExp_)) {
                 if (expOffsets.get(iExp_) == i_) {

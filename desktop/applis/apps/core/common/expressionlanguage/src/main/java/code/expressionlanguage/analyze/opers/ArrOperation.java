@@ -19,6 +19,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
 
@@ -76,7 +77,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = methodInfos.get(i).get(j);
-                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                if (!StringUtil.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
                     continue;
                 }
                 newList_.add(methodInfo_);
@@ -228,7 +229,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(indexClass_.getNames(),"&"));
+                        StringUtil.join(indexClass_.getNames(),"&"));
                 _page.getLocalizer().addError(un_);
                 nbErr = un_.getBuiltError();
             }
@@ -240,7 +241,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(class_.getNames(),"&"));
+                    StringUtil.join(class_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             class_ = new AnaClassArgumentMatching(_page.getAliasObject());

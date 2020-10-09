@@ -1,10 +1,11 @@
 package code.util;
+import code.util.core.IndexConstants;
 import code.util.ints.ListableEntries;
 
 
 
 
-public final class CharMap<V> extends AbsMap<Character,V> {
+public final class CharMap<V> extends AbsBasicMap<Character,V> {
 
     //list cannot be null, even by reflection
 //    private final CustList<EntryCust<Character,V>> list = new CustList<EntryCust<Character,V>>();
@@ -22,16 +23,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     @Override
-    protected int indexOfEntry(Character _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<Character, V> e:getList()) {
-            Character key_ = e.getKey();
-            if (_key.charValue() == key_.charValue()) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(Character _one, Character _two) {
+        return _one.charValue() == _two.charValue();
     }
-
 }

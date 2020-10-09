@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.IndexConstants;
 
 public final class ExecTernaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
@@ -28,7 +29,7 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Argument arg_;
         if (BooleanStruct.isTrue(_arguments.first().getStruct())) {
-            arg_ = _arguments.get(CustList.SECOND_INDEX);
+            arg_ = _arguments.get(IndexConstants.SECOND_INDEX);
         } else {
             arg_ = _arguments.last();
         }

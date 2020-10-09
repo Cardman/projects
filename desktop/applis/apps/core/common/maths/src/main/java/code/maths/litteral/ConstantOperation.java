@@ -1,10 +1,11 @@
 package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ConstantOperation extends OperationNode {
 
@@ -16,12 +17,12 @@ public final class ConstantOperation extends OperationNode {
     void analyze(StringMap<String> _conf, ErrorStatus _error) {
         analyzeCalculate(_error);
         if (getArgument() != null) {
-            String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+            String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
 
             for (EntryCust<String,String> v: _conf.entryList()) {
-                if (StringList.quickEq(str_, StringList.concat(String.valueOf(DELIMITER_STRING_BEGIN),v.getKey(),String.valueOf(DELIMITER_STRING_END)))) {
+                if (StringUtil.quickEq(str_, StringUtil.concat(String.valueOf(DELIMITER_STRING_BEGIN),v.getKey(),String.valueOf(DELIMITER_STRING_END)))) {
                     MathList m_ = new MathList();
-                    for (String e: StringList.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
+                    for (String e: StringUtil.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
                         if (e.isEmpty()) {
                             continue;
                         }
@@ -34,7 +35,7 @@ public final class ConstantOperation extends OperationNode {
             setResultClass(getArgument().getArgClass());
             return;
         }
-        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
         if (_conf.contains(str_)) {
             String value_ = _conf.getVal(str_);
             if (Rate.isValid(value_)) {
@@ -55,19 +56,19 @@ public final class ConstantOperation extends OperationNode {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
         Argument a_;
         a_ = new Argument();
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
             a_.setObject(new Rate(_conf.getVal(str_)));
         } else if (getResultClass() == MathType.BOOLEAN) {
-            a_.setObject(StringList.quickEq(_conf.getVal(str_), TRUE_STRING));
+            a_.setObject(StringUtil.quickEq(_conf.getVal(str_), TRUE_STRING));
         } else {
             MathList m_ = new MathList();
             String value_ = _conf.getVal(str_);
-            value_ = StringList.removeChars(value_,DELIMITER_STRING_BEGIN,DELIMITER_STRING_END);
-            for (String e: StringList.splitChars(value_, DELIMITER_STRING_SEP)) {
+            value_ = StringUtil.removeChars(value_,DELIMITER_STRING_BEGIN,DELIMITER_STRING_END);
+            for (String e: StringUtil.splitChars(value_, DELIMITER_STRING_SEP)) {
                 if (e.isEmpty()) {
                     continue;
                 }
@@ -109,7 +110,7 @@ public final class ConstantOperation extends OperationNode {
             _error.setError(true);
             return;
         }
-        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
         if (str_.isEmpty()) {
             _error.setString(str_);
             _error.setIndex(getIndexInEl());
@@ -117,13 +118,13 @@ public final class ConstantOperation extends OperationNode {
             return;
         }
         Argument a_ = new Argument();
-        if (StringList.quickEq(str_, TRUE_STRING)) {
+        if (StringUtil.quickEq(str_, TRUE_STRING)) {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(true);
             setArgument(a_);
             return;
         }
-        if (StringList.quickEq(str_, FALSE_STRING)) {
+        if (StringUtil.quickEq(str_, FALSE_STRING)) {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(false);
             setArgument(a_);

@@ -6,6 +6,8 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 
 public final class ExchangedData {
@@ -29,7 +31,7 @@ public final class ExchangedData {
 
     public ByteTreeMap<PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
         ByteTreeMap<PokemonPlayer> team_ = new ByteTreeMap<PokemonPlayer>();
-        byte i_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
         i_--;
         for (UsablePokemon u: _otherTeam) {
             i_++;
@@ -52,12 +54,12 @@ public final class ExchangedData {
             pokemon = null;
             return;
         }
-        if (!StringList.contains(getAbilities(), pokemon.getAbility())) {
+        if (!StringUtil.contains(getAbilities(), pokemon.getAbility())) {
             pokemon = null;
             return;
         }
         if (!pokemon.getItem().isEmpty()) {
-            if (!StringList.contains(getItems(), pokemon.getItem())) {
+            if (!StringUtil.contains(getItems(), pokemon.getItem())) {
                 pokemon = null;
                 return;
             }

@@ -8,7 +8,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendEqOperation extends RendMethodOperation implements RendCalculableOperation {
 
@@ -29,7 +29,7 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
         Argument second_ = getArgument(_nodes,chidren_.last());
         boolean complement_ = false;
         String op_ = oper.trim();
-        if (StringList.quickEq(op_, DIFF)) {
+        if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }
         boolean b_ = calculateEq(first_, second_);

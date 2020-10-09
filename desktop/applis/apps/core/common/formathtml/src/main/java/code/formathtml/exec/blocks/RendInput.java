@@ -8,8 +8,8 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -54,9 +54,9 @@ public abstract class RendInput extends RendElement {
         f_.setClassName(className);
         Argument arg_ = fetchName(_cont, _read, _write, f_, _advStandards, _ctx);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _advStandards, _ctx);
-        _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-        _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
-        _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
+        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
+        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
+        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
         return arg_;
     }
 

@@ -1,6 +1,4 @@
 package aiki.gui.components;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.Resources;
@@ -20,6 +18,9 @@ import code.maths.Rate;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public abstract class Paginator {
 
@@ -39,7 +40,7 @@ public abstract class Paginator {
 
     protected static final String POKEMON = "Pokemon";
 
-    protected static final String SPACES = StringList.concat(SPACE,SPACE);
+    protected static final String SPACES = StringUtil.concat(SPACE,SPACE);
     protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
     protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.paginatorhealingitem";
     protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";
@@ -135,7 +136,7 @@ public abstract class Paginator {
         if (_text.isEmpty()) {
             return null;
         }
-        return Numbers.parseLongZero(_text);
+        return NumberUtil.parseLongZero(_text);
     }
 
     protected static Rate convertRateField(String _text) {
@@ -162,7 +163,7 @@ public abstract class Paginator {
 //            SelectableLabel l_ = resultsLabels.get(_index);
 //            l_.setSelected(true);
 //        }
-        if (_currentLine != CustList.INDEX_NOT_FOUND_ELT) {
+        if (_currentLine != IndexConstants.INDEX_NOT_FOUND_ELT) {
             SelectableLabel l_ = resultsLabels.get(_index);
             l_.setSelected(true);
         }
@@ -196,10 +197,10 @@ public abstract class Paginator {
     protected void changeNav(boolean _enabledPrevious, boolean _enabledNext, int _nbPages, int _noPage) {
         previous.setEnabledLabel(_enabledPrevious);
         next.setEnabledLabel(_enabledNext);
-        previousDelta.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
-        nextDelta.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
-        begin.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
-        end.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
+        previousDelta.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
+        nextDelta.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
+        begin.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
+        end.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
         adding = true;
         pages.selectItem(_noPage);
         adding = false;

@@ -1,6 +1,6 @@
 package code.images;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class BaseSixtyFourUtil {
 
@@ -19,7 +19,7 @@ public final class BaseSixtyFourUtil {
     private BaseSixtyFourUtil(){
     }
     public static int[][] getImageByString(String _image) {
-        int index_ = StringList.getFirstPrintableCharIndex(_image);
+        int index_ = StringUtil.getFirstPrintableCharIndex(_image);
         if (index_ < 0) {
             return new int[0][0];
         }

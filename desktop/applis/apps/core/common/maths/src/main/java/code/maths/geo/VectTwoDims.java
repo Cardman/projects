@@ -1,6 +1,7 @@
 package code.maths.geo;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -24,9 +25,9 @@ public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
 
     
     public static VectTwoDims newCustPoint(String _input) {
-        StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
-        int x_ = Numbers.parseInt(elts_.first());
-        int y_ = Numbers.parseInt(elts_.last());
+        StringList elts_ = StringUtil.splitStrings(_input, SEPARATOR);
+        int x_ = NumberUtil.parseInt(elts_.first());
+        int y_ = NumberUtil.parseInt(elts_.last());
         return new VectTwoDims(x_, y_);
     }
 
@@ -63,10 +64,7 @@ public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
         if (_obj.deltax != deltax) {
             return false;
         }
-        if (_obj.deltay != deltay) {
-            return false;
-        }
-        return true;
+        return _obj.deltay == deltay;
     }
 
     

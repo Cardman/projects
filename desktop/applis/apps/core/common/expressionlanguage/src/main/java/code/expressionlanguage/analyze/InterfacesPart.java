@@ -4,6 +4,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class InterfacesPart {
     private static final char BEGIN_CALLING = '(';
@@ -33,14 +34,14 @@ public final class InterfacesPart {
                 } else {
                     int interfaceOffest_ = _delta+begin_ + 1;
                     String interfacesInfo_ = part.substring(begin_ + 1, end_);
-                    for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
+                    for (String p: StringUtil.splitChars(interfacesInfo_, SEP_CALLING)) {
                         staticInitInterfaces.add(p);
                         staticInitInterfacesOffset.add(interfaceOffest_+_offset);
                         interfaceOffest_ += p.length() + 1;
                     }
                     locIndex += end_ + 1;
                     part = part.substring(end_+1);
-                    locIndex += StringList.getFirstPrintableCharIndex(part);
+                    locIndex += StringUtil.getFirstPrintableCharIndex(part);
                     part = part.trim();
                 }
             }

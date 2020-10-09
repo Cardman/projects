@@ -13,6 +13,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
 
@@ -32,7 +33,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         int begin_ = keyWordInstanceof_.length() + typeCheckContent.getClassName().indexOf(keyWordInstanceof_);
         String sub_ = typeCheckContent.getClassName().substring(begin_);
-        int off_ = StringList.getFirstPrintableCharIndex(sub_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
         if (sub_.isEmpty()) {

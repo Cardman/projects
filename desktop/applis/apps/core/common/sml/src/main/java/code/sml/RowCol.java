@@ -1,5 +1,5 @@
 package code.sml;
-import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -25,18 +25,15 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
         if (row != _obj.row) {
             return false;
         }
-        if (col != _obj.col) {
-            return false;
-        }
-        return true;
+        return col == _obj.col;
     }
 
     @Override
     public int cmp(RowCol _other) {
         if (row != _other.row) {
-            return Numbers.compareLg(row, _other.row);
+            return NumberUtil.compareLg(row, _other.row);
         }
-        return Numbers.compareLg(col, _other.col);
+        return NumberUtil.compareLg(col, _other.col);
     }
 
     public int getRow() {

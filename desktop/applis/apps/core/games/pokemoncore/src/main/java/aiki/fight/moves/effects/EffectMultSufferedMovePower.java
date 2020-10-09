@@ -2,8 +2,8 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import code.maths.Rate;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class EffectMultSufferedMovePower extends Effect {
@@ -14,7 +14,7 @@ public final class EffectMultSufferedMovePower extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (String s : multMovePowerFctType.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), s)) {
+            if (!StringUtil.contains(_data.getTypes(), s)) {
                 _data.setError(true);
             }
             if (!multMovePowerFctType.getVal(s).isZeroOrGt()) {

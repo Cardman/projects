@@ -17,6 +17,8 @@ import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class MetaDocument {
 
@@ -85,7 +87,7 @@ public final class MetaDocument {
             }
             boolean li_ = false;
             if (!stacks.isEmpty()) {
-                if (StringList.quickEq(stacks.last(), _rend.getKeyWordLi())) {
+                if (StringUtil.quickEq(stacks.last(), _rend.getKeyWordLi())) {
                     li_ = true;
                 }
             }
@@ -106,40 +108,40 @@ public final class MetaDocument {
                     if (!par_.getAttribute(_rend.getAttrTitle()).isEmpty() && title_.isEmpty()) {
                         title_ = par_.getAttribute(_rend.getAttrTitle());
                     }
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordAnchor()) && anchor_ == null) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordAnchor()) && anchor_ == null) {
                         anchor_ = par_;
                     }
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordBold())) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordBold())) {
                         bold_ = 1;
                     }
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordItalic())) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordItalic())) {
                         italic_ = 2;
                     }
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordPre())) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordPre())) {
                         pre_ = true;
                     }
                     if (ht_ == null) {
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHOne())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHOne())) {
                             ht_ = par_;
                             delta_= 6;
                         }
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHTwo())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHTwo())) {
                             ht_ = par_;
                             delta_= 5;
                         }
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHThree())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHThree())) {
                             ht_ = par_;
                             delta_= 4;
                         }
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHFour())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHFour())) {
                             ht_ = par_;
                             delta_= 3;
                         }
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHFive())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHFive())) {
                             ht_ = par_;
                             delta_= 2;
                         }
-                        if (StringList.quickEq(tagName_, _rend.getKeyWordHSix())) {
+                        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHSix())) {
                             ht_ = par_;
                             delta_= 1;
                         }
@@ -153,11 +155,11 @@ public final class MetaDocument {
                     int begin_ = 0;
                     int end_ = realText_.length() - 1;
                     if (trimLeftText(txt_,_rend)) {
-                        begin_ = StringList.getFirstPrintableCharIndex(realText_);
+                        begin_ = StringUtil.getFirstPrintableCharIndex(realText_);
                         begin_ = Math.max(begin_,0);
                     }
                     if (trimRightText(txt_,_rend)) {
-                        end_ = StringList.getLastPrintableCharIndex(realText_);
+                        end_ = StringUtil.getLastPrintableCharIndex(realText_);
                         end_ = Math.max(end_,begin_-1);
                     }
                     text_ = realText_.substring(begin_, end_ + 1);
@@ -194,7 +196,7 @@ public final class MetaDocument {
                     label_.setStyle(styleLoc_);
                     currentParent.appendChild(label_);
                 } else if (pre_) {
-                    StringList strings_ = StringList.splitStrings(realText_, LF, CRLF);
+                    StringList strings_ = StringUtil.splitStrings(realText_, LF, CRLF);
                     int nbLines_ = strings_.size();
                     int indLine_ = 0;
                     for (String l: strings_) {
@@ -243,18 +245,18 @@ public final class MetaDocument {
                 Element elt_ = (Element) current_;
                 tagName_ = elt_.getTagName();
                 boolean newLine_ = false;
-                if (StringList.quickEq(tagName_, _rend.getKeyWordBr())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordBr())) {
                     skipChildrenBuild_ = true;
                     newLine_ = true;
                     rowGroup++;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordHr())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordHr())) {
                     skipChildrenBuild_ = true;
                     newLine_ = true;
                     rowGroup = 0;
                     partGroup++;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordStyle())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordStyle())) {
                     //put all style tags
                     String css_ = current_.getTextContent();
                     processStyle(css_);
@@ -263,7 +265,7 @@ public final class MetaDocument {
                 }
                 MetaContainer curPar_ = currentParent.getParent();
                 if (newLine_) {
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordHr())) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordHr())) {
                         MetaSeparator sep_ = new MetaSeparator(curPar_);
                         sep_.setStyle(styleLoc_);
                         curPar_.appendChild(sep_);
@@ -276,7 +278,7 @@ public final class MetaDocument {
                     curPar_.appendChild(line_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordImg())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordImg())) {
                     String title_ = MetaComponent.EMPTY_STRING;
                     Element anchor_ = null;
                     Element par_ = current_.getParentNode();
@@ -285,14 +287,14 @@ public final class MetaDocument {
                         if (!par_.getAttribute(_rend.getAttrTitle()).isEmpty() && title_.isEmpty()) {
                             title_ = par_.getAttribute(_rend.getAttrTitle());
                         }
-                        if (StringList.quickEq(tagNamePar_, _rend.getKeyWordAnchor()) && anchor_ == null) {
+                        if (StringUtil.quickEq(tagNamePar_, _rend.getKeyWordAnchor()) && anchor_ == null) {
                             anchor_ = par_;
                         }
                         par_ = par_.getParentNode();
                     }
                     if (elt_.getAttribute(_rend.getAttrSrc()).contains(SEP_IMG)) {
-                        Integer delay_ = Numbers.parseInt(elt_.getAttribute(_rend.getAttrDelay()));
-                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringList.splitStrings(elt_.getAttribute(_rend.getAttrSrc()), SEP_IMG), title_, delay_, anchor_);
+                        Integer delay_ = NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrDelay()));
+                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(elt_.getAttribute(_rend.getAttrSrc()), SEP_IMG), title_, delay_, anchor_);
                         imgs_.setStyle(styleLoc_);
                         currentParent.appendChild(imgs_);
                     } else {
@@ -304,7 +306,7 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordSelect())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordSelect())) {
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
@@ -323,7 +325,7 @@ public final class MetaDocument {
                             i_++;
                         }
                         int vis_ = BeanLgNames.parseInt(elt_.getAttribute(_rend.getAttrRows()),8);
-                        MetaInput input_ = new MetaComboList(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), strings_, values_, selected_, vis_,idForm_);
+                        MetaInput input_ = new MetaComboList(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), strings_, values_, selected_, vis_,idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -341,34 +343,34 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), strings_, values_, selected_,selInd_,idForm_);
+                        MetaInput input_ = new MetaComboBox(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), strings_, values_, selected_,selInd_,idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     }
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordInput())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordInput())) {
                     skipChildrenBuild_ = true;
                     String type_ = elt_.getAttribute(_rend.getAttrType());
                     long idForm_ = getParentFormNb();
-                    if (StringList.quickEq(type_, _rend.getValueText())) {
+                    if (StringUtil.quickEq(type_, _rend.getValueText())) {
                         int cols_ = BeanLgNames.parseInt(elt_.getAttribute(_rend.getAttrCols()),32);
-                        MetaInput input_ = new MetaTextField(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), cols_, elt_.getAttribute(_rend.getAttrValue()),idForm_);
+                        MetaInput input_ = new MetaTextField(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), cols_, elt_.getAttribute(_rend.getAttrValue()),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
-                    } else if (StringList.quickEq(type_, _rend.getValueNumber())) {
-                        MetaInput input_ = new MetaSpinner(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.getAttribute(_rend.getAttrValue()),idForm_);
+                    } else if (StringUtil.quickEq(type_, _rend.getValueNumber())) {
+                        MetaInput input_ = new MetaSpinner(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.getAttribute(_rend.getAttrValue()),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
-                    } else if (StringList.quickEq(type_, _rend.getValueRange())) {
-                        MetaInput input_ = new MetaSlider(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.getAttribute(_rend.getAttrValue()),idForm_);
+                    } else if (StringUtil.quickEq(type_, _rend.getValueRange())) {
+                        MetaInput input_ = new MetaSlider(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.getAttribute(_rend.getAttrValue()),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
-                    } else if (StringList.quickEq(type_, _rend.getValueCheckbox())) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.hasAttribute(_rend.getAttrChecked()),idForm_);
+                    } else if (StringUtil.quickEq(type_, _rend.getValueCheckbox())) {
+                        MetaInput input_ = new MetaCheckedBox(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), elt_.hasAttribute(_rend.getAttrChecked()),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
-                    } else if (StringList.quickEq(type_, _rend.getValueRadio())) {
-                        int inputNb_ = Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi()));
+                    } else if (StringUtil.quickEq(type_, _rend.getValueRadio())) {
+                        int inputNb_ = NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi()));
                         FormInputCoords id_ = new FormInputCoords();
                         id_.setForm(idForm_);
                         id_.setInput(inputNb_);
@@ -386,7 +388,7 @@ public final class MetaDocument {
                         Element par_ = current_.getParentNode();
                         while (par_ != null) {
                             String tagNamePar_ = par_.getTagName();
-                            if (StringList.quickEq(tagNamePar_, _rend.getKeyWordForm()) && form_ == null) {
+                            if (StringUtil.quickEq(tagNamePar_, _rend.getKeyWordForm()) && form_ == null) {
                                 form_ = par_;
                             }
                             par_ = par_.getParentNode();
@@ -398,19 +400,19 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordTextarea())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordTextarea())) {
                     skipChildrenBuild_ = true;
                     long idForm_ = getParentFormNb();
                     rowGroup = 0;
                     partGroup++;
                     int rows_ = BeanLgNames.parseInt(elt_.getAttribute(_rend.getAttrRows()),32);
                     int cols_ = BeanLgNames.parseInt(elt_.getAttribute(_rend.getAttrCols()),32);
-                    MetaInput input_ = new MetaTextArea(currentParent, Numbers.parseInt(elt_.getAttribute(_rend.getAttrNi())), cols_, rows_, elt_.getTextContent(),idForm_);
+                    MetaInput input_ = new MetaTextArea(currentParent, NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrNi())), cols_, rows_, elt_.getTextContent(),idForm_);
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordForm())) {
-                    long lg_ = Numbers.parseLongZero(elt_.getAttribute(_rend.getAttrNf()));
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordForm())) {
+                    long lg_ = NumberUtil.parseLongZero(elt_.getAttribute(_rend.getAttrNf()));
                     formIndex.add(lg_);
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
@@ -428,7 +430,7 @@ public final class MetaDocument {
                     containers.add(form_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordPar())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordPar())) {
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
                     MetaContainer bl_ = new MetaParagraph(surline_);
@@ -450,12 +452,12 @@ public final class MetaDocument {
                     containers.add(bl_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordUl()) || StringList.quickEq(tagName_, _rend.getKeyWordOl())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordUl()) || StringUtil.quickEq(tagName_, _rend.getKeyWordOl())) {
                     MetaContainer line_ = new MetaLine(curPar_);
                     line_.setStyle(styleLoc_);
                     typesLi.add(elt_.getAttribute(_rend.getAttrType()));
                     MetaContainer bl_;
-                    if (StringList.quickEq(tagName_, _rend.getKeyWordUl())) {
+                    if (StringUtil.quickEq(tagName_, _rend.getKeyWordUl())) {
                         bl_ = new MetaUnorderedList(line_);
                     } else {
                         bl_ = new MetaOrderedList(line_);
@@ -471,10 +473,10 @@ public final class MetaDocument {
                     containers.add(curPar_);
                     containers.add(bl_);
                     lis.add(1);
-                    ordered.add(StringList.quickEq(tagName_, _rend.getKeyWordOl()));
+                    ordered.add(StringUtil.quickEq(tagName_, _rend.getKeyWordOl()));
                     currentParent = bl_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordLi())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordLi())) {
                     rowGroup = 0;
                     partGroup++;
                     MetaContainer list_ = containers.last();
@@ -482,42 +484,42 @@ public final class MetaDocument {
                     MetaContainer line_ = new MetaLine(bl_);
                     line_.setStyle(styleLoc_);
                     MetaLabel nb_;
-                    if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()),_rend.getValueLiNb())) {
+                    if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()),_rend.getValueLiNb())) {
                         nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.NUMBER);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMinLet())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMinLet())) {
                         nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LETTER);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMajLet())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMajLet())) {
                         nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.MAJ_LETTER);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMinLat())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMinLat())) {
                         nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LATIN_MIN);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMajLat())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiMajLat())) {
                         nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LATIN_MAJ);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiCircle())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiCircle())) {
                         nb_ = new MetaPointLabel(line_, MetaPointForm.CIRCLE);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiDisk())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiDisk())) {
                         nb_ = new MetaPointLabel(line_, MetaPointForm.DISK);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiSquare())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiSquare())) {
                         nb_ = new MetaPointLabel(line_, MetaPointForm.SQUARRE);
-                    } else if (StringList.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiRect())) {
+                    } else if (StringUtil.quickEq(elt_.getAttribute(_rend.getAttrType()), _rend.getValueLiRect())) {
                         nb_ = new MetaPointLabel(line_, MetaPointForm.RECT);
                     } else if (!typesLi.last().isEmpty()) {
-                        if (StringList.quickEq(typesLi.last(), _rend.getValueLiNb())) {
+                        if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiNb())) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.NUMBER);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiMinLet())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiMinLet())) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LETTER);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiMajLet())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiMajLet())) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.MAJ_LETTER);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiMinLat())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiMinLat())) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LATIN_MIN);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiMajLat())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiMajLat())) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.LATIN_MAJ);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiCircle())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiCircle())) {
                             nb_ = new MetaPointLabel(line_, MetaPointForm.CIRCLE);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiDisk())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiDisk())) {
                             nb_ = new MetaPointLabel(line_, MetaPointForm.DISK);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiSquare())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiSquare())) {
                             nb_ = new MetaPointLabel(line_, MetaPointForm.SQUARRE);
-                        } else if (StringList.quickEq(typesLi.last(), _rend.getValueLiRect())) {
+                        } else if (StringUtil.quickEq(typesLi.last(), _rend.getValueLiRect())) {
                             nb_ = new MetaPointLabel(line_, MetaPointForm.RECT);
                         } else if (ordered.last()) {
                             nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.NUMBER);
@@ -537,7 +539,7 @@ public final class MetaDocument {
                     list_.appendChild(bl_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordTable())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordTable())) {
                     MetaContainer line_ = new MetaLine(curPar_);
                     line_.setStyle(styleLoc_);
                     MetaTable bl_ = new MetaTable(line_);
@@ -551,7 +553,7 @@ public final class MetaDocument {
                     currentParent = bl_;
                     tables.add(bl_);
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordCaption())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordCaption())) {
                     rowGroup = 0;
                     partGroup++;
                     MetaTable table_ = tables.last();
@@ -562,7 +564,7 @@ public final class MetaDocument {
                     table_.appendChild(line_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordTd()) || StringList.quickEq(tagName_, _rend.getKeyWordTh())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordTd()) || StringUtil.quickEq(tagName_, _rend.getKeyWordTh())) {
                     rowGroup = 0;
                     partGroup++;
                     MetaTable table_ = tables.last();
@@ -574,7 +576,7 @@ public final class MetaDocument {
                     table_.appendChild(bl_);
                     currentParent = line_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordMap())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordMap())) {
                     int width_ = BeanLgNames.parseInt(elt_.getAttribute(_rend.getAttrWidth()),1);
                     MetaContainer line_ = new MetaLine(curPar_);
                     indent(styleLoc_, li_, line_);
@@ -587,17 +589,17 @@ public final class MetaDocument {
                     containers.add(map_);
                     currentParent = map_;
                 }
-                if (StringList.quickEq(tagName_, _rend.getKeyWordDiv())) {
+                if (StringUtil.quickEq(tagName_, _rend.getKeyWordDiv())) {
                     int index_ = 1;
                     int i_ = 0;
                     Node first_ = elt_.getFirstChild();
                     while (first_ != null) {
                         if (first_ instanceof Element) {
-                            if (StringList.quickEq(((Element)first_).getTagName(), _rend.getKeyWordBr())) {
+                            if (StringUtil.quickEq(((Element)first_).getTagName(), _rend.getKeyWordBr())) {
                                 index_ = i_;
                                 break;
                             }
-                            if (StringList.quickEq(((Element)first_).getTagName(), _rend.getKeyWordHr())) {
+                            if (StringUtil.quickEq(((Element)first_).getTagName(), _rend.getKeyWordHr())) {
                                 index_ = i_;
                                 break;
                             }
@@ -676,7 +678,7 @@ public final class MetaDocument {
             int f_ = v_.indexOf('.');
             if (f_ == 0) {
                 String value_ = getValueOrEmpty(classesCssStyles, v_.substring(1));
-                if (StringList.quickEq(v_.substring(1), _currentElt.getAttribute(_rend.getAttrClass()))) {
+                if (StringUtil.quickEq(v_.substring(1), _currentElt.getAttribute(_rend.getAttrClass()))) {
                     setupStyle(_rend,_styleLoc, value_, _local);
                     break;
                 }
@@ -686,13 +688,13 @@ public final class MetaDocument {
             if (tagsClassesCssStyles.contains(v_)) {
                 String tag_ = v_.substring(0, f_);
                 String class_ = v_.substring(f_ + 1);
-                if (StringList.quickEq(class_, _currentElt.getAttribute(_rend.getAttrClass())) && StringList.quickEq(tag_, _currentElt.getTagName())) {
+                if (StringUtil.quickEq(class_, _currentElt.getAttribute(_rend.getAttrClass())) && StringUtil.quickEq(tag_, _currentElt.getTagName())) {
                     setupStyle(_rend,_styleLoc, tagsClassesCssStyles.getVal(v_), _local);
                     break;
                 }
             }
             String value_ = getValueOrEmpty(tagsCssStyles, v_);
-            if (StringList.quickEq(v_, _currentElt.getTagName())) {
+            if (StringUtil.quickEq(v_, _currentElt.getTagName())) {
                 setupStyle(_rend,_styleLoc, value_, _local);
                 break;
             }
@@ -708,46 +710,46 @@ public final class MetaDocument {
     }
 
     private static void setupStyle(RendKeyWords _rend,MetaStyle _style, String _value, boolean _local) {
-        for (String p: StringList.splitChars(_value, ';')) {
+        for (String p: StringUtil.splitChars(_value, ';')) {
             int indexSep_ = p.indexOf(':');
             if (indexSep_ < 0) {
                 continue;
             }
             String key_ = p.substring(0, indexSep_).trim();
             String value_ = p.substring(indexSep_ + 1).trim();
-            if (StringList.quickEq(key_, _rend.getStyleAttrFontFam())) {
+            if (StringUtil.quickEq(key_, _rend.getStyleAttrFontFam())) {
                 _style.setFontFamily(value_);
                 continue;
             }
-            if (StringList.quickEq(key_, _rend.getStyleAttrFontSize())) {
+            if (StringUtil.quickEq(key_, _rend.getStyleAttrFontSize())) {
                 if (value_.endsWith(_rend.getStyleUnitPx())) {
                     String size_ = value_.substring(0, value_.length() - 2);
-                    int val_ = Numbers.parseInt(size_);
+                    int val_ = NumberUtil.parseInt(size_);
                     _style.setSize(val_);
                 }
                 if (value_.endsWith(_rend.getStyleUnitEm())) {
                     String size_ = value_.substring(0, value_.length() - 2);
-                    int val_ = Numbers.parseInt(size_);
+                    int val_ = NumberUtil.parseInt(size_);
                     _style.setEm(val_);
                 }
                 continue;
             }
-            if (StringList.quickEq(key_, _rend.getStyleAttrColor())) {
+            if (StringUtil.quickEq(key_, _rend.getStyleAttrColor())) {
                 _style.setFgColor(getColor(_rend,value_,_style.getFgColor()));
-            } else if (StringList.quickEq(key_, _rend.getStyleAttrBackground())) {
+            } else if (StringUtil.quickEq(key_, _rend.getStyleAttrBackground())) {
                 _style.setBgColor(getColor(_rend,value_,_style.getBgColor()));
-            } else if (StringList.quickEq(key_, _rend.getStyleAttrBorder())) {
+            } else if (StringUtil.quickEq(key_, _rend.getStyleAttrBorder())) {
                 if (!_local) {
                     continue;
                 }
-                for (String v: StringList.splitChars(value_, ' ','\t','\n','\r')) {
+                for (String v: StringUtil.splitChars(value_, ' ','\t','\n','\r')) {
                     if (v.endsWith(_rend.getStyleUnitPx())) {
                         String size_ = v.substring(0, v.length() - 2);
-                        int val_ = Numbers.parseInt(size_);
+                        int val_ = NumberUtil.parseInt(size_);
                         _style.setBorderSize(val_);
                         continue;
                     }
-                    if (StringList.quickEq(v, _rend.getStyleUnitSolid())){
+                    if (StringUtil.quickEq(v, _rend.getStyleUnitSolid())){
                         _style.setBorder(BorderEnum.SOLID);
                         continue;
                     }
@@ -759,7 +761,7 @@ public final class MetaDocument {
 
     private static int getColor(RendKeyWords _rend,String _value, int _default) {
         if (_value.startsWith(_rend.getStyleValueRgb())&&_value.substring(_rend.getStyleValueRgb().length()).trim().indexOf('(')==0) {
-            String val_ = StringList.removeChars(_value.substring(_rend.getStyleValueRgb().length()), '(', ')');
+            String val_ = StringUtil.removeChars(_value.substring(_rend.getStyleValueRgb().length()), '(', ')');
             return getRgb(val_);
         }
         if (_value.startsWith(COLOR_PREFIX)) {
@@ -769,31 +771,31 @@ public final class MetaDocument {
             }
             return _default;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueRed())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueRed())){
             return 255*256*256;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueGreen())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueGreen())){
             return 255*256;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueBlue())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueBlue())){
             return 255;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueYellow())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueYellow())){
             return 255*256*256+255*256;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueCyan())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueCyan())){
             return 255*256 + 255;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueMagenta())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueMagenta())){
             return 255*256*256 + 255;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueWhite())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueWhite())){
             return 255*256*256 + 255*256 + 255;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueGrey())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueGrey())){
             return 127*256*256 + 127*256 + 127;
         }
-        if (StringList.quickEq(_value, _rend.getStyleValueBlack())){
+        if (StringUtil.quickEq(_value, _rend.getStyleValueBlack())){
             return 0;
         }
         return _default;
@@ -801,8 +803,8 @@ public final class MetaDocument {
     private static int getRgb(String _value) {
         int rgb_ = 0;
         Ints rates_ = new Ints();
-        for (String c: StringList.splitChars(_value, ',')) {
-            int l_ = Numbers.parseInt(c.trim());
+        for (String c: StringUtil.splitChars(_value, ',')) {
+            int l_ = NumberUtil.parseInt(c.trim());
             rates_.add(l_);
         }
         int power_ = rates_.size()-1;
@@ -835,7 +837,7 @@ public final class MetaDocument {
                 if (currentChar_ != '}') {
                     key_.append(currentChar_);
                 } else {
-                    for (String p: StringList.splitChars(key_.toString(), ',')) {
+                    for (String p: StringUtil.splitChars(key_.toString(), ',')) {
                         String tr_ = p.trim();
                         int f_ = tr_.indexOf('.');
                         if (f_ == 0) {
@@ -892,143 +894,140 @@ public final class MetaDocument {
             return false;
         }
         String tagName_ = ((Element)_elt).getTagName();
-        if (StringList.quickEq(tagName_, _rend.getKeyWordBody())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordBody())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordBr())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordBr())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHr())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHr())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordLi())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordLi())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordOl())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordOl())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordUl())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordUl())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordTable())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordTable())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordTd())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordTd())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordCaption())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordCaption())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordForm())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordForm())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordPar())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordPar())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHOne())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHOne())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHTwo())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHTwo())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHThree())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHThree())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHFour())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHFour())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHFive())) {
+        if (StringUtil.quickEq(tagName_, _rend.getKeyWordHFive())) {
             return true;
         }
-        if (StringList.quickEq(tagName_, _rend.getKeyWordHSix())) {
-            return true;
-        }
-        return false;
+        return StringUtil.quickEq(tagName_, _rend.getKeyWordHSix());
     }
     public StringMap<MetaAnchorLabel> getAnchorsRef() {
         return anchorsRef;
     }
     private void unstack(String _last, RendKeyWords _rend) {
         MetaContainer line_ = null;
-        if (StringList.quickEq(_last, _rend.getKeyWordUl()) || StringList.quickEq(_last, _rend.getKeyWordOl())) {
-            containers.removeLast();
+        if (StringUtil.quickEq(_last, _rend.getKeyWordUl()) || StringUtil.quickEq(_last, _rend.getKeyWordOl())) {
+            containers.removeQuicklyLast();
             typesLi.removeLast();
             MetaContainer last_ = containers.last();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordTable())) {
-            containers.removeLast();
+        if (StringUtil.quickEq(_last, _rend.getKeyWordTable())) {
+            containers.removeQuicklyLast();
             MetaContainer last_ = containers.last();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
             tables.removeLast();
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordForm())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordForm())) {
             formIndex.removeLast();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             MetaContainer last_ = containers.last();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
             tables.removeLast();
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordPar())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordPar())) {
             MetaContainer last_ = containers.last();
             MetaLine postline_ = new MetaLine(last_);
             MetaEndLine end_ = new MetaEndLine(postline_);
             postline_.appendChild(end_);
             last_.appendChild(postline_);
-            containers.removeLast();
+            containers.removeQuicklyLast();
             last_ = containers.last();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
             tables.removeLast();
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordMap()) || StringList.quickEq(_last, _rend.getKeyWordDiv())) {
-            containers.removeLast();
+        if (StringUtil.quickEq(_last, _rend.getKeyWordMap()) || StringUtil.quickEq(_last, _rend.getKeyWordDiv())) {
+            containers.removeQuicklyLast();
             MetaContainer last_ = containers.last();
-            containers.removeLast();
+            containers.removeQuicklyLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
             tables.removeLast();
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordTr())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordTr())) {
             MetaTable table_ = tables.last();
             table_.addRemainder(true);
         }
         if (line_ != null) {
             currentParent = line_;
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordTable())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordTable())) {
             rowGroup = 0;
             partGroup++;
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordUl()) || StringList.quickEq(_last, _rend.getKeyWordOl())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordUl()) || StringUtil.quickEq(_last, _rend.getKeyWordOl())) {
             rowGroup = 0;
             partGroup++;
             lis.removeLast();
             ordered.removeLast();
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordPar())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordPar())) {
             rowGroup = 0;
             partGroup++;
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordMap())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordMap())) {
             rowGroup = 0;
             partGroup++;
         }
-        if (StringList.quickEq(_last, _rend.getKeyWordDiv())) {
+        if (StringUtil.quickEq(_last, _rend.getKeyWordDiv())) {
             rowGroup = 0;
             partGroup++;
         }
         stacks.removeLast();
         boolean li_ = false;
         if (!stacks.isEmpty()) {
-            if (StringList.quickEq(stacks.last(), _rend.getKeyWordLi())) {
+            if (StringUtil.quickEq(stacks.last(), _rend.getKeyWordLi())) {
                 li_ = true;
             }
         }

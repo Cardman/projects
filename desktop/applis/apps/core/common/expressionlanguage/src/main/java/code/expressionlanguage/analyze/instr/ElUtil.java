@@ -16,6 +16,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ElUtil {
 
@@ -30,7 +32,7 @@ public final class ElUtil {
         if (d_.getBadOffset() >= 0) {
             return names_;
         }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, d_, _page);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
                 String var_ = e.getValue();
@@ -59,7 +61,7 @@ public final class ElUtil {
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.AFF_PRIO
-                && StringList.quickEq(opTwo_.getOperators().firstValue(),"=")) {
+                && StringUtil.quickEq(opTwo_.getOperators().firstValue(),"=")) {
             String var_ = opTwo_.getValues().firstValue();
             int off_ = opTwo_.getValues().firstKey();
             String trimmed_ = var_.trim();
@@ -76,7 +78,7 @@ public final class ElUtil {
     }
 
     private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
-        int delta_ = StringList.getFirstPrintableCharIndex(_name);
+        int delta_ = StringUtil.getFirstPrintableCharIndex(_name);
         _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff, new StringList()));
     }
 
@@ -110,7 +112,7 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentEmptyPartErr("");
-        Delimiters d_ = ElResolver.checkSyntax(_el, CustList.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -134,8 +136,8 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, d_, _page);
-            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _page);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
+            op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
         }
         String fieldName_ = _calcul.getFieldName();
         boolean hasFieldName_ = _calcul.isHasFieldName();
@@ -149,7 +151,7 @@ public final class ElUtil {
     public static CustList<OperationNode> getAnalyzedOperationsQucikly(String _el, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
-        Delimiters d_ = ElResolver.checkSyntax(_el, CustList.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         _page.getAnonymous().removeLast();
         _page.getAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
@@ -177,8 +179,8 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, d_, _page);
-            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _page);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
+            op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
         }
         String fieldName_ = _calcul.getFieldName();
         return getSortedDescNodesReadOnly(op_, fieldName_,false, _page);
@@ -341,7 +343,7 @@ public final class ElUtil {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(d_);
-                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+                return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
             }
             return null;
         }
@@ -353,7 +355,7 @@ public final class ElUtil {
             OperationsSequence opSeq_ = new OperationsSequence();
             opSeq_.setFctName(block_.getOperations().getFctName());
             opSeq_.setDelimiter(d_);
-            return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+            return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _page);
@@ -363,7 +365,7 @@ public final class ElUtil {
 
     private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
         return block_ instanceof AbstractInstancingOperation
-                && _index == CustList.FIRST_INDEX
+                && _index == IndexConstants.FIRST_INDEX
                 && ((AbstractInstancingOperation) block_).isNewBefore();
     }
 
@@ -522,7 +524,7 @@ public final class ElUtil {
                 } else {
                     checkFinal_ = false;
                     for (EntryCust<String, Boolean> e: _ass.entryList()) {
-                        if (!StringList.quickEq(e.getKey(), _fieldName)) {
+                        if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                             continue;
                         }
                         if (e.getValue()) {
@@ -540,7 +542,7 @@ public final class ElUtil {
             } else {
                 checkFinal_ = false;
                 for (EntryCust<String, Boolean> e: _ass.entryList()) {
-                    if (!StringList.quickEq(e.getKey(), _fieldName)) {
+                    if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
                     if (e.getValue()) {

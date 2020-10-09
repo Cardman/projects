@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class EvolutionMoveType extends Evolution {
@@ -20,7 +21,7 @@ public final class EvolutionMoveType extends Evolution {
             }
             types_.addAllElts(move_.getTypes());
         }
-        if (!StringList.contains(types_, type)) {
+        if (!StringUtil.contains(types_, type)) {
             _dataBase.setError(true);
         }
     }

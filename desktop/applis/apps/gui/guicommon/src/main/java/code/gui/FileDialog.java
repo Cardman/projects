@@ -18,6 +18,8 @@ import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class FileDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.filedialog";
@@ -96,18 +98,18 @@ public abstract class FileDialog extends Dialog {
         selectedAbsolutePath = EMPTY_STRING;
         excludedFolders = new StringList();
         if (currentFolderRoot) {
-            String root_ = StringList.replaceBackSlash(new File(folder).getAbsolutePath());
-            currentFolder = StringList.concat(root_,StreamTextFile.SEPARATEUR);
-            if (StringList.quickEq(currentFolder, StreamFolderFile.getCurrentPath())) {
+            String root_ = StringUtil.replaceBackSlash(new File(folder).getAbsolutePath());
+            currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
+            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath())) {
                 for (String f: _excludedFolders) {
-                    excludedFolders.add(StringList.concat(currentFolder,f));
+                    excludedFolders.add(StringUtil.concat(currentFolder,f));
                 }
             }
         }
         fileModel = new FileTable(lg_);
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
-            currentTitle = StringList.concat(currentTitle, SPACE, currentFolder);
+            currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
         }
         setTitle(currentTitle);
         fileTable = fileModel.getTable();
@@ -136,7 +138,7 @@ public abstract class FileDialog extends Dialog {
                 CustList<File> filesList_ = new CustList<File>();
                 for (File f: currentFiles_) {
                     if (f.isDirectory()) {
-                        if (StringList.contains(excludedFolders, StringList.replaceBackSlash(f.getAbsolutePath()))) {
+                        if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
                         }
                         default_.add(new DefaultMutableTreeNode(f.getName()));
@@ -151,8 +153,8 @@ public abstract class FileDialog extends Dialog {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
             for (File f: File.listRoots()) {
                 String path_ = f.getAbsolutePath();
-                path_ = StringList.replaceBackSlash(path_);
-                default_.add(new DefaultMutableTreeNode(StringList.join(StringList.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
+                path_ = StringUtil.replaceBackSlash(path_);
+                default_.add(new DefaultMutableTreeNode(StringUtil.join(StringUtil.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new TreeGui(default_);
             folderSystem.setRootVisible(false);
@@ -182,20 +184,20 @@ public abstract class FileDialog extends Dialog {
         // do some actions here, for example
         // print first column value from selected row
         int index_ = fileTable.getSelectedRow();
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        selectedPath = (String)fileTable.getValueAt(index_, FileTable.PATH_INDEX);
+        selectedPath = fileTable.getValueAt(index_, FileTable.PATH_INDEX);
         selectedAbsolutePath = fileModel.getSelectedFilePath(index_);
         if (addTypingFileName) {
-            fileName.setText((String)fileTable.getValueAt(index_, FileTable.NAME_INDEX));
+            fileName.setText(fileTable.getValueAt(index_, FileTable.NAME_INDEX));
         }
     }
 
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
-        currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
+        currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         File currentFolder_ = new File(str_);
         if (!currentFolder_.exists()) {
@@ -225,7 +227,7 @@ public abstract class FileDialog extends Dialog {
         DefaultMutableTreeNode selected_ = (DefaultMutableTreeNode) sel_;
         StringBuilder str_ = buildPath(selected_);
         currentFolder = str_.toString();
-        currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
+        currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         File currentFolder_ = new File(str_.toString());
         if (!currentFolder_.exists()) {
@@ -241,7 +243,7 @@ public abstract class FileDialog extends Dialog {
             currentFiles_.sortElts(new FileNameComparator());
             for (File l: currentFiles_) {
                 if (l.isDirectory()) {
-                    if (StringList.contains(excludedFolders, StringList.replaceBackSlash(l.getAbsolutePath()))) {
+                    if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(l.getAbsolutePath()))) {
                         continue;
                     }
                     folderList_.add(l.getName());
@@ -265,7 +267,7 @@ public abstract class FileDialog extends Dialog {
             pathFull_.add(0,(String)((DefaultMutableTreeNode)current_).getUserObject());
             current_ = current_.getParent();
         }
-        StringList.removeObj(pathFull_, EMPTY_STRING);
+        StringUtil.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();
         for (String o: pathFull_) {
             str_.append(o).append(StreamTextFile.SEPARATEUR);

@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1415,9 +1416,9 @@ public class FightItemsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(fighterCoords_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.backUpObject(NULL_REF);
-        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, CustList.FIRST_INDEX, data);
+        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data);
         assertEq(Rate.one(), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(CustList.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1428,9 +1429,9 @@ public class FightItemsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(fighterCoords_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.backUpObject(BAIE_MEPO);
-        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, CustList.FIRST_INDEX, data);
+        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data);
         assertEq(Rate.one(), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(CustList.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1440,9 +1441,9 @@ public class FightItemsTest extends InitializationDataBase {
         TeamPosition fighterCoords_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(fighterCoords_);
         fighter_.backUpObject(BAIE_ENIGMA);
-        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, CustList.FIRST_INDEX, data);
+        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data);
         assertEq(new Rate("2338/25"), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(CustList.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1453,9 +1454,9 @@ public class FightItemsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(fighterCoords_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.backUpObject(BAIE_ENIGMA);
-        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, CustList.FIRST_INDEX, data);
+        FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data);
         assertEq(new Rate("1219/50"), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(CustList.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(fighter_.isUsingItem());
     }
 }

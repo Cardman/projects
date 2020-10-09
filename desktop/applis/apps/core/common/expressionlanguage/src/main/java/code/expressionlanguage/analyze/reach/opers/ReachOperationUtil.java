@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachOperationUtil {
     private ReachOperationUtil() {
@@ -23,7 +23,7 @@ public final class ReachOperationUtil {
         if (!(_ops.last() instanceof DeclaringOperation)) {
             sub_ = list_;
         } else {
-            int index_ = StringList.indexOf(_field.getFieldName(),_fieldName);
+            int index_ = StringUtil.indexOf(_field.getFieldName(),_fieldName);
             CustList<ReachOperationNode> ch_ = root_.getChildrenNodes();
             ReachOperationNode rootLoc_ = ch_.get(index_);
             int from_;

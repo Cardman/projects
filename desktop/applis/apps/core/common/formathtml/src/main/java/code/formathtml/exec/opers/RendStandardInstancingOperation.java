@@ -13,7 +13,7 @@ import code.formathtml.exec.RendArgumentList;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
@@ -46,7 +46,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                                 Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
         className_ = instancingCommonContent.getClassName();

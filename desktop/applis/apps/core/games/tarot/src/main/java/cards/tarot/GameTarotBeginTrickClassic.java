@@ -6,6 +6,7 @@ import cards.tarot.comparators.GameSeqLengthTarotComparator;
 import cards.tarot.enumerations.CardTarot;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public final class GameTarotBeginTrickClassic {
 
@@ -52,7 +53,7 @@ public final class GameTarotBeginTrickClassic {
                 return playAsCalledPlayerOnExc(info_);
             }
             //defenseur entamant sur l'excuse du preneur
-            if(Numbers.equalsSetBytes(confidentPlayersNotPlay,notPlayed)) {
+            if(NumberUtil.equalsSetBytes(confidentPlayersNotPlay,notPlayed)) {
                 return playAsDefenderTeam(info_);
             }
             if(common.appeleConnuDefenseur(info_.getCurrentPlayer(),cartesPossibles_)) {
@@ -1004,7 +1005,7 @@ public final class GameTarotBeginTrickClassic {
         Bytes joueurs_ = new Bytes();
         byte player_ = common.playerAfter(teamsRelation.getTaker());
         //called player exists
-        while (!Numbers.eq(player_, _appele)) {
+        while (!NumberUtil.eq(player_, _appele)) {
             joueurs_.add(player_);
             player_ =  common.playerAfter(player_);
         }

@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -611,7 +612,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static RootBlock getClassBody(AnalyzedTestContext cont_, String _className) {
         for (RootBlock r: cont_.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
+            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }
@@ -1772,7 +1773,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         for (OverridingMethodDto o: map_) {
             if (o.getFormattedMethodId().eq(MethodId.to(_id))) {
                 for (GeneStringOverridable i : o.getMethodIds()) {
-                    if (StringList.contains(l_,i.getGeneString())) {
+                    if (StringUtil.contains(l_,i.getGeneString())) {
                         continue;
                     }
                     l_.add(i.getGeneString());

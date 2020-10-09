@@ -6,6 +6,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 
 public class BeanSeven extends Bean {
@@ -84,15 +85,15 @@ public class BeanSeven extends Bean {
     }
 
     public String goTwoArgs(int _a, int _b) {
-        return StringList.concatNbs("bean",_a+_b);
+        return StringUtil.concatNbs("bean",_a+_b);
     }
 
     public String getSpanClasses(Long _one, Long _two, Long _three) {
-        return StringList.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
+        return StringUtil.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
     }
 
     public String getSpanClass(Long _one) {
-        return StringList.concatNbs("page",_one);
+        return StringUtil.concatNbs("page",_one);
     }
 
     public CustList<Composite> getComposites() {
@@ -150,7 +151,7 @@ public class BeanSeven extends Bean {
     }
 
     public String goToPage(Long _index) {
-        return StringList.concatNbs("page",_index);
+        return StringUtil.concatNbs("page",_index);
     }
 
     public CustList<EnumNumber> getCombobox() {

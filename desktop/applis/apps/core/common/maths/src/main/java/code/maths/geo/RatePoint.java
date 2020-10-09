@@ -1,6 +1,7 @@
 package code.maths.geo;
 import code.maths.Rate;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -29,7 +30,7 @@ public final class RatePoint implements Equallable<RatePoint>, Displayable {
 
     
     public static RatePoint newCustRatePoint(String _input) {
-        StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
+        StringList elts_ = StringUtil.splitStrings(_input, SEPARATOR);
         Rate x_ = new Rate(elts_.first());
         Rate y_ = new Rate(elts_.last());
         return newRefRatePoint(x_, y_);
@@ -64,10 +65,7 @@ public final class RatePoint implements Equallable<RatePoint>, Displayable {
         if (Rate.different(_obj.xCoords , xCoords)) {
             return false;
         }
-        if (Rate.different(_obj.yCoords , yCoords)) {
-            return false;
-        }
-        return true;
+        return !Rate.different(_obj.yCoords, yCoords);
     }
 
     

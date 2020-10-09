@@ -13,8 +13,9 @@ import java.util.Collections;
 import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.Numbers;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class NetCreate {
 
@@ -32,11 +33,11 @@ public final class NetCreate {
         if (content_ == null) {
             return _defaultPort;
         }
-        content_ = StringList.removeStrings(content_, LINE_RETURN_R, LINE_RETURN_N);
-        if (!StringList.isPositiveNumber(content_)) {
+        content_ = StringUtil.removeStrings(content_, LINE_RETURN_R, LINE_RETURN_N);
+        if (!StringUtil.isPositiveNumber(content_)) {
             return _defaultPort;
         }
-        int port_ = Numbers.parseInt(content_);
+        int port_ = NumberUtil.parseInt(content_);
         if (port_ >= MAX_PORT) {
             return _defaultPort;
         }
@@ -85,8 +86,8 @@ public final class NetCreate {
     private static CustList<NetworkInterface> getNetworkInterfaces() {
         CustList<NetworkInterface> l_ = new CustList<NetworkInterface>();
         for (NetworkInterface n: getNetworkInterfacesList()) {
-            if (!StringList.quickEq(n.getName().trim(),NET_ZERO)) {
-                if (!StringList.quickEq(n.getName().trim(),WLAN_ZERO)) {
+            if (!StringUtil.quickEq(n.getName().trim(),NET_ZERO)) {
+                if (!StringUtil.quickEq(n.getName().trim(),WLAN_ZERO)) {
                     continue;
                 }
             }

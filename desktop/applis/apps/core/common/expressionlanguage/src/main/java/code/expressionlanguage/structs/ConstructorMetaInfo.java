@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
 
@@ -144,7 +145,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
             return false;
         }
         ConstructorMetaInfo info_ = (ConstructorMetaInfo) _other;
-        if (!StringList.quickEq(className, info_.className)) {
+        if (!StringUtil.quickEq(className, info_.className)) {
             return false;
         }
         return realId.eq(info_.realId);
@@ -152,7 +153,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringList.concat(className,";",realId.getSignature(_an)));
+        return new StringStruct(StringUtil.concat(className,";",realId.getSignature(_an)));
     }
 
     public StringList getParametersTypes() {

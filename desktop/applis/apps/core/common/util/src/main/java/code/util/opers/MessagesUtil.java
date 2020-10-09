@@ -1,7 +1,7 @@
 package code.util.opers;
 
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class MessagesUtil {
 
@@ -16,11 +16,11 @@ public final class MessagesUtil {
     public static StringMap<String> getMessages(String _content) {
         String lastKey_ = EMPTY_STRING;
         StringMap<String> messages_ = new StringMap<String>();
-        for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+        for (String l: StringUtil.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
-                    text_ = StringList.concat(text_,l.substring(1));
+                    text_ = StringUtil.concat(text_,l.substring(1));
                     messages_.put(lastKey_, text_);
                 }
             } else {

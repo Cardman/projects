@@ -28,6 +28,8 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -58,7 +60,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Parameters p_ = new Parameters();
         for (Argument a: _args) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_cont);
@@ -79,7 +81,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Parameters p_ = new Parameters();
         for (Argument a: _args) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_cont);
@@ -102,14 +104,14 @@ public abstract class ProcessMethodCommon {
     protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getParametersTypes().size();
         StringList constraints_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = _id.getParametersTypes().get(i);
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecConstructorBlock ctor_ = tryGet(_class, _cont, id_);
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Parameters p_ = new Parameters();
         if (ctor_ != null) {
             for (Argument a : _args) {
@@ -126,14 +128,14 @@ public abstract class ProcessMethodCommon {
     protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getParametersTypes().size();
         StringList constraints_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = _id.getParametersTypes().get(i);
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecConstructorBlock ctor_ = tryGet(_class, _cont, id_);
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Parameters p_ = new Parameters();
         if (ctor_ != null) {
             for (Argument a : _args) {
@@ -464,7 +466,7 @@ public abstract class ProcessMethodCommon {
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         for (EntryCust<String, ExecRootBlock> c: classes_.getClassesBodies().entryList()) {
-            if (!StringList.quickEq(c.getKey(), base_)) {
+            if (!StringUtil.quickEq(c.getKey(), base_)) {
                 continue;
             }
             CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(c.getValue());

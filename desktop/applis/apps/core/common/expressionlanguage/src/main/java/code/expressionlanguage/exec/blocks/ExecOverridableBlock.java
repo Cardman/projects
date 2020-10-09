@@ -5,8 +5,8 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
 
@@ -33,7 +33,7 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
                 ||kind == ExecMethodKind.TRUE_OPERATOR || kind == ExecMethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
         }
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }

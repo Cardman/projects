@@ -1,7 +1,8 @@
 package aiki.game.fight;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 
@@ -32,10 +33,10 @@ public final class ActivityOfMove implements Displayable {
     }
 
     public ActivityOfMove(String _value) {
-        StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        nbTurn = (short) Numbers.parseInt(elts_.first());
-        enabled = elts_.size() > 1 && StringList.quickEq(elts_.get(CustList.SECOND_INDEX), TRUE);
-        incrementCount = StringList.quickEq(elts_.last(), TRUE);
+        StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
+        nbTurn = (short) NumberUtil.parseInt(elts_.first());
+        enabled = elts_.size() > 1 && StringUtil.quickEq(elts_.get(IndexConstants.SECOND_INDEX), TRUE);
+        incrementCount = StringUtil.quickEq(elts_.last(), TRUE);
     }
 
     

@@ -8,8 +8,8 @@ import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class SortedFighterEndRoundComparator implements Comparing<TeamPosition> {
@@ -69,7 +69,7 @@ public final class SortedFighterEndRoundComparator implements Comparing<TeamPosi
                 Rate speedOne_=FightFacade.speed(fight,_fighterOne,data);
                 Rate speedTwo_=FightFacade.speed(fight,_fighterTwo,data);
                 if (Rate.eq(speedTwo_,speedOne_)) {
-                    return CustList.EQ_CMP;
+                    return SortConstants.EQ_CMP;
                 }
                 if(ComparatorBoolean.diff(Rate.strGreater(speedTwo_,speedOne_),revertedSpeed)){
                     permuter_=true;
@@ -77,9 +77,9 @@ public final class SortedFighterEndRoundComparator implements Comparing<TeamPosi
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

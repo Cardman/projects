@@ -14,6 +14,8 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ForwardOperation extends LeafOperation implements PossibleIntermediateDotted {
 
@@ -34,7 +36,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         if (isIntermediateDottedOperation()) {
             setResultClass(new AnaClassArgumentMatching(previousResultClass.getNames()));
@@ -64,7 +66,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             Mapping map_ = new Mapping();
@@ -78,7 +80,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(getResultClass().getNames(),"&"),
+                        StringUtil.join(getResultClass().getNames(),"&"),
                         classType);
                 _page.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
@@ -90,7 +92,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             setResultClass(new AnaClassArgumentMatching(classType));
@@ -102,7 +104,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             classType = className_;
@@ -117,7 +119,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(getResultClass().getNames(),"&"),
+                        StringUtil.join(getResultClass().getNames(),"&"),
                         classType);
                 _page.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());

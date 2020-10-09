@@ -1,4 +1,5 @@
 package code.util;
+import code.util.core.IndexConstants;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;
 
@@ -86,14 +87,14 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
 
     public void add(K _key,V _v) {
         int index_ = indexOfEntry(_key);
-        if (index_ != CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         addEntry(_key,_v);
     }
     public void set(K _key,V _v) {
         int index_ = indexOfEntry(_key);
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         setValue(index_, _v);
@@ -113,7 +114,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
     public EntryCust<K,V> getEntryByKey(K _key) {
         int index_ = indexOfEntry(_key);
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return null;
         }
         return getList().get(index_);
@@ -123,7 +124,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     @Override
     public void put(K _key, V _v) {
         int index_ = indexOfEntry(_key);
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             addEntry(_key, _v);
             return;
         }
@@ -171,11 +172,11 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         geneRemove(_key);
     }
 
-    protected abstract int indexOfEntry(K _key);
+    public abstract int indexOfEntry(K _key);
 
     void geneRemove(K _key) {
         int index_ = indexOfEntry(_key);
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         getList().remove(index_);

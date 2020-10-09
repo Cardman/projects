@@ -15,8 +15,8 @@ import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends SoftApplicationCore {
 
@@ -59,7 +59,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
                     zip_ = DataBase.EMPTY_STRING;
                 }
                 if (zip_.isEmpty() || new File(zip_).exists()) {
-                    fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
+                    fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
                 }
             }
         }
@@ -68,10 +68,10 @@ public class LaunchingPokemon extends SoftApplicationCore {
                 fileConfig_ = _args.getKeys().first();
                 param_ = (LoadingGame) _args.values().first();
             } else {
-                fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
+                fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
             }
         } else {
-            String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(StreamFolderFile.getCurrentPath(),fileConfig_));
+            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(),fileConfig_));
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             param_.setLastSavedGame(gameSavePath_);
             param_.setLastRom(zip_);
@@ -107,12 +107,12 @@ public class LaunchingPokemon extends SoftApplicationCore {
     }
 
     public static String getTempFolderSl() {
-        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
+        return StringUtil.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
     }
 
     public static String getTempFolder() {
-        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     public static String getMainWindowClass() {

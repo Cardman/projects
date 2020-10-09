@@ -20,6 +20,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFightStd {
     public static final String TYPE_COMMON_FIGHT_BEAN = "aiki.beans.fight.CommonFightBean";
@@ -398,23 +399,23 @@ public final class AikiBeansFightStd {
         ResultErrorStd res_ = new ResultErrorStd();
         FightBean instance_ = (FightBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,MULT)) {
+        if (StringUtil.quickEq(fieldName_,MULT)) {
             res_.setResult(new ByteStruct(instance_.getMult()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_ROUNDS)) {
+        if (StringUtil.quickEq(fieldName_,NB_ROUNDS)) {
             res_.setResult(new DefaultStruct(instance_.getNbRounds(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_FLEE_ATTEMPT)) {
+        if (StringUtil.quickEq(fieldName_,NB_FLEE_ATTEMPT)) {
             res_.setResult(new ShortStruct(instance_.getNbFleeAttempt()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WINNING_MONEY)) {
+        if (StringUtil.quickEq(fieldName_,WINNING_MONEY)) {
             res_.setResult(new DefaultStruct(instance_.getWinningMoney(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -425,23 +426,23 @@ public final class AikiBeansFightStd {
         ResultErrorStd res_ = new ResultErrorStd();
         FightCalculationBean instance_ = (FightCalculationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,SORTED_FIGHTERS)) {
+        if (StringUtil.quickEq(fieldName_,SORTED_FIGHTERS)) {
             res_.setResult(new DefaultStruct(instance_.getSortedFighters(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SORTED_FIGHTERS_WILD_FIGHT)) {
+        if (StringUtil.quickEq(fieldName_,SORTED_FIGHTERS_WILD_FIGHT)) {
             res_.setResult(new DefaultStruct(instance_.getSortedFightersWildFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ALLY_CHOICE)) {
+        if (StringUtil.quickEq(fieldName_,ALLY_CHOICE)) {
             res_.setResult(new DefaultStruct(instance_.getAllyChoice(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FOE_CHOICES)) {
+        if (StringUtil.quickEq(fieldName_,FOE_CHOICES)) {
             res_.setResult(new DefaultStruct(instance_.getFoeChoices(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -452,239 +453,239 @@ public final class AikiBeansFightStd {
         ResultErrorStd res_ = new ResultErrorStd();
         FighterBean instance_ = (FighterBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,NAME)) {
+        if (StringUtil.quickEq(fieldName_,NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CHANGED)) {
+        if (StringUtil.quickEq(fieldName_,CHANGED)) {
             res_.setResult(BooleanStruct.of(instance_.getChanged()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CURRENT_NAME)) {
+        if (StringUtil.quickEq(fieldName_,CURRENT_NAME)) {
             res_.setResult(new StringStruct(instance_.getCurrentName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CURRENT_GENDER)) {
+        if (StringUtil.quickEq(fieldName_,CURRENT_GENDER)) {
             res_.setResult(new StringStruct(instance_.getCurrentGender()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,USED_BALL_CATCHING)) {
+        if (StringUtil.quickEq(fieldName_,USED_BALL_CATCHING)) {
             res_.setResult(new StringStruct(instance_.getUsedBallCatching()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BELONGING_TO_PLAYER)) {
+        if (StringUtil.quickEq(fieldName_,BELONGING_TO_PLAYER)) {
             res_.setResult(BooleanStruct.of(instance_.getBelongingToPlayer()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GROUND_PLACE_SUBST)) {
+        if (StringUtil.quickEq(fieldName_,GROUND_PLACE_SUBST)) {
             res_.setResult(new ByteStruct(instance_.getGroundPlaceSubst()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GROUND_PLACE)) {
+        if (StringUtil.quickEq(fieldName_,GROUND_PLACE)) {
             res_.setResult(new ByteStruct(instance_.getGroundPlace()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NICKNAME)) {
+        if (StringUtil.quickEq(fieldName_,NICKNAME)) {
             res_.setResult(new StringStruct(instance_.getNickname()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HAPPINESS)) {
+        if (StringUtil.quickEq(fieldName_,HAPPINESS)) {
             res_.setResult(new ShortStruct(instance_.getHappiness()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WON_EXP_SINCE_LAST_LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,WON_EXP_SINCE_LAST_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NECESSARY_POINTS_NEXT_LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,NECESSARY_POINTS_NEXT_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getNecessaryPointsNextLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GENDER)) {
+        if (StringUtil.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WEIGHT)) {
+        if (StringUtil.quickEq(fieldName_,WEIGHT)) {
             res_.setResult(new DefaultStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WEIGHT_STR)) {
+        if (StringUtil.quickEq(fieldName_,WEIGHT_STR)) {
             res_.setResult(new StringStruct(instance_.getWeightStr()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEIGHT)) {
+        if (StringUtil.quickEq(fieldName_,HEIGHT)) {
             res_.setResult(new DefaultStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEIGHT_STR)) {
+        if (StringUtil.quickEq(fieldName_,HEIGHT_STR)) {
             res_.setResult(new StringStruct(instance_.getHeightStr()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REMAINING_HP)) {
+        if (StringUtil.quickEq(fieldName_,REMAINING_HP)) {
             res_.setResult(new DefaultStruct(instance_.getRemainingHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REMAINING_HP_STR)) {
+        if (StringUtil.quickEq(fieldName_,REMAINING_HP_STR)) {
             res_.setResult(new StringStruct(instance_.getRemainingHpStr()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REMAINING_HP_STR_PER_CENT)) {
+        if (StringUtil.quickEq(fieldName_,REMAINING_HP_STR_PER_CENT)) {
             res_.setResult(new StringStruct(instance_.getRemainingHpStrPerCent()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CLONE)) {
+        if (StringUtil.quickEq(fieldName_,CLONE)) {
             res_.setResult(new DefaultStruct(instance_.getClone(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CLONE_STR)) {
+        if (StringUtil.quickEq(fieldName_,CLONE_STR)) {
             res_.setResult(new StringStruct(instance_.getCloneStr()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,ABILITY)) {
             res_.setResult(new StringStruct(instance_.getAbility()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CURRENT_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,CURRENT_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getCurrentAbility()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ACTED)) {
+        if (StringUtil.quickEq(fieldName_,ACTED)) {
             res_.setResult(BooleanStruct.of(instance_.getActed()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAST_USED_ITEM)) {
+        if (StringUtil.quickEq(fieldName_,LAST_USED_ITEM)) {
             res_.setResult(new StringStruct(instance_.getLastUsedItem()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ITEM)) {
+        if (StringUtil.quickEq(fieldName_,ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EXP_ITEM)) {
+        if (StringUtil.quickEq(fieldName_,EXP_ITEM)) {
             res_.setResult(new StringStruct(instance_.getExpItem()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,USING_ITEM)) {
+        if (StringUtil.quickEq(fieldName_,USING_ITEM)) {
             res_.setResult(BooleanStruct.of(instance_.getUsingItem()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPES)) {
+        if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES)) {
+        if (StringUtil.quickEq(fieldName_,MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CURRENT_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,CURRENT_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getCurrentMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_ROUNDS)) {
+        if (StringUtil.quickEq(fieldName_,NB_ROUNDS)) {
             res_.setResult(new DefaultStruct(instance_.getNbRounds(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COPIED_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,COPIED_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getCopiedMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATISTICS)) {
+        if (StringUtil.quickEq(fieldName_,STATISTICS)) {
             res_.setResult(new DefaultStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DAMAGE_RATE_BY_TYPE)) {
+        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_BY_TYPE)) {
             res_.setResult(new DefaultStruct(instance_.getDamageRateByType(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROTECTED_AGAINST_MOVE_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,PROTECTED_AGAINST_MOVE_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getProtectedAgainstMoveTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DAMAGE_SUFFERED_CATEG)) {
+        if (StringUtil.quickEq(fieldName_,DAMAGE_SUFFERED_CATEG)) {
             res_.setResult(new DefaultStruct(instance_.getDamageSufferedCateg(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES_FOR_ALLY)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES_FOR_ALLY)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMovesForAlly(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_USES_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,NB_USES_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getNbUsesMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_REPEATING_SUCCESSFUL_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,NB_REPEATING_SUCCESSFUL_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getNbRepeatingSuccessfulMoves(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SUCCESSFUL_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,SUCCESSFUL_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.getSuccessfulMove()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAST_SUCCESSFUL_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,LAST_SUCCESSFUL_MOVE)) {
             res_.setResult(new StringStruct(instance_.getLastSuccessfulMove()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAST_USED_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,LAST_USED_MOVE)) {
             res_.setResult(new StringStruct(instance_.getLastUsedMove()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,USED_MOVE_LAST_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,USED_MOVE_LAST_ROUND)) {
             res_.setResult(new StringStruct(instance_.getUsedMoveLastRound()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_PREPA_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,NB_PREPA_ROUND)) {
             res_.setResult(new ShortStruct(instance_.getNbPrepaRound()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ALREADY_INVOKED_MOVES_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,ALREADY_INVOKED_MOVES_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getAlreadyInvokedMovesRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAST_SUFFERED_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,LAST_SUFFERED_MOVE)) {
             res_.setResult(new StringStruct(instance_.getLastSufferedMove()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LAST_SUFFERED_MOVE_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,LAST_SUFFERED_MOVE_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getLastSufferedMoveTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DISAPPEARED)) {
+        if (StringUtil.quickEq(fieldName_,DISAPPEARED)) {
             res_.setResult(BooleanStruct.of(instance_.getDisappeared()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NEEDING_TO_RECHARGE)) {
+        if (StringUtil.quickEq(fieldName_,NEEDING_TO_RECHARGE)) {
             res_.setResult(BooleanStruct.of(instance_.getNeedingToRecharge()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATUS)) {
+        if (StringUtil.quickEq(fieldName_,STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATUS_RELAT)) {
+        if (StringUtil.quickEq(fieldName_,STATUS_RELAT)) {
             res_.setResult(new DefaultStruct(instance_.getStatusRelat(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PRIVATE_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,PRIVATE_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getPrivateMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TRAPPING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,TRAPPING_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getTrappingMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TRACKING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,TRACKING_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getTrackingMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,INCR_USER_ACCURACY)) {
+        if (StringUtil.quickEq(fieldName_,INCR_USER_ACCURACY)) {
             res_.setResult(new DefaultStruct(instance_.getIncrUserAccuracy(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -695,35 +696,35 @@ public final class AikiBeansFightStd {
         ResultErrorStd res_ = new ResultErrorStd();
         TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,FOE_TEAM)) {
+        if (StringUtil.quickEq(fieldName_,FOE_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.getFoeTeam()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES_BY_GROUP)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES_BY_GROUP)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMovesByGroup(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ENABLED_MOVES_WHILE_SENDING_FOE_USES)) {
+        if (StringUtil.quickEq(fieldName_,ENABLED_MOVES_WHILE_SENDING_FOE_USES)) {
             res_.setResult(new DefaultStruct(instance_.getEnabledMovesWhileSendingFoeUses(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_USES_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,NB_USES_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getNbUsesMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEAL_AFTER)) {
+        if (StringUtil.quickEq(fieldName_,HEAL_AFTER)) {
             res_.setResult(new DefaultStruct(instance_.getHealAfter(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVES_ANTICIPATION)) {
+        if (StringUtil.quickEq(fieldName_,MOVES_ANTICIPATION)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAnticipation(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PLAYER_FIGHTERS_AGAINST_FOE)) {
+        if (StringUtil.quickEq(fieldName_,PLAYER_FIGHTERS_AGAINST_FOE)) {
             res_.setResult(new DefaultStruct(instance_.getPlayerFightersAgainstFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -733,15 +734,15 @@ public final class AikiBeansFightStd {
         FightBean instance_ = (FightBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_PLAYER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_PLAYER)) {
             res_.setResult(new StringStruct(instance_.clickPlayer()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_FOE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_FOE)) {
             res_.setResult(new StringStruct(instance_.clickFoe()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_STILL_ENABLED)) {
+        if (StringUtil.quickEq(methodName_,IS_STILL_ENABLED)) {
             res_.setResult(BooleanStruct.of(instance_.isStillEnabled((Long)_args[0])));
             return res_;
         }
@@ -751,51 +752,51 @@ public final class AikiBeansFightStd {
         FightCalculationBean instance_ = (FightCalculationBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_FIGHTER)) {
+        if (StringUtil.quickEq(methodName_,GET_FIGHTER)) {
             res_.setResult(new StringStruct(instance_.getFighter((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_FIGHTER_WILD_FIGHT)) {
+        if (StringUtil.quickEq(methodName_,GET_FIGHTER_WILD_FIGHT)) {
             res_.setResult(new StringStruct(instance_.getFighterWildFight((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_TARGET_CHOICE_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CHOICE_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BACK_TARGET_CHOICE_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_CHOICE_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE_CONDITION)) {
+        if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE_CONDITION)) {
             res_.setResult(new StringStruct(instance_.getTargetNameAllyChoiceCondition((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_TARGET_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BACK_TARGET_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE)) {
+        if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE)) {
             res_.setResult(new StringStruct(instance_.getTargetNameAllyChoice((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_FOE_FIGHTER_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_FOE_FIGHTER_NAME)) {
             res_.setResult(new StringStruct(instance_.getFoeFighterName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_CHOSEN_TARGET)) {
+        if (StringUtil.quickEq(methodName_,IS_CHOSEN_TARGET)) {
             res_.setResult(BooleanStruct.of(instance_.isChosenTarget((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_TARGET_CH_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CH_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TARGET_NAME_FOE_CHOICE)) {
+        if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_FOE_CHOICE)) {
             res_.setResult(new StringStruct(instance_.getTargetNameFoeChoice((Long)_args[0])));
             return res_;
         }
@@ -805,55 +806,55 @@ public final class AikiBeansFightStd {
         FighterBean instance_ = (FighterBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,IS_BACK_SUBST)) {
+        if (StringUtil.quickEq(methodName_,IS_BACK_SUBST)) {
             res_.setResult(BooleanStruct.of(instance_.isBackSubst()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BACK)) {
+        if (StringUtil.quickEq(methodName_,IS_BACK)) {
             res_.setResult(BooleanStruct.of(instance_.isBack()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_STATUS_RELAT_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_STATUS_RELAT_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_STATUS_RELAT_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_STATUS_RELAT_TEAM)) {
             res_.setResult(new StringStruct(instance_.getStatusRelatTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_ENABLED)) {
+        if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
             res_.setResult(BooleanStruct.of(instance_.isEnabled((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_PRIVATE_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_PRIVATE_MOVES_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_INCR_PRIVATE_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_INCR_PRIVATE_MOVES_TEAM)) {
             res_.setResult(new StringStruct(instance_.getIncrPrivateMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_TRAPPING_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_TRAPPING_MOVES_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_INCR_TRAPPING_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_INCR_TRAPPING_MOVES_TEAM)) {
             res_.setResult(new StringStruct(instance_.getIncrTrappingMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_TRACKING_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_TRACKING_MOVES_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_INCR_TRACKING_MOVES_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_INCR_TRACKING_MOVES_TEAM)) {
             res_.setResult(new StringStruct(instance_.getIncrTrackingMovesTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_INCR_USER_ACCURACY_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_INCR_USER_ACCURACY_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_INCR_USER_ACCURACY_TEAM)) {
+        if (StringUtil.quickEq(methodName_,GET_INCR_USER_ACCURACY_TEAM)) {
             res_.setResult(new StringStruct(instance_.getIncrUserAccuracyTeam((Long)_args[0])));
             return res_;
         }
@@ -864,35 +865,35 @@ public final class AikiBeansFightStd {
         TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_MEMBERS)) {
+        if (StringUtil.quickEq(methodName_,GET_MEMBERS)) {
             res_.setResult(DefaultStruct.newListByte(instance_.getMembers(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_FIGHTER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_FIGHTER)) {
             res_.setResult(new StringStruct(instance_.clickFighter((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_POKEMON_LINK)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_LINK)) {
             res_.setResult(new StringStruct(instance_.getTrPokemonLink((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_KEY)) {
             res_.setResult(new StringStruct(instance_.getKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOE_MOVES_ANTICIPATION_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_FOE_MOVES_ANTICIPATION_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BACK_MOVES_ANTICIPATION_TEAM)) {
+        if (StringUtil.quickEq(methodName_,IS_BACK_MOVES_ANTICIPATION_TEAM)) {
             res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_PLAYER_FIGTHER_AGAINST_FOE)) {
+        if (StringUtil.quickEq(methodName_,GET_PLAYER_FIGTHER_AGAINST_FOE)) {
             res_.setResult(new StringStruct(instance_.getPlayerFigtherAgainstFoe((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_FOE_FIGTHER_AGAINST_FOE)) {
+        if (StringUtil.quickEq(methodName_,GET_FOE_FIGTHER_AGAINST_FOE)) {
             res_.setResult(new StringStruct(instance_.getFoeFigtherAgainstFoe((Long)_args[0],(Long)_args[1])));
             return res_;
         }

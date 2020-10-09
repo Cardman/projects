@@ -1,6 +1,6 @@
 package aiki.fight.enums;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public enum Statistic {
@@ -72,7 +72,7 @@ public enum Statistic {
     }
     public static Statistic getStatisticByName(String _env) {
         for (Statistic e: values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }

@@ -3,6 +3,7 @@ package code.bean.nat;
 import code.expressionlanguage.analyze.AbstractForEachFetch;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class NativeForEachFetch implements AbstractForEachFetch {
     private final BeanNatLgNames stds;
@@ -23,7 +24,7 @@ public final class NativeForEachFetch implements AbstractForEachFetch {
 
     @Override
     public IterableAnalysisResult getCustomTableType(StringList _names, String _first, String _second) {
-        String type_ = StringList.concat(stds.getContent().getPredefTypes().getAliasIterableTable(), "<", _first, "," + _second + ">");
+        String type_ = StringUtil.concat(stds.getContent().getPredefTypes().getAliasIterableTable(), "<", _first, "," + _second + ">");
         return new IterableAnalysisResult(new StringList(type_));
     }
 
@@ -32,9 +33,9 @@ public final class NativeForEachFetch implements AbstractForEachFetch {
         if (it_ == null) {
             it_ = stds.getAliasObject();
         }
-        if (StringList.quickEq(it_, stds.getAliasObject())) {
+        if (StringUtil.quickEq(it_, stds.getAliasObject())) {
             it_ = _first;
         }
-        return StringList.concat(stds.getContent().getPredefTypes().getAliasIterable(),"<",it_,">");
+        return StringUtil.concat(stds.getContent().getPredefTypes().getAliasIterable(),"<",it_,">");
     }
 }

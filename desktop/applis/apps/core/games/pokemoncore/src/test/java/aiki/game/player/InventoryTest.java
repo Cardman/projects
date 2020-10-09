@@ -3,7 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,11 +22,11 @@ public class InventoryTest extends InitializationDataBase{
     public void new_Inventory_DataBase_1Test() {
         Inventory obj_ = new Inventory(data);
         assertEq(100,obj_.getItemsKeys().size());
-        assertTrue(StringList.contains(obj_.getItemsKeys(), MUSCLE));
-        assertTrue(StringList.contains(obj_.getItemsKeys(), PP_PLUS));
-        assertTrue(StringList.contains(obj_.getItemsKeys(), GRELOT));
-        assertTrue(StringList.contains(obj_.getItemsKeys(), PIERRE_LUNE));
-        assertTrue(StringList.contains(obj_.getItemsKeys(), PIERRE_SOLEIL));
+        assertTrue(StringUtil.contains(obj_.getItemsKeys(), MUSCLE));
+        assertTrue(StringUtil.contains(obj_.getItemsKeys(), PP_PLUS));
+        assertTrue(StringUtil.contains(obj_.getItemsKeys(), GRELOT));
+        assertTrue(StringUtil.contains(obj_.getItemsKeys(), PIERRE_LUNE));
+        assertTrue(StringUtil.contains(obj_.getItemsKeys(), PIERRE_SOLEIL));
         assertEq(4,obj_.getAllTm().size());
         assertEq(2,obj_.getAllTm().get(0));
         assertEq(3,obj_.getAllTm().get(1));

@@ -20,6 +20,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ForMutableIterativeLoop extends BracedBlock implements
         ForLoop {
@@ -233,7 +234,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
                 importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
@@ -269,7 +270,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     un_.setIndexFile(expressionOffset);
                     //second ; char
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(exp_.getNames(),"&"));
+                            StringUtil.join(exp_.getNames(),"&"));
                     _page.addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());

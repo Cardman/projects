@@ -4,6 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -171,8 +174,8 @@ public class TeamTest extends InitializationDataBase {
         assertTrue(!stack_.isLastStacked());
         assertEq(1, team_.getHealAfterSet().size());
         assertEq(1, team_.getMovesAnticipationSet().size());
-        assertTrue(StringList.contains(team_.getMovesAnticipationSet(), PRESCIENCE));
-        assertTrue(StringList.contains(team_.getHealAfterSet(), VOEU));
+        assertTrue(StringUtil.contains(team_.getMovesAnticipationSet(), PRESCIENCE));
+        assertTrue(StringUtil.contains(team_.getHealAfterSet(), VOEU));
     }
 
     @Test
@@ -1123,8 +1126,8 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
         assertEq(0, team_.indexOfSubstitute((byte) 1));
         assertEq(1, team_.indexOfSubstitute((byte) 3));
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute((byte) 4));
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute(Fighter.BACK));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute((byte) 4));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute(Fighter.BACK));
     }
 
     @Test
@@ -1547,9 +1550,9 @@ public class TeamTest extends InitializationDataBase {
     }
 
     int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-        int i_ = CustList.SIZE_EMPTY;
+        int i_ = IndexConstants.SIZE_EMPTY;
         for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (Numbers.eq(e.getValue(), _nbRounds)) {
+            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
         }

@@ -8,10 +8,11 @@ import cards.belote.enumerations.*;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.maths.Rate;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
+import code.util.core.IndexConstants;
+
 /**
  */
 
@@ -90,8 +91,8 @@ public final class HandBelote implements Iterable<CardBelote> {
     dans le but de deplacer la moitie d'une main apres l'autre*/
     void couper() {
         int taille_=total()/2;
-        for (int i=CustList.FIRST_INDEX;i<taille_;i++) {
-            ajouter(jouer(CustList.FIRST_INDEX));
+        for (int i = IndexConstants.FIRST_INDEX; i<taille_; i++) {
+            ajouter(jouer(IndexConstants.FIRST_INDEX));
         }
     }
     /**<ol>
@@ -302,7 +303,7 @@ public final class HandBelote implements Iterable<CardBelote> {
                     cartesAssurantMax_.ajouterCartes(m);
                     continue;
                 }
-                cartesAssurantMax_.getCards().addAllElts(m2_.getCards().sub(0,m.total()));
+                cartesAssurantMax_.getCards().addAllElts(m2_.getCards().left(m.total()));
                 break;
             }
         }
@@ -479,8 +480,8 @@ public final class HandBelote implements Iterable<CardBelote> {
                     HandBelote annoncePossible_ = new HandBelote();
                     int nbCartesAnnonce_ = a.nombreCartes();
                     int nbIterations_ = s.total() -nbCartesAnnonce_+1;
-                    for (int i = CustList.FIRST_INDEX;i<nbIterations_;i++) {
-                        for (int j = CustList.FIRST_INDEX;j<nbCartesAnnonce_;j++) {
+                    for (int i = IndexConstants.FIRST_INDEX; i<nbIterations_; i++) {
+                        for (int j = IndexConstants.FIRST_INDEX; j<nbCartesAnnonce_; j++) {
                             annoncePossible_.ajouter(s.carte(i+j));
                         }
                     }
@@ -586,7 +587,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
         boolean id_=true;
         int nbCards_ = total();
-        for (int i = CustList.FIRST_INDEX; i < nbCards_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbCards_; i++) {
             if (!CardBelote.eq(_g.carte(i), carte(i))) {
                 id_ = false;
             }

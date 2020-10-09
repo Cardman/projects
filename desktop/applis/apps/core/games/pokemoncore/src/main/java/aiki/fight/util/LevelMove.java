@@ -1,6 +1,7 @@
 package aiki.fight.util;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class LevelMove implements Displayable {
@@ -15,8 +16,8 @@ public final class LevelMove implements Displayable {
     }
 
     public LevelMove(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        level = (short) Numbers.parseInt(elements_.first());
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
+        level = (short) NumberUtil.parseInt(elements_.first());
         move = elements_.last();
     }
 

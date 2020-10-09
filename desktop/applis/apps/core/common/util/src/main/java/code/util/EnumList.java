@@ -1,4 +1,6 @@
 package code.util;
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 import code.util.ints.Listable;
 
@@ -28,13 +30,13 @@ public final class EnumList<T> extends AbEqList<T> {
         groups_ = new CustList<EnumList<T>>();
         EnumList<T> group_;
         group_ = new EnumList<T>();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int j_ = i_;
         j_--;
         while (i_ < copy_.size()) {
-            if (i_ > CustList.FIRST_INDEX) {
+            if (i_ > IndexConstants.FIRST_INDEX) {
                 int res_ = _cmp.compare(copy_.get(i_), copy_.get(j_));
-                if (res_ != EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     groups_.add(group_);
                     group_ = new EnumList<T>();
                 }
@@ -49,10 +51,10 @@ public final class EnumList<T> extends AbEqList<T> {
     public Ints indexesOfObj(T _element) {
         Ints indexes_;
         indexes_ = new Ints();
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
             int found_ = indexOfObj(_element, i_);
-            if (found_ == INDEX_NOT_FOUND_ELT) {
+            if (found_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 break;
             }
             indexes_.add(found_);
@@ -61,48 +63,8 @@ public final class EnumList<T> extends AbEqList<T> {
         return indexes_;
     }
     @Override
-    public int indexOfObj(T _element, int _from) {
-        int s_ = size();
-        for (int i = _from; i < s_; i++) {
-            T e_ = get(i);
-            if (e_ == _element) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND_ELT;
-    }
-
-
-    public void removeDuplicates()  {
-        int i_ = FIRST_INDEX;
-        while (i_ < size()) {
-            T e_ = get(i_);
-            boolean rem_ = false;
-            int next_ = indexOfObj(e_, i_ + 1);
-            while (next_ != INDEX_NOT_FOUND_ELT) {
-                remove(next_);
-                rem_ = true;
-                next_ = indexOfObj(e_, i_ + 1);
-            }
-            if (!rem_) {
-                i_++;
-            }
-        }
-    }
-
-    public boolean eq(EnumList<T> _g) {
-        int len_ = size();
-        if (_g.size() != len_) {
-            return false;
-        }
-        for (int i = FIRST_INDEX; i < len_; i++) {
-            T e_ = get(i);
-            T f_ = _g.get(i);
-            if (f_ != e_) {
-                return false;
-            }
-        }
-        return true;
+    public boolean match(T _one, T _two) {
+        return _one == _two;
     }
 
 }

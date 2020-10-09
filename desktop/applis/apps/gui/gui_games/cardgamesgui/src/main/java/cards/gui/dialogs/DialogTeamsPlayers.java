@@ -1,8 +1,4 @@
 package cards.gui.dialogs;
-import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 
 import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
@@ -11,6 +7,7 @@ import code.gui.TextLabel;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DialogTeamsPlayers extends DialogCards {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogteamsplayers";
@@ -40,7 +37,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
         for (Bytes t: _teamsPlayers.getTeams()) {
-            String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
+            String stringTeamLoc_ = StringUtil.simpleNumberFormat(stringTeam_, i_);
             Panel team_ = Panel.newGrid(0,1);
             team_.setTitledBorder(stringTeamLoc_);
             for (byte p:t) {

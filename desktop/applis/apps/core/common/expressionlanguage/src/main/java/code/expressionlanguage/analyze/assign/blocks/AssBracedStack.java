@@ -7,6 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class AssBracedStack extends AssBracedBlock {
     AssBracedStack(boolean _completeNormally, boolean _completeNormallyGroup) {
@@ -105,7 +106,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
             AssStdVariableOperation cst_ = (AssStdVariableOperation) set_;
             String str_ = cst_.getVariableName();
-            if (!StringList.quickEq(str_, _field)) {
+            if (!StringUtil.quickEq(str_, _field)) {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(_page);
@@ -209,7 +210,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             boolean contUnass_ = true;
             for (StringMap<AssignmentBefore> c: _continuable) {
                 for (EntryCust<String,AssignmentBefore> f: c.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isAssignedBefore()) {
@@ -329,7 +330,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             boolean assAfterAll_ = true;
             boolean unassAfterAll_ = true;
             for (EntryCust<String, BooleanAssignment> f: _afterCond.entryList()) {
-                if (!StringList.quickEq(key_, f.getKey())) {
+                if (!StringUtil.quickEq(key_, f.getKey())) {
                     continue;
                 }
                 if(!f.getValue().isAssignedAfterWhenFalse()) {
@@ -343,7 +344,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 boolean assAfter_ = true;
                 boolean unassAfter_ = true;
                 for (EntryCust<String, SimpleAssignment> f: _blocks.get(i).entryList()) {
-                    if (!StringList.quickEq(key_, f.getKey())) {
+                    if (!StringUtil.quickEq(key_, f.getKey())) {
                         continue;
                     }
                     if(!f.getValue().isAssignedAfter()) {
@@ -437,7 +438,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 unassAfter_ = false;
             }
             for (EntryCust<String, SimpleAssignment> f: _last.entryList()) {
-                if (!StringList.quickEq(key_, f.getKey())) {
+                if (!StringUtil.quickEq(key_, f.getKey())) {
                     continue;
                 }
                 if(!f.getValue().isAssignedAfter()) {
@@ -449,7 +450,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
             for (StringMap<AssignmentBefore> b: _breaks) {
                 for (EntryCust<String, AssignmentBefore> f: b.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isAssignedBefore()) {
@@ -508,7 +509,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             String key_ = e.getKey();
             for (StringMap<AssignmentBefore> b: _breakAss) {
                 for (EntryCust<String, AssignmentBefore> f: b.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isAssignedBefore()) {
@@ -711,7 +712,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 boolean assAfter_ = true;
                 boolean unassAfter_ = true;
                 for (EntryCust<String, SimpleAssignment> f: _blocks.get(i).entryList()) {
-                    if (!StringList.quickEq(key_, f.getKey())) {
+                    if (!StringUtil.quickEq(key_, f.getKey())) {
                         continue;
                     }
                     if(!f.getValue().isAssignedAfter()) {
@@ -723,7 +724,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 }
                 for (StringMap<AssignmentBefore> b: _breaks.get(i)) {
                     for (EntryCust<String, AssignmentBefore> f: b.entryList()) {
-                        if (!StringList.quickEq(key_, f.getKey())) {
+                        if (!StringUtil.quickEq(key_, f.getKey())) {
                             continue;
                         }
                         if (!f.getValue().isAssignedBefore()) {
@@ -874,7 +875,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
             for (StringMap<Assignment> t: _throws) {
                 for (EntryCust<String,Assignment> f: t.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isUnassignedAfter()) {
@@ -884,7 +885,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
             for (StringMap<AssignmentBefore> t: _others) {
                 for (EntryCust<String,AssignmentBefore> f: t.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isUnassignedBefore()) {
@@ -894,7 +895,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             }
             for (StringMap<SimpleAssignment> c: _catchs) {
                 for (EntryCust<String,SimpleAssignment> f: c.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isUnassignedAfter()) {

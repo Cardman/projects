@@ -3,8 +3,8 @@ import aiki.facade.LongFieldComparator;
 import aiki.facade.Pagination;
 import aiki.facade.StringFieldComparator;
 import aiki.util.SortingEgg;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class ComparatorEgg implements Comparing<SortingEgg> {
@@ -32,17 +32,17 @@ public final class ComparatorEgg implements Comparing<SortingEgg> {
         for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
             if (cmpSteps.getPriority() == i) {
                 int res_ = cmpSteps.compare(_o1.getSteps(), _o2.getSteps());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpName.getPriority() == i) {
                 int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             }
         }
-        return Numbers.compareLg(_o1.getIndex(), _o2.getIndex());
+        return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
 }

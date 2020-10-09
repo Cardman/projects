@@ -4,6 +4,7 @@ import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.consts.Status;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class GameBeloteTeamsRelation {
     private byte taker;
@@ -45,7 +46,7 @@ public final class GameBeloteTeamsRelation {
 
     boolean isSameTeam(Bytes _players) {
         int nbPlayers_ = _players.size();
-        for (byte i = CustList.SECOND_INDEX; i<nbPlayers_; i++) {
+        for (byte i = IndexConstants.SECOND_INDEX; i<nbPlayers_; i++) {
             if (!memeEquipe(_players.getPrev(i), _players.get(i))) {
                 return false;
             }
@@ -84,7 +85,7 @@ public final class GameBeloteTeamsRelation {
     static Bytes autresJoueurs(Bytes _joueurs,
                                                byte _nombreJoueurs) {
         Bytes joueurs_ = new Bytes();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (!_joueurs.containsObj(joueur_)) {
                 joueurs_.add(joueur_);
             }

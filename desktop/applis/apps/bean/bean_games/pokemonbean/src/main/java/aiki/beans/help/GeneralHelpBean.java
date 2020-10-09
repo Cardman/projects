@@ -27,12 +27,13 @@ import aiki.map.util.TileMiniMap;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class GeneralHelpBean extends CommonBean {
     private TreeMap<MiniMapCoords, int[][]> miniMap;
@@ -84,7 +85,7 @@ public class GeneralHelpBean extends CommonBean {
         pokemonDefaultEggGroup = new StringList();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (StringList.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
+            if (StringUtil.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
                 pokemonDefaultEggGroup.add(p);
             }
         }
@@ -103,7 +104,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (miniMap.getKey(w_).getYcoords() != CustList.SECOND_INDEX) {
+        while (miniMap.getKey(w_).getYcoords() != IndexConstants.SECOND_INDEX) {
             w_++;
         }
         return w_;
@@ -113,7 +114,7 @@ public class GeneralHelpBean extends CommonBean {
             return false;
         }
         MiniMapCoords key_ = miniMap.getKey(_index.intValue());
-        return key_.getXcoords() == CustList.FIRST_INDEX;
+        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
     }
     public String getPlaceName(Long _index) {
         return namesPlaces.getValue(_index.intValue());

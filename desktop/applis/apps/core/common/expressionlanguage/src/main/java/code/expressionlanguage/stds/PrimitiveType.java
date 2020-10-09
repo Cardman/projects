@@ -6,6 +6,7 @@ import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class PrimitiveType implements InheritedType,AnaInheritedType {
 
@@ -62,12 +63,12 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
 
     @Override
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {
-        return StringList.contains(getAllSuperType(_an),_fullName);
+        return StringUtil.contains(getAllSuperType(_an),_fullName);
     }
 
     @Override
     public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
-        return StringList.contains(getAllSuperType(_an),_fullName);
+        return StringUtil.contains(getAllSuperType(_an),_fullName);
     }
 
     public byte getCastNb() {

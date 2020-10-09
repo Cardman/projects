@@ -17,6 +17,7 @@ import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class InnerElementBlock extends ImmutableNameRootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
@@ -117,7 +118,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = StringList.concat(elementContent.getFieldName(),"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
+        String fullInstance_ = StringUtil.concat(elementContent.getFieldName(),"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
         int trOffset_ = valueOffest  -1 - elementContent.getFieldName().length()- elementContent.getFieldNameOffest() - 1 - newKeyWord_.length();
         trOffset = trOffset_;
         _page.setTranslatedOffset(trOffset_);
@@ -163,8 +164,8 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         int i_ = 1;
         StringList j_ = new StringList();
         String fullName_ = parentEnum.getFullName();
-        for (String p: StringExpUtil.getAllTypes(StringList.concat(fullName_, tempClass)).mid(1)) {
-            int loc_ = StringList.getFirstPrintableCharIndex(p);
+        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, tempClass)).mid(1)) {
+            int loc_ = StringUtil.getFirstPrintableCharIndex(p);
             j_.add(ResolvingImportTypes.resolveCorrectType(i_+loc_,p, _page));
             partOffsets.addAllElts(_page.getCurrentParts());
             i_ += p.length() + 1;

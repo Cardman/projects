@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class StreamBinaryFile {
 
@@ -28,11 +28,11 @@ public final class StreamBinaryFile {
     private static byte[] loadFile(File _file,BufferedInputStream _buff) {
         try {
             long len_ = _file.length();
-            int index_ = CustList.FIRST_INDEX;
+            int index_ = IndexConstants.FIRST_INDEX;
             byte[] bytes_ = new byte[(int) len_];
             while (true) {
                 int read_ = _buff.read(bytes_, index_, (int) (len_ - index_));
-                if (read_ == CustList.INDEX_NOT_FOUND_ELT) {
+                if (read_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                     break;
                 }
                 if (index_ == len_) {

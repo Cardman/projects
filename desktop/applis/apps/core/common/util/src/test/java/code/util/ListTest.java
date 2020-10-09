@@ -167,6 +167,80 @@ public class ListTest {
         assertEq(0, res_.size());
     }
     @Test
+    public void left1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.left(-1);
+        assertEq(0, sub_.size());
+    }
+    @Test
+    public void left2Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.left(2);
+        assertEq(2, sub_.size());
+        assertEq(5, sub_.get(0));
+        assertEq(1, sub_.get(1));
+    }
+    @Test
+    public void left3Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.left(1);
+        assertEq(1, sub_.size());
+        assertEq(5, sub_.get(0));
+    }
+    @Test
+    public void leftMinusOne1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.leftMinusOne(0);
+        assertEq(0, sub_.size());
+    }
+    @Test
+    public void leftMinusOne2Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.leftMinusOne(2);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void leftMinusOne3Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.leftMinusOne(1);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void leftMinusOne4Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        integers_.add(2);
+        CustList<Integer> sub_ = integers_.leftMinusOne(1);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void leftMinusOne5Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        integers_.add(2);
+        CustList<Integer> sub_ = integers_.leftMinusOne(3);
+        assertEq(2, sub_.size());
+        assertEq(1, sub_.get(0));
+        assertEq(2, sub_.get(1));
+    }
+    @Test
     public void sub1Test() {
         CustList<Integer> integers_ = new CustList<Integer>();
         integers_.add(5);
@@ -209,6 +283,32 @@ public class ListTest {
         CustList<Integer> sub_ = integers_.mid(1,2);
         assertEq(1, sub_.size());
         assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void mid4Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(2);
+        assertEq(0, sub_.size());
+    }
+    @Test
+    public void mid5Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(0);
+        assertEq(2, sub_.size());
+        assertEq(5, sub_.get(0));
+        assertEq(1, sub_.get(1));
+    }
+    @Test
+    public void mid6Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(3);
+        assertEq(0, sub_.size());
     }
     @Test
     public void isValidIndexTest() {

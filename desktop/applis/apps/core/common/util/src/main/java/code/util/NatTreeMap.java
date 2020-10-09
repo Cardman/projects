@@ -1,5 +1,9 @@
 package code.util;
 
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
+
 /**
     @author Cardman
 */
@@ -22,7 +26,7 @@ public abstract class NatTreeMap<K, V> extends AbsMap<K, V>  {
                 return;
             }
             EntryCust<K, V> c_ = getList().get(index_);
-            int res_ = Numbers.compareLg(convert_,convert(c_.getKey()));
+            int res_ = NumberUtil.compareLg(convert_,convert(c_.getKey()));
             if (res_ < 0) {
                 getList().add(index_, new EntryCust<K, V>(_key, _value));
                 return;
@@ -36,16 +40,16 @@ public abstract class NatTreeMap<K, V> extends AbsMap<K, V>  {
     }
 
     @Override
-    protected int indexOfEntry(K _key) {
+    public int indexOfEntry(K _key) {
         long convert_ = convert(_key);
         int s_ = size();
         for (int i = 0; i < s_; i++) {
-            int res_ = Numbers.compareLg(convert_,convert(getKey(i)));
-            if (res_ == CustList.EQ_CMP) {
+            int res_ = NumberUtil.compareLg(convert_,convert(getKey(i)));
+            if (res_ == SortConstants.EQ_CMP) {
                 return i;
             }
         }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     abstract long convert(K _key);

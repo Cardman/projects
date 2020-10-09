@@ -2,6 +2,7 @@ package code.util;
 import java.math.BigInteger;
 
 import code.util.comparators.BigIntegerComparator;
+import code.util.core.IndexConstants;
 
 public final class BigIntegers extends CustList<BigInteger> {
 
@@ -33,7 +34,7 @@ public final class BigIntegers extends CustList<BigInteger> {
         if (_g.size() != len_) {
             return false;
         }
-        for (int i = FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             BigInteger e_ = get(i);
             BigInteger f_ = _g.get(i);
             if (!eq(e_, f_)) {

@@ -4,7 +4,9 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
-import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 
 public final class Delaunay {
 
@@ -211,8 +213,8 @@ public final class Delaunay {
         convexHull.add(second_);
         convexHull.add(third_);
         points_.remove(index_);
-        points_.remove((int) CustList.SECOND_INDEX);
-        points_.remove((int) CustList.FIRST_INDEX);
+        points_.remove((int) IndexConstants.SECOND_INDEX);
+        points_.remove((int) IndexConstants.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
@@ -234,7 +236,7 @@ public final class Delaunay {
                 CustList<Edge> hull_ = p_.getEdges();
                 EqList<CustPoint> pts_ = new EqList<CustPoint>();
                 int len_ = p_.size();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     CustPoint c_ = p_.get(i);
                     boolean contains_ = false;
                     for (Edge e: hull_) {
@@ -249,7 +251,7 @@ public final class Delaunay {
                 }
                 edges_.add(new Edge(pts_.first(), pts_.get(1)));
                 int lenPts_ = pts_.size() - 1;
-                for (int i = CustList.SECOND_INDEX; i < lenPts_; i++) {
+                for (int i = IndexConstants.SECOND_INDEX; i < lenPts_; i++) {
                     edges_.add(new Edge(pts_.get(i), pts_.get(i+1)));
                 }
                 removeDuplicates(edges_);
@@ -262,7 +264,7 @@ public final class Delaunay {
             } else {
                 if (!Polygon.containsInside(p_, c)) {
                     triangles.removeAllElements(del_);
-                    int indexPt_ = CustList.INDEX_NOT_FOUND_ELT;
+                    int indexPt_ = IndexConstants.INDEX_NOT_FOUND_ELT;
                     int len_ = p_.size();
                     for (Triangle t: del_) {
                         for (Edge e: t.getEdges()) {
@@ -289,10 +291,10 @@ public final class Delaunay {
                         p_ = convexHull.getConvexHull();
                         continue;
                     }
-                    int befBef_ = Numbers.mod(indexPt_ - 1,len_);
-                    int bef_ = Numbers.mod(indexPt_,len_);
-                    int next_ = Numbers.mod(indexPt_+2,len_);
-                    int nextNext_ = Numbers.mod(indexPt_+Triangle.NB_POINTS,len_);
+                    int befBef_ = NumberUtil.mod(indexPt_ - 1,len_);
+                    int bef_ = NumberUtil.mod(indexPt_,len_);
+                    int next_ = NumberUtil.mod(indexPt_+2,len_);
+                    int nextNext_ = NumberUtil.mod(indexPt_+Triangle.NB_POINTS,len_);
                     Edge eOne_ = new Edge(p_.get(befBef_), c);
                     Edge eTwo_ = new Edge(p_.get(nextNext_), c);
                     addIfNotIntersect(p_, c, bef_, befBef_, eOne_);
@@ -350,8 +352,8 @@ public final class Delaunay {
 
     int addPoint(Polygon _polygon, CustPoint _pt, int _indexPt, int _len, Edge _e) {
         int indexPt_ = _indexPt;
-        for (int i = CustList.FIRST_INDEX; i < _len; i++) {
-            Edge e_ = new Edge(_polygon.get(i),_polygon.get(Numbers.mod(i+1, _len)));
+        for (int i = IndexConstants.FIRST_INDEX; i < _len; i++) {
+            Edge e_ = new Edge(_polygon.get(i),_polygon.get(NumberUtil.mod(i+1, _len)));
             if (e_.isSame(_e)) {
                 indexPt_ = i;
                 break;
@@ -485,7 +487,7 @@ public final class Delaunay {
 
     private static void removeDuplicates(CustList<Edge> _edges) {
         //setModified();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < _edges.size()) {
             int j_ = i_;
             j_++;
@@ -562,8 +564,8 @@ public final class Delaunay {
         superTriangle_ = new Triangle(firstPoint_, secondPoint_, thirdPoint_);
         triangles.add(superTriangle_);
         points_.remove(index_);
-        points_.remove((int) CustList.SECOND_INDEX);
-        points_.remove((int) CustList.FIRST_INDEX);
+        points_.remove((int) IndexConstants.SECOND_INDEX);
+        points_.remove((int) IndexConstants.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
@@ -588,7 +590,7 @@ public final class Delaunay {
                 CustList<Edge> hull_ = p_.getEdges();
                 Polygon pts_ = new Polygon();
                 int len_ = p_.size();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     CustPoint c_ = p_.get(i);
                     boolean contains_ = false;
                     for (Edge e: hull_) {
@@ -754,7 +756,7 @@ public final class Delaunay {
                     CustPoint one_ = v_.get(i);
                     CustPoint two_ = v_.get((i + 1) % len_);
                     for (Triangle t: triangles) {
-                        int nbPoints_ = CustList.SIZE_EMPTY;
+                        int nbPoints_ = IndexConstants.SIZE_EMPTY;
                         for (CustPoint p: t.getPoints()) {
                             if (p == k_) {
                                 nbPoints_++;
@@ -807,7 +809,7 @@ public final class Delaunay {
                     CustPoint one_ = v_.get(i);
                     CustPoint two_ = v_.get((i + 1) % len_);
                     for (Triangle t: triangles) {
-                        int nbPoints_ = CustList.SIZE_EMPTY;
+                        int nbPoints_ = IndexConstants.SIZE_EMPTY;
                         for (CustPoint p: t.getPoints()) {
                             if (p == k_) {
                                 nbPoints_++;
@@ -854,7 +856,7 @@ public final class Delaunay {
                 CustPoint one_ = v_.get(i);
                 CustPoint two_ = v_.get((i + 1) % len_);
                 for (Triangle t: triangles) {
-                    int nbPoints_ = CustList.SIZE_EMPTY;
+                    int nbPoints_ = IndexConstants.SIZE_EMPTY;
                     for (CustPoint p: t.getPoints()) {
                         if (p == k_) {
                             nbPoints_++;
@@ -924,7 +926,7 @@ public final class Delaunay {
             CustPoint first_ = next_.first();
             EqList<CustPoint> once_ = new EqList<CustPoint>();
             for (EntryCust<CustPoint, Integer> e: all_.entryList()) {
-                if (!Numbers.eq(e.getValue(), CustList.ONE_ELEMENT)) {
+                if (!NumberUtil.eq(e.getValue(), IndexConstants.ONE_ELEMENT)) {
                     continue;
                 }
                 once_.add(e.getKey());
@@ -936,7 +938,7 @@ public final class Delaunay {
                 SitePoint sOne_ = new SitePoint(eOne_, p, v_);
                 v_ = new VectTwoDims(p, eOne_);
                 SitePoint sTwo_ = new SitePoint(eTwo_, p, v_);
-                if (new SiteComparing().compare(sOne_,sTwo_) == CustList.NO_SWAP_SORT) {
+                if (new SiteComparing().compare(sOne_,sTwo_) == SortConstants.NO_SWAP_SORT) {
                     first_ = eTwo_;
                 } else {
                     first_ = eOne_;

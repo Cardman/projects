@@ -59,18 +59,20 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class ContainerMultiPresident extends ContainerPresident implements
         ContainerMulti {
 
     private int noClient;
-    private byte indexInGame = CustList.INDEX_NOT_FOUND_ELT;
+    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesPresident rulesPresidentMulti = new RulesPresident();
     private NumComboBox choiceOfPlaceForPlayingGame;
     private CustCheckBox ready;
 
 //    private DealingPresident repPresident;
-    private int nbChoosenPlayers = CustList.INDEX_NOT_FOUND_ELT;
+    private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
     private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
@@ -107,7 +109,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox();
-        for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
@@ -121,7 +123,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.add(panel_);
         panel_ = Panel.newGrid(0, 3);
         playersPseudos.clear();
-        for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             TextLabel pseudo_ = new TextLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
@@ -348,8 +350,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, lg_, JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
-            String finalMessage_ = StringList.concat(mes_,RETURN_LINE,_readObject.getReason());
+            String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
+            String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
@@ -369,7 +371,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
-        ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getPlayedHand(),lg_), RETURN_LINE));
+        ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getPlayedHand(),lg_), RETURN_LINE));
         //PackingWindowAfter.pack(this, true);
         pack();
         DonePlaying dealt_ = new DonePlaying();
@@ -557,7 +559,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             }
             iter_++;
         }
-        for (byte p = CustList.FIRST_INDEX; p < indexInGame; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p < indexInGame; p++) {
             if (p == _otherPlayerIndex) {
                 return iter_;
             }
@@ -569,16 +571,16 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private void updateCardsInPanelPresidentMulti(Panel _panel, HandPresident _hand, boolean _reversed) {
         _panel.removeAll();
         int str_ = 0;
-        int iter_ = CustList.FIRST_INDEX;
-        byte index_ = CustList.SECOND_INDEX;
+        int iter_ = IndexConstants.FIRST_INDEX;
+        byte index_ = IndexConstants.SECOND_INDEX;
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             int curStr_ = c.getCard().strength(_reversed);
-            if (iter_ > CustList.FIRST_INDEX) {
+            if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {
                     index_++;
                 } else {
-                    index_ = CustList.SECOND_INDEX;
+                    index_ = IndexConstants.SECOND_INDEX;
                 }
             }
             c.addMouseListener(new ListenerCardPresidentMultiGame(this,c.getCard(), index_));
@@ -592,7 +594,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
-        byte index_ = CustList.FIRST_INDEX;
+        byte index_ = IndexConstants.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
@@ -603,7 +605,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             int rec_ = getReceivedCards().total();
             while (index_ < rec_) {
                 TextLabel l_ = new TextLabel("");
-                if (index_ > CustList.FIRST_INDEX) {
+                if (index_ > IndexConstants.FIRST_INDEX) {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
                 } else {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(false));
@@ -657,7 +659,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         Panel panel_ = Panel.newGrid(0,3);
 
-        for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             panel_.add(playersPseudos.get(i));
             panel_.add(playersPlaces.get(i));
             panel_.add(playersReady.get(i));

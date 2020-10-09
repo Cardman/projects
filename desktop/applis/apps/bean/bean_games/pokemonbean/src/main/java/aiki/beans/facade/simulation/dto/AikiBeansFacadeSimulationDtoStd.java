@@ -16,7 +16,7 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeSimulationDtoStd {
     public static final String TYPE_EV_LINE = "aiki.beans.facade.simulation.dto.EvLine";
@@ -100,7 +100,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,EV)) {
+        if (StringUtil.quickEq(fieldName_,EV)) {
             res_.setResult(new ShortStruct(instance_.getEv()));
             return res_;
         }
@@ -110,7 +110,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonPlayerDto instance_ = (PokemonPlayerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
@@ -120,7 +120,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonTrainerDto instance_ = (PokemonTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
@@ -130,7 +130,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         RadioLineMove instance_ = (RadioLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
@@ -140,7 +140,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,SELECTED)) {
+        if (StringUtil.quickEq(fieldName_,SELECTED)) {
             res_.setResult(BooleanStruct.of(instance_.getSelected()));
             return res_;
         }
@@ -150,7 +150,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,EV)) {
+        if (StringUtil.quickEq(fieldName_,EV)) {
             instance_.setEv((Short) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -161,7 +161,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,SELECTED)) {
+        if (StringUtil.quickEq(fieldName_,SELECTED)) {
             instance_.setSelected((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;

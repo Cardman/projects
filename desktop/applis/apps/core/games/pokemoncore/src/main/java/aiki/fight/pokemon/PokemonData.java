@@ -12,6 +12,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.StringUtil;
 
 
 public final class PokemonData {
@@ -147,7 +148,7 @@ public final class PokemonData {
         if (!_data.getMoves().containsAllAsKeys(moveTutors)) {
             _data.setError(true);
         }
-        if (StringList.contains(moveTutors, _data.getDefaultMove())) {
+        if (StringUtil.contains(moveTutors, _data.getDefaultMove())) {
             _data.setError(true);
         }
         if (!_data.getAbilities().containsAllAsKeys(abilities)) {
@@ -180,7 +181,7 @@ public final class PokemonData {
             if (p.getLevel() < min_) {
                 _data.setError(true);
             }
-            if (StringList.quickEq(p.getMove(), _data.getDefaultMove())) {
+            if (StringUtil.quickEq(p.getMove(), _data.getDefaultMove())) {
                 _data.setError(true);
             }
             if (!_data.getMoves().contains(p.getMove())) {

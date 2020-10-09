@@ -4,18 +4,16 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -2414,146 +2412,146 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$boolean"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "$boolean"));
-        assertTrue(StringList.contains(res_, "java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "$boolean"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet2Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$byte"));
         assertEq(10, res_.size());
-        assertTrue(StringList.contains(res_, "$byte"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
-        assertTrue(StringList.contains(res_, "$long"));
-        assertTrue(StringList.contains(res_, "java.lang.Long"));
-        assertTrue(StringList.contains(res_, "$int"));
-        assertTrue(StringList.contains(res_, "java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "$short"));
-        assertTrue(StringList.contains(res_, "java.lang.Short"));
-        assertTrue(StringList.contains(res_, "java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "$byte"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "$long"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "$int"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "$short"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Byte"));
     }
     @Test
     public void getSuperTypesSet3Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$char"));
         assertEq(8, res_.size());
-        assertTrue(StringList.contains(res_, "$char"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
-        assertTrue(StringList.contains(res_, "$long"));
-        assertTrue(StringList.contains(res_, "java.lang.Long"));
-        assertTrue(StringList.contains(res_, "$int"));
-        assertTrue(StringList.contains(res_, "java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "$char"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "$long"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "$int"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Character"));
     }
     @Test
     public void getSuperTypesSet4Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Boolean"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet5Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Byte"));
         assertEq(6, res_.size());
-        assertTrue(StringList.contains(res_, "java.lang.Byte"));
-        assertTrue(StringList.contains(res_, "java.lang.Short"));
-        assertTrue(StringList.contains(res_, "java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "java.lang.Long"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet6Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Character"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "java.lang.Character"));
-        assertTrue(StringList.contains(res_, "java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "java.lang.Long"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet7Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$boolean"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "[$boolean"));
-        assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[$boolean"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet8Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$byte"));
         assertEq(11, res_.size());
-        assertTrue(StringList.contains(res_, "[$byte"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[$long"));
-        assertTrue(StringList.contains(res_, "[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[$int"));
-        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[$short"));
-        assertTrue(StringList.contains(res_, "[java.lang.Short"));
-        assertTrue(StringList.contains(res_, "[java.lang.Byte"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[$byte"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[$long"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[$int"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[$short"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet9Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$char"));
         assertEq(9, res_.size());
-        assertTrue(StringList.contains(res_, "[$char"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[$long"));
-        assertTrue(StringList.contains(res_, "[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[$int"));
-        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[java.lang.Character"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[$char"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[$long"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[$int"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet10Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Boolean"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet11Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Byte"));
         assertEq(7, res_.size());
-        assertTrue(StringList.contains(res_, "[java.lang.Byte"));
-        assertTrue(StringList.contains(res_, "[java.lang.Short"));
-        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet12Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Character"));
         assertEq(6, res_.size());
-        assertTrue(StringList.contains(res_, "[java.lang.Character"));
-        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet13Test() {
@@ -2571,8 +2569,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExThree"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet14Test() {
@@ -2590,9 +2588,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet15Test() {
@@ -2610,9 +2608,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[pkg.ExThree"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet16Test() {
@@ -2630,10 +2628,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[pkg.ExTwo"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet17Test() {
@@ -2642,9 +2640,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("#T"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "#T"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "#T"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet18Test() {
@@ -2654,10 +2652,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("#S"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "#S"));
-        assertTrue(StringList.contains(res_, "#T"));
-        assertTrue(StringList.contains(res_, "java.lang.Number"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "#S"));
+        assertTrue(StringUtil.contains(res_, "#T"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet19Test() {
@@ -2666,10 +2664,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#T"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "[#T"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet20Test() {
@@ -2679,11 +2677,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#S"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "[#S"));
-        assertTrue(StringList.contains(res_, "[#T"));
-        assertTrue(StringList.contains(res_, "[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[#S"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet21Test() {
@@ -2702,10 +2700,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("#T"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "#T"));
-        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "#T"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet22Test() {
@@ -2724,80 +2722,80 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#T"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "[#T"));
-        assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet23Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$boolean"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "[[$boolean"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[$boolean"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet24Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$byte"));
         assertEq(12, res_.size());
-        assertTrue(StringList.contains(res_, "[[$byte"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[$long"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[[$int"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[[$short"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Short"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Byte"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[$byte"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[$long"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[[$int"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[[$short"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet25Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$char"));
         assertEq(10, res_.size());
-        assertTrue(StringList.contains(res_, "[[$char"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[$long"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[[$int"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Character"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[$char"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[$long"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[[$int"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet26Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Boolean"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Boolean"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet27Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Byte"));
         assertEq(8, res_.size());
-        assertTrue(StringList.contains(res_, "[[java.lang.Byte"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Short"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Byte"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Short"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
 
     @Test
@@ -2805,13 +2803,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Character"));
         assertEq(7, res_.size());
-        assertTrue(StringList.contains(res_, "[[java.lang.Character"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Character"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet29Test() {
@@ -2829,10 +2827,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[pkg.ExThree"));
         assertEq(4, res_.size());
-        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet30Test() {
@@ -2850,11 +2848,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[pkg.ExTwo"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet31Test() {
@@ -2863,11 +2861,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#T"));
         assertEq(5, res_.size());
-        assertTrue(StringList.contains(res_, "[[#T"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[#T"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet32Test() {
@@ -2877,12 +2875,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("java.lang.Number"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#S"));
         assertEq(6, res_.size());
-        assertTrue(StringList.contains(res_, "[[#S"));
-        assertTrue(StringList.contains(res_, "[[#T"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[#S"));
+        assertTrue(StringUtil.contains(res_, "[[#T"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet33Test() {
@@ -2901,12 +2899,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#T"));
         assertEq(6, res_.size());
-        assertTrue(StringList.contains(res_, "[[#T"));
-        assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
-        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "[java.lang.Object"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[[#T"));
+        assertTrue(StringUtil.contains(res_, "[[pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet34Test() {
@@ -2925,9 +2923,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<?T>"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo<?T>"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree<java.lang.$iterable<?T>>"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?T>"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree<java.lang.$iterable<?T>>"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet35Test() {
@@ -2946,9 +2944,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("U", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<#U>"));
         assertEq(3, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo<#U>"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree<#U>"));
-        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo<#U>"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree<#U>"));
+        assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
 
     @Test
@@ -2975,8 +2973,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo", "pkg.ExThree"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
     }
 
     @Test
@@ -3003,8 +3001,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo","pkg.ExThree","pkg.ExFour","pkg.ExFive"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
     }
     @Test
     public void getTernarySubclasses3Test() {
@@ -3030,8 +3028,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo", "pkg.ExThree"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
-        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree"));
     }
     @Test
     public void getTernarySubclasses4Test() {
@@ -3059,8 +3057,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("pkg.ExThree"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "#S"));
-        assertTrue(StringList.contains(res_, "#T"));
+        assertTrue(StringUtil.contains(res_, "#S"));
+        assertTrue(StringUtil.contains(res_, "#T"));
     }
     @Test
     public void getTernarySubclasses5Test() {
@@ -3088,8 +3086,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("pkg.ExThree"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S","pkg.ExTwo"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "#S"));
-        assertTrue(StringList.contains(res_, "#T"));
+        assertTrue(StringUtil.contains(res_, "#S"));
+        assertTrue(StringUtil.contains(res_, "#T"));
     }
     @Test
     public void getTernarySubclasses6Test() {
@@ -3117,7 +3115,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S","pkg.ExTwo"));
         assertEq(1, res_.size());
-        assertTrue(StringList.contains(res_, "#S"));
+        assertTrue(StringUtil.contains(res_, "#S"));
     }
     @Test
     public void getTernarySubclasses7Test() {
@@ -3145,8 +3143,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("pkg.ExThree"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "[#S"));
-        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[#S"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
     }
     @Test
     public void getTernarySubclasses8Test() {
@@ -3174,8 +3172,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("pkg.ExThree"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "[#S"));
-        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[#S"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
     }
     @Test
     public void getTernarySubclasses9Test() {
@@ -3203,7 +3201,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S","[pkg.ExTwo"));
         assertEq(1, res_.size());
-        assertTrue(StringList.contains(res_, "[#S"));
+        assertTrue(StringUtil.contains(res_, "[#S"));
     }
     @Test
     public void getTernarySubclasses10Test() {
@@ -3231,8 +3229,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("[[#T","[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "[#S"));
-        assertTrue(StringList.contains(res_, "[[#T"));
+        assertTrue(StringUtil.contains(res_, "[#S"));
+        assertTrue(StringUtil.contains(res_, "[[#T"));
     }
     @Test
     public void getTernarySubclasses11Test() {
@@ -3260,8 +3258,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
-        assertTrue(StringList.contains(res_, "[[#S"));
-        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringUtil.contains(res_, "[[#S"));
+        assertTrue(StringUtil.contains(res_, "[#T"));
     }
     @Test
     public void getResultTernary0Test() {
@@ -4539,8 +4537,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFive"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4572,8 +4570,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
-        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFour"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFive"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4606,8 +4604,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFive"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4640,8 +4638,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
-        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFour"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFive"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4675,7 +4673,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "#T"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "#T"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4709,7 +4707,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "[#T"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[#T"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4816,8 +4814,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive<java.lang.Object>"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFive<java.lang.Object>"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4849,7 +4847,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4881,7 +4879,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "java.lang.Object"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "java.lang.Object"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -5014,7 +5012,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "#V"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "#V"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -5051,7 +5049,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "#V"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "#V"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -5066,7 +5064,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertTrue(StringList.contains(res_.getTypes(), "[java.lang.Object"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "[java.lang.Object"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }

@@ -2,7 +2,8 @@ package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.CustList;
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class GameStrengthLowHandTarotComparator implements Comparing<Suit> {
@@ -20,7 +21,7 @@ public final class GameStrengthLowHandTarotComparator implements Comparing<Suit>
         boolean aussiHaut_ = true;
         boolean permuter_ = false;
         int min_ = Math.min(main1_.total(), main2_.total());
-        for (int k = CustList.FIRST_INDEX; k < min_; k++) {
+        for (int k = IndexConstants.FIRST_INDEX; k < min_; k++) {
             CardTarot carte1_ = main1_.carte(k);
             CardTarot carte2_ = main2_.carte(k);
             if (carte1_.strength(carte1_.couleur()) > carte2_
@@ -43,12 +44,12 @@ public final class GameStrengthLowHandTarotComparator implements Comparing<Suit>
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (aussiHaut_) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

@@ -5,8 +5,9 @@ import java.util.Date;
 
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class FileTable {
 
@@ -51,7 +52,7 @@ public class FileTable {
 
     private String folder;
 
-    private int indexOfSorted = CustList.INDEX_NOT_FOUND_ELT;
+    private int indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean increasing;
 
@@ -119,7 +120,7 @@ public class FileTable {
         } else if(_columnIndex == PATH_INDEX) {
             head_ = messages.getVal(PATH);
         }
-        return StringList.concat(head_,end_);
+        return StringUtil.concat(head_,end_);
     }
 
     public String getValueAt(int _rowIndex, int _columnIndex) {
@@ -127,7 +128,7 @@ public class FileTable {
         currentFile_ = files.get(_rowIndex);
         if(_columnIndex == NAME_INDEX) {
             if (!extension.isEmpty()) {
-                return StringList.replaceEnd(currentFile_.getName(), extension);
+                return StringUtil.replaceEnd(currentFile_.getName(), extension);
             }
             return currentFile_.getName();
         } else if(_columnIndex == DATE_INDEX) {
@@ -138,14 +139,14 @@ public class FileTable {
         } else if(_columnIndex == PATH_INDEX) {
             String return_ = currentFile_.getAbsolutePath();
             return_ = return_.substring(folder.length());
-            return_ = StringList.replaceBackSlash(return_);
+            return_ = StringUtil.replaceBackSlash(return_);
             return return_;
         }
         return null;
     }
 
     public void setupFiles(CustList<File> _list,String _folder, String _extension) {
-        indexOfSorted = CustList.INDEX_NOT_FOUND_ELT;
+        indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
         extension = _extension;
         increasing = false;
         files.clear();
@@ -173,7 +174,7 @@ public class FileTable {
     }
 
     public void init(String _folder, String _extension) {
-        indexOfSorted = CustList.INDEX_NOT_FOUND_ELT;
+        indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
         extension = _extension;
         increasing = false;
         folder = _folder;

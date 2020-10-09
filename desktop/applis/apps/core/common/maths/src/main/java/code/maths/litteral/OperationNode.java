@@ -1,7 +1,7 @@
 package code.maths.litteral;
-import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 abstract class OperationNode {
 
@@ -110,7 +110,7 @@ abstract class OperationNode {
 
     private int indexInEl;
 
-    private int order = CustList.INDEX_NOT_FOUND_ELT;
+    private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private final int indexChild;
 
@@ -140,7 +140,7 @@ abstract class OperationNode {
         }
         if (_op.getPriority() == MathResolver.UNARY_PRIO) {
             int key_ = _op.getOperators().firstKey();
-            if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
+            if (StringUtil.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
                 return new UnaryBooleanOperation(_el, _index, _conf, _indexChild, _m, _op);
             }
             return new UnaryOperation(_el, _index, _conf, _indexChild, _m, _op);

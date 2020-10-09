@@ -1,6 +1,6 @@
 package aiki.util;
 import aiki.fight.enums.Statistic;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Equallable;
 
 public final class TypeStatistic implements Equallable<TypeStatistic> {
@@ -27,10 +27,7 @@ public final class TypeStatistic implements Equallable<TypeStatistic> {
         if (getStat() != _g.getStat()) {
             return false;
         }
-        if (!StringList.quickEq(getType(), _g.getType())) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(getType(), _g.getType());
     }
 
 }

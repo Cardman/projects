@@ -45,6 +45,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
 
@@ -133,21 +134,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String locName_ = tr(l_);
         iteratorVar = locName_;
         String simpleIterator_ = getContent().getPredefTypes().getAliasIterator();
-        expsIterator= newCall(iteratorVar,StringList.concat(getContent().getPredefTypes().getAliasIterable(),"<?>"),
+        expsIterator= newCall(iteratorVar, StringUtil.concat(getContent().getPredefTypes().getAliasIterable(),"<?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
                 ))),
-                StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"), args_, _classes);
         locName_ = tr(l_);
         hasNextVar = locName_;
         String hasNext_ = getContent().getPredefTypes().getAliasHasNext();
-        expsHasNext= newCall(hasNextVar,StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        expsHasNext= newCall(hasNextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextVar = locName_;
         String next_ = getContent().getPredefTypes().getAliasNext();
-        expsNext= newCall(nextVar,StringList.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        expsNext= newCall(nextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
@@ -156,33 +157,33 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String hasNextPair_ = getContent().getPredefTypes().getAliasHasNextPair();
         iteratorTableVarCust= locName_;
         String iteratorTable_ = getContent().getPredefTypes().getAliasIteratorTable();
-        expsIteratorTableCust= newCall(iteratorTableVarCust,StringList.concat(getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
+        expsIteratorTableCust= newCall(iteratorTableVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
                 ))),
-                StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), args_, _classes);
         locName_ = tr(l_);
         hasNextPairVarCust= locName_;
-        expsHasNextPairCust= newCall(hasNextPairVarCust,StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        expsHasNextPairCust= newCall(hasNextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextPairVarCust= locName_;
-        expsNextPairCust= newCall(nextPairVarCust,StringList.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        expsNextPairCust= newCall(nextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
                 ))),
-                StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"), args_, _classes);
         locName_ = tr(l_);
         firstVarCust= locName_;
         String first_ = getContent().getPredefTypes().getAliasGetFirst();
-        expsFirstCust= newCall(firstVarCust,StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        expsFirstCust= newCall(firstVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
         locName_ = tr(l_);
         secondVarCust= locName_;
         String second_ = getContent().getPredefTypes().getAliasGetSecond();
-        expsSecondCust= newCall(secondVarCust,StringList.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        expsSecondCust= newCall(secondVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
                 new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
@@ -428,15 +429,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
-            if (StringList.quickEq(e.getKey(), _filesConfName)) {
-                content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
+            if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
+                content_ = StringUtil.splitStrings(e.getValue(), RETURN_LINE);
                 break;
             }
         }
         StringMap<String> classFiles_ = new StringMap<String>();
         for (String f: content_) {
             for (EntryCust<String, String> e: _files.entryList()) {
-                if (StringList.quickEq(e.getKey(), f)) {
+                if (StringUtil.quickEq(e.getKey(), f)) {
                     classFiles_.put(f, e.getValue());
                     break;
                 }
@@ -525,7 +526,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         _conf.setCurrentUrl(_dest);
-        String dest_ = StringList.getFirstToken(_dest, REF_TAG);
+        String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(dest_);
         if (rendDocumentBlock_ == null) {
@@ -563,7 +564,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
     }
     private boolean reinitRendBean(Configuration _conf, String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx) {
-        if (!StringList.quickEq(_currentBean,_beanName)) {
+        if (!StringUtil.quickEq(_currentBean,_beanName)) {
             return false;
         }
         Struct bean_ = getBeanOrNull(_conf,_currentBean);
@@ -571,11 +572,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_ctx.callsOrException()) {
             return false;
         }
-        if (StringList.quickEq(scope_,SESSION)) {
+        if (StringUtil.quickEq(scope_,SESSION)) {
             return false;
         }
-        if (StringList.quickEq(scope_,PAGE)) {
-            return !StringList.quickEq(_currentUrl, StringList.getFirstToken(_dest, REF_TAG));
+        if (StringUtil.quickEq(scope_,PAGE)) {
+            return !StringUtil.quickEq(_currentUrl, StringUtil.getFirstToken(_dest, REF_TAG));
         }
         return true;
     }
@@ -759,7 +760,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
-        int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
         MethodId methodId_ = _rend.getClassMethodId().getConstraints();
         String lastType_ = _rend.getLastType();

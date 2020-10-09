@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecCallDynMethodOperation extends ExecInvokingOperation {
 
@@ -20,12 +20,12 @@ public final class ExecCallDynMethodOperation extends ExecInvokingOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         Argument previous_= getPreviousArg(this, _nodes, _conf);
-        if (StringList.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasMetaInfo())) {
+        if (StringUtil.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasMetaInfo())) {
             Argument res_ = getMetaInfo(previous_, _conf);
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }
-        if (StringList.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasInstance())) {
+        if (StringUtil.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasInstance())) {
             Argument res_ = getInstanceCall(previous_, _conf);
             setSimpleArgument(res_, _conf, _nodes);
             return;

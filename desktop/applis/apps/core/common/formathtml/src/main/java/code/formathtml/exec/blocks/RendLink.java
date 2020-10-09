@@ -8,6 +8,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class RendLink extends RendElement {
     private String content;
@@ -34,14 +36,14 @@ public final class RendLink extends RendElement {
                 }
                 curWr_.removeAttribute(e.getKey());
             }
-            fileContent_ = StringList.simpleStringsFormat(fileContent_, objects_);
+            fileContent_ = StringUtil.simpleStringsFormat(fileContent_, objects_);
         }
         ElementList heads_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordHead());
-        if (fileContent_ != null && heads_.getLength() == CustList.ONE_ELEMENT) {
-            Element head_ = heads_.item(CustList.FIRST_INDEX);
+        if (fileContent_ != null && heads_.getLength() == IndexConstants.ONE_ELEMENT) {
+            Element head_ = heads_.item(IndexConstants.FIRST_INDEX);
             CustList<Element> children_ = new CustList<Element>();
             for (Element c: head_.getChildElements()) {
-                if (!StringList.quickEq(c.getTagName(), _cont.getRendKeyWords().getKeyWordStyle())) {
+                if (!StringUtil.quickEq(c.getTagName(), _cont.getRendKeyWords().getKeyWordStyle())) {
                     continue;
                 }
                 children_.add(c);

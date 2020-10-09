@@ -12,7 +12,7 @@ import code.formathtml.exec.opers.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RenderExpUtil {
     private RenderExpUtil() {
@@ -80,10 +80,10 @@ public final class RenderExpUtil {
             }
             if (par_ instanceof RendCompoundAffectationOperation){
                 RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     st_ = BooleanStruct.of(false);
                 }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
+                if (StringUtil.quickEq(p_.getOper(),"||=")) {
                     st_ = BooleanStruct.of(true);
                 }
             }

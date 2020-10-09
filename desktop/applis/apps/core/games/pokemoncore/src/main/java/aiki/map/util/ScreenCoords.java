@@ -1,5 +1,5 @@
 package aiki.map.util;
-import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -21,13 +21,10 @@ public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable
 
     @Override
     public boolean eq(ScreenCoords _g) {
-        if (!Numbers.eq(xCoords, _g.xCoords)) {
+        if (!NumberUtil.eq(xCoords, _g.xCoords)) {
             return false;
         }
-        if (!Numbers.eq(yCoords, _g.yCoords)) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(yCoords, _g.yCoords);
     }
 
     public int getXcoords() {

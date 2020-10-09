@@ -11,8 +11,9 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.*;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class TargetLabel {
 
@@ -50,7 +51,7 @@ public class TargetLabel {
         FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int minValueStatis_ = _facade.getData().getMinBoost();
         int maxValueStatis_ = _facade.getData().getMaxBoost();
-        int maxWidthValue_ = CustList.SIZE_EMPTY;
+        int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
         for (int i = minValueStatis_; i < maxValueStatis_; i++) {
             String var_ = Integer.toString(i);
             int widthVar_ = fMet_.stringWidth(var_);
@@ -71,7 +72,7 @@ public class TargetLabel {
     public static int getHeightStatistic(PaintableLabel _parent, FacadeGame _facade) {
         FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int maxWidthValue_ = fMet_.getHeight();
-        int add_ = CustList.SIZE_EMPTY;
+        int add_ = IndexConstants.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
             BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
@@ -109,14 +110,14 @@ public class TargetLabel {
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringList.concat(percentExp.toNumberString(),PER_CENT));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringUtil.concat(percentExp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringList.concat(percentHp.toNumberString(),PER_CENT));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringUtil.concat(percentHp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
@@ -140,7 +141,7 @@ public class TargetLabel {
 //            height_ += img_.getHeight();
 //        }
         int heightIni_ = height_;
-        int headerHeight_ = CustList.SIZE_EMPTY;
+        int headerHeight_ = IndexConstants.SIZE_EMPTY;
         headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
         headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
         headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
@@ -168,11 +169,11 @@ public class TargetLabel {
         if (fighterName.isEmpty()) {
             width_ = finalWidth;
             height_ = finalHeight;
-            if (width_ == CustList.SIZE_EMPTY) {
-                width_ = CustList.ONE_ELEMENT;
+            if (width_ == IndexConstants.SIZE_EMPTY) {
+                width_ = IndexConstants.ONE_ELEMENT;
             }
-            if (height_ == CustList.SIZE_EMPTY) {
-                height_ = CustList.ONE_ELEMENT;
+            if (height_ == IndexConstants.SIZE_EMPTY) {
+                height_ = IndexConstants.ONE_ELEMENT;
             }
         }
         image = new BufferedImage(width_, height_, BufferedImage.TYPE_INT_ARGB);
@@ -214,13 +215,13 @@ public class TargetLabel {
             g_.setColor(Color.BLUE);
             g_.drawString(percentExp.toNumberString(), 0, h_);
             h_ += heightString_;
-            int rate_ = Numbers.parseInt(percentHp.toNumberString());
+            int rate_ = NumberUtil.parseInt(percentHp.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             g_.setColor(new Color(red_, green_, 0));
-            g_.drawString(StringList.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
+            g_.drawString(StringUtil.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
             g_.drawImage(image_, 0, delta_);
             if (ko) {
                 g_.setColor(Color.RED);

@@ -8,6 +8,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
@@ -63,7 +64,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_)) {
+        if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
             importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);

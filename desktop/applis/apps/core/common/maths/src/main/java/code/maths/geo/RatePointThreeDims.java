@@ -1,6 +1,7 @@
 package code.maths.geo;
 import code.maths.Rate;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -32,7 +33,7 @@ public final class RatePointThreeDims implements Equallable<RatePointThreeDims>,
 
     
     public static RatePointThreeDims newCustRatePoint(String _input) {
-        StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
+        StringList elts_ = StringUtil.splitStrings(_input, SEPARATOR);
         Rate x_ = new Rate(elts_.first());
         Rate y_ = new Rate(elts_.get(1));
         Rate z_ = new Rate(elts_.last());
@@ -78,10 +79,7 @@ public final class RatePointThreeDims implements Equallable<RatePointThreeDims>,
         if (Rate.different(_obj.yCoords , yCoords)) {
             return false;
         }
-        if (Rate.different(_obj.zCoords , zCoords)) {
-            return false;
-        }
-        return true;
+        return !Rate.different(_obj.zCoords, zCoords);
     }
 
     

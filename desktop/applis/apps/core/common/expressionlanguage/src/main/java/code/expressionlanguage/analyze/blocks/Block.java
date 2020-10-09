@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class Block implements AnalyzedBlock {
     public static final String OR_EQ = "|=";
@@ -55,7 +56,7 @@ public abstract class Block implements AnalyzedBlock {
             String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringList.isDollarWordChar(c)) {
+                if (StringUtil.isDollarWordChar(c)) {
                     continue;
                 }
                 wc_ = false;
@@ -70,7 +71,7 @@ public abstract class Block implements AnalyzedBlock {
                 _page.addLocError(bad_);
                 errorsLabels.add(bad_.getBuiltError());
             } else if (!label_.isEmpty()){
-                if (StringList.contains(_anEl.getLabels(), label_)) {
+                if (StringUtil.contains(_anEl.getLabels(), label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(getFile().getFileName());
                     dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());

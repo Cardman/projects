@@ -1,7 +1,8 @@
 package aiki.game;
 import aiki.util.Coords;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -15,9 +16,9 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
     private final int nbFight;
 
     public NbFightCoords(String _string) {
-        StringList elements_ = StringList.splitChars(_string, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
         coords = new Coords(elements_.first());
-        nbFight = Numbers.parseInt(elements_.last());
+        nbFight = NumberUtil.parseInt(elements_.last());
     }
 
     public NbFightCoords(Coords _coords, int _nbFight) {
@@ -64,10 +65,7 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         if (!Coords.eq(getCoords(), _obj.getCoords())) {
             return false;
         }
-        if (!Numbers.eq(getNbFight(), _obj.getNbFight())) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(getNbFight(), _obj.getNbFight());
     }
 
     public Coords getCoords() {

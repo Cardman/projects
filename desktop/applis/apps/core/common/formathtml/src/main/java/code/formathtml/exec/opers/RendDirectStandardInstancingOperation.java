@@ -11,7 +11,7 @@ import code.formathtml.exec.RendArgumentList;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendDirectStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
 
@@ -29,7 +29,7 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
                          Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_nodes, chidren_);
         CustList<Argument> first_ = args_.getArguments();

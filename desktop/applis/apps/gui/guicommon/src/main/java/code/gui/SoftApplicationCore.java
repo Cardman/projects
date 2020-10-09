@@ -16,9 +16,9 @@ import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.StringUtil;
 
 public abstract class SoftApplicationCore {
 
@@ -59,7 +59,7 @@ public abstract class SoftApplicationCore {
         StringMap<Object> files_ = new StringMap<Object>();
         if (_args.length > 0) {
             String fileName_ = new File(_args[0]).getAbsolutePath();
-            fileName_ = StringList.replaceBackSlash(fileName_);
+            fileName_ = StringUtil.replaceBackSlash(fileName_);
             files_.put(fileName_, getObject(_args[0]));
         }
         return files_;
@@ -71,7 +71,7 @@ public abstract class SoftApplicationCore {
 
     protected static BufferedImage getImage(String _folder, String _fileTxt) {
         BufferedImage image_;
-        String icon_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
+        String icon_ = ResourceFiles.ressourceFichier(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
         int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
         image_ = ConverterGraphicBufferedImage.decodeToImage(file_);
         return image_;
@@ -85,14 +85,14 @@ public abstract class SoftApplicationCore {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(StringList.concat(StreamFolderFile.getCurrentPath(),LANGUAGE_TXT));
+        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(),LANGUAGE_TXT));
         if (content_ == null) {
             return EMPTY_STRING;
         }
         content_ = content_.trim();
         boolean valide_ = false;
         for (String l: Constants.getAvailableLanguages()) {
-            if (StringList.quickEq(content_,l)) {
+            if (StringUtil.quickEq(content_,l)) {
                 valide_ = true;
             }
         }
@@ -103,16 +103,16 @@ public abstract class SoftApplicationCore {
     }
 
     private static String tryToGetXmlLanguage(String _dir) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringList.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE));
+        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE));
         if (noeud_ == null) {
             return null;
         }
         for(Element e: noeud_.getChildElements()){
-            if(StringList.quickEq(e.getTagName(),LOCALE)){
+            if(StringUtil.quickEq(e.getTagName(),LOCALE)){
                 String code_ = e.getAttribute(LOCALE);
                 boolean valide_ = false;
                 for (String l: Constants.getAvailableLanguages()) {
-                    if (StringList.quickEq(code_,l)) {
+                    if (StringUtil.quickEq(code_,l)) {
                         valide_ = true;
                     }
                 }
@@ -132,7 +132,7 @@ public abstract class SoftApplicationCore {
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export());
+        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export());
     }
 
     public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
@@ -177,7 +177,7 @@ public abstract class SoftApplicationCore {
 
     protected static TopLeftFrame loadCoords(String _folder, String _file) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file)));
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file)));
     }
 
     public static void saveCoords(String _folder, String _file, int _x, int _y) {
@@ -185,7 +185,7 @@ public abstract class SoftApplicationCore {
         topLeft_.setWidth(_x);
         topLeft_.setHeight(_y);
 //        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
-        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_));
+        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_));
     }
 
     protected abstract BufferedImage getImageIcon();

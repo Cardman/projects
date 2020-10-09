@@ -1,8 +1,8 @@
 package aiki.beans.facade.comparators;
 import aiki.map.DataMap;
 import aiki.map.places.Place;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class ComparatorPlaceNumber implements Comparing<Short> {
@@ -18,10 +18,10 @@ public final class ComparatorPlaceNumber implements Comparing<Short> {
         Place plOne_ = dataMap.getPlace(_o1);
         Place plTwo_ = dataMap.getPlace(_o2);
         int res_ = plOne_.getName().compareTo(plTwo_.getName());
-        if (res_ != CustList.EQ_CMP) {
+        if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }
-        return Numbers.compareLg(_o1, _o2);
+        return NumberUtil.compareLg(_o1, _o2);
     }
 
 }

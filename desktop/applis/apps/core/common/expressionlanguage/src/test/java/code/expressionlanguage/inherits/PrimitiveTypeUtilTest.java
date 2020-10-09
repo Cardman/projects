@@ -3,8 +3,8 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -41,7 +41,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = simpleContextEl();
         String int_ = context_.getAliasInteger();
         String nb_ = context_.getAliasNumber();
-        assertEq(CustList.SWAP_SORT, cmpTypes(context_, int_, nb_));
+        assertEq(SortConstants.SWAP_SORT, cmpTypes(context_, int_, nb_));
     }
 
     private static int cmpTypes(AnalyzedTestContext context_, String int_, String nb_) {

@@ -16,6 +16,8 @@ import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ReadConfiguration {
 
@@ -29,7 +31,7 @@ public final class ReadConfiguration {
         opt_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "options")) {
+            if (StringUtil.quickEq(fieldName_, "options")) {
                 opt_ = loadOptions(c);
             }
         }
@@ -39,12 +41,12 @@ public final class ReadConfiguration {
         int tab_ = 4;
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "stackOverFlow")) {
-                stack_=(Numbers.parseInt(c.getAttribute("value")));
+            if (StringUtil.quickEq(fieldName_, "stackOverFlow")) {
+                stack_=(NumberUtil.parseInt(c.getAttribute("value")));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "tabWidth")) {
-                tab_=(Numbers.parseInt(c.getAttribute("value")));
+            if (StringUtil.quickEq(fieldName_, "tabWidth")) {
+                tab_=(NumberUtil.parseInt(c.getAttribute("value")));
             }
         }
         ContextEl context_ = ContextFactory.simpleBuild(stack_, opt_, _stds, tab_);
@@ -81,7 +83,7 @@ public final class ReadConfiguration {
         options_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "classes")) {
+            if (StringUtil.quickEq(fieldName_, "classes")) {
                 options_.getTypesInit().add(c.getAttribute("value"));
             }
         }
@@ -108,11 +110,11 @@ public final class ReadConfiguration {
         BeanInfo bean_ = new BeanInfo();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "scope")) {
+            if (StringUtil.quickEq(fieldName_, "scope")) {
                 bean_.setScope(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "className")) {
+            if (StringUtil.quickEq(fieldName_, "className")) {
                 bean_.setClassName(c.getAttribute("value"));
             }
         }

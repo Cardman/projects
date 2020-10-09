@@ -19,6 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
@@ -104,6 +105,6 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         StringList paramsReturn_ = new StringList();
         IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, _shortId, _staticMethod);
         paramsReturn_.add(_returnType);
-        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
+        return StringUtil.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 }

@@ -14,6 +14,7 @@ import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.CustList;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 
 public class Scene extends PaintableLabel implements MouseListener {
 
@@ -225,7 +226,7 @@ public class Scene extends PaintableLabel implements MouseListener {
                 if (sc_.getYcoords() == yHeros + dy_) {
                     CustList<BufferedImage> imgs_ = foreground.getVal(sc_);
                     int size_ = imgs_.size();
-                    for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+                    for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
                         BufferedImage buff_ = imgs_.get(i);
                         if (i != size_ - 1) {
                             int wMin_ = buff_.getWidth();

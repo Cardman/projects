@@ -13,6 +13,8 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class Cave extends Campaign {
@@ -32,7 +34,7 @@ public final class Cave extends Campaign {
             _data.setError(true);
         }
         int nbLevels_ = levels.size();
-        for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             level_.validate(_data, _placeArea.getLevel(i));
             for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
@@ -100,13 +102,13 @@ public final class Cave extends Campaign {
         int nbLevels_ = levels.size();
         EqList<LevelPoint> ids_ = new EqList<LevelPoint>();
         boolean valid_ = true;
-        for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 Coords coords_ = link_.getCoords();
-                if (!Numbers.eq(coords_.getNumberPlace(), _place)) {
+                if (!NumberUtil.eq(coords_.getNumberPlace(), _place)) {
                     valid_ = false;
                 }
                 LevelPoint lPoint_ = coords_.getLevel();

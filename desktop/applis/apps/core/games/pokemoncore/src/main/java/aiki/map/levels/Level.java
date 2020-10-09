@@ -22,9 +22,9 @@ import code.images.Image;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.*;
 import code.util.ObjectMap;
-import code.util.comparators.ComparatorBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public abstract class Level {
@@ -91,8 +91,8 @@ public abstract class Level {
             int[][] image_ = _data.getImage(bl_.getTileFileName());
             short w_ = bl_.getWidth();
             short h_ = bl_.getHeight();
-            for (short x = CustList.FIRST_INDEX; x < w_; x++) {
-                for (short y = CustList.FIRST_INDEX; y < h_; y++) {
+            for (short x = IndexConstants.FIRST_INDEX; x < w_; x++) {
+                for (short y = IndexConstants.FIRST_INDEX; y < h_; y++) {
                     int[][] img_ = Image.clipSixtyFour(image_, x * sideLen_, y
                             * sideLen_, sideLen_, sideLen_);
                     tiles_.put(
@@ -198,7 +198,7 @@ public abstract class Level {
         if (pl_ instanceof Cave) {
             Cave cave_ = (Cave) pl_;
             for (LevelPoint lp_ : cave_.getLinksWithOtherPlaces().getKeys()) {
-                if (!Numbers.eq(lp_.getLevelIndex(), _coords.getLevel()
+                if (!NumberUtil.eq(lp_.getLevelIndex(), _coords.getLevel()
                         .getLevelIndex())) {
                     continue;
                 }

@@ -2,6 +2,7 @@ package code.util;
 import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 
@@ -147,14 +148,14 @@ public class NumbersTest {
         Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
-        assertEq(1,(long)nbs_.getMinimum(0));
+        assertEq(1, nbs_.getMinimum(0));
         nbs_ = new Ints();
         nbs_.add(3);
         nbs_.add(1);
-        assertEq(1,(long)nbs_.getMinimum(0));
+        assertEq(1, nbs_.getMinimum(0));
         nbs_ = new Ints();
         nbs_.add(1);
-        assertEq(1,(long)nbs_.getMinimum(0));
+        assertEq(1, nbs_.getMinimum(0));
         nbs_ = new Ints();
         assertEq(0,nbs_.getMinimum(0));
     }
@@ -192,263 +193,263 @@ public class NumbersTest {
     }
     @Test
     public void parseLongZero1Test() {
-        assertEq(0, Numbers.parseLongZero("0"));
+        assertEq(0, NumberUtil.parseLongZero("0"));
     }
     @Test
     public void parseLongZero2Test() {
-        assertEq(1, Numbers.parseLongZero("1"));
+        assertEq(1, NumberUtil.parseLongZero("1"));
     }
     @Test
     public void parseLongZero3Test() {
-        assertEq(9, Numbers.parseLongZero("9"));
+        assertEq(9, NumberUtil.parseLongZero("9"));
     }
     @Test
     public void parseLongZero4Test() {
-        assertEq(10, Numbers.parseLongZero("10"));
+        assertEq(10, NumberUtil.parseLongZero("10"));
     }
     @Test
     public void parseLongZero5Test() {
-        assertEq(-1, Numbers.parseLongZero("-1"));
+        assertEq(-1, NumberUtil.parseLongZero("-1"));
     }
     @Test
     public void parseLongZero6Test() {
-        assertEq(-9, Numbers.parseLongZero("-9"));
+        assertEq(-9, NumberUtil.parseLongZero("-9"));
     }
     @Test
     public void parseLongZero7Test() {
-        assertEq(-10, Numbers.parseLongZero("-10"));
+        assertEq(-10, NumberUtil.parseLongZero("-10"));
     }
     @Test
     public void parseLongZero8Test() {
-        assertEq(0, Numbers.parseLongZero(""));
+        assertEq(0, NumberUtil.parseLongZero(""));
     }
     @Test
     public void parseLongZero9Test() {
-        assertEq(0, Numbers.parseLongZero("-"));
+        assertEq(0, NumberUtil.parseLongZero("-"));
     }
     @Test
     public void parseInt1Test() {
-        assertEq(-1, Numbers.parseInt("-1"));
+        assertEq(-1, NumberUtil.parseInt("-1"));
     }
     @Test
     public void parseInt2Test() {
-        assertEq(1, Numbers.parseInt("1"));
+        assertEq(1, NumberUtil.parseInt("1"));
     }
     @Test
     public void parseInt3Test() {
-        assertEq(0, Numbers.parseInt("10000000000"));
+        assertEq(0, NumberUtil.parseInt("10000000000"));
     }
     @Test
     public void parseInt4Test() {
-        assertEq(0, Numbers.parseInt("-10000000000"));
+        assertEq(0, NumberUtil.parseInt("-10000000000"));
     }
     @Test
     public void quot1Test() {
-        assertEq(0, Numbers.quot(0,1));
+        assertEq(0, NumberUtil.quot(0,1));
     }
     @Test
     public void quot2Test() {
-        assertEq(1, Numbers.quot(4,3));
+        assertEq(1, NumberUtil.quot(4,3));
     }
     @Test
     public void quot3Test() {
-        assertEq(2, Numbers.quot(4,2));
+        assertEq(2, NumberUtil.quot(4,2));
     }
     @Test
     public void quot4Test() {
-        assertEq(0, Numbers.quot(1,3));
+        assertEq(0, NumberUtil.quot(1,3));
     }
     @Test
     public void quot5Test() {
-        assertEq(-1, Numbers.quot(4,-3));
+        assertEq(-1, NumberUtil.quot(4,-3));
     }
     @Test
     public void quot6Test() {
-        assertEq(-2, Numbers.quot(4,-2));
+        assertEq(-2, NumberUtil.quot(4,-2));
     }
     @Test
     public void quot7Test() {
-        assertEq(0, Numbers.quot(1,-3));
+        assertEq(0, NumberUtil.quot(1,-3));
     }
     @Test
     public void quot8Test() {
-        assertEq(-2, Numbers.quot(-4,3));
+        assertEq(-2, NumberUtil.quot(-4,3));
     }
     @Test
     public void quot9Test() {
-        assertEq(-2, Numbers.quot(-4,2));
+        assertEq(-2, NumberUtil.quot(-4,2));
     }
     @Test
     public void quot10Test() {
-        assertEq(-1, Numbers.quot(-1,3));
+        assertEq(-1, NumberUtil.quot(-1,3));
     }
     @Test
     public void quot11Test() {
-        assertEq(2, Numbers.quot(-4,-3));
+        assertEq(2, NumberUtil.quot(-4,-3));
     }
     @Test
     public void quot12Test() {
-        assertEq(2, Numbers.quot(-4,-2));
+        assertEq(2, NumberUtil.quot(-4,-2));
     }
     @Test
     public void quot13Test() {
-        assertEq(1, Numbers.quot(-1,-3));
+        assertEq(1, NumberUtil.quot(-1,-3));
     }
     @Test
     public void mod1Test() {
-        assertEq(0, Numbers.mod(0,1));
+        assertEq(0, NumberUtil.mod(0,1));
     }
     @Test
     public void mod2Test() {
-        assertEq(1, Numbers.mod(4,3));
+        assertEq(1, NumberUtil.mod(4,3));
     }
     @Test
     public void mod3Test() {
-        assertEq(0, Numbers.mod(4,2));
+        assertEq(0, NumberUtil.mod(4,2));
     }
     @Test
     public void mod4Test() {
-        assertEq(1, Numbers.mod(1,3));
+        assertEq(1, NumberUtil.mod(1,3));
     }
     @Test
     public void mod5Test() {
-        assertEq(1, Numbers.mod(4,-3));
+        assertEq(1, NumberUtil.mod(4,-3));
     }
     @Test
     public void mod6Test() {
-        assertEq(0, Numbers.mod(4,-2));
+        assertEq(0, NumberUtil.mod(4,-2));
     }
     @Test
     public void mod7Test() {
-        assertEq(1, Numbers.mod(1,-3));
+        assertEq(1, NumberUtil.mod(1,-3));
     }
     @Test
     public void mod8Test() {
-        assertEq(2, Numbers.mod(-4,3));
+        assertEq(2, NumberUtil.mod(-4,3));
     }
     @Test
     public void mod9Test() {
-        assertEq(0, Numbers.mod(-4,2));
+        assertEq(0, NumberUtil.mod(-4,2));
     }
     @Test
     public void mod10Test() {
-        assertEq(2, Numbers.mod(-1,3));
+        assertEq(2, NumberUtil.mod(-1,3));
     }
     @Test
     public void mod11Test() {
-        assertEq(2, Numbers.mod(-4,-3));
+        assertEq(2, NumberUtil.mod(-4,-3));
     }
     @Test
     public void mod12Test() {
-        assertEq(0, Numbers.mod(-4,-2));
+        assertEq(0, NumberUtil.mod(-4,-2));
     }
     @Test
     public void mod13Test() {
-        assertEq(2, Numbers.mod(-1,-3));
+        assertEq(2, NumberUtil.mod(-1,-3));
     }
     @Test
     public void quot14Test() {
-        assertEq(0, Numbers.quot(0L,1));
+        assertEq(0, NumberUtil.quot(0L,1));
     }
     @Test
     public void quot15Test() {
-        assertEq(1, Numbers.quot(4L,3));
+        assertEq(1, NumberUtil.quot(4L,3));
     }
     @Test
     public void quot16Test() {
-        assertEq(2, Numbers.quot(4L,2));
+        assertEq(2, NumberUtil.quot(4L,2));
     }
     @Test
     public void quot17Test() {
-        assertEq(0, Numbers.quot(1L,3));
+        assertEq(0, NumberUtil.quot(1L,3));
     }
     @Test
     public void quot18Test() {
-        assertEq(-1, Numbers.quot(4L,-3));
+        assertEq(-1, NumberUtil.quot(4L,-3));
     }
     @Test
     public void quot19Test() {
-        assertEq(-2, Numbers.quot(4L,-2));
+        assertEq(-2, NumberUtil.quot(4L,-2));
     }
     @Test
     public void quot20Test() {
-        assertEq(0, Numbers.quot(1L,-3));
+        assertEq(0, NumberUtil.quot(1L,-3));
     }
     @Test
     public void quot21Test() {
-        assertEq(-2, Numbers.quot(-4L,3));
+        assertEq(-2, NumberUtil.quot(-4L,3));
     }
     @Test
     public void quot22Test() {
-        assertEq(-2, Numbers.quot(-4L,2));
+        assertEq(-2, NumberUtil.quot(-4L,2));
     }
     @Test
     public void quot23Test() {
-        assertEq(-1, Numbers.quot(-1L,3));
+        assertEq(-1, NumberUtil.quot(-1L,3));
     }
     @Test
     public void quot24Test() {
-        assertEq(2, Numbers.quot(-4L,-3));
+        assertEq(2, NumberUtil.quot(-4L,-3));
     }
     @Test
     public void quot25Test() {
-        assertEq(2, Numbers.quot(-4L,-2));
+        assertEq(2, NumberUtil.quot(-4L,-2));
     }
     @Test
     public void quot26Test() {
-        assertEq(1, Numbers.quot(-1L,-3));
+        assertEq(1, NumberUtil.quot(-1L,-3));
     }
     @Test
     public void mod14Test() {
-        assertEq(0, Numbers.mod(0L,1));
+        assertEq(0, NumberUtil.mod(0L,1));
     }
     @Test
     public void mod15Test() {
-        assertEq(1, Numbers.mod(4L,3));
+        assertEq(1, NumberUtil.mod(4L,3));
     }
     @Test
     public void mod16Test() {
-        assertEq(0, Numbers.mod(4L,2));
+        assertEq(0, NumberUtil.mod(4L,2));
     }
     @Test
     public void mod17Test() {
-        assertEq(1, Numbers.mod(1L,3));
+        assertEq(1, NumberUtil.mod(1L,3));
     }
     @Test
     public void mod18Test() {
-        assertEq(1, Numbers.mod(4L,-3));
+        assertEq(1, NumberUtil.mod(4L,-3));
     }
     @Test
     public void mod19Test() {
-        assertEq(0, Numbers.mod(4L,-2));
+        assertEq(0, NumberUtil.mod(4L,-2));
     }
     @Test
     public void mod20Test() {
-        assertEq(1, Numbers.mod(1L,-3));
+        assertEq(1, NumberUtil.mod(1L,-3));
     }
     @Test
     public void mod21Test() {
-        assertEq(2, Numbers.mod(-4L,3));
+        assertEq(2, NumberUtil.mod(-4L,3));
     }
     @Test
     public void mod22Test() {
-        assertEq(0, Numbers.mod(-4L,2));
+        assertEq(0, NumberUtil.mod(-4L,2));
     }
     @Test
     public void mod23Test() {
-        assertEq(2, Numbers.mod(-1L,3));
+        assertEq(2, NumberUtil.mod(-1L,3));
     }
     @Test
     public void mod24Test() {
-        assertEq(2, Numbers.mod(-4L,-3));
+        assertEq(2, NumberUtil.mod(-4L,-3));
     }
     @Test
     public void mod25Test() {
-        assertEq(0, Numbers.mod(-4L,-2));
+        assertEq(0, NumberUtil.mod(-4L,-2));
     }
     @Test
     public void mod26Test() {
-        assertEq(2, Numbers.mod(-1L,-3));
+        assertEq(2, NumberUtil.mod(-1L,-3));
     }
     @Test
     public void getAllIndexes1(){
@@ -563,8 +564,8 @@ public class NumbersTest {
     }
     @Test
     public void cmpTest() {
-        assertTrue(!Numbers.eq(1,0));
-        assertTrue(Numbers.eq(1,1));
+        assertTrue(!NumberUtil.eq(1,0));
+        assertTrue(NumberUtil.eq(1,1));
     }
     @Test
     public void sub1Test(){
@@ -600,7 +601,7 @@ public class NumbersTest {
         Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
         nbsTwo_.add((byte) 1);
-        assertTrue(Numbers.equalsSetBytes(nbs_,nbsTwo_));
+        assertTrue(NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet2Test(){
@@ -609,7 +610,7 @@ public class NumbersTest {
         Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
         nbsTwo_.add((byte) 1);
-        assertTrue(!Numbers.equalsSetBytes(nbs_,nbsTwo_));
+        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet3Test(){
@@ -618,7 +619,7 @@ public class NumbersTest {
         nbs_.add((byte) 1);
         Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
-        assertTrue(!Numbers.equalsSetBytes(nbs_,nbsTwo_));
+        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet4Test(){
@@ -628,7 +629,7 @@ public class NumbersTest {
         Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
         nbsTwo_.add((short) 1);
-        assertTrue(Numbers.equalsSetShorts(nbs_,nbsTwo_));
+        assertTrue(NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet5Test(){
@@ -637,7 +638,7 @@ public class NumbersTest {
         Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
         nbsTwo_.add((short) 1);
-        assertTrue(!Numbers.equalsSetShorts(nbs_,nbsTwo_));
+        assertTrue(!NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet6Test(){
@@ -646,7 +647,7 @@ public class NumbersTest {
         nbs_.add((short) 1);
         Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
-        assertTrue(!Numbers.equalsSetShorts(nbs_,nbsTwo_));
+        assertTrue(!NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
     public void removeOneNumber1Test(){
@@ -715,7 +716,7 @@ public class NumbersTest {
         Ints out_ = nbs_.indexesOfObj(1);
         assertEq(1, out_.size());
         assertEq(1, out_.get(0));
-        assertEq(0, Numbers.wrapIntArray().length);
+        assertEq(0, NumberUtil.wrapIntArray().length);
     }
     @Test
     public void indexesOf2Test(){

@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.util.Replacement;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReplacementStruct extends WithoutParentStruct implements Struct {
 
@@ -29,10 +29,10 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
             return false;
         }
         ReplacementStruct other_ = NumParsers.getReplacement(_other);
-        if (!StringList.quickEq(instance.getOldString(),other_.instance.getOldString())) {
+        if (!StringUtil.quickEq(instance.getOldString(),other_.instance.getOldString())) {
             return false;
         }
-        return StringList.quickEq(instance.getNewString(),other_.instance.getNewString());
+        return StringUtil.quickEq(instance.getNewString(),other_.instance.getNewString());
     }
 
 }

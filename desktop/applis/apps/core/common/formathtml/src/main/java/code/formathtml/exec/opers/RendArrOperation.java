@@ -12,6 +12,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.IndexConstants;
 
 public final class RendArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
 
@@ -42,7 +43,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
-        for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _maxIndexChildren; i++) {
             Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);

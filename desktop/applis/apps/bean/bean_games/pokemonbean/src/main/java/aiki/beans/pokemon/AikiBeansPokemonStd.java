@@ -23,6 +23,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansPokemonStd {
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";
@@ -246,39 +247,39 @@ public final class AikiBeansPokemonStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TYPED_NAME)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_TYPE)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
             res_.setResult(new StringStruct(instance_.getTypedType()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
+        if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
             res_.setResult(BooleanStruct.of(instance_.getWholeWord()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
             res_.setResult(new StringStruct(instance_.getTypedMinNbPossEvos()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
             res_.setResult(new StringStruct(instance_.getTypedMaxNbPossEvos()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BOOLEANS)) {
+        if (StringUtil.quickEq(fieldName_,BOOLEANS)) {
             res_.setResult(new DefaultStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IS_EVO)) {
+        if (StringUtil.quickEq(fieldName_,IS_EVO)) {
             res_.setResult(BeanLgNames.wrapStd(instance_.getIsEvo()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IS_LEG)) {
+        if (StringUtil.quickEq(fieldName_,IS_LEG)) {
             res_.setResult(BeanLgNames.wrapStd(instance_.getIsLeg()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,POKEDEX)) {
+        if (StringUtil.quickEq(fieldName_,POKEDEX)) {
             res_.setResult(new DefaultStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -289,99 +290,99 @@ public final class AikiBeansPokemonStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BACK_IMAGE)) {
+        if (StringUtil.quickEq(fieldName_,BACK_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getBackImage()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FRONT_IMAGE)) {
+        if (StringUtil.quickEq(fieldName_,FRONT_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getFrontImage()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WEIGHT)) {
+        if (StringUtil.quickEq(fieldName_,WEIGHT)) {
             res_.setResult(new DefaultStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEIGHT)) {
+        if (StringUtil.quickEq(fieldName_,HEIGHT)) {
             res_.setResult(new DefaultStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,POSSIBLE_GENDERS)) {
+        if (StringUtil.quickEq(fieldName_,POSSIBLE_GENDERS)) {
             res_.setResult(new DefaultStruct(instance_.getPossibleGenders(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPES)) {
+        if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CATCHING_RATE)) {
+        if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
             res_.setResult(new ShortStruct(instance_.getCatchingRate()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
+        if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
             res_.setResult(new DefaultStruct(instance_.getEvolutions(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NAME)) {
+        if (StringUtil.quickEq(fieldName_,NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EVO_BASE)) {
+        if (StringUtil.quickEq(fieldName_,EVO_BASE)) {
             res_.setResult(new StringStruct(instance_.getEvoBase()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EXP_EVO)) {
+        if (StringUtil.quickEq(fieldName_,EXP_EVO)) {
             res_.setResult(new StringStruct(instance_.getExpEvo()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAP_VARS)) {
+        if (StringUtil.quickEq(fieldName_,MAP_VARS)) {
             res_.setResult(new DefaultStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EXP_RATE)) {
+        if (StringUtil.quickEq(fieldName_,EXP_RATE)) {
             res_.setResult(new LongStruct(instance_.getExpRate()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,STATISTICS)) {
+        if (StringUtil.quickEq(fieldName_,STATISTICS)) {
             res_.setResult(new DefaultStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LEV_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,LEV_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getLevMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TECHNICAL_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,TECHNICAL_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getTechnicalMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HIDDEN_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,HIDDEN_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getHiddenMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MOVE_TUTORS)) {
+        if (StringUtil.quickEq(fieldName_,MOVE_TUTORS)) {
             res_.setResult(new DefaultStruct(instance_.getMoveTutors(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EGG_GROUPS_PK)) {
+        if (StringUtil.quickEq(fieldName_,EGG_GROUPS_PK)) {
             res_.setResult(new DefaultStruct(instance_.getEggGroupsPk(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HATCHING_STEPS)) {
+        if (StringUtil.quickEq(fieldName_,HATCHING_STEPS)) {
             res_.setResult(new DefaultStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PLACES)) {
+        if (StringUtil.quickEq(fieldName_,PLACES)) {
             res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMAGES)) {
+        if (StringUtil.quickEq(fieldName_,IMAGES)) {
             res_.setResult(new DefaultStruct(instance_.getImages(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -391,37 +392,37 @@ public final class AikiBeansPokemonStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TYPED_NAME)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_TYPE)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
             instance_.setTypedType((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
+        if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
             instance_.setWholeWord((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
             instance_.setTypedMinNbPossEvos((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
             instance_.setTypedMaxNbPossEvos((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IS_EVO)) {
+        if (StringUtil.quickEq(fieldName_,IS_EVO)) {
             instance_.setIsEvo((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IS_LEG)) {
+        if (StringUtil.quickEq(fieldName_,IS_LEG)) {
             instance_.setIsLeg((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -432,15 +433,15 @@ public final class AikiBeansPokemonStd {
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,SEARCH)) {
+        if (StringUtil.quickEq(methodName_,SEARCH)) {
             res_.setResult(new StringStruct(instance_.search()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MINI_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_MINI_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getMiniImage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_LINK)) {
+        if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
             res_.setResult(new StringStruct(instance_.clickLink((Long)_args[0])));
             return res_;
         }
@@ -451,107 +452,107 @@ public final class AikiBeansPokemonStd {
         PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_POKEDEX)) {
+        if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {
             res_.setResult(new StringStruct(instance_.clickPokedex()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ROUND_WEIGHT)) {
+        if (StringUtil.quickEq(methodName_,ROUND_WEIGHT)) {
             res_.setResult(new StringStruct(instance_.roundWeight()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,ROUND_HEIGHT)) {
+        if (StringUtil.quickEq(methodName_,ROUND_HEIGHT)) {
             res_.setResult(new StringStruct(instance_.roundHeight()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTrAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_PAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_PAGE)) {
             res_.setResult(new StringStruct(instance_.getPage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BASE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BASE)) {
             res_.setResult(new StringStruct(instance_.clickBase()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_BASE)) {
+        if (StringUtil.quickEq(methodName_,GET_BASE)) {
             res_.setResult(new ShortStruct(instance_.getBase((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EV)) {
+        if (StringUtil.quickEq(methodName_,GET_EV)) {
             res_.setResult(new ShortStruct(instance_.getEv((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_TECHNICAL_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_TECHNICAL_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickTechnicalMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_HIDDEN_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_HIDDEN_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickHiddenMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE_TUTORS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE_TUTORS)) {
             res_.setResult(new StringStruct(instance_.clickMoveTutors((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE_TUTOR)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE_TUTOR)) {
             res_.setResult(new StringStruct(instance_.getMoveTutor((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_EGG_PK)) {
+        if (StringUtil.quickEq(methodName_,CLICK_EGG_PK)) {
             res_.setResult(new StringStruct(instance_.clickEggPk((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EGG_PK)) {
+        if (StringUtil.quickEq(methodName_,GET_EGG_PK)) {
             res_.setResult(new StringStruct(instance_.getEggPk((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
+        if (StringUtil.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
             res_.setResult(BooleanStruct.of(instance_.isAppearingAnyWhere()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_APPEARING_PLACE)) {
+        if (StringUtil.quickEq(methodName_,IS_APPEARING_PLACE)) {
             res_.setResult(BooleanStruct.of(instance_.isAppearingPlace((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_MULTI_LAYER)) {
+        if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
             res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,LAYERS)) {
+        if (StringUtil.quickEq(methodName_,LAYERS)) {
             res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_APPEARING)) {
+        if (StringUtil.quickEq(methodName_,IS_APPEARING)) {
             res_.setResult(BooleanStruct.of(instance_.isAppearing((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+        if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
             res_.setResult(new IntStruct(instance_.getMapWidth()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
+        if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
             res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_PLACE_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_PLACE_NAME)) {
             res_.setResult(new StringStruct(instance_.getPlaceName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getMiniMapImage((Long)_args[0])));
             return res_;
         }

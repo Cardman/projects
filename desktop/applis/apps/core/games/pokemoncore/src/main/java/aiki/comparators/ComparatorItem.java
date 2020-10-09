@@ -5,8 +5,8 @@ import aiki.facade.Pagination;
 import aiki.facade.StringFieldComparator;
 import aiki.util.SortingItem;
 import code.maths.LgInt;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class ComparatorItem implements Comparing<SortingItem> {
@@ -41,27 +41,27 @@ public final class ComparatorItem implements Comparing<SortingItem> {
         for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
             if (cmpPrice.getPriority() == i) {
                 int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpName.getPriority() == i) {
                 int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpDescription.getPriority() == i) {
                 int res_ = cmpDescription.compare(_o1.getItemClass(), _o2.getItemClass());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpNumber.getPriority() == i) {
                 int res_ = cmpNumber.compare(_o1.getNumber(), _o2.getNumber());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             }
         }
-        return Numbers.compareLg(_o1.getIndex(), _o2.getIndex());
+        return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
 }

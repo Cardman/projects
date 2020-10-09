@@ -21,6 +21,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
 
@@ -50,7 +51,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         boolean import_ = false;
         AnaClassArgumentMatching clCur_;
@@ -79,7 +80,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
             if (!className_.isEmpty()) {
@@ -109,7 +110,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         boolean import_ = false;
         AnaClassArgumentMatching clCur_;
@@ -148,7 +149,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             if (typeInfer.isEmpty()) {
-                int loc_ = StringList.getFirstPrintableCharIndex(className_);
+                int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
                 className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
             } else {
@@ -165,7 +166,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(clCur_.getNames(),"&"),
+                        StringUtil.join(clCur_.getNames(),"&"),
                         className_);
                 _page.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
@@ -193,14 +194,14 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         StringList arrayBounds_ = getArrayBounds(bounds_);
         if (!arrayBounds_.isEmpty()) {
-            if (!StringList.quickEq(trimMeth_, _page.getAliasClone())) {
+            if (!StringUtil.quickEq(trimMeth_, _page.getAliasClone())) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
                 undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //trimMeth_ len
                 undefined_.buildError(_page.getAnalysisMessages().getArrayCloneOnly(),
                         _page.getAliasClone(),
-                        StringList.join(arrayBounds_,"&"));
+                        StringUtil.join(arrayBounds_,"&"));
                 _page.getLocalizer().addError(undefined_);
                 getErrs().add(undefined_.getBuiltError());
                 return;
@@ -289,28 +290,28 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        int delta_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        int delta_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         lengthMethod = callFctContent.getMethodName().length();
-        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
+        int deltaEnd_ = lengthMethod- StringUtil.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
         lengthMethod -= delta_;
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;
             lengthMethod -= after_;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
-            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            delta_ += StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            lengthMethod -= StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;
             lengthMethod -= after_;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
-            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            delta_ += StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            lengthMethod -= StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             int lastAfter_ = trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
             delta_ += lastAfter_;
             lengthMethod -= lastAfter_;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
-            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
+            delta_ += StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
+            lengthMethod -= StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
         }
         lengthMethod -= deltaEnd_;
         delta = delta_;

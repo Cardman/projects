@@ -6,6 +6,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
 
 public final class GameTarotCommon {
 
@@ -274,7 +275,7 @@ public final class GameTarotCommon {
             cartesJoueesOuPossedees_.trierParForceEnCours(i);
             HandTarot cartesMaitresses_ = new HandTarot();
             int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
-            for (byte c = CustList.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+            for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
                 if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
                         couleurTotale_.carte(c))) {
                     break;

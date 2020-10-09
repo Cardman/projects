@@ -11,9 +11,9 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class PresidentCardsScrollableList extends CardsScrollableList {
 
@@ -32,7 +32,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste,BorderLayout.CENTER);
-        remCards = new TextLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
+        remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -54,7 +54,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
             liste.add(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartesPresident(HandPresident _m) {
         for(CardPresident c:_m) {
@@ -75,7 +75,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartesPresident(HandPresident _cs) {
         int indice_;
@@ -94,12 +94,12 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public HandPresident valMainPresident() {
         HandPresident main_=new HandPresident();
         int taille_=taille();
-        for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
             main_.ajouter(liste.get(i));
         }
         return main_;

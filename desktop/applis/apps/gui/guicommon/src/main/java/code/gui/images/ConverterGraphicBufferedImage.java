@@ -4,13 +4,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import code.gui.CustGraphics;
-import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.images.IntPoint;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ConverterGraphicBufferedImage {
 
@@ -27,8 +26,8 @@ public final class ConverterGraphicBufferedImage {
         }
         int w_ = _imgOne.getWidth();
         int h_ = _imgOne.getHeight();
-        for (int i = CustList.FIRST_INDEX; i < w_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < h_; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < h_; j++) {
                 if (_imgOne.getRGB(i, j) != _imgTwo.getRGB(i, j)) {
                     return false;
                 }
@@ -70,7 +69,7 @@ public final class ConverterGraphicBufferedImage {
         int[][] arrays_ = new int[height_][width_];
         for (int i = 0; i < height_; i++) {
             for (int j = 0; j < width_; j++) {
-                arrays_[i][j] = Numbers.mod(_image.getRGB(j, i), 256*256*256);
+                arrays_[i][j] = NumberUtil.mod(_image.getRGB(j, i), 256*256*256);
             }
         }
         return arrays_;
@@ -95,16 +94,16 @@ public final class ConverterGraphicBufferedImage {
         int w_ = _image.getWidth();
         int h_ = _image.getHeight();
         BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        for (int i = CustList.FIRST_INDEX;i<h_;i++) {
-            for (int j = CustList.FIRST_INDEX;j<w_;j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
                 image_.setRGB(j, i, _image.getPixel(j,i));
             }
         }
         return image_;
     }
     public static BufferedImage toRenderedImageQuick(String _txt) {
-        StringList lines_ = StringList.splitChars(_txt, Image.SEPARATOR_CHAR);
-        int w_ = Numbers.parseInt(lines_.first());
+        StringList lines_ = StringUtil.splitChars(_txt, Image.SEPARATOR_CHAR);
+        int w_ = NumberUtil.parseInt(lines_.first());
         int h_;
         if (w_ == 0) {
             h_ = 0;
@@ -112,10 +111,10 @@ public final class ConverterGraphicBufferedImage {
             h_ = (lines_.size() - 1) / w_;
         }
         BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        for (int i = CustList.FIRST_INDEX;i<h_;i++) {
-            for (int j = CustList.FIRST_INDEX;j<w_;j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
                 int index_ = j + w_ * i + 1;
-                int int_ = Numbers.parseInt(lines_.get(index_));
+                int int_ = NumberUtil.parseInt(lines_.get(index_));
                 if (int_ == -1) {
                     image_.setRGB(j, i, getTransparentWhite().getRGB());
                 } else {
@@ -131,8 +130,8 @@ public final class ConverterGraphicBufferedImage {
         int w_ = _image.getWidth();
         int h_ = _image.getHeight();
         StringBuilder builder_ = new StringBuilder(String.valueOf(w_));
-        for (int i = CustList.FIRST_INDEX;i<h_;i++) {
-            for (int j = CustList.FIRST_INDEX;j<w_;j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
                 builder_.append(Image.SEPARATOR_CHAR);
                 builder_.append(_image.getRGB(j, i));
             }
@@ -146,8 +145,8 @@ public final class ConverterGraphicBufferedImage {
         int w_ = _buffered.getWidth();
         int white_ = WHITE_RGB_INT;
         int transWhite_ = getTransparentWhite().getRGB();
-        for (int i = CustList.FIRST_INDEX; i < h_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < w_; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < w_; j++) {
                 int rgb_ = _buffered.getRGB(j, i);
                 if (rgb_ == white_) {
                     _buffered.setRGB(j, i, transWhite_);
@@ -165,7 +164,7 @@ public final class ConverterGraphicBufferedImage {
         int maxIndexTwo_ = _buffered.getHeight() - 1;
         while (indexOne_ < w_) {
             boolean whiteCol_ = true;
-            for (int y = CustList.FIRST_INDEX; y < h_; y++) {
+            for (int y = IndexConstants.FIRST_INDEX; y < h_; y++) {
                 int alph_ = calculateAlphaCode(_buffered, indexOne_, y);
                 if (alph_ != 0) {
                     whiteCol_ = false;
@@ -184,7 +183,7 @@ public final class ConverterGraphicBufferedImage {
         }
         while (maxIndexOne_ >= 0) {
             boolean whiteCol_ = true;
-            for (int y = CustList.FIRST_INDEX; y < h_; y++) {
+            for (int y = IndexConstants.FIRST_INDEX; y < h_; y++) {
                 int alph_ = calculateAlphaCode(_buffered, maxIndexOne_, y);
                 if (alph_ != 0) {
                     whiteCol_ = false;
@@ -227,7 +226,7 @@ public final class ConverterGraphicBufferedImage {
         int newWidth_ = maxIndexOne_ - indexOne_ + 1;
         while (indexTwo_ < h_) {
             boolean whiteRow_ = true;
-            for (int x = CustList.FIRST_INDEX; x < w_; x++) {
+            for (int x = IndexConstants.FIRST_INDEX; x < w_; x++) {
                 int alph_ = calculateAlphaCode(_buffered, x, indexTwo_);
                 if (alph_ != 0) {
                     whiteRow_ = false;
@@ -245,7 +244,7 @@ public final class ConverterGraphicBufferedImage {
         }
         while (maxIndexTwo_ >= 0) {
             boolean whiteRow_ = true;
-            for (int x = CustList.FIRST_INDEX; x < w_; x++) {
+            for (int x = IndexConstants.FIRST_INDEX; x < w_; x++) {
                 int alph_ = calculateAlphaCode(_buffered, x, maxIndexTwo_);
                 if (alph_ != 0) {
                     whiteRow_ = false;

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1521,7 +1523,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.cancelUseObject();
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
         assertEq(NULL_REF, player_.getSelectedObject());
         assertEq(0, player_.getIndexesOfPokemonTeam().size());
     }
@@ -4936,9 +4938,9 @@ public class PlayerTest extends InitializationDataBase {
         player_.choosePokemonForMoveTutors((short) 0, data);
         CustList<String> moves_ = player_.currentMovesPokemon();
         assertEq(3, moves_.size());
-        assertTrue(StringList.contains(moves_, JACKPOT));
-        assertTrue(StringList.contains(moves_, PASSE_PASSE));
-        assertTrue(StringList.contains(moves_, OEIL_MIRACLE));
+        assertTrue(StringUtil.contains(moves_, JACKPOT));
+        assertTrue(StringUtil.contains(moves_, PASSE_PASSE));
+        assertTrue(StringUtil.contains(moves_, OEIL_MIRACLE));
     }
 
     @Test
@@ -5282,7 +5284,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(20, pkPl_.getMoves().getVal(JACKPOT).getMax());
         assertEq(50, pkPl_.getMoves().getVal(ECLAIR).getMax());
         assertEq(10, pkPl_.getMoves().getVal(PASSE_PASSE).getMax());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
         assertEq(0, player_.getChosenMoves().size());
         assertEq(0, player_.getIndexesOfPokemonTeam().size());
         assertEq(0, player_.getIndexesOfPokemonTeamMoves().size());
@@ -5583,7 +5585,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(40, pkPl_.getMoves().getVal(OEIL_MIRACLE).getMax());
         assertEq(20, pkPl_.getMoves().getVal(JACKPOT).getMax());
         assertEq(10, pkPl_.getMoves().getVal(PASSE_PASSE).getMax());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, player_.getChosenTeamPokemon());
         assertEq(0, player_.getChosenMoves().size());
         assertEq(0, player_.getIndexesOfPokemonTeam().size());
         assertEq(0, player_.getIndexesOfPokemonTeamMoves().size());

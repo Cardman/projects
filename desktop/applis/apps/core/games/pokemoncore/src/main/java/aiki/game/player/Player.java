@@ -43,6 +43,9 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorTreeMapValue;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 
 public final class Player {
@@ -129,7 +132,7 @@ public final class Player {
 
     private StringMap<Boolean> selectedMoves = new StringMap<Boolean>();
 
-    private short chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+    private short chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private String chosenAbilityForEvolution = DataBase.EMPTY_STRING;
 
@@ -147,7 +150,7 @@ public final class Player {
             if (_sexeHeros == null) {
                 nickname = DEFAULT_NICKNAME_PREFIX;
             } else {
-                nickname = StringList.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.name());
+                nickname = StringUtil.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.name());
             }
         }
         sex=_sexeHeros;
@@ -186,7 +189,7 @@ public final class Player {
         selectedMove = DataBase.EMPTY_STRING;
         chosenMoves = new StringMap<Short>();
         selectedMoves = new StringMap<Boolean>();
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenAbilityForEvolution = DataBase.EMPTY_STRING;
         indexesOfPokemonTeam = new Bytes();
         indexesOfPokemonTeamMoves = new ByteMap<Boolean>();
@@ -214,7 +217,7 @@ public final class Player {
         if (team.size() > _data.getNbMaxTeam()) {
             return false;
         }
-        int nbPkPlayers_ = CustList.SIZE_EMPTY;
+        int nbPkPlayers_ = IndexConstants.SIZE_EMPTY;
         for (UsablePokemon e: team) {
             if (e instanceof PokemonPlayer) {
                 nbPkPlayers_++;
@@ -223,7 +226,7 @@ public final class Player {
                 return false;
             }
         }
-        if (Numbers.eq(nbPkPlayers_, CustList.SIZE_EMPTY)) {
+        if (NumberUtil.eq(nbPkPlayers_, IndexConstants.SIZE_EMPTY)) {
             return false;
         }
         for (UsablePokemon p: box) {
@@ -234,7 +237,7 @@ public final class Player {
                 return false;
             }
         }
-        if (!StringList.equalsSet(_data.getPokedex().getKeys(), caughtPk.getKeys())) {
+        if (!StringUtil.equalsSet(_data.getPokedex().getKeys(), caughtPk.getKeys())) {
             return false;
         }
         if (!money.isZeroOrGt()) {
@@ -243,10 +246,7 @@ public final class Player {
         if (!inventory.validate(_data)) {
             return false;
         }
-        if (remainingRepelSteps < 0) {
-            return false;
-        }
-        return true;
+        return remainingRepelSteps >= 0;
     }
 
     public boolean existBall(DataBase _import) {
@@ -284,7 +284,7 @@ public final class Player {
 
     public void moveLoop(int _nbSteps,Difficulty _diff,DataBase _import) {
         clearComments();
-        for (int i = CustList.FIRST_INDEX; i < _nbSteps; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nbSteps; i++) {
             deplacement(_diff,_import);
         }
     }
@@ -321,7 +321,7 @@ public final class Player {
 
     void eclosionOeuf(Difficulty _diff,DataBase _import){
         int nbPks_ = team.size();
-        for(short k=CustList.FIRST_INDEX;k<nbPks_;k++){
+        for(short k = IndexConstants.FIRST_INDEX; k<nbPks_; k++){
             UsablePokemon usPk_=team.get(k);
             if (!(usPk_ instanceof Egg)) {
                 continue;
@@ -383,13 +383,10 @@ public final class Player {
     }
 
     public boolean enabledSwitchObjectsTeamBox() {
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
+        if (chosenTeamPokemon == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return false;
         }
-        if (!(team.get(chosenTeamPokemon) instanceof PokemonPlayer)) {
-            return false;
-        }
-        return true;
+        return team.get(chosenTeamPokemon) instanceof PokemonPlayer;
     }
 
     public void switchObjectsTeamBox(int _box){
@@ -399,14 +396,14 @@ public final class Player {
         String itemTwo_ = boxPk_.getItem();
         usPk_.setItem(itemTwo_);
         boxPk_.setItem(itemOne_);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void switchObjectsBox(int _chosenPokemonFirstBox,int _chosenPokemonSecondBox){
-        if (_chosenPokemonFirstBox == CustList.INDEX_NOT_FOUND_ELT) {
+        if (_chosenPokemonFirstBox == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        if (_chosenPokemonSecondBox == CustList.INDEX_NOT_FOUND_ELT) {
+        if (_chosenPokemonSecondBox == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         Pokemon firstBoxPk_ = (Pokemon) box.get(_chosenPokemonFirstBox);
@@ -418,10 +415,7 @@ public final class Player {
     }
 
     public boolean enabledSwitchPokemonBoxTeam() {
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
+        return chosenTeamPokemon != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void switchPokemon(int _box, DataBase _import){
@@ -432,14 +426,11 @@ public final class Player {
         }
         box.set(_box, other_);
         team.set(chosenTeamPokemon,tmp_);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean enabledStorePokemonBox() {
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
+        return chosenTeamPokemon != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void storeIntoBox(DataBase _import){
@@ -450,14 +441,11 @@ public final class Player {
             ((PokemonPlayer) pk_).fullHeal(_import);
         }
         box.add(pk_);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean enabledTakeObjectTeam() {
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
+        return chosenTeamPokemon != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void takePokemonFromBox(int _box, DataBase _import){
@@ -475,35 +463,29 @@ public final class Player {
         if (team.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return false;
         }
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
+        return chosenTeamPokemon != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void switchTeamOrder(short _other){
-        if(Numbers.eq(chosenTeamPokemon, _other)){
+        if(NumberUtil.eq(chosenTeamPokemon, _other)){
             return;
         }
         team.swapIndexes(chosenTeamPokemon, _other);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean enabledSwitchObjectsTeam() {
         if (team.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return false;
         }
-        if (chosenTeamPokemon == CustList.INDEX_NOT_FOUND_ELT) {
+        if (chosenTeamPokemon == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return false;
         }
-        if (!(team.get(chosenTeamPokemon) instanceof PokemonPlayer)) {
-            return false;
-        }
-        return true;
+        return team.get(chosenTeamPokemon) instanceof PokemonPlayer;
     }
 
     public void switchObjectsTeam(short _other) {
-        if (Numbers.eq(chosenTeamPokemon, _other)) {
+        if (NumberUtil.eq(chosenTeamPokemon, _other)) {
             return;
         }
         if (!(team.get(_other) instanceof PokemonPlayer)) {
@@ -519,9 +501,7 @@ public final class Player {
         UsablePokemon usPk_ = box.get(_box);
         if (usPk_ instanceof PokemonPlayer) {
             PokemonData fPk_=_import.getPokemon(((PokemonPlayer) usPk_).getName());
-            if(fPk_.getGenderRep() == GenderRepartition.LEGENDARY){
-                return false;
-            }
+            return fPk_.getGenderRep() != GenderRepartition.LEGENDARY;
         }
         return true;
     }
@@ -544,7 +524,7 @@ public final class Player {
     public void setPokemonAbleToHoldObject() {
         indexesOfPokemonTeam.clear();
         int nbPks_ = team.size();
-        for (byte k=CustList.FIRST_INDEX;k<nbPks_;k++) {
+        for (byte k = IndexConstants.FIRST_INDEX; k<nbPks_; k++) {
             UsablePokemon us_ = team.get(k);
             if (!(us_ instanceof Pokemon)) {
                 continue;
@@ -607,8 +587,8 @@ public final class Player {
             }
             StringList statuts_=new StringList(pkSoigne_.getStatus());
             pkSoigne_.soinStatuts(baie_.getHealStatus());
-            if(!StringList.equalsSet(statuts_,pkSoigne_.getStatus())){
-                StringList.removeAllElements(statuts_, pkSoigne_.getStatus());
+            if(!StringUtil.equalsSet(statuts_,pkSoigne_.getStatus())){
+                StringUtil.removeAllElements(statuts_, pkSoigne_.getStatus());
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
@@ -666,8 +646,8 @@ public final class Player {
             HealingStatus soin_=(HealingStatus)objet_;
             StringList statuts_=new StringList(pkSoigne_.getStatus());
             pkSoigne_.soinStatuts(soin_.getStatus());
-            if(!StringList.equalsSet(statuts_,pkSoigne_.getStatus())){
-                StringList.removeAllElements(statuts_, pkSoigne_.getStatus());
+            if(!StringUtil.equalsSet(statuts_,pkSoigne_.getStatus())){
+                StringUtil.removeAllElements(statuts_, pkSoigne_.getStatus());
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
@@ -706,7 +686,7 @@ public final class Player {
             }
         }
         if (chosenMoves.isEmpty()) {
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         }
     }
 
@@ -714,7 +694,7 @@ public final class Player {
         clearComments();
         if (_move.isEmpty()) {
             selectedObject = DataBase.EMPTY_STRING;
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
             chosenMoves.clear();
             return;
         }
@@ -729,7 +709,7 @@ public final class Player {
         pkSoigne_.soinPpAttaques(chosenMoves);
         inventory.use(selectedObject);
         selectedObject = DataBase.EMPTY_STRING;
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenMoves.clear();
     }
 
@@ -747,7 +727,7 @@ public final class Player {
             chosenMoves.put(m, pkSoigne_.wonPp(boost_, m, maxPp_));
         }
         if (chosenMoves.isEmpty()) {
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         }
     }
 
@@ -755,7 +735,7 @@ public final class Player {
         clearComments();
         if (_move.isEmpty()) {
             selectedObject = DataBase.EMPTY_STRING;
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
             chosenMoves.clear();
             return;
         }
@@ -778,7 +758,7 @@ public final class Player {
         }
         if (ppMax_ != pk_.getMoves().getVal(_move).getMax() || happinessIncrease_ > 0) {
             inventory.use(selectedObject);
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
             selectedObject = DataBase.EMPTY_STRING;
             chosenMoves.clear();
         }
@@ -855,7 +835,7 @@ public final class Player {
     }
 
     public void cancelLearningMoveOnPokemon() {
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenMoves.clear();
         selectedMoves.clear();
     }
@@ -865,7 +845,7 @@ public final class Player {
         StringMap<String> mess_ = _import.getMessagesPlayer();
         if (selectedMoves.size() >= _import.getNbMaxMoves()) {
 //            if (!Numbers.eq(selectedMoves.getKeys(true).size(), _import.getNbMaxMoves()))
-            if (!Numbers.eq(getCheckedMoves().size(), _import.getNbMaxMoves())) {
+            if (!NumberUtil.eq(getCheckedMoves().size(), _import.getNbMaxMoves())) {
                 String name_ = ((PokemonPlayer) team.get(chosenTeamPokemon)).getName();
                 name_ = _import.translatePokemon(name_);
                 commentGame.addMessage(mess_.getVal(BAD_NUMBER_MOVES), name_, Long.toString(getCheckedMoves().size()));
@@ -887,14 +867,14 @@ public final class Player {
         CustList<String> oldMoves_ = pk_.getMoves().getKeys();
         StringList forgottenMoves_;
         forgottenMoves_ = new StringList(oldMoves_);
-        StringList.removeAllElements(forgottenMoves_, moves_);
+        StringUtil.removeAllElements(forgottenMoves_, moves_);
         StringList keptMoves_;
         keptMoves_ = new StringList(oldMoves_);
 //        keptMoves_.removeAllElements(selectedMoves.getKeys(false));
-        StringList.removeAllElements(keptMoves_, getUnCheckedMoves());
+        StringUtil.removeAllElements(keptMoves_, getUnCheckedMoves());
         StringList learntMoves_;
         learntMoves_ = new StringList(moves_);
-        StringList.removeAllElements(learntMoves_, oldMoves_);
+        StringUtil.removeAllElements(learntMoves_, oldMoves_);
         for (String m: forgottenMoves_) {
             String move_ = _import.translateMove(m);
             commentGame.addMessage(mess_.getVal(FORGET_MOVES), name_, move_);
@@ -908,7 +888,7 @@ public final class Player {
             commentGame.addMessage(mess_.getVal(LEARN_MOVES), name_, move_);
         }
         pk_.learnMovesAfterForgettingAll(moves_, _import);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenMoves.clear();
         selectedMoves.clear();
         indexesOfPokemonTeam.clear();
@@ -1004,7 +984,7 @@ public final class Player {
         StringMap<String> mess_ = _import.getMessagesPlayer();
         commentGame.addMessage(mess_.getVal(LEARN_MOVE), name_, _import.translateMove(selectedMove));
         ((PokemonPlayer) team.get(chosenTeamPokemon)).learnMove(selectedMove, _import);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedMove = DataBase.EMPTY_STRING;
     }
 
@@ -1016,7 +996,7 @@ public final class Player {
         StringMap<String> mess_ = _import.getMessagesPlayer();
         commentGame.addMessage(mess_.getVal(LEARN_MOVE_FORGET), name_, _import.translateMove(selectedMove), _import.translateMove(_ancienneAttaque));
         ((PokemonPlayer) team.get(chosenTeamPokemon)).learnMove(selectedMove,_ancienneAttaque,_import);
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenMoves.clear();
         selectedMove = DataBase.EMPTY_STRING;
     }
@@ -1280,9 +1260,7 @@ public final class Player {
         }
         if (info_ instanceof Berry) {
             Berry berry_ = (Berry) info_;
-            if (berry_.getHealPp() > 0) {
-                return true;
-            }
+            return berry_.getHealPp() > 0;
         }
         return false;
     }
@@ -1306,10 +1284,7 @@ public final class Player {
         if (usedObjectForEvolving(_import)) {
             return true;
         }
-        if (usedObjectForBoosting(_import)) {
-            return true;
-        }
-        return false;
+        return usedObjectForBoosting(_import);
     }
 
     public void choosePokemonForUsingObject(short _index,DataBase _import) {
@@ -1340,7 +1315,7 @@ public final class Player {
     }
 
     public void cancelUsingObjectOnPokemon() {
-        chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void clearComments() {
@@ -1380,7 +1355,7 @@ public final class Player {
             chosenAbilityForEvolution = DataBase.EMPTY_STRING;
         } else {
             //!pk_.getMovesToBeKeptEvo().isEmpty()
-            if (StringList.quickEq(chosenAbilityForEvolution, DataBase.EMPTY_STRING)) {
+            if (StringUtil.quickEq(chosenAbilityForEvolution, DataBase.EMPTY_STRING)) {
                 pk_.learnMovesAfterEvolvingWithOneAbility(_data);
             } else {
                 pk_.learnMovesAfterEvolving(chosenAbilityForEvolution, _data);
@@ -1388,7 +1363,7 @@ public final class Player {
             }
         }
         if (pk_.getMovesToBeKeptEvo().isEmpty()) {
-            chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
             //comment += pk_.getName();
             indexesOfPokemonTeam.clear();
             inventory.use(selectedObject);
@@ -1397,7 +1372,7 @@ public final class Player {
         String newKey_ = pk_.getName();
         String newName_ = _data.translatePokemon(newKey_);
         StringMap<String> mess_ = _data.getMessagesPlayer();
-        if (!StringList.quickEq(oldKey_, newKey_)) {
+        if (!StringUtil.quickEq(oldKey_, newKey_)) {
             //!StringList.eq(oldName_, newName_)
             commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
             boolean alreadyCaught_ = estAttrape(pk_.getName());
@@ -1506,7 +1481,7 @@ public final class Player {
     public ByteTreeMap< PokemonPlayer> getPokemonPlayerList() {
         ByteTreeMap< PokemonPlayer> indexes_ = new ByteTreeMap< PokemonPlayer>();
         int nbPks_ = team.size();
-        for (byte p=CustList.FIRST_INDEX; p<nbPks_; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof PokemonPlayer) {
                 indexes_.put(p, (PokemonPlayer) team.get(p));
             }
@@ -1517,7 +1492,7 @@ public final class Player {
     public ByteTreeMap< Egg> getEggsList() {
         ByteTreeMap< Egg> indexes_ = new ByteTreeMap< Egg>();
         int nbPks_ = team.size();
-        for (byte p=CustList.FIRST_INDEX; p<nbPks_; p++) {
+        for (byte p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof Egg) {
                 indexes_.put(p, (Egg) team.get(p));
             }
@@ -1533,7 +1508,7 @@ public final class Player {
         ByteTreeMap< Integer> map_;
         map_ = new ByteTreeMap< Integer>();
         int nbIndexes_ = _indexes.size();
-        for (byte i = CustList.FIRST_INDEX; i < nbIndexes_; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbIndexes_; i++) {
             map_.put(i, (int)_indexes.get(i));
         }
         TreeMap<Byte,Integer> copy_;

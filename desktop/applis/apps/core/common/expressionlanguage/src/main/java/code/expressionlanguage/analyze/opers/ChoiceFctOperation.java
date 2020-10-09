@@ -15,6 +15,7 @@ import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
 
@@ -42,7 +43,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String trimMeth_;
         boolean import_ = false;
@@ -53,7 +54,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String className_ = callFctContent.getMethodName().substring(0, callFctContent.getMethodName().lastIndexOf(PAR_RIGHT));
         int lenPref_ = callFctContent.getMethodName().indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
-        int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
+        int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
         if (!className_.isEmpty()) {
@@ -77,7 +78,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
@@ -90,7 +91,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String className_ = callFctContent.getMethodName().substring(0, callFctContent.getMethodName().lastIndexOf(PAR_RIGHT));
         int lenPref_ = callFctContent.getMethodName().indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
-        int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
+        int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
             className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
@@ -102,10 +103,10 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String varargParam_ = getVarargParam(chidren_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         lengthMethod = callFctContent.getMethodName().length();
-        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
+        int deltaEnd_ = lengthMethod- StringUtil.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
         delta = callFctContent.getMethodName().lastIndexOf(PAR_RIGHT)+1;
         String mName_ = callFctContent.getMethodName().substring(delta);
-        delta += StringList.getFirstPrintableCharIndex(mName_);
+        delta += StringUtil.getFirstPrintableCharIndex(mName_);
         lengthMethod -= delta;
         lengthMethod -= deltaEnd_;
         trimMeth_ = mName_.trim();

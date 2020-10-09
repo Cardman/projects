@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class Cache {
     private final CustList<NamedLocalVariable> localVariables = new CustList<NamedLocalVariable>();
@@ -107,7 +108,7 @@ public final class Cache {
     public LocalVariable getLocalVar(String _key, long _var) {
         long index_ = 0;
         for (NamedLocalVariable n: localVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _var) {
                     return n.getLocalVariable();
                 }
@@ -118,7 +119,7 @@ public final class Cache {
     }
     public void putLocalValue(String _key, Struct _var) {
         for (NamedLocalVariable n: localVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 n.getLocalVariable().setStruct(_var);
                 break;
             }
@@ -127,7 +128,7 @@ public final class Cache {
     public void putLocalValue(String _key, long _index, Struct _var) {
         long index_ = 0;
         for (NamedLocalVariable n: localVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _index) {
                     n.getLocalVariable().setStruct(_var);
                     break;
@@ -161,7 +162,7 @@ public final class Cache {
     public LoopVariable getLoopVar(String _key, long _var) {
         long index_ = 0;
         for (NamedLoopVariable n: loopVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _var) {
                     return n.getLocalVariable();
                 }
@@ -173,7 +174,7 @@ public final class Cache {
     public void putLoopValue(String _key,long _index, long _var) {
         long index_ = 0;
         for (NamedLoopVariable n: loopVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _index) {
                     n.getLocalVariable().setIndex(_var);
                     break;
@@ -184,7 +185,7 @@ public final class Cache {
     }
     public void putLoopValue(String _key, long _var) {
         for (NamedLoopVariable n: loopVariables) {
-            if (StringList.quickEq(n.getName(),_key)) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
                 n.getLocalVariable().setIndex(_var);
                 break;
             }

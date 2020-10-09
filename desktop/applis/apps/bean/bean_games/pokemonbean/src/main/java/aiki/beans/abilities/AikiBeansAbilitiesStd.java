@@ -21,6 +21,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansAbilitiesStd {
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";
@@ -630,11 +631,11 @@ public final class AikiBeansAbilitiesStd {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTypedAbility()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SORTED_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,SORTED_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getSortedAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -645,371 +646,371 @@ public final class AikiBeansAbilitiesStd {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilityBean instance_ = (AbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,END_ROUND)) {
             res_.setResult(BooleanStruct.of(instance_.getEndRound()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
+        if (StringUtil.quickEq(fieldName_,END_ROUND_RANK)) {
             res_.setResult(new IntStruct(instance_.getEndRoundRank()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REASONS_END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SENDING)) {
+        if (StringUtil.quickEq(fieldName_,SENDING)) {
             res_.setResult(BooleanStruct.of(instance_.getSending()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
+        if (StringUtil.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
             res_.setResult(new StringStruct(AbilityBean.EFFECT_SEND_BEAN));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ACHIEVED_DISAPPEARED_PK)) {
+        if (StringUtil.quickEq(fieldName_,ACHIEVED_DISAPPEARED_PK)) {
             res_.setResult(BooleanStruct.of(instance_.getAchievedDisappearedPk()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BREAK_PROTECTION)) {
+        if (StringUtil.quickEq(fieldName_,BREAK_PROTECTION)) {
             res_.setResult(BooleanStruct.of(instance_.getBreakProtection()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BREAK_PROTECTION_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,BREAK_PROTECTION_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getBreakProtectionMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CANCEL_SEC_EFFECT_OTHER)) {
+        if (StringUtil.quickEq(fieldName_,CANCEL_SEC_EFFECT_OTHER)) {
             res_.setResult(BooleanStruct.of(instance_.getCancelSecEffectOther()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CANCEL_SEC_EFFECT_OWNER)) {
+        if (StringUtil.quickEq(fieldName_,CANCEL_SEC_EFFECT_OWNER)) {
             res_.setResult(BooleanStruct.of(instance_.getCancelSecEffectOwner()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CHGT_TYPE_BY_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,CHGT_TYPE_BY_DAMAGE)) {
             res_.setResult(BooleanStruct.of(instance_.getChgtTypeByDamage()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CHGT_TYPE_BY_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,CHGT_TYPE_BY_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getChgtTypeByWeather(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,COPY_MOVES_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,COPY_MOVES_TYPES)) {
             res_.setResult(BooleanStruct.of(instance_.getCopyMovesTypes()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FORBID_USE_BERRY_AGAINST_FOES)) {
+        if (StringUtil.quickEq(fieldName_,FORBID_USE_BERRY_AGAINST_FOES)) {
             res_.setResult(BooleanStruct.of(instance_.getForbidUseBerryAgainstFoes()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GIVE_ITEM_TO_ALLY_HAVING_USED)) {
+        if (StringUtil.quickEq(fieldName_,GIVE_ITEM_TO_ALLY_HAVING_USED)) {
             res_.setResult(BooleanStruct.of(instance_.getGiveItemToAllyHavingUsed()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEALED_STATUS_BY_SWITCH)) {
+        if (StringUtil.quickEq(fieldName_,HEALED_STATUS_BY_SWITCH)) {
             res_.setResult(BooleanStruct.of(instance_.getHealedStatusBySwitch()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IGN_FOE_STATIS_BOOST)) {
+        if (StringUtil.quickEq(fieldName_,IGN_FOE_STATIS_BOOST)) {
             res_.setResult(BooleanStruct.of(instance_.getIgnFoeStatisBoost()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_CH)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_CH)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuCh()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_DAMAGE_ALLY_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_DAMAGE_ALLY_MOVES)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuDamageAllyMoves()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_DAMAGE_RECOIL)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_DAMAGE_RECOIL)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuDamageRecoil()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_DAMAGE_TRAPPING_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_DAMAGE_TRAPPING_MOVES)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuDamageTrappingMoves()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_RECHARGE_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_RECHARGE_ROUND)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuRechargeRound()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_RECHARGE_ROUND_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_RECHARGE_ROUND_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getImmuRechargeRoundMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
             res_.setResult(BooleanStruct.of(instance_.getImmuSufferedDamageLowEff()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING)) {
+        if (StringUtil.quickEq(fieldName_,INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING)) {
             res_.setResult(BooleanStruct.of(instance_.getInflictingDamageInsteadOfSuffering()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MUMY)) {
+        if (StringUtil.quickEq(fieldName_,MUMY)) {
             res_.setResult(BooleanStruct.of(instance_.getMumy()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_HITS)) {
+        if (StringUtil.quickEq(fieldName_,NB_HITS)) {
             res_.setResult(BooleanStruct.of(instance_.getNbHits()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PLATE)) {
+        if (StringUtil.quickEq(fieldName_,PLATE)) {
             res_.setResult(BooleanStruct.of(instance_.getPlate()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL)) {
+        if (StringUtil.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL)) {
             res_.setResult(BooleanStruct.of(instance_.getReverseEffectsPowerMovesTypesGlobal()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL_ABILITIES)) {
+        if (StringUtil.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL_ABILITIES)) {
             res_.setResult(new DefaultStruct(instance_.getReverseEffectsPowerMovesTypesGlobalAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SLOWING)) {
+        if (StringUtil.quickEq(fieldName_,SLOWING)) {
             res_.setResult(BooleanStruct.of(instance_.getSlowing()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TAKE_ITEM_BY_DAMAGING_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,TAKE_ITEM_BY_DAMAGING_MOVE)) {
             res_.setResult(BooleanStruct.of(instance_.getTakeItemByDamagingMove()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEAL_HP_WHILE_USING_BERRY)) {
+        if (StringUtil.quickEq(fieldName_,HEAL_HP_WHILE_USING_BERRY)) {
             res_.setResult(new DefaultStruct(instance_.getHealHpWhileUsingBerry(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAX_HP_FOR_USING_BERRY)) {
+        if (StringUtil.quickEq(fieldName_,MAX_HP_FOR_USING_BERRY)) {
             res_.setResult(new DefaultStruct(instance_.getMaxHpForUsingBerry(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_ALLY_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MULT_ALLY_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_DAMAGE_CH)) {
+        if (StringUtil.quickEq(fieldName_,MULT_DAMAGE_CH)) {
             res_.setResult(new DefaultStruct(instance_.getMultDamageCh(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_EVT_RATE_CH)) {
+        if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_CH)) {
             res_.setResult(new DefaultStruct(instance_.getMultEvtRateCh(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFFECT_OWNER)) {
+        if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFFECT_OWNER)) {
             res_.setResult(new DefaultStruct(instance_.getMultEvtRateSecEffectOwner(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAB)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAB)) {
             res_.setResult(new DefaultStruct(instance_.getMultStab(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_SUFFERED_DAMAGE_SUPER_EFF)) {
+        if (StringUtil.quickEq(fieldName_,MULT_SUFFERED_DAMAGE_SUPER_EFF)) {
             res_.setResult(new DefaultStruct(instance_.getMultSufferedDamageSuperEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_VAR_BOOST)) {
+        if (StringUtil.quickEq(fieldName_,MULT_VAR_BOOST)) {
             res_.setResult(new DefaultStruct(instance_.getMultVarBoost(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RECOIL_DAMAGE_FOE)) {
+        if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE_FOE)) {
             res_.setResult(new DefaultStruct(instance_.getRecoilDamageFoe(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,RECOIL_DAMAGE_FOE_BY_KO_OWNER)) {
+        if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE_FOE_BY_KO_OWNER)) {
             res_.setResult(new DefaultStruct(instance_.getRecoilDamageFoeByKoOwner(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DECREASE_NEC_STEPS_HATCH)) {
+        if (StringUtil.quickEq(fieldName_,DECREASE_NEC_STEPS_HATCH)) {
             res_.setResult(new IntStruct(instance_.getDecreaseNecStepsHatch()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NB_USED_PP)) {
+        if (StringUtil.quickEq(fieldName_,NB_USED_PP)) {
             res_.setResult(new IntStruct(instance_.getNbUsedPp()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_MOVE)) {
             res_.setResult(new DefaultStruct(instance_.getImmuMove(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_ALLY_FROM_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_ALLY_FROM_MOVES)) {
             res_.setResult(new DefaultStruct(instance_.getImmuAllyFromMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getImmuWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IGN_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,IGN_ABILITY)) {
             res_.setResult(new DefaultStruct(instance_.getIgnAbility(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IGN_FOE_TEAM_MOVE)) {
+        if (StringUtil.quickEq(fieldName_,IGN_FOE_TEAM_MOVE)) {
             res_.setResult(new DefaultStruct(instance_.getIgnFoeTeamMove(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_ABILITY)) {
             res_.setResult(new DefaultStruct(instance_.getImmuAbility(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_STATUS_BEGIN_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_STATUS_BEGIN_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getImmuStatusBeginRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TYPE_FOR_MOVES)) {
+        if (StringUtil.quickEq(fieldName_,TYPE_FOR_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTypeForMoves()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,CHANGING_BOOST_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,CHANGING_BOOST_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getChangingBoostTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_POWER)) {
+        if (StringUtil.quickEq(fieldName_,MULT_POWER)) {
             res_.setResult(new StringStruct(instance_.getMultPower()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_DAMAGE)) {
+        if (StringUtil.quickEq(fieldName_,MULT_DAMAGE)) {
             res_.setResult(new StringStruct(instance_.getMultDamage()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEAL_HP_BY_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getHealHpByWeather(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEAL_HP_BY_TYPE_IF_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_TYPE_IF_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getHealHpByTypeIfWeather(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_LOW_STAT)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_LOW_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getImmuLowStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_LOW_STAT_IF_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_LOW_STAT_IF_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getImmuLowStatIfStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_LOW_STATIS_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_LOW_STATIS_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getImmuLowStatisTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAX_STATISTICS_IF_CH)) {
+        if (StringUtil.quickEq(fieldName_,MAX_STATISTICS_IF_CH)) {
             res_.setResult(new DefaultStruct(instance_.getMaxStatisticsIfCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SINGLE_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,SINGLE_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getSingleStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_MOVE_TYPES_BY_WEATHER)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_MOVE_TYPES_BY_WEATHER)) {
             res_.setResult(new DefaultStruct(instance_.getImmuMoveTypesByWeather(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getImmuStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,IMMU_STATUS_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,IMMU_STATUS_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getImmuStatusTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DIVIDE_STATUS_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,DIVIDE_STATUS_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getDivideStatusRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FORWARD_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,FORWARD_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getForwardStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BREAK_FOE_IMMUNE)) {
+        if (StringUtil.quickEq(fieldName_,BREAK_FOE_IMMUNE)) {
             res_.setResult(new DefaultStruct(instance_.getBreakFoeImmune(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DEF_EFF)) {
+        if (StringUtil.quickEq(fieldName_,DEF_EFF)) {
             res_.setResult(new DefaultStruct(instance_.getDefEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getMultStat(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_DAMAGE_CAT)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_DAMAGE_CAT)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfDamageCat(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_DAMGE_TYPE)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_DAMGE_TYPE)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfDamgeType(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_CAT)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_CAT)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfCat(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_STATUT_RANK)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_STATUT_RANK)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfStatutRank(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BONUS_STAT_RANK)) {
+        if (StringUtil.quickEq(fieldName_,BONUS_STAT_RANK)) {
             res_.setResult(new DefaultStruct(instance_.getBonusStatRank(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BOOST_STAT_RANK_END_ROUND)) {
+        if (StringUtil.quickEq(fieldName_,BOOST_STAT_RANK_END_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getBoostStatRankEndRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BOOST_STAT_RANK_PROTECTED)) {
+        if (StringUtil.quickEq(fieldName_,BOOST_STAT_RANK_PROTECTED)) {
             res_.setResult(new DefaultStruct(instance_.getBoostStatRankProtected(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LOW_STAT_FOE_HIT)) {
+        if (StringUtil.quickEq(fieldName_,LOW_STAT_FOE_HIT)) {
             res_.setResult(new DefaultStruct(instance_.getLowStatFoeHit(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_KO_FOE)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_KO_FOE)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfKoFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_IF_LOW_STAT)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_LOW_STAT)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatIfLowStat(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_STAT_ALLY)) {
+        if (StringUtil.quickEq(fieldName_,MULT_STAT_ALLY)) {
             res_.setResult(new DefaultStruct(instance_.getMultStatAlly(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,INCREASED_PRIO)) {
+        if (StringUtil.quickEq(fieldName_,INCREASED_PRIO)) {
             res_.setResult(new DefaultStruct(instance_.getIncreasedPrio(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,INCREASED_PRIO_TYPES)) {
+        if (StringUtil.quickEq(fieldName_,INCREASED_PRIO_TYPES)) {
             res_.setResult(new DefaultStruct(instance_.getIncreasedPrioTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_DAMAGE_FOE)) {
+        if (StringUtil.quickEq(fieldName_,MULT_DAMAGE_FOE)) {
             res_.setResult(new DefaultStruct(instance_.getMultDamageFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULT_POWER_MOVES_TYPES_GLOBAL)) {
+        if (StringUtil.quickEq(fieldName_,MULT_POWER_MOVES_TYPES_GLOBAL)) {
             res_.setResult(new DefaultStruct(instance_.getMultPowerMovesTypesGlobal(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,FAIL_STATUS)) {
+        if (StringUtil.quickEq(fieldName_,FAIL_STATUS)) {
             res_.setResult(new DefaultStruct(instance_.getFailStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MAP_VARS)) {
+        if (StringUtil.quickEq(fieldName_,MAP_VARS)) {
             res_.setResult(new DefaultStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,HEALED_HP_RATE_BY_SWITCH)) {
+        if (StringUtil.quickEq(fieldName_,HEALED_HP_RATE_BY_SWITCH)) {
             res_.setResult(new DefaultStruct(instance_.getHealedHpRateBySwitch(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,POKEMON)) {
+        if (StringUtil.quickEq(fieldName_,POKEMON)) {
             res_.setResult(new DefaultStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -1019,7 +1020,7 @@ public final class AikiBeansAbilitiesStd {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
+        if (StringUtil.quickEq(fieldName_,TYPED_ABILITY)) {
             instance_.setTypedAbility((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -1030,15 +1031,15 @@ public final class AikiBeansAbilitiesStd {
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,SEARCH)) {
+        if (StringUtil.quickEq(methodName_,SEARCH)) {
             res_.setResult(new StringStruct(instance_.search()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTrAbility((Long)_args[0])));
             return res_;
         }
@@ -1048,371 +1049,371 @@ public final class AikiBeansAbilitiesStd {
         AbilityBean instance_ = (AbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_INDEX)) {
+        if (StringUtil.quickEq(methodName_,CLICK_INDEX)) {
             res_.setResult(new StringStruct(instance_.clickIndex()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EFFECT_SENDING)) {
+        if (StringUtil.quickEq(methodName_,GET_EFFECT_SENDING)) {
             res_.setResult(DefaultStruct.newInstance(instance_.getEffectSending(),PokemonStandards.TYPE_EFFECT_WHILE_SENDING));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_BREAK_PROTECTION_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_BREAK_PROTECTION_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickBreakProtectionMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BREAK_PROTECTION_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BREAK_PROTECTION_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrBreakProtectionMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_CHGT_TYPE_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,IS_CHGT_TYPE_BY_WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_CHGT_TYPE_BY_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_CHGT_TYPE_BY_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.clickChgtTypeByWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherValue((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_RECHARGE_ROUND_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_RECHARGE_ROUND_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickImmuRechargeRoundMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_RECHARGE_ROUND_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_RECHARGE_ROUND_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrImmuRechargeRoundMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_REVERSE_POWER_TYPES_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_REVERSE_POWER_TYPES_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.clickReversePowerTypesAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_REVERSE_POWER_TYPES_ABILITIES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_REVERSE_POWER_TYPES_ABILITIES)) {
             res_.setResult(new StringStruct(instance_.getTrReversePowerTypesAbilities((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,DECREASE_NEC_STEPS_HATCH_INT)) {
+        if (StringUtil.quickEq(methodName_,DECREASE_NEC_STEPS_HATCH_INT)) {
             res_.setResult(BooleanStruct.of(instance_.decreaseNecStepsHatchInt()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,NB_USED_PP_INT)) {
+        if (StringUtil.quickEq(methodName_,NB_USED_PP_INT)) {
             res_.setResult(BooleanStruct.of(instance_.nbUsedPpInt()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickImmuMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE)) {
             res_.setResult(new StringStruct(instance_.getTrImmuMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_ALLY_FROM_MOVES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_ALLY_FROM_MOVES)) {
             res_.setResult(new StringStruct(instance_.clickImmuAllyFromMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_ALLY_FROM_MOVES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ALLY_FROM_MOVES)) {
             res_.setResult(new StringStruct(instance_.getTrImmuAllyFromMoves((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_WEATHER)) {
             res_.setResult(new StringStruct(instance_.clickWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_WEATHER)) {
             res_.setResult(new StringStruct(instance_.getTrWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IGN_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IGN_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickIgnAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IGN_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IGN_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTrIgnAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IGN_FOE_TEAM_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IGN_FOE_TEAM_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickIgnFoeTeamMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IGN_FOE_TEAM_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IGN_FOE_TEAM_MOVE)) {
             res_.setResult(new StringStruct(instance_.getTrIgnFoeTeamMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickImmuAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTrImmuAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS_BEGIN_ROUND)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_BEGIN_ROUND)) {
             res_.setResult(new StringStruct(instance_.clickImmuStatusBeginRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS_BEGIN_ROUND)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_BEGIN_ROUND)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatusBeginRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_OLD)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_OLD)) {
             res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesOld((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_NEW)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_NEW)) {
             res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesNew((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_HEAL_HP_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_HEAL_HP_BY_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.clickHealHpByWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_HEAL_HP_BY_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrHealHpByWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_HEAL_HP_BY_TYPE_IF_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_TYPE_IF_WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.clickHealHpByTypeIfWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC)) {
             res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKeySec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_LOW_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrImmuLowStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_LOW_STAT_IF_STATUS_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_LOW_STAT_IF_STATUS_KEY)) {
             res_.setResult(new StringStruct(instance_.clickImmuLowStatIfStatusKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusValue((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrImmuLowStatisTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrImmuLowStatisValue((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MAX_STATISTICS_IF_CH)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MAX_STATISTICS_IF_CH)) {
             res_.setResult(new StringStruct(instance_.getTrMaxStatisticsIfCh((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_STATUS)) {
+        if (StringUtil.quickEq(methodName_,IS_STATUS)) {
             res_.setResult(BooleanStruct.of(instance_.isStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_SINGLE_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickSingleStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_SINGLE_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrSingleStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_MOVE_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,IS_MOVE_BY_WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.isMoveByWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_MOVE_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE_BY_WEATHER)) {
             res_.setResult(new StringStruct(instance_.clickImmuMoveByWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_MOVE_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE_BY_WEATHER)) {
             res_.setResult(new StringStruct(instance_.getTrImmuMoveByWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_TYPE_BY_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_TYPE_BY_WEATHER)) {
             res_.setResult(new StringStruct(instance_.getTrImmuTypeByWeather((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_MOVE_BY_STATUS)) {
+        if (StringUtil.quickEq(methodName_,IS_MOVE_BY_STATUS)) {
             res_.setResult(BooleanStruct.of(instance_.isMoveByStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_WEATHER)) {
             res_.setResult(new StringStruct(instance_.clickImmuStatusWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS_WEATHER)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_WEATHER)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatusWeather((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickImmuStatus((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatus((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatusTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS_TYPES)) {
+        if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_TYPES)) {
             res_.setResult(new StringStruct(instance_.clickImmuStatusTypes((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_IMMU_STATUS_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrImmuStatusValue((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DIVIDE_STATUS_ROUND_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DIVIDE_STATUS_ROUND_KEY)) {
             res_.setResult(new StringStruct(instance_.clickDivideStatusRoundKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_DIVIDE_STATUS_ROUND_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_DIVIDE_STATUS_ROUND_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrDivideStatusRoundKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_FORWARD_STATUS_KEY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_KEY)) {
             res_.setResult(new StringStruct(instance_.clickForwardStatusKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_FORWARD_STATUS_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrForwardStatusKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_FORWARD_STATUS_VALUE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_VALUE)) {
             res_.setResult(new StringStruct(instance_.clickForwardStatusValue((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_FORWARD_STATUS_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrForwardStatusValue((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_VALUE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_VALUE)) {
             res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneValue((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrMultStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKeySec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeType((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY_SEC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY_SEC)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKeySec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRank((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MULT_STAT_IF_STATUT_RANK_SEC)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MULT_STAT_IF_STATUT_RANK_SEC)) {
             res_.setResult(new StringStruct(instance_.clickMultStatIfStatutRankSec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK_SEC)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK_SEC)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRankSec((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BONUS_STAT_RANK)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BONUS_STAT_RANK)) {
             res_.setResult(new StringStruct(instance_.getTrBonusStatRank((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_END_ROUND)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_END_ROUND)) {
             res_.setResult(new StringStruct(instance_.getTrBoostStatRankEndRound((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_PROTECTED)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_PROTECTED)) {
             res_.setResult(new StringStruct(instance_.getTrBoostStatRankProtected((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_LOW_STAT_FOE_HIT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_LOW_STAT_FOE_HIT)) {
             res_.setResult(new StringStruct(instance_.getTrLowStatFoeHit((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_KO_FOE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_KO_FOE)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfKoFoe((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_IF_LOW_STAT)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_LOW_STAT)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatIfLowStat((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_ALLY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_ALLY)) {
             res_.setResult(new StringStruct(instance_.getTrMultStatAlly((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_INCREASED_PRIO)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO)) {
             res_.setResult(new StringStruct(instance_.getTrIncreasedPrio((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_INCREASED_PRIO_TYPES)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO_TYPES)) {
             res_.setResult(new StringStruct(instance_.getTrIncreasedPrioTypes((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_DAMAGE_FOE)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_DAMAGE_FOE)) {
             res_.setResult(new StringStruct(instance_.getTrMultDamageFoe((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY)) {
             res_.setResult(new StringStruct(instance_.getTrMultPowerMovesTypesGlobalKey((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_FAIL_STATUS)) {
+        if (StringUtil.quickEq(methodName_,CLICK_FAIL_STATUS)) {
             res_.setResult(new StringStruct(instance_.clickFailStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_FAIL_STATUS)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_FAIL_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTrFailStatus((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
             res_.setResult(new StringStruct(instance_.clickPokemon((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TR_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
             res_.setResult(new StringStruct(instance_.getTrPokemon((Long)_args[0])));
             return res_;
         }

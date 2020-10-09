@@ -5,8 +5,9 @@ import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.Longs;
+import code.util.core.IndexConstants;
+
 /**
     */
 
@@ -35,11 +36,11 @@ public class Graphic extends PaintableLabel {
         double esperance_;
         int nbDealsMinusOne_ = scores.size();
         nbDealsMinusOne_--;
-        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             _g.setColor(couleurs.get(joueur_));
             esperance_=(double)sommes.first()/(double)nombreJoueurs_;
             _g.drawLine(0,0,rapport_,(int)(esperance_-scores.first().get(joueur_)));
-            for(int partie_=CustList.FIRST_INDEX;partie_<nbDealsMinusOne_;partie_++) {
+            for(int partie_ = IndexConstants.FIRST_INDEX; partie_<nbDealsMinusOne_; partie_++) {
                 esperance_=(double)sommes.get(partie_)/(double)nombreJoueurs_;
                 double esperance2_=(double)sommes.get(partie_+1)/(double)nombreJoueurs_;
                 _g.drawLine(rapport_*(partie_+1),(int)(esperance_-scores.get(partie_).get(joueur_)),rapport_*(partie_+2),(int)(esperance2_-scores.get(partie_+1).get(joueur_)));
@@ -50,7 +51,7 @@ public class Graphic extends PaintableLabel {
         Rate espMoinsTroisSigmas_=sigmas.first().opposNb();
         _g.drawLine(0,0,rapport_,(int)-espPlusTroisSigmas_.ll());
         _g.drawLine(0,0,rapport_,(int)-espMoinsTroisSigmas_.ll());
-        for(int partie_=CustList.FIRST_INDEX;partie_<nbDealsMinusOne_;partie_++) {
+        for(int partie_ = IndexConstants.FIRST_INDEX; partie_<nbDealsMinusOne_; partie_++) {
             espPlusTroisSigmas_=sigmas.get(partie_);
             Rate espPlusTroisSigmas2_=sigmas.get(partie_+1);
             espMoinsTroisSigmas_=sigmas.get(partie_).opposNb();
@@ -69,10 +70,10 @@ public class Graphic extends PaintableLabel {
             for(int ordonnee_=1;ordonnee_<nombre_;ordonnee_++) {
                 _g2.drawString(Integer.toString(ordonnee_*rapport2_),0,-ordonnee_*rapport2_);
                 _g2.drawString(Integer.toString(-ordonnee_*rapport2_),0,ordonnee_*rapport2_);
-                for (int abscisse_ = CustList.FIRST_INDEX;abscisse_<nombre2_;abscisse_++) {
+                for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
                     _g2.drawLine(2*abscisse_*rapport2_,ordonnee_*rapport2_,(2*abscisse_+1)*rapport2_,ordonnee_*rapport2_);
                 }
-                for (int abscisse_ = CustList.FIRST_INDEX;abscisse_<nombre2_;abscisse_++) {
+                for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
                     _g2.drawLine(2*abscisse_*rapport2_,-ordonnee_*rapport2_,(2*abscisse_+1)*rapport2_,-ordonnee_*rapport2_);
                 }
             }
@@ -80,7 +81,7 @@ public class Graphic extends PaintableLabel {
             int rapport_=getWidth()/scores.size();
             int nombre_=getHeight()/2;
             int nombre2_=scores.size();
-            for (int abscisse_ = CustList.FIRST_INDEX;abscisse_<nombre2_;abscisse_++) {
+            for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
                 _g2.drawString(Integer.toString(abscisse_+1),(abscisse_+1)*rapport_,0);
                 for(int ordonnee_=1;ordonnee_<nombre_;ordonnee_++) {
                     _g2.drawLine((abscisse_+1)*rapport_,2*ordonnee_*rapport2_,(abscisse_+1)*rapport_,(2*ordonnee_+1)*rapport2_);

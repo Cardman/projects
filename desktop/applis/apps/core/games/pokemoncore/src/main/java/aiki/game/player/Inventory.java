@@ -2,6 +2,8 @@ package aiki.game.player;
 import aiki.db.DataBase;
 import code.maths.LgInt;
 import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 
 public final class Inventory {
@@ -41,16 +43,13 @@ public final class Inventory {
         }
         CustList<String> obj_ = items.getKeys();
         CustList<String> objData_ = _data.getItems().getKeys();
-        if (!StringList.equalsSet(obj_, objData_)) {
+        if (!StringUtil.equalsSet(obj_, objData_)) {
             return false;
         }
-        if (!Numbers.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
+        if (!NumberUtil.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
             return false;
         }
-        if (!Numbers.equalsSetShorts(hm.getKeys(), _data.getHm().getKeys())) {
-            return false;
-        }
-        return true;
+        return NumberUtil.equalsSetShorts(hm.getKeys(), _data.getHm().getKeys());
     }
     public void getTm(short _t) {
         tm.put(_t, true);

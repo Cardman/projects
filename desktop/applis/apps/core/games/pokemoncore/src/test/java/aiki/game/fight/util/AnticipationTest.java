@@ -2,7 +2,7 @@ package aiki.game.fight.util;
 
 import aiki.game.fight.Anticipation;
 import aiki.game.fight.Fighter;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -20,7 +20,7 @@ public class AnticipationTest {
     }
     @Test
     public void new_Anticipation_3_test() {
-        Anticipation a_ = Anticipation.newAnticipation(StringList.concatNbs(",", Fighter.BACK));
+        Anticipation a_ = Anticipation.newAnticipation(StringUtil.concatNbs(",", Fighter.BACK));
         assertNotNull(a_.getTargetPosition());
     }
     @Test

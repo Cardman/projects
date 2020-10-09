@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.StringList;
-
+import code.util.core.StringUtil;
 
 
 public final class AddOperation extends NumericOperation {
@@ -26,7 +26,7 @@ public final class AddOperation extends NumericOperation {
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _page.getAliasString();
-        if (StringList.quickEq(_op.trim(), PLUS)) {
+        if (StringUtil.quickEq(_op.trim(), PLUS)) {
             if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
                 AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
                 _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
@@ -63,9 +63,9 @@ public final class AddOperation extends NumericOperation {
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringList.join(new StringList(
-                            StringList.join(_a.getNames(),"&"),
-                            StringList.join(_b.getNames(),"&")
+                    StringUtil.join(new StringList(
+                            StringUtil.join(_a.getNames(),"&"),
+                            StringUtil.join(_b.getNames(),"&")
                     ),";"),
                     getOp());
             _page.getLocalizer().addError(un_);
@@ -99,9 +99,9 @@ public final class AddOperation extends NumericOperation {
         un_.setFileName(_page.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                StringList.join(new StringList(
-                        StringList.join(_a.getNames(),"&"),
-                        StringList.join(_b.getNames(),"&")
+                StringUtil.join(new StringList(
+                        StringUtil.join(_a.getNames(),"&"),
+                        StringUtil.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
         _page.getLocalizer().addError(un_);

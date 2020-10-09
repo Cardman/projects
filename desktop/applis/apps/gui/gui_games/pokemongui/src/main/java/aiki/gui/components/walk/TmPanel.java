@@ -2,16 +2,15 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class TmPanel {
 
@@ -51,11 +50,11 @@ public class TmPanel {
             liste.add(i);
             items.add(i);
         }
-        amount.setText(StringList.concat(facade.amountTm().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));
+        amount.setText(StringUtil.concat(facade.amountTm().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));
     }
 
     public boolean isSelected() {
-        return liste.getSelectedIndex() != CustList.INDEX_NOT_FOUND_ELT;
+        return liste.getSelectedIndex() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public String getSelectedItem() {

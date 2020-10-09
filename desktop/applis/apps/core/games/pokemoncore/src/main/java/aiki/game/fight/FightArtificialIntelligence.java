@@ -19,11 +19,12 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 final class FightArtificialIntelligence {
 
@@ -53,7 +54,7 @@ final class FightArtificialIntelligence {
             }
             EqList<TargetCoords> list_ = new EqList<TargetCoords>();
             int mult_ = _fight.getMult();
-            for (short f = CustList.FIRST_INDEX; f < mult_; f++) {
+            for (short f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
                 if (_fight.getFoeTeam().fightersAtCurrentPlace(f).isEmpty()) {
                     continue;
                 }
@@ -174,7 +175,7 @@ final class FightArtificialIntelligence {
         StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
         ObjectMap<TargetCoords,Rate> remoteHpLoc_ = new ObjectMap<TargetCoords,Rate>();
         int mult_ = _fight.getMult();
-        for(byte f = CustList.FIRST_INDEX; f < mult_; f++){
+        for(byte f = IndexConstants.FIRST_INDEX; f < mult_; f++){
             Bytes fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
             if (fighters_.isEmpty()) {
                 continue;
@@ -294,7 +295,7 @@ final class FightArtificialIntelligence {
         int index_ = damageMove_.indexOfPrimaryEffect();
         StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
         int mult_ = _fight.getMult();
-        for (byte f = CustList.FIRST_INDEX; f < mult_; f++) {
+        for (byte f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
             if (_fight.getUserTeam().fightersAtCurrentPlace(f).isEmpty()) {
                 continue;
             }
@@ -346,7 +347,7 @@ final class FightArtificialIntelligence {
         Rate remoteHpFoe_ = foe_.getRemainingHp();
         int nbEffets_=damageMove_.nbEffets();
         StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
-        for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=damageMove_.getEffet(i);
             if(!(effet_ instanceof EffectDamage)){
                 continue;
@@ -387,7 +388,7 @@ final class FightArtificialIntelligence {
             return;
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
-            if(Numbers.eq(c.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(c.getTeam(),Fight.PLAYER)){
                 continue;
             }
             StringList attaquesUtilisables_=FightRules.allowedMoves(_fight,c,_import);
@@ -420,7 +421,7 @@ final class FightArtificialIntelligence {
                 statistiques_.put(UsefulValueLaw.MOY,Rate.zero());
                 statistiques_.put(UsefulValueLaw.VAR,Rate.zero());
                 int mult_ = _fight.getMult();
-                for (byte f = CustList.FIRST_INDEX; f < mult_; f++) {
+                for (byte f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
                     if (_fight.getUserTeam().fightersAtCurrentPlace(f).isEmpty()) {
                         continue;
                     }
@@ -507,7 +508,7 @@ final class FightArtificialIntelligence {
         MoveData fAtt_=_import.getMove(_move);
         boolean relais_ = _import.isBatonPassMove(_move);
         int nbEffets_=fAtt_.nbEffets();
-        for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAtt_.getEffet(i);
             if(!(effet_ instanceof EffectStatus)){
                 continue;
@@ -588,7 +589,7 @@ final class FightArtificialIntelligence {
         MoveData fAtt_=_import.getMove(_move);
         boolean relais_=_import.isBatonPassMove(_move);
         int nbEffets_=fAtt_.nbEffets();
-        for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAtt_.getEffet(i);
             if(!(effet_ instanceof EffectStatus)){
                 continue;
@@ -631,7 +632,7 @@ final class FightArtificialIntelligence {
         Bytes pksKo_=new Bytes();
         for(byte c:foeTeam_.getMembers().getKeys()){
             Fighter membre_=foeTeam_.getMembers().getVal(c);
-            if(membre_.estKo()&&!Numbers.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
+            if(membre_.estKo()&&!NumberUtil.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
                 pksKo_.add(c);
             }
             if(!membre_.estKo()&&membre_.estArriere()){
@@ -639,7 +640,7 @@ final class FightArtificialIntelligence {
             }
         }
         int nbPksKo_=pksKo_.size();
-        for(int i = CustList.FIRST_INDEX; i < nbPksKo_; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i < nbPksKo_; i++){
             Fighter membre_=foeTeam_.refPartMembres(pksKo_.get(i));
             //membre_.getGroundPlaceSubst() < _fight.getMult()
             //|| membre_.getGroundPlaceSubst() == Fighter.BACK
@@ -655,7 +656,7 @@ final class FightArtificialIntelligence {
         }
         Bytes free_ = new Bytes();
         int mult_ = _fight.getMult();
-        for (byte i=CustList.FIRST_INDEX;i<mult_;i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i<mult_; i++) {
             free_.add(i);
         }
         Bytes values_ = new Bytes(_fight.getFirstPositFoeFighters().values());
@@ -667,7 +668,7 @@ final class FightArtificialIntelligence {
         for(int i = nbSubst_; i < nbPksKo_; i++){
             _fight.getFirstPositFoeFighters().put(pksKo_.get(i), Fighter.BACK);
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for(int i = nbPksKo_; i < nbSubst_; i++){
             if (free_.isValidIndex(i_)) {
                 //Fighter partner_ = foeTeam_.getMembers().getVal(remplacantsPotentiels_.get(i));
@@ -679,10 +680,10 @@ final class FightArtificialIntelligence {
         }
         afterSubstitute_.putAllMap(_fight.getFirstPositFoeFighters());
         for (byte b: afterSubstitute_.getKeys()) {
-            if (Numbers.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
+            if (NumberUtil.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
                 continue;
             }
-            if (!Numbers.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
+            if (!NumberUtil.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
                 continue;
             }
             Fighter partner_ = foeTeam_.getMembers().getVal(b);
@@ -699,7 +700,7 @@ final class FightArtificialIntelligence {
             Bytes frontPk_ = new Bytes();
             for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,false)){
                 Fighter membre_=userTeam_.getMembers().getVal(c.getPosition());
-                if(membre_.estKo()&&!Numbers.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
+                if(membre_.estKo()&&!NumberUtil.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
                     pksKo_.add(c.getPosition());
                 }
                 if(!membre_.estKo()&&membre_.estArriere()){
@@ -710,7 +711,7 @@ final class FightArtificialIntelligence {
                 }
             }
             nbPksKo_=pksKo_.size();
-            for(int i = CustList.FIRST_INDEX; i < nbPksKo_; i++){
+            for(int i = IndexConstants.FIRST_INDEX; i < nbPksKo_; i++){
                 _fight.getFirstPositPlayerFighters().put(pksKo_.get(i), Fighter.BACK);
             }
             if (frontPk_.isEmpty()) {
@@ -720,7 +721,7 @@ final class FightArtificialIntelligence {
                     //String name_ = _import.translatePokemon(partner_.getName());
                     //_fight.addMessage(Fight.SEND_SUBSTITUTE, name_);
                     boolean done_ = false;
-                    for (byte i=CustList.FIRST_INDEX;i<mult_;i++) {
+                    for (byte i = IndexConstants.FIRST_INDEX; i<mult_; i++) {
 //                        if (done_) {
 //                            break;
 //                        }
@@ -752,7 +753,7 @@ final class FightArtificialIntelligence {
                         }
                     }
                     if (!done_) {
-                        byte iTer_ = CustList.FIRST_INDEX;
+                        byte iTer_ = IndexConstants.FIRST_INDEX;
 //                        while (Map.<Byte,Byte>hasNumber(_fight.getFirstPositPlayerFighters(), iTer_)) {
 //                            iTer_++;
 //                        }
@@ -765,10 +766,10 @@ final class FightArtificialIntelligence {
             }
             afterSubstitute_.putAllMap(_fight.getFirstPositPlayerFighters());
             for (byte b: afterSubstitute_.getKeys()) {
-                if (Numbers.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
+                if (NumberUtil.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
                     continue;
                 }
-                if (!Numbers.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
+                if (!NumberUtil.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
                     continue;
                 }
                 Fighter partner_ = userTeam_.getMembers().getVal(b);

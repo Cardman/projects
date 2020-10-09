@@ -1,6 +1,6 @@
 package code.util.comparators;
 
-import code.util.CustList;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 import static code.util.EquallableExUtil.assertEq;
@@ -41,18 +41,18 @@ public final class ComparatorBooleanTest {
     }
     @Test
     public void cmp1Test() {
-        assertEq(CustList.SWAP_SORT,ComparatorBoolean.cmp(true,false));
+        assertEq(SortConstants.SWAP_SORT,ComparatorBoolean.cmp(true,false));
     }
     @Test
     public void cmp2Test() {
-        assertEq(CustList.NO_SWAP_SORT,ComparatorBoolean.cmp(false,true));
+        assertEq(SortConstants.NO_SWAP_SORT,ComparatorBoolean.cmp(false,true));
     }
     @Test
     public void cmp3Test() {
-        assertEq(CustList.EQ_CMP,ComparatorBoolean.cmp(true,true));
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(true,true));
     }
     @Test
     public void cmp4Test() {
-        assertEq(CustList.EQ_CMP,ComparatorBoolean.cmp(false,false));
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(false,false));
     }
 }

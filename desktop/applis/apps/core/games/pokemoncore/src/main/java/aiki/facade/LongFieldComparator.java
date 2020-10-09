@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.NumberUtil;
 
 
 public final class LongFieldComparator {
@@ -12,10 +12,10 @@ public final class LongFieldComparator {
 
     public int compare(long _o1, long _o2) {
         if (increasing == SelectedBoolean.YES) {
-            return Numbers.compareLg(_o1, _o2);
+            return NumberUtil.compareLg(_o1, _o2);
         }
         if (increasing == SelectedBoolean.NO) {
-            return Numbers.compareLg(_o2, _o1);
+            return NumberUtil.compareLg(_o2, _o1);
         }
         return 0;
     }

@@ -1,8 +1,8 @@
 package code.sml;
 
-import code.util.CustList;
 import code.util.NatStringTreeMap;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class FullElement extends FullNode implements Element {
 
@@ -37,7 +37,7 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public String getAttribute(String _name) {
         for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _name)) {
+            if (StringUtil.quickEq(a.getName(), _name)) {
                 return a.getValue();
             }
         }
@@ -47,7 +47,7 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public boolean hasAttribute(String _name) {
         for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _name)) {
+            if (StringUtil.quickEq(a.getName(), _name)) {
                 return true;
             }
         }
@@ -56,11 +56,11 @@ public final class FullElement extends FullNode implements Element {
 
     @Override
     public void removeAttribute(String _name) {
-        int index_ = CustList.INDEX_NOT_FOUND_ELT;
+        int index_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         boolean found_ = false;
         for (Attr a: attributes) {
             index_++;
-            if (StringList.quickEq(a.getName(), _name)) {
+            if (StringUtil.quickEq(a.getName(), _name)) {
                 found_ = true;
                 break;
             }
@@ -74,7 +74,7 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public void setAttribute(String _name, String _value) {
         for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _name)) {
+            if (StringUtil.quickEq(a.getName(), _name)) {
                 a.setValue(_value);
                 return;
             }
@@ -535,7 +535,7 @@ public final class FullElement extends FullNode implements Element {
     }
 
     private static void addIfMatch(String _tagName, ElementList _elements, Element _elt) {
-        if (StringList.quickEq(_elt.getTagName(), _tagName)) {
+        if (StringUtil.quickEq(_elt.getTagName(), _tagName)) {
             _elements.add(_elt);
         }
     }

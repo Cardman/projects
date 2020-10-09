@@ -10,6 +10,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
@@ -209,7 +210,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
             return false;
         }
         MethodMetaInfo info_ = (MethodMetaInfo) _other;
-        if (!StringList.quickEq(className, info_.className)) {
+        if (!StringUtil.quickEq(className, info_.className)) {
             return false;
         }
         return realId.eq(info_.realId);
@@ -217,7 +218,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringList.concat(className,".", getSignature(_an)));
+        return new StringStruct(StringUtil.concat(className,".", getSignature(_an)));
     }
 
     public String getSignature(ContextEl _an) {

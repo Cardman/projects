@@ -8,8 +8,8 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class GameBeloteProgTrick {
     private GameBeloteTeamsRelation teamsRelation;
@@ -225,7 +225,7 @@ public final class GameBeloteProgTrick {
         }
         if (maitreJeu_) {
             maxTwo_ = 0;
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (joueur_ != next_) {
                     maxTwo_ = (byte) Math.max(GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).total(), maxTwo_);
                 }
@@ -753,7 +753,7 @@ public final class GameBeloteProgTrick {
     }
 
     private static CardBelote jeuFigureHauteDePlusFaibleSuite(CustList<HandBelote> _suites, BidBeloteSuit _contrat) {
-        if(_suites.size()==CustList.ONE_ELEMENT) {
+        if(_suites.size()== IndexConstants.ONE_ELEMENT) {
             return _suites.first().premiereCarte();
         }
         return cartePlusPetitePoints(_suites,_contrat);

@@ -2,7 +2,7 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.Point;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 
 public final class Block {
@@ -11,7 +11,7 @@ public final class Block {
 
     private short height;
 
-    private short indexApparition = CustList.INDEX_NOT_FOUND_ELT;
+    private short indexApparition = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private String tileFileName;
 
@@ -32,7 +32,7 @@ public final class Block {
             return false;
         }
         if (type == EnvironmentType.NOTHING) {
-            return indexApparition == CustList.INDEX_NOT_FOUND_ELT;
+            return indexApparition == IndexConstants.INDEX_NOT_FOUND_ELT;
         }
         return true;
     }
@@ -46,10 +46,7 @@ public final class Block {
         if (image_[0].length != width * scale_) {
             return false;
         }
-        if (image_.length != height * scale_) {
-            return false;
-        }
-        return true;
+        return image_.length == height * scale_;
     }
 
     public BlockBounds bounds(Point _leftTop) {

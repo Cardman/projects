@@ -8,12 +8,13 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.*;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class AnaRendBlock implements AnalyzedBlock {
     public static final String COMMA = ",";
@@ -145,7 +146,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         int beginHeader_ = _begin + tagName_.length();
         StringMap<AttributePart> attr_;
         attr_ = getAttributes(_docText, beginHeader_, endHeader_);
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
             if (elt_.hasAttribute(_rendKeyWords.getAttrList())) {
                 return new AnaRendForEachLoop(
                         newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
@@ -190,39 +191,39 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                     ,newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin), _primTypes);
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordWhile()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordWhile()))) {
             MutableNode previousSibling_ = elt_.getPreviousSibling();
             if (previousSibling_ instanceof Text && previousSibling_.getTextContent().trim().isEmpty()) {
                 previousSibling_ = previousSibling_.getPreviousSibling();
             }
             if (previousSibling_ instanceof Element
-                    && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix, _rendKeyWords.getKeyWordDo()))) {
+                    && StringUtil.quickEq(((Element) previousSibling_).getTagName(), StringUtil.concat(_prefix, _rendKeyWords.getKeyWordDo()))) {
                 return new AnaRendDoWhileCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrCondition(), attr_),
                         new OffsetsBlock(_begin,_begin));
             }
             return new AnaRendWhileCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrCondition(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordDo()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordDo()))) {
             return new AnaRendDoBlock(newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordReturn()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordReturn()))) {
             return new AnaRendReturnMehod(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordBreak()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordBreak()))) {
             return new AnaRendBreakBlock(newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordContinue()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordContinue()))) {
             return new AnaRendContinueBlock(newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordThrow()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordThrow()))) {
             return new AnaRendThrowing(newOffsetStringInfo(elt_, _rendKeyWords.getAttrValue(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordSet()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSet()))) {
             if (elt_.hasAttribute(_rendKeyWords.getAttrClassName())) {
                 _curParent.appendChild(new AnaRendDeclareVariable(newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                         new OffsetsBlock(_begin,_begin)));
@@ -230,22 +231,22 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
             return new AnaRendLine(newOffsetStringInfo(elt_, _rendKeyWords.getAttrValue(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordIf()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordIf()))) {
             return new AnaRendIfCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrCondition(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordElseif()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElseif()))) {
             return new AnaRendElseIfCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrCondition(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
             return new AnaRendElseCondition(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordTry()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordTry()))) {
             return new AnaRendTryEval(newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordCatch()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordCatch()))) {
             if (elt_.hasAttribute(_rendKeyWords.getAttrClassName())) {
                 return new AnaRendCatchEval(newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                         newOffsetStringInfo(elt_, _rendKeyWords.getAttrVar(), attr_),
@@ -253,95 +254,95 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
             }
             return new AnaRendNullCatchEval(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordFinally()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFinally()))) {
             return new AnaRendFinallyEval(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordSwitch()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSwitch()))) {
             return new AnaRendSwitchBlock(newOffsetStringInfo(elt_, _rendKeyWords.getAttrValue(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordCase()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordCase()))) {
             return new AnaRendCaseCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrVar(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrValue(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordDefault()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordDefault()))) {
             return new AnaRendDefaultCondition(newOffsetStringInfo(elt_, _rendKeyWords.getAttrVar(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
             return new AnaRendImport(elt_,newOffsetStringInfo(elt_, _rendKeyWords.getAttrPage(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordSubmit()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSubmit()))) {
             return new AnaRendSubmit(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordAnchor())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordAnchor())) {
             return new AnaRendAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordImg())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordImg())) {
             return new AnaRendImg(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordLink())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordLink())) {
             return new AnaRendLink(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordStyle())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordStyle())) {
             return new AnaRendStyle(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordImg()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImg()))) {
             return new AnaRendEscImg(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordPackage()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordPackage()))) {
             return new AnaRendPackage(newOffsetStringInfo(elt_, _rendKeyWords.getAttrName(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordForm())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordForm())) {
             return new AnaRendForm(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordForm()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordForm()))) {
             return new AnaRendImportForm(newOffsetStringInfo(elt_, _rendKeyWords.getAttrForm(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordClass()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordClass()))) {
             return new AnaRendClass(newOffsetStringInfo(elt_, _rendKeyWords.getAttrName(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordField()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordField()))) {
             return new AnaRendField(newOffsetStringInfo(elt_, _rendKeyWords.getAttrPrepare(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordMessage()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordMessage()))) {
             return new AnaRendMessage(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordSelect()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSelect()))) {
             return new AnaRendSelect(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
-            if (StringList.quickEq(elt_.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
+            if (StringUtil.quickEq(elt_.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio())) {
                 return new AnaRendRadio(elt_,new OffsetsBlock(_begin,_begin));
             }
             return new AnaRendStdInput(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordTextarea())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordTextarea())) {
             return new AnaRendTextArea(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_, _rendKeyWords.getKeyWordSpan())) {
-            if (!elt_.getAttribute(StringList.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan())) {
+            if (!elt_.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
                 return new AnaRendSpan(elt_,new OffsetsBlock(_begin,_begin));
             }
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix, _rendKeyWords.getKeyWordAnchor()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordAnchor()))) {
             return new AnaRendTitledAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
         return new AnaRendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
     static String inferOrObject(String _type, AnalyzedPageEl _page) {
         String t_ = _type;
-        if (StringList.quickEq(_type, _page.getKeyWords().getKeyWordVar())) {
+        if (StringUtil.quickEq(_type, _page.getKeyWords().getKeyWordVar())) {
             t_ = _page.getAliasObject();
         }
         return t_;
     }
     static String getCssHref(Element _link, RendKeyWords _rendKeyWords) {
-        if (!StringList.quickEq(_link.getAttribute(_rendKeyWords.getAttrRel()), _rendKeyWords.getValueStyle())) {
+        if (!StringUtil.quickEq(_link.getAttribute(_rendKeyWords.getAttrRel()), _rendKeyWords.getValueStyle())) {
             return null;
         }
         if (!_link.hasAttribute(_rendKeyWords.getAttrHref())){
@@ -410,7 +411,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
+            return _html.indexOf(StringUtil.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
         int indexText_ = _html.indexOf(GT_TAG, _from);
         while (_html.charAt(indexText_ + 1) == LT_BEGIN_TAG) {
@@ -420,7 +421,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     }
 
     static StringMap<String> getPre(String _value, int _offset, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        StringList elts_ = StringList.splitStrings(_value, COMMA);
+        StringList elts_ = StringUtil.splitStrings(_value, COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(var_, _analyzingDoc);
         if (fileName_ == null) {
@@ -471,10 +472,10 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     protected static String escapeParam(String _arg) {
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);
-        rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
-        rep_.put(String.valueOf(RIGHT_EL), StringList.concat(quote_,String.valueOf(RIGHT_EL),quote_));
-        rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
-        return StringList.replaceMultiple(_arg, rep_);
+        rep_.put(String.valueOf(LEFT_EL), StringUtil.concat(quote_,String.valueOf(LEFT_EL),quote_));
+        rep_.put(String.valueOf(RIGHT_EL), StringUtil.concat(quote_,String.valueOf(RIGHT_EL),quote_));
+        rep_.put(String.valueOf(QUOTE), StringUtil.concat(quote_,quote_));
+        return StringUtil.replaceMultiple(_arg, rep_);
     }
 
     private static OffsetStringInfo newOffsetStringInfo(Element _elt, String _key, StringMap<AttributePart> _attr) {
@@ -489,9 +490,9 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     }
 
     static void removeUseLess(Element _read, StringList _list, RendKeyWords _rendKeyWords) {
-        int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)))) {
-            _list.removeAllString(StringList.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)));
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (_read.hasAttribute(StringUtil.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)))) {
+            _list.removeAllString(StringUtil.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)));
             i_++;
         }
     }
@@ -510,8 +511,8 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         if (_content == null) {
             return 0;
         }
-        int line_ = CustList.FIRST_INDEX;
-        for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+        int line_ = IndexConstants.FIRST_INDEX;
+        for (String l: StringUtil.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
             line_++;
             if (l.isEmpty()) {
                 continue;
@@ -529,14 +530,14 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     public static StringMap<String> getMessages(String _content) {
         String lastKey_ = EMPTY_STRING;
         StringMap<String> messages_ = new StringMap<String>();
-        for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+        for (String l: StringUtil.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
             if (l.isEmpty()) {
                 continue;
             }
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
-                    text_ = StringList.concat(text_,l.substring(1));
+                    text_ = StringUtil.concat(text_,l.substring(1));
                     messages_.put(lastKey_, text_);
                 }
             } else {
@@ -551,7 +552,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     private static String getContentFile(StringMap<String> _files, String _fileName) {
         String content_ = null;
         for (EntryCust<String, String> e: _files.entryList()) {
-            if (StringList.quickEq(e.getKey(),_fileName)) {
+            if (StringUtil.quickEq(e.getKey(),_fileName)) {
                 content_ = e.getValue();
                 break;
             }
@@ -606,8 +607,8 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     public static String lookForVar(StringList _varNames, AnalyzedPageEl _page) {
         String varLoc_ = TMP_LOC;
         int indexLoc_ = 0;
-        while (!ContextUtil.isNotVar(varLoc_, _page) || StringList.contains(_varNames,varLoc_)) {
-            varLoc_ = StringList.concatNbs(TMP_LOC,indexLoc_);
+        while (!ContextUtil.isNotVar(varLoc_, _page) || StringUtil.contains(_varNames,varLoc_)) {
+            varLoc_ = StringUtil.concatNbs(TMP_LOC,indexLoc_);
             indexLoc_++;
         }
         return varLoc_;

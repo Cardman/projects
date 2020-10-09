@@ -24,6 +24,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
@@ -5239,7 +5240,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5274,7 +5275,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5297,7 +5298,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5321,7 +5322,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5344,7 +5345,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5367,7 +5368,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5391,7 +5392,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5414,7 +5415,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5442,7 +5443,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5477,7 +5478,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5506,7 +5507,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5535,7 +5536,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5555,7 +5556,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5583,7 +5584,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
@@ -5800,7 +5801,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
-        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
+        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());

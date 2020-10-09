@@ -16,6 +16,7 @@ import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 public class EditPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
@@ -51,7 +52,7 @@ public class EditPokemonBean extends CommonBean {
         item = (String) getForms().getVal(ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv((Short) getForms().getVal(StringList.concat(POKEMON_EV_VAR, s.name())));
+            ev_.setEv((Short) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name())));
             ev.put(s, ev_);
         }
         remainingHp = (Rate) getForms().getVal(POKEMON_HP);
@@ -138,7 +139,7 @@ public class EditPokemonBean extends CommonBean {
         getForms().put(POKEMON_HAPPINESS, happiness);
         getForms().put(POKEMON_HP, remainingHp);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringList.concat(POKEMON_EV_VAR,s.name()), ev.getVal(s).getEv());
+            getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), ev.getVal(s).getEv());
         }
         getForms().put(HEAL_EDIT_PK, heal);
         getForms().put(CATCHING_BALL, ball);

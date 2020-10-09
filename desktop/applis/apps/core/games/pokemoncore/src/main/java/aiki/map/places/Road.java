@@ -18,6 +18,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
 import code.util.ObjectMap;
+import code.util.core.IndexConstants;
 
 
 public final class Road extends Campaign implements InitializedPlace {
@@ -89,7 +90,7 @@ public final class Road extends Campaign implements InitializedPlace {
     @Override
     public ByteMap< Level> getLevelsMap() {
         ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(CustList.FIRST_INDEX, getLevelRoad());
+        levels_.put(IndexConstants.FIRST_INDEX, getLevelRoad());
         return levels_;
     }
 

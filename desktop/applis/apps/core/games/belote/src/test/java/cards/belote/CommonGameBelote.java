@@ -6,6 +6,8 @@ import cards.consts.Hypothesis;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 import static org.junit.Assert.fail;
 
@@ -153,12 +155,12 @@ public abstract class CommonGameBelote {
         HandBelote hPlCh_ = new HandBelote();
         for (CardBelote c: hPl_) {
             if (hPlCh_.contient(c)) {
-                fail(StringList.concat("found ",c.name()));
+                fail(StringUtil.concat("found ",c.name()));
             }
             hPlCh_.ajouter(c);
         }
         if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
-            fail(StringList.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
+            fail(StringUtil.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
         }
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
@@ -229,7 +231,7 @@ public abstract class CommonGameBelote {
                 int f_ = i - 1;
                 for (byte j : _g.orderedPlayers(_g
                         .playerAfter(_g.getDistribution().getDealer()))) {
-                    int k_ = CustList.FIRST_INDEX;
+                    int k_ = IndexConstants.FIRST_INDEX;
                     int count_ = 0;
                     while (count_ < f_) {
                         CardBelote c_ = handsFull_.get(j).carte(k_);
@@ -264,7 +266,7 @@ public abstract class CommonGameBelote {
     }
     protected static int getTaker(RulesBelote _g, int _dealer, CustList<BidBeloteSuit> _bids) {
         byte player_ = _g.getRepartition().getNextPlayer(_dealer);
-        int taker_ = CustList.INDEX_NOT_FOUND_ELT;
+        int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidBeloteSuit bid_ = new BidBeloteSuit();
         for (BidBeloteSuit b: _bids) {
             if (b.strongerThan(bid_)) {

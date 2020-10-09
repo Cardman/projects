@@ -1,17 +1,17 @@
 package code.formathtml.classes;
 import code.bean.Bean;
-import code.util.CustList;
 import code.util.Ints;
+import code.util.core.IndexConstants;
 
 public class BeanThree extends Bean {
 
     private Ints numbers = new Ints();
 
-    private int index = CustList.INDEX_NOT_FOUND_ELT;
+    private int index = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private Ints numbersTwo = new Ints();
 
-    private int indexTwo = CustList.INDEX_NOT_FOUND_ELT;
+    private int indexTwo = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     public BeanThree() {
         setClassName("code.formathtml.classes.BeanThree");

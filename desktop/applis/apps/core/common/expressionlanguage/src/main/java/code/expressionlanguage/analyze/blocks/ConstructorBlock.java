@@ -10,6 +10,8 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
 
@@ -41,7 +43,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
@@ -117,9 +119,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             firstChild_ = firstChild_.getNextSibling();
         }
         if (!checkThis_) {
-            if (!StringList.equalsSet(filteredCtor_, ints_)) {
+            if (!StringUtil.equalsSet(filteredCtor_, ints_)) {
                 for (String n:filteredCtor_) {
-                    if (!StringList.contains(ints_,n)) {
+                    if (!StringUtil.contains(ints_,n)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(getFile().getFileName());
@@ -132,7 +134,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                     }
                 }
                 for (String n:ints_) {
-                    if (!StringList.contains(filteredCtor_,n)) {
+                    if (!StringUtil.contains(filteredCtor_,n)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(getFile().getFileName());

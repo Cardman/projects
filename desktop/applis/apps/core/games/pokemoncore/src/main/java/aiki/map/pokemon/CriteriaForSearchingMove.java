@@ -7,6 +7,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 public final class CriteriaForSearchingMove extends CriteriaForSearching {
 
@@ -57,10 +58,10 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
     }
 
     public boolean matchClass(MoveData _item) {
-        if (StringList.quickEq(selectedClass, DataBase.EMPTY_STRING)) {
+        if (StringUtil.quickEq(selectedClass, DataBase.EMPTY_STRING)) {
             return true;
         }
-        return StringList.quickEq(selectedClass, _item.getMoveType());
+        return StringUtil.quickEq(selectedClass, _item.getMoveType());
     }
 
     public boolean matchPp(int _pp) {

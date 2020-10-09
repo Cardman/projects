@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -503,7 +506,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
+        assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
         assertEq(new Rate("3"), fighter_.getWeight());
         assertEq(new Rate("1/10"), fighter_.getHeight());
         assertEq(Rate.zero(), fighter_.getClone());
@@ -1436,9 +1439,9 @@ public class FighterTest extends InitializationDataBase {
         fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
         StringList list_ = fighter_.attaquesUtilisables();
         assertEq(3, list_.size());
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POUV_ANTIQUE));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POUV_ANTIQUE));
     }
 
     @Test
@@ -1465,9 +1468,9 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getCopiedMoves().getVal(COPIE).setPp((short) 0);
         StringList list_ = fighter_.attaquesUtilisables();
         assertEq(3, list_.size());
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POUV_ANTIQUE));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POUV_ANTIQUE));
     }
 
     @Test
@@ -1668,7 +1671,7 @@ public class FighterTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, DETECTION, (short) 6);
-        assertTrue(!StringList.contains(fighter_.attaquesUtilisables(), DETECTION));
+        assertTrue(!StringUtil.contains(fighter_.attaquesUtilisables(), DETECTION));
     }
 
     @Test
@@ -1863,7 +1866,7 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
         assertEq(1, fighter_.getProtectedAgainstMoveTypes().size());
-        assertTrue(StringList.contains(fighter_.getProtectedAgainstMoveTypes(), SOL));
+        assertTrue(StringUtil.contains(fighter_.getProtectedAgainstMoveTypes(), SOL));
     }
 
     @Test
@@ -1880,7 +1883,7 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
         assertEq(1, fighter_.getProtectedAgainstMoveTypes().size());
-        assertTrue(StringList.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
+        assertTrue(StringUtil.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
     }
 
     @Test
@@ -1919,7 +1922,7 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
         assertEq(1, fighter_.getProtectedAgainstMoveTypes().size());
-        assertTrue(StringList.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
+        assertTrue(StringUtil.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
     }
 
     @Test
@@ -1941,7 +1944,7 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
         assertEq(1, fighter_.getProtectedAgainstMoveTypes().size());
-        assertTrue(StringList.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
+        assertTrue(StringUtil.contains(fighter_.getProtectedAgainstMoveTypes(), VOL));
     }
 
     @Test
@@ -2074,7 +2077,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(new Rate("3"), fighter_.getWeight());
         assertEq(new Rate("1/10"), fighter_.getHeight());
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
+        assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
         assertEq(Rate.zero(), fighter_.getClone());
         assertTrue(!fighter_.isChanged());
     }
@@ -2121,7 +2124,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(new Rate("3"), fighter_.getWeight());
         assertEq(new Rate("1/10"), fighter_.getHeight());
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
+        assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
         assertEq(Rate.zero(), fighter_.getClone());
         assertTrue(!fighter_.isChanged());
         assertEq(PIKACHU, fighter_.getCurrentName());
@@ -2324,7 +2327,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
         StringList list_ = fighter_.getAddedTypesByEnabledWeather(ZENITH, data);
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, FEU));
+        assertTrue(StringUtil.contains(list_, FEU));
     }
 
     @Test
@@ -3694,7 +3697,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.choisirAttaqueFin();
         fighter_.ajouterAttaquesDejaInvoqueesTour(SEISME);
         assertEq(1, fighter_.getAlreadyInvokedMovesRound().size());
-        assertTrue(StringList.contains(fighter_.getAlreadyInvokedMovesRound(), SEISME));
+        assertTrue(StringUtil.contains(fighter_.getAlreadyInvokedMovesRound(), SEISME));
     }
 
     @Test
@@ -4444,7 +4447,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, MEIOS));
+        assertTrue(StringUtil.contains(list_, MEIOS));
     }
 
     @Test
@@ -4512,7 +4515,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, YANMEGA));
+        assertTrue(StringUtil.contains(list_, YANMEGA));
     }
 
     @Test
@@ -4585,7 +4588,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, PAPILORD));
+        assertTrue(StringUtil.contains(list_, PAPILORD));
     }
 
     @Test
@@ -4610,7 +4613,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, CHENISELLE));
+        assertTrue(StringUtil.contains(list_, CHENISELLE));
     }
 
     @Test
@@ -4659,7 +4662,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, TARINORME));
+        assertTrue(StringUtil.contains(list_, TARINORME));
     }
 
     @Test
@@ -4708,7 +4711,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, TARPAUD));
+        assertTrue(StringUtil.contains(list_, TARPAUD));
     }
 
     @Test
@@ -4757,7 +4760,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList(REMORAID));
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, DEMANTA));
+        assertTrue(StringUtil.contains(list_, DEMANTA));
     }
 
     @Test
@@ -4798,7 +4801,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         StringList list_ = fighter_.nomEvolutions(data, new StringList());
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, CARABAFFE));
+        assertTrue(StringUtil.contains(list_, CARABAFFE));
     }
 
     @Test
@@ -4855,8 +4858,8 @@ public class FighterTest extends InitializationDataBase {
         assertEq(5, map_.getVal(POUV_ANTIQUE).getCurrent());
         assertEq(20, fighter_.getLevel());
         assertEq(2, fighter_.getTypes().size());
-        assertTrue(StringList.contains(fighter_.getTypes(), EAU));
-        assertTrue(StringList.contains(fighter_.getTypes(), SOL));
+        assertTrue(StringUtil.contains(fighter_.getTypes(), EAU));
+        assertTrue(StringUtil.contains(fighter_.getTypes(), SOL));
         assertEq(new Rate("62/5"), fighter_.getWeight());
         assertEq(new Rate("3/5"), fighter_.getHeight());
     }
@@ -5034,7 +5037,7 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(activity_.isEnabled());
         StringList types_ = partner_.getProtectedAgainstMoveTypes();
         assertEq(1, types_.size());
-        assertTrue(StringList.contains(types_, VOL));
+        assertTrue(StringUtil.contains(types_, VOL));
         activity_ = partner_.getEnabledMovesConstChoices().getVal(ROULADE);
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
@@ -5477,7 +5480,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
         StringList movesToBeLearnt_ = fighter_.getMovesToBeLearnt();
         assertEq(1, movesToBeLearnt_.size());
-        assertTrue(StringList.contains(movesToBeLearnt_, POUV_ANTIQUE));
+        assertTrue(StringUtil.contains(movesToBeLearnt_, POUV_ANTIQUE));
     }
 
     @Test
@@ -5689,17 +5692,17 @@ public class FighterTest extends InitializationDataBase {
         StringList movesEvo_ = movesAbilities_.getVal(YANMEGA).getMoves();
         StringList abilitiesEvo_ = movesAbilities_.getVal(YANMEGA).getAbilities();
         assertEq(8, movesEvo_.size());
-        assertTrue(StringList.contains(movesEvo_, CHARGE));
-        assertTrue(StringList.contains(movesEvo_, CLAIRVOYANCE));
-        assertTrue(StringList.contains(movesEvo_, PIQURE));
-        assertTrue(StringList.contains(movesEvo_, TRANCHE_NUIT));
-        assertTrue(StringList.contains(movesEvo_, VIVE_ATTAQUE));
-        assertTrue(StringList.contains(movesEvo_, REFLET));
-        assertTrue(StringList.contains(movesEvo_, SONICBOOM));
-        assertTrue(StringList.contains(movesEvo_, DETECTION));
+        assertTrue(StringUtil.contains(movesEvo_, CHARGE));
+        assertTrue(StringUtil.contains(movesEvo_, CLAIRVOYANCE));
+        assertTrue(StringUtil.contains(movesEvo_, PIQURE));
+        assertTrue(StringUtil.contains(movesEvo_, TRANCHE_NUIT));
+        assertTrue(StringUtil.contains(movesEvo_, VIVE_ATTAQUE));
+        assertTrue(StringUtil.contains(movesEvo_, REFLET));
+        assertTrue(StringUtil.contains(movesEvo_, SONICBOOM));
+        assertTrue(StringUtil.contains(movesEvo_, DETECTION));
         assertEq(2, abilitiesEvo_.size());
-        assertTrue(StringList.contains(abilitiesEvo_, TURBO));
-        assertTrue(StringList.contains(abilitiesEvo_, LENTITEINTEE));
+        assertTrue(StringUtil.contains(abilitiesEvo_, TURBO));
+        assertTrue(StringUtil.contains(abilitiesEvo_, LENTITEINTEE));
     }
 
     @Test
@@ -5745,19 +5748,19 @@ public class FighterTest extends InitializationDataBase {
         StringList movesEvo_ = movesAbilities_.getVal(YANMEGA).getMoves();
         StringList abilitiesEvo_ = movesAbilities_.getVal(YANMEGA).getAbilities();
         assertEq(10, movesEvo_.size());
-        assertTrue(StringList.contains(movesEvo_, CHARGE));
-        assertTrue(StringList.contains(movesEvo_, CLAIRVOYANCE));
-        assertTrue(StringList.contains(movesEvo_, PIQURE));
-        assertTrue(StringList.contains(movesEvo_, TRANCHE_NUIT));
-        assertTrue(StringList.contains(movesEvo_, VIVE_ATTAQUE));
-        assertTrue(StringList.contains(movesEvo_, REFLET));
-        assertTrue(StringList.contains(movesEvo_, SONICBOOM));
-        assertTrue(StringList.contains(movesEvo_, RUSE));
-        assertTrue(StringList.contains(movesEvo_, HYPNOSE));
-        assertTrue(StringList.contains(movesEvo_, DETECTION));
+        assertTrue(StringUtil.contains(movesEvo_, CHARGE));
+        assertTrue(StringUtil.contains(movesEvo_, CLAIRVOYANCE));
+        assertTrue(StringUtil.contains(movesEvo_, PIQURE));
+        assertTrue(StringUtil.contains(movesEvo_, TRANCHE_NUIT));
+        assertTrue(StringUtil.contains(movesEvo_, VIVE_ATTAQUE));
+        assertTrue(StringUtil.contains(movesEvo_, REFLET));
+        assertTrue(StringUtil.contains(movesEvo_, SONICBOOM));
+        assertTrue(StringUtil.contains(movesEvo_, RUSE));
+        assertTrue(StringUtil.contains(movesEvo_, HYPNOSE));
+        assertTrue(StringUtil.contains(movesEvo_, DETECTION));
         assertEq(2, abilitiesEvo_.size());
-        assertTrue(StringList.contains(abilitiesEvo_, TURBO));
-        assertTrue(StringList.contains(abilitiesEvo_, LENTITEINTEE));
+        assertTrue(StringUtil.contains(abilitiesEvo_, TURBO));
+        assertTrue(StringUtil.contains(abilitiesEvo_, LENTITEINTEE));
     }
 
     @Test
@@ -6127,18 +6130,18 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(movesAbilities_.contains(TARINORME));
         StringList allMoves_ = movesAbilities_.getVal(TARINORME).getMoves();
         assertEq(8, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, CHARGE));
-        assertTrue(StringList.contains(allMoves_, GRAVITE));
-        assertTrue(StringList.contains(allMoves_, VOL_MAGNETIK));
-        assertTrue(StringList.contains(allMoves_, MUR_DE_FER));
-        assertTrue(StringList.contains(allMoves_, BOMBAIMANT));
-        assertTrue(StringList.contains(allMoves_, REGARD_NOIR));
-        assertTrue(StringList.contains(allMoves_, CAGE_ECLAIR));
-        assertTrue(StringList.contains(allMoves_, EBOULEMENT));
+        assertTrue(StringUtil.contains(allMoves_, CHARGE));
+        assertTrue(StringUtil.contains(allMoves_, GRAVITE));
+        assertTrue(StringUtil.contains(allMoves_, VOL_MAGNETIK));
+        assertTrue(StringUtil.contains(allMoves_, MUR_DE_FER));
+        assertTrue(StringUtil.contains(allMoves_, BOMBAIMANT));
+        assertTrue(StringUtil.contains(allMoves_, REGARD_NOIR));
+        assertTrue(StringUtil.contains(allMoves_, CAGE_ECLAIR));
+        assertTrue(StringUtil.contains(allMoves_, EBOULEMENT));
         StringList abilities_ = movesAbilities_.getVal(TARINORME).getAbilities();
         assertEq(2, abilities_.size());
-        assertTrue(StringList.contains(abilities_, MAGNEPIEGE));
-        assertTrue(StringList.contains(abilities_, FERMETE));
+        assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(abilities_, FERMETE));
         assertEq(140, fighter_.getHappiness());
         assertEq(new Rate("4"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6176,18 +6179,18 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(movesAbilities_.contains(TARINORME));
         StringList allMoves_ = movesAbilities_.getVal(TARINORME).getMoves();
         assertEq(8, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, CHARGE));
-        assertTrue(StringList.contains(allMoves_, GRAVITE));
-        assertTrue(StringList.contains(allMoves_, VOL_MAGNETIK));
-        assertTrue(StringList.contains(allMoves_, MUR_DE_FER));
-        assertTrue(StringList.contains(allMoves_, BOMBAIMANT));
-        assertTrue(StringList.contains(allMoves_, REGARD_NOIR));
-        assertTrue(StringList.contains(allMoves_, CAGE_ECLAIR));
-        assertTrue(StringList.contains(allMoves_, EBOULEMENT));
+        assertTrue(StringUtil.contains(allMoves_, CHARGE));
+        assertTrue(StringUtil.contains(allMoves_, GRAVITE));
+        assertTrue(StringUtil.contains(allMoves_, VOL_MAGNETIK));
+        assertTrue(StringUtil.contains(allMoves_, MUR_DE_FER));
+        assertTrue(StringUtil.contains(allMoves_, BOMBAIMANT));
+        assertTrue(StringUtil.contains(allMoves_, REGARD_NOIR));
+        assertTrue(StringUtil.contains(allMoves_, CAGE_ECLAIR));
+        assertTrue(StringUtil.contains(allMoves_, EBOULEMENT));
         StringList abilities_ = movesAbilities_.getVal(TARINORME).getAbilities();
         assertEq(2, abilities_.size());
-        assertTrue(StringList.contains(abilities_, MAGNEPIEGE));
-        assertTrue(StringList.contains(abilities_, FERMETE));
+        assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(abilities_, FERMETE));
         assertEq(142, fighter_.getHappiness());
         assertEq(new Rate("2"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6221,7 +6224,7 @@ public class FighterTest extends InitializationDataBase {
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
-        assertTrue(StringList.contains(fighter_.getMovesToBeLearnt(), EBOULEMENT));
+        assertTrue(StringUtil.contains(fighter_.getMovesToBeLearnt(), EBOULEMENT));
         assertEq(31,fighter_.getLevel());
         assertEq(72, fighter_.getHappiness());
         assertEq(new Rate("2"), fighter_.getWonExpSinceLastLevel());
@@ -6256,34 +6259,34 @@ public class FighterTest extends InitializationDataBase {
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(2, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
-        assertTrue(StringList.contains(fighter_.getMovesToBeLearnt(), LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(fighter_.getMovesToBeLearnt(), LIRE_ESPRIT));
         assertTrue(movesAbilities_.contains(NINJASK));
         StringList allMoves_ = movesAbilities_.getVal(NINJASK).getMoves();
         assertEq(10, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, ARMURE));
-        assertTrue(StringList.contains(allMoves_, GRIFFE));
-        assertTrue(StringList.contains(allMoves_, PIQURE));
-        assertTrue(StringList.contains(allMoves_, VAMPIRISME));
-        assertTrue(StringList.contains(allMoves_, JET_DE_SABLE));
-        assertTrue(StringList.contains(allMoves_, COMBO_GRIFFE));
-        assertTrue(StringList.contains(allMoves_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(allMoves_, GRINCEMENT));
-        assertTrue(StringList.contains(allMoves_, REFLET));
-        assertTrue(StringList.contains(allMoves_, TAILLADE));
+        assertTrue(StringUtil.contains(allMoves_, ARMURE));
+        assertTrue(StringUtil.contains(allMoves_, GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, PIQURE));
+        assertTrue(StringUtil.contains(allMoves_, VAMPIRISME));
+        assertTrue(StringUtil.contains(allMoves_, JET_DE_SABLE));
+        assertTrue(StringUtil.contains(allMoves_, COMBO_GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(allMoves_, GRINCEMENT));
+        assertTrue(StringUtil.contains(allMoves_, REFLET));
+        assertTrue(StringUtil.contains(allMoves_, TAILLADE));
         StringList abilities_ = movesAbilities_.getVal(NINJASK).getAbilities();
         assertEq(1, abilities_.size());
-        assertTrue(StringList.contains(abilities_, TURBO));
+        assertTrue(StringUtil.contains(abilities_, TURBO));
         allMoves_ = movesAbilities_.getVal(MUNJA).getMoves();
         assertEq(6, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, ARMURE));
-        assertTrue(StringList.contains(allMoves_, GRIFFE));
-        assertTrue(StringList.contains(allMoves_, VAMPIRISME));
-        assertTrue(StringList.contains(allMoves_, JET_DE_SABLE));
-        assertTrue(StringList.contains(allMoves_, COMBO_GRIFFE));
-        assertTrue(StringList.contains(allMoves_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(allMoves_, ARMURE));
+        assertTrue(StringUtil.contains(allMoves_, GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, VAMPIRISME));
+        assertTrue(StringUtil.contains(allMoves_, JET_DE_SABLE));
+        assertTrue(StringUtil.contains(allMoves_, COMBO_GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, LIRE_ESPRIT));
         abilities_ = movesAbilities_.getVal(MUNJA).getAbilities();
         assertEq(1, abilities_.size());
-        assertTrue(StringList.contains(abilities_, GARDE_MYSTIK));
+        assertTrue(StringUtil.contains(abilities_, GARDE_MYSTIK));
         assertEq(20,fighter_.getLevel());
         assertEq(72, fighter_.getHappiness());
         assertEq(new Rate("1"), fighter_.getWonExpSinceLastLevel());
@@ -6317,41 +6320,41 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(movesAbilities_.contains(NINJASK));
         StringList allMoves_ = movesAbilities_.getVal(NINJASK).getMoves();
         assertEq(16, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, ARMURE));
-        assertTrue(StringList.contains(allMoves_, GRIFFE));
-        assertTrue(StringList.contains(allMoves_, PIQURE));
-        assertTrue(StringList.contains(allMoves_, VAMPIRISME));
-        assertTrue(StringList.contains(allMoves_, JET_DE_SABLE));
-        assertTrue(StringList.contains(allMoves_, COMBO_GRIFFE));
-        assertTrue(StringList.contains(allMoves_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(allMoves_, GRINCEMENT));
-        assertTrue(StringList.contains(allMoves_, REFLET));
-        assertTrue(StringList.contains(allMoves_, TAILLADE));
-        assertTrue(StringList.contains(allMoves_, DANSE_LAMES));
-        assertTrue(StringList.contains(allMoves_, TRANCHE));
-        assertTrue(StringList.contains(allMoves_, HATE));
-        assertTrue(StringList.contains(allMoves_, RELAIS));
-        assertTrue(StringList.contains(allMoves_, PLAIE_CROIX));
-        assertTrue(StringList.contains(allMoves_, GIGA_SANGSUE));
+        assertTrue(StringUtil.contains(allMoves_, ARMURE));
+        assertTrue(StringUtil.contains(allMoves_, GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, PIQURE));
+        assertTrue(StringUtil.contains(allMoves_, VAMPIRISME));
+        assertTrue(StringUtil.contains(allMoves_, JET_DE_SABLE));
+        assertTrue(StringUtil.contains(allMoves_, COMBO_GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(allMoves_, GRINCEMENT));
+        assertTrue(StringUtil.contains(allMoves_, REFLET));
+        assertTrue(StringUtil.contains(allMoves_, TAILLADE));
+        assertTrue(StringUtil.contains(allMoves_, DANSE_LAMES));
+        assertTrue(StringUtil.contains(allMoves_, TRANCHE));
+        assertTrue(StringUtil.contains(allMoves_, HATE));
+        assertTrue(StringUtil.contains(allMoves_, RELAIS));
+        assertTrue(StringUtil.contains(allMoves_, PLAIE_CROIX));
+        assertTrue(StringUtil.contains(allMoves_, GIGA_SANGSUE));
         StringList abilities_ = movesAbilities_.getVal(NINJASK).getAbilities();
         assertEq(1, abilities_.size());
-        assertTrue(StringList.contains(abilities_, TURBO));
+        assertTrue(StringUtil.contains(abilities_, TURBO));
         allMoves_ = movesAbilities_.getVal(MUNJA).getMoves();
         assertEq(11, allMoves_.size());
-        assertTrue(StringList.contains(allMoves_, ARMURE));
-        assertTrue(StringList.contains(allMoves_, GRIFFE));
-        assertTrue(StringList.contains(allMoves_, VAMPIRISME));
-        assertTrue(StringList.contains(allMoves_, JET_DE_SABLE));
-        assertTrue(StringList.contains(allMoves_, COMBO_GRIFFE));
-        assertTrue(StringList.contains(allMoves_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(allMoves_, DEPIT));
-        assertTrue(StringList.contains(allMoves_, ONDE_FOLIE));
-        assertTrue(StringList.contains(allMoves_, OMBRE_PORTEE));
-        assertTrue(StringList.contains(allMoves_, ANTI_SOIN));
-        assertTrue(StringList.contains(allMoves_, BALL_OMBRE));
+        assertTrue(StringUtil.contains(allMoves_, ARMURE));
+        assertTrue(StringUtil.contains(allMoves_, GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, VAMPIRISME));
+        assertTrue(StringUtil.contains(allMoves_, JET_DE_SABLE));
+        assertTrue(StringUtil.contains(allMoves_, COMBO_GRIFFE));
+        assertTrue(StringUtil.contains(allMoves_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(allMoves_, DEPIT));
+        assertTrue(StringUtil.contains(allMoves_, ONDE_FOLIE));
+        assertTrue(StringUtil.contains(allMoves_, OMBRE_PORTEE));
+        assertTrue(StringUtil.contains(allMoves_, ANTI_SOIN));
+        assertTrue(StringUtil.contains(allMoves_, BALL_OMBRE));
         abilities_ = movesAbilities_.getVal(MUNJA).getAbilities();
         assertEq(1, abilities_.size());
-        assertTrue(StringList.contains(abilities_, GARDE_MYSTIK));
+        assertTrue(StringUtil.contains(abilities_, GARDE_MYSTIK));
     }
 
     @Test
@@ -6701,9 +6704,9 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getLastSufferedMoveTypes().add(ROCHE);
         StringList list_ = fighter_.resistingTypes(data);
         assertEq(3, list_.size());
-        assertTrue(StringList.contains(list_, COMBAT));
-        assertTrue(StringList.contains(list_, SOL));
-        assertTrue(StringList.contains(list_, ACIER));
+        assertTrue(StringUtil.contains(list_, COMBAT));
+        assertTrue(StringUtil.contains(list_, SOL));
+        assertTrue(StringUtil.contains(list_, ACIER));
     }
 
     @Test
@@ -6869,7 +6872,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.calculateNewLevel(diff_, data, new StringList());
         StringList list_ = fighter_.getAbilities(NULL_REF);
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, METEO));
+        assertTrue(StringUtil.contains(list_, METEO));
     }
 
     @Test
@@ -6899,8 +6902,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.calculateNewLevel(diff_, data, new StringList());
         StringList list_ = fighter_.getAbilities(TARINORME);
         assertEq(2, list_.size());
-        assertTrue(StringList.contains(list_, MAGNEPIEGE));
-        assertTrue(StringList.contains(list_, FERMETE));
+        assertTrue(StringUtil.contains(list_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(list_, FERMETE));
     }
 
     @Test
@@ -6985,9 +6988,9 @@ public class FighterTest extends InitializationDataBase {
     }
 
     int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-        int i_ = CustList.SIZE_EMPTY;
+        int i_ = IndexConstants.SIZE_EMPTY;
         for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (Numbers.eq(e.getValue(), _nbRounds)) {
+            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
         }

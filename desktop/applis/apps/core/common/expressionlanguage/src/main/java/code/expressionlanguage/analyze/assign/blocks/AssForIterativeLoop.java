@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.assign.util.AssignmentBefore;
 import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
 import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AssForIterativeLoop extends AssBracedStack implements AssLoop, AssBuildableElMethod {
     private String label;
@@ -165,7 +166,7 @@ public final class AssForIterativeLoop extends AssBracedStack implements AssLoop
             AssignmentBefore ass_ = e.getValue().copy();
             for (StringMap<AssignmentBefore> c: _continuable) {
                 for (EntryCust<String,AssignmentBefore> f:c.entryList()) {
-                    if (!StringList.quickEq(f.getKey(), key_)) {
+                    if (!StringUtil.quickEq(f.getKey(), key_)) {
                         continue;
                     }
                     if (!f.getValue().isUnassignedBefore()) {

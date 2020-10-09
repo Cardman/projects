@@ -1,7 +1,6 @@
 package code.util.comparators;
 import code.util.AbsMap;
-import code.util.*;
-import code.util.TreeMap;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTreeMapValue<T> implements Comparing<T> {
@@ -14,7 +13,7 @@ public final class ComparatorTreeMapValue<T> implements Comparing<T> {
 
     @Override
     public int compare(T _o1, T _o2) {
-        return Numbers.compareLg(map.getVal(_o1), map.getVal(_o2));
+        return NumberUtil.compareLg(map.getVal(_o1), map.getVal(_o2));
     }
 
 }

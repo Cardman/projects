@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class ExecWildCardPartType extends ExecParentPartType {
     private String prefix;
@@ -38,11 +38,11 @@ final class ExecWildCardPartType extends ExecParentPartType {
         }
         ExecPartType prev_ = getParent().getFirstChild();
         String base_ = ((ExecNamePartType)prev_).getTypeName();
-        if (StringList.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct())) {
+        if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct())) {
             return false;
         }
         String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
+        ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
         return true;
     }

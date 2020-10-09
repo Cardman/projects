@@ -3,6 +3,8 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,8 +22,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -39,10 +39,10 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertTrue(!fightSimulation_.isFreeTeams());
         assertEq(newCoords(6, 0, 4, 4), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -147,10 +147,10 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFight3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertTrue(!fightSimulation_.isFreeTeams());
         assertEq(newCoords(2, 0, 2, 0), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -190,8 +190,8 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(NULL_REF, allyNumbers_.first().getItem());
         assertEq(25, allyNumbers_.first().getLevel());
         assertEq(2, allyNumbers_.first().getMoves().size());
-        assertTrue(StringList.contains(allyNumbers_.first().getMoves(), CHARGE));
-        assertTrue(StringList.contains(allyNumbers_.first().getMoves(), JACKPOT));
+        assertTrue(StringUtil.contains(allyNumbers_.first().getMoves(), CHARGE));
+        assertTrue(StringUtil.contains(allyNumbers_.first().getMoves(), JACKPOT));
         assertEq(PIKACHU, allyNumbers_.last().getName());
         assertEq(ATTENTION, allyNumbers_.last().getAbility());
         assertEq(NULL_REF, allyNumbers_.last().getItem());
@@ -204,10 +204,10 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFight4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertTrue(!fightSimulation_.isFreeTeams());
         assertEq(newCoords(1, 0, 5, 1, 1, 7), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -248,10 +248,10 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFight5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 4, 1), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 4, 1), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertTrue(!fightSimulation_.isFreeTeams());
         assertEq(newCoords(1, 0, 5, 1, 4, 1), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -336,10 +336,10 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFight7Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 1, 4, 4), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 1, 4, 4), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertTrue(!fightSimulation_.isFreeTeams());
         assertEq(newCoords(6, 1, 4, 4), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -497,9 +497,9 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFights1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertEq(newCoords(6, 0, 4, 8), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -596,9 +596,9 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFights3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertEq(newCoords(2, 0, 2, 0), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -637,9 +637,9 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFights4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 1, 7), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 1, 7), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertEq(newCoords(1, 0, 5, 1, 1, 7), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -678,9 +678,9 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFights5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 4, 1), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 4, 1), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         assertEq(newCoords(1, 0, 5, 1, 4, 1), fightSimulation_.getFoeCoords());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, fightSimulation_.getNoFight());
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
@@ -762,31 +762,31 @@ public class FightSimulationTest extends InitializationDataBase {
         short level_ = 3;
         StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data);
         assertEq(25, list_.size());
-        assertTrue(StringList.contains(list_, BALL_GLACE));
-        assertTrue(StringList.contains(list_, BLABLA_DODO));
-        assertTrue(StringList.contains(list_, BOUL_ARMURE));
-        assertTrue(StringList.contains(list_, BRUME));
-        assertTrue(StringList.contains(list_, BUEE_NOIRE));
-        assertTrue(StringList.contains(list_, BULLES_D_O));
-        assertTrue(StringList.contains(list_, CHARGE));
-        assertTrue(StringList.contains(list_, CLONAGE));
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, COUP_D_BOULE));
-        assertTrue(StringList.contains(list_, DAMOCLES));
-        assertTrue(StringList.contains(list_, ECLAIR));
-        assertTrue(StringList.contains(list_, EFFORT));
-        assertTrue(StringList.contains(list_, ENCORE));
-        assertTrue(StringList.contains(list_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(list_, PLAQUAGE));
-        assertTrue(StringList.contains(list_, PLONGEE));
-        assertTrue(StringList.contains(list_, REGENERATION));
-        assertTrue(StringList.contains(list_, RONFLEMENT));
-        assertTrue(StringList.contains(list_, TENACITE));
-        assertTrue(StringList.contains(list_, TIR_DE_BOUE));
-        assertTrue(StringList.contains(list_, TOURNIQUET));
-        assertTrue(StringList.contains(list_, TREMPETTE));
-        assertTrue(StringList.contains(list_, VANTARDISE));
-        assertTrue(StringList.contains(list_, VENT_GLACE));
+        assertTrue(StringUtil.contains(list_, BALL_GLACE));
+        assertTrue(StringUtil.contains(list_, BLABLA_DODO));
+        assertTrue(StringUtil.contains(list_, BOUL_ARMURE));
+        assertTrue(StringUtil.contains(list_, BRUME));
+        assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
+        assertTrue(StringUtil.contains(list_, BULLES_D_O));
+        assertTrue(StringUtil.contains(list_, CHARGE));
+        assertTrue(StringUtil.contains(list_, CLONAGE));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, COUP_D_BOULE));
+        assertTrue(StringUtil.contains(list_, DAMOCLES));
+        assertTrue(StringUtil.contains(list_, ECLAIR));
+        assertTrue(StringUtil.contains(list_, EFFORT));
+        assertTrue(StringUtil.contains(list_, ENCORE));
+        assertTrue(StringUtil.contains(list_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(list_, PLAQUAGE));
+        assertTrue(StringUtil.contains(list_, PLONGEE));
+        assertTrue(StringUtil.contains(list_, REGENERATION));
+        assertTrue(StringUtil.contains(list_, RONFLEMENT));
+        assertTrue(StringUtil.contains(list_, TENACITE));
+        assertTrue(StringUtil.contains(list_, TIR_DE_BOUE));
+        assertTrue(StringUtil.contains(list_, TOURNIQUET));
+        assertTrue(StringUtil.contains(list_, TREMPETTE));
+        assertTrue(StringUtil.contains(list_, VANTARDISE));
+        assertTrue(StringUtil.contains(list_, VENT_GLACE));
     }
 
     @Test
@@ -795,42 +795,42 @@ public class FightSimulationTest extends InitializationDataBase {
         short level_ = 24;
         StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data);
         assertEq(36, list_.size());
-        assertTrue(StringList.contains(list_, BALL_GLACE));
-        assertTrue(StringList.contains(list_, BLABLA_DODO));
-        assertTrue(StringList.contains(list_, BOUL_ARMURE));
-        assertTrue(StringList.contains(list_, BRUME));
-        assertTrue(StringList.contains(list_, BUEE_NOIRE));
-        assertTrue(StringList.contains(list_, BULLES_D_O));
-        assertTrue(StringList.contains(list_, CHARGE));
-        assertTrue(StringList.contains(list_, CLONAGE));
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, COUD_BOUE));
-        assertTrue(StringList.contains(list_, COUP_D_BOULE));
-        assertTrue(StringList.contains(list_, DAMOCLES));
-        assertTrue(StringList.contains(list_, DANSE_PLUIE));
-        assertTrue(StringList.contains(list_, ECLAIR));
-        assertTrue(StringList.contains(list_, ECUME));
-        assertTrue(StringList.contains(list_, EFFORT));
-        assertTrue(StringList.contains(list_, ENCORE));
-        assertTrue(StringList.contains(list_, FRAPPE_ATLAS));
-        assertTrue(StringList.contains(list_, HYPNOSE));
-        assertTrue(StringList.contains(list_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(list_, METRONOME));
-        assertTrue(StringList.contains(list_, PISTOLET_A_O));
-        assertTrue(StringList.contains(list_, PLAQUAGE));
-        assertTrue(StringList.contains(list_, PLONGEE));
-        assertTrue(StringList.contains(list_, POINGLACE));
-        assertTrue(StringList.contains(list_, REGENERATION));
-        assertTrue(StringList.contains(list_, RIPOSTE));
-        assertTrue(StringList.contains(list_, RONFLEMENT));
-        assertTrue(StringList.contains(list_, TENACITE));
-        assertTrue(StringList.contains(list_, TORGNOLES));
-        assertTrue(StringList.contains(list_, TOURNIQUET));
-        assertTrue(StringList.contains(list_, TREMPETTE));
-        assertTrue(StringList.contains(list_, ULTIMAPOING));
-        assertTrue(StringList.contains(list_, ULTIMAWASHI));
-        assertTrue(StringList.contains(list_, VANTARDISE));
-        assertTrue(StringList.contains(list_, VENT_GLACE));
+        assertTrue(StringUtil.contains(list_, BALL_GLACE));
+        assertTrue(StringUtil.contains(list_, BLABLA_DODO));
+        assertTrue(StringUtil.contains(list_, BOUL_ARMURE));
+        assertTrue(StringUtil.contains(list_, BRUME));
+        assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
+        assertTrue(StringUtil.contains(list_, BULLES_D_O));
+        assertTrue(StringUtil.contains(list_, CHARGE));
+        assertTrue(StringUtil.contains(list_, CLONAGE));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, COUD_BOUE));
+        assertTrue(StringUtil.contains(list_, COUP_D_BOULE));
+        assertTrue(StringUtil.contains(list_, DAMOCLES));
+        assertTrue(StringUtil.contains(list_, DANSE_PLUIE));
+        assertTrue(StringUtil.contains(list_, ECLAIR));
+        assertTrue(StringUtil.contains(list_, ECUME));
+        assertTrue(StringUtil.contains(list_, EFFORT));
+        assertTrue(StringUtil.contains(list_, ENCORE));
+        assertTrue(StringUtil.contains(list_, FRAPPE_ATLAS));
+        assertTrue(StringUtil.contains(list_, HYPNOSE));
+        assertTrue(StringUtil.contains(list_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(list_, METRONOME));
+        assertTrue(StringUtil.contains(list_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(list_, PLAQUAGE));
+        assertTrue(StringUtil.contains(list_, PLONGEE));
+        assertTrue(StringUtil.contains(list_, POINGLACE));
+        assertTrue(StringUtil.contains(list_, REGENERATION));
+        assertTrue(StringUtil.contains(list_, RIPOSTE));
+        assertTrue(StringUtil.contains(list_, RONFLEMENT));
+        assertTrue(StringUtil.contains(list_, TENACITE));
+        assertTrue(StringUtil.contains(list_, TORGNOLES));
+        assertTrue(StringUtil.contains(list_, TOURNIQUET));
+        assertTrue(StringUtil.contains(list_, TREMPETTE));
+        assertTrue(StringUtil.contains(list_, ULTIMAPOING));
+        assertTrue(StringUtil.contains(list_, ULTIMAWASHI));
+        assertTrue(StringUtil.contains(list_, VANTARDISE));
+        assertTrue(StringUtil.contains(list_, VENT_GLACE));
     }
 
     @Test
@@ -839,43 +839,43 @@ public class FightSimulationTest extends InitializationDataBase {
         short level_ = 25;
         StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data);
         assertEq(37, list_.size());
-        assertTrue(StringList.contains(list_, BALL_GLACE));
-        assertTrue(StringList.contains(list_, BLABLA_DODO));
-        assertTrue(StringList.contains(list_, BOUL_ARMURE));
-        assertTrue(StringList.contains(list_, BRUME));
-        assertTrue(StringList.contains(list_, BUEE_NOIRE));
-        assertTrue(StringList.contains(list_, BULLES_D_O));
-        assertTrue(StringList.contains(list_, CHARGE));
-        assertTrue(StringList.contains(list_, CLONAGE));
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, COUD_BOUE));
-        assertTrue(StringList.contains(list_, COUP_D_BOULE));
-        assertTrue(StringList.contains(list_, DAMOCLES));
-        assertTrue(StringList.contains(list_, DANSE_PLUIE));
-        assertTrue(StringList.contains(list_, ECLAIR));
-        assertTrue(StringList.contains(list_, ECUME));
-        assertTrue(StringList.contains(list_, EFFORT));
-        assertTrue(StringList.contains(list_, ENCORE));
-        assertTrue(StringList.contains(list_, FRAPPE_ATLAS));
-        assertTrue(StringList.contains(list_, HYPNOSE));
-        assertTrue(StringList.contains(list_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(list_, METRONOME));
-        assertTrue(StringList.contains(list_, PISTOLET_A_O));
-        assertTrue(StringList.contains(list_, PLAQUAGE));
-        assertTrue(StringList.contains(list_, PLONGEE));
-        assertTrue(StringList.contains(list_, POINGLACE));
-        assertTrue(StringList.contains(list_, REGENERATION));
-        assertTrue(StringList.contains(list_, RIPOSTE));
-        assertTrue(StringList.contains(list_, RONFLEMENT));
-        assertTrue(StringList.contains(list_, TENACITE));
-        assertTrue(StringList.contains(list_, TIR_DE_BOUE));
-        assertTrue(StringList.contains(list_, TORGNOLES));
-        assertTrue(StringList.contains(list_, TOURNIQUET));
-        assertTrue(StringList.contains(list_, TREMPETTE));
-        assertTrue(StringList.contains(list_, ULTIMAPOING));
-        assertTrue(StringList.contains(list_, ULTIMAWASHI));
-        assertTrue(StringList.contains(list_, VANTARDISE));
-        assertTrue(StringList.contains(list_, VENT_GLACE));
+        assertTrue(StringUtil.contains(list_, BALL_GLACE));
+        assertTrue(StringUtil.contains(list_, BLABLA_DODO));
+        assertTrue(StringUtil.contains(list_, BOUL_ARMURE));
+        assertTrue(StringUtil.contains(list_, BRUME));
+        assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
+        assertTrue(StringUtil.contains(list_, BULLES_D_O));
+        assertTrue(StringUtil.contains(list_, CHARGE));
+        assertTrue(StringUtil.contains(list_, CLONAGE));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, COUD_BOUE));
+        assertTrue(StringUtil.contains(list_, COUP_D_BOULE));
+        assertTrue(StringUtil.contains(list_, DAMOCLES));
+        assertTrue(StringUtil.contains(list_, DANSE_PLUIE));
+        assertTrue(StringUtil.contains(list_, ECLAIR));
+        assertTrue(StringUtil.contains(list_, ECUME));
+        assertTrue(StringUtil.contains(list_, EFFORT));
+        assertTrue(StringUtil.contains(list_, ENCORE));
+        assertTrue(StringUtil.contains(list_, FRAPPE_ATLAS));
+        assertTrue(StringUtil.contains(list_, HYPNOSE));
+        assertTrue(StringUtil.contains(list_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(list_, METRONOME));
+        assertTrue(StringUtil.contains(list_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(list_, PLAQUAGE));
+        assertTrue(StringUtil.contains(list_, PLONGEE));
+        assertTrue(StringUtil.contains(list_, POINGLACE));
+        assertTrue(StringUtil.contains(list_, REGENERATION));
+        assertTrue(StringUtil.contains(list_, RIPOSTE));
+        assertTrue(StringUtil.contains(list_, RONFLEMENT));
+        assertTrue(StringUtil.contains(list_, TENACITE));
+        assertTrue(StringUtil.contains(list_, TIR_DE_BOUE));
+        assertTrue(StringUtil.contains(list_, TORGNOLES));
+        assertTrue(StringUtil.contains(list_, TOURNIQUET));
+        assertTrue(StringUtil.contains(list_, TREMPETTE));
+        assertTrue(StringUtil.contains(list_, ULTIMAPOING));
+        assertTrue(StringUtil.contains(list_, ULTIMAWASHI));
+        assertTrue(StringUtil.contains(list_, VANTARDISE));
+        assertTrue(StringUtil.contains(list_, VENT_GLACE));
     }
 
     @Test
@@ -884,47 +884,47 @@ public class FightSimulationTest extends InitializationDataBase {
         short level_ = 100;
         StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data);
         assertEq(41, list_.size());
-        assertTrue(StringList.contains(list_, BALL_GLACE));
-        assertTrue(StringList.contains(list_, BLABLA_DODO));
-        assertTrue(StringList.contains(list_, BOUL_ARMURE));
-        assertTrue(StringList.contains(list_, BRUME));
-        assertTrue(StringList.contains(list_, BOUE_BOMBE));
-        assertTrue(StringList.contains(list_, BUEE_NOIRE));
-        assertTrue(StringList.contains(list_, BULLES_D_O));
-        assertTrue(StringList.contains(list_, CHARGE));
-        assertTrue(StringList.contains(list_, CLONAGE));
-        assertTrue(StringList.contains(list_, COGNOBIDON));
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, COUD_BOUE));
-        assertTrue(StringList.contains(list_, COUP_D_BOULE));
-        assertTrue(StringList.contains(list_, DAMOCLES));
-        assertTrue(StringList.contains(list_, DANSE_PLUIE));
-        assertTrue(StringList.contains(list_, ECLAIR));
-        assertTrue(StringList.contains(list_, ECUME));
-        assertTrue(StringList.contains(list_, EFFORT));
-        assertTrue(StringList.contains(list_, ENCORE));
-        assertTrue(StringList.contains(list_, FRAPPE_ATLAS));
-        assertTrue(StringList.contains(list_, HYDROCANON));
-        assertTrue(StringList.contains(list_, HYPNOSE));
-        assertTrue(StringList.contains(list_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(list_, METRONOME));
-        assertTrue(StringList.contains(list_, PISTOLET_A_O));
-        assertTrue(StringList.contains(list_, PLAQUAGE));
-        assertTrue(StringList.contains(list_, PLONGEE));
-        assertTrue(StringList.contains(list_, POINGLACE));
-        assertTrue(StringList.contains(list_, REGENERATION));
-        assertTrue(StringList.contains(list_, REVEIL_FORCE));
-        assertTrue(StringList.contains(list_, RIPOSTE));
-        assertTrue(StringList.contains(list_, RONFLEMENT));
-        assertTrue(StringList.contains(list_, TENACITE));
-        assertTrue(StringList.contains(list_, TIR_DE_BOUE));
-        assertTrue(StringList.contains(list_, TORGNOLES));
-        assertTrue(StringList.contains(list_, TOURNIQUET));
-        assertTrue(StringList.contains(list_, TREMPETTE));
-        assertTrue(StringList.contains(list_, ULTIMAPOING));
-        assertTrue(StringList.contains(list_, ULTIMAWASHI));
-        assertTrue(StringList.contains(list_, VANTARDISE));
-        assertTrue(StringList.contains(list_, VENT_GLACE));
+        assertTrue(StringUtil.contains(list_, BALL_GLACE));
+        assertTrue(StringUtil.contains(list_, BLABLA_DODO));
+        assertTrue(StringUtil.contains(list_, BOUL_ARMURE));
+        assertTrue(StringUtil.contains(list_, BRUME));
+        assertTrue(StringUtil.contains(list_, BOUE_BOMBE));
+        assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
+        assertTrue(StringUtil.contains(list_, BULLES_D_O));
+        assertTrue(StringUtil.contains(list_, CHARGE));
+        assertTrue(StringUtil.contains(list_, CLONAGE));
+        assertTrue(StringUtil.contains(list_, COGNOBIDON));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, COUD_BOUE));
+        assertTrue(StringUtil.contains(list_, COUP_D_BOULE));
+        assertTrue(StringUtil.contains(list_, DAMOCLES));
+        assertTrue(StringUtil.contains(list_, DANSE_PLUIE));
+        assertTrue(StringUtil.contains(list_, ECLAIR));
+        assertTrue(StringUtil.contains(list_, ECUME));
+        assertTrue(StringUtil.contains(list_, EFFORT));
+        assertTrue(StringUtil.contains(list_, ENCORE));
+        assertTrue(StringUtil.contains(list_, FRAPPE_ATLAS));
+        assertTrue(StringUtil.contains(list_, HYDROCANON));
+        assertTrue(StringUtil.contains(list_, HYPNOSE));
+        assertTrue(StringUtil.contains(list_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(list_, METRONOME));
+        assertTrue(StringUtil.contains(list_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(list_, PLAQUAGE));
+        assertTrue(StringUtil.contains(list_, PLONGEE));
+        assertTrue(StringUtil.contains(list_, POINGLACE));
+        assertTrue(StringUtil.contains(list_, REGENERATION));
+        assertTrue(StringUtil.contains(list_, REVEIL_FORCE));
+        assertTrue(StringUtil.contains(list_, RIPOSTE));
+        assertTrue(StringUtil.contains(list_, RONFLEMENT));
+        assertTrue(StringUtil.contains(list_, TENACITE));
+        assertTrue(StringUtil.contains(list_, TIR_DE_BOUE));
+        assertTrue(StringUtil.contains(list_, TORGNOLES));
+        assertTrue(StringUtil.contains(list_, TOURNIQUET));
+        assertTrue(StringUtil.contains(list_, TREMPETTE));
+        assertTrue(StringUtil.contains(list_, ULTIMAPOING));
+        assertTrue(StringUtil.contains(list_, ULTIMAWASHI));
+        assertTrue(StringUtil.contains(list_, VANTARDISE));
+        assertTrue(StringUtil.contains(list_, VENT_GLACE));
     }
 
     @Test
@@ -933,47 +933,47 @@ public class FightSimulationTest extends InitializationDataBase {
         short level_ = 100;
         StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data);
         assertEq(34, list_.size());
-        assertTrue(StringList.contains(list_, BALL_GLACE));
-        assertTrue(StringList.contains(list_, BLABLA_DODO));
-        assertTrue(StringList.contains(list_, BOUE_BOMBE));
-        assertTrue(StringList.contains(list_, BOUL_ARMURE));
-        assertTrue(StringList.contains(list_, BRUME));
-        assertTrue(StringList.contains(list_, BUEE_NOIRE));
-        assertTrue(StringList.contains(list_, BULLES_D_O));
-        assertTrue(StringList.contains(list_, CHARGE));
-        assertTrue(StringList.contains(list_, CLONAGE));
-        assertTrue(StringList.contains(list_, COGNOBIDON));
-        assertTrue(StringList.contains(list_, COPIE));
-        assertTrue(StringList.contains(list_, COUP_D_BOULE));
-        assertTrue(StringList.contains(list_, DAMOCLES));
-        assertTrue(StringList.contains(list_, DANSE_PLUIE));
-        assertTrue(StringList.contains(list_, ECLAIR));
-        assertTrue(StringList.contains(list_, ECUME));
-        assertTrue(StringList.contains(list_, EFFORT));
-        assertTrue(StringList.contains(list_, ENCORE));
-        assertTrue(StringList.contains(list_, HYDROCANON));
-        assertTrue(StringList.contains(list_, HYPNOSE));
-        assertTrue(StringList.contains(list_, LIRE_ESPRIT));
-        assertTrue(StringList.contains(list_, PISTOLET_A_O));
-        assertTrue(StringList.contains(list_, PLAQUAGE));
-        assertTrue(StringList.contains(list_, PLONGEE));
-        assertTrue(StringList.contains(list_, REGENERATION));
-        assertTrue(StringList.contains(list_, REVEIL_FORCE));
-        assertTrue(StringList.contains(list_, RONFLEMENT));
-        assertTrue(StringList.contains(list_, TENACITE));
-        assertTrue(StringList.contains(list_, TIR_DE_BOUE));
-        assertTrue(StringList.contains(list_, TORGNOLES));
-        assertTrue(StringList.contains(list_, TOURNIQUET));
-        assertTrue(StringList.contains(list_, TREMPETTE));
-        assertTrue(StringList.contains(list_, VANTARDISE));
-        assertTrue(StringList.contains(list_, VENT_GLACE));
+        assertTrue(StringUtil.contains(list_, BALL_GLACE));
+        assertTrue(StringUtil.contains(list_, BLABLA_DODO));
+        assertTrue(StringUtil.contains(list_, BOUE_BOMBE));
+        assertTrue(StringUtil.contains(list_, BOUL_ARMURE));
+        assertTrue(StringUtil.contains(list_, BRUME));
+        assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
+        assertTrue(StringUtil.contains(list_, BULLES_D_O));
+        assertTrue(StringUtil.contains(list_, CHARGE));
+        assertTrue(StringUtil.contains(list_, CLONAGE));
+        assertTrue(StringUtil.contains(list_, COGNOBIDON));
+        assertTrue(StringUtil.contains(list_, COPIE));
+        assertTrue(StringUtil.contains(list_, COUP_D_BOULE));
+        assertTrue(StringUtil.contains(list_, DAMOCLES));
+        assertTrue(StringUtil.contains(list_, DANSE_PLUIE));
+        assertTrue(StringUtil.contains(list_, ECLAIR));
+        assertTrue(StringUtil.contains(list_, ECUME));
+        assertTrue(StringUtil.contains(list_, EFFORT));
+        assertTrue(StringUtil.contains(list_, ENCORE));
+        assertTrue(StringUtil.contains(list_, HYDROCANON));
+        assertTrue(StringUtil.contains(list_, HYPNOSE));
+        assertTrue(StringUtil.contains(list_, LIRE_ESPRIT));
+        assertTrue(StringUtil.contains(list_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(list_, PLAQUAGE));
+        assertTrue(StringUtil.contains(list_, PLONGEE));
+        assertTrue(StringUtil.contains(list_, REGENERATION));
+        assertTrue(StringUtil.contains(list_, REVEIL_FORCE));
+        assertTrue(StringUtil.contains(list_, RONFLEMENT));
+        assertTrue(StringUtil.contains(list_, TENACITE));
+        assertTrue(StringUtil.contains(list_, TIR_DE_BOUE));
+        assertTrue(StringUtil.contains(list_, TORGNOLES));
+        assertTrue(StringUtil.contains(list_, TOURNIQUET));
+        assertTrue(StringUtil.contains(list_, TREMPETTE));
+        assertTrue(StringUtil.contains(list_, VANTARDISE));
+        assertTrue(StringUtil.contains(list_, VENT_GLACE));
     }
 
     @Test
     public void addPokemonPlayer1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1002,7 +1002,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setPokemonPlayerObject1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1032,7 +1032,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setInitialMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1063,7 +1063,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void removePokemonPlayer1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1079,7 +1079,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void getFirstNextEvolutions1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1098,7 +1098,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void getFirstNextEvolutions2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 26);
         pokemon_.setName(TARTARD);
@@ -1116,7 +1116,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setNextEvolutions1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1144,7 +1144,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setNextEvolutions2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1169,7 +1169,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setNextEvolutions3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1198,7 +1198,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setNextEvolutions4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1227,7 +1227,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelEvolutions1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1253,7 +1253,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelEvolutions2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1283,7 +1283,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelEvolutions3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1309,7 +1309,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelEvolutions4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1346,7 +1346,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void initializeFrontFighters1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1401,7 +1401,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validFrontFighters2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1425,7 +1425,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validFrontFighters3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1471,7 +1471,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validFrontFighters5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1497,7 +1497,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validFrontFighters6Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1608,7 +1608,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void indexesFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1645,7 +1645,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void indexesFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1689,7 +1689,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void indexesFight3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1740,7 +1740,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void indexesFight4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1818,7 +1818,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void prepareMovesToBeLearntOneFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2076,7 +2076,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void prepareMovesToBeLearntOneFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2137,7 +2137,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void prepareMovesToBeLearnt2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2426,7 +2426,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void prepareMovesToBeLearnt3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2684,7 +2684,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void addMove1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2731,15 +2731,15 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(14, fightSimulation_.getAvailableMoves().getVal((byte)0).getMoves().size());
         assertTrue(fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(PLAQUAGE));
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte)0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
     }
 
     @Test
     public void isAvailableMovesTest() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TARTARD);
@@ -2785,7 +2785,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void deleteMove1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2832,13 +2832,13 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(PLAQUAGE));
         assertTrue(!fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(CHARGE));
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte)0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
     }
     @Test
     public void cancelEvolutionsAll1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2874,7 +2874,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void keepMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2915,15 +2915,15 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.keepMoves(0, new StringList(CHARGE, PLAQUAGE, BULLES_D_O, PISTOLET_A_O), data);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getRound());
         assertEq(10, fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().size());
@@ -2943,7 +2943,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void keepMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2983,15 +2983,15 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.keepMoves(0, new StringList(TORGNOLES, PLAQUAGE, BULLES_D_O, PISTOLET_A_O), data);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), TORGNOLES));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), TORGNOLES));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getRound());
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().size());
@@ -3001,7 +3001,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void keepMoves3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pk_ = new WildPk();
         pk_.setName(PICHU);
         pk_.setAbility(ATTENTION);
@@ -3048,9 +3048,9 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.keepMoves(0, new StringList(CHARGE), data);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getRound());
         assertEq(14, fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().size());
@@ -3074,7 +3074,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validateKeptMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3155,15 +3155,15 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(2, fightSimulation_.getMovesBetweenFights().getVal((byte) 1).size());
         assertEq(2, fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).size());
         assertEq(4, fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first().size());
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), HYPNOSE));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), SACRIFICE));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), TORGNOLES));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), HYPNOSE));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), SACRIFICE));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).first(), TORGNOLES));
         assertEq(4, fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last().size());
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), TUNNEL));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), BALL_OMBRE));
-        assertTrue(StringList.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), TONNERRE));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), TUNNEL));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), BALL_OMBRE));
+        assertTrue(StringUtil.contains(fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(0).last(), TONNERRE));
         assertEq(0, fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(1).size());
         assertEq(2, fightSimulation_.getMovesBetweenFights().getVal((byte) 2).size());
         assertEq(0, fightSimulation_.getMovesBetweenFights().getVal((byte) 2).get(0).size());
@@ -3258,7 +3258,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelMovesOneFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3306,19 +3306,19 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.keepMoves(0, new StringList(CHARGE, PLAQUAGE, BULLES_D_O, PISTOLET_A_O), data);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), PISTOLET_A_O));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
         fightSimulation_.cancelMovesOneFight(0, data);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
 //        assertTrue(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new Pair<>((byte)0,(byte)0)).containsObj(PLAQUAGE));
 //        assertTrue(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new Pair<>((byte)0,(byte)0)).containsObj(BULLES_D_O));
 //        assertTrue(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new Pair<>((byte)0,(byte)0)).containsObj(PISTOLET_A_O));
@@ -3350,7 +3350,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelMovesOneFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pk_ = new WildPk();
         pk_.setName(PICHU);
         pk_.setAbility(ATTENTION);
@@ -3399,26 +3399,26 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.keepMoves(0, new StringList(ECUME, PLAQUAGE, BULLES_D_O, PISTOLET_A_O), data);
         assertEq(3, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), ECUME));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), ECUME));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)2)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), ECUME));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), ECUME));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 2)), PISTOLET_A_O));
         fightSimulation_.cancelMovesOneFight(0, data);
         assertEq(3, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 0)), CHARGE));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), ECUME));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), ECUME));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
         assertEq(0, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)2)).size());
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getRound());
@@ -3444,7 +3444,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validateMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3505,17 +3505,17 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(!fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(REBOND));
         assertEq(0, fightSimulation_.getAvailableMovesBetweenFights().size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 0, (byte) 1)), PISTOLET_A_O));
     }
 
     @Test
     public void validateMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3574,17 +3574,17 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(PISTOLET_A_O));
         assertEq(0, fightSimulation_.getAvailableMovesBetweenFights().size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte)1,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), MEGAPHONE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), PLAQUAGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), MEGAPHONE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), PLAQUAGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new KeyFightRound((byte) 1, (byte) 0)), PISTOLET_A_O));
     }
 
     @Test
     public void validateMoves3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3634,14 +3634,14 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().getVal(CHARGE));
         assertEq(0, fightSimulation_.getAvailableMovesBetweenFights().size());
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
     }
 
     @Test
     public void validateMoves4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3698,7 +3698,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(SACRIFICE));
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(TORGNOLES));
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
         assertEq(2, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first().size());
@@ -3710,7 +3710,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void addMoveBetweenFights1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3768,7 +3768,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(SACRIFICE));
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(TORGNOLES));
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
         assertEq(2, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().size());
         assertEq(2, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first().size());
@@ -3781,7 +3781,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void deleteMoveBetweenFights1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3840,7 +3840,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(SACRIFICE));
         assertTrue(!fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(TORGNOLES));
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte)0,(byte)1)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 0, (byte) 1)), CHARGE));
         assertEq(2, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first().size());
@@ -3852,7 +3852,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validateMoves5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3918,17 +3918,17 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(SACRIFICE));
         assertTrue(fightSimulation_.getAvailableMovesBetweenFights().getVal((byte) 1).getVal(TORGNOLES));
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte)1,(byte)0)).size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), SACRIFICE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), TORGNOLES));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), SACRIFICE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMoves().getVal((byte) 1).getVal(new KeyFightRound((byte) 1, (byte) 0)), TORGNOLES));
         assertEq(2, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).size());
         assertEq(1, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().size());
         assertEq(4, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first().size());
-        assertTrue(StringList.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), CHARGE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), BULLES_D_O));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), SACRIFICE));
-        assertTrue(StringList.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), TORGNOLES));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), CHARGE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), BULLES_D_O));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), SACRIFICE));
+        assertTrue(StringUtil.contains(fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first(), TORGNOLES));
         assertEq(CHARGE, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).first().first().first());
         assertEq(0, fightSimulation_.getKeptMovesBetweenFights().getVal((byte) 1).last().size());
     }
@@ -3937,7 +3937,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setAbilityBetweenFights1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3987,7 +3987,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void setAbilityWhileFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4037,7 +4037,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4087,7 +4087,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4140,7 +4140,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4192,7 +4192,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4247,7 +4247,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4313,7 +4313,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validMoves6Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4385,7 +4385,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validateAllMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4435,7 +4435,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validateAllMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4532,85 +4532,85 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(TETARTE, choice_.getName());
         assertEq(ABSORB_EAU, choice_.getAbility());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(3, fightSimulation_.getMovesAbilities().first().last().size());
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)0);
         assertEq(TARPAUD, choice_.getName());
         assertEq(ABSORB_EAU, choice_.getAbility());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(2, fightSimulation_.getMovesAbilities().last().size());
         assertEq(3, fightSimulation_.getMovesAbilities().last().first().size());
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)0);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), SACRIFICE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), SACRIFICE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), TORGNOLES));
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(3, fightSimulation_.getMovesAbilities().last().last().size());
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)0);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), SACRIFICE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), SACRIFICE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), TORGNOLES));
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)2);
         assertEq(MUNJA, choice_.getName());
         assertEq(GARDE_MYSTIK, choice_.getAbility());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BALL_OMBRE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), TUNNEL));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), OMBRE_PORTEE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), GRIFFE_ACIER));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BALL_OMBRE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), TUNNEL));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), OMBRE_PORTEE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), GRIFFE_ACIER));
     }
 
     @Test
     public void initializeAllMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4707,75 +4707,75 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(TETARTE, choice_.getName());
         assertEq(ABSORB_EAU, choice_.getAbility());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(3, fightSimulation_.getMovesAbilities().first().last().size());
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)0);
         assertEq(TARPAUD, choice_.getName());
         assertEq(ABSORB_EAU, choice_.getAbility());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(2, fightSimulation_.getMovesAbilities().last().size());
         assertEq(3, fightSimulation_.getMovesAbilities().last().first().size());
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)0);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), SACRIFICE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), SACRIFICE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), TORGNOLES));
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(4, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PLAQUAGE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), REVEIL_FORCE));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), BULLES_D_O));
-        assertTrue(StringList.contains(choice_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), REVEIL_FORCE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), BULLES_D_O));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), PISTOLET_A_O));
         choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)2);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         assertEq(3, fightSimulation_.getMovesAbilities().last().last().size());
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)0);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)1);
         assertEq(NULL_REF, choice_.getName());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
         choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)2);
         assertEq(MUNJA, choice_.getName());
         assertEq(GARDE_MYSTIK, choice_.getAbility());
         assertEq(1, choice_.getKeptMoves().size());
-        assertTrue(StringList.contains(choice_.getKeptMoves(), CHARGE));
+        assertTrue(StringUtil.contains(choice_.getKeptMoves(), CHARGE));
     }
     @Test
     public void possibleMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4848,7 +4848,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void possibleMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4916,17 +4916,17 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(data);
         StringList possibleMoves_ = fightSimulation_.possibleMoves(1, 0, 1);
         assertEq(4, possibleMoves_.size());
-        assertTrue(StringList.contains(possibleMoves_, BULLES_D_O));
-        assertTrue(StringList.contains(possibleMoves_, CHARGE));
-        assertTrue(StringList.contains(possibleMoves_, SACRIFICE));
-        assertTrue(StringList.contains(possibleMoves_, TORGNOLES));
+        assertTrue(StringUtil.contains(possibleMoves_, BULLES_D_O));
+        assertTrue(StringUtil.contains(possibleMoves_, CHARGE));
+        assertTrue(StringUtil.contains(possibleMoves_, SACRIFICE));
+        assertTrue(StringUtil.contains(possibleMoves_, TORGNOLES));
     }
 
     @Test
     public void possibleMoves3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -4994,14 +4994,14 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(data);
         StringList possibleMoves_ = fightSimulation_.possibleMoves(1, 1, 2);
         assertEq(1, possibleMoves_.size());
-        assertTrue(StringList.contains(possibleMoves_, CHARGE));
+        assertTrue(StringUtil.contains(possibleMoves_, CHARGE));
     }
 
     @Test
     public void possibleMoves4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5069,14 +5069,14 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(data);
         StringList possibleMoves_ = fightSimulation_.possibleMoves(0, 0, 0);
         assertEq(1, possibleMoves_.size());
-        assertTrue(StringList.contains(possibleMoves_, CHARGE));
+        assertTrue(StringUtil.contains(possibleMoves_, CHARGE));
     }
 
     @Test
     public void possibleMoves5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5144,14 +5144,14 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(data);
         StringList possibleMoves_ = fightSimulation_.possibleMoves(1, 0, 2);
         assertEq(1, possibleMoves_.size());
-        assertTrue(StringList.contains(possibleMoves_, CHARGE));
+        assertTrue(StringUtil.contains(possibleMoves_, CHARGE));
     }
 
     @Test
     public void chooseMove1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5229,7 +5229,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void chooseMove2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5307,7 +5307,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void chooseMove3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5386,7 +5386,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void chooseMove4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5465,7 +5465,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void chooseMoveFirstFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5543,7 +5543,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void chooseMoveFirstFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5620,7 +5620,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void cancelAllMovesOneFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5695,7 +5695,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validChoicesMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -5768,7 +5768,7 @@ public class FightSimulationTest extends InitializationDataBase {
     public void validChoicesMoves2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);

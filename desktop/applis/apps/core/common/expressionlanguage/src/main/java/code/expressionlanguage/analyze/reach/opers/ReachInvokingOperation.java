@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public abstract class ReachInvokingOperation extends ReachMethodOperation implements ReachCalculable {
     private int naturalVararg;
@@ -84,7 +85,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
             CustList<Struct> optArgs_ = new CustList<Struct>();
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 if (_children.get(i) instanceof ReachNoopOperation) {
                     natVarArg_++;
                     continue;
@@ -106,7 +107,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
-        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
             if (_children.get(i) instanceof ReachNoopOperation) {
                 continue;
             }

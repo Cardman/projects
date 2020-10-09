@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansPokemonEvolutionsStd {
     public static final String TYPE_EVOLUTION_BEAN = "aiki.beans.pokemon.evolutions.EvolutionBean";
@@ -215,15 +216,15 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new LongStruct(instance_.getIndex()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DISPLAY_BASE)) {
+        if (StringUtil.quickEq(fieldName_,DISPLAY_BASE)) {
             res_.setResult(new StringStruct(instance_.getDisplayBase()));
             return res_;
         }
@@ -233,7 +234,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionHappinessBean instance_ = (EvolutionHappinessBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,MIN)) {
+        if (StringUtil.quickEq(fieldName_,MIN)) {
             res_.setResult(new LongStruct(instance_.getMin()));
             return res_;
         }
@@ -243,7 +244,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionItemBean instance_ = (EvolutionItemBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,ITEM)) {
+        if (StringUtil.quickEq(fieldName_,ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem()));
             return res_;
         }
@@ -253,7 +254,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionLevelBean instance_ = (EvolutionLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,LEVEL)) {
+        if (StringUtil.quickEq(fieldName_,LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
             return res_;
         }
@@ -263,7 +264,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionLevelGenderBean instance_ = (EvolutionLevelGenderBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,GENDER)) {
+        if (StringUtil.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
@@ -273,7 +274,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionMoveBean instance_ = (EvolutionMoveBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,MOVE)) {
+        if (StringUtil.quickEq(fieldName_,MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove()));
             return res_;
         }
@@ -283,7 +284,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionMoveTypeBean instance_ = (EvolutionMoveTypeBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TYPE)) {
+        if (StringUtil.quickEq(fieldName_,TYPE)) {
             res_.setResult(new StringStruct(instance_.getType()));
             return res_;
         }
@@ -293,7 +294,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionStoneBean instance_ = (EvolutionStoneBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,STONE)) {
+        if (StringUtil.quickEq(fieldName_,STONE)) {
             res_.setResult(new StringStruct(instance_.getStone()));
             return res_;
         }
@@ -303,7 +304,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionStoneGenderBean instance_ = (EvolutionStoneGenderBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,GENDER)) {
+        if (StringUtil.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
@@ -313,7 +314,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionTeamBean instance_ = (EvolutionTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,OTHER)) {
+        if (StringUtil.quickEq(fieldName_,OTHER)) {
             res_.setResult(new StringStruct(instance_.getOther()));
             return res_;
         }
@@ -323,17 +324,17 @@ public final class AikiBeansPokemonEvolutionsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             instance_.setIndex((Long) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NAME)) {
+        if (StringUtil.quickEq(fieldName_,NAME)) {
             instance_.setName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,BASE)) {
+        if (StringUtil.quickEq(fieldName_,BASE)) {
             instance_.setBase((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -344,7 +345,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_EVO)) {
+        if (StringUtil.quickEq(methodName_,CLICK_EVO)) {
             res_.setResult(new StringStruct(instance_.clickEvo((Long)_args[0])));
             return res_;
         }
@@ -354,7 +355,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionItemBean instance_ = (EvolutionItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0])));
             return res_;
         }
@@ -364,7 +365,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionMoveBean instance_ = (EvolutionMoveBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
             return res_;
         }
@@ -374,7 +375,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionStoneBean instance_ = (EvolutionStoneBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_STONE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_STONE)) {
             res_.setResult(new StringStruct(instance_.clickStone((Long)_args[0])));
             return res_;
         }
@@ -384,7 +385,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionTeamBean instance_ = (EvolutionTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,CLICK_TEAM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_TEAM)) {
             res_.setResult(new StringStruct(instance_.clickTeam((Long)_args[0])));
             return res_;
         }

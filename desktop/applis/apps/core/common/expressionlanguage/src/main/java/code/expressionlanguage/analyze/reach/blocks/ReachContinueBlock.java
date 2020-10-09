@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ContinueBlock;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachContinueBlock extends ReachAbruptBlock {
 
@@ -29,7 +29,7 @@ public final class ReachContinueBlock extends ReachAbruptBlock {
                     childOfLoop_ = true;
                     break;
                 }
-                if (StringList.quickEq(label, ((ReachBreakableBlock)b_).getRealLabel())){
+                if (StringUtil.quickEq(label, ((ReachBreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
                     break;
                 }

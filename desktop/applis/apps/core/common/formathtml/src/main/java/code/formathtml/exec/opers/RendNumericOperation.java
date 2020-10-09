@@ -7,8 +7,8 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
     private int opOffset;
@@ -21,7 +21,7 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
     static Argument calculateAffect(Argument _left, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, ContextEl _context) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
-        if (StringList.quickEq(op_, "??")) {
+        if (StringUtil.quickEq(op_, "??")) {
             Struct first_ = _left.getStruct();
             if (first_ != NullStruct.NULL_VALUE) {
                 res_.setResult(ExecClassArgumentMatching.convert(first_,_context, _cls));

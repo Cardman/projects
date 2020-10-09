@@ -11,13 +11,14 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public final class InitializationLgNames {
 
     public static AnalyzedTestContext buildStdOneAna(Options _opt) {
-        return buildStdOneAna(CustList.INDEX_NOT_FOUND_ELT, _opt);
+        return buildStdOneAna(IndexConstants.INDEX_NOT_FOUND_ELT, _opt);
     }
 
     public static AnalyzedTestContext buildStdOneAna(int _stack, Options _opt) {
@@ -31,13 +32,13 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         lgName_.getContent().getPredefTypes().setAliasEnumName("name");
         lgName_.getContent().getPredefTypes().setAliasEnumOrdinal("ordinal");
-        return buildAna(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
+        return buildAna(IndexConstants.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
     }
 
     public static AnalyzedTestContext buildStdToStringAna(Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return buildToStringAna(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
+        return buildToStringAna(IndexConstants.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
     }
     public static AnalyzedTestContext buildStdExp(Options _opt) {
         LgNames lgName_ = new CustLgNames();
@@ -89,7 +90,7 @@ public final class InitializationLgNames {
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
         _lgNames.build();
@@ -426,12 +427,12 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWordsMap km_ = new KeyWordsMap();
         KeyWords kwl_ = km_.getKeyWords(_lang);
-        if (StringList.quickEq(_lang, "en")) {
+        if (StringUtil.quickEq(_lang, "en")) {
             km_.initEnStds(_undefinedLgNames);
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), çcalculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
         _undefinedLgNames.build();

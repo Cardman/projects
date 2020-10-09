@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class Mapping {
 
@@ -28,11 +29,11 @@ public class Mapping {
                     visitedBounds_.add(var_);
                     for (String n: mapping.getVal(var_)) {
                         if (n.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-                            if (StringList.quickEq(n.substring(1),k)) {
+                            if (StringUtil.quickEq(n.substring(1),k)) {
                                 return visitedBounds_;
                             }
                         }
-                        if (StringList.contains(visitedBoundsAll_, n)) {
+                        if (StringUtil.contains(visitedBoundsAll_, n)) {
                             continue;
                         }
                         visitedBoundsAll_.add(n);
@@ -63,7 +64,7 @@ public class Mapping {
                     continue;
                 }
                 for (String n: _mapping.getVal(var_)) {
-                    if (StringList.contains(visitedBoundsAll_, n)) {
+                    if (StringUtil.contains(visitedBoundsAll_, n)) {
                         continue;
                     }
                     visitedBoundsAll_.add(n);
@@ -100,7 +101,7 @@ public class Mapping {
                 str_.append(var_);
                 varBounds_.add(str_.toString());
                 for (String n: _mapping.getVal(var_)) {
-                    if (StringList.contains(visitedBoundsAll_, n)) {
+                    if (StringUtil.contains(visitedBoundsAll_, n)) {
                         continue;
                     }
                     visitedBoundsAll_.add(n);
@@ -120,7 +121,7 @@ public class Mapping {
     public boolean inheritArgParam(String _param, String _arg) {
         StringList visitedBounds_ = new StringList(_arg);
         StringList currentBounds_ = new StringList(_arg);
-        if (StringList.quickEq(_arg, _param)) {
+        if (StringUtil.quickEq(_arg, _param)) {
             return true;
         }
         while (true) {
@@ -134,10 +135,10 @@ public class Mapping {
                         continue;
                     }
                     String var_ = n.substring(1);
-                    if (StringList.contains(visitedBounds_, var_)) {
+                    if (StringUtil.contains(visitedBounds_, var_)) {
                         continue;
                     }
-                    if (StringList.quickEq(var_, _param)) {
+                    if (StringUtil.quickEq(var_, _param)) {
                         return true;
                     }
                     visitedBounds_.add(var_);

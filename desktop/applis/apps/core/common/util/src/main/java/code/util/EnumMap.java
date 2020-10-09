@@ -1,10 +1,11 @@
 package code.util;
+import code.util.core.IndexConstants;
 import code.util.ints.ListableEntries;
 
 
 
 
-public final class EnumMap<K, V> extends AbsMap<K,V> {
+public final class EnumMap<K, V> extends AbsBasicMap<K,V> {
 
 //    //list cannot be null, even by reflection
 //    private final CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
@@ -21,15 +22,7 @@ public final class EnumMap<K, V> extends AbsMap<K,V> {
     }
 
     @Override
-    protected int indexOfEntry(K _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<K, V> e:getList()) {
-            if (e.getKey() == _key) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(K _one, K _two) {
+        return _one == _two;
     }
-
 }

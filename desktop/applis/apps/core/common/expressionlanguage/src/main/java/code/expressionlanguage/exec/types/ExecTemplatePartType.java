@@ -11,6 +11,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class ExecTemplatePartType extends ExecBinaryType {
 
@@ -69,7 +70,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
         for (StringList t: boundsAll_) {
             f_ = f_.getNextSibling();
             String arg_ = f_.getAnalyzedType();
-            if (StringList.quickEq(arg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, Templates.SUB_TYPE)) {
                 continue;
             }
             if (arg_.startsWith(Templates.SUB_TYPE)) {
@@ -103,8 +104,8 @@ final class ExecTemplatePartType extends ExecBinaryType {
         String t_ = getBegin();
         int len_ = ch_.size() - 1;
         for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+            t_ = StringUtil.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
         }
-        return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        return StringUtil.concat(t_, ch_.last().getAnalyzedType(),getEnd());
     }
 }

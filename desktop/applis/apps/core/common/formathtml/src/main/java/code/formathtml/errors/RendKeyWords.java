@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.LgNamesContent;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendKeyWords {
     private static final String TAG_TEXTAREA="TagTextarea";
@@ -497,15 +498,15 @@ public final class RendKeyWords {
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
+                if (!StringUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
@@ -520,7 +521,7 @@ public final class RendKeyWords {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
                 _page.addStdError(err_);
             }
@@ -533,23 +534,23 @@ public final class RendKeyWords {
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
-            if (!StringList.quickEq(key_,ATTR_PARAM)
+            if (!StringUtil.quickEq(key_,ATTR_PARAM)
                     &&keyWordValue_.startsWith(attrParam)) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
                 _page.addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)&&c!='-') {
+                if (!StringUtil.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
@@ -564,7 +565,7 @@ public final class RendKeyWords {
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
             }
@@ -580,15 +581,15 @@ public final class RendKeyWords {
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
+                if (!StringUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
@@ -596,7 +597,7 @@ public final class RendKeyWords {
             }
             if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
             }

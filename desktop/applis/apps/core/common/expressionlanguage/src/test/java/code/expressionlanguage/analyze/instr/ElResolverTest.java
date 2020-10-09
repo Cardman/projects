@@ -9,6 +9,7 @@ import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -5466,7 +5467,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     private static RootBlock getAnaClassBody(AnalyzedTestContext classes_, String _className) {
         for (RootBlock r: classes_.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
+            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }

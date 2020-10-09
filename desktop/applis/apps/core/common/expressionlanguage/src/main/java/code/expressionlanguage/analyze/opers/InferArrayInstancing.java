@@ -22,6 +22,7 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class InferArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
     private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
@@ -195,7 +196,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(argType_.getNames(),"&"),
+                            StringUtil.join(argType_.getNames(),"&"),
                             classNameFinal_);
                     _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));

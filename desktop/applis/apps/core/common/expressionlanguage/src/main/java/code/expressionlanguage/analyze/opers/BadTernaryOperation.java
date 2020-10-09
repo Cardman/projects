@@ -9,6 +9,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class BadTernaryOperation extends MethodOperation {
     public BadTernaryOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -19,7 +20,7 @@ public final class BadTernaryOperation extends MethodOperation {
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String fct_ = getOperations().getFctName();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringList.getFirstPrintableCharIndex(fct_), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringUtil.getFirstPrintableCharIndex(fct_), _page);
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
         badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
         badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -33,7 +34,7 @@ public final class BadTernaryOperation extends MethodOperation {
         getErrs().add(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = _page.getLocalizer().getCurrentLocationIndex();
-        getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+        getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
         getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }

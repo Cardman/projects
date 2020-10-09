@@ -11,7 +11,7 @@ import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecStandardInstancingOperation extends
         ExecInvokingOperation {
@@ -37,7 +37,7 @@ public final class ExecStandardInstancingOperation extends
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         if (!instancingStdContent.getFieldName().isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
             off_ -= instancingStdContent.getFieldName().length();

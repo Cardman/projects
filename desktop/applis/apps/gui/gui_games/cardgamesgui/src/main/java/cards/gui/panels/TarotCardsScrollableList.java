@@ -11,9 +11,9 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class TarotCardsScrollableList extends CardsScrollableList {
 
@@ -32,7 +32,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste,BorderLayout.CENTER);
-        remCards = new TextLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
+        remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -52,7 +52,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
             liste.add(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     /**Utilisee pour ajouter des cartes en respectant le tri*/
     public void ajouterCartesTarot(HandTarot _m) {
@@ -74,7 +74,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartesTarot(HandTarot _cs) {
         int indice_;
@@ -93,12 +93,12 @@ public class TarotCardsScrollableList extends CardsScrollableList {
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public HandTarot valMainTarot() {
         HandTarot main_=new HandTarot();
         int taille_=taille();
-        for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
             main_.ajouter(liste.get(i));
         }
         return main_;

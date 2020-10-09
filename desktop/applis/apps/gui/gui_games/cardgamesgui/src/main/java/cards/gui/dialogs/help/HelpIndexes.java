@@ -48,8 +48,8 @@ public final class HelpIndexes implements Equallable<HelpIndexes> {
         return indexes.getLastIndex();
     }
 
-    public CustList<Integer> mid(byte _firstIndex, int _lastIndex) {
-        return indexes.mid(_firstIndex, _lastIndex);
+    public CustList<Integer> left(int _lastIndex) {
+        return indexes.left(_lastIndex);
     }
 
 }

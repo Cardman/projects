@@ -1,8 +1,8 @@
 package code.maths.matrix;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EqList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -21,7 +21,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
     
     public static Vect newVect(String _arg) {
         Vect v_ = new Vect();
-        for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
+        for (String s: StringUtil.splitStrings(_arg, SEPARATOR)) {
             v_.add(new Rate(s));
         }
         return v_;
@@ -63,7 +63,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
 
     public Rate scale(Vect _v) {
         Rate r_ = Rate.zero();
-        int index_ = CustList.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         for (Rate n: numbers) {
             r_.addNb(Rate.multiply(n, _v.get(index_)));
             index_++;

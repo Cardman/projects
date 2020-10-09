@@ -13,8 +13,9 @@ import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +87,7 @@ public final class MainWindow extends GroupFrame {
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addActionListener(new SetLanguage(l));
-            radio_.setSelected(StringList.quickEq(l,_lg));
+            radio_.setSelected(StringUtil.quickEq(l,_lg));
             group.add(radio_);
             panel_.add(radio_);
             radios.add(radio_);
@@ -100,7 +101,7 @@ public final class MainWindow extends GroupFrame {
     }
     @Override
     public void quit() {
-        int nb_ = CustList.SIZE_EMPTY;
+        int nb_ = IndexConstants.SIZE_EMPTY;
         if (LaunchingPokemon.alreadyLaunched()) {
             nb_++;
         }
@@ -125,7 +126,7 @@ public final class MainWindow extends GroupFrame {
         if (LaunchingFull.alreadyLaunched()) {
             nb_++;
         }
-        if (nb_ > CustList.SIZE_EMPTY) {
+        if (nb_ > IndexConstants.SIZE_EMPTY) {
             return;
         }
         writeCoords();
@@ -140,7 +141,7 @@ public final class MainWindow extends GroupFrame {
         if (GroupFrame.canChangeLanguageAll()) {
             setLanguageKey(_language);
             SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(), _language);
-            int i_ = CustList.SECOND_INDEX;
+            int i_ = IndexConstants.SECOND_INDEX;
             while (i_ < GroupFrame.getFrameCount()) {
                 GroupFrame.getFrame(i_).changeLanguage(_language);
                 i_++;
@@ -157,7 +158,7 @@ public final class MainWindow extends GroupFrame {
             r.setSelected(false);
         }
         for (RadioButton r: radios) {
-            if (StringList.quickEq(r.getText(),Constants.getDisplayLanguage(_language))) {
+            if (StringUtil.quickEq(r.getText(),Constants.getDisplayLanguage(_language))) {
                 r.setSelected(true);
             } else {
                 r.setSelected(false);

@@ -11,6 +11,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
 
 /**
     */
@@ -185,7 +186,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     dans le but de deplacer la moitie d'une main apres l'autre*/
     public void couper() {
         int taille_=total()/2;
-        for (int i = CustList.FIRST_INDEX;i<taille_;i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<taille_; i++) {
             ajouter(jouer(0));
         }
     }
@@ -376,7 +377,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
     /**Ne leve pas d exception*/
     public int nombreDeFigures(Suit _couleur) {
-        int nb_=CustList.SIZE_EMPTY;
+        int nb_= IndexConstants.SIZE_EMPTY;
         for(CardTarot c: cards) {
             if(c.isCharacter()&&c.couleur()==_couleur) {
                 nb_++;
@@ -479,7 +480,7 @@ public final class HandTarot implements Iterable<CardTarot> {
         cartesJoueesOuPossedees_.trierParForceEnCours(couleur_);
         HandTarot cartesMaitresses_ = new HandTarot();
         int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
-        for (byte c = CustList.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
                     couleurTotale_.carte(c))) {
                 break;

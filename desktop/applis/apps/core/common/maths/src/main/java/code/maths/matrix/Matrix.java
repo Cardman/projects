@@ -3,7 +3,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -29,7 +30,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     
     public static Matrix newMatrix(String _arg) {
         Matrix v_ = new Matrix();
-        for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
+        for (String s: StringUtil.splitStrings(_arg, SEPARATOR)) {
             v_.addLineRef(Vect.newVect(s));
         }
         return v_;
@@ -41,7 +42,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
 
     public int nbCols() {
         if (lines.isEmpty()) {
-            return CustList.SIZE_EMPTY;
+            return IndexConstants.SIZE_EMPTY;
         }
         return lines.first().size();
     }

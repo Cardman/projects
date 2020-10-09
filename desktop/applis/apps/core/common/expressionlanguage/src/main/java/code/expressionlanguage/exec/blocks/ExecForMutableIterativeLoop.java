@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
@@ -61,7 +62,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         ip_.setOffset(0);
         ip_.setGlobalOffset(stepOffset);
         if (!opStep.isEmpty()) {
-            ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
+            ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
             ExpressionLanguage.tryToCalculate(_conf,from_,0);
             if (_conf.callsOrException()) {
                 return;
@@ -133,7 +134,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             }
         }
         if (!opInit.isEmpty()) {
-            ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,from_,0);
             index_++;
         }
@@ -174,7 +175,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             last_.clearCurrentEls();
             return ConditionReturn.YES;
         }
-        ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, CustList.SECOND_INDEX);
+        ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, IndexConstants.SECOND_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(expressionOffset);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0);

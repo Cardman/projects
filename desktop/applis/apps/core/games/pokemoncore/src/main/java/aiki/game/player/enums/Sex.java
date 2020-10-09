@@ -1,6 +1,6 @@
 package aiki.game.player.enums;
 import aiki.map.pokemon.enums.Gender;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public enum Sex {
     GIRL(Gender.FEMALE),BOY(Gender.MALE);
@@ -11,7 +11,7 @@ public enum Sex {
     }
 
     public Sex getOppositeSex() {
-        if (StringList.quickEq(name(),GIRL.name())) {
+        if (StringUtil.quickEq(name(),GIRL.name())) {
             return BOY;
         }
         return GIRL;

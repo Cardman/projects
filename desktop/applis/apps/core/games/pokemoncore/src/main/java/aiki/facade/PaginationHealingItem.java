@@ -22,6 +22,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
 public final class PaginationHealingItem extends
@@ -99,7 +100,7 @@ public final class PaginationHealingItem extends
         }
         long maxPp_ = pps_.getMaximum(-1);
         int len_ = _list.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             Item i_ = _data.getItem(_list.get(i));
             if (!(i_ instanceof HealingItem)) {
                 if (!(i_ instanceof Berry)) {
@@ -233,14 +234,14 @@ public final class PaginationHealingItem extends
 
     protected void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
-            setNumberPage(CustList.FIRST_INDEX);
+            setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
-            setLine(CustList.INDEX_NOT_FOUND_ELT);
-            setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
             getRendered().clear();
             return;
         }
-        setLine(CustList.INDEX_NOT_FOUND_ELT);
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
         if (sortable()) {
             sort();
         }

@@ -8,7 +8,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.*;
+import code.util.core.StringUtil;
 
 public final class UnaryBooleanOperation extends AbstractUnaryOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
@@ -52,7 +52,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //operator
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                        StringList.join(clMatch_.getNames(),"&"),
+                        StringUtil.join(clMatch_.getNames(),"&"),
                         oper_);
                 if (!MethodOperation.isEmptyError(getFirstChild())){
                     getErrs().add(un_.getBuiltError());

@@ -1,6 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecExplicitContent {
     private final String className;
@@ -14,7 +14,7 @@ public final class ExecExplicitContent {
     public ExecExplicitContent(AnaCallFctContent _cont) {
         className = _cont.getClassMethodId().getClassName();
         classNameOwner = _cont.getClassMethodId().getClassName();
-        offset = StringList.getFirstPrintableCharIndex(_cont.getMethodName());
+        offset = StringUtil.getFirstPrintableCharIndex(_cont.getMethodName());
     }
 
     public String getClassNameOwner() {

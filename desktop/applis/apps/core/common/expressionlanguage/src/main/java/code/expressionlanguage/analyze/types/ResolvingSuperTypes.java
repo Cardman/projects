@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ResolvingSuperTypes {
     private ResolvingSuperTypes() {
@@ -32,7 +33,7 @@ public final class ResolvingSuperTypes {
             return new AnaResultPartType(_page.getAliasObject(),null);
         }
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
@@ -126,7 +127,7 @@ public final class ResolvingSuperTypes {
             return null;
         }
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);

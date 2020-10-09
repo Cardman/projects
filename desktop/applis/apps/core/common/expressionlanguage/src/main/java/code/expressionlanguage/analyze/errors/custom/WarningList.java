@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.errors.custom;
 
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class WarningList extends CustList<FoundWarningInterpret> {
 
@@ -15,7 +16,7 @@ public class WarningList extends CustList<FoundWarningInterpret> {
         for (FoundWarningInterpret f: this) {
             l_.add(f.display());
         }
-        return StringList.join(l_, SEP_INFO);
+        return StringUtil.join(l_, SEP_INFO);
     }
 
 }

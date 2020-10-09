@@ -25,7 +25,9 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderBeloteUtil {
 
     private static final String ATTR_FIELD = "field";
@@ -80,15 +82,15 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getBidBeloteSuit(BidBeloteSuit _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID)) {
             _object.setBid(getBidBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUIT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUIT)) {
             _object.setSuit(DocumentReaderCardsCommonUtil.getSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POINTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POINTS)) {
             _object.setPoints(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -104,15 +106,15 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getDealBelote(DealBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getListHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
@@ -128,15 +130,15 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getDeclareHandBelote(DeclareHandBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DECLARE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARE)) {
             _object.setDeclare(getDeclaresBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAND)) {
             _object.setHand(getHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER)) {
             _object.setPlayer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -160,19 +162,19 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getDisplayingBelote(DisplayingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CLOCKWISE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOCKWISE)) {
             _object.setClockwise(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUITS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUITS)) {
             _object.setSuits(DocumentReaderCardsCommonUtil.getListSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECREASING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECREASING)) {
             _object.setDecreasing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ORDER_BEFORE_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ORDER_BEFORE_BIDS)) {
             _object.setOrderBeforeBids(DocumentReaderCardsCommonUtil.getOrder(_element));
             return;
         }
@@ -192,47 +194,47 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getGameBelote(GameBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCardsCommonUtil.getGameType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getDealBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARES)) {
             _object.setDeclares(getListDeclareHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARES_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARES_BELOTE_REBELOTE)) {
             _object.setDeclaresBeloteRebelote(getListHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WON_LAST_TRICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WON_LAST_TRICK)) {
             _object.setWonLastTrick(DocumentReaderCoreUtil.getBooleanList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
             _object.setProgressingTrick(getTrickBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BIDS)) {
             _object.setBids(getListBidBeloteSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NUMBER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NUMBER)) {
             _object.setNumber(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES)) {
             _object.setRules(getRulesBelote(_element));
             return;
         }
@@ -256,26 +258,26 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getHandBelote(HandBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getListCardBelote(_element));
             return;
         }
     }
 
     public static void getResultsBelote(ResultsBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GAME)) {
             _object.setGame(getGameBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAMES)) {
             _object.setNicknames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USER)) {
             _object.setUser(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOC)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOC)) {
             _object.setLoc(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -300,35 +302,35 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getRulesBelote(RulesBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
             _object.setMixedCards(DocumentReaderCardsCommonUtil.getMixCardsChoice(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_DECLARES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_DECLARES)) {
             _object.setAllowedDeclares(getMapDeclaresBeloteBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_UNDER_TRUMP_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_UNDER_TRUMP_FOE)) {
             _object.setUnderTrumpFoe(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRUMP_PARTNER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRUMP_PARTNER)) {
             _object.setTrumpPartner(getBeloteTrumpPartner(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
             _object.setAllowedBids(getMapBidBeloteBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALING)) {
             _object.setDealing(getDealingBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CLASSIC_COUNT_POINTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLASSIC_COUNT_POINTS)) {
             _object.setClassicCountPoints(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -344,11 +346,11 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getTrickBelote(TrickBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STARTER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STARTER)) {
             _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getHandBelote(_element));
             return;
         }
@@ -364,27 +366,27 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getTricksHandsBelote(TricksHandsBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RULES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES)) {
             _object.setRules(getRulesBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
             _object.setDistribution(getDealBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PRENEUR)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PRENEUR)) {
             _object.setPreneur(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID)) {
             _object.setBid(getBidBeloteSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
             _object.setCardsHandsAtInitialState(getListHandBelote(_element));
             return;
         }
@@ -392,7 +394,7 @@ public final class DocumentReaderBeloteUtil {
 
     private static BeloteTrumpPartner getBeloteTrumpPartner(Element _elt) {
         for (BeloteTrumpPartner e: BeloteTrumpPartner.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -401,7 +403,7 @@ public final class DocumentReaderBeloteUtil {
 
     private static BidBelote getBidBelote(Element _elt) {
         for (BidBelote e: BidBelote.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -410,7 +412,7 @@ public final class DocumentReaderBeloteUtil {
 
     public static CardBelote getCardBelote(Element _elt) {
         for (CardBelote e: CardBelote.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -419,7 +421,7 @@ public final class DocumentReaderBeloteUtil {
 
     public static DealingBelote getDealingBelote(Element _elt) {
         for (DealingBelote e: DealingBelote.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -428,7 +430,7 @@ public final class DocumentReaderBeloteUtil {
 
     private static DeclaresBelote getDeclaresBelote(Element _elt) {
         for (DeclaresBelote e: DeclaresBelote.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -472,7 +474,7 @@ public final class DocumentReaderBeloteUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -492,7 +494,7 @@ public final class DocumentReaderBeloteUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;

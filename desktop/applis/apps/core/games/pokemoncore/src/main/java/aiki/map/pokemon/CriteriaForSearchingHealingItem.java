@@ -12,6 +12,7 @@ import code.maths.Rate;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingItem {
 
@@ -47,10 +48,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
         if (_item instanceof Berry) {
             return true;
         }
-        if (_item instanceof HealingItem) {
-            return true;
-        }
-        return false;
+        return _item instanceof HealingItem;
     }
 
     public boolean matchStatus(Item _item) {
@@ -123,10 +121,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                     if (healing_.getHealingMoveFullpp()) {
                         return true;
                     }
-                    if (healing_.isHealingAllMovesPp()) {
-                        return true;
-                    }
-                    return false;
+                    return healing_.isHealingAllMovesPp();
                 }
                 if (match(healOneMove, healing_.getHealingMoveFullpp())) {
                     return true;
@@ -142,20 +137,14 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                     if (pp_ == 0) {
                         return false;
                     }
-                    if (CriteriaForSearching.match(minPp, maxPp, pp_)) {
-                        return true;
-                    }
-                    return false;
+                    return CriteriaForSearching.match(minPp, maxPp, pp_);
                 }
                 if (healOneMove == SelectedBoolean.NO) {
                     long pp_ = healing_.getHealingAllMovesFullpp();
                     if (pp_ == 0) {
                         return false;
                     }
-                    if (CriteriaForSearching.match(minPp, maxPp, pp_)) {
-                        return true;
-                    }
-                    return false;
+                    return CriteriaForSearching.match(minPp, maxPp, pp_);
                 }
                 Longs values_ = new Longs();
                 values_.add(healing_.getHealedMovePp());
@@ -180,10 +169,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                 if (pp_ == 0) {
                     return false;
                 }
-                if (CriteriaForSearching.match(minPp, maxPp, pp_)) {
-                    return true;
-                }
-                return false;
+                return CriteriaForSearching.match(minPp, maxPp, pp_);
             }
             if (healOneMove == SelectedBoolean.NO) {
                 if (healing_.isHealingAllMovesPp()) {
@@ -193,10 +179,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                 if (pp_ == 0) {
                     return false;
                 }
-                if (CriteriaForSearching.match(minPp, maxPp, pp_)) {
-                    return true;
-                }
-                return false;
+                return CriteriaForSearching.match(minPp, maxPp, pp_);
             }
             if (healing_.getHealingMoveFullpp()) {
                 return true;
@@ -325,8 +308,8 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
 
     @Override
     public boolean matchClass(Item _item) {
-        if (StringList.quickEq(getSelectedClass(), HealingStatus.ITEM)) {
-            if (StringList.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
+        if (StringUtil.quickEq(getSelectedClass(), HealingStatus.ITEM)) {
+            if (StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
                 return true;
             }
         }

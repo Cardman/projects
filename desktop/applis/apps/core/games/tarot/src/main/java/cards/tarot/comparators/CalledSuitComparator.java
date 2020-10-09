@@ -2,8 +2,8 @@ package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.CustList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
 import code.util.ints.Comparing;
 
 public final class CalledSuitComparator implements Comparing<CardTarot> {
@@ -76,7 +76,7 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
             int min_ = Math.min(figures0_.total(), figures1_.total());
             boolean id_ = true;
             boolean plusGrand_ = false;
-            for (int i = CustList.FIRST_INDEX;i<min_;i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
                 if(figures0_.carte(i).points() > figures1_.carte(i).points()) {
                     plusGrand_ = true;
                     id_ = false;

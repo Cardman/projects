@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 class ExecInnerPartType extends ExecBinaryType {
 
@@ -29,7 +29,7 @@ class ExecInnerPartType extends ExecBinaryType {
 
     @Override
     String getSingleSeparator(int _index) {
-        if (StringList.quickEq(operators.get(_index),"..")) {
+        if (StringUtil.quickEq(operators.get(_index),"..")) {
             return ".";
         }
         return "..";

@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
 
@@ -72,7 +73,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         }
         CustList<Edge> l_ = new CustList<Edge>();
         int nbVertices_ = size();
-        for (int i = CustList.FIRST_INDEX; i < nbVertices_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbVertices_; i++) {
             l_.add(new Edge(get(i), get((i + 1)%nbVertices_)));
         }
         return l_;
@@ -177,7 +178,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             }
             p_.add(cust_);
             endPoint_ = first();
-            for (int j = CustList.SECOND_INDEX; j < nbVertices_; j++) {
+            for (int j = IndexConstants.SECOND_INDEX; j < nbVertices_; j++) {
                 if (endPoint_ == cust_) {
                     endPoint_ = get(j);
                 } else {
@@ -261,7 +262,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         for (int i = index_; i < len_; i++) {
             copy_.add(get(i));
         }
-        for (int i = CustList.FIRST_INDEX; i < index_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < index_; i++) {
             copy_.add(get(i));
         }
         CustList<Triangle> triangles_ = new CustList<Triangle>();
@@ -298,7 +299,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             return true;
         }
         int len_ = size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             CustPoint before_ = get(mod(i - 1, len_));
             CustPoint curr_ = get(i);
             CustPoint after_ = get((i + 1) % len_);

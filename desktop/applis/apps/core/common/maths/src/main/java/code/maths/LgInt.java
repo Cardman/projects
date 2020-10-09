@@ -6,6 +6,9 @@ import code.util.EqList;
 import code.util.*;
 import code.util.SortableCustList;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -107,10 +110,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             nombre_ = quotient_;
             quotient_ = nombre_ / BASE;
             reste_ = nombre_ - quotient_ * BASE;
-            grDigits.add(CustList.FIRST_INDEX, reste_);
+            grDigits.add(IndexConstants.FIRST_INDEX, reste_);
         }
         if (quotient_ != 0) {
-            grDigits.add(CustList.FIRST_INDEX, quotient_);
+            grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
         }
         signum = (_entierL >= 0) == SIGNE_POSITIF;
     }
@@ -130,24 +133,24 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (nbLu_.length() <= 1) {
                 break;
             }
-            if (nbLu_.charAt(CustList.FIRST_INDEX) != ZERO) {
+            if (nbLu_.charAt(IndexConstants.FIRST_INDEX) != ZERO) {
                 break;
             }
-            nbLu_ = nbLu_.substring(CustList.SECOND_INDEX);
+            nbLu_ = nbLu_.substring(IndexConstants.SECOND_INDEX);
         }
         int firstInd_ = nbLu_.length() - 1;
-        while (firstInd_ >= CustList.FIRST_INDEX) {
+        while (firstInd_ >= IndexConstants.FIRST_INDEX) {
             String nbLuBis_;
             if (nbLu_.length() >= powerTen_) {
                 nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_, nbLu_.length());
                 if (nbLu_.length() > powerTen_) {
                     // nbLu_.resize(nbLu_.length()-puissance10_)
-                    nbLu_ = nbLu_.substring(CustList.FIRST_INDEX, nbLu_.length() - powerTen_);
+                    nbLu_ = nbLu_.substring(IndexConstants.FIRST_INDEX, nbLu_.length() - powerTen_);
                 }
             } else {
                 nbLuBis_ = nbLu_;
             }
-            grDigits_.add(CustList.FIRST_INDEX, Math.max(0L, Numbers.parseInt(nbLuBis_)));
+            grDigits_.add(IndexConstants.FIRST_INDEX, Math.max(0L, NumberUtil.parseInt(nbLuBis_)));
             firstInd_ -= powerTen_;
         }
         if (grDigits_.isEmpty()) {
@@ -196,9 +199,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             nombre_ = quotient_;
             quotient_ = nombre_ / BASE;
             reste_ = nombre_ - quotient_ * BASE;
-            l_.grDigits.add(CustList.FIRST_INDEX, reste_);
+            l_.grDigits.add(IndexConstants.FIRST_INDEX, reste_);
         }
-        l_.grDigits.add(CustList.FIRST_INDEX, quotient_);
+        l_.grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
         l_.removeBeginningZeros();
         l_.signum = SIGNE_POSITIF;
         return l_;
@@ -226,7 +229,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (_input.isEmpty()) {
             return false;
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS_CHAR) {
             i_++;
         }
@@ -364,7 +367,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             EqList<LgInt> _repartitions,
             LgInt _sommeTotale) {
         TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int nbIterations_ = _repartitions.size();
         CustList<SortableCustList<LgInt>> repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>();
         repartitionsPossibles_.add(new SortableCustList<LgInt>());
@@ -671,13 +674,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long diffAbsBase_ = diffTotalPartiel_.remainByBase();
         nombre_ = (int) Math.min(absBase_, diffAbsBase_);
         // nombre_ < _nombreTotalElements / 2
-        for (int i = CustList.FIRST_INDEX; i < nombre_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
             LgInt temp_ = new LgInt(i);
             numerateur_.add(minus(_nombreTotalElements, temp_));
             denominateur_.add(minus(new LgInt(nombre_), temp_));
         }
         int nbPgcd_ = nombre_ - 1;
-        for (int i = CustList.FIRST_INDEX; i < nbPgcd_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPgcd_; i++) {
             int j = 0;
             while (different(denominateur_.get(i), one())) {
                 pgcd_ = pgcd(numerateur_.get(j), denominateur_.get(i));
@@ -686,7 +689,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 j++;
             }
         }
-        for (int i = CustList.FIRST_INDEX; i < nombre_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
             cardinal_.multiplyBy(numerateur_.get(i));
         }
         return cardinal_;
@@ -821,13 +824,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         resultatChiffres_.clear();
         int len_;
         len_ = grDigits.size();
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             resultatChiffres_.add(0L);
         }
         int nbDig_ = resultatChiffres_.size();
         int nbDigMinusOne_ = nbDig_;
         nbDigMinusOne_--;
-        for (int i = nbDigMinusOne_; i >= CustList.FIRST_INDEX; i--) {
+        for (int i = nbDigMinusOne_; i >= IndexConstants.FIRST_INDEX; i--) {
             resultatChiffres_.set(i, (long) Math.floor(grDigits.get(i) * _db));
             double tmp_ = ((double) grDigits.get(i) * _db - (double) resultatChiffres_.get(i)) * (double) BASE;
             int j_ = i + 1;
@@ -839,7 +842,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long retenue_ = 0;
         long quotient_;
         long reste_;
-        for (int i = nbDigMinusOne_; i >= CustList.FIRST_INDEX; i--) {
+        for (int i = nbDigMinusOne_; i >= IndexConstants.FIRST_INDEX; i--) {
             resultatChiffres_.set(i, resultatChiffres_.get(i) + retenue_);
             quotient_ = resultatChiffres_.get(i) / BASE;
             reste_ = resultatChiffres_.get(i) - BASE * quotient_;
@@ -847,14 +850,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             resultatChiffres_.set(i, reste_);
         }
         if (retenue_ > 0) {
-            resultatChiffres_.add(CustList.FIRST_INDEX, retenue_);
+            resultatChiffres_.add(IndexConstants.FIRST_INDEX, retenue_);
         }
         int taille_ = resultatChiffres_.size() - 1;
-        for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
             if (resultatChiffres_.first() != 0) {
                 break;
             }
-            resultatChiffres_.remove((int) CustList.FIRST_INDEX);
+            resultatChiffres_.remove((int) IndexConstants.FIRST_INDEX);
         }
         return resultat_;
     }
@@ -869,9 +872,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (longueur_ < longueurBis_) {
             int first_ = longueur_;
             first_--;
-            for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
+            for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
                 tmp_ = _autre.multiplyBy(grDigits.get(i));
-                for (int j = CustList.SIZE_EMPTY; j < expo_; j++) {
+                for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
                     tmp_.grDigits.add(0l);
                 }
                 tmp_.removeBeginningZeros();
@@ -881,9 +884,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         } else {
             int first_ = longueurBis_;
             first_--;
-            for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
+            for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
                 tmp_ = multiplyBy(_autre.grDigits.get(i));
-                for (int j = CustList.SIZE_EMPTY; j < expo_; j++) {
+                for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
                     tmp_.grDigits.add(0l);
                 }
                 tmp_.removeBeginningZeros();
@@ -904,7 +907,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int longueurBis_ = _autre.grDigits.size();
         int i_ = longueur_ - 1;
         int j_ = longueurBis_ - 1;
-        while (i_ >= CustList.FIRST_INDEX && j_ >= CustList.FIRST_INDEX) {
+        while (i_ >= IndexConstants.FIRST_INDEX && j_ >= IndexConstants.FIRST_INDEX) {
             somme_ = grDigits.get(i_) + _autre.grDigits.get(j_) + retenue_;
             if (somme_ < BASE) {
                 grDigits.set(i_, somme_);
@@ -918,7 +921,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             j_--;
         }
         if (longueur_ > longueurBis_) {
-            while (i_ >= CustList.FIRST_INDEX) {
+            while (i_ >= IndexConstants.FIRST_INDEX) {
                 somme_ = grDigits.get(i_) + retenue_;
                 if (somme_ < BASE) {
                     grDigits.set(i_, somme_);
@@ -931,21 +934,21 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 i_--;
             }
         } else if (longueur_ < longueurBis_) {
-            while (j_ >= CustList.FIRST_INDEX) {
+            while (j_ >= IndexConstants.FIRST_INDEX) {
                 somme_ = _autre.grDigits.get(j_) + retenue_;
                 if (somme_ < BASE) {
-                    grDigits.add(CustList.FIRST_INDEX, somme_);
+                    grDigits.add(IndexConstants.FIRST_INDEX, somme_);
                     retenue_ = 0;
                 } else {
                     reste_ = somme_ - BASE;
-                    grDigits.add(CustList.FIRST_INDEX, reste_);
+                    grDigits.add(IndexConstants.FIRST_INDEX, reste_);
                     retenue_ = 1;
                 }
                 j_--;
             }
         }
         if (retenue_ == 1) {
-            grDigits.add(CustList.FIRST_INDEX, (long) retenue_);
+            grDigits.add(IndexConstants.FIRST_INDEX, (long) retenue_);
         }
     }
 
@@ -960,7 +963,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long diff_;
         int k_ = longueur_ - 1;
         int l_ = longueurBis_ - 1;
-        while (k_ >= CustList.FIRST_INDEX && l_ >= CustList.FIRST_INDEX) {
+        while (k_ >= IndexConstants.FIRST_INDEX && l_ >= IndexConstants.FIRST_INDEX) {
             if (grDigits.get(k_) >= _chiffresAutre.get(l_) + retenue_) {
                 diff_ = grDigits.get(k_) - _chiffresAutre.get(l_) - retenue_;
                 retenue_ = 0;
@@ -973,7 +976,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             l_--;
         }
         if (longueur_ > longueurBis_) {
-            while (k_ >= CustList.FIRST_INDEX) {
+            while (k_ >= IndexConstants.FIRST_INDEX) {
                 if (grDigits.get(k_) >= retenue_) {
                     diff_ = grDigits.get(k_) - retenue_;
                     retenue_ = 0;
@@ -1018,12 +1021,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             grand que le diviseur est >= 1 de plus chiffreMax_<=grChiffres.first()<_base_
             */
             nbNombres_ = taille_ - tailleBis_ + 1;
-            for (int i = CustList.FIRST_INDEX; i < tailleBis_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < tailleBis_; i++) {
                 reste_.grDigits.add(grDigits.get(i));
             }
             indiceChiffre_ = tailleBis_;
         } else {
-            chiffreMax_ = (grDigits.first() * BASE + grDigits.get(CustList.SECOND_INDEX)) / _autre.grDigits.first();
+            chiffreMax_ = (grDigits.first() * BASE + grDigits.get(IndexConstants.SECOND_INDEX)) / _autre.grDigits.first();
             /*
             _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. grChiffres.first()>=1, car
             this>=_autre et _autre>0 => this>0 => grChiffres.first()>=1 donc
@@ -1035,7 +1038,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             chiffreMax_<_autre.grChiffres.first(), car _base_ | _autre.grChiffres.first()x_base_
             */
             nbNombres_ = taille_ - tailleBis_;
-            for (int i = CustList.FIRST_INDEX; i <= tailleBis_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i <= tailleBis_; i++) {
                 reste_.grDigits.add(grDigits.get(i));
             }
             indiceChiffre_ = tailleBis_ + 1;
@@ -1043,7 +1046,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         // chiffreMax_>=1
         chiffresQuotient_.add(reste_.divisionTemporaire(_autre, chiffreMax_));
         reste_.retrancher(_autre.multiplyBy(chiffresQuotient_.last()));
-        for (int i = CustList.SECOND_INDEX; i < nbNombres_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < nbNombres_; i++) {
             reste_.grDigits.add(grDigits.get(indiceChiffre_));
             reste_.removeBeginningZeros();
             if (reste_.plusPetitQue(_autre)) {
@@ -1056,7 +1059,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                     dividende plus grand que le diviseur est >= 1
                     */
                 } else {
-                    chiffreMax_ = reste_.grDigits.first() * BASE + reste_.grDigits.get(CustList.SECOND_INDEX);
+                    chiffreMax_ = reste_.grDigits.first() * BASE + reste_.grDigits.get(IndexConstants.SECOND_INDEX);
                     chiffreMax_ /= _autre.grDigits.first();
                     /*
                     _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. reste_.grChiffres.first()>=1,
@@ -1091,7 +1094,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         // _max>=2
         LgInt prod_ = _diviseur.multiplyBy(_max);
-        if (quickCmp(prod_) != CustList.NO_SWAP_SORT) {
+        if (quickCmp(prod_) != SortConstants.NO_SWAP_SORT) {
             return _max;
         }
         long max_ = _max;
@@ -1102,10 +1105,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             quotient_ = (min_ + max_) / 2;
             prod_ = _diviseur.multiplyBy(quotient_);
             int res_ = quickCmp(prod_);
-            if (res_ == CustList.EQ_CMP) {
+            if (res_ == SortConstants.EQ_CMP) {
                 return quotient_;
             }
-            if (res_ == CustList.NO_SWAP_SORT) {
+            if (res_ == SortConstants.NO_SWAP_SORT) {
                 max_ = quotient_;
             } else {
                 min_ = quotient_;
@@ -1127,7 +1130,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int len_;
         len_ = grDigits.size();
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             long entier_ = grDigits.get(i);
             long entierAutre_ = _autre.grDigits.get(i);
             if (entier_ < entierAutre_) {
@@ -1149,7 +1152,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int len_;
         len_ = grDigits.size();
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             long entier_ = grDigits.get(i);
             long entierAutre_ = _autre.grDigits.get(i);
             if (entier_ < entierAutre_) {
@@ -1164,24 +1167,24 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     private int quickCmp(LgInt _autre) {
         if (grDigits.size() > _autre.grDigits.size()) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (grDigits.size() < _autre.grDigits.size()) {
-            return CustList.NO_SWAP_SORT;
+            return SortConstants.NO_SWAP_SORT;
         }
         int len_;
         len_ = grDigits.size();
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             long entier_ = grDigits.get(i);
             long entierAutre_ = _autre.grDigits.get(i);
             if (entier_ < entierAutre_) {
-                return CustList.NO_SWAP_SORT;
+                return SortConstants.NO_SWAP_SORT;
             }
             if (entier_ > entierAutre_) {
-                return CustList.SWAP_SORT;
+                return SortConstants.SWAP_SORT;
             }
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
     private boolean inferieurOuEgal(LgInt _autre) {
@@ -1193,7 +1196,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int len_;
         len_ = grDigits.size();
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             long entier_ = grDigits.get(i);
             long entierAutre_ = _autre.grDigits.get(i);
             if (entier_ < entierAutre_) {
@@ -1247,14 +1250,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long reste_;
         int first_ = grDigits.size();
         first_--;
-        for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
+        for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
             quotient_ = grDigits.get(i) * _autre + retenue_;
             retenue_ = quotient_ / BASE;
             reste_ = quotient_ - BASE * retenue_;
-            resultat_.grDigits.add(CustList.FIRST_INDEX, reste_);
+            resultat_.grDigits.add(IndexConstants.FIRST_INDEX, reste_);
         }
         if (retenue_ > 0) {
-            resultat_.grDigits.add(CustList.FIRST_INDEX, retenue_);
+            resultat_.grDigits.add(IndexConstants.FIRST_INDEX, retenue_);
         }
         resultat_.removeBeginningZeros();
         return resultat_;
@@ -1626,7 +1629,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private void removeBeginningZeros() {
         //setModified();
         while (grDigits.size() > 1 && grDigits.first() == 0) {
-            grDigits.remove((int) CustList.FIRST_INDEX);
+            grDigits.remove((int) IndexConstants.FIRST_INDEX);
         }
     }
 
@@ -1671,13 +1674,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     
     public String toNumberString() {
         StringBuilder chaine_ = new StringBuilder();
-        int indice_ = CustList.FIRST_INDEX;
+        int indice_ = IndexConstants.FIRST_INDEX;
         int powerTen_ = LOG_BASE;
         // puissance10 vaut log10(_base_)
         for (long c : grDigits) {
-            if (indice_ > CustList.FIRST_INDEX) {
+            if (indice_ > IndexConstants.FIRST_INDEX) {
                 if (c == 0) {
-                    for (int i = CustList.FIRST_INDEX; i < powerTen_; i++) {
+                    for (int i = IndexConstants.FIRST_INDEX; i < powerTen_; i++) {
                         chaine_.append(ZERO);
                     }
                 } else {
@@ -1688,7 +1691,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                         puissance_++;
                     }
                     int nbZeros_ = powerTen_ - puissance_;
-                    for (int i = CustList.FIRST_INDEX; i < nbZeros_; i++) {
+                    for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
                         chaine_.append(ZERO);
                     }
                     chaine_.append(c);

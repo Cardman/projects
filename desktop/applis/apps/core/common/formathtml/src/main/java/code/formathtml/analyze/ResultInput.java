@@ -8,11 +8,11 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ResultInput {
 
@@ -68,7 +68,7 @@ public final class ResultInput {
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
                 }
-                id = StringList.concat(idClass,".",idName);
+                id = StringUtil.concat(idClass,".",idName);
                 result = settable_.getResultClass();
                 AnaClassArgumentMatching pr_;
                 if (((SettableAbstractFieldOperation) settable_).isIntermediateDottedOperation()) {
@@ -83,7 +83,7 @@ public final class ResultInput {
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
                 varNames = varNames_;
-                varName = StringList.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_);
+                varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_);
             } else if (settable_ instanceof ArrOperation) {
                 result = settable_.getResultClass();
                 ClassMethodId classMethodId_ = ((ArrOperation) settable_).getCallFctContent().getClassMethodId();
@@ -104,12 +104,12 @@ public final class ResultInput {
                         varParamNames_.add(varParam_);
                         typeNames_.add(_page.getAliasPrimInteger());
                     }
-                    idName = StringList.concat("[](", StringList.join(typeNames_,","),")");
-                    id = StringList.concat(idClass,".",idName);
+                    idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
+                    id = StringUtil.concat(idClass,".",idName);
                     String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varLoc_);
                     varNames = varNames_;
-                    varName = StringList.concat(varPrevLoc_,AnaRendBlock.COMMA, StringList.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
+                    varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
                 } else {
                     CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
                     StringList varNames_ = new StringList();
@@ -124,12 +124,12 @@ public final class ResultInput {
                         varParamNames_.add(varParam_);
                     }
                     String sgn_ = classMethodId_.getConstraints().getSignature(_page);
-                    idName = StringList.concat("[]", sgn_);
-                    id = StringList.concat(idClass,".",idName);
+                    idName = StringUtil.concat("[]", sgn_);
+                    id = StringUtil.concat(idClass,".",idName);
                     String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varLoc_);
                     varNames = varNames_;
-                    varName = StringList.concat(varPrevLoc_,AnaRendBlock.COMMA, StringList.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
+                    varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
                 }
             } else {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -140,7 +140,7 @@ public final class ResultInput {
             }
         } else {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
-            if (!StringList.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
+            if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));

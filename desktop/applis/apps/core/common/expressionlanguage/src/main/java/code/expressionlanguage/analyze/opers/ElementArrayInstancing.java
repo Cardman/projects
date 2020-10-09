@@ -25,6 +25,7 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
 
@@ -39,13 +40,13 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         String me_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(me_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = me_.trim().substring(new_.length());
-        int local_ = StringList.getFirstPrintableCharIndex(className_);
+        int local_ = StringUtil.getFirstPrintableCharIndex(className_);
         String type_;
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
@@ -67,7 +68,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         DimComp dim_ = AnaTemplates.getComponentForm(className_);
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
             if (res_.startsWith(ARR)) {
                 partOffsets.addAllElts(partOffsets_);
@@ -239,14 +240,14 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(m_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
@@ -298,7 +299,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(argType_.getNames(),"&"),
+                            StringUtil.join(argType_.getNames(),"&"),
                             eltType_);
                     _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));

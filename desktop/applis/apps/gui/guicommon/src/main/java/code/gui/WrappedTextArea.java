@@ -3,7 +3,7 @@ package code.gui;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class WrappedTextArea extends CustComponent {
 
@@ -22,11 +22,11 @@ public class WrappedTextArea extends CustComponent {
     }
 
     public void setText(String _t) {
-        textArea.setText(StringList.wrapContent(_t, textArea.getColumns(), false));
+        textArea.setText(StringUtil.wrapContent(_t, textArea.getColumns(), false));
     }
 
     public void append(String _str) {
-        textArea.append(StringList.wrapContent(_str, textArea.getColumns(), false));
+        textArea.append(StringUtil.wrapContent(_str, textArea.getColumns(), false));
     }
 
     @Override

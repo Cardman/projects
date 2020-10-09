@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class RendMultOperation extends RendStdNumericOperation {
@@ -15,11 +15,11 @@ public final class RendMultOperation extends RendStdNumericOperation {
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
-        if (StringList.quickEq(_op.trim(), MULT)) {
+        if (StringUtil.quickEq(_op.trim(), MULT)) {
             return new Argument(NumParsers.calculateMult(NumParsers.convertToNumber(_a.getStruct()),
                     NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
         }
-        if (StringList.quickEq(_op.trim(), DIV)) {
+        if (StringUtil.quickEq(_op.trim(), DIV)) {
             return ExecNumericOperation.calculateDivEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());
         }
         return ExecNumericOperation.calculateModEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());

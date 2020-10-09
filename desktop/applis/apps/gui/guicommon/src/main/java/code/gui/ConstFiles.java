@@ -2,6 +2,7 @@ package code.gui;
 import java.io.File;
 
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ConstFiles {
 
@@ -18,18 +19,18 @@ public final class ConstFiles {
     private static final String USER_NAME = System.getProperty("user.name");
 
     /**Used only for init*/
-    private static final String TMP_FOLDER = StringList.replaceBackSlashDot(System.getProperty(TMP_FOLDER_KEY));
+    private static final String TMP_FOLDER = StringUtil.replaceBackSlashDot(System.getProperty(TMP_FOLDER_KEY));
 
     private static final String DOT = ".";
 
-    private static final String INIT_FOLDER = StringList.replaceBackSlashDot(new File(DOT).getAbsolutePath());
+    private static final String INIT_FOLDER = StringUtil.replaceBackSlashDot(new File(DOT).getAbsolutePath());
 
     /**Used only for temp folders*/
-    private static final String JAVA_PATH = StringList.replaceBackSlash(System.getProperty("java.class.path"));
+    private static final String JAVA_PATH = StringUtil.replaceBackSlash(System.getProperty("java.class.path"));
 
     private static final String RELATIVE_VIRTUAL_STORE = "AppData/Local/VirtualStore/";
 
-    private static final String HOME_PATH = StringList.replaceBackSlashDot(System.getProperty(USER_HOME));
+    private static final String HOME_PATH = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
 
     private static final String TMP_USER_FOLDER = ConstFiles.initialize();
 
@@ -43,7 +44,7 @@ public final class ConstFiles {
             return tmpFolder_.substring(0, tmpFolder_.length() - 1);
         }
         if (!HOME_PATH.startsWith(SEPARATEUR)) {
-            String virtualStore_ = StringList.concat(HOME_PATH,RELATIVE_VIRTUAL_STORE);
+            String virtualStore_ = StringUtil.concat(HOME_PATH,RELATIVE_VIRTUAL_STORE);
             //<home>/AppData/Local/VirtualStore/
             String jarFolder_ = getInitFolder();
             boolean isStandardProgramFilesExecuted_ = false;
@@ -62,7 +63,7 @@ public final class ConstFiles {
                 //c:/program files/folder app
                 //c:/program files (x86)/folder app
             	StringList folders_ = new StringList();
-                for (String n: StringList.splitStrings(jarFolder_, SEPARATEUR)) {
+                for (String n: StringUtil.splitStrings(jarFolder_, SEPARATEUR)) {
                     if (n.isEmpty()) {
                         continue;
                     }
@@ -71,8 +72,8 @@ public final class ConstFiles {
                 StringList lastFolders_ = new StringList();
                 lastFolders_.add(folders_.get(1));
                 lastFolders_.add(folders_.last());
-                virtualStore_ = StringList.concat(virtualStore_, StringList.join(lastFolders_, SEPARATEUR));
-                new File(StringList.concat(virtualStore_, SEPARATEUR)).mkdirs();
+                virtualStore_ = StringUtil.concat(virtualStore_, StringUtil.join(lastFolders_, SEPARATEUR));
+                new File(StringUtil.concat(virtualStore_, SEPARATEUR)).mkdirs();
                 return virtualStore_;
             }
             //is it c:/program files (x86)/folder/... app writable?
@@ -87,7 +88,7 @@ public final class ConstFiles {
                 return INIT_FOLDER.substring(0, INIT_FOLDER.length() - 1);
             }
             //use temp folder
-            String tmpUserFolder_ = StringList.concat(TMP_FOLDER,USER_NAME);
+            String tmpUserFolder_ = StringUtil.concat(TMP_FOLDER,USER_NAME);
             String realTmpUserFolder_;
             if (!new File(tmpUserFolder_).exists()) {
                 realTmpUserFolder_ = tmpUserFolder_;
@@ -96,7 +97,7 @@ public final class ConstFiles {
             } else {
                 int nb_ = 0;
                 while (true) {
-                    File f_ = new File(StringList.concatNbs(tmpUserFolder_,nb_));
+                    File f_ = new File(StringUtil.concatNbs(tmpUserFolder_,nb_));
                     if (!f_.exists()) {
                         break;
                     }
@@ -105,7 +106,7 @@ public final class ConstFiles {
                     }
                     nb_++;
                 }
-                realTmpUserFolder_ = StringList.concatNbs(tmpUserFolder_,nb_);
+                realTmpUserFolder_ = StringUtil.concatNbs(tmpUserFolder_,nb_);
             }
             new File(realTmpUserFolder_).mkdirs();
             return realTmpUserFolder_;
@@ -113,7 +114,7 @@ public final class ConstFiles {
         //unix os => jar folder path
         String f_ = getInitFolder();
         if (!f_.endsWith(SEPARATEUR)) {
-            f_ = StringList.concat(f_, SEPARATEUR);
+            f_ = StringUtil.concat(f_, SEPARATEUR);
         }
         return f_.substring(0, f_.length() - 1);
     }
@@ -125,7 +126,7 @@ public final class ConstFiles {
     private static String getPath() {
         String init_ = getInitFolder();
         if (!JAVA_PATH.contains(SEPARATEUR)) {
-            return StringList.concat(init_, JAVA_PATH);
+            return StringUtil.concat(init_, JAVA_PATH);
         }
         return init_;
     }
@@ -135,7 +136,7 @@ public final class ConstFiles {
     }
 
     public static String getTmpUserFolderSl() {
-        return StringList.concat(TMP_USER_FOLDER,SEPARATEUR);
+        return StringUtil.concat(TMP_USER_FOLDER,SEPARATEUR);
     }
 
     public static String getHomePath() {

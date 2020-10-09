@@ -12,7 +12,8 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ExecDimensionArrayInstancing extends
         ExecAbstractArrayInstancingOperation {
@@ -28,7 +29,7 @@ public final class ExecDimensionArrayInstancing extends
                          ContextEl _conf) {
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(m_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
         className_ = _conf.formatVarType(className_);
@@ -36,7 +37,7 @@ public final class ExecDimensionArrayInstancing extends
 
         int[] args_ = new int[filter_.size()];
 
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (ExecOperationNode o: filter_) {
             NumberStruct n_ = NumParsers.convertToNumber(_arguments.get(i_).getStruct());

@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AffectationOperation extends MethodOperation {
 
@@ -71,7 +72,7 @@ public final class AffectationOperation extends MethodOperation {
             VariableOperation v_ = (VariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _page) && StringList.contains(_page.getVariablesNamesToInfer(), inf_)) {
+            if (ElUtil.isDeclaringVariable(v_, _page) && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -89,7 +90,7 @@ public final class AffectationOperation extends MethodOperation {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _page) && StringList.contains(_page.getVariablesNamesToInfer(), inf_)) {
+            if (ElUtil.isDeclaringLoopVariable(v_, _page) && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -144,8 +145,8 @@ public final class AffectationOperation extends MethodOperation {
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(clMatchRight_.getNames(),"&"),
-                    StringList.join(clMatchLeft_.getNames(),"&"));
+                    StringUtil.join(clMatchRight_.getNames(),"&"),
+                    StringUtil.join(clMatchLeft_.getNames(),"&"));
             _page.getLocalizer().addError(cast_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
@@ -174,8 +175,8 @@ public final class AffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(clMatchRight_.getNames(),"&"),
-                        StringList.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),"&"),
+                        StringUtil.join(clMatchLeft_.getNames(),"&"));
                 _page.getLocalizer().addError(cast_);
                 IntTreeMap< String> ops_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
@@ -201,14 +202,14 @@ public final class AffectationOperation extends MethodOperation {
 
     public static String processInferLoop(String _import, AnalyzedPageEl _page) {
         StringList vars_ = _page.getVariablesNames();
-        if (StringList.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
+        if (StringUtil.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //'var' len
             un_.buildError(_page.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
-                    StringList.join(vars_,"&"));
+                    StringUtil.join(vars_,"&"));
             _page.getLocalizer().addError(un_);
             return un_.getBuiltError();
         }

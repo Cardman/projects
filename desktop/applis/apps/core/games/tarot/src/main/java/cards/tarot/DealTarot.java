@@ -11,8 +11,8 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class DealTarot implements Iterable<HandTarot> {
@@ -142,7 +142,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
-            for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
             HandTarot atouts_ = new HandTarot();
@@ -155,15 +155,15 @@ public final class DealTarot implements Iterable<HandTarot> {
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
             byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
                 if (joueur_ == NUMERO_UTILISATEUR) {
                     continue;
                 }
-                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
+                for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
                     deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
                 }
             }
-            for (int i = CustList.SIZE_EMPTY; i < reste_; i++) {
+            for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
                 deal.last().ajouter(deck.jouer(0));
             }
             setRandomDealer(_regles,_gene);
@@ -213,7 +213,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
-            for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
             HandTarot atouts_ = new HandTarot();
@@ -228,15 +228,15 @@ public final class DealTarot implements Iterable<HandTarot> {
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
             byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
                 if (joueur_ == NUMERO_UTILISATEUR) {
                     continue;
                 }
-                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
+                for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
                     deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
                 }
             }
-            for (int i = CustList.SIZE_EMPTY; i < reste_; i++) {
+            for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
                 deal.last().ajouter(deck.jouer(0));
             }
             setRandomDealer(_regles,_gene);
@@ -244,10 +244,10 @@ public final class DealTarot implements Iterable<HandTarot> {
     }
 
     public void feedUserHand(byte _autresCartesTirer, byte _atoutsTires, HandTarot _atouts, HandTarot _autresCartes,AbstractGenerator _gene) {
-        for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _atoutsTires; tirage_++) {
+        for (byte tirage_ = IndexConstants.SIZE_EMPTY; tirage_ < _atoutsTires; tirage_++) {
             deal.get(NUMERO_UTILISATEUR).ajouter(_atouts.tirerUneCarteAleatoire(_gene));
         }
-        for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _autresCartesTirer; tirage_++) {
+        for (byte tirage_ = IndexConstants.SIZE_EMPTY; tirage_ < _autresCartesTirer; tirage_++) {
             deal.get(NUMERO_UTILISATEUR).ajouter(_autresCartes.tirerUneCarteAleatoire(_gene));
         }
     }
@@ -272,7 +272,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     private void donnerEnBattant(RulesTarot _regles,AbstractGenerator _gene) {
 
         byte nbJrs_ = (byte) _regles.getRepartition().getNombreJoueurs();
-        for (int i = CustList.FIRST_INDEX; i <= nbJrs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nbJrs_; i++) {
             deal.add(new HandTarot());
         }
         HandTarot m = HandTarot.pileBase();
@@ -281,11 +281,11 @@ public final class DealTarot implements Iterable<HandTarot> {
         byte nombreCarteChien_ = (byte) _regles.getRepartition()
                 .getNombreCartesChien();
 
-        for (int i = CustList.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
             deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
-        for (int i = CustList.FIRST_INDEX; i < nombreCarteChien_; i++) {
-            deal.last().ajouter(m.jouer(CustList.FIRST_INDEX));
+        for (int i = IndexConstants.FIRST_INDEX; i < nombreCarteChien_; i++) {
+            deal.last().ajouter(m.jouer(IndexConstants.FIRST_INDEX));
         }
     }
 
@@ -299,23 +299,23 @@ public final class DealTarot implements Iterable<HandTarot> {
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
         byte nbJrs_ = (byte) repartition_.getNombreJoueurs();
         /* On prepare_ les_ mains_ des_ joueurs_ */
-        for (int i = CustList.FIRST_INDEX; i <= nbJrs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nbJrs_; i++) {
             deal.add(new HandTarot());
         }
-        int iterations_ = CustList.SIZE_EMPTY;
+        int iterations_ = IndexConstants.SIZE_EMPTY;
         Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
         IntMap<Integer> distributionChien_ = repartition_.getDistributionAuChien();
         for (int i : repartition_.getDistribution()) {
             //i == nombre_ de_ cartes_ a donner_
             for (int j : ordreDisributionJoueurs_) {
-                for (int k = CustList.FIRST_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(deck.jouer(CustList.FIRST_INDEX));
+                for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
+                    deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
                 }
                 if(distributionChien_.contains(iterations_)) {
                     int nbCartes_ = distributionChien_.getVal(iterations_);
-                    for (int k = CustList.FIRST_INDEX; k < nbCartes_; k++) {
-                        deal.last().ajouter(deck.jouer(CustList.FIRST_INDEX));
+                    for (int k = IndexConstants.FIRST_INDEX; k < nbCartes_; k++) {
+                        deal.last().ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
                     }
                 }
                 iterations_++;

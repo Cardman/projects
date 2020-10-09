@@ -4,6 +4,7 @@ import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class MethodAccessId {
     private MethodAccessKind kind;
@@ -17,11 +18,11 @@ public final class MethodAccessId {
     public void setupInfos(int _index,StringList _args, String _kwSt, String _kwStCall) {
         int i_ = _index;
         if (_args.size() > i_) {
-            if (StringList.quickEq(_args.get(i_).trim(), _kwSt)) {
+            if (StringUtil.quickEq(_args.get(i_).trim(), _kwSt)) {
                 index++;
                 kind = MethodAccessKind.STATIC;
                 i_++;
-            } else if (StringList.quickEq(_args.get(i_).trim(), _kwStCall)) {
+            } else if (StringUtil.quickEq(_args.get(i_).trim(), _kwStCall)) {
                 index++;
                 kind = MethodAccessKind.STATIC_CALL;
                 i_++;

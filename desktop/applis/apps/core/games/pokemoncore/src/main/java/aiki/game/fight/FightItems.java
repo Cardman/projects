@@ -10,9 +10,10 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectRestriction;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightItems {
 
@@ -70,7 +71,7 @@ final class FightItems {
         for(String c:creatureCbt_.enabledIndividualMoves()){
             MoveData fAttaque_=_import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectRestriction)){
                     continue;
@@ -91,7 +92,7 @@ final class FightItems {
         for(String c:FightMoves.enabledGlobalMoves(_fight, _import)){
             MoveData fAttaque_=_import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;
@@ -178,10 +179,10 @@ final class FightItems {
         StringList statuts_=new StringList();
         Berry berry_ = (Berry) _import.getItem(_objectName);
         for(String c:creature_.getStatusSet()){
-            if(Numbers.eq(creature_.getStatusNbRoundShort(c), 0)){
+            if(NumberUtil.eq(creature_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
-            if(StringList.contains(berry_.getHealStatus(), c)){
+            if(StringUtil.contains(berry_.getHealStatus(), c)){
                 statuts_.add(c);
                 creature_.supprimerStatut(c);
                 _fight.addDisabledStatusMessage(c, _combattant, _import);

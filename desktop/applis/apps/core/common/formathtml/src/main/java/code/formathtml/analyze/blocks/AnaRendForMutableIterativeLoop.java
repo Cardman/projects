@@ -17,6 +17,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
 
@@ -89,7 +90,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
                 importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
@@ -146,7 +147,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                         un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(expressionOffset);
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                StringList.join(exp_.getNames(),AND_ERR));
+                                StringUtil.join(exp_.getNames(),AND_ERR));
                         AnalyzingDoc.addError(un_, _anaDoc, _page);
                     }
                 }

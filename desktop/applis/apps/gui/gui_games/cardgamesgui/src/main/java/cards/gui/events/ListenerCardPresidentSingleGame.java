@@ -12,7 +12,7 @@ import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.ConfirmDialog;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ListenerCardPresidentSingleGame extends
         AbstractListenerCardPresident {
@@ -38,11 +38,11 @@ public class ListenerCardPresidentSingleGame extends
     @Override
     protected void verifierRegles() {
         String lg_ = container.getOwner().getLanguageKey();
-        if(StringList.quickEq(container.getRaisonCourante(),ContainerPresident.EMPTY)){
+        if(StringUtil.quickEq(container.getRaisonCourante(),ContainerPresident.EMPTY)){
             GamePresident game_ = container.partiePresident();
             boolean allow_ = game_.allowPlaying(DealPresident.NUMERO_UTILISATEUR, getCarteVerif());
             if (!allow_) {
-                StringBuilder mes_ = new StringBuilder(StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_)));
+                StringBuilder mes_ = new StringBuilder(StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_)));
                 mes_.append(ContainerGame.RETURN_LINE);
                 mes_.append(Games.autorisePresident(game_,DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), lg_));
                 String finalMessage_ = mes_.toString();
@@ -53,7 +53,7 @@ public class ListenerCardPresidentSingleGame extends
                 container.finPliPresident(getCarteVerif(), getIndexVerif());
             }
         }else{
-            String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
+            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }

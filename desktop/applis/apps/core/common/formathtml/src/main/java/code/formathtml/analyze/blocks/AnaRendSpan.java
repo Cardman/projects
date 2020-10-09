@@ -9,6 +9,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnaRendSpan extends AnaRendElement {
     private StringMap<String> formatted=new StringMap<String>();
@@ -21,10 +22,10 @@ public final class AnaRendSpan extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
-        String id_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        int off_ = getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+        String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
+        int off_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
         ResultText result = new ResultText();
         result.buildIdAna(id_, off_, _anaDoc, _page);
         roots = result.getOpExpRoot();
@@ -32,9 +33,9 @@ public final class AnaRendSpan extends AnaRendElement {
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }
-        String valueMessage_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+        String valueMessage_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         if (!valueMessage_.isEmpty()) {
-            int offMessage_ = getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+            int offMessage_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
             formatted = getPre(valueMessage_,offMessage_, _anaDoc, _page);
         }
     }

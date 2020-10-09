@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class FinalVariableOperation extends LeafOperation {
 
@@ -41,7 +41,7 @@ public final class FinalVariableOperation extends LeafOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
         if (!className.isEmpty()) {

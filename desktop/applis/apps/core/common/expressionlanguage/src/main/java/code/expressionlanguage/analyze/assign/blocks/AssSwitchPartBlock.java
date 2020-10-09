@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.assign.util.Assignment;
 import code.expressionlanguage.analyze.assign.util.AssignmentBefore;
 import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AssSwitchPartBlock extends AssBracedStack {
     private boolean def;
@@ -65,7 +66,7 @@ public final class AssSwitchPartBlock extends AssBracedStack {
             boolean ass_ = ba_.isAssignedAfter();
             boolean unass_ = ba_.isUnassignedAfter();
             for (EntryCust<String, SimpleAssignment> f: _current.entryList()) {
-                if (!StringList.quickEq(f.getKey(), key_)) {
+                if (!StringUtil.quickEq(f.getKey(), key_)) {
                     continue;
                 }
                 if (!f.getValue().isAssignedAfter()) {

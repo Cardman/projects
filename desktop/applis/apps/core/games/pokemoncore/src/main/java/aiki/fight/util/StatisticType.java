@@ -1,6 +1,7 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -16,7 +17,7 @@ public final class StatisticType implements Equallable<StatisticType>, Displayab
     }
 
     public StatisticType(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         statistic = Statistic.getStatisticByName(elements_.first());
         type = elements_.last();
     }
@@ -36,10 +37,7 @@ public final class StatisticType implements Equallable<StatisticType>, Displayab
         if (statistic != _obj.statistic) {
             return false;
         }
-        if (!StringList.quickEq(type, _obj.type)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(type, _obj.type);
     }
 
     public Statistic getStatistic() {

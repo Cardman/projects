@@ -22,6 +22,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansMapPokemonStd {
     public static final String TYPE_POKEMON_TEAM_BEAN = "aiki.beans.map.pokemon.PokemonTeamBean";
@@ -94,19 +95,19 @@ public final class AikiBeansMapPokemonStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,REWARD)) {
+        if (StringUtil.quickEq(fieldName_,REWARD)) {
             res_.setResult(new ShortStruct(instance_.getReward()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,MULTIPLICITY)) {
+        if (StringUtil.quickEq(fieldName_,MULTIPLICITY)) {
             res_.setResult(new ShortStruct(instance_.getMultiplicity()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TEAM)) {
+        if (StringUtil.quickEq(fieldName_,TEAM)) {
             res_.setResult(new DefaultStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NO_FIGHT)) {
+        if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {
             res_.setResult(new IntStruct(instance_.getNoFight()));
             return res_;
         }
@@ -116,12 +117,12 @@ public final class AikiBeansMapPokemonStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TRAINER)) {
+        if (StringUtil.quickEq(fieldName_,TRAINER)) {
             instance_.setTrainer((Trainer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NO_FIGHT)) {
+        if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {
             instance_.setNoFight((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -132,39 +133,39 @@ public final class AikiBeansMapPokemonStd {
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_NAME)) {
+        if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
             res_.setResult(new StringStruct(instance_.clickName((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
             res_.setResult(new StringStruct(instance_.getName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0],(Long)_args[1],(Long)_args[2])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove((Long)_args[0],(Long)_args[1])));
             return res_;
         }

@@ -63,15 +63,15 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
-import code.util.*;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class MoveBean extends CommonBean {
 
@@ -267,7 +267,7 @@ public class MoveBean extends CommonBean {
         StringList abilities_ = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (StringList.contains(ab_.getImmuMove(), name_)) {
+            if (StringUtil.contains(ab_.getImmuMove(), name_)) {
                 abilities_.add(a);
             }
         }
@@ -280,7 +280,7 @@ public class MoveBean extends CommonBean {
                 continue;
             }
             ItemForBattle itBattle_ = (ItemForBattle) it_;
-            if (StringList.contains(itBattle_.getImmuMoves(), name_)) {
+            if (StringUtil.contains(itBattle_.getImmuMoves(), name_)) {
                 items_.add(a);
             }
         }
@@ -337,7 +337,7 @@ public class MoveBean extends CommonBean {
         affectedByMoves = affectedByMoves_;
         Ints effects_ = new Ints();
         int nbEffects_ = moveData_.nbEffets();
-        for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
             effects_.add(i);
         }
         effects = effects_;
@@ -377,7 +377,7 @@ public class MoveBean extends CommonBean {
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             for (LevelMove l: pkData_.getLevMoves()) {
-                if (!StringList.quickEq(l.getMove(), name)) {
+                if (!StringUtil.quickEq(l.getMove(), name)) {
                     continue;
                 }
                 if (!movesLevelLearntByPokemon_.contains(l.getLevel())) {
@@ -429,7 +429,7 @@ public class MoveBean extends CommonBean {
         movesMtLearntByPokemon_ = new StringList();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (StringList.contains(pkData_.getMoveTutors(), name_)) {
+            if (StringUtil.contains(pkData_.getMoveTutors(), name_)) {
                 movesMtLearntByPokemon_.add(p);
             }
         }
@@ -447,7 +447,7 @@ public class MoveBean extends CommonBean {
         for (String m: data_.getMoves().getKeys()) {
             MoveData fAttCible_ = data_.getMove(m);
             int nbEffetsCible_=fAttCible_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffetsCible_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffetsCible_; i++){
                 Effect effetLoc_=fAttCible_.getEffet(i);
                 if(!(effetLoc_ instanceof EffectSwitchPointView)){
                     continue;
@@ -468,7 +468,7 @@ public class MoveBean extends CommonBean {
         for (String m: data_.getMoves().getKeys()) {
             MoveData fAttCible_ = data_.getMove(m);
             int nbEffetsCible_=fAttCible_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffetsCible_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffetsCible_; i++){
                 Effect effetLoc_=fAttCible_.getEffet(i);
                 if(!(effetLoc_ instanceof EffectSwitchPointView)){
                     continue;
@@ -487,9 +487,7 @@ public class MoveBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
-            if (!moveData_.getTypesByWeather().isEmpty()) {
-                return true;
-            }
+            return !moveData_.getTypesByWeather().isEmpty();
         }
         return false;
     }
@@ -498,9 +496,7 @@ public class MoveBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
-            if (moveData_.getTypesByWeather().isEmpty()) {
-                return true;
-            }
+            return moveData_.getTypesByWeather().isEmpty();
         }
         return false;
     }
@@ -509,9 +505,7 @@ public class MoveBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (moveData_.getTypesByOwnedItem().isEmpty()) {
-            if (!moveData_.getTypesByWeather().isEmpty()) {
-                return true;
-            }
+            return !moveData_.getTypesByWeather().isEmpty();
         }
         return false;
     }
@@ -868,10 +862,7 @@ public class MoveBean extends CommonBean {
         if (!movesHmLearntByPokemon.isEmpty()) {
             return true;
         }
-        if (!movesMtLearntByPokemon.isEmpty()) {
-            return true;
-        }
-        return false;
+        return !movesMtLearntByPokemon.isEmpty();
     }
     public boolean isAdjAdv() {
         return targetChoice == TargetChoice.ADJ_ADV;

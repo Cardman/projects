@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ElseIfCondition extends Condition implements BlockCondition {
 
@@ -45,7 +46,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordElseif(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordIf(),
                                         _page.getKeyWords().getKeyWordElseif()

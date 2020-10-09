@@ -6,7 +6,8 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class DefaultValueOperation extends LeafOperation  {
 
@@ -21,12 +22,12 @@ public final class DefaultValueOperation extends LeafOperation  {
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
-        int offLoc_ = StringList.getFirstPrintableCharIndex(realCl_);
+        int offLoc_ = StringUtil.getFirstPrintableCharIndex(realCl_);
         String classStr_;
         classStr_ = ResolvingImportTypes.resolveCorrectType(afterLeftPar_ + offLoc_, realCl_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());

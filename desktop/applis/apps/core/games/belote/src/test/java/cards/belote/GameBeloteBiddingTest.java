@@ -3,6 +3,7 @@ import static cards.belote.EquallableBeloteUtil.assertEq;
 import static cards.belote.EquallableBeloteUtil.assertEqSet;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -1735,7 +1736,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     private void asserting(CustList<BidBeloteSuit> _exp, CustList<BidBeloteSuit> _res) {
         assertEq(_exp.size(), _res.size());
         int s_ = _exp.size();
-        for (int i = CustList.FIRST_INDEX; i < s_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
             assertEq(_exp.get(i), _res.get(i));
         }
     }}

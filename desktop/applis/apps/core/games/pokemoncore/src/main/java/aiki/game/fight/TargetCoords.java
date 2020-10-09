@@ -1,7 +1,8 @@
 package aiki.game.fight;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -14,8 +15,8 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
     private final short position;
 
     public TargetCoords() {
-        team = CustList.SIZE_EMPTY;
-        position = CustList.SIZE_EMPTY;
+        team = IndexConstants.SIZE_EMPTY;
+        position = IndexConstants.SIZE_EMPTY;
     }
 
     public TargetCoords(short _team,short _position) {
@@ -24,9 +25,9 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
     }
 
     public TargetCoords(String _value) {
-        StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        team = (short) Numbers.parseInt(elts_.first());
-        position = (short) Numbers.parseInt(elts_.last());
+        StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
+        team = (short) NumberUtil.parseInt(elts_.first());
+        position = (short) NumberUtil.parseInt(elts_.last());
     }
 
     
@@ -48,13 +49,10 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
 
     @Override
     public boolean eq(TargetCoords _obj) {
-        if (!Numbers.eq(getTeam(),_obj.getTeam())) {
+        if (!NumberUtil.eq(getTeam(),_obj.getTeam())) {
             return false;
         }
-        if (!Numbers.eq(getPosition(),_obj.getPosition())) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(getPosition(), _obj.getPosition());
     }
 
     public short getTeam() {

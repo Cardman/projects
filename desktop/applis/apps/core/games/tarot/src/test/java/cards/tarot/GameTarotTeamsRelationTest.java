@@ -8,6 +8,7 @@ import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
@@ -260,7 +261,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
             confidence_.add(c_);
         }
         if (!b_ || !_b.isJouerDonne()) {
-            for (byte i = CustList.FIRST_INDEX; i < nbPl_; i++) {
+            for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
                 for (byte p: _r.getRepartition().getAppelesDetermines(i)) {
                     confidence_.get(i).set(p,true);
                 }
@@ -288,7 +289,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
             }
         } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
             Bytes defenseurs_=new Bytes();
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPl_;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPl_; joueur_++) {
                 if(joueur_==_taker) {
                     continue;
                 }

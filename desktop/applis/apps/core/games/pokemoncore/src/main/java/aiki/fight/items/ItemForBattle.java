@@ -14,6 +14,7 @@ import code.util.EnumMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class ItemForBattle extends Item {
@@ -72,7 +73,7 @@ public final class ItemForBattle extends Item {
         if (!lawForAttackFirst.checkEvents()) {
             _data.setError(true);
         }
-        hatching = StringList.intersect(hatching,_data.getPokedex().getKeys());
+        hatching = StringUtil.intersect(hatching,_data.getPokedex().getKeys());
         if (effectEndRound.size() > 1) {
             _data.setError(true);
         }
@@ -138,7 +139,7 @@ public final class ItemForBattle extends Item {
             }
         }
         for (String t : boostStatisTypes.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), t)) {
+            if (!StringUtil.contains(_data.getTypes(), t)) {
                 _data.setError(true);
             }
             for (EntryCust<Statistic, Byte> s : boostStatisTypes.getVal(t)
@@ -224,10 +225,7 @@ public final class ItemForBattle extends Item {
         if (!multWinningEv.isZero()) {
             return true;
         }
-        if (!multWinningExp.isZero()) {
-            return true;
-        }
-        return false;
+        return !multWinningExp.isZero();
     }
 
     public boolean enabledSending() {

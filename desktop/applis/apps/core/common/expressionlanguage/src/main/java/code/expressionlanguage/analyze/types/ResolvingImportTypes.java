@@ -17,6 +17,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ResolvingImportTypes {
     private ResolvingImportTypes() {
@@ -24,7 +25,7 @@ public final class ResolvingImportTypes {
     }
     public static String resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        if (StringUtil.quickEq(_in.trim(), void_)) {
             return "";
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -52,7 +53,7 @@ public final class ResolvingImportTypes {
             return _page.getAliasObject();
         }
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -110,7 +111,7 @@ public final class ResolvingImportTypes {
     }
     public static String resolveCorrectTypeWithoutErrors(int _loc, String _in, boolean _exact, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        if (StringUtil.quickEq(_in.trim(), void_)) {
             return "";
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -156,7 +157,7 @@ public final class ResolvingImportTypes {
             return _page.getAliasObject();
         }
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -215,7 +216,7 @@ public final class ResolvingImportTypes {
             partOffsets_.add(new PartOffset("</a>",rc_+1));
             return _page.getAliasObject();
         }
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -273,7 +274,7 @@ public final class ResolvingImportTypes {
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringList inners_ = getParts(_in, _page);
         String firstFull_ = inners_.first();
-        int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
+        int firstOff_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
         String base_ = firstFull_.trim();
         if (base_.isEmpty()) {
             firstOff_ = 0;
@@ -284,7 +285,7 @@ public final class ResolvingImportTypes {
         }
         CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
         partOffsets_.clear();
-        if (StringList.quickEq(tr_, void_)) {
+        if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -348,11 +349,11 @@ public final class ResolvingImportTypes {
             String i_ = inners_.get(i);
             String resId_;
             int delta_ = 1;
-            if (StringList.quickEq(".",inners_.get(i-1))) {
-                resId_ = StringList.concat(res_,"..",i_.trim());
+            if (StringUtil.quickEq(".",inners_.get(i-1))) {
+                resId_ = StringUtil.concat(res_,"..",i_.trim());
             } else {
                 delta_ = 2;
-                resId_ = StringList.concat(res_,"-",i_.trim());
+                resId_ = StringUtil.concat(res_,"-",i_.trim());
             }
             RootBlock inner_ = _page.getAnaClassBody(resId_);
             if (inner_ == null) {
@@ -402,7 +403,7 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String end_ = StringExpUtil.removeDottedSpaces(tr_.substring(tr_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
+                if (!StringUtil.quickEq(end_, look_)) {
                     continue;
                 }
                 if (stopLookup(types_,tr_,look_,_ready, _page)) {
@@ -418,7 +419,7 @@ public final class ResolvingImportTypes {
         }
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
-            String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
+            String type_ = StringExpUtil.removeDottedSpaces(StringUtil.concat(r_.getPackageName(),".",_type));
             if (_page.getAnaClassBody(type_) != null) {
                 return type_;
             }
@@ -430,7 +431,7 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String end_ = StringExpUtil.removeDottedSpaces(tr_.substring(tr_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
+                if (!StringUtil.quickEq(end_, "*")) {
                     continue;
                 }
                 if (stopLookup(types_,tr_,look_,_ready, _page)) {
@@ -445,7 +446,7 @@ public final class ResolvingImportTypes {
             return "";
         }
         String defPkg_ = _page.getDefaultPkg();
-        String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
+        String type_ = StringExpUtil.removeDottedSpaces(StringUtil.concat(defPkg_,".",_type));
         if (_page.getAnaGeneType(type_) != null) {
             return type_;
         }
@@ -460,7 +461,7 @@ public final class ResolvingImportTypes {
             beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
             stQualifier_ = true;
         }
-        String typeInner_ = StringList.concat(beginImp_, _look);
+        String typeInner_ = StringUtil.concat(beginImp_, _look);
         StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _page);
         String owner_ = allInnerTypes_.first();
         AnaGeneType cl_ = _page.getAnaGeneType(owner_);
@@ -517,7 +518,7 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, _method.trim())) {
+                if (!StringUtil.quickEq(end_, _method.trim())) {
                     continue;
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
@@ -538,7 +539,7 @@ public final class ResolvingImportTypes {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
+                if (!StringUtil.quickEq(end_, "*")) {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
@@ -567,7 +568,7 @@ public final class ResolvingImportTypes {
                 if (!e.isStaticMethod()) {
                     continue;
                 }
-                if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
+                if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
                     continue;
                 }
                 if (e instanceof OverridableBlock) {
@@ -634,7 +635,7 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, _method.trim())) {
+                if (!StringUtil.quickEq(end_, _method.trim())) {
                     continue;
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
@@ -654,7 +655,7 @@ public final class ResolvingImportTypes {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
+                if (!StringUtil.quickEq(end_, "*")) {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
@@ -750,7 +751,7 @@ public final class ResolvingImportTypes {
     }
     private static void addImport(StringMap<ImportedField> _methods, String _class, ImportedField _value) {
         for (EntryCust<String, ImportedField> e: _methods.entryList()) {
-            if (StringList.quickEq(e.getKey(), _class)) {
+            if (StringUtil.quickEq(e.getKey(), _class)) {
                 return;
             }
         }
@@ -760,7 +761,7 @@ public final class ResolvingImportTypes {
         if (!_field.isStaticField()) {
             return -1;
         }
-        return StringList.indexOf(_field.getFieldName(), _method.trim());
+        return StringUtil.indexOf(_field.getFieldName(), _method.trim());
     }
     private static void fetchImports(AccessedBlock _rooted, CustList<StringList> _imports) {
         if (_rooted instanceof RootBlock) {

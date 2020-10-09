@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
 
@@ -110,9 +111,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         un_.setFileName(_page.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                StringList.join(new StringList(
-                        StringList.join(first_.getNames(),"&"),
-                        StringList.join(second_.getNames(),"&")
+                StringUtil.join(new StringList(
+                        StringUtil.join(first_.getNames(),"&"),
+                        StringUtil.join(second_.getNames(),"&")
                 ),";"),
                 getOp());
         _page.getLocalizer().addError(un_);

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.errors.stds;
 
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public class StdErrorList extends CustList<StdWordError> implements Displayable {
@@ -14,7 +15,7 @@ public class StdErrorList extends CustList<StdWordError> implements Displayable 
         for (StdWordError f: this) {
             l_.add(f.display());
         }
-        return StringList.join(l_, SEP_INFO);
+        return StringUtil.join(l_, SEP_INFO);
     }
 
 }

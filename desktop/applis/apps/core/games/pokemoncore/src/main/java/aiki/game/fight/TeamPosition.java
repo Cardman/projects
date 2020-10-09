@@ -1,7 +1,8 @@
 package aiki.game.fight;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -19,8 +20,8 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
 
     public TeamPosition() {
         valid = false;
-        team = CustList.SIZE_EMPTY;
-        position = CustList.SIZE_EMPTY;
+        team = IndexConstants.SIZE_EMPTY;
+        position = IndexConstants.SIZE_EMPTY;
     }
     public TeamPosition(byte _team, byte _position) {
         team = _team;
@@ -29,15 +30,15 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
     }
 
     public TeamPosition(String _value) {
-        if (StringList.quickEq(_value,INVALID)) {
+        if (StringUtil.quickEq(_value,INVALID)) {
             valid = false;
-            team = CustList.SIZE_EMPTY;
-            position = CustList.SIZE_EMPTY;
+            team = IndexConstants.SIZE_EMPTY;
+            position = IndexConstants.SIZE_EMPTY;
             return;
         }
-        StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        team = (byte) Numbers.parseInt(elts_.first());
-        position = (byte) Numbers.parseInt(elts_.last());
+        StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
+        team = (byte) NumberUtil.parseInt(elts_.first());
+        position = (byte) NumberUtil.parseInt(elts_.last());
         valid = true;
     }
 
@@ -62,13 +63,10 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
     }
     @Override
     public boolean eq(TeamPosition _g) {
-        if (!Numbers.eq(getTeam(),_g.getTeam())) {
+        if (!NumberUtil.eq(getTeam(),_g.getTeam())) {
             return false;
         }
-        if (!Numbers.eq(getPosition(),_g.getPosition())) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(getPosition(), _g.getPosition());
     }
     
     @Override

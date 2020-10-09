@@ -16,6 +16,7 @@ import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AnalyzingDoc {
     private StringList languages = new StringList();
@@ -82,7 +83,7 @@ public final class AnalyzingDoc {
     }
 
     public String getLocationFile(String _fileName, int _sum) {
-        return StringList.concat(Integer.toString(_sum));
+        return StringUtil.concat(Integer.toString(_sum));
     }
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
@@ -125,7 +126,7 @@ public final class AnalyzingDoc {
     private static IntTreeMap<Integer> getEscapedChars(String _attribute, StringMap<IntTreeMap<Integer>> _escapedChars) {
         for (EntryCust<String, IntTreeMap< Integer>> t: _escapedChars.entryList()) {
             String c_ = t.getKey();
-            if (!StringList.quickEq(c_, _attribute)) {
+            if (!StringUtil.quickEq(c_, _attribute)) {
                 continue;
             }
             return t.getValue();

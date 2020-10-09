@@ -7,20 +7,21 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class GuiContextFactory {
     public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs, MainWindow _window,
                                           Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        if (StringList.quickEq(_lang, "en")) {
+        if (StringUtil.quickEq(_lang, "en")) {
             _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
-        } else if (StringList.quickEq(_lang, "fr")) {
+        } else if (StringUtil.quickEq(_lang, "fr")) {
             _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
@@ -29,7 +30,7 @@ public final class GuiContextFactory {
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
-        return build(_mainArgs,_window,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(_mainArgs,_window,IndexConstants.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {

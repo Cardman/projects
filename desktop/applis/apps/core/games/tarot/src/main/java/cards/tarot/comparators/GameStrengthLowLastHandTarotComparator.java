@@ -2,7 +2,7 @@ package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.CustList;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class GameStrengthLowLastHandTarotComparator implements Comparing<Suit> {
@@ -42,12 +42,12 @@ public final class GameStrengthLowLastHandTarotComparator implements Comparing<S
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (aussiHaut_) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

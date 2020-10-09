@@ -15,6 +15,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeGameDtoStd {
     public static final String TYPE_STATISTIC_INFO_PK_PLAYER = "aiki.beans.facade.game.dto.StatisticInfoPkPlayer";
@@ -56,19 +57,19 @@ public final class AikiBeansFacadeGameDtoStd {
         StatisticInfoPkPlayer instance_ = (StatisticInfoPkPlayer) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EV)) {
+        if (StringUtil.quickEq(methodName_,GET_EV)) {
             res_.setResult(new ShortStruct(instance_.getEv()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IV)) {
+        if (StringUtil.quickEq(methodName_,GET_IV)) {
             res_.setResult(new ShortStruct(instance_.getIv()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_RATE)) {
+        if (StringUtil.quickEq(methodName_,GET_RATE)) {
             res_.setResult(new DefaultStruct(instance_.getRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }

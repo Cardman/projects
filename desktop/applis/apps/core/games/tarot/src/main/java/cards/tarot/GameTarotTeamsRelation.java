@@ -4,6 +4,7 @@ import cards.consts.Status;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class GameTarotTeamsRelation {
 
@@ -61,7 +62,7 @@ public final class GameTarotTeamsRelation {
     static Bytes autresJoueurs(Bytes _joueurs,
                                                byte _nombreJoueurs) {
         Bytes joueurs_ = new Bytes();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (!_joueurs.containsObj(joueur_)) {
                 joueurs_.add(joueur_);
             }
@@ -71,7 +72,7 @@ public final class GameTarotTeamsRelation {
 
     static Bytes tousJoueurs(byte _nombreJoueurs) {
         Bytes joueurs_ = new Bytes();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             joueurs_.add(joueur_);
         }
         return joueurs_;
@@ -150,7 +151,7 @@ public final class GameTarotTeamsRelation {
             for (byte joueur_: calledPlayers) {
                 faireConfiance(_numero, joueur_);
             }
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
                 if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
                     faireMefiance(_numero, joueur_);
                 }
@@ -160,7 +161,7 @@ public final class GameTarotTeamsRelation {
             for (byte joueur_: calledPlayers) {
                 faireMefiance(_numero, joueur_);
             }
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
                 if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
                     faireConfiance(_numero, joueur_);
                 }
@@ -173,7 +174,7 @@ public final class GameTarotTeamsRelation {
         appelesTousConnus_ = true;
         for(CardTarot c: _calledCards) {
             boolean trouve_ = false;
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
                 if (_cartesCertaines.getVal(c.couleur())
                         .get(joueur_).contient(c)) {
                     trouve_ = true;
@@ -190,7 +191,7 @@ public final class GameTarotTeamsRelation {
 
     public boolean isSameTeam(Bytes _players) {
         int nbPlayers_ = _players.size();
-        for (byte i=CustList.SECOND_INDEX;i<nbPlayers_;i++) {
+        for (byte i = IndexConstants.SECOND_INDEX; i<nbPlayers_; i++) {
             if (!memeEquipe(_players.getPrev(i), _players.get(i))) {
                 return false;
             }

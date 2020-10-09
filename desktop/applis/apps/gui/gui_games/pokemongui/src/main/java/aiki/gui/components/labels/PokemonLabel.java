@@ -10,7 +10,7 @@ import code.gui.CustGraphics;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.EnumMap;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class PokemonLabel extends SelectableLabel {
 
@@ -71,8 +71,8 @@ public class PokemonLabel extends SelectableLabel {
 
     public int getThirdColumnWidth() {
         Ints widths_ = new Ints();
-        widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(Integer.toString(pokemon.getLevel()),SPACE)));
-        widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(gender,SPACE)));
+        widths_.add(getFontMetrics(getFont()).stringWidth(StringUtil.concat(Integer.toString(pokemon.getLevel()),SPACE)));
+        widths_.add(getFontMetrics(getFont()).stringWidth(StringUtil.concat(gender,SPACE)));
         return (int)widths_.getMaximum(1);
     }
 

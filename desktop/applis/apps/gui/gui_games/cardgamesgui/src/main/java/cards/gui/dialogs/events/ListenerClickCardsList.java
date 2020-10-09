@@ -3,7 +3,7 @@ import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ListenerClickCardsList implements ListSelection {
 
@@ -30,6 +30,6 @@ public class ListenerClickCardsList implements ListSelection {
 //        }
         nbSelectedCards_-=setterDialog.getNombreCartesSelectionneesPrecedent();
         setterDialog.setNombreCartesSelectionnees(nbSelectedCards_);
-        setterDialog.getLabelSelectCards().setText(StringList.simpleNumberFormat(formatMessage,nbSelectedCards_));
+        setterDialog.getLabelSelectCards().setText(StringUtil.simpleNumberFormat(formatMessage,nbSelectedCards_));
     }
 }

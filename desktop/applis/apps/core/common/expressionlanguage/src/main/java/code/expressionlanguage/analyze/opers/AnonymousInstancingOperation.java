@@ -15,7 +15,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation {
@@ -49,7 +49,7 @@ public final class AnonymousInstancingOperation extends
     public void analyze(AnalyzedPageEl _page) {
         tryAnalyze(_page);
         index = _page.getLocalizer().getCurrentLocationIndex();
-        int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
@@ -75,7 +75,7 @@ public final class AnonymousInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
-                int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
+                int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
                 realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }

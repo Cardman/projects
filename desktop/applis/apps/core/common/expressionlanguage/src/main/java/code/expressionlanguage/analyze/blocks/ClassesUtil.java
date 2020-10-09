@@ -36,6 +36,8 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ClassesUtil {
     private static final char DOT = '.';
@@ -281,7 +283,7 @@ public final class ClassesUtil {
                     String base_ = e.getBase();
                     String enumClassName_ = _page.getAliasEnumType();
                     String enumParamClassName_ = _page.getAliasEnumParam();
-                    if (StringList.quickEq(enumParamClassName_, base_)) {
+                    if (StringUtil.quickEq(enumParamClassName_, base_)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(block_.getFile().getFileName());
@@ -293,7 +295,7 @@ public final class ClassesUtil {
                         _page.addLocError(undef_);
                         block_.addNameErrors(undef_);
                     }
-                    if (StringList.quickEq(enumClassName_, base_)) {
+                    if (StringUtil.quickEq(enumClassName_, base_)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(block_.getFile().getFileName());
@@ -426,7 +428,7 @@ public final class ClassesUtil {
             _root.addNameErrors(badCl_);
             ok_ = false;
         } else {
-            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            StringList elements_ = StringUtil.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 String tr_ = e.trim();
                 TokenErrorMessage res_ = ManageTokens.partClass(_page).checkToken(tr_, _page);
@@ -461,13 +463,13 @@ public final class ClassesUtil {
         StringList params_ = StringExpUtil.getAllTypes(fullDef_);
         StringList namesFromParent_ = getParamVarFromParent(_root);
         int tempOff_ = _root.getTemplateDefOffset() + 1;
-        for (String p: params_.mid(CustList.SECOND_INDEX)) {
+        for (String p: params_.mid(IndexConstants.SECOND_INDEX)) {
             int delta_ = 0;
             TypeVar type_ = new TypeVar();
             int indexDef_ = p.indexOf(Templates.EXTENDS_DEF);
-            StringList parts_ = StringList.splitInTwo(p, indexDef_);
+            StringList parts_ = StringUtil.splitInTwo(p, indexDef_);
             String id_ = parts_.first();
-            int offId_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
+            int offId_ = tempOff_ + StringUtil.getFirstPrintableCharIndex(p);
             if (id_.isEmpty()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
@@ -499,7 +501,7 @@ public final class ClassesUtil {
                 _page.addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
-            if (StringList.contains(varTypes_, id_)) {
+            if (StringUtil.contains(varTypes_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
@@ -510,7 +512,7 @@ public final class ClassesUtil {
                 _page.addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
-            if (StringList.contains(namesFromParent_, id_)) {
+            if (StringUtil.contains(namesFromParent_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
@@ -523,11 +525,11 @@ public final class ClassesUtil {
             }
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
-            if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+            if (indexDef_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 int begin_ = delta_ + indexDef_;
                 Ints ct_ = new Ints();
-                for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                    int off_ = begin_ + StringList.getFirstPrintableCharIndex(b);
+                for (String b: StringUtil.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                    int off_ = begin_ + StringUtil.getFirstPrintableCharIndex(b);
                     constraints_.add(b);
                     ct_.add(off_);
                     begin_ += b.length() + 1;
@@ -552,10 +554,10 @@ public final class ClassesUtil {
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:_root.getParamTypes()) {
-                    vars_.add(StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
+                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             StringBuilder sBuild_ = new StringBuilder(_page.getAliasEnumParam());
@@ -570,7 +572,7 @@ public final class ClassesUtil {
         if (_root instanceof InnerElementBlock) {
             InnerElementBlock i_ = (InnerElementBlock) _root;
             EnumBlock par_ = i_.getParentEnum();
-            String type_ = StringList.concat(par_.getFullName(),i_.getTempClass());
+            String type_ = StringUtil.concat(par_.getFullName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -855,7 +857,7 @@ public final class ClassesUtil {
                     cur_.getAllReservedInners().addAllElts(allReservedInnersRoot_);
                     if (!(c_ instanceof AnonymousTypeBlock) && possibleParent_ != null) {
                         cur_.getAllReservedInners().addAllElts(possibleParent_.getAllReservedInners());
-                        if (StringList.contains(allReservedInnersRoot_, s_)) {
+                        if (StringUtil.contains(allReservedInnersRoot_, s_)) {
                             FoundErrorInterpret d_ = new FoundErrorInterpret();
                             d_.setFileName(_r.getFile().getFileName());
                             d_.setIndexFile(cur_.getIdRowCol());
@@ -870,7 +872,7 @@ public final class ClassesUtil {
                             for (RootBlock o:outerFuntion_.getReserved()) {
                                 cur_.getAllReservedInners().add(o.getName());
                             }
-                            if (StringList.contains(possibleParent_.getAllReservedInners(), s_)) {
+                            if (StringUtil.contains(possibleParent_.getAllReservedInners(), s_)) {
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
@@ -882,7 +884,7 @@ public final class ClassesUtil {
                                 add_ = false;
                             }
                             StringList namesFromParent_ = getParamVarFromAnyParent(cur_);
-                            if (StringList.contains(namesFromParent_, s_)) {
+                            if (StringUtil.contains(namesFromParent_, s_)) {
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
@@ -920,7 +922,7 @@ public final class ClassesUtil {
 
                         }
                     }
-                    if (StringList.contains(_basePkgFound, s_)) {
+                    if (StringUtil.contains(_basePkgFound, s_)) {
                         //ERROR
                         FoundErrorInterpret d_ = new FoundErrorInterpret();
                         d_.setFileName(_r.getFile().getFileName());
@@ -932,7 +934,7 @@ public final class ClassesUtil {
                         cur_.addNameErrors(d_);
                         add_ = false;
                         addPkg_ = false;
-                    } else if (StringList.contains(simpleNames_, s_)) {
+                    } else if (StringUtil.contains(simpleNames_, s_)) {
                         //ERROR
                         FoundErrorInterpret d_ = new FoundErrorInterpret();
                         d_.setFileName(_r.getFile().getFileName());
@@ -1227,7 +1229,7 @@ public final class ClassesUtil {
                     String idSuper_ = StringExpUtil.getIdFromAllTypes(s);
                     int offset_ = e.getKey();
                     String void_ = _page.getAliasVoid();
-                    if (StringList.quickEq(idSuper_, void_)) {
+                    if (StringUtil.quickEq(idSuper_, void_)) {
                         FoundErrorInterpret undef_ = new FoundErrorInterpret();
                         undef_.setFileName(r.getFile().getFileName());
                         undef_.setIndexFile(offset_);
@@ -1283,7 +1285,7 @@ public final class ClassesUtil {
                     f_.setName(foundType_);
                     types_.add(f_);
                     if (r.getExplicitDirectSuperTypes().getValue(index_)) {
-                        if (StringList.quickEq(enumParamClassName_, foundType_)) {
+                        if (StringUtil.quickEq(enumParamClassName_, foundType_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
                             undef_.setFileName(r.getFile().getFileName());
@@ -1297,7 +1299,7 @@ public final class ClassesUtil {
                             index_++;
                             continue;
                         }
-                        if (StringList.quickEq(enumClassName_, foundType_) && !StringList.quickEq(c, enumParamClassName_)) {
+                        if (StringUtil.quickEq(enumClassName_, foundType_) && !StringUtil.quickEq(c, enumParamClassName_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
                             undef_.setFileName(r.getFile().getFileName());
@@ -1564,7 +1566,7 @@ public final class ClassesUtil {
                             duplicate_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
                             duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
-                                    StringList.join(e.getValue(),"&"));
+                                    StringUtil.join(e.getValue(),"&"));
                             _page.addLocError(duplicate_);
                             s.addNameErrors(duplicate_);
                         }
@@ -1687,7 +1689,7 @@ public final class ClassesUtil {
                     duplicate_.setIndexFile(i.getIdRowCol());
                     //original id len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
-                            StringList.join(e.getValue(),"&"));
+                            StringUtil.join(e.getValue(),"&"));
                     _page.addLocError(duplicate_);
                     i.addNameErrors(duplicate_);
                 }
@@ -1805,7 +1807,7 @@ public final class ClassesUtil {
                     _page.addLocError(b_);
                     o.addParamErrors(i_,b_);
                 }
-                if (StringList.contains(seen_, v)){
+                if (StringUtil.contains(seen_, v)){
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
@@ -2249,7 +2251,7 @@ public final class ClassesUtil {
                 if (!ContextUtil.isFinalField(id_, _page)) {
                     continue;
                 }
-                if (!StringList.contains(_page.getInitFields(),key_)) {
+                if (!StringUtil.contains(_page.getInitFields(),key_)) {
                     //error
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(c.getFile().getFileName());
@@ -2345,13 +2347,13 @@ public final class ClassesUtil {
                     if (!ContextUtil.isFinalField(key_, _page)) {
                         continue;
                     }
-                    if (StringList.contains(_page.getInitFields(), fieldName_)) {
+                    if (StringUtil.contains(_page.getInitFields(), fieldName_)) {
                         continue;
                     }
                     //error
                     for (Block b : bl_) {
                         if (b instanceof InfoBlock) {
-                            if (StringList.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
+                            if (StringUtil.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                                 un_.setFileName(c.getFile().getFileName());
                                 un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
@@ -2380,7 +2382,7 @@ public final class ClassesUtil {
                         if (!ContextUtil.isFinalField(key_, _page)) {
                             continue;
                         }
-                        if (StringList.contains(_page.getInitFieldsCtors(),fieldName_)) {
+                        if (StringUtil.contains(_page.getInitFieldsCtors(),fieldName_)) {
                             continue;
                         }
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -2634,12 +2636,12 @@ public final class ClassesUtil {
             UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
             StringList all_ = _cl.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            StringList.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
+            StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
             RootBlock superType_ = _page.getAnaClassBody(superClassId_);
             if (superType_ instanceof UniqueRootedBlock) {
-                StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
+                StringUtil.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             for (String i: allCopy_) {
                 RootBlock int_ = _page.getAnaClassBody(i);
@@ -2680,7 +2682,7 @@ public final class ClassesUtil {
     private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors,StringList _params, StringList _types, boolean _varargs) {
         int len_ = _params.size();
         if (!_varargs) {
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                 if (!_paramErrors.get(i).isEmpty()) {
                     continue;
                 }
@@ -2693,7 +2695,7 @@ public final class ClassesUtil {
                 _page.getInfosVars().put(p_, lv_);
             }
         } else {
-            for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < len_ - 1; i++) {
                 if (!_paramErrors.get(i).isEmpty()) {
                     continue;
                 }
@@ -2829,7 +2831,7 @@ public final class ClassesUtil {
                 continue;
             }
             AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-            if (StringList.quickEq(a_.getName(), _id)) {
+            if (StringUtil.quickEq(a_.getName(), _id)) {
                 methods_.add(a_);
             }
         }

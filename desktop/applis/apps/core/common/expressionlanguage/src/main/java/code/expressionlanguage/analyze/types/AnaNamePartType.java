@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 final class AnaNamePartType extends AnaLeafPartType {
 
@@ -43,12 +44,12 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
     private void analyzeGenericOnwer(AnaPartType _part, String _type, AnalyzedPageEl _page) {
         String owner_ = _part.getAnalyzedType();
-        if (StringList.quickEq("..",getPreviousSeparator())) {
+        if (StringUtil.quickEq("..",getPreviousSeparator())) {
             StringList foundOwners_ = AnaTypeUtil.getEnumOwners(owner_, _type, _page);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            setAnalyzedType(StringList.concat(foundOwners_.first(), "-", _type));
+            setAnalyzedType(StringUtil.concat(foundOwners_.first(), "-", _type));
             owner = owner_;
             return;
         }
@@ -56,7 +57,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (!foundOwners_.onlyOneElt()) {
             return;
         }
-        setAnalyzedType(StringList.concat(foundOwners_.first(),"..", _type));
+        setAnalyzedType(StringUtil.concat(foundOwners_.first(),"..", _type));
         owner = owner_;
     }
 
@@ -108,20 +109,20 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (!_ready.isReady(id_)) {
             return;
         }
-        if (StringList.quickEq("..",getPreviousSeparator())) {
+        if (StringUtil.quickEq("..",getPreviousSeparator())) {
             StringList foundOwners_ = AnaTypeUtil.getEnumOwners(id_, _type, _page);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
             String idOwner_= StringExpUtil.getIdFromAllTypes(foundOwners_.first());
-            setAnalyzedType(StringList.concat(idOwner_,"-", _type));
+            setAnalyzedType(StringUtil.concat(idOwner_,"-", _type));
             owner = id_;
             return;
         }
         StringList foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _page);
         if (foundOwners_.onlyOneElt()) {
             String new_ = foundOwners_.first();
-            setAnalyzedType(StringList.concat(new_,"..", _type));
+            setAnalyzedType(StringUtil.concat(new_,"..", _type));
             owner = id_;
         }
     }
@@ -132,10 +133,10 @@ final class AnaNamePartType extends AnaLeafPartType {
             return false;
         }
         AnaPartType prev_ = par_.getFirstChild();
-        if (StringList.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
+        if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
             base_ = StringExpUtil.getIdFromAllTypes(base_);
-            if (StringList.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+            if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
             }
             return true;
@@ -180,7 +181,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 if (owners_.onlyOneElt()) {
                     genStr_ = owners_.first();
                     id_ = StringExpUtil.getIdFromAllTypes(genStr_);
-                    String in_ = StringList.concat(id_,"..",type_);
+                    String in_ = StringUtil.concat(id_,"..",type_);
                     inner_ = _page.getAnaClassBody(in_);
                 }
                 resType_ = type_;
@@ -192,16 +193,16 @@ final class AnaNamePartType extends AnaLeafPartType {
             }
             if (inner_ != null) {
                 if (inner_.isStaticType()) {
-                    setAnalyzedType(StringList.concat(id_,"..",resType_));
+                    setAnalyzedType(StringUtil.concat(id_,"..",resType_));
                     owner = a;
                     return true;
                 }
                 if (_page.getTokenValidation().isStaticAccess()) {
-                    setAnalyzedType(StringList.concat(id_,"..",resType_));
+                    setAnalyzedType(StringUtil.concat(id_,"..",resType_));
                     owner = a;
                     return true;
                 }
-                setAnalyzedType(StringList.concat(genStr_,"..",resType_));
+                setAnalyzedType(StringUtil.concat(genStr_,"..",resType_));
                 owner = a;
             }
             return true;
@@ -231,7 +232,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             allAncestors_.addEntry(resolved_.getParentType().getFullName(), res_);
         }
         while (p_ != null) {
-            allAncestors_.add(p_.getFullName(), new ResultTypeAncestor(false,type_));
+            allAncestors_.addEntry(p_.getFullName(), new ResultTypeAncestor(false,type_));
             p_ = p_.getParentType();
         }
         for (EntryCust<String,ResultTypeAncestor> e: allAncestors_.entryList()) {
@@ -246,12 +247,12 @@ final class AnaNamePartType extends AnaLeafPartType {
                 }
                 if (owners_.onlyOneElt()) {
                     String new_ = owners_.first();
-                    setAnalyzedType(StringList.concat(new_,"..",type_));
+                    setAnalyzedType(StringUtil.concat(new_,"..",type_));
                     owner = a;
                 }
             } else {
                 String resType_ = e.getValue().getSimpleName();
-                setAnalyzedType(StringList.concat(a,"..",resType_));
+                setAnalyzedType(StringUtil.concat(a,"..",resType_));
                 owner = a;
             }
             return true;
@@ -326,17 +327,17 @@ final class AnaNamePartType extends AnaLeafPartType {
             String owner_ = part_.getAnalyzedType();
             String id_ = StringExpUtil.getIdFromAllTypes(owner_);
             String sep_;
-            if (StringList.quickEq("..",getPreviousSeparator())) {
+            if (StringUtil.quickEq("..",getPreviousSeparator())) {
                 sep_ = "-";
             } else {
                 sep_ = "..";
             }
-            String in_ = StringList.concat(id_,sep_,type_);
+            String in_ = StringUtil.concat(id_,sep_,type_);
             RootBlock inner_ = _page.getAnaClassBody(in_);
             if (inner_ == null) {
                 return;
             }
-            setAnalyzedType(StringList.concat(owner_,sep_,type_));
+            setAnalyzedType(StringUtil.concat(owner_,sep_,type_));
             return;
         }
         if (_page.getAnaGeneType(type_) != null) {
@@ -349,10 +350,10 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         if (getParent() instanceof AnaTemplatePartType) {
             AnaPartType prev_ = getParent().getFirstChild();
-            if (StringList.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
+            if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
                 String base_ = prev_.getAnalyzedType();
                 base_ = StringExpUtil.getIdFromAllTypes(base_);
-                if (StringList.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
                 return;

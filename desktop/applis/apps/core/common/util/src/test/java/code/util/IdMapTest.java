@@ -2,6 +2,8 @@ package code.util;
 import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import code.util.classestest.KeyExample;
@@ -57,8 +59,8 @@ public class IdMapTest {
     }
     private static boolean containsEntry(Listable<EntryCust<String,Integer>> _l, EntryCust<String,Integer> _e) {
         for (EntryCust<String,Integer> e: _l) {
-            if (StringList.quickEq(e.getKey(), _e.getKey())) {
-                if (Numbers.eq(e.getValue(), _e.getValue())) {
+            if (StringUtil.quickEq(e.getKey(), _e.getKey())) {
+                if (NumberUtil.eq(e.getValue(), _e.getValue())) {
                     return true;
                 }
             }

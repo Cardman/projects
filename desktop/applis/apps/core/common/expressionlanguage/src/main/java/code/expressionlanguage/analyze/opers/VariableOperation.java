@@ -11,8 +11,9 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.options.KeyWords;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class VariableOperation extends LeafOperation implements
         SettableElResult {
@@ -40,8 +41,8 @@ public final class VariableOperation extends LeafOperation implements
                              String _className, int _ref, int _deep, boolean _finalVariable) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        variableContent = new AnaVariableContent(StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_);
+        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
+        variableContent = new AnaVariableContent(StringUtil.getFirstPrintableCharIndex(originalStr_)+relativeOff_);
         className = _className;
         ref = _ref;
         variableContent.setDeep(_deep);
@@ -62,7 +63,7 @@ public final class VariableOperation extends LeafOperation implements
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         if (ElUtil.isDeclaringVariable(this, _page)) {
@@ -85,11 +86,11 @@ public final class VariableOperation extends LeafOperation implements
             String c_ = _page.getCurrentVarSetting();
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(c_, keyWordVar_)) {
+            if (StringUtil.quickEq(c_, keyWordVar_)) {
                 _page.getVariablesNamesToInfer().add(str_);
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
-            if (StringList.quickEq(c_, keyWordVar_)) {
+            if (StringUtil.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_page.getAliasObject());
             } else {
                 lv_.setClassName(c_);

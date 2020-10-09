@@ -10,8 +10,8 @@ import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendTextArea extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -73,9 +73,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
-        if (elt.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
-            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
-                    elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
+        if (elt.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
+            docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
+                    elt.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
         fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx);
         fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx);

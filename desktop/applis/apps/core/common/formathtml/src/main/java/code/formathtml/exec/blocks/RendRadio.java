@@ -12,8 +12,8 @@ import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendRadio extends RendInput {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
@@ -51,7 +51,7 @@ public final class RendRadio extends RendInput {
             if (_ctx.callsOrException()) {
                 return;
             }
-            if (StringList.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {
+            if (StringUtil.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {
                 elt_.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
             } else {
                 elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());

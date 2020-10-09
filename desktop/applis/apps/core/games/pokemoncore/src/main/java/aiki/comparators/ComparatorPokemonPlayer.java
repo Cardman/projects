@@ -5,8 +5,8 @@ import aiki.facade.Pagination;
 import aiki.facade.StringFieldComparator;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class ComparatorPokemonPlayer implements
@@ -50,37 +50,37 @@ public final class ComparatorPokemonPlayer implements
         for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
             if (cmpLevel.getPriority() == i) {
                 int res_ = cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpName.getPriority() == i) {
                 int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpAbility.getPriority() == i) {
                 int res_ = cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpItem.getPriority() == i) {
                 int res_ = cmpItem.compare(_o1.getItem(), _o2.getItem());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpGender.getPriority() == i) {
                 int res_ = cmpGender.compare(_o1.getGender(), _o2.getGender());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             } else if (cmpPossEvos.getPriority() == i) {
                 int res_ = cmpPossEvos.compare(_o1.getNbPossEvos(), _o2.getNbPossEvos());
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             }
         }
-        return Numbers.compareLg(_o1.getIndex(), _o2.getIndex());
+        return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
 }

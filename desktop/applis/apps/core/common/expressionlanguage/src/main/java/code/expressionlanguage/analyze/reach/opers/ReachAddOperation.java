@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AddOperation;
 import code.expressionlanguage.common.NumParsers;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachAddOperation extends ReachNumericOperation {
     private boolean catString;
@@ -16,7 +16,7 @@ public final class ReachAddOperation extends ReachNumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page) {
-        if (StringList.quickEq(_op.trim(), PLUS)) {
+        if (StringUtil.quickEq(_op.trim(), PLUS)) {
             if (catString) {
                 return AnaApplyCoreMethodUtil.localSumDiff(_a, _b, _page);
             }

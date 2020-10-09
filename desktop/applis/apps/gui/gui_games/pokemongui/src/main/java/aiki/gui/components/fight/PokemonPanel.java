@@ -2,17 +2,15 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 
 public class PokemonPanel {
 
@@ -59,7 +57,7 @@ public class PokemonPanel {
             liste.add(b);
         }
 //        liste.setListData(map_.getKeys().toArray(new String[CustList.SIZE_EMPTY]));
-        int index_ = CustList.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         for (String b: map_.getKeys()) {
             if (map_.getVal(b)) {
                 liste.setSelectedIndice(index_);

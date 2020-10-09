@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecEnumSwitchBlock extends ExecEnumValueSwitchBlock {
 
@@ -24,7 +24,7 @@ public final class ExecEnumSwitchBlock extends ExecEnumValueSwitchBlock {
             }
             if (b instanceof ExecEnumCaseCondition) {
                 ExecEnumCaseCondition c_ = (ExecEnumCaseCondition) b;
-                if (StringList.quickEq(c_.getValue(), name_)) {
+                if (StringUtil.quickEq(c_.getValue(), name_)) {
                     found_ = c_;
                     break;
                 }

@@ -1,5 +1,6 @@
 package aiki.fight.util;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -15,7 +16,7 @@ public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
     }
 
     public TypesDuo(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         damageType = elements_.first();
         pokemonType = elements_.last();
     }
@@ -32,13 +33,10 @@ public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
 
     @Override
     public boolean eq(TypesDuo _obj) {
-        if (!StringList.quickEq(damageType, _obj.damageType)) {
+        if (!StringUtil.quickEq(damageType, _obj.damageType)) {
             return false;
         }
-        if (!StringList.quickEq(pokemonType, _obj.pokemonType)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(pokemonType, _obj.pokemonType);
     }
 
     public String getDamageType() {

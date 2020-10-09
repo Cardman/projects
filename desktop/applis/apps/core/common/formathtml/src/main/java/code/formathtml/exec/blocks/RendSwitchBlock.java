@@ -14,7 +14,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendSwitchBlock extends RendParentBlock implements RendReducableOperations,RendWithEl {
 
@@ -144,7 +144,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendReduca
                 if (c_.getArgument() != null) {
                     continue;
                 }
-                if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
+                if (StringUtil.quickEq(c_.getValue().trim(), en_.getName())) {
                     found_ = c_;
                     break;
                 }

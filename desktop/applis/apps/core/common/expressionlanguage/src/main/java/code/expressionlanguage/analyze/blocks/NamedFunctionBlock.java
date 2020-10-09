@@ -16,6 +16,8 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AnnotableParametersBlock {
     private StringList annotations = new StringList();
@@ -94,7 +96,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public boolean setupParam(StringList _paramTypes,StringList _paramNames) {
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
         while (i_ < len_) {
@@ -102,7 +104,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             if (i_+1 == len_) {
                 varargs_ = className_.endsWith(VARARG);
                 if (varargs_) {
-                    parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));
+                    parametersTypes.add(className_.substring(IndexConstants.FIRST_INDEX, className_.length()-VARARG.length()));
                 } else {
                     parametersTypes.add(className_);
                 }
@@ -111,7 +113,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             }
             i_++;
         }
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
             parametersNames.add(_paramNames.get(i_));
             i_++;
@@ -179,7 +181,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public void setIntenName(String name) {
-        this.name = StringList.concat(".",name);
+        this.name = StringUtil.concat(".",name);
     }
 
     public final StringList getParametersTypes() {
@@ -227,7 +229,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
         String void_ = _page.getAliasVoid();
-        if (StringList.quickEq(returnType.trim(), void_)) {
+        if (StringUtil.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
             return;
         }

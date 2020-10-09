@@ -19,6 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeFightStd {
     public static final String TYPE_KEY_HYPOTHESIS = "aiki.beans.facade.fight.KeyHypothesis";
@@ -158,27 +159,27 @@ public final class AikiBeansFacadeFightStd {
         KeyHypothesis instance_ = (KeyHypothesis) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_PLAYER_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_PLAYER_POKEMON)) {
             res_.setResult(new StringStruct(instance_.getPlayerPokemon()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_TARGET_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_TARGET_POKEMON)) {
             res_.setResult(new StringStruct(instance_.getTargetPokemon()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BELONGS_TO_USER)) {
+        if (StringUtil.quickEq(methodName_,IS_BELONGS_TO_USER)) {
             res_.setResult(BooleanStruct.of(instance_.isBelongsToUser()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NUMBER_TARGET)) {
+        if (StringUtil.quickEq(methodName_,GET_NUMBER_TARGET)) {
             res_.setResult(new IntStruct(instance_.getNumberTarget()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_DAMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
             res_.setResult(new DefaultStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
@@ -188,11 +189,11 @@ public final class AikiBeansFacadeFightStd {
         MultPowerMoves instance_ = (MultPowerMoves) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_MULT_INFLICTED)) {
+        if (StringUtil.quickEq(methodName_,GET_MULT_INFLICTED)) {
             res_.setResult(new DefaultStruct(instance_.getMultInflicted(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MULT_SUFFERING)) {
+        if (StringUtil.quickEq(methodName_,GET_MULT_SUFFERING)) {
             res_.setResult(new DefaultStruct(instance_.getMultSuffering(),PokemonStandards.TYPE_RATE));
             return res_;
         }
@@ -202,31 +203,31 @@ public final class AikiBeansFacadeFightStd {
         StatisticInfo instance_ = (StatisticInfo) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_DISPLAY_STATISTIC)) {
+        if (StringUtil.quickEq(methodName_,GET_DISPLAY_STATISTIC)) {
             res_.setResult(new StringStruct(instance_.getDisplayStatistic()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BASE)) {
+        if (StringUtil.quickEq(methodName_,IS_BASE)) {
             res_.setResult(BooleanStruct.of(instance_.isBase()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_STATIS_BASE)) {
+        if (StringUtil.quickEq(methodName_,GET_STATIS_BASE)) {
             res_.setResult(new DefaultStruct(instance_.getStatisBase(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_EV)) {
+        if (StringUtil.quickEq(methodName_,GET_EV)) {
             res_.setResult(new ShortStruct(instance_.getEv()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IV)) {
+        if (StringUtil.quickEq(methodName_,GET_IV)) {
             res_.setResult(new ShortStruct(instance_.getIv()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_BOOST)) {
+        if (StringUtil.quickEq(methodName_,IS_BOOST)) {
             res_.setResult(BooleanStruct.of(instance_.isBoost()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_STATIS_BOOST)) {
+        if (StringUtil.quickEq(methodName_,GET_STATIS_BOOST)) {
             res_.setResult(new ByteStruct(instance_.getStatisBoost()));
             return res_;
         }
@@ -236,11 +237,11 @@ public final class AikiBeansFacadeFightStd {
         SufferedDamageCategory instance_ = (SufferedDamageCategory) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_ROUND)) {
+        if (StringUtil.quickEq(methodName_,GET_ROUND)) {
             res_.setResult(new DefaultStruct(instance_.getRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_USING)) {
+        if (StringUtil.quickEq(methodName_,GET_USING)) {
             res_.setResult(new DefaultStruct(instance_.getUsing(),PokemonStandards.TYPE_RATE));
             return res_;
         }

@@ -1,6 +1,7 @@
 package code.util.graphs;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 import code.util.ints.GraphElement;
 
 public final class Graph<T extends GraphElement<T>> {
@@ -65,10 +66,7 @@ public final class Graph<T extends GraphElement<T>> {
         if (isDirectTrees()) {
             return true;
         }
-        if (getReverse().isDirectTrees()) {
-            return true;
-        }
-        return false;
+        return getReverse().isDirectTrees();
     }
     public EqList<T> getTreeFrom(T _elt) {
         EqList<T> current_ = new EqList<T>();
@@ -495,22 +493,22 @@ public final class Graph<T extends GraphElement<T>> {
         EqList<T> r_ = new EqList<T>();
         EqList<T> elts_ = getElements();
         for (T e: elts_) {
-            int nbOne_ = CustList.SIZE_EMPTY;
+            int nbOne_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getTo().eq(e)) {
                     nbOne_++;
                 }
             }
-            if (nbOne_ == CustList.SIZE_EMPTY) {
+            if (nbOne_ == IndexConstants.SIZE_EMPTY) {
                 continue;
             }
-            int nbTwo_ = CustList.SIZE_EMPTY;
+            int nbTwo_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getFrom().eq(e)) {
                     nbTwo_++;
                 }
             }
-            if (nbTwo_ == CustList.SIZE_EMPTY) {
+            if (nbTwo_ == IndexConstants.SIZE_EMPTY) {
                 continue;
             }
 //            if (nbOne_ <= List.ONE_ELEMENT) {
@@ -525,22 +523,22 @@ public final class Graph<T extends GraphElement<T>> {
     public boolean hasPseudoRoots() {
         EqList<T> elts_ = getElements();
         for (T e: elts_) {
-            int nb_ = CustList.SIZE_EMPTY;
+            int nb_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getTo().eq(e)) {
                     nb_++;
                 }
             }
-            if (nb_ == CustList.SIZE_EMPTY) {
+            if (nb_ == IndexConstants.SIZE_EMPTY) {
                 return true;
             }
-            nb_ = CustList.SIZE_EMPTY;
+            nb_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getFrom().eq(e)) {
                     nb_++;
                 }
             }
-            if (nb_ == CustList.SIZE_EMPTY) {
+            if (nb_ == IndexConstants.SIZE_EMPTY) {
                 return true;
             }
         }
@@ -550,23 +548,23 @@ public final class Graph<T extends GraphElement<T>> {
         EqList<T> r_ = new EqList<T>();
         EqList<T> elts_ = getElements();
         for (T e: elts_) {
-            int nb_ = CustList.SIZE_EMPTY;
+            int nb_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getTo().eq(e)) {
                     nb_++;
                 }
             }
-            if (nb_ == CustList.SIZE_EMPTY) {
+            if (nb_ == IndexConstants.SIZE_EMPTY) {
                 r_.add(e);
                 continue;
             }
-            nb_ = CustList.SIZE_EMPTY;
+            nb_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getFrom().eq(e)) {
                     nb_++;
                 }
             }
-            if (nb_ == CustList.SIZE_EMPTY) {
+            if (nb_ == IndexConstants.SIZE_EMPTY) {
                 r_.add(e);
             }
         }
@@ -582,7 +580,7 @@ public final class Graph<T extends GraphElement<T>> {
         EqList<T> elts_ = getElements();
 //        boolean exist_ = false;
         for (T e: elts_) {
-            int nb_ = CustList.SIZE_EMPTY;
+            int nb_ = IndexConstants.SIZE_EMPTY;
             for (ArrowedSegment<T> s: segments) {
                 if (s.getTo().eq(e)) {
                     nb_++;
@@ -595,7 +593,7 @@ public final class Graph<T extends GraphElement<T>> {
 //                continue;
 //            }
 //            if (nb_ > List.ONE_ELEMENT || !exist_)
-            if (nb_ > CustList.ONE_ELEMENT) {
+            if (nb_ > IndexConstants.ONE_ELEMENT) {
                 return false;
             }
         }

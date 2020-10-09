@@ -13,6 +13,8 @@ import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class CarpetPresident {
 
@@ -47,7 +49,7 @@ public class CarpetPresident {
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
-        for (int c = CustList.FIRST_INDEX; c < number; c++) {
+        for (int c = IndexConstants.FIRST_INDEX; c < number; c++) {
             GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,SwingConstants.RIGHT,!entered_);
             cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
             cg_.setVisible(false);
@@ -100,7 +102,7 @@ public class CarpetPresident {
         if (len_ > listCards.size()) {
             return;
         }
-        for (int i = CustList.FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
             listCards.get(i).setCarteEnJeu(_lg,_m.carte(i));
 //            listCards.get(i).repaint();
@@ -130,7 +132,7 @@ public class CarpetPresident {
             } else {
                 l_.setBackground(Color.WHITE);
             }
-            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
+            l_.setText(StringUtil.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
         }
         repaintValidate();
     }

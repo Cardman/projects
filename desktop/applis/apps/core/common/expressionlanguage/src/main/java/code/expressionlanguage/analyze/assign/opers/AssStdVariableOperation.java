@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AssStdVariableOperation extends AssLeafOperation implements AssSettableElResult {
 
@@ -58,7 +58,7 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
         }
 
         for (EntryCust<String, AssignmentBefore> e: assB_.entryList()) {
-            if (StringList.quickEq(e.getKey(), varName_)) {
+            if (StringUtil.quickEq(e.getKey(), varName_)) {
                 if (!e.getValue().isAssignedBefore()) {
                     //errors
                     setRelativeOffsetPossibleAnalyzable(_page);

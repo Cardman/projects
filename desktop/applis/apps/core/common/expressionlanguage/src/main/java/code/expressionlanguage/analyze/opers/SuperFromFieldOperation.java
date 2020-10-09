@@ -11,6 +11,8 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class SuperFromFieldOperation extends
         SettableAbstractFieldOperation {
@@ -25,11 +27,11 @@ public final class SuperFromFieldOperation extends
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
-        int loc_ = StringList.getFirstPrintableCharIndex(className_);
+        int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         AnaClassArgumentMatching clCur_;
@@ -49,7 +51,7 @@ public final class SuperFromFieldOperation extends
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(clCur_.getNames(),"&"),
+                    StringUtil.join(clCur_.getNames(),"&"),
                     className_);
             _page.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
@@ -62,18 +64,18 @@ public final class SuperFromFieldOperation extends
     @Override
     String getFieldName() {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        StringList classMethod_ = StringList.splitChars(str_, PAR_RIGHT);
+        StringList classMethod_ = StringUtil.splitChars(str_, PAR_RIGHT);
         return classMethod_.last().trim();
     }
 
     @Override
     public int getDelta() {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         int ind_ = originalStr_.lastIndexOf(PAR_RIGHT);
-        return ind_ +1+ StringList.getFirstPrintableCharIndex(originalStr_.substring(ind_+1));
+        return ind_ +1+ StringUtil.getFirstPrintableCharIndex(originalStr_.substring(ind_+1));
     }
     @Override
     boolean isBaseAccess() {

@@ -7,6 +7,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 final class ResultsTarotBean extends TarotBean {
 
@@ -88,7 +89,7 @@ final class ResultsTarotBean extends TarotBean {
                 end_.setupPlayersWonTricks();
                 boolean pasJeuMisere_=getGame().pasJeuMisere();
                 if(pasJeuMisere_) {
-                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
                         needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
@@ -97,7 +98,7 @@ final class ResultsTarotBean extends TarotBean {
                     maxDifference=res_.getMaxDifference();
                     initialUserPosition=res_.getPositionsDiff().get(res_.getUser());
                 } else {
-                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                         needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
@@ -111,11 +112,11 @@ final class ResultsTarotBean extends TarotBean {
         }
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();
-        for(int i=CustList.FIRST_INDEX;i<nbDeals_;i++) {
+        for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
             LineDeal l_ = new LineDeal();
             l_.setNumber(i);
             Longs scores_ = new Longs();
-            for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scores_.add(getScores().get(i).get(joueur_));
             }
             l_.setScores(scores_);

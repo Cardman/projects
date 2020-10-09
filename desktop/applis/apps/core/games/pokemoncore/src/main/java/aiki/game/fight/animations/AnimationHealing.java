@@ -2,7 +2,7 @@ package aiki.game.fight.animations;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 public class AnimationHealing implements AnimationInt {
 
@@ -17,11 +17,11 @@ public class AnimationHealing implements AnimationInt {
     }
 
     public boolean isPlayer() {
-        return Numbers.eq(healed.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(healed.getTeam(), Fight.PLAYER);
     }
 
     /**For now, it is difficult to gear drawing i back or team*/
     public boolean isBackOrTeam() {
-        return Numbers.eq(healed.getPosition(), Fighter.BACK);
+        return NumberUtil.eq(healed.getPosition(), Fighter.BACK);
     }
 }

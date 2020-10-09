@@ -5,6 +5,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 final class GamePresidentCommon {
 
@@ -41,7 +42,7 @@ final class GamePresidentCommon {
         CustList<HandPresident> hWorst_ = new CustList<HandPresident>();
         CustList<HandPresident> hBest_ = new CustList<HandPresident>();
         int maxStack_ = _rules.getNbStacks() * NB_SUITS;
-        for (int i = CustList.SECOND_INDEX; i <= maxStack_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i <= maxStack_; i++) {
             HandPresident repLoc_ = new HandPresident(rep_.get(i-1));
             for (HandPresident h: c_.getCardsByStrength(_reversed).values()) {
                 if (h.estVide()) {
@@ -60,10 +61,10 @@ final class GamePresidentCommon {
                 }
                 if (dominantGroup(_reversed, _rules, h, i, _playedCards, gl_)) {
                     int nbGroup_ = h.total() / i;
-                    int index_ = CustList.FIRST_INDEX;
-                    for (int j = CustList.FIRST_INDEX; j < nbGroup_; j++) {
+                    int index_ = IndexConstants.FIRST_INDEX;
+                    for (int j = IndexConstants.FIRST_INDEX; j < nbGroup_; j++) {
                         HandPresident hBestCards_ = new HandPresident();
-                        for (int k = CustList.FIRST_INDEX; k < i; k++) {
+                        for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
                             hBestCards_.ajouter(h.carte(index_));
                             index_++;
                         }
@@ -77,7 +78,7 @@ final class GamePresidentCommon {
                 return new HandPresident();
             }
             int m_ = Math.min(hWorst_.size(), hBest_.size());
-            for (int j = CustList.FIRST_INDEX; j < m_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < m_; j++) {
                 c_.supprimerCartes(hBest_.get(j));
                 c_.supprimerCartes(hWorst_.get(j));
             }
@@ -102,10 +103,10 @@ final class GamePresidentCommon {
                 cardsLists_.add(h);
             }
         }
-        if (cardsLists_.size() > CustList.ONE_ELEMENT) {
+        if (cardsLists_.size() > IndexConstants.ONE_ELEMENT) {
             return new HandPresident();
         }
-        if (cardsLists_.size() == CustList.ONE_ELEMENT) {
+        if (cardsLists_.size() == IndexConstants.ONE_ELEMENT) {
             return cardsLists_.last();
         }
         return c_.getCardsByStrength(_reversed).values().first();
@@ -151,7 +152,7 @@ final class GamePresidentCommon {
                 }
             }
             if (!eqStrPres_) {
-                tree_.put(c, CustList.ONE_ELEMENT);
+                tree_.put(c, IndexConstants.ONE_ELEMENT);
             }
         }
         for (CardPresident c: HandPresident.pileBase()) {
@@ -164,7 +165,7 @@ final class GamePresidentCommon {
                 }
             }
             if (!eqStrPres_) {
-                tree_.put(c, CustList.SIZE_EMPTY);
+                tree_.put(c, IndexConstants.SIZE_EMPTY);
             }
         }
         return tree_;
@@ -212,7 +213,7 @@ final class GamePresidentCommon {
     static CustList<HandPresident> getCardsSortedByLengthSortedByStrengthReduce(boolean _reversed, RulesPresident _rules, HandPresident _hand) {
         CustList<HandPresident> l_ = new CustList<HandPresident>();
         int nbMaxLen_ = _rules.getNbStacks() * NB_SUITS;
-        for (int i = CustList.SECOND_INDEX; i <= nbMaxLen_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i <= nbMaxLen_; i++) {
             HandPresident hLoc_ = new HandPresident();
             for (HandPresident h: _hand.getCardsByLengthSortedByStrength(_reversed, i)) {
                 hLoc_.ajouterCartes(h);

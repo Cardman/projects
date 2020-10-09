@@ -1,6 +1,7 @@
 package aiki.game.player;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
-import code.util.StringList;
 
 
 public class PlayerValidationTest extends InitializationDataBase {
@@ -76,7 +76,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data);
         player_.getTeam().clear();
-        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test
@@ -85,7 +85,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data);
         player_.getTeam().clear();
-        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test
@@ -93,7 +93,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data);
-        player_.getTeam().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test
@@ -101,7 +101,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data);
-        player_.getTeam().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test
@@ -109,7 +109,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data);
-        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
         assertTrue(player_.validate(data));
     }
     @Test
@@ -117,7 +117,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data);
-        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
+        player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
         assertTrue(player_.validate(data));
     }
     @Test
@@ -125,7 +125,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data);
-        player_.getBox().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
+        player_.getBox().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test
@@ -133,7 +133,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data);
-        player_.getBox().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
+        player_.getBox().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
         assertTrue(!player_.validate(data));
     }
     @Test

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.assign.util.AssignedVariablesDesc;
 import code.expressionlanguage.analyze.assign.util.AssignmentBefore;
 import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AssWhileCondition extends AssCondition implements AssLoop {
     private String label;
@@ -109,7 +110,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
             AssignmentBefore ass_ = e.getValue().copy();
             for (StringMap<AssignmentBefore> c: _continuable) {
                 for (EntryCust<String,AssignmentBefore> f: c.entryList()) {
-                    if (!StringList.quickEq(f.getKey(),key_)) {
+                    if (!StringUtil.quickEq(f.getKey(),key_)) {
                         continue;
                     }
                     if (!f.getValue().isUnassignedBefore()) {

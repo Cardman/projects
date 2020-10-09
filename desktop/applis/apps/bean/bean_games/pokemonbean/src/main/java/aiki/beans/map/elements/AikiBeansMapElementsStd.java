@@ -19,6 +19,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansMapElementsStd {
     public static final String TYPE_AREA_BEAN = "aiki.beans.map.elements.AreaBean";
@@ -184,7 +185,7 @@ public final class AikiBeansMapElementsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,AREA)) {
+        if (StringUtil.quickEq(fieldName_,AREA)) {
             res_.setResult(DefaultStruct.newInstance(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
             return res_;
         }
@@ -194,7 +195,7 @@ public final class AikiBeansMapElementsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,POKEMON)) {
+        if (StringUtil.quickEq(fieldName_,POKEMON)) {
             res_.setResult(DefaultStruct.newInstance(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
             return res_;
         }
@@ -205,87 +206,87 @@ public final class AikiBeansMapElementsStd {
         AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_NAME)) {
+        if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
             res_.setResult(new StringStruct(instance_.clickName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
             res_.setResult(new StringStruct(instance_.getName((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_GENDER)) {
+        if (StringUtil.quickEq(methodName_,GET_GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getAbility((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAtLevel((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IMAGE_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE_FISHING)) {
             res_.setResult(new StringStruct(instance_.getImageFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_NAME_FISHING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_NAME_FISHING)) {
             res_.setResult(new StringStruct(instance_.clickNameFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NAME_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME_FISHING)) {
             res_.setResult(new StringStruct(instance_.getNameFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY_FISHING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY_FISHING)) {
             res_.setResult(new StringStruct(instance_.clickAbilityFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ABILITY_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_ABILITY_FISHING)) {
             res_.setResult(new StringStruct(instance_.getAbilityFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM_FISHING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM_FISHING)) {
             res_.setResult(new StringStruct(instance_.clickItemFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ITEM_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_ITEM_FISHING)) {
             res_.setResult(new StringStruct(instance_.getItemFishing((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAtLevelFishing((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE_FISHING)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE_FISHING)) {
             res_.setResult(new StringStruct(instance_.clickMoveFishing((Long)_args[0],(Long)_args[1])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE_FISHING)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE_FISHING)) {
             res_.setResult(new StringStruct(instance_.getMoveFishing((Long)_args[0],(Long)_args[1])));
             return res_;
         }
@@ -296,51 +297,51 @@ public final class AikiBeansMapElementsStd {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_NAME)) {
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_IMAGE)) {
+        if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_NAME)) {
+        if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
             res_.setResult(new StringStruct(instance_.clickName()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_GENDER)) {
+        if (StringUtil.quickEq(methodName_,GET_GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
             res_.setResult(new StringStruct(instance_.clickAbility()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ABILITY)) {
+        if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getAbility()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_ITEM)) {
+        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
             res_.setResult(new StringStruct(instance_.clickItem()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_ITEM)) {
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
             res_.setResult(new DefaultStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_MOVE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
             res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_MOVE)) {
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove((Long)_args[0])));
             return res_;
         }

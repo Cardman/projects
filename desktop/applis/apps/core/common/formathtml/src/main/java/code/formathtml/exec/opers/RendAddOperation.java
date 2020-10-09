@@ -4,8 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.StringList;
-
+import code.util.core.StringUtil;
 
 
 public final class RendAddOperation extends RendStdNumericOperation {
@@ -25,7 +24,7 @@ public final class RendAddOperation extends RendStdNumericOperation {
 
     private Argument localSumDiff(Argument _a, String _op, Argument _b,
             ContextEl _cont) {
-        if (StringList.quickEq(_op.trim(), PLUS)) {
+        if (StringUtil.quickEq(_op.trim(), PLUS)) {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);
             }

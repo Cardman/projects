@@ -1,7 +1,7 @@
 package code.maths.litteral;
-import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class OperationsSequence {
     private static final char NEG_BOOL_CHAR = '!';
@@ -24,19 +24,19 @@ public final class OperationsSequence {
 
     public void setupValue(String _string) {
         values = new IntTreeMap<String>();
-        values.put((int)CustList.FIRST_INDEX, _string);
+        values.put((int)IndexConstants.FIRST_INDEX, _string);
     }
     public void setupValues(String _string) {
         values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
-            values.put((int)CustList.FIRST_INDEX, _string);
+            values.put((int) IndexConstants.FIRST_INDEX, _string);
             return;
         }
-        if (priority == MathResolver.EQ_PRIO && StringList.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
+        if (priority == MathResolver.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
             priority = MathResolver.BAD_PRIO;
             return;
         }
-        int beginValuePart_ = CustList.FIRST_INDEX;
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
         if (priority != MathResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
@@ -55,14 +55,14 @@ public final class OperationsSequence {
         }
         if (priority == MathResolver.FCT_OPER_PRIO && operators.size() == 2) {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
+            endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
             str_ = _string.substring(beginValuePart_, endValuePart_);
             if (!str_.isEmpty()) {
                 values.put(beginValuePart_, str_);
             }
             return;
         }
-        int i_ = CustList.SECOND_INDEX;
+        int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
             beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();

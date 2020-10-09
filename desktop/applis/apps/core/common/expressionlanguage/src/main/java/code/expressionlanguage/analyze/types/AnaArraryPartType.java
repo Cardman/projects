@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class AnaArraryPartType extends AnaParentPartType {
     AnaArraryPartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
@@ -37,7 +37,7 @@ final class AnaArraryPartType extends AnaParentPartType {
             setAlreadyError();
             return;
         }
-        ch_ = StringList.concat(getBegin(),ch_);
+        ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
 

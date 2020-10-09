@@ -10,9 +10,10 @@ import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.sml.stream.ExtractFromFiles;
-import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+
 /**
  */
 public class SuitsScrollableList extends ScrollableList {
@@ -40,7 +41,7 @@ public class SuitsScrollableList extends ScrollableList {
     public EnumList<Suit> getCouleurs() {
         int s_ = liste.size();
         EnumList<Suit> valeurs_=new EnumList<Suit>();
-        for (int i = CustList.FIRST_INDEX; i < s_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
             valeurs_.add(liste.get(i));
         }
         return valeurs_;

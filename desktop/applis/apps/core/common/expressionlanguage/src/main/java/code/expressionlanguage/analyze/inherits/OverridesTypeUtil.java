@@ -12,6 +12,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class OverridesTypeUtil {
 
@@ -57,7 +58,7 @@ public final class OverridesTypeUtil {
                 for (GeneStringOverridable t: getList(ov_,l_)) {
                     String t_ = t.getGeneString();
                     String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                    if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
+                    if (StringUtil.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
                     if (!t.getType().isSubTypeOf(baseClassFound_, _page)) {
@@ -87,7 +88,7 @@ public final class OverridesTypeUtil {
             for (GeneStringOverridable t: getList(ov_,l_)) {
                 String t_ = t.getGeneString();
                 String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
+                if (StringUtil.quickEq(baseSuperType_, baseClassFound_)) {
                     found_ = true;
                 }
                 foundSuperClasses_.add(t);
@@ -160,7 +161,7 @@ public final class OverridesTypeUtil {
             for (GeneStringOverridable t: getList(ov_,l_)) {
                 String t_ = t.getGeneString();
                 String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                if (StringList.quickEq(baseSuperType_, _subTypeName)) {
+                if (StringUtil.quickEq(baseSuperType_, _subTypeName)) {
                     found_ = true;
                 }
                 if (t.getType() instanceof InterfaceBlock) {

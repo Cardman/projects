@@ -9,8 +9,8 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class GameTarotCommonPlaying {
     private GameTarotTrickInfo doneTrickInfo;
@@ -59,7 +59,7 @@ public final class GameTarotCommonPlaying {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
             return cartesJouables_;
         }
-        byte indiceCarte_ = CustList.FIRST_INDEX;
+        byte indiceCarte_ = IndexConstants.FIRST_INDEX;
         HandTarot trumps_ = _repartitionMain.getVal(Suit.TRUMP);
         while (trumps_.carte(indiceCarte_)
                 .strength(couleurDemandee_) > valeurForte_) {
@@ -173,7 +173,7 @@ public final class GameTarotCommonPlaying {
     Bytes joueursNAyantPasJoue(byte _numero) {
         Bytes joueursNAyantPasJoue_ = new Bytes();
         byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             if (joueur_ != _numero && !doneTrickInfo.getProgressingTrick().aJoue(joueur_, nombreJoueurs_)) {
                 joueursNAyantPasJoue_.add(joueur_);
             }
@@ -248,7 +248,7 @@ public final class GameTarotCommonPlaying {
             if (_suites.getVal(couleur_).isEmpty()) {
                 continue;
             }
-            int max_ = CustList.SIZE_EMPTY;
+            int max_ = IndexConstants.SIZE_EMPTY;
             /*
             max designe le nombre maximal de cartes probablement
             possedees par un joueur a une couleur donnee
@@ -256,7 +256,7 @@ public final class GameTarotCommonPlaying {
             CustList<HandTarot> possibleSuits_ = _cartesPossibles.getVal(couleur_);
             int nbSuits_ = possibleSuits_.size() - 1;
             CustList<HandTarot> possibleExcuse_ = _cartesPossibles.getVal(CardTarot.EXCUSE.couleur());
-            for (int joueur_ = CustList.FIRST_INDEX; joueur_ < nbSuits_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbSuits_; joueur_++) {
                 if (joueur_ != _numero) {
                     int sum_ = possibleSuits_.get(joueur_).total() + possibleExcuse_.get(joueur_).total();
                     if (sum_ > max_) {
@@ -273,12 +273,12 @@ public final class GameTarotCommonPlaying {
                     break;
                 }
             }
-            int maitres_ = CustList.SIZE_EMPTY;
+            int maitres_ = IndexConstants.SIZE_EMPTY;
             if (existeAtoutMaitre_) {
                 maitres_ = _suites.getVal(couleur_).first().total();
             }
-            if (maitres_ >= max_ || maitres_ > CustList.SIZE_EMPTY
-                    && _suites.getVal(couleur_).size() == CustList.ONE_ELEMENT) {
+            if (maitres_ >= max_ || maitres_ > IndexConstants.SIZE_EMPTY
+                    && _suites.getVal(couleur_).size() == IndexConstants.ONE_ELEMENT) {
                 couleurs_.add(couleur_);
             }
         }
@@ -348,7 +348,7 @@ public final class GameTarotCommonPlaying {
         EnumMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
         Suit couleurAtout_ = Suit.TRUMP;
         int nbTotalAtouts_ = HandTarot.atoutsSansExcuse().total();
-        int max_ = CustList.SIZE_EMPTY;
+        int max_ = IndexConstants.SIZE_EMPTY;
         /*
         max designe le nombre maximal de cartes probablement
         possedees par un joueur
@@ -356,7 +356,7 @@ public final class GameTarotCommonPlaying {
         CustList<HandTarot> possibleTrumps_ = _cartesPossibles.getVal(couleurAtout_);
         CustList<HandTarot> possibleExc_ = _cartesPossibles.getVal(Suit.UNDEFINED);
         int nbPlayers_ = possibleTrumps_.size() - 1;
-        for (int joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
             // La taille de atoutsPossibles
             // correspond au nombre de joueurs+1
             if (joueur_ == _numero) {
@@ -372,7 +372,7 @@ public final class GameTarotCommonPlaying {
         /*
         Fin boucle sur le calcul de la valeur maximale possible des atouts
         */
-        if (max_ == CustList.SIZE_EMPTY) {
+        if (max_ == IndexConstants.SIZE_EMPTY) {
             /*
         S'il est impossible que les autres joueurs aient de
         l'atout (Excuse incluse)
@@ -448,7 +448,7 @@ public final class GameTarotCommonPlaying {
             nonmaitres_ = _suites.first().total();
         }
         int nbSeqs_ = _suites.size();
-        for (int suite_ = CustList.SECOND_INDEX; suite_ < nbSeqs_; suite_++) {
+        for (int suite_ = IndexConstants.SECOND_INDEX; suite_ < nbSeqs_; suite_++) {
             nonmaitres_ += _suites.get(suite_).total();
         }
         if (_suites.last().contient(CardTarot.petit())) {
@@ -507,7 +507,7 @@ public final class GameTarotCommonPlaying {
                     cards_.ajouterCartes(seqs_.first());
                 }
                 int nbSeqs_ = seqs_.size();
-                for (byte indiceSuite_ = CustList.SECOND_INDEX; indiceSuite_ < nbSeqs_; indiceSuite_++) {
+                for (byte indiceSuite_ = IndexConstants.SECOND_INDEX; indiceSuite_ < nbSeqs_; indiceSuite_++) {
                     cards_.ajouterCartes(seqs_.get(indiceSuite_));
                 }
             }

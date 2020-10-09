@@ -1,8 +1,8 @@
 package cards.tarot.enumerations;
 import code.util.EnumList;
 import code.util.*;
-import code.util.*;
 import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public enum DealingTarot {
     DEAL_1_VS_2(3,CallingCard.WITHOUT,6,0),
@@ -98,18 +98,18 @@ public enum DealingTarot {
     }
     private int[] valDistribution(){
         if (nombreJoueurs == 3) {
-            return Numbers.wrapIntArray(3,3,3,3,3,3,3,3);
+            return NumberUtil.wrapIntArray(3,3,3,3,3,3,3,3);
         }
         if (nombreJoueurs == 4) {
-            return Numbers.wrapIntArray(3,3,3,3,3,3);
+            return NumberUtil.wrapIntArray(3,3,3,3,3,3);
         }
         if (nombreJoueurs == 6) {
-            return Numbers.wrapIntArray(2,2,2,2,2,2);
+            return NumberUtil.wrapIntArray(2,2,2,2,2,2);
         }
         if (this == DEAL_1_VS_4) {
-            return Numbers.wrapIntArray(2,2,2,2,2,2,2);
+            return NumberUtil.wrapIntArray(2,2,2,2,2,2,2);
         }
-        return Numbers.wrapIntArray(3,3,3,3,3);
+        return NumberUtil.wrapIntArray(3,3,3,3,3);
     }
     public Bytes getAppelesDetermines(byte _preneur) {
         if(appel != CallingCard.DEFINED) {

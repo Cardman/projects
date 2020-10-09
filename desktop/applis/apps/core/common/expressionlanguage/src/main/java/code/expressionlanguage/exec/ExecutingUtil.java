@@ -18,6 +18,8 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ExecutingUtil {
     private ExecutingUtil() {
@@ -308,7 +310,7 @@ public final class ExecutingUtil {
         String base_ = StringExpUtil.getIdFromAllTypes(_name);
         for (ExecRootBlock c: _context.getClasses().getClassBodies()) {
             String k_ = c.getFullName();
-            if (!StringList.quickEq(k_, base_)) {
+            if (!StringUtil.quickEq(k_, base_)) {
                 continue;
             }
             return getCustomClassMetaInfo(c, _name, _context);
@@ -597,7 +599,7 @@ public final class ExecutingUtil {
         return true;
     }
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, String _variableOwner) {
-        if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
@@ -633,7 +635,7 @@ public final class ExecutingUtil {
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
             String k_ = c.getKey();
-            if (!StringList.quickEq(k_, base_)) {
+            if (!StringUtil.quickEq(k_, base_)) {
                 continue;
             }
             StandardType clblock_ = c.getValue();
@@ -749,7 +751,7 @@ public final class ExecutingUtil {
     public static void addPage(ContextEl _cont,AbstractPageEl _page) {
         LgNames stds_ = _cont.getStandards();
         String sof_ = stds_.getContent().getCoreNames().getAliasSof();
-        if (_cont.getStackOverFlow() >= CustList.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
+        if (_cont.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
             _cont.setCallingState( new ErrorStruct(_cont,sof_));
         } else {
             _cont.addInternPage(_page);
@@ -761,7 +763,7 @@ public final class ExecutingUtil {
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
         String curClass_ = _cont.getLastPage().getGlobalClass();
         curClass_ = StringExpUtil.getIdFromAllTypes(curClass_);
-        if (StringList.quickEq(curClass_, idClass_)) {
+        if (StringUtil.quickEq(curClass_, idClass_)) {
             return false;
         }
         ExecRootBlock c_ = classes_.getClassBody(idClass_);

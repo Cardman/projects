@@ -10,7 +10,7 @@ import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
+import code.util.core.IndexConstants;
 
 public final class GameTarotBid {
     private HandTarot currentHand;
@@ -51,7 +51,7 @@ public final class GameTarotBid {
             }
         }
         int nbTrumps_ = trumps_.total();
-        for (int indiceCarte_ = CustList.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
+        for (int indiceCarte_ = IndexConstants.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
             if (trumps_.carte(indiceCarte_).valeur() > 14) {
                 nbAtoutsQuinzeAuVingtEtUn_++;
             } else if (trumps_.carte(indiceCarte_).valeur() > 6) {
@@ -614,7 +614,7 @@ public final class GameTarotBid {
             cartesJoueesOuPossedees_.trierParForceEnCours(i);
             HandTarot cartesMaitresses_ = new HandTarot();
             int length_ = cartesJoueesOuPossedees_.total();
-            for (byte c = CustList.FIRST_INDEX; c < length_; c++) {
+            for (byte c = IndexConstants.FIRST_INDEX; c < length_; c++) {
                 if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
                         couleurTotale_.carte(c))) {
                     break;

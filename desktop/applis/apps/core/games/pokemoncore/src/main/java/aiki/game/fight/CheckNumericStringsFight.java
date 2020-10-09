@@ -39,6 +39,8 @@ import code.util.EqList;
 import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class CheckNumericStringsFight {
 
@@ -141,14 +143,14 @@ public final class CheckNumericStringsFight {
         numericExp_ = _data.getDamageFormula();
         EvolvedNumString num_;
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.ATTACK),
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.ATTACK),
                 DataBase.defRateProduct().toNumberString());
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.DEFENSE),
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.DEFENSE),
                 DataBase.defRateProduct().toNumberString());
         varLocs_.put(
-                StringList.concat(DataBase.VAR_PREFIX, Fight.LANCEUR_NIVEAU),
+                StringUtil.concat(DataBase.VAR_PREFIX, Fight.LANCEUR_NIVEAU),
                 Integer.toString(_data.getMinLevel()));
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.POWER),
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.POWER),
                 DataBase.getDefaultPower().toNumberString());
         num_ = _data.createNumericableString(numericExp_, varLocs_);
         num_.evaluateExp(true);
@@ -275,22 +277,22 @@ public final class CheckNumericStringsFight {
                     _data.getDefaultMove()).getTypes();
             loc_ = new StringMap<String>(_varsDiff);
             loc_.putAllMap(_varsFighter);
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.ATTAQUE_CATEGORIE), cat_);
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.LANCEUR_NOM), userFighterLoc_.getName());
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_TYPES), StringList.join(types_, _data
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
+                    Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
                     .getSepartorSetChar()));
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.ATTAQUE_NOM), _data.getDefaultMove());
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.PUISSANCE_BASE), DataBase
                     .getDefaultPower().toNumberString());
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.COEFF_EFF), DataBase.defRateProduct()
                     .toNumberString());
-            loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.NB_UTILISATION_CONSECUTIF),
                     userFighterLoc_.getNbRepeatingSuccessfulMoves()
                             .toNumberString());
@@ -306,16 +308,16 @@ public final class CheckNumericStringsFight {
                 .getCategory();
         StringList types_ = _data.getMove(_data.getDefaultMove())
                 .getTypes();
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.LANCEUR_NOM), userFighterLoc_.getName());
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringList.join(types_, _data
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
+                Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
                 .getSepartorSetChar()));
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_NOM), _data.getDefaultMove());
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
                 .toNumberString());
         return loc_;
@@ -361,22 +363,22 @@ public final class CheckNumericStringsFight {
                 .getCategory();
         StringList types_ = _data.getMove(_data.getDefaultMove())
                 .getTypes();
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.LANCEUR_NOM), userFighterLoc_.getName());
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringList.join(types_, _data
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
+                Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
                 .getSepartorSetChar()));
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_NOM), _data.getDefaultMove());
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
                 .toNumberString());
         loc_.put(
-                StringList.concat(DataBase.VAR_PREFIX, Fight.COEFF_EFF),
+                StringUtil.concat(DataBase.VAR_PREFIX, Fight.COEFF_EFF),
                 DataBase.defRateProduct().toNumberString());
-        loc_.put(StringList.concat(DataBase.VAR_PREFIX,
+        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.NB_UTILISATION_CONSECUTIF), userFighterLoc_
                 .getNbRepeatingSuccessfulMoves().toNumberString());
         return loc_;
@@ -546,9 +548,9 @@ public final class CheckNumericStringsFight {
     private static void checkRateGrowLevel(DataBase _data) {
         for (DifficultyWinPointsFight d : DifficultyWinPointsFight.values()) {
             StringMap<String> vars_ = new StringMap<String>();
-            vars_.put(StringList.concat(DataBase.VAR_PREFIX,
+            vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.LEVEL_WINNER), LgInt.one().toNumberString());
-            vars_.put(StringList.concat(DataBase.VAR_PREFIX,
+            vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.LEVEL_LOOSER), LgInt.one().toNumberString());
             EvolvedNumString chNum_ = _data.createNumericableString(
                     _data.getRates().getVal(d), vars_);
@@ -581,7 +583,7 @@ public final class CheckNumericStringsFight {
         EqList<Rate> ratesBoost_ = new EqList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.BOOST),
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.BOOST),
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
@@ -599,7 +601,7 @@ public final class CheckNumericStringsFight {
         ratesBoost_ = new EqList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.BOOST),
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.BOOST),
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
@@ -630,7 +632,7 @@ public final class CheckNumericStringsFight {
     }
     private static void checkIncr(DataBase _data, EqList<Rate> _ratesBoost) {
         int nbRates_ = _ratesBoost.size();
-        for (int i = CustList.SECOND_INDEX; i < nbRates_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < nbRates_; i++) {
             if (Rate.greaterEq(_ratesBoost.get(i - 1), _ratesBoost.get(i))) {
                 _data.setError(true);
             }
@@ -662,7 +664,7 @@ public final class CheckNumericStringsFight {
 
     private static void checkLevels(DataBase _data, String _formula) {
         StringMap<String> vars_ = new StringMap<String>();
-        String varName_ = StringList
+        String varName_ = StringUtil
                 .concat(DataBase.VAR_PREFIX, Fighter.NIVEAU);
         long minLevel_ = _data.getMinLevel();
         long maxLevel_ = _data.getMaxLevel();
@@ -729,16 +731,16 @@ public final class CheckNumericStringsFight {
                     .getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
             for (String e : immuTypesIndiv_) {
                 variables_
-                        .put(StringList.concat(DataBase.VAR_PREFIX,
+                        .put(StringUtil.concat(DataBase.VAR_PREFIX,
                                 Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT,
                                 DataBase.SEP_BETWEEN_KEYS, e), _import
                                 .getFalseString());
             }
         }
         variables_
-                .put(StringList.concat(DataBase.VAR_PREFIX,
+                .put(StringUtil.concat(DataBase.VAR_PREFIX,
                         Fight.PAS_ATTAQUE_INVOC), _import.getFalseString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.PAS_ATTAQUES_COPIABLES), _import.getFalseString());
         variables_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,
                 _lanceur, _cible, _import));

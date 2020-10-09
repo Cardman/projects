@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ManageTokens {
     private final String badCharactersMessage;
@@ -72,7 +72,7 @@ public final class ManageTokens {
     }
 
     public TokenErrorMessage checkToken(String _id, AnalyzedPageEl _analyzing) {
-        if (!StringList.isDollarWord(_id)) {
+        if (!StringUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
         if (AnaTypeUtil.isPrimitive(_id, _analyzing)) {
@@ -81,7 +81,7 @@ public final class ManageTokens {
         if (_analyzing.getKeyWords().isKeyWordNotVar(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
-        if (StringList.quickEq(_id, _analyzing.getAliasVoid())) {
+        if (StringUtil.quickEq(_id, _analyzing.getAliasVoid())) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
         if (StringExpUtil.isDigit(_id.charAt(0))) {

@@ -6,11 +6,11 @@ import aiki.game.params.Difficulty;
 import aiki.map.pokemon.PkTrainer;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
-import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class PseudoFight {
 
@@ -37,10 +37,10 @@ public class PseudoFight {
             map_ = new ByteMap<Byte>(a);
             actions.add(map_);
         }
-        byte index_ = CustList.FIRST_INDEX;
+        byte index_ = IndexConstants.FIRST_INDEX;
         for (PseudoPokemonPlayer p: _pseudoPlayer.getTeam()) {
             boolean front_;
-            front_ = !Numbers.eq(actions.first().getVal(index_), Fighter.BACK);
+            front_ = !NumberUtil.eq(actions.first().getVal(index_), Fighter.BACK);
             CustList<NameLevel> copy_ = new CustList<NameLevel>();
             for (NameLevel e2_: _pseudoPlayer.getEvolutions().get(index_)) {
                 copy_.add(new NameLevel(e2_));
@@ -53,15 +53,15 @@ public class PseudoFight {
             if (!p.isFront()) {
                 continue;
             }
-            for (byte i = CustList.FIRST_INDEX; i < mult; i++) {
+            for (byte i = IndexConstants.FIRST_INDEX; i < mult; i++) {
                 p.getFoes().add(i);
             }
         }
     }
 
     void presimulateFight(Difficulty _diff, DataBase _data) {
-        int indexAction_ = CustList.SECOND_INDEX;
-        byte indexRound_ = CustList.FIRST_INDEX;
+        int indexAction_ = IndexConstants.SECOND_INDEX;
+        byte indexRound_ = IndexConstants.FIRST_INDEX;
         while (true) {
             /*CustList<Byte> sent_ = new CustList<>();
             for (PseudoPlayerFighter p: playerFighters) {
@@ -90,7 +90,7 @@ public class PseudoFight {
                 }
                 Bytes playerFighters_;
                 playerFighters_ = new Bytes();
-                byte indexPlayer_ = CustList.FIRST_INDEX;
+                byte indexPlayer_ = IndexConstants.FIRST_INDEX;
                 for (PseudoPlayerFighter p: playerFighters) {
                     if (p.getFoes().containsObj(i)) {
                         playerFighters_.add(indexPlayer_);
@@ -107,16 +107,16 @@ public class PseudoFight {
             for (PseudoPlayerFighter p: playerFighters) {
                 p.calculateNewLevel(indexRound_, _data);
             }
-            byte indexFoe_ = CustList.INDEX_NOT_FOUND_ELT;
+            byte indexFoe_ = IndexConstants.INDEX_NOT_FOUND_ELT;
             int nbFoes_ = foes.size();
-            for (byte i = CustList.FIRST_INDEX; i < nbFoes_; i++) {
+            for (byte i = IndexConstants.FIRST_INDEX; i < nbFoes_; i++) {
                 if (foes.get(i).isFought()) {
                     continue;
                 }
                 indexFoe_ = i;
                 break;
             }
-            if (indexFoe_ < CustList.FIRST_INDEX) {
+            if (indexFoe_ < IndexConstants.FIRST_INDEX) {
                 break;
             }
             Bytes foes_ = new Bytes();
@@ -129,7 +129,7 @@ public class PseudoFight {
             }
             Bytes fronts_ = new Bytes();
             for (byte k: actions.get(indexAction_).getKeys()) {
-                if (Numbers.eq(actions.get(indexAction_).getVal(k), Fighter.BACK)) {
+                if (NumberUtil.eq(actions.get(indexAction_).getVal(k), Fighter.BACK)) {
                     continue;
                 }
                 fronts_.add(k);
@@ -148,7 +148,7 @@ public class PseudoFight {
     void addExpFighters(Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
         Bytes fightersBelongingToUser_ = new Bytes();
         int nbFighters_ = playerFighters.size();
-        for (byte i = CustList.FIRST_INDEX; i < nbFighters_; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbFighters_; i++) {
             fightersBelongingToUser_.add(i);
         }
         Bytes porteursMultExp_ = fightersWearingExpObject(fightersBelongingToUser_, _import);
@@ -244,8 +244,8 @@ public class PseudoFight {
         PseudoPlayerFighter winner_ = playerFighters.get(_winner);
         PseudoFoeFighter looser_ = foes.get(_looser);
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Integer.toString(winner_.getLevel()));
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Integer.toString(looser_.getLevel()));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Integer.toString(winner_.getLevel()));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Integer.toString(looser_.getLevel()));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }

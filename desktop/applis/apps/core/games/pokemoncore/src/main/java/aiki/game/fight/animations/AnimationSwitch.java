@@ -2,7 +2,7 @@ package aiki.game.fight.animations;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
 import code.maths.LgInt;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 public class AnimationSwitch implements AnimationInt {
 
@@ -19,7 +19,7 @@ public class AnimationSwitch implements AnimationInt {
     private LgInt wonExpRate;
 
     public boolean isPlayer() {
-        return Numbers.eq(substituted.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(substituted.getTeam(), Fight.PLAYER);
     }
 
     public TargetCoords getSubstituted() {

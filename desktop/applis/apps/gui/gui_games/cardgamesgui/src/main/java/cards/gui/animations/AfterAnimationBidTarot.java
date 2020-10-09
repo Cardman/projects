@@ -10,6 +10,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -101,7 +102,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         } else {
             partie_.intelligenceArtificielleAppel();
             if(!partie_.getCarteAppelee().estVide()) {
-                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
+                container.ajouterTexteDansZone(StringUtil.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
             }
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(MainWindow.SEE_DOG), true);
@@ -128,7 +129,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                 partie_.gererChienInconnu();
                 partie_.intelligenceArtificielleAppel();
                 if(!partie_.getCarteAppelee().estVide()) {
-                    container.ajouterTexteDansZone(StringList.concat(container.pseudosTarot().get(partie_.getPreneur()),
+                    container.ajouterTexteDansZone(StringUtil.concat(container.pseudosTarot().get(partie_.getPreneur()),
                             ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
                 }
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);

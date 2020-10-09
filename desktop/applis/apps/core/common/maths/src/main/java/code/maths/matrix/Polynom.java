@@ -3,7 +3,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -40,7 +41,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     
     public static Polynom newPolynom(String _arg) {
         Polynom v_ = new Polynom();
-        for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
+        for (String s: StringUtil.splitStrings(_arg, SEPARATOR)) {
             v_.add(new Rate(s));
         }
         return v_;
@@ -636,14 +637,14 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
 
     public void add(Rate _nb) {
-        if(size()==CustList.ONE_ELEMENT&&numbers.first().isZero()) {
-            numbers.remove((int) CustList.FIRST_INDEX);
+        if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
+            numbers.remove((int) IndexConstants.FIRST_INDEX);
         }
         numbers.add(_nb);
     }
 
     public long dg(){
-        if(size()==CustList.ONE_ELEMENT&&numbers.first().isZero()) {
+        if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
             return -1;
         }
         return numbers.size() - 1;

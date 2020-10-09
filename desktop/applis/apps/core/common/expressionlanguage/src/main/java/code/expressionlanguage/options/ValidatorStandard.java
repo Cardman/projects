@@ -15,6 +15,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ValidatorStandard {
     private ValidatorStandard() {
@@ -27,21 +28,21 @@ public final class ValidatorStandard {
             String value_ = e.getValue();
             if (value_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyPrimitive(),key_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _page.addStdError(err_);
                 continue;
             }
             if (_page.getKeyWords().isKeyWord(value_)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),key_,value_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getPrimitiveKeyWord(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
+                if (!StringUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                     _page.addStdError(err_);
                     break;
@@ -49,7 +50,7 @@ public final class ValidatorStandard {
             }
             if (StringExpUtil.isDigit(value_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _page.addStdError(err_);
             }
@@ -63,7 +64,7 @@ public final class ValidatorStandard {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicatePrimtive(),v_,e.getKey()));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicatePrimtive(),v_,e.getKey()));
                 err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
                 _page.addStdError(err_);
             }
@@ -78,35 +79,35 @@ public final class ValidatorStandard {
             String value_ = e.getValue();
             if (value_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyRefType(),key_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _page.addStdError(err_);
                 continue;
             }
-            for (String p : StringList.splitChars(value_, '.')) {
+            for (String p : StringUtil.splitChars(value_, '.')) {
                 if (p.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),key_,value_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyRefTypeIn(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _page.addStdError(err_);
                     continue;
                 }
-                if (StringList.contains(_prims.values(), p)) {
+                if (StringUtil.contains(_prims.values(), p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),key_,value_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getRefTypePrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _page.addStdError(err_);
                 }
                 if (_page.getKeyWords().isKeyWord(p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),key_,value_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getRefTypeKeyWord(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _page.addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
-                    if (!StringList.isDollarWordChar(c)) {
+                    if (!StringUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
+                        err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                         _page.addStdError(err_);
                         break;
@@ -114,7 +115,7 @@ public final class ValidatorStandard {
                 }
                 if (StringExpUtil.isDigit(p.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _page.addStdError(err_);
                 }
@@ -122,7 +123,7 @@ public final class ValidatorStandard {
             String pkg_ = StandardType.getPackagePart(value_);
             if (pkg_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),key_,value_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyPkgRefType(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _page.addStdError(err_);
             }
@@ -130,21 +131,21 @@ public final class ValidatorStandard {
         }
         boolean exNonEmpty_ = false;
         for (String p: allPkgs_) {
-            if (StringList.quickEq(_page.getDefaultPkg(), p)) {
+            if (StringUtil.quickEq(_page.getDefaultPkg(), p)) {
                 exNonEmpty_ = true;
             }
         }
         if (!exNonEmpty_) {
             //ERROR
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(), _page.getDefaultPkg()));
+            err_.setMessage(StringUtil.simpleStringsFormat(a_.getDefaultPkgNoMatch(), _page.getDefaultPkg()));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
             _page.addStdError(err_);
         }
         for (String k: _list.values()) {
             if (_page.getDefaultPkg().contains(k)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k, _page.getDefaultPkg()));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDefaultPkgRefType(),k, _page.getDefaultPkg()));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _page.addStdError(err_);
             }
@@ -159,7 +160,7 @@ public final class ValidatorStandard {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateRefType(),v_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateRefType(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
                 _page.addStdError(err_);
                 dup_ = true;
@@ -188,27 +189,27 @@ public final class ValidatorStandard {
             String value_ = f.getValue();
             if (value_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_, _key));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyMethod(),key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                 _page.addStdError(err_);
                 continue;
             }
             if (_page.getKeyWords().isKeyWordNotVar(value_)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_, _key));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                 _page.addStdError(err_);
             }
-            if (StringList.contains(_prims.values(), value_)) {
+            if (StringUtil.contains(_prims.values(), value_)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_, _key));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_, _key));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
+                if (!StringUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _page.addStdError(err_);
                     break;
@@ -216,7 +217,7 @@ public final class ValidatorStandard {
             }
             if (StringExpUtil.isDigit(value_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_, _key,Character.toString(value_.charAt(0))));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirstMethod(),value_, _key,Character.toString(value_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                 _page.addStdError(err_);
             }
@@ -243,7 +244,7 @@ public final class ValidatorStandard {
             for (KeyValueMemberName f: value_) {
                 String v_ = f.getValue();
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateMethod(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
                 _page.addStdError(err_);
             }
@@ -261,7 +262,7 @@ public final class ValidatorStandard {
                 for (KeyValueMemberName f: e) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
                     _page.addStdError(err_);
                 }
@@ -277,27 +278,27 @@ public final class ValidatorStandard {
                 String value_ = f.getValue();
                 if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_,e.getKey()));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyField(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _page.addStdError(err_);
                     continue;
                 }
                 if (_page.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getFieldKeyWord(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getFieldKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _page.addStdError(err_);
                 }
-                if (StringList.contains(_prims.values(), value_)) {
+                if (StringUtil.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getFieldPrimitive(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getFieldPrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
-                    if (!StringList.isDollarWordChar(c)) {
+                    if (!StringUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
+                        err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                         _page.addStdError(err_);
                         break;
@@ -305,7 +306,7 @@ public final class ValidatorStandard {
                 }
                 if (StringExpUtil.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _page.addStdError(err_);
                 }
@@ -324,7 +325,7 @@ public final class ValidatorStandard {
                 for (KeyValueMemberName f: e.getValue()) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateField(),v_,e.getKey()));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateField(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
                     _page.addStdError(err_);
                 }
@@ -340,27 +341,27 @@ public final class ValidatorStandard {
                 String value_ = f.getValue();
                 if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_,e.getKey()));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyVarType(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _page.addStdError(err_);
                     continue;
                 }
                 if (_page.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypeKeyWord(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getVarTypeKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _page.addStdError(err_);
                 }
-                if (StringList.contains(_prims.values(), value_)) {
+                if (StringUtil.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypePrimitive(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getVarTypePrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
-                    if (!StringList.isDollarWordChar(c)) {
+                    if (!StringUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
+                        err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                         _page.addStdError(err_);
                         break;
@@ -368,7 +369,7 @@ public final class ValidatorStandard {
                 }
                 if (StringExpUtil.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _page.addStdError(err_);
                 }
@@ -387,7 +388,7 @@ public final class ValidatorStandard {
                 for (KeyValueMemberName f: e.getValue()) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateVarType(),v_,e.getKey()));
+                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateVarType(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
                     _page.addStdError(err_);
                 }
@@ -404,7 +405,7 @@ public final class ValidatorStandard {
             int until_ = Math.max(0, pkg_.indexOf('.'));
             pkgsBase_.add(pkg_.substring(0,until_));
             StringBuilder id_ = new StringBuilder();
-            for (String p: StringList.splitChars(pkg_, '.')) {
+            for (String p: StringUtil.splitChars(pkg_, '.')) {
                 id_.append(p);
                 pkgs_.add(id_.toString());
                 id_.append('.');
@@ -471,56 +472,56 @@ public final class ValidatorStandard {
         String intType_ = _nbAlias.getAliasInteger();
         String longType_ = _nbAlias.getAliasLong();
         String floatType_ = _nbAlias.getAliasFloat();
-        if (StringList.quickEq(type_, charType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        if (StringUtil.quickEq(type_, charType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new CharStruct(Character.MIN_VALUE));
             } else {
                 return(new CharStruct(Character.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, byteType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        } else if (StringUtil.quickEq(type_, byteType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new ByteStruct(Byte.MIN_VALUE));
             } else {
                 return(new ByteStruct(Byte.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, shortType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        } else if (StringUtil.quickEq(type_, shortType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new ShortStruct(Short.MIN_VALUE));
             } else {
                 return(new ShortStruct(Short.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, intType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        } else if (StringUtil.quickEq(type_, intType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new IntStruct(Integer.MIN_VALUE));
             } else {
                 return(new IntStruct(Integer.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, longType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        } else if (StringUtil.quickEq(type_, longType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new LongStruct(Long.MIN_VALUE));
             } else {
                 return(new LongStruct(Long.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, floatType_)) {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+        } else if (StringUtil.quickEq(type_, floatType_)) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return(new FloatStruct(Float.MIN_VALUE));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
                 return(new FloatStruct(Float.NEGATIVE_INFINITY));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
                 return(new FloatStruct(Float.POSITIVE_INFINITY));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasNanField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasNanField())) {
                 return(new FloatStruct(Float.NaN));
             } else {
                 return(new FloatStruct(Float.MAX_VALUE));
             }
         } else {
-            if (StringList.quickEq(name_, _nbAlias.getAliasMinValueField())) {
+            if (StringUtil.quickEq(name_, _nbAlias.getAliasMinValueField())) {
                 return (new DoubleStruct(Double.MIN_VALUE));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasMinusInfinityField())) {
                 return (new DoubleStruct(Double.NEGATIVE_INFINITY));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasPlusInfinityField())) {
                 return (new DoubleStruct(Double.POSITIVE_INFINITY));
-            } else if (StringList.quickEq(name_, _nbAlias.getAliasNanField())) {
+            } else if (StringUtil.quickEq(name_, _nbAlias.getAliasNanField())) {
                 return (new DoubleStruct(Double.NaN));
             } else {
                 return (new DoubleStruct(Double.MAX_VALUE));
@@ -537,8 +538,8 @@ public final class ValidatorStandard {
     public static String tr(CustList<String> _list, String _var) {
         String candidate_ = _var;
         int index_ = 0;
-        while (StringList.contains(_list,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
+        while (StringUtil.contains(_list,candidate_)) {
+            candidate_ = StringUtil.concatNbs(_var,index_);
             index_++;
         }
         return candidate_;

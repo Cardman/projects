@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaParentInstanceContent;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ParentInstanceOperation extends LeafOperation implements PossibleIntermediateDotted {
     private AnaClassArgumentMatching previousResultClass;
@@ -46,8 +47,8 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
         StringList pars_ = new StringList();
         for (String p: _converted) {
             StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(p);
-            String outer_ = StringList.join(innerParts_.mid(0, innerParts_.size() - 2), "");
-            if (StringList.contains(pars_,outer_)) {
+            String outer_ = StringUtil.join(innerParts_.left(innerParts_.size() - 2), "");
+            if (StringUtil.contains(pars_,outer_)) {
                 continue;
             }
             pars_.add(outer_);

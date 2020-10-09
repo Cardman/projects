@@ -10,7 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecStaticFctOperation extends ExecInvokingOperation {
 
@@ -32,7 +32,7 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(staticFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
         CustList<Argument> firstArgs_ = getArgs(_nodes, classNameFound_);

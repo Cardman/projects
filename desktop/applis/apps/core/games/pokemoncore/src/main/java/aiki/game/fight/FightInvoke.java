@@ -7,9 +7,10 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.game.params.Difficulty;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightInvoke {
 
@@ -27,17 +28,17 @@ final class FightInvoke {
         creature_.setLastUsedMove(creature_.getFinalChosenMove());
         while(true){
             String attaqueInvoque_=creature_.getFinalChosenMove();
-            if (!StringList.contains(_import.getMovesInvoking(), attaqueInvoque_)) {
+            if (!StringUtil.contains(_import.getMovesInvoking(), attaqueInvoque_)) {
                 _fight.addFirstMoveMessage(_lanceur, attaqueInvoque_, _import);
                 break;
             }
             _fight.addInvokeMoveMessage(_lanceur, attaqueInvoque_, _import);
             MoveData fAttInvoque_=_import.getMove(attaqueInvoque_);
             boolean invoquer_=false;
-            EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(CustList.FIRST_INDEX);
+            EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
             for(TeamPosition e:FightOrder.targetsEffect(_fight,_lanceur,effet_,_diff,_import)){
                 _fight.setSending(false);
-                if(FightSuccess.successfulMove(_fight,_lanceur,e,attaqueInvoque_,CustList.FIRST_INDEX,true,_import).isSuccessful()){
+                if(FightSuccess.successfulMove(_fight,_lanceur,e,attaqueInvoque_, IndexConstants.FIRST_INDEX,true,_import).isSuccessful()){
                     //debugger la chaine d'invocation d'attaques
                     effectInvoke(_fight,_lanceur,e,effet_,_import);
                     if(!_fight.getAcceptableChoices()){
@@ -80,13 +81,13 @@ final class FightInvoke {
         for (String m: FightMoves.enabledGlobalMoves(_fight, _import)) {
             MoveData moveDta_ = _import.getMove(m);
             int nbEffects_ = moveDta_.nbEffets();
-            for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
                 Effect eff_ = moveDta_.getEffet(i);
                 if (!(eff_ instanceof EffectGlobal)) {
                     continue;
                 }
                 EffectGlobal effectLoc_ = (EffectGlobal) eff_;
-                if (!StringList.quickEq(effectLoc_.getInvokedMoveTerrain(), DataBase.EMPTY_STRING)) {
+                if (!StringUtil.quickEq(effectLoc_.getInvokedMoveTerrain(), DataBase.EMPTY_STRING)) {
                     attaquesInvocables_.add(effectLoc_.getInvokedMoveTerrain());
                 }
             }
@@ -122,7 +123,7 @@ final class FightInvoke {
         }
         if(_effet.getInvokingAllyMove()){
             for(byte c:equipeLanceur_.getMembers().getKeys()){
-                if(Numbers.eq(c,_lanceur.getPosition())){
+                if(NumberUtil.eq(c,_lanceur.getPosition())){
                     continue;
                 }
                 Fighter partenaire_=equipeLanceur_.getMembers().getVal(c);
@@ -142,8 +143,8 @@ final class FightInvoke {
             }
         }
         attaquesInvocables_.removeDuplicates();
-        StringList.removeAllElements(attaquesInvocables_, _effet.getMovesNotToBeInvoked());
-        StringList.removeAllElements(attaquesInvocables_, creatureLanceur_.getAlreadyInvokedMovesRound());
+        StringUtil.removeAllElements(attaquesInvocables_, _effet.getMovesNotToBeInvoked());
+        StringUtil.removeAllElements(attaquesInvocables_, creatureLanceur_.getAlreadyInvokedMovesRound());
         return attaquesInvocables_;
     }
 
@@ -170,8 +171,8 @@ final class FightInvoke {
                 attaquesCopiables_.removeString(c);
             }
         }
-        StringList.removeAllElements(attaquesCopiables_, _effet.getMovesNotToBeCopied());
-        StringList.removeObj(attaquesCopiables_, _import.getDefaultMove());
+        StringUtil.removeAllElements(attaquesCopiables_, _effet.getMovesNotToBeCopied());
+        StringUtil.removeObj(attaquesCopiables_, _import.getDefaultMove());
         return attaquesCopiables_;
     }
 }

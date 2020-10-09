@@ -12,7 +12,6 @@ import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
-import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -55,6 +54,9 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class SimulationBean extends CommonBean {
     private boolean allowCatchingKo;
@@ -82,9 +84,9 @@ public class SimulationBean extends CommonBean {
 
     private Coords coords;
     private boolean freeTeams;
-    private int selectedFoePk = CustList.INDEX_NOT_FOUND_ELT;
+    private int selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private CustList<PokemonTrainerDto> foeTeam = new CustList<PokemonTrainerDto>();
-    private int selectedAllyPk = CustList.INDEX_NOT_FOUND_ELT;
+    private int selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private CustList<PokemonTrainerDto> allyTeam = new CustList<PokemonTrainerDto>();
     private int multiplicity = 1;
 
@@ -94,7 +96,7 @@ public class SimulationBean extends CommonBean {
 
     private boolean enableEvolutions = true;
     private CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
-    private int selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+    private int selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private String selectedFoeAction = TeamCrud.NOTHING.name();
     private String selectedAllyAction = TeamCrud.NOTHING.name();
     private String selectedAction = TeamCrud.NOTHING.name();
@@ -231,7 +233,7 @@ public class SimulationBean extends CommonBean {
                 }
             } else {
                 if (!getForms().contains(NO_FIGHT)) {
-                    getForms().put(NO_FIGHT, (int) CustList.FIRST_INDEX);
+                    getForms().put(NO_FIGHT, (int) IndexConstants.FIRST_INDEX);
                 }
                 noFight = (Integer) getForms().getVal(NO_FIGHT);
                 coords = (Coords) getForms().getVal(COORDS);
@@ -281,8 +283,8 @@ public class SimulationBean extends CommonBean {
                 boolean heal_ = (Boolean) getForms().getVal(HEAL_EDIT_PK);
                 getForms().removeKey(HEAL_EDIT_PK);
                 for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    short ev_ = (Short) getForms().getVal(StringList.concat(POKEMON_EV_VAR, s.name()));
-                    getForms().removeKey(StringList.concat(POKEMON_EV_VAR,s.name()));
+                    short ev_ = (Short) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name()));
+                    getForms().removeKey(StringUtil.concat(POKEMON_EV_VAR,s.name()));
                     if (ev_ > data_.getMaxEv()) {
                         ev_ = (short) data_.getMaxEv();
                     }
@@ -303,12 +305,12 @@ public class SimulationBean extends CommonBean {
             round = new IntTreeMap< Integer>();
             placesFight = new IntTreeMap< String>();
             int nbRounds_ = simulation.nbRounds();
-            for (int i = CustList.FIRST_INDEX; i < nbRounds_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < nbRounds_; i++) {
                 round.put(i, i);
             }
             int mult_ = simulation.getFirstMult();
             placesFight.put((int) Fighter.BACK, DataBase.EMPTY_STRING);
-            for (int i = CustList.FIRST_INDEX; i < mult_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
                 placesFight.put(i, Integer.toString(i));
             }
             //display front fighters
@@ -362,14 +364,14 @@ public class SimulationBean extends CommonBean {
             }
 
         } else if (simu_ == SimulationSteps.MOVES_FIGHT) {
-            if (selectedPk != CustList.INDEX_NOT_FOUND_ELT) {
+            if (selectedPk != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 targetFight = new IntTreeMap< String>();
                 int mult_ = simulation.getFirstMult();
-                for (int i = CustList.FIRST_INDEX; i < mult_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
                     targetFight.put(i, Integer.toString(i));
                 }
                 movesSet.clear();
-                if (Numbers.parseInt(selectedRound) == 0) {
+                if (NumberUtil.parseInt(selectedRound) == 0) {
                     StringMap<String> translationsMoves_;
                     translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
                     StringMap<String> translationsTypes_;
@@ -397,7 +399,7 @@ public class SimulationBean extends CommonBean {
                         line_.setPriority(moveData_.getPriority());
                         movesSet.add(line_);
                     }
-                    int i_ = CustList.FIRST_INDEX;
+                    int i_ = IndexConstants.FIRST_INDEX;
                     movesSet.sortElts(new ComparatorRadioLineMoves());
                     for (RadioLineMove l: movesSet) {
                         l.setIndex(i_);
@@ -411,7 +413,7 @@ public class SimulationBean extends CommonBean {
                 translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
                 StringMap<String> translationsCategories_;
                 translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(CustList.FIRST_INDEX, (byte)(Numbers.parseInt(selectedRound) -1)));
+                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, (byte)(NumberUtil.parseInt(selectedRound) -1)));
                 for (String k: moves_) {
                     MoveData moveData_ = data_.getMoves().getVal(k);
                     RadioLineMove line_ = new RadioLineMove();
@@ -432,7 +434,7 @@ public class SimulationBean extends CommonBean {
                     line_.setPriority(moveData_.getPriority());
                     movesSet.add(line_);
                 }
-                int i_ = CustList.FIRST_INDEX;
+                int i_ = IndexConstants.FIRST_INDEX;
                 movesSet.sortElts(new ComparatorRadioLineMoves());
                 for (RadioLineMove l: movesSet) {
                     l.setIndex(i_);
@@ -489,7 +491,7 @@ public class SimulationBean extends CommonBean {
         return simu_ == SimulationSteps.EVO_AFTER_FIGHT;
     }
     public boolean isMultiLayer(Long _index) {
-        return layers(_index).size() > CustList.ONE_ELEMENT;
+        return layers(_index).size() > IndexConstants.ONE_ELEMENT;
     }
     public CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
@@ -532,7 +534,7 @@ public class SimulationBean extends CommonBean {
         if (level_ instanceof LevelWithWildPokemon) {
             LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
             if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return StringList.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), SPACE);
+                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), SPACE);
             }
         }
         return DataBase.EMPTY_STRING;
@@ -549,7 +551,7 @@ public class SimulationBean extends CommonBean {
             coords.getLevel().setLevelIndex(_indexTwo.byteValue());
             coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
             getForms().put(COORDS, coords);
-            noFight = CustList.FIRST_INDEX;
+            noFight = IndexConstants.FIRST_INDEX;
             return DataBase.EMPTY_STRING;
         }
         if (pl_ instanceof City) {
@@ -603,8 +605,8 @@ public class SimulationBean extends CommonBean {
             getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
             environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
             environments.putAllMap(translated_);
-            selectedFoePk = CustList.INDEX_NOT_FOUND_ELT;
-            selectedAllyPk = CustList.INDEX_NOT_FOUND_ELT;
+            selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
+            selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         } else {
             environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
         }
@@ -633,7 +635,7 @@ public class SimulationBean extends CommonBean {
         for (PkTrainer p: simulation.getFoeTeam()) {
             foeTeam.add(PokemonTrainerDto.fromPokemonTrainer(p));
         }
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
@@ -684,7 +686,7 @@ public class SimulationBean extends CommonBean {
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedFoePk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
@@ -757,7 +759,7 @@ public class SimulationBean extends CommonBean {
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedAllyPk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
@@ -828,7 +830,7 @@ public class SimulationBean extends CommonBean {
             foe_.add(p.toPokemonTrainer());
         }
         simulation.setTeams(ally_, foe_, multiplicity, nbMaxActions, PokemonStandards.getEnvByName(environment), coords);
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
         getForms().removeKey(POKEMON_INDEX_EDIT);
         getForms().removeKey(POKEMON_ADDED);
@@ -839,7 +841,7 @@ public class SimulationBean extends CommonBean {
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
@@ -855,7 +857,7 @@ public class SimulationBean extends CommonBean {
             getForms().put(POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
             getForms().put(CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                getForms().put(StringList.concat(POKEMON_EV_VAR,s.name()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
+                getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
             return EDIT_POKEMON_PLAYER;
         }
@@ -928,7 +930,7 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         simulation.setFirstEvolutions(data_);
         //selectedPk = CustList.FIRST_INDEX;
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
 //        if (!enableEvolutions) {
 //            simulation.initializeFrontFighters();
 //            getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
@@ -956,7 +958,7 @@ public class SimulationBean extends CommonBean {
         //simulation.validateTeam();
         simulation.setFirstEvolutions(data_);
         //selectedPk = CustList.FIRST_INDEX;
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         simulation.initializeFrontFighters();
         getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber++;
@@ -965,7 +967,7 @@ public class SimulationBean extends CommonBean {
     public void cancelTeam() {
         ok = true;
         team.clear();
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber--;
     }
@@ -973,7 +975,7 @@ public class SimulationBean extends CommonBean {
         ok = true;
         simulation.cancelEvolutions();
         getForms().removeKey(POKEMON_INDEX_EDIT);
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber--;
@@ -981,7 +983,7 @@ public class SimulationBean extends CommonBean {
     public void validateEvolutions() {
         ok = true;
         simulation.initializeFrontFighters();
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().removeKey(POKEMON_INDEX_EDIT);
         getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber++;
@@ -990,7 +992,7 @@ public class SimulationBean extends CommonBean {
         return getForms().contains(POKEMON_INDEX_EDIT);
     }
     public void displayEvolutions() {
-        if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             if (availableEvos != null) {
                 availableEvos.clear();
             }
@@ -1039,15 +1041,15 @@ public class SimulationBean extends CommonBean {
     }
     public void validateFrontFighter() {
         displayIfError = false;
-        if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        simulation.getFrontFighters().first().get(Numbers.parseInt(selectedRound)).put((byte) selectedPk, (byte) Numbers.parseInt(placeFight));
+        simulation.getFrontFighters().first().get(NumberUtil.parseInt(selectedRound)).put((byte) selectedPk, (byte) NumberUtil.parseInt(placeFight));
     }
     public void cancelFrontFighters() {
         displayIfError = false;
         ok = true;
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (!enableEvolutions) {
             simulation.cancelEvolutions();
             getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
@@ -1068,7 +1070,7 @@ public class SimulationBean extends CommonBean {
             ok = false;
             return;
         }
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (!enableEvolutions) {
             simulation.initializeAllMoves(data_);
             getForms().put(SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
@@ -1080,7 +1082,7 @@ public class SimulationBean extends CommonBean {
         stepNumber++;
     }
     public boolean selectedIndexForMoves() {
-        return selectedPk != CustList.INDEX_NOT_FOUND_ELT;
+        return selectedPk != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
     public boolean isAvailableMoves() {
         return simulation.isAvailableMoves(selectedPk);
@@ -1099,7 +1101,7 @@ public class SimulationBean extends CommonBean {
                 return;
             }
             int r_ = simulation.getAvailableMoves().getVal((byte) selectedPk).getKey().getRound();
-            simulation.setAbilityWhileFight(selectedPk, CustList.FIRST_INDEX, r_, currentAbility);
+            simulation.setAbilityWhileFight(selectedPk, IndexConstants.FIRST_INDEX, r_, currentAbility);
         }
         StringList moves_ = new StringList();
         for (SelectLineMove m: keptMoves) {
@@ -1119,7 +1121,7 @@ public class SimulationBean extends CommonBean {
     public void cancelMovesSets() {
         displayIfError = false;
         ok = true;
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber--;
     }
@@ -1132,23 +1134,23 @@ public class SimulationBean extends CommonBean {
             ok = false;
             return;
         }
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
         stepNumber++;
     }
     public void validateMovesChoice() {
         displayIfError = false;
-        if (selectedMove == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedMove == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         String move_ = movesSet.get(selectedMove).getName();
         DataBase data_ = (DataBase) getDataBase();
-        simulation.chooseMoveFirstFight(Numbers.parseInt(selectedRound), selectedPk, move_, allyChoice, Numbers.parseInt(target), data_);
+        simulation.chooseMoveFirstFight(NumberUtil.parseInt(selectedRound), selectedPk, move_, allyChoice, NumberUtil.parseInt(target), data_);
     }
     public void cancelMovesEvos() {
         displayIfError = false;
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
-        selectedMove = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
+        selectedMove = IndexConstants.INDEX_NOT_FOUND_ELT;
         ok = true;
         if (!enableEvolutions) {
             getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
@@ -1180,7 +1182,7 @@ public class SimulationBean extends CommonBean {
         ok = true;
         keptMovesAfterFight.clear();
         keptMovesAbilitiesDto.clear();
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMULATION_STATE, SimulationSteps.SIMULATION);
         stepNumber--;
     }
@@ -1207,7 +1209,7 @@ public class SimulationBean extends CommonBean {
             k_.setMoves(new StringList(p.getMoves().getKeys()));
             keptMovesAbilitiesDto.add(k_);
         }
-        selectedPk = CustList.INDEX_NOT_FOUND_ELT;
+        selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMULATION_STATE, SimulationSteps.EVO_AFTER_FIGHT);
         stepNumber++;
     }
@@ -1216,10 +1218,7 @@ public class SimulationBean extends CommonBean {
             return false;
         }
         DataBase data_ = (DataBase) getDataBase();
-        if (!simulation.hasNextFight(data_)) {
-            return false;
-        }
-        return true;
+        return simulation.hasNextFight(data_);
     }
     public String getImageAfterFight(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -1275,11 +1274,11 @@ public class SimulationBean extends CommonBean {
         PokemonData fPk_=data_.getPokemon(pk_.getName());
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_ + 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_ + 1));
         Rate next_;
         next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_));
         current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
@@ -1287,7 +1286,7 @@ public class SimulationBean extends CommonBean {
         return diff_;
     }
     public void selectPkAfterFight() {
-        if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
+        if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         DataBase data_ = (DataBase) getDataBase();
@@ -1451,7 +1450,7 @@ public class SimulationBean extends CommonBean {
         ok = true;
         DataBase data_ = (DataBase) getDataBase();
         int len_ = teamAfterFight.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (keptMovesAbilitiesDto.get(i).getEvolutions().size() <= DataBase.ONE_POSSIBLE_CHOICE) {
                 continue;
             }
@@ -1464,7 +1463,7 @@ public class SimulationBean extends CommonBean {
             teamAfterFight.get(i).fullHeal(data_);
         }
         team.clear();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (PokemonPlayer p: teamAfterFight) {
             PokemonPlayerDto pk_ = new PokemonPlayerDto();
             pk_.setIndex(i_);

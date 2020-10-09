@@ -1,8 +1,9 @@
 package code.maths.litteral;
-import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 
 public final class MathResolver {
@@ -60,7 +61,7 @@ public final class MathResolver {
         boolean constString_ = false;
         boolean escapedMeta_ = false;
         int len_ = _string.length();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -74,7 +75,7 @@ public final class MathResolver {
             _error.setString(_string);
             return d_;
         }
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         StringBuilder elt_ = new StringBuilder();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -131,7 +132,7 @@ public final class MathResolver {
                 _error.setString(_string);
                 return d_;
             }
-            if (StringList.isWordChar(curChar_)) {
+            if (StringUtil.isWordChar(curChar_)) {
                 if (Character.isDigit(curChar_)) {
                     i_ = addNumberInfo(d_,i_,i_,_string);
                     continue;
@@ -141,7 +142,7 @@ public final class MathResolver {
                 StringBuilder name_ = new StringBuilder();
                 while (i_ < len_) {
                     char last_ = _string.charAt(i_);
-                    if (!StringList.isWordChar(last_)) {
+                    if (!StringUtil.isWordChar(last_)) {
                         break;
                     }
                     name_.append(last_);
@@ -338,7 +339,7 @@ public final class MathResolver {
         int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -383,14 +384,14 @@ public final class MathResolver {
             return op_;
         }
         String sub_ = _string.substring(firstPrintChar_, len_);
-        if (StringList.quickEq(sub_,TRUE)) {
+        if (StringUtil.quickEq(sub_,TRUE)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (StringList.quickEq(sub_, FALSE)) {
+        if (StringUtil.quickEq(sub_, FALSE)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
@@ -437,7 +438,7 @@ public final class MathResolver {
             if (curChar_ == PAR_LEFT) {
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
                     useFct_ = true;
-                    fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
+                    fctName_ = _string.substring(IndexConstants.FIRST_INDEX, i_);
                     operators_.clear();
                     operators_.put(i_, String.valueOf(PAR_LEFT));
                 }
@@ -539,7 +540,7 @@ public final class MathResolver {
     }
 
     private static boolean delimits(int _begin, int _end) {
-        return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
+        return _begin > IndexConstants.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
 
     static int incrementUnary(String _string, int _from, int _to) {

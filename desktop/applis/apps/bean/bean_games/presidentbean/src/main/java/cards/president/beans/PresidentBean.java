@@ -5,6 +5,7 @@ import code.bean.Bean;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 final class PresidentBean extends Bean {
 
@@ -31,11 +32,11 @@ final class PresidentBean extends Bean {
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();
-        for(int i=CustList.FIRST_INDEX;i<nbDeals_;i++) {
+        for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
             LineDeal l_ = new LineDeal();
             l_.setNumber(i);
             Longs scores_ = new Longs();
-            for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scores_.add(getScores().get(i).get(joueur_));
             }
             l_.setScores(scores_);

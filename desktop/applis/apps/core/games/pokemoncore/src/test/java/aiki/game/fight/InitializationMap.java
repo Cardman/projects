@@ -56,6 +56,7 @@ import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class InitializationMap {
 
@@ -1271,55 +1272,55 @@ final class InitializationMap {
         int p_ = 1;
         for (String p: moveTypes_) {
             String str_ = Long.toString(p_);
-            _data.getTypesColors().addEntry(p, StringList.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
-            _data.getTypesImages().addEntry(p, getImageByString(StringList.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
+            _data.getTypesColors().addEntry(p, StringUtil.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
+            _data.getTypesImages().addEntry(p, getImageByString(StringUtil.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
             p_++;
         }
         StringList building_ = new StringList("18");
         for (int i = 0; i < 324; i++) {
             building_.add("-32985");
         }
-        _data.addImage(BUILDING, getImageByString(StringList.join(building_, ";")));
+        _data.addImage(BUILDING, getImageByString(StringUtil.join(building_, ";")));
         StringList default_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             default_.add("-1");
         }
-        _data.addImage(DAFAULT, getImageByString(StringList.join(default_, ";")));
+        _data.addImage(DAFAULT, getImageByString(StringUtil.join(default_, ";")));
         StringList desert_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             desert_.add("-3584");
         }
-        _data.addImage(DESERT, getImageByString(StringList.join(desert_, ";")));
+        _data.addImage(DESERT, getImageByString(StringUtil.join(desert_, ";")));
         StringList grass_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             grass_.add("-14503604");
         }
-        _data.addImage(GRASS, getImageByString(StringList.join(grass_, ";")));
+        _data.addImage(GRASS, getImageByString(StringUtil.join(grass_, ";")));
         StringList nothing_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             nothing_.add("-16777216");
         }
-        _data.addImage(NOTHING, getImageByString(StringList.join(nothing_, ";")));
+        _data.addImage(NOTHING, getImageByString(StringUtil.join(nothing_, ";")));
         StringList road_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             road_.add("-7369361");
         }
-        _data.addImage(ROAD, getImageByString(StringList.join(road_, ";")));
+        _data.addImage(ROAD, getImageByString(StringUtil.join(road_, ";")));
         StringList rock_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             rock_.add("-4621737");
         }
-        _data.addImage(ROCK, getImageByString(StringList.join(rock_, ";")));
+        _data.addImage(ROCK, getImageByString(StringUtil.join(rock_, ";")));
         StringList snow_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             snow_.add("-1");
         }
-        _data.addImage(SNOW, getImageByString(StringList.join(snow_, ";")));
+        _data.addImage(SNOW, getImageByString(StringUtil.join(snow_, ";")));
         StringList water_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             water_.add("-16776961");
         }
-        _data.addImage(WATER, getImageByString(StringList.join(water_, ";")));
+        _data.addImage(WATER, getImageByString(StringUtil.join(water_, ";")));
 //        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer", "2;-18000;-18000;-18000;-18000");
 //        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"person", "2;-1800;-1800;-1800;-1800");
 //        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_one", "2;-19000;-19000;-19000;-19000");
@@ -1356,7 +1357,7 @@ final class InitializationMap {
                         herosTop_.add(String.valueOf(iHeros_));
                     }
                     herosTop_.addAllElts(herosBottom_);
-                    _data.getOverWorldHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
+                    _data.getOverWorldHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
                     iHeros_++;
                 }
             }
@@ -1369,8 +1370,8 @@ final class InitializationMap {
                     iHerosBis_++;
                 }
                 herosTop_.addAllElts(herosBottom_);
-                _data.getBackHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
-                _data.getFrontHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
+                _data.getBackHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
+                _data.getFrontHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
                 iHerosBis_++;
             }
         }

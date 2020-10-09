@@ -73,7 +73,8 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.StringList;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderCardsMultiUtil {
 
     private static final String ATTR_FIELD = "field";
@@ -228,7 +229,7 @@ public final class DocumentReaderCardsMultiUtil {
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_, TYPE_RESULTS_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_BELOTE)) {
             ElementList childElements_ = elt_.getChildElements();
             ResultsBelote object_ = new ResultsBelote();
             for (Element c: childElements_) {
@@ -236,190 +237,190 @@ public final class DocumentReaderCardsMultiUtil {
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_, TYPE_TRICKS_HANDS_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_BELOTE)) {
             return DocumentReaderBeloteUtil.getTricksHandsBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_BIDDING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_BELOTE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_PLAYING_CARD_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_BELOTE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_COMPLETED_HAND)) {
+        if (StringUtil.quickEq(tagName_, TYPE_COMPLETED_HAND)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DEALT_HAND_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_BELOTE)) {
             return getDealtHandBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESH_HAND_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_BELOTE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_BIDDING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING_BELOTE)) {
             return getErrorBiddingBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_PLAYING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_BELOTE)) {
             return getErrorPlayingBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_BELOTE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESHING_DONE_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_BELOTE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_BIDDING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_BELOTE)) {
             return getAllowBiddingBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_PLAYING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_BELOTE)) {
             return getAllowPlayingBelote(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_BYE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
             return getBye(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DEALT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DEALT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DELEGATE_SERVER)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DELEGATE_SERVER)) {
             return getDelegateServer(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_OK)) {
+        if (StringUtil.quickEq(tagName_, TYPE_OK)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_QUIT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_QUIT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_CHOOSEN_PLACE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_CHOOSEN_PLACE)) {
             return getPlayerActionBeforeGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING)) {
             return getPlayerActionBeforeGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_NEW_PLAYER)) {
+        if (StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER)) {
             return getPlayerActionBeforeGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_PLAYERS_NAME_PRESENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_PLAYERS_NAME_PRESENT)) {
             return getPlayersNamePresent(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_READY)) {
+        if (StringUtil.quickEq(tagName_, TYPE_READY)) {
             return getPlayerActionBeforeGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DONE_BIDDING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DONE_BIDDING)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DONE_PAUSE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DONE_PAUSE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DONE_PLAYING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DONE_PLAYING)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_SELECT_TEAMS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_SELECT_TEAMS)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_SELECT_TRICKS_HANDS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_SELECT_TRICKS_HANDS)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_TEAMS_PLAYERS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_TEAMS_PLAYERS)) {
             return getTeamsPlayers(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DISCARDED_CARDS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARDS)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_PLAYING_CARD_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_PRESIDENT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DEALT_HAND_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_PRESIDENT)) {
             return getDealtHandPresident(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_RECEIVED_GIVEN_CARDS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_RECEIVED_GIVEN_CARDS)) {
             return getReceivedGivenCards(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESHED_HAND_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESHED_HAND_PRESIDENT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_PLAYING_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_PRESIDENT)) {
             return getErrorPlayingPresident(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_PRESIDENT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESHING_DONE_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_PRESIDENT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_DISCARDING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_DISCARDING)) {
             return getAllowDiscarding(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_PLAYING_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_PRESIDENT)) {
             return getAllowPlayingPresident(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DOG)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DOG)) {
             return getDog(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_BIDDING_SLAM_AFTER)) {
+        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_SLAM_AFTER)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_BIDDING_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_TAROT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_CALLED_CARDS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_CALLED_CARDS)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DISCARDED_CARD)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARD)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DISCARDED_TRUMPS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_TRUMPS)) {
             return getDiscardedTrumps(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_PLAYING_CARD_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_TAROT)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_VALIDATE_DOG)) {
+        if (StringUtil.quickEq(tagName_, TYPE_VALIDATE_DOG)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DEALT_HAND_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_TAROT)) {
             return getDealtHandTarot(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_BIDDING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING)) {
             return getErrorBidding(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_DISCARDING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_DISCARDING)) {
             return getErrorDiscarding(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_HANDFUL)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_HANDFUL)) {
             return getErrorHandful(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ERROR_PLAYING)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING)) {
             return getErrorPlaying(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_CALLED_CARD_KNOWN)) {
+        if (StringUtil.quickEq(tagName_, TYPE_CALLED_CARD_KNOWN)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_DONE_DISPLAY_SLAM)) {
+        if (StringUtil.quickEq(tagName_, TYPE_DONE_DISPLAY_SLAM)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESH_HAND)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_REFRESHING_DONE)) {
+        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_SEEN_DISCARDED_TRUMPS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_SEEN_DISCARDED_TRUMPS)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_SHOW_DOG)) {
+        if (StringUtil.quickEq(tagName_, TYPE_SHOW_DOG)) {
             return getPlayerActionGame(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_BIDDING_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_TAROT)) {
             return getAllowBiddingTarot(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_ALLOW_PLAYING_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_TAROT)) {
             return getAllowPlayingTarot(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_CALLABLE_CARDS)) {
+        if (StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS)) {
             return getCallableCards(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_CALLABLE_CARDS_DISCARD)) {
+        if (StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS_DISCARD)) {
             return getCallableCardsDiscard(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_RESULTS_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_PRESIDENT)) {
             ElementList childElements_ = elt_.getChildElements();
             ResultsPresident object_ = new ResultsPresident();
             for (Element c: childElements_) {
@@ -427,10 +428,10 @@ public final class DocumentReaderCardsMultiUtil {
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_, TYPE_TRICKS_HANDS_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_PRESIDENT)) {
             return DocumentReaderPresidentUtil.getTricksHandsPresident(elt_);
         }
-        if (StringList.quickEq(tagName_, TYPE_RESULTS_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_TAROT)) {
             ElementList childElements_ = elt_.getChildElements();
             ResultsTarot object_ = new ResultsTarot();
             for (Element c: childElements_) {
@@ -438,13 +439,13 @@ public final class DocumentReaderCardsMultiUtil {
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_, TYPE_TRICKS_HANDS_TAROT)) {
+        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_TAROT)) {
             return DocumentReaderTarotUtil.getTricksHandsTarot(elt_);
         }
         return null;
     }
     private static void getBiddingBelote(BiddingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BID_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID_BELOTE)) {
             _object.setBidBelote(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
             return;
         }
@@ -452,23 +453,23 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getPlayingCardBelote(PlayingCardBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
             _object.setPlayedCard(DocumentReaderBeloteUtil.getCardBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING)) {
             _object.setDeclaring(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
             _object.setDeclaringBeloteRebelote(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARE)) {
             _object.setDeclare(DocumentReaderBeloteUtil.getDeclareHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -485,38 +486,38 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDealtHandBelote(DealtHandBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(DocumentReaderBeloteUtil.getHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECK)) {
             _object.setDeck(DocumentReaderBeloteUtil.getHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
             _object.setAllowedBids(DocumentReaderBeloteUtil.getListBidBeloteSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REP)) {
             _object.setRep(DocumentReaderBeloteUtil.getDealingBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POINTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POINTS)) {
             _object.setPoints(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
     }
 
     private static void getRefreshHandBelote(RefreshHandBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_REFRESHED_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REFRESHED_HAND)) {
             _object.setRefreshedHand(DocumentReaderBeloteUtil.getHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -533,7 +534,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorBiddingBelote(ErrorBiddingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID)) {
             _object.setBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
             return;
         }
@@ -549,34 +550,34 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorPlayingBelote(ErrorPlayingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(DocumentReaderBeloteUtil.getHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REASON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REASON)) {
             _object.setReason(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getRefreshHandPlayingBelote(RefreshHandPlayingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING)) {
             _object.setDeclaring(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
             _object.setDeclaringBeloteRebelote(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARE)) {
             _object.setDeclare(DocumentReaderBeloteUtil.getDeclareHandBelote(_element));
             return;
         }
@@ -584,19 +585,19 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getRefreshingDoneBelote(RefreshingDoneBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING)) {
             _object.setDeclaring(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING_BELOTE_REBELOTE)) {
             _object.setDeclaringBeloteRebelote(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARE)) {
             _object.setDeclare(DocumentReaderBeloteUtil.getDeclareHandBelote(_element));
             return;
         }
@@ -613,11 +614,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowBiddingBelote(AllowBiddingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BIDS)) {
             _object.setBids(DocumentReaderBeloteUtil.getListBidBeloteSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POINTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POINTS)) {
             _object.setPoints(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -633,23 +634,23 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowPlayingBelote(AllowPlayingBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_ROUND_PLAYING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_ROUND_PLAYING)) {
             _object.setFirstRoundPlaying(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARATION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARATION)) {
             _object.setDeclaration(DocumentReaderBeloteUtil.getDeclareHandBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POSSIBLE_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POSSIBLE_BELOTE_REBELOTE)) {
             _object.setPossibleBeloteRebelote(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_BELOTE_REBELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_BELOTE_REBELOTE)) {
             _object.setAllowedBeloteRebelote(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -665,19 +666,19 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getBye(Bye _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FORCED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CLOSING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOSING)) {
             _object.setClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SERVER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SERVER)) {
             _object.setServer(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BUSY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BUSY)) {
             _object.setBusy(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -693,11 +694,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDelegateServer(DelegateServer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GAMES)) {
             _object.setGames(DocumentReaderCardsUnionUtil.getGames(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAMES)) {
             _object.setNicknames(DocumentReaderCoreUtil.getMapIntegerString(_element));
             return;
         }
@@ -707,217 +708,217 @@ public final class DocumentReaderCardsMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_BIDDING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BIDDING_BELOTE)) {
             BiddingBelote object_ = new BiddingBelote();
             for (Element c: childElements_) {
                 getBiddingBelote(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_PLAYING_CARD_BELOTE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_PLAYING_CARD_BELOTE)) {
             PlayingCardBelote object_ = new PlayingCardBelote();
             for (Element c: childElements_) {
                 getPlayingCardBelote(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_COMPLETED_HAND)) {
+        if (StringUtil.quickEq(tagName_,TYPE_COMPLETED_HAND)) {
             CompletedHand object_ = new CompletedHand();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESH_HAND_PLAYING_BELOTE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESH_HAND_PLAYING_BELOTE)) {
             RefreshHandPlayingBelote object_ = new RefreshHandPlayingBelote();
             for (Element c: childElements_) {
                 getRefreshHandPlayingBelote(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESHING_DONE_BELOTE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESHING_DONE_BELOTE)) {
             RefreshingDoneBelote object_ = new RefreshingDoneBelote();
             for (Element c: childElements_) {
                 getRefreshingDoneBelote(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESH_HAND_BELOTE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESH_HAND_BELOTE)) {
             RefreshHandBelote object_ = new RefreshHandBelote();
             for (Element c: childElements_) {
                 getRefreshHandBelote(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DEALT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DEALT)) {
             Dealt object_ = new Dealt();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DONE_BIDDING)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DONE_BIDDING)) {
             DoneBidding object_ = new DoneBidding();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DONE_PAUSE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DONE_PAUSE)) {
             DonePause object_ = new DonePause();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DONE_PLAYING)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DONE_PLAYING)) {
             DonePlaying object_ = new DonePlaying();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_OK)) {
+        if (StringUtil.quickEq(tagName_,TYPE_OK)) {
             Ok object_ = new Ok();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_QUIT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_QUIT)) {
             Quit object_ = new Quit();
             for (Element c: childElements_) {
                 getQuit(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SELECT_TEAMS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SELECT_TEAMS)) {
             SelectTeams object_ = new SelectTeams();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SELECT_TRICKS_HANDS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SELECT_TRICKS_HANDS)) {
             SelectTricksHands object_ = new SelectTricksHands();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DISCARDED_CARDS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DISCARDED_CARDS)) {
             DiscardedCards object_ = new DiscardedCards();
             for (Element c: childElements_) {
                 getDiscardedCards(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_PLAYING_CARD_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_PLAYING_CARD_PRESIDENT)) {
             PlayingCardPresident object_ = new PlayingCardPresident();
             for (Element c: childElements_) {
                 getPlayingCardPresident(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESH_HAND_PLAYING_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESH_HAND_PLAYING_PRESIDENT)) {
             RefreshHandPlayingPresident object_ = new RefreshHandPlayingPresident();
             for (Element c: childElements_) {
                 getRefreshHandPlayingPresident(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESHING_DONE_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESHING_DONE_PRESIDENT)) {
             RefreshingDonePresident object_ = new RefreshingDonePresident();
             for (Element c: childElements_) {
                 getRefreshingDonePresident(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESHED_HAND_PRESIDENT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESHED_HAND_PRESIDENT)) {
             RefreshedHandPresident object_ = new RefreshedHandPresident();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_BIDDING_SLAM_AFTER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BIDDING_SLAM_AFTER)) {
             BiddingSlamAfter object_ = new BiddingSlamAfter();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_BIDDING_TAROT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BIDDING_TAROT)) {
             BiddingTarot object_ = new BiddingTarot();
             for (Element c: childElements_) {
                 getBiddingTarot(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_CALLED_CARDS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_CALLED_CARDS)) {
             CalledCards object_ = new CalledCards();
             for (Element c: childElements_) {
                 getCalledCards(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DISCARDED_CARD)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DISCARDED_CARD)) {
             DiscardedCard object_ = new DiscardedCard();
             for (Element c: childElements_) {
                 getDiscardedCard(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_PLAYING_CARD_TAROT)) {
+        if (StringUtil.quickEq(tagName_,TYPE_PLAYING_CARD_TAROT)) {
             PlayingCardTarot object_ = new PlayingCardTarot();
             for (Element c: childElements_) {
                 getPlayingCardTarot(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_VALIDATE_DOG)) {
+        if (StringUtil.quickEq(tagName_,TYPE_VALIDATE_DOG)) {
             ValidateDog object_ = new ValidateDog();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_CALLED_CARD_KNOWN)) {
+        if (StringUtil.quickEq(tagName_,TYPE_CALLED_CARD_KNOWN)) {
             CalledCardKnown object_ = new CalledCardKnown();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_DONE_DISPLAY_SLAM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DONE_DISPLAY_SLAM)) {
             DoneDisplaySlam object_ = new DoneDisplaySlam();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESH_HAND)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESH_HAND)) {
             RefreshHand object_ = new RefreshHand();
             for (Element c: childElements_) {
                 getRefreshHand(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REFRESHING_DONE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REFRESHING_DONE)) {
             RefreshingDone object_ = new RefreshingDone();
             for (Element c: childElements_) {
                 getRefreshingDone(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SEEN_DISCARDED_TRUMPS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SEEN_DISCARDED_TRUMPS)) {
             SeenDiscardedTrumps object_ = new SeenDiscardedTrumps();
             for (Element c: childElements_) {
                 getSeenDiscardedTrumps(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SHOW_DOG)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SHOW_DOG)) {
             ShowDog object_ = new ShowDog();
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
@@ -928,22 +929,22 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getPlayerActionGame(PlayerActionGame _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLACE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOCALE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOCALE)) {
             _object.setLocale(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getQuit(Quit _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CLOSING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOSING)) {
             _object.setClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SERVER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SERVER)) {
             _object.setServer(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -951,11 +952,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getChoosenPlace(ChoosenPlace _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLACE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLACES_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACES_PLAYERS)) {
             _object.setPlacesPlayers(DocumentReaderCoreUtil.getMapIntegerByte(_element));
             return;
         }
@@ -963,19 +964,19 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getNewPlayer(NewPlayer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ARRIVING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ARRIVING)) {
             _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LANGUAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LANGUAGE)) {
             _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACCEPTABLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACCEPTABLE)) {
             _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -986,28 +987,28 @@ public final class DocumentReaderCardsMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_CHOOSEN_PLACE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_CHOOSEN_PLACE)) {
             ChoosenPlace object_ = new ChoosenPlace();
             for (Element c: childElements_) {
                 getChoosenPlace(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_INDEX_OF_ARRIVING)) {
+        if (StringUtil.quickEq(tagName_,TYPE_INDEX_OF_ARRIVING)) {
             IndexOfArriving object_ = new IndexOfArriving();
             for (Element c: childElements_) {
                 getPlayerActionBeforeGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_NEW_PLAYER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_NEW_PLAYER)) {
             NewPlayer object_ = new NewPlayer();
             for (Element c: childElements_) {
                 getNewPlayer(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_READY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_READY)) {
             Ready object_ = new Ready();
             for (Element c: childElements_) {
                 getReady(object_,c.getAttribute(ATTR_FIELD),c);
@@ -1018,7 +1019,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -1034,42 +1035,42 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getPlayersNamePresent(PlayersNamePresent _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDOS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS)) {
             _object.setPseudos(DocumentReaderCoreUtil.getMapIntegerString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLACES_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACES_PLAYERS)) {
             _object.setPlacesPlayers(DocumentReaderCoreUtil.getMapIntegerByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_READY_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_READY_PLAYERS)) {
             _object.setReadyPlayers(DocumentReaderCoreUtil.getMapIntegerBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_PLAYERS)) {
             _object.setNbPlayers(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FIRST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST)) {
             _object.setFirst(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_TAROT)) {
             _object.setRulesTarot(DocumentReaderTarotUtil.getRulesTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_PRESIDENT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_PRESIDENT)) {
             _object.setRulesPresident(DocumentReaderPresidentUtil.getRulesPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_BELOTE)) {
             _object.setRulesBelote(DocumentReaderBeloteUtil.getRulesBelote(_element));
             return;
         }
     }
 
     private static void getReady(Ready _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_READY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_READY)) {
             _object.setReady(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1086,14 +1087,14 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getTeamsPlayers(TeamsPlayers _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TEAMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAMS)) {
             _object.setTeams(DocumentReaderCoreUtil.getListListByte(_element));
             return;
         }
     }
 
     private static void getDiscardedCards(DiscardedCards _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DISCARDED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISCARDED)) {
             _object.setDiscarded(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
@@ -1101,27 +1102,27 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getPlayingCardPresident(PlayingCardPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
             _object.setPlayedCard(DocumentReaderPresidentUtil.getCardPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PASS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PASS)) {
             _object.setPass(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
             _object.setPlayedHand(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderPresidentUtil.getMapBytePlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
             _object.setNextPlayer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1138,19 +1139,19 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDealtHandPresident(DealtHandPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MAX_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MAX_CARDS)) {
             _object.setMaxCards(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderPresidentUtil.getMapBytePlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1166,15 +1167,15 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getReceivedGivenCards(ReceivedGivenCards _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RECEIVED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RECEIVED)) {
             _object.setReceived(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GIVEN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GIVEN)) {
             _object.setGiven(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEW_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEW_HAND)) {
             _object.setNewHand(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
@@ -1190,46 +1191,46 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorPlayingPresident(ErrorPlayingPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderPresidentUtil.getCardPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REASON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REASON)) {
             _object.setReason(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PASS_ISSUE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PASS_ISSUE)) {
             _object.setPassIssue(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
     }
 
     private static void getRefreshHandPlayingPresident(RefreshHandPlayingPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
             _object.setPlayedCard(DocumentReaderPresidentUtil.getCardPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PASS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PASS)) {
             _object.setPass(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
             _object.setPlayedHand(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderPresidentUtil.getMapBytePlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
             _object.setNextPlayer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REVERSED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REVERSED)) {
             _object.setReversed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1237,27 +1238,27 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getRefreshingDonePresident(RefreshingDonePresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
             _object.setPlayedCard(DocumentReaderPresidentUtil.getCardPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PASS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PASS)) {
             _object.setPass(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_HAND)) {
             _object.setPlayedHand(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderPresidentUtil.getMapBytePlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEXT_PLAYER)) {
             _object.setNextPlayer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1274,7 +1275,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowDiscarding(AllowDiscarding _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RECEIVED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RECEIVED_CARDS)) {
             _object.setReceivedCards(DocumentReaderPresidentUtil.getHandPresident(_element));
             return;
         }
@@ -1290,15 +1291,15 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowPlayingPresident(AllowPlayingPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_PASS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_PASS)) {
             _object.setEnabledPass(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderPresidentUtil.getPlaying(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REVERSED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REVERSED)) {
             _object.setReversed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1314,30 +1315,30 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDog(Dog _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DOG)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DOG)) {
             _object.setDog(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER)) {
             _object.setTaker(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HUMAN_TAKER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HUMAN_TAKER)) {
             _object.setHumanTaker(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CALL_AFTER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALL_AFTER)) {
             _object.setCallAfter(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
     }
 
     private static void getBiddingTarot(BiddingTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID)) {
             _object.setBid(DocumentReaderTarotUtil.getBidTarot(_element));
             return;
         }
@@ -1345,11 +1346,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getCalledCards(CalledCards _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CALLED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLED_CARDS)) {
             _object.setCalledCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISCARDING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISCARDING)) {
             _object.setDiscarding(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1357,11 +1358,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDiscardedCard(DiscardedCard _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IN_HAND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IN_HAND)) {
             _object.setInHand(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1378,42 +1379,42 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDiscardedTrumps(DiscardedTrumps _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TRUMPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRUMPS)) {
             _object.setTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING_SLAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING_SLAM)) {
             _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
     }
 
     private static void getPlayingCardTarot(PlayingCardTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYED_CARD)) {
             _object.setPlayedCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
             _object.setChoosenHandful(DocumentReaderTarotUtil.getHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HANDFUL)) {
             _object.setHandful(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXCLUDED_TRUMPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXCLUDED_TRUMPS)) {
             _object.setExcludedTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MISERES)) {
             _object.setMiseres(DocumentReaderTarotUtil.getListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CALLED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLED_CARD)) {
             _object.setCalledCard(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1430,23 +1431,23 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getDealtHandTarot(DealtHandTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DOG)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DOG)) {
             _object.setDog(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
             _object.setAllowedBids(DocumentReaderTarotUtil.getListBidTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REP)) {
             _object.setRep(DocumentReaderTarotUtil.getDealingTarot(_element));
             return;
         }
@@ -1462,7 +1463,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorBidding(ErrorBidding _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BID)) {
             _object.setBid(DocumentReaderTarotUtil.getBidTarot(_element));
             return;
         }
@@ -1478,11 +1479,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorDiscarding(ErrorDiscarding _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ERROR_MESSAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ERROR_MESSAGE)) {
             _object.setErrorMessage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -1498,11 +1499,11 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorHandful(ErrorHandful _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HANDFUL)) {
             _object.setHandful(DocumentReaderTarotUtil.getHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ERROR)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ERROR)) {
             _object.setError(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -1518,34 +1519,34 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getErrorPlaying(ErrorPlaying _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REASON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REASON)) {
             _object.setReason(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getRefreshHand(RefreshHand _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
             _object.setChoosenHandful(DocumentReaderTarotUtil.getHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HANDFUL)) {
             _object.setHandful(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MISERES)) {
             _object.setMiseres(DocumentReaderTarotUtil.getListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CALLED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLED_CARD)) {
             _object.setCalledCard(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1553,23 +1554,23 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getRefreshingDone(RefreshingDone _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARD)) {
             _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOOSEN_HANDFUL)) {
             _object.setChoosenHandful(DocumentReaderTarotUtil.getHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HANDFUL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HANDFUL)) {
             _object.setHandful(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MISERES)) {
             _object.setMiseres(DocumentReaderTarotUtil.getListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CALLED_CARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLED_CARD)) {
             _object.setCalledCard(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1577,7 +1578,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getSeenDiscardedTrumps(SeenDiscardedTrumps _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DECLARING_SLAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARING_SLAM)) {
             _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -1594,7 +1595,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowBiddingTarot(AllowBiddingTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BIDS)) {
             _object.setBids(DocumentReaderTarotUtil.getListBidTarot(_element));
             return;
         }
@@ -1610,23 +1611,23 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getAllowPlayingTarot(AllowPlayingTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_ROUND_PLAYING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_ROUND_PLAYING)) {
             _object.setFirstRoundPlaying(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_HANDFULS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_HANDFULS)) {
             _object.setAllowedHandfuls(DocumentReaderTarotUtil.getListHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REQUIRED_TRUMPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REQUIRED_TRUMPS)) {
             _object.setRequiredTrumps(DocumentReaderTarotUtil.getMapHandfulsInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_MISERES)) {
             _object.setAllowedMiseres(DocumentReaderTarotUtil.getListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1642,15 +1643,15 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getCallableCards(CallableCards _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CALLABLE_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLABLE_CARDS)) {
             _object.setCallableCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISCARDING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISCARDING)) {
             _object.setDiscarding(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -1666,15 +1667,15 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getCallableCardsDiscard(CallableCardsDiscard _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CALLABLE_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLABLE_CARDS)) {
             _object.setCallableCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISCARDED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISCARDED)) {
             _object.setDiscarded(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }

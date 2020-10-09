@@ -4,6 +4,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class CheckerGameBeloteWithRules {
 
@@ -333,7 +334,7 @@ public final class CheckerGameBeloteWithRules {
         loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
-        for (byte b = CustList.FIRST_INDEX; b < nbPl_; b++) {
+        for (byte b = IndexConstants.FIRST_INDEX; b < nbPl_; b++) {
             for (CardBelote c : _loadedGame.getAnnoncesBeloteRebelote(b)) {
                 if (!_loadedGame.cartesBeloteRebelote().contient(c)) {
                     _loadedGame.setError(BAD_DECLARING);
@@ -436,19 +437,19 @@ public final class CheckerGameBeloteWithRules {
         HandBelote talon_ = new HandBelote();
         talon_.ajouterCartes(_loadedGame.getDistribution().derniereMain());
         HandBelote h_ = new HandBelote();
-        h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
+        h_.ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
         _restitutedDeal.hand(_loadedGame.getPreneur()).supprimerCartes(h_);
         for (int i : rules_.getRepartition().getDistributionFin()) {
             for (byte j : _loadedGame.orderedPlayers(_loadedGame
                     .playerAfter(_loadedGame.getDistribution().getDealer()))) {
-                for (int k = CustList.SECOND_INDEX; k < i; k++) {
+                for (int k = IndexConstants.SECOND_INDEX; k < i; k++) {
                     h_ = new HandBelote();
-                    h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
+                    h_.ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                     _restitutedDeal.hand(j).supprimerCartes(h_);
                 }
                 if (j != _loadedGame.getPreneur()) {
                     h_ = new HandBelote();
-                    h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
+                    h_.ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                     _restitutedDeal.hand(j).supprimerCartes(h_);
                 }
             }

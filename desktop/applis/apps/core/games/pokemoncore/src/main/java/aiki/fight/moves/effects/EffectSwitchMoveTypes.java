@@ -3,6 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class EffectSwitchMoveTypes extends Effect {
@@ -15,10 +16,10 @@ public final class EffectSwitchMoveTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (String k : changeTypes.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k)) {
+            if (!StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), changeTypes.getVal(k))) {
+            if (!StringUtil.contains(_data.getTypes(), changeTypes.getVal(k))) {
                 _data.setError(true);
             }
         }

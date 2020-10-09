@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -15,7 +16,6 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 
 
 public class HandBeloteTest {
@@ -1672,7 +1672,7 @@ public class HandBeloteTest {
     private void asserting(CustList<HandBelote> _exp, CustList<HandBelote> _res) {
         assertEq(_exp.size(), _res.size());
         int s_ = _exp.size();
-        for (int i = CustList.FIRST_INDEX; i < s_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
             assertEq(_exp.get(i), _res.get(i));
         }
     }

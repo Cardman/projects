@@ -1,7 +1,6 @@
 package code.maths.litteral;
-import code.util.StringList;
 import code.util.StringMap;
-
+import code.util.core.StringUtil;
 
 
 public final class AddOperation extends NumericOperation {
@@ -13,7 +12,7 @@ public final class AddOperation extends NumericOperation {
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, int _offset, ErrorStatus _error) {
-        if (StringList.quickEq(_op.trim(), PLUS)) {
+        if (StringUtil.quickEq(_op.trim(), PLUS)) {
             return calculateSum(_a, _b);
         }
         return calculateDiff(_a, _b);

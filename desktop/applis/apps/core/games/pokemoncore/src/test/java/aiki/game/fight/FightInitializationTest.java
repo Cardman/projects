@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import aiki.comments.Comment;
 import aiki.db.DataBase;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1089,7 +1090,7 @@ public class FightInitializationTest extends InitializationDataBase {
         assertTrue(!fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(list_, ELECTRIQUE));
     }
 
     @Test

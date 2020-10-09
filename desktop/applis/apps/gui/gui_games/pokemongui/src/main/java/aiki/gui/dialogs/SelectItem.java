@@ -1,7 +1,6 @@
 package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JCheckBox;
 import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
@@ -14,8 +13,8 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
-import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class SelectItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
@@ -89,7 +88,7 @@ public final class SelectItem extends SelectDialog {
 
     public static boolean isSelectedIndex() {
         DIALOG.setVisible(true);
-        return DIALOG.facade.getLineItem() != CustList.INDEX_NOT_FOUND_ELT;
+        return DIALOG.facade.getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk() {

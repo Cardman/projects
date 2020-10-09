@@ -2,6 +2,7 @@ package code.util.graphs;
 
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 import code.util.ints.SortedEdge;
 
 public final class SortedGraph<T extends SortedEdge<T>> {
@@ -15,13 +16,13 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         while (true) {
             EqList<T> next_ = new EqList<T>();
             for (T e: elts_) {
-                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
+                if (e.getOrder() > IndexConstants.INDEX_NOT_FOUND_ELT) {
                     continue;
                 }
                 EqList<T> list_ = graph.getChildren(e);
                 boolean allNb_ = true;
                 for (T s: list_) {
-                    if (s.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
+                    if (s.getOrder() == IndexConstants.INDEX_NOT_FOUND_ELT) {
                         allNb_ = false;
                         break;
                     }

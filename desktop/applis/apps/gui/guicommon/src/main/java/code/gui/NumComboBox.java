@@ -1,6 +1,6 @@
 package code.gui;
 import code.util.*;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 
 public class NumComboBox extends TreeComboBox<Integer> {
@@ -28,7 +28,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
     public void setSelectedItem(int _i) {
         int index_ = 0;
         for (Integer k: getElements().getKeys()) {
-            if (Numbers.eq(k, _i)) {
+            if (NumberUtil.eq(k, _i)) {
                 selectItem(index_);
                 break;
             }

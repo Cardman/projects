@@ -9,6 +9,7 @@ import code.sml.MutableNode;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendSubmit extends RendElement {
 
@@ -41,7 +42,7 @@ public final class RendSubmit extends RendElement {
             }
             curWr_.removeAttribute(e.getKey());
         }
-        curWr_.setAttribute(_cont.getRendKeyWords().getAttrValue(), StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
+        curWr_.setAttribute(_cont.getRendKeyWords().getAttrValue(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrType(), _cont.getRendKeyWords().getValueSubmit());
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordInput());
     }

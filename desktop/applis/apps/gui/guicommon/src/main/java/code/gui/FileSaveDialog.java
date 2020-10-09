@@ -11,8 +11,8 @@ import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.stream.StreamTextFile;
 import code.util.CharList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.filesavedialog";
@@ -76,7 +76,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         action_ = new LabelButton(messages.getVal(CANCEL));
         action_.addMouseListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
-        if (StringList.quickEq(getFolder(),ConstFiles.getHomePath())) {
+        if (StringUtil.quickEq(getFolder(),ConstFiles.getHomePath())) {
             searchingPanel.removeAll();
             TextLabel label_;
             label_ = new TextLabel(messages.getVal(FOLDER_NAME));
@@ -102,7 +102,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             new File(str_.toString()).mkdirs();
             applyTreeChangeSelected();
         } else {
-            new File(StringList.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
+            new File(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
             applyTreeChange();
         }
     }
@@ -137,10 +137,10 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 break;
             }
         }
-        if (StringList.quickEq(text_,"..")) {
+        if (StringUtil.quickEq(text_,"..")) {
             hasForbbidenChars_ = true;
         }
-        if (StringList.quickEq(text_,".")) {
+        if (StringUtil.quickEq(text_,".")) {
             hasForbbidenChars_ = true;
         }
         if (hasForbbidenChars_) {
@@ -149,9 +149,9 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             return;
         }
         //get selected row first table
-        File file_ = new File(StringList.concat(getCurrentFolder(), text_,getExtension()));
+        File file_ = new File(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
         if (file_.exists()) {
-            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), StringList.concat(getCurrentFolder(), text_));
+            String mes_ = StringUtil.simpleStringsFormat(messages.getVal(BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(
 //                    this,
 //                    mes_, messages.getVal(TITLE_CONF),
@@ -167,7 +167,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 return;
             }
         }
-        setSelectedPath(StringList.concat(getCurrentFolder(), text_,getExtension()));
+        setSelectedPath(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
         closeWindow();
     }
 

@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.util.TypesDuo;
 import code.util.EqList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class EffectUnprotectFromTypes extends Effect {
@@ -18,10 +19,10 @@ public final class EffectUnprotectFromTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (TypesDuo t : types) {
-            if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
+            if (!StringUtil.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
+            if (!StringUtil.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
             }
         }

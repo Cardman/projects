@@ -14,7 +14,8 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class RendDimensionArrayInstancing extends
         RendAbstractArrayInstancingOperation {
@@ -30,14 +31,14 @@ public final class RendDimensionArrayInstancing extends
                          Configuration _conf, ContextEl _ctx) {
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(m_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_ = new int[filter_.size()];
 
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
             NumberStruct n_ = NumParsers.convertToNumber(_arguments.get(i_).getStruct());
@@ -75,7 +76,7 @@ public final class RendDimensionArrayInstancing extends
                     int off_ = _filter.get(j_);
                     _cont.setOpOffset(off_);
                 }
-                return new ErrorStruct(_context,StringList.concat(Integer.toString(s),"<0"),size_);
+                return new ErrorStruct(_context, StringUtil.concat(Integer.toString(s),"<0"),size_);
             }
             dims_.add(s);
             j_++;

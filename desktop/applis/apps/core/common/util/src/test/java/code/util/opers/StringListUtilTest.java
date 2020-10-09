@@ -2,9 +2,9 @@ package code.util.opers;
 import static code.util.EquallableExUtil.assertEq;
 
 import code.util.CustList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
-import code.util.EqList;
 import code.util.StringList;
 
 
@@ -62,73 +62,73 @@ public class StringListUtilTest {
     }
     @Test
     public void commonSubstrings1Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray());
+        StringList exp_ = new StringList(StringUtil.wrapStringArray());
         assertEq(exp_, StringListUtil.commonSubstrings("", ""));
         assertEq(exp_, StringListUtil.commonSubstrings("", ""));
     }
     @Test
     public void commonSubstrings2Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("a"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("a"));
         assertEq(exp_, StringListUtil.commonSubstrings("a", "a"));
         assertEq(exp_, StringListUtil.commonSubstrings("a", "a"));
     }
     @Test
     public void commonSubstrings3Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("ell"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("ell"));
         assertEq(exp_, StringListUtil.commonSubstrings("hello", "kelly"));
         assertEq(exp_, StringListUtil.commonSubstrings("kelly", "hello"));
     }
     @Test
     public void commonSubstrings4Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray());
+        StringList exp_ = new StringList(StringUtil.wrapStringArray());
         assertEq(exp_, StringListUtil.commonSubstrings("hello", "miss"));
         assertEq(exp_, StringListUtil.commonSubstrings("miss", "hello"));
     }
     @Test
     public void commonSubstrings5Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("e","m"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("e","m"));
         assertEq(exp_, StringListUtil.commonSubstrings("elements", "em"));
         assertEq(exp_, StringListUtil.commonSubstrings("em", "elements"));
     }
     @Test
     public void commonSubstrings6Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("e","m","s"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("e","m","s"));
         assertEq(exp_, StringListUtil.commonSubstrings("elements", "ems"));
         assertEq(exp_, StringListUtil.commonSubstrings("ems", "elements"));
     }
     @Test
     public void commonSubstrings7Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("ar"," ","iz"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("ar"," ","iz"));
         assertEq(exp_, StringListUtil.commonSubstrings("Star Wiz", "Wars Quizz"));
         assertEq(exp_, StringListUtil.commonSubstrings("Wars Quizz", "Star Wiz"));
     }
     @Test
     public void commonSubstrings8Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("ar"," ","izz"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("ar"," ","izz"));
         assertEq(exp_, StringListUtil.commonSubstrings("Star Wizz", "Wars Quizz"));
         assertEq(exp_, StringListUtil.commonSubstrings("Wars Quizz", "Star Wizz"));
     }
     @Test
     public void commonSubstrings9Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("ar"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("ar"));
         assertEq(exp_, StringListUtil.commonSubstrings("Star", "Wars"));
         assertEq(exp_, StringListUtil.commonSubstrings("Wars", "Star"));
     }
     @Test
     public void commonSubstrings10Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("llo ","r"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("llo ","r"));
         assertEq(exp_, StringListUtil.commonSubstrings("hello world", "allo gunners"));
         assertEq(exp_, StringListUtil.commonSubstrings("allo gunners", "hello world"));
     }
     @Test
     public void commonSubstrings11Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("ime"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("ime"));
         assertEq(exp_, StringListUtil.commonSubstrings("mime", "rime"));
         assertEq(exp_, StringListUtil.commonSubstrings("rime", "mime"));
     }
     @Test
     public void commonSubstrings12Test(){
-        StringList exp_ = new StringList(StringList.wrapStringArray("m","e"));
+        StringList exp_ = new StringList(StringUtil.wrapStringArray("m","e"));
         assertEq(exp_, StringListUtil.commonSubstrings("mime", "perime"));
         assertEq(exp_, StringListUtil.commonSubstrings("perime", "mime"));
     }

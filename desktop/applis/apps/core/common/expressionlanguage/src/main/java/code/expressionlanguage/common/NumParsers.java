@@ -3,9 +3,12 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.Numbers;
 import code.util.Replacement;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 
 public final class NumParsers {
     private static final String LOWER_EQ = "<=";
@@ -41,7 +44,7 @@ public final class NumParsers {
             return new FloatStruct((float) doubleInfo_.getValue());
         }
         StringBuilder nbFormatted_ = _infosNb.getIntPart();
-        String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
+        String nb_ = StringUtil.removeChars(StringUtil.removeAllSpaces(nbFormatted_.toString()), '_');
         if (_infosNb.getBase() == 16) {
             if (nb_.length() > 16) {
                 return NullStruct.NULL_VALUE;
@@ -213,7 +216,7 @@ public final class NumParsers {
         }
         LongInfo longValue_ = NumParsers.parseLong(nb_, 10);
         if (!longValue_.isValid()) {
-            String str_  = StringList.concat("-",nb_);
+            String str_  = StringUtil.concat("-",nb_);
             LongInfo oppLongValue_ = NumParsers.parseLong(str_, 10);
             if (oppLongValue_.isValid()) {
                 if (suffix_ == 'L' || suffix_ == 'l') {
@@ -1043,12 +1046,12 @@ public final class NumParsers {
             if (f_ > 0.0) {
                 return new StringStruct(_infinity);
             }
-            return new StringStruct(StringList.concat("-",_infinity));
+            return new StringStruct(StringUtil.concat("-",_infinity));
         }
         if (Float.isNaN(f_)) {
             return new StringStruct(_nan);
         }
-        return new StringStruct(StringList.replace(Float.toString(f_),"E",_exp));
+        return new StringStruct(StringUtil.replace(Float.toString(f_),"E",_exp));
     }
 
     public static StringStruct getDoubleString(NumberStruct _nb, String _infinity, String _nan, String _exp) {
@@ -1057,29 +1060,29 @@ public final class NumParsers {
             if (d_ > 0.0) {
                 return new StringStruct(_infinity);
             }
-            return new StringStruct(StringList.concat("-",_infinity));
+            return new StringStruct(StringUtil.concat("-",_infinity));
         }
         if (Double.isNaN(d_)) {
             return new StringStruct(_nan);
         }
-        return new StringStruct(StringList.replace(Double.toString(d_),"E",_exp));
+        return new StringStruct(StringUtil.replace(Double.toString(d_),"E",_exp));
     }
 
     public static int compareGene(NumberStruct _nb1, NumberStruct _nb2) {
         if (_nb1 instanceof DoubleStruct || _nb1 instanceof FloatStruct || _nb2 instanceof DoubleStruct || _nb2 instanceof FloatStruct) {
             if (_nb1.doubleStruct() < _nb2.doubleStruct()) {
-                return CustList.NO_SWAP_SORT;
+                return SortConstants.NO_SWAP_SORT;
             }
             if (_nb1.doubleStruct() > _nb2.doubleStruct()) {
-                return CustList.SWAP_SORT;
+                return SortConstants.SWAP_SORT;
             }
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         return compare(_nb1,_nb2);
     }
 
     public static int compare(NumberStruct _nb1, NumberStruct _nb2) {
-        return Numbers.compareLg(_nb1.longStruct(),_nb2.longStruct());
+        return NumberUtil.compareLg(_nb1.longStruct(),_nb2.longStruct());
     }
 
     public static double asDouble(Struct _struct, StringList list_, Struct[] _args) {
@@ -1103,12 +1106,12 @@ public final class NumParsers {
 
     public static IntStruct cmpBool(BooleanStruct _one, BooleanStruct _two) {
         if (_one.sameReference(_two)) {
-            return new IntStruct(CustList.EQ_CMP);
+            return new IntStruct(SortConstants.EQ_CMP);
         }
         if (BooleanStruct.isTrue(_one)) {
-            return new IntStruct(CustList.SWAP_SORT);
+            return new IntStruct(SortConstants.SWAP_SORT);
         }
-        return new IntStruct(CustList.NO_SWAP_SORT);
+        return new IntStruct(SortConstants.NO_SWAP_SORT);
     }
 
     public static boolean sameReference(NumberStruct _first, NumberStruct _other) {
@@ -1186,7 +1189,7 @@ public final class NumParsers {
         if (len_ != other_.length()) {
             return false;
         }
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (_current.charAt(i) != other_.charAt(i)) {
                 return false;
             }
@@ -1468,15 +1471,15 @@ public final class NumParsers {
     public static BooleanStruct compareNb(String _op, Struct _one, Struct _two) {
         boolean complement_ = false;
         String useOp_ = _op;
-        if (StringList.quickEq(_op, LOWER_EQ)) {
+        if (StringUtil.quickEq(_op, LOWER_EQ)) {
             complement_ = true;
             useOp_ = GREATER;
-        } else if (StringList.quickEq(_op, GREATER_EQ)) {
+        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
             complement_ = true;
             useOp_ = LOWER;
         }
         BooleanStruct arg_;
-        if (StringList.quickEq(useOp_, LOWER)) {
+        if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = quickCalculateLowerNb(_one, _two);
         } else {
             arg_ = quickCalculateGreaterNb(_one, _two);
@@ -1490,15 +1493,15 @@ public final class NumParsers {
     public static BooleanStruct compareStr(String _op, Struct _one, Struct _two) {
         boolean complement_ = false;
         String useOp_ = _op;
-        if (StringList.quickEq(_op, LOWER_EQ)) {
+        if (StringUtil.quickEq(_op, LOWER_EQ)) {
             complement_ = true;
             useOp_ = GREATER;
-        } else if (StringList.quickEq(_op, GREATER_EQ)) {
+        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
             complement_ = true;
             useOp_ = LOWER;
         }
         BooleanStruct arg_;
-        if (StringList.quickEq(useOp_, LOWER)) {
+        if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = quickCalculateLowerStr(_one, _two);
         } else {
             arg_ = quickCalculateGreaterStr(_one, _two);
@@ -1851,7 +1854,7 @@ public final class NumParsers {
             for (int i = 0; i< value_; i++) {
                 power_ *= 2;
             }
-            return new IntStruct(Numbers.quot(left_, power_));
+            return new IntStruct(NumberUtil.quot(left_, power_));
         }
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
@@ -1861,7 +1864,7 @@ public final class NumParsers {
         for (int i = 0; i< value_; i++) {
             power_ *= 2;
         }
-        return new LongStruct(Numbers.quot(left_, power_));
+        return new LongStruct(NumberUtil.quot(left_, power_));
     }
 
     public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, byte _cast) {
@@ -2008,7 +2011,7 @@ public final class NumParsers {
 
     public static void setElements(ArrayStruct _arr,CustList<Struct> _args) {
         int len_ = _args.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             _arr.set(i,_args.get(i));
         }
     }

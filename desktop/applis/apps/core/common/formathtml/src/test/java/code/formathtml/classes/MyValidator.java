@@ -1,7 +1,7 @@
 package code.formathtml.classes;
 import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class MyValidator implements Validator {
 
@@ -15,13 +15,13 @@ public class MyValidator implements Validator {
             } else {
                 message_.setArgs(String.valueOf(((Long)_value).longValue()));
             }
-            message_.setMessage(StringList.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+            message_.setMessage(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         if (!Rate.matchesRate((String)_value)) {
             Message message_ = new Message();
             message_.setArgs((String) _value);
-            message_.setMessage(StringList.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+            message_.setMessage(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         Rate rate_ = new Rate((String)_value);

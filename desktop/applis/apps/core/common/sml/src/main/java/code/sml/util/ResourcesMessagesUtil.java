@@ -1,6 +1,6 @@
 package code.sml.util;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ResourcesMessagesUtil {
 
@@ -11,8 +11,8 @@ public final class ResourcesMessagesUtil {
     private ResourcesMessagesUtil() {
     }
     public static String getPropertiesPath(String _folder, String _language, String _file) {
-        String name_ = StringList.replace(_file, DOT, SEPARATEUR);
-        return StringList.simpleStringsFormat(PROPERTIES_PATTERN, _folder, _language, name_);
+        String name_ = StringUtil.replace(_file, DOT, SEPARATEUR);
+        return StringUtil.simpleStringsFormat(PROPERTIES_PATTERN, _folder, _language, name_);
     }
 
 }

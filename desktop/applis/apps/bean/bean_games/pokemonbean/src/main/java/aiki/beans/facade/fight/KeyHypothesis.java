@@ -4,8 +4,8 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.*;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.NumberUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -37,7 +37,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         move = data_.translateMove(_move);
         name_ = fight_.getFighter(_targetPk).getName();
         targetPokemon = data_.translatePokemon(name_);
-        belongsToUser = Numbers.eq(_targetPk.getTeam(), Fight.PLAYER);
+        belongsToUser = NumberUtil.eq(_targetPk.getTeam(), Fight.PLAYER);
         numberTarget = _targetPk.getPosition();
     }
 
@@ -80,7 +80,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return false;
         }
-        res_ = Numbers.compareLg(numberPlayer, _g.numberPlayer);
+        res_ = NumberUtil.compareLg(numberPlayer, _g.numberPlayer);
         if (res_ != 0) {
             return false;
         }
@@ -97,7 +97,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return false;
         }
-        res_ = Numbers.compareLg(numberTarget, _g.numberTarget);
+        res_ = NumberUtil.compareLg(numberTarget, _g.numberTarget);
         return res_ == 0;
     }
 
@@ -107,7 +107,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return res_;
         }
-        res_ = Numbers.compareLg(numberPlayer, _o.numberPlayer);
+        res_ = NumberUtil.compareLg(numberPlayer, _o.numberPlayer);
         if (res_ != 0) {
             return res_;
         }
@@ -124,7 +124,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return res_;
         }
-        return Numbers.compareLg(numberTarget, _o.numberTarget);
+        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package aiki.map.util;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -13,9 +14,9 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
     private final short yCoords;
 
     MiniMapCoords(String _value) {
-        StringList list_ = StringList.splitChars(_value, SEPARATOR);
-        xCoords = (short) Numbers.parseInt(list_.first());
-        yCoords = (short) Numbers.parseInt(list_.last());
+        StringList list_ = StringUtil.splitChars(_value, SEPARATOR);
+        xCoords = (short) NumberUtil.parseInt(list_.first());
+        yCoords = (short) NumberUtil.parseInt(list_.last());
     }
 
     public MiniMapCoords(short _x, short _y) {
@@ -30,13 +31,10 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
 
     @Override
     public boolean eq(MiniMapCoords _obj) {
-        if (!Numbers.eq(xCoords, _obj.xCoords)) {
+        if (!NumberUtil.eq(xCoords, _obj.xCoords)) {
             return false;
         }
-        if (!Numbers.eq(yCoords, _obj.yCoords)) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(yCoords, _obj.yCoords);
     }
 
     public short getXcoords() {

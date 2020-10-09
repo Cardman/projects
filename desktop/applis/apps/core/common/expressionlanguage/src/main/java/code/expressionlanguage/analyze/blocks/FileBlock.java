@@ -9,6 +9,8 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.FileMetricsCore;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {
     private static final char LINE_RETURN = '\n';
@@ -48,7 +50,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public void processLinesTabsWithError(String _file, AnalyzedPageEl _page) {
         content = _file;
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _file.length();
         length = len_;
         getLineReturns().add(-1);
@@ -85,7 +87,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             }
             //first bad character
             d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),
-                    StringList.join(badCharsStr_,","));
+                    StringUtil.join(badCharsStr_,","));
             _page.addLocError(d_);
             for (int i: getBinChars()) {
                 d_.setIndexFile(i);
@@ -163,7 +165,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         StringList pkgs_ = new StringList();
         for (String r: packages) {
             StringBuilder id_ = new StringBuilder();
-            for (String p: StringList.splitChars(r, '.')) {
+            for (String p: StringUtil.splitChars(r, '.')) {
                 id_.append(p);
                 pkgs_.add(id_.toString());
                 id_.append('.');

@@ -21,6 +21,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AnonymousLambdaOperation extends
         LeafOperation {
@@ -86,7 +87,7 @@ public final class AnonymousLambdaOperation extends
         for (int i = 0; i < nbParams_; i++) {
             wc_.add("?");
         }
-        pattern_.append('<').append(StringList.join(wc_,',')).append('>');
+        pattern_.append('<').append(StringUtil.join(wc_,',')).append('>');
         StringList candidates_ = new StringList();
         if (!foundType_.isEmpty()) {
             Mapping mapping_ = new Mapping();
@@ -223,7 +224,7 @@ public final class AnonymousLambdaOperation extends
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
-        if (StringList.contains(parTypes_,"")||parse.getReturnType().isEmpty()) {
+        if (StringUtil.contains(parTypes_,"")||parse.getReturnType().isEmpty()) {
             StringList modifiedArgCandidates_ = new StringList();
             int nbArgs_ = parTypes_.size() + 1;
             for (int i = 0; i < nbArgs_; i++) {
@@ -231,7 +232,7 @@ public final class AnonymousLambdaOperation extends
                 for (String s: candidates_) {
                     StringList allTypes_ = StringExpUtil.getAllTypes(s);
                     String arg_ = allTypes_.get(Math.min(i+1,allTypes_.getLastIndex()));
-                    if (StringList.quickEq(arg_,"?")) {
+                    if (StringUtil.quickEq(arg_,"?")) {
                         continue;
                     }
                     argCandidates_.add(arg_);

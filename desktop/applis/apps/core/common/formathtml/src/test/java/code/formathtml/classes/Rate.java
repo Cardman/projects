@@ -1,6 +1,6 @@
 package code.formathtml.classes;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class Rate implements Displayable {
@@ -20,14 +20,14 @@ public final class Rate implements Displayable {
 
     public Rate(String _value) {
         string = _value;
-        zero = StringList.quickEq(_value,ZERO);
+        zero = StringUtil.quickEq(_value,ZERO);
     }
 
     public static boolean matchesRate(String _input) {
         if (_input.isEmpty()) {
             return false;
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS) {
             i_++;
         }
@@ -110,7 +110,7 @@ public final class Rate implements Displayable {
     }
 
     public boolean eq(Rate _r) {
-        return StringList.quickEq(string, _r.string);
+        return StringUtil.quickEq(string, _r.string);
     }
 
     public boolean isZero() {

@@ -1,6 +1,6 @@
 package aiki.beans.facade.comparators;
 import aiki.game.fight.MoveTeamPosition;
-import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorMoveTeamPosition implements Comparing<MoveTeamPosition> {
@@ -11,11 +11,11 @@ public final class ComparatorMoveTeamPosition implements Comparing<MoveTeamPosit
         if (res_ != 0) {
             return res_;
         }
-        res_ = Numbers.compareLg(_o1.getTeamPosition().getTeam(), _o2.getTeamPosition().getTeam());
+        res_ = NumberUtil.compareLg(_o1.getTeamPosition().getTeam(), _o2.getTeamPosition().getTeam());
         if (res_ != 0) {
             return res_;
         }
-        return Numbers.compareLg(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
+        return NumberUtil.compareLg(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
     }
 
 }

@@ -3,11 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Calendar;
 
-import javax.swing.JComponent;
 import javax.swing.Timer;
 
 import code.gui.events.UpdateTimeEvent;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class Clock {
 
@@ -49,7 +48,7 @@ public class Clock {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int mi_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return StringList.concat(String.valueOf(y_),_separatorDate,String.valueOf(m_),
+        return StringUtil.concat(String.valueOf(y_),_separatorDate,String.valueOf(m_),
                 _separatorDate,String.valueOf(d_),_sep,String.valueOf(h_),
                 _separatorTime,String.valueOf(mi_),_separatorTime,String.valueOf(s_));
     }
@@ -59,8 +58,8 @@ public class Clock {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        String date_ = StringList.concat(String.valueOf(d_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(y_));
-        return StringList.concat(date_,SEPARATOR_DATE_TIME,getTimeText());
+        String date_ = StringUtil.concat(String.valueOf(d_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(y_));
+        return StringUtil.concat(date_,SEPARATOR_DATE_TIME,getTimeText());
     }
 
     public static String getTimeText() {
@@ -68,7 +67,7 @@ public class Clock {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int m_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return StringList.concat(String.valueOf(h_),SEPARATOR,String.valueOf(m_),SEPARATOR,String.valueOf(s_));
+        return StringUtil.concat(String.valueOf(h_),SEPARATOR,String.valueOf(m_),SEPARATOR,String.valueOf(s_));
     }
 
     public static String getDateText() {
@@ -76,7 +75,7 @@ public class Clock {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        return StringList.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
+        return StringUtil.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
     }
 
     public CustComponent getComponent() {

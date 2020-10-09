@@ -11,6 +11,7 @@ import aiki.fight.moves.effects.EffectEndRound;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class EffectEndRoundBean extends CommonBean {
     static final String END_ROUND_HTML="web/html/endround/eff.html";
@@ -44,7 +45,7 @@ public class EffectEndRoundBean extends CommonBean {
         } else if (element.getEndRoundType() == EndTurnType.OBJET) {
             item = data_.translateItem(element.getElement());
         } else if (element.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
-            StringList moves_ = StringList.splitStrings(element.getElement(), DataBase.SEPARATOR_MOVES);
+            StringList moves_ = StringUtil.splitStrings(element.getElement(), DataBase.SEPARATOR_MOVES);
             for (String m: moves_) {
                 moves.add(data_.translateMove(m));
             }
@@ -108,7 +109,7 @@ public class EffectEndRoundBean extends CommonBean {
             ItemForBattle itBat_ = (ItemForBattle) it_;
             effect_ = itBat_.getEffectEndRound().first();
         } else if (element_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
-            StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
+            StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
             effect_ = data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().first();
         } else {
             String status_ = element_.getElement();
@@ -122,7 +123,7 @@ public class EffectEndRoundBean extends CommonBean {
     public String clickMoves(Long _indexOne, Long _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne.intValue());
-        StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
+        StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
@@ -132,7 +133,7 @@ public class EffectEndRoundBean extends CommonBean {
     public String getTrMoves(Long _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get((int) index);
-        StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
+        StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));

@@ -1,5 +1,6 @@
 package aiki.fight.util;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -15,7 +16,7 @@ public final class WeatherType implements Equallable<WeatherType>, Displayable {
     }
 
     public WeatherType(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         weather = elements_.first();
         type = elements_.last();
     }
@@ -32,13 +33,10 @@ public final class WeatherType implements Equallable<WeatherType>, Displayable {
 
     @Override
     public boolean eq(WeatherType _obj) {
-        if (!StringList.quickEq(weather, _obj.weather)) {
+        if (!StringUtil.quickEq(weather, _obj.weather)) {
             return false;
         }
-        if (!StringList.quickEq(type, _obj.type)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(type, _obj.type);
     }
 
     public String getWeather() {

@@ -1,5 +1,5 @@
 package aiki.map.enums;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public enum Direction {
@@ -24,7 +24,7 @@ public enum Direction {
     }
     public static Direction getDirectionByName(String _env) {
         for (Direction e: values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }

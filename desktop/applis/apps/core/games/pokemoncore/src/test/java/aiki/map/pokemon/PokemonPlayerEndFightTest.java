@@ -3,7 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,7 +79,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertEq(METEO,((PokemonPlayer)usable_).getAbility());
         assertEq(PLAQUE_DRACO,((PokemonPlayer)usable_).getItem());
         assertEq(1, ((PokemonPlayer)usable_).getStatus().size());
-        assertTrue(StringList.contains(((PokemonPlayer) usable_).getStatus(), SOMMEIL));
+        assertTrue(StringUtil.contains(((PokemonPlayer) usable_).getStatus(), SOMMEIL));
         assertEq(Rate.zero(), ((PokemonPlayer)usable_).getWonExpSinceLastLevel());
         assertEq(1, ((PokemonPlayer)usable_).getLevel());
         assertEq(1, ((PokemonPlayer)usable_).getMoves().size());
@@ -128,7 +128,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertEq(METEO,((PokemonPlayer)usable_).getAbility());
         assertEq(PLAQUE_DRACO,((PokemonPlayer)usable_).getItem());
         assertEq(1, ((PokemonPlayer)usable_).getStatus().size());
-        assertTrue(StringList.contains(((PokemonPlayer) usable_).getStatus(), SOMMEIL));
+        assertTrue(StringUtil.contains(((PokemonPlayer) usable_).getStatus(), SOMMEIL));
         assertEq(Rate.zero(), ((PokemonPlayer)usable_).getWonExpSinceLastLevel());
         assertEq(1, ((PokemonPlayer)usable_).getLevel());
         assertEq(1, ((PokemonPlayer)usable_).getMoves().size());
@@ -440,7 +440,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertEq(MULTITYPE,pk_.getAbility());
         assertEq(PLAQUE_DRACO,pk_.getItem());
         assertEq(1, pk_.getStatus().size());
-        assertTrue(StringList.contains(pk_.getStatus(), SOMMEIL));
+        assertTrue(StringUtil.contains(pk_.getStatus(), SOMMEIL));
         assertEq(new Rate("0"), pk_.getWonExpSinceLastLevel());
         assertEq(1, pk_.getLevel());
         assertEq(1, pk_.getMoves().size());
@@ -488,7 +488,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertEq(MULTITYPE,pk_.getAbility());
         assertEq(PLAQUE_DRACO,pk_.getItem());
         assertEq(1, pk_.getStatus().size());
-        assertTrue(StringList.contains(pk_.getStatus(), SOMMEIL));
+        assertTrue(StringUtil.contains(pk_.getStatus(), SOMMEIL));
         assertEq(new Rate("0"), pk_.getWonExpSinceLastLevel());
         assertEq(1, pk_.getLevel());
         assertEq(1, pk_.getMoves().size());

@@ -206,6 +206,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 public final class DocumentWriterAikiCoreUtil {
 
@@ -1070,30 +1071,30 @@ public final class DocumentWriterAikiCoreUtil {
         for (String n : _d.getPokedex().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setPokemonData(_d.getPokedex()
                     .getVal(n));
-            files_.put(StringList.concat(POKEDEX_FOLDER, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(POKEDEX_FOLDER, SEPARATOR_FILES, n,
                     FILES_RES_EXT), file_);
         }
         for (String n : _d.getMoves().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setMoveData(_d.getMoves()
                     .getVal(n));
-            files_.put(StringList.concat(MOVES_FOLDER, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(MOVES_FOLDER, SEPARATOR_FILES, n,
                     FILES_RES_EXT), file_);
         }
         for (String n : _d.getItems().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setItem(_d.getItems().getVal(n));
-            files_.put(StringList.concat(ITEMS_FOLDER, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(ITEMS_FOLDER, SEPARATOR_FILES, n,
                     FILES_RES_EXT), file_);
         }
         for (String n : _d.getAbilities().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setAbilityData(_d.getAbilities()
                     .getVal(n));
-            files_.put(StringList.concat(ABILITIES_FOLDER, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(ABILITIES_FOLDER, SEPARATOR_FILES, n,
                     FILES_RES_EXT), file_);
         }
         for (String n : _d.getStatus().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setStatus(_d.getStatus()
                     .getVal(n));
-            files_.put(StringList.concat(STATUS_FOLDER, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(STATUS_FOLDER, SEPARATOR_FILES, n,
                     FILES_RES_EXT), file_);
         }
         String file_ = DocumentWriterAikiCoreUtil.setCombos(_d.getCombos());
@@ -1102,38 +1103,38 @@ public final class DocumentWriterAikiCoreUtil {
         files_.put(MAP_FILE, file_);
         StringList lines_ = new StringList();
         for (String s : _d.getConstNum().getKeys()) {
-            lines_.add(StringList.concat(s, TAB, _d.getConstNum().getVal(s)
+            lines_.add(StringUtil.concat(s, TAB, _d.getConstNum().getVal(s)
                     .toNumberString()));
         }
-        files_.put(CONST_NUM, StringList.join(lines_, RETURN_LINE));
+        files_.put(CONST_NUM, StringUtil.join(lines_, RETURN_LINE));
         lines_ = new StringList();
         for (String s : _d.getTypesColors().getKeys()) {
-            lines_.add(StringList.concat(s, TAB, _d.getTypesColors().getVal(s)));
+            lines_.add(StringUtil.concat(s, TAB, _d.getTypesColors().getVal(s)));
         }
-        files_.put(StringList.concat(TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT),
-                StringList.join(lines_, RETURN_LINE));
+        files_.put(StringUtil.concat(TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT),
+                StringUtil.join(lines_, RETURN_LINE));
         lines_ = new StringList();
-        lines_.add(StringList.concat(DEF_MOVE, TAB, _d.getDefMove()));
-        lines_.add(StringList.concat(RATE_BOOST, TAB, _d.getRateBoost()));
-        lines_.add(StringList.concat(RATE_BOOST_CRITICAL_HIT, TAB,
+        lines_.add(StringUtil.concat(DEF_MOVE, TAB, _d.getDefMove()));
+        lines_.add(StringUtil.concat(RATE_BOOST, TAB, _d.getRateBoost()));
+        lines_.add(StringUtil.concat(RATE_BOOST_CRITICAL_HIT, TAB,
                 _d.getRateBoostCriticalHit()));
-        lines_.add(StringList.concat(RATE_FLEEING, TAB, _d.getRateFleeing()));
-        lines_.add(StringList.concat(RATE_CATCHING, TAB, _d.getRateCatching()));
-        lines_.add(StringList.concat(BALL_DEF, TAB, _d.getBallDef()));
-        lines_.add(StringList.concat(DEFAULT_EGG_GROUP, TAB, _d.getDefaultEggGroup()));
-        lines_.add(StringList.concat(DAMAGE_FORMULA, TAB, _d.getDamageFormula()));
+        lines_.add(StringUtil.concat(RATE_FLEEING, TAB, _d.getRateFleeing()));
+        lines_.add(StringUtil.concat(RATE_CATCHING, TAB, _d.getRateCatching()));
+        lines_.add(StringUtil.concat(BALL_DEF, TAB, _d.getBallDef()));
+        lines_.add(StringUtil.concat(DEFAULT_EGG_GROUP, TAB, _d.getDefaultEggGroup()));
+        lines_.add(StringUtil.concat(DAMAGE_FORMULA, TAB, _d.getDamageFormula()));
 
-        files_.put(CONST_NOT_NUM, StringList.join(lines_, RETURN_LINE));
+        files_.put(CONST_NOT_NUM, StringUtil.join(lines_, RETURN_LINE));
         StringList types_ = new StringList();
         for (TypesDuo p : _d.getTableTypes().getKeys()) {
             types_.add(p.getDamageType());
         }
         types_.removeDuplicates();
-        String output_ = StringList.concat(TAB, StringList.join(types_, TAB));
+        String output_ = StringUtil.concat(TAB, StringUtil.join(types_, TAB));
         for (String pkType_ : types_) {
-            output_ = StringList.concat(output_, RETURN_LINE, pkType_);
+            output_ = StringUtil.concat(output_, RETURN_LINE, pkType_);
             for (String damageType_ : types_) {
-                output_ = StringList.concat(output_, TAB,
+                output_ = StringUtil.concat(output_, TAB,
                         _d.getTableTypes().getVal(new TypesDuo(damageType_, pkType_))
                                 .toNumberString());
             }
@@ -1141,39 +1142,39 @@ public final class DocumentWriterAikiCoreUtil {
         files_.put(TABLE_TYPES, output_);
         StringList linesCourbes_ = new StringList();
         for (ExpType c : _d.getExpGrowth().getKeys()) {
-            linesCourbes_.add(StringList.concat(c.name(), TAB,
+            linesCourbes_.add(StringUtil.concat(c.name(), TAB,
                     _d.getExpGrowth().getVal(c)));
         }
-        files_.put(COURBE_PTS_EXP, StringList.join(linesCourbes_, RETURN_LINE));
+        files_.put(COURBE_PTS_EXP, StringUtil.join(linesCourbes_, RETURN_LINE));
         StringList rates_ = new StringList();
         for (DifficultyWinPointsFight c : _d.getRates().getKeys()) {
-            rates_.add(StringList.concat(c.name(), TAB, _d.getRates().getVal(c)));
+            rates_.add(StringUtil.concat(c.name(), TAB, _d.getRates().getVal(c)));
         }
-        files_.put(RATE_WON_POINTS, StringList.join(rates_, RETURN_LINE));
+        files_.put(RATE_WON_POINTS, StringUtil.join(rates_, RETURN_LINE));
         StringList linesLaws_ = new StringList();
         for (DifficultyModelLaw k : _d.getLawsDamageRate().getKeys()) {
             LawNumber value_ = _d.getLawsDamageRate().getVal(k);
             StringList lawValues_ = new StringList();
             for (Rate event_ : value_.getLaw().events()) {
-                lawValues_.add(StringList.concat(event_.toNumberString(),
+                lawValues_.add(StringUtil.concat(event_.toNumberString(),
                         SEPARATOR_RAND_EVENTS, value_.getLaw().rate(event_)
                                 .toNumberString()));
             }
-            linesLaws_.add(StringList.concat(k.name(), TAB,
-                    StringList.join(lawValues_, SEPARATOR_RAND), TAB,
+            linesLaws_.add(StringUtil.concat(k.name(), TAB,
+                    StringUtil.join(lawValues_, SEPARATOR_RAND), TAB,
                     Long.toString(value_.getNumber())));
         }
-        files_.put(LOIS_RANDOM, StringList.join(linesLaws_, RETURN_LINE));
+        files_.put(LOIS_RANDOM, StringUtil.join(linesLaws_, RETURN_LINE));
         StringList linesTmHm_ = new StringList();
         for (short k : _d.getHm().getKeys()) {
-            linesTmHm_.add(StringList.concat(CS, Long.toString(k), TAB,
+            linesTmHm_.add(StringUtil.concat(CS, Long.toString(k), TAB,
                     _d.getHm().getVal(k)));
         }
         for (short k : _d.getTm().getKeys()) {
-            linesTmHm_.add(StringList.concat(CT, Long.toString(k), TAB,
+            linesTmHm_.add(StringUtil.concat(CT, Long.toString(k), TAB,
                     _d.getTm().getVal(k), TAB, _d.getTmPrice().getVal(k).toNumberString()));
         }
-        files_.put(CT_CS_FILE, StringList.join(linesTmHm_, RETURN_LINE));
+        files_.put(CT_CS_FILE, StringUtil.join(linesTmHm_, RETURN_LINE));
         for (String l : _d.getTranslatedCategories().getKeys()) {
             StringList linesGenders_ = new StringList();
             StringMap<String> genders_ = _d.getTranslatedCategories().getVal(l);
@@ -1182,13 +1183,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedGenders().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1198,13 +1199,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedBooleans().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1215,13 +1216,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedDiffWinPts().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1232,13 +1233,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedDiffModelLaw().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1249,14 +1250,14 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedEnvironment().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1267,13 +1268,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedStatistics().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1284,13 +1285,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedTargets().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1301,13 +1302,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g.name());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedTypes().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1317,13 +1318,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedPokemon().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1333,13 +1334,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(pokemon_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedMoves().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1349,13 +1350,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(moves_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedItems().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1365,13 +1366,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(items_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedAbilities().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1381,13 +1382,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(abilities_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedStatus().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1397,13 +1398,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedFctMath().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1413,13 +1414,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedClassesDescriptions().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1430,13 +1431,13 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getLitterals().getKeys()) {
             StringList linesGenders_ = new StringList();
@@ -1446,21 +1447,21 @@ public final class DocumentWriterAikiCoreUtil {
                 words_ = new StringList();
                 words_.add(g);
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringList.join(words_, TAB));
+                linesGenders_.add(StringUtil.join(words_, TAB));
             }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
-            files_.put(fileName_, StringList.join(linesGenders_, RETURN_LINE));
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
+            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String n : _d.getAnimStatis().getKeys()) {
-            files_.put(StringList.concat(ANIM_STATIS, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(ANIM_STATIS, SEPARATOR_FILES, n,
                     IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
                     .getStringByImage(_d.getAnimStatis().getVal(n)));
         }
         for (String n : _d.getAnimStatus().getKeys()) {
-            files_.put(StringList.concat(ANIM_STATUS, SEPARATOR_FILES, n,
+            files_.put(StringUtil.concat(ANIM_STATUS, SEPARATOR_FILES, n,
                     IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
                     .getStringByImage(_d.getAnimStatus().getVal(n)));
         }
@@ -1468,21 +1469,21 @@ public final class DocumentWriterAikiCoreUtil {
                 BaseSixtyFourUtil.getStringByImage(_d.getAnimAbsorb()));
         for (String n : _d.getImages().getKeys()) {
             files_.put(
-                    StringList.concat(IMAGES_FOLDER, SEPARATOR_FILES, n),
+                    StringUtil.concat(IMAGES_FOLDER, SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getImages().getVal(n)));
         }
         for (String n : _d.getMiniMap().getKeys()) {
             files_.put(
-                    StringList.concat(MINI_MAP_FOLDER, SEPARATOR_FILES, n),
+                    StringUtil.concat(MINI_MAP_FOLDER, SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getMiniMap().getVal(n)));
         }
         for (String n : _d.getLinks().getKeys()) {
-            files_.put(StringList.concat(LINKS_FOLDER, SEPARATOR_FILES, n),
+            files_.put(StringUtil.concat(LINKS_FOLDER, SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getLinks().getVal(n)));
         }
         for (String n : _d.getPeople().getKeys()) {
             files_.put(
-                    StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES, n),
+                    StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getPeople().getVal(n)));
         }
         StringList linesHeros_;
@@ -1499,8 +1500,8 @@ public final class DocumentWriterAikiCoreUtil {
             linesHeros_.add(str_.toString());
         }
         files_.put(
-                StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT),
-                StringList.join(linesHeros_, RETURN_LINE));
+                StringUtil.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT),
+                StringUtil.join(linesHeros_, RETURN_LINE));
         linesHeros_.clear();
         for (ImageHeroKey k : _d.getBackHeros().getKeys()) {
             String image_ = BaseSixtyFourUtil.getStringByImage(_d.getBackHeros()
@@ -1514,8 +1515,8 @@ public final class DocumentWriterAikiCoreUtil {
             linesHeros_.add(str_.toString());
         }
         files_.put(
-                StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_BACK),
-                StringList.join(linesHeros_, RETURN_LINE));
+                StringUtil.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_BACK),
+                StringUtil.join(linesHeros_, RETURN_LINE));
         linesHeros_.clear();
         for (ImageHeroKey k : _d.getOverWorldHeros().getKeys()) {
             String image_ = BaseSixtyFourUtil
@@ -1531,49 +1532,49 @@ public final class DocumentWriterAikiCoreUtil {
             linesHeros_.add(str_.toString());
         }
         files_.put(
-                StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_MINI),
-                StringList.join(linesHeros_, RETURN_LINE));
+                StringUtil.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_MINI),
+                StringUtil.join(linesHeros_, RETURN_LINE));
         for (String n : _d.getTrainers().getKeys()) {
             files_.put(
-                    StringList.concat(TRAINERS_FOLDER, SEPARATOR_FILES, n),
+                    StringUtil.concat(TRAINERS_FOLDER, SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getTrainers().getVal(n)));
         }
         for (String n : _d.getMaxiPkFront().getKeys()) {
-            files_.put(StringList.concat(FRONT_IMAGES_FOLDER,
+            files_.put(StringUtil.concat(FRONT_IMAGES_FOLDER,
                     SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMaxiPkFront()
                             .getVal(n)));
         }
         for (String n : _d.getMaxiPkBack().getKeys()) {
             files_.put(
-                    StringList.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
+                    StringUtil.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
                             n, IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMaxiPkBack().getVal(n)));
         }
         for (String n : _d.getMiniPk().getKeys()) {
-            files_.put(StringList.concat(MINI_IMAGES_FOLDER,
+            files_.put(StringUtil.concat(MINI_IMAGES_FOLDER,
                     SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMiniPk().getVal(n)));
         }
         for (String n : _d.getMiniItems().getKeys()) {
-            files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,
+            files_.put(StringUtil.concat(OBJECTS_IMAGES_FOLDER,
                     SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMiniItems().getVal(n)));
         }
         for (String n : _d.getTypesImages().getKeys()) {
-            files_.put(StringList.concat(TYPES_IMAGES_FOLDER,
+            files_.put(StringUtil.concat(TYPES_IMAGES_FOLDER,
                     SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getTypesImages()
                             .getVal(n)));
         }
         files_.put(
-                StringList.concat(IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT),
+                StringUtil.concat(IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT),
                 BaseSixtyFourUtil.getStringByImage(_d.getImageTmHm()));
-        files_.put(StringList.concat(IMAGE_STORAGE_FILES,
+        files_.put(StringUtil.concat(IMAGE_STORAGE_FILES,
                 IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
                 .getStringByImage(_d.getStorage()));
         files_.put(
-                StringList.concat(END_GAME_IMAGE, IMG_FILES_RES_EXT_TXT),
+                StringUtil.concat(END_GAME_IMAGE, IMG_FILES_RES_EXT_TXT),
                 BaseSixtyFourUtil.getStringByImage(_d.getEndGameImage()));
         return files_;
     }

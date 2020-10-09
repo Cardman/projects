@@ -7,8 +7,8 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.Panel;
-import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public class CarpetTarot {
 
@@ -278,7 +278,7 @@ public class CarpetTarot {
         centerDeck.setBackground(new Color(0, 125, 0));
         boolean entered_ = false;
         int nbCards_ = _m.total();
-        for (byte b = CustList.FIRST_INDEX; b < nbCards_; b++) {
+        for (byte b = IndexConstants.FIRST_INDEX; b < nbCards_; b++) {
             GraphicTarotCard cg_ = new GraphicTarotCard(_lg,
                     SwingConstants.RIGHT, !entered_);
             cg_.setPreferredSize(entered_);

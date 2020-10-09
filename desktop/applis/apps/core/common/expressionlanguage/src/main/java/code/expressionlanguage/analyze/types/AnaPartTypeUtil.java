@@ -10,6 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AnaPartTypeUtil {
     private AnaPartTypeUtil(){
@@ -83,7 +84,7 @@ public final class AnaPartTypeUtil {
         if (!StringExpUtil.isTypeLeafPart(typeName_)) {
             return true;
         }
-        if (StringList.contains(_excludedWords,typeName_)) {
+        if (StringUtil.contains(_excludedWords,typeName_)) {
             return true;
         }
         return StringExpUtil.isDigit(typeName_.charAt(0));
@@ -754,7 +755,7 @@ public final class AnaPartTypeUtil {
         int off_ = par_.getIndexInType() + _dels.last().firstKey();
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
-        off_ += StringList.getFirstPrintableCharIndex(v_);
+        off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_.trim(), _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, last_, _page);
         p_.setLength(v_.trim().length());
@@ -769,7 +770,7 @@ public final class AnaPartTypeUtil {
         int off_ = par_.getIndexInType() + _dels.last().firstKey();
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
-        off_ += StringList.getFirstPrintableCharIndex(v_);
+        off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, last_, _page);
         p_.setLength(v_.trim().length());
@@ -821,7 +822,7 @@ public final class AnaPartTypeUtil {
         }
         int off_ = par_.getIndexInType() + _dels.last().getKey(indexNext_);
         String v_ = last_.getValue(indexNext_);
-        off_ += StringList.getFirstPrintableCharIndex(v_);
+        off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_.trim(), _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, last_, _page);
         p_.setPreviousSibling(_parent);
@@ -843,7 +844,7 @@ public final class AnaPartTypeUtil {
         }
         int off_ = par_.getIndexInType() + _dels.last().getKey(indexNext_);
         String v_ = last_.getValue(indexNext_);
-        off_ += StringList.getFirstPrintableCharIndex(v_);
+        off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, last_, _page);
         p_.setPreviousSibling(_parent);

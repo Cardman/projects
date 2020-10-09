@@ -24,8 +24,8 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
 
@@ -69,7 +69,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         }
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
         if (!sw_.getInstanceTest().isEmpty()) {
-            if (StringList.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
+            if (StringUtil.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
                 setImportedClassName("");
                 return;
             }
@@ -102,14 +102,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                         continue;
                     }
                     InnerTypeOrElement e_ = (InnerTypeOrElement) f;
-                    if (!StringList.contains(e_.getFieldName(), value.trim())) {
+                    if (!StringUtil.contains(e_.getFieldName(), value.trim())) {
                         continue;
                     }
                     _page.setLookLocalClass(id_);
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    Delimiters d_ = ElResolver.checkSyntax(value, CustList.FIRST_INDEX, _page);
-                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, d_, _page);
-                    OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _page);
+                    Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
+                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
+                    OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
                     op_.analyze(_page);
                     _page.setLookLocalClass(EMPTY_STRING);
                     op_.setOrder(0);
@@ -158,7 +158,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
                         _page.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(arg_, _page),
-                        StringList.join(resSwitch_.getNames(),AND_ERR));
+                        StringUtil.join(resSwitch_.getNames(),AND_ERR));
                 AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
         }
@@ -195,7 +195,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             if (first_ instanceof AnaRendCaseCondition) {
                 AnaRendCaseCondition c_ = (AnaRendCaseCondition) first_;
                 String v_ = c_.value.trim();
-                if (StringList.quickEq(v_, value.trim())) {
+                if (StringUtil.quickEq(v_, value.trim())) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());

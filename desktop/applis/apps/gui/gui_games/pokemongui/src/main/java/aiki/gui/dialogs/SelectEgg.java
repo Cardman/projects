@@ -12,8 +12,8 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
-import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class SelectEgg extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
@@ -73,7 +73,7 @@ public final class SelectEgg extends SelectDialog {
 
     public static boolean isSelectedIndex() {
         DIALOG.setVisible(true);
-        return DIALOG.facade.getLineEgg() != CustList.INDEX_NOT_FOUND_ELT;
+        return DIALOG.facade.getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk() {

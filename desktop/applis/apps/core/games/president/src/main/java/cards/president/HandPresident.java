@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
 import code.util.Ints;
+import code.util.core.IndexConstants;
 
 
 public final class HandPresident implements Iterable<CardPresident> {
@@ -24,7 +25,7 @@ public final class HandPresident implements Iterable<CardPresident> {
 
     public static HandPresident stack(int _nbStacks) {
         HandPresident liste_ = new HandPresident();
-        for (int i = CustList.FIRST_INDEX; i < _nbStacks; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nbStacks; i++) {
             liste_.ajouterCartes(HandPresident.pileBase());
         }
         return liste_;
@@ -43,7 +44,7 @@ public final class HandPresident implements Iterable<CardPresident> {
 
     public boolean validStack(int _nbStacks) {
         for (CardPresident c: pileBase()) {
-            int nbUses_ = CustList.SIZE_EMPTY;
+            int nbUses_ = IndexConstants.SIZE_EMPTY;
             for (CardPresident e: cards) {
                 if (c == e) {
                     nbUses_++;
@@ -118,7 +119,7 @@ public final class HandPresident implements Iterable<CardPresident> {
     dans le but de deplacer la moitie d'une main apres l'autre*/
     public void couper() {
         int taille_=total()/2;
-        for (int i = CustList.FIRST_INDEX;i<taille_;i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<taille_; i++) {
             ajouter(jouer(0));
         }
     }
@@ -180,7 +181,7 @@ public final class HandPresident implements Iterable<CardPresident> {
     public void supprimerCartes(HandPresident _hand) {
         int s_ = cards.size();
         for (CardPresident c: _hand) {
-            for (int i = CustList.FIRST_INDEX; i < s_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
                 if (cards.get(i) == c) {
                     cards.remove(i);
                     break;

@@ -11,6 +11,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class RendTitledAnchor extends RendElement {
     private CustList<RendDynOperationNode> opExpAnch;
@@ -50,7 +51,7 @@ public final class RendTitledAnchor extends RendElement {
             }
             curWr_.removeAttribute(e.getKey());
         }
-        curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
+        curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
         processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch, _stds, _ctx);
     }

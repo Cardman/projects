@@ -1,6 +1,6 @@
 package cards.gui.dialogs.help;
 import code.util.CustList;
-import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
 public class NodeHelp implements Displayable {
@@ -33,7 +33,7 @@ public class NodeHelp implements Displayable {
         }
         NodeHelp element_ = elementLoc(_indices.first());
         int pathLength_ = _indices.size();
-        for (int indice_ = CustList.SECOND_INDEX; indice_ < pathLength_; indice_++) {
+        for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < pathLength_; indice_++) {
             element_ = element_.elementLoc(_indices.get(indice_));
         }
         return element_;

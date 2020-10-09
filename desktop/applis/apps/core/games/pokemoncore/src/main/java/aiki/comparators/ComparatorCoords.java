@@ -2,8 +2,8 @@ package aiki.comparators;
 import aiki.db.DataBase;
 import aiki.map.places.Place;
 import aiki.util.Coords;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class ComparatorCoords implements Comparing<Coords> {
@@ -19,10 +19,10 @@ public final class ComparatorCoords implements Comparing<Coords> {
         Place plOne_ = data.getMap().getPlace(_o1.getNumberPlace());
         Place plTwo_ = data.getMap().getPlace(_o2.getNumberPlace());
         int res_ = plOne_.getName().compareTo(plTwo_.getName());
-        if (res_ != CustList.EQ_CMP) {
+        if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }
-        return Numbers.compareLg(_o1.getNumberPlace(), _o2.getNumberPlace());
+        return NumberUtil.compareLg(_o1.getNumberPlace(), _o2.getNumberPlace());
     }
 
 }

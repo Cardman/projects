@@ -6,6 +6,7 @@ import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.pokemon.evolution.EvolutionItem;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class EvolvingItemBean extends ItemBean {
     private StringList pokemon;
@@ -27,7 +28,7 @@ public class EvolvingItemBean extends ItemBean {
                     continue;
                 }
                 EvolutionItem evo_ = (EvolutionItem) e;
-                if (!StringList.quickEq(evo_.getItem(), getName())) {
+                if (!StringUtil.quickEq(evo_.getItem(), getName())) {
                     continue;
                 }
                 pokemon_.add(p);

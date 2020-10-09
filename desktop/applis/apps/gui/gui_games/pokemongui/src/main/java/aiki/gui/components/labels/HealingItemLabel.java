@@ -13,6 +13,7 @@ import code.sml.stream.ExtractFromFiles;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class HealingItemLabel extends SelectableLabel {
 
@@ -20,7 +21,7 @@ public class HealingItemLabel extends SelectableLabel {
 
     private static final String SEPARATOR = Paginator.SPACE;
 
-    private static final String SPACES = StringList.concat(Paginator.SPACE,Paginator.SPACE);
+    private static final String SPACES = StringUtil.concat(Paginator.SPACE,Paginator.SPACE);
 
     private static final String HEAL_ONE_MOVE = "healOneMove";
 
@@ -87,11 +88,11 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     public int getThirdColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringList.concat(item.getName(),SPACES));
+        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(item.getName(),SPACES));
     }
 
     public int getFourthColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringList.concat(item.getNumber().toNumberString(),SPACES));
+        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(item.getNumber().toNumberString(),SPACES));
     }
 
     @Override
@@ -115,10 +116,10 @@ public class HealingItemLabel extends SelectableLabel {
     private String getThirdLineInfos() {
         StringList infos_ = new StringList();
         if (!item.getHp().isZero()) {
-            infos_.add(StringList.concat(messages.getVal(HP),item.getHp().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(HP),item.getHp().toNumberString()));
         }
         if (!item.getHpRate().isZero()) {
-            infos_.add(StringList.concat(messages.getVal(HP_RATE),item.getHpRate().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(HP_RATE),item.getHpRate().toNumberString()));
         }
         if (!item.getPp().isZero()) {
             if (item.isHealOneMove()) {
@@ -126,17 +127,17 @@ public class HealingItemLabel extends SelectableLabel {
             } else {
                 infos_.add(messages.getVal(HEAL_MOVES));
             }
-            infos_.add(StringList.concat(messages.getVal(PP),item.getPp().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(PP),item.getPp().toNumberString()));
         }
         if (!item.getStatus().isEmpty()) {
-            infos_.add(StringList.concat(messages.getVal(STATUS), StringList.join(item.getStatus(), SEPARATOR)));
+            infos_.add(StringUtil.concat(messages.getVal(STATUS), StringUtil.join(item.getStatus(), SEPARATOR)));
         }
         if (!item.getStatistics().isEmpty()) {
-            infos_.add(StringList.concat(messages.getVal(STATISTICS), StringList.join(item.getStatistics(), SEPARATOR)));
+            infos_.add(StringUtil.concat(messages.getVal(STATISTICS), StringUtil.join(item.getStatistics(), SEPARATOR)));
         }
         if (item.isKo()) {
             infos_.add(messages.getVal(KO));
         }
-        return StringList.join(infos_, SEPARATOR);
+        return StringUtil.join(infos_, SEPARATOR);
     }
 }

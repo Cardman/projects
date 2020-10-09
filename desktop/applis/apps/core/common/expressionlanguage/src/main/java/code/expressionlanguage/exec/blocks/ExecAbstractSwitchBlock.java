@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
     private String label;
@@ -44,7 +45,7 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
             processBlockAndRemove(_cont);
             return;
         }
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
         Argument arg_ =  ExpressionLanguage.tryToCalculate(_cont,el_,0);

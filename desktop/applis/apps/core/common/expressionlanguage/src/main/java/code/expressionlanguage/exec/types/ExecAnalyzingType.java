@@ -2,10 +2,10 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
-import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ExecAnalyzingType {
 
@@ -18,14 +18,14 @@ public final class ExecAnalyzingType {
 
     public void setupValueExec(String _string) {
         values = new IntTreeMap<String>();
-        values.put((int)CustList.FIRST_INDEX, _string);
+        values.put((int)IndexConstants.FIRST_INDEX, _string);
     }
 
     public void setupArrayValuesExec(String _string) {
-        int first_ = StringList.getFirstPrintableCharIndex(_string);
+        int first_ = StringUtil.getFirstPrintableCharIndex(_string);
         int arr_ = first_;
         first_++;
-        int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
+        int offset_ = StringUtil.getFirstPrintableCharIndex(_string.substring(first_));
         if (offset_ >= 0) {
             first_ += offset_;
         } else {
@@ -38,10 +38,10 @@ public final class ExecAnalyzingType {
         operators.put(arr_, Templates.ARR_BEG_STRING);
     }
     public void setupWildCardValues(String _op,String _string) {
-        int first_ = StringList.getFirstPrintableCharIndex(_string);
+        int first_ = StringUtil.getFirstPrintableCharIndex(_string);
         int arr_ = first_;
         first_++;
-        int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
+        int offset_ = StringUtil.getFirstPrintableCharIndex(_string.substring(first_));
         if (offset_ >= 0) {
             first_ += offset_;
         } else {
@@ -57,11 +57,11 @@ public final class ExecAnalyzingType {
     public void setupValuesExec(String _string) {
         values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
-            values.put((int)CustList.FIRST_INDEX, _string);
+            values.put((int) IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }
-        int beginValuePart_ = CustList.FIRST_INDEX;
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
         str_ = _string.substring(beginValuePart_, endValuePart_);
@@ -70,7 +70,7 @@ public final class ExecAnalyzingType {
             error = true;
             return;
         }
-        int i_ = CustList.SECOND_INDEX;
+        int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
             beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
@@ -83,7 +83,7 @@ public final class ExecAnalyzingType {
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ExecPartTypeUtil.TMP_PRIO) {
             values = new IntTreeMap<String>();
-            values.put((int)CustList.FIRST_INDEX, _string);
+            values.put((int) IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }

@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -239,7 +240,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data);
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(list_, ELECTRIQUE));
     }
 
     @Test
@@ -266,7 +267,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data);
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, FEU));
+        assertTrue(StringUtil.contains(list_, FEU));
     }
 
     @Test
@@ -295,7 +296,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data);
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(list_, ELECTRIQUE));
     }
 
     private Fight ignoreTargetAbility() {
@@ -474,7 +475,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data);
         StringList list_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, FEU));
+        assertTrue(StringUtil.contains(list_, FEU));
     }
 
     @Test
@@ -537,12 +538,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(ATTENTION, MULTITYPE, (byte) 1);
         StringList typesThrower_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, typesThrower_.size());
-        assertTrue(StringList.contains(typesThrower_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(typesThrower_, ELECTRIQUE));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(MULTITYPE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data);
         typesThrower_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, typesThrower_.size());
-        assertTrue(StringList.contains(typesThrower_, DRAGON));
+        assertTrue(StringUtil.contains(typesThrower_, DRAGON));
     }
 
     @Test
@@ -619,13 +620,13 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ATTENTION);
         fight_.enableGlobalMove(ZENITH);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         assertEq(AIR_LOCK,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getCurrentAbility());
@@ -635,12 +636,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility3Test() {
         Fight fight_ = disableAbility(AIR_LOCK, ATTENTION, (byte)2);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
     }
@@ -649,12 +650,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility4Test() {
         Fight fight_ = disableAbility(AIR_LOCK, AIR_LOCK, (byte)2);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
     }
@@ -663,12 +664,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility5Test() {
         Fight fight_ = disableAbility(TELECHARGE, AIR_LOCK, (byte)2);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
     }
@@ -677,13 +678,13 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility6Test() {
         Fight fight_ = disableAbility(AIR_LOCK, AIR_LOCK, (byte)2);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
+        assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data));
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
     }
@@ -694,11 +695,11 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data);
         StringList types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
-        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringUtil.contains(types_, FEU));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
-        assertTrue(StringList.contains(types_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -708,7 +709,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         StringList types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
-        assertTrue(StringList.contains(types_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -718,12 +719,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList typesThrower_ = fighter_.getTypes();
         assertEq(1, typesThrower_.size());
-        assertTrue(StringList.contains(typesThrower_, DRAGON));
+        assertTrue(StringUtil.contains(typesThrower_, DRAGON));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(NULL_REF, fighter_.getCurrentAbility());
         assertEq(1, types_.size());
-        assertTrue(StringList.contains(types_, ELECTRIQUE));
+        assertTrue(StringUtil.contains(types_, ELECTRIQUE));
     }
 }

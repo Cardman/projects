@@ -5,6 +5,8 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 import static org.junit.Assert.fail;
 
@@ -210,12 +212,12 @@ public abstract class CommonGameTarot {
         HandTarot hPlCh_ = new HandTarot();
         for (CardTarot c: hPl_) {
             if (hPlCh_.contient(c)) {
-                fail(StringList.concat("found ",c.name()));
+                fail(StringUtil.concat("found ",c.name()));
             }
             hPlCh_.ajouter(c);
         }
         if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
-            fail(StringList.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
+            fail(StringUtil.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
         }
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
@@ -290,7 +292,7 @@ public abstract class CommonGameTarot {
     }
     protected static int getTaker(RulesTarot _g, int _dealer, CustList<BidTarot> _bids) {
         byte player_ = _g.getRepartition().getNextPlayer(_dealer);
-        int taker_ = CustList.INDEX_NOT_FOUND_ELT;
+        int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidTarot bid_ = BidTarot.FOLD;
         for (BidTarot b: _bids) {
             if (b.strongerThan(bid_)) {

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class AbilityLabel extends PaintableLabel {
 
@@ -25,7 +25,7 @@ public class AbilityLabel extends PaintableLabel {
     }
 
     public void setSelected(String _key) {
-        selected = StringList.quickEq(key, _key);
+        selected = StringUtil.quickEq(key, _key);
     }
 
     @Override

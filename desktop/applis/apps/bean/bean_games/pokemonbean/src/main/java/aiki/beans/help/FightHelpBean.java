@@ -50,13 +50,14 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public class FightHelpBean extends CommonBean {
@@ -232,14 +233,14 @@ public class FightHelpBean extends CommonBean {
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
-        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormula = StringList.replaceWordsJoin(rateFormula, replace_);
+        rateFormula = StringUtil.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormulaCh = StringList.replaceWordsJoin(rateFormulaCh, replace_);
+        rateFormulaCh = StringUtil.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
@@ -370,7 +371,7 @@ public class FightHelpBean extends CommonBean {
         }
         movesTypesDefItem.sortElts(new ComparatorTrStrings(translatedMoves_));
         itemsTypesDef.removeDuplicates();
-        StringList.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
+        StringUtil.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
         itemsTypesDef.sortElts(new ComparatorTrStrings(translatedItems_));
         movesTypesDefWeather = new StringList();
         for (String m: data_.getMoves().getKeys()) {
@@ -1772,7 +1773,7 @@ public class FightHelpBean extends CommonBean {
         NatStringTreeMap<String> mapAutoDamage_ = new NatStringTreeMap<String>();
         int len_;
         len_ = autoDamage.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             mapAutoDamage_.putAllMap(data_.getDescriptions(getNumericString((long) i), getLanguage()));
         }
         mapAutoDamage = mapAutoDamage_;
@@ -1967,7 +1968,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = data_.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -1978,7 +1979,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = data_.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -1995,10 +1996,10 @@ public class FightHelpBean extends CommonBean {
         int i_ = 0;
         while (i_ < len_) {
             char cur_ = catchingFormulaCopy_.charAt(i_);
-            if (StringList.isWordChar(cur_)) {
+            if (StringUtil.isWordChar(cur_)) {
                 boolean dig_ = cur_ >= '0' && cur_ <= '9';
                 int j_ = i_;
-                while (StringList.isWordChar(cur_)) {
+                while (StringUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = catchingFormulaCopy_.charAt(j_);
                 }
@@ -2089,8 +2090,8 @@ public class FightHelpBean extends CommonBean {
         StatusBeginRoundAutoDamage st_ = (StatusBeginRoundAutoDamage) data_.getStatus(auto_);
         String str_ = data_.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.POWER), st_.getPower().toNumberString());
-        str_ = StringList.replaceWordsJoin(str_, replace_);
+        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), st_.getPower().toNumberString());
+        str_ = StringUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }
 
@@ -2334,7 +2335,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemBoostNormalAny() {
         int len_;
         len_ = itemsBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemBoostNormal((long) i)) {
                 return true;
             }
@@ -2362,7 +2363,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemBoostSpeedAny() {
         int len_;
         len_ = itemsBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemBoostSpeed((long) i)) {
                 return true;
             }
@@ -2390,7 +2391,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemBoostChAny() {
         int len_;
         len_ = itemsBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemBoostCh((long) i)) {
                 return true;
             }
@@ -2418,7 +2419,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemBoostEvasinessAny() {
         int len_;
         len_ = itemsBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemBoostEvasiness((long) i)) {
                 return true;
             }
@@ -2446,7 +2447,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemBoostAccuracyAny() {
         int len_;
         len_ = itemsBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemBoostAccuracy((long) i)) {
                 return true;
             }
@@ -2488,7 +2489,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemMultNormalAny() {
         int len_;
         len_ = itemsMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemMultNormal((long) i)) {
                 return true;
             }
@@ -2504,7 +2505,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemMultSpeedAny() {
         int len_;
         len_ = itemsMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemMultSpeed((long) i)) {
                 return true;
             }
@@ -2520,7 +2521,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemMultEvasinessAny() {
         int len_;
         len_ = itemsMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemMultEvasiness((long) i)) {
                 return true;
             }
@@ -2536,7 +2537,7 @@ public class FightHelpBean extends CommonBean {
     public boolean itemMultAccuracyAny() {
         int len_;
         len_ = itemsMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (itemMultAccuracy((long) i)) {
                 return true;
             }
@@ -2958,7 +2959,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityBoostNormalAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityBoostNormal((long) i)) {
                 return true;
             }
@@ -2974,7 +2975,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityBoostSpeedAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityBoostSpeed((long) i)) {
                 return true;
             }
@@ -2990,7 +2991,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityBoostChAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityBoostCh((long) i)) {
                 return true;
             }
@@ -3006,7 +3007,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityBoostEvasinessAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityBoostEvasiness((long) i)) {
                 return true;
             }
@@ -3022,7 +3023,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityBoostAccuracyAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityBoostAccuracy((long) i)) {
                 return true;
             }
@@ -3047,7 +3048,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityMultNormalAny() {
         int len_;
         len_ = abilitiesMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityMultNormal((long) i)) {
                 return true;
             }
@@ -3068,7 +3069,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityMultSpeedAny() {
         int len_;
         len_ = abilitiesMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityMultSpeed((long) i)) {
                 return true;
             }
@@ -3089,7 +3090,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityMultEvasinessAny() {
         int len_;
         len_ = abilitiesMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityMultEvasiness((long) i)) {
                 return true;
             }
@@ -3110,7 +3111,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityMultAccuracyAny() {
         int len_;
         len_ = abilitiesMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityMultAccuracy((long) i)) {
                 return true;
             }
@@ -3140,7 +3141,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityAllyMultNormalAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityAllyMultNormal((long) i)) {
                 return true;
             }
@@ -3156,7 +3157,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityAllyMultEvasinessAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityAllyMultEvasiness((long) i)) {
                 return true;
             }
@@ -3172,7 +3173,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityAllyMultSpeedAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityAllyMultSpeed((long) i)) {
                 return true;
             }
@@ -3188,7 +3189,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityAllyMultAccuracyAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityAllyMultAccuracy((long) i)) {
                 return true;
             }
@@ -3213,7 +3214,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityImmuMultNormalAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityImmuMultNormal((long) i)) {
                 return true;
             }
@@ -3234,7 +3235,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityImmuMultEvasinessAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityImmuMultEvasiness((long) i)) {
                 return true;
             }
@@ -3255,7 +3256,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityImmuMultSpeedAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityImmuMultSpeed((long) i)) {
                 return true;
             }
@@ -3276,7 +3277,7 @@ public class FightHelpBean extends CommonBean {
     public boolean abilityImmuMultAccuracyAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (abilityImmuMultAccuracy((long) i)) {
                 return true;
             }
@@ -3501,7 +3502,7 @@ public class FightHelpBean extends CommonBean {
     public boolean immuStatisTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (immuStatisTeamMove((long) i)) {
                 return true;
             }
@@ -3511,7 +3512,7 @@ public class FightHelpBean extends CommonBean {
     public boolean immuStatusTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (immuStatusTeamMove((long) i)) {
                 return true;
             }
@@ -3521,7 +3522,7 @@ public class FightHelpBean extends CommonBean {
     public boolean immuChTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (immuChTeamMove((long) i)) {
                 return true;
             }
@@ -3620,7 +3621,7 @@ public class FightHelpBean extends CommonBean {
     public boolean attackFirst() {
         int len_;
         len_ = movesChangingAttOrder.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (!attackLast((long) i)) {
                 return true;
             }
@@ -3630,7 +3631,7 @@ public class FightHelpBean extends CommonBean {
     public boolean attackLastAny() {
         int len_;
         len_ = movesChangingAttOrder.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (attackLast((long) i)) {
                 return true;
             }
@@ -3664,7 +3665,7 @@ public class FightHelpBean extends CommonBean {
     public boolean withConstDamageAny() {
         int len_;
         len_ = damagingMoves.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (withConstDamage((long) i)) {
                 return true;
             }
@@ -3680,7 +3681,7 @@ public class FightHelpBean extends CommonBean {
     public boolean withRandDamageAny() {
         int len_;
         len_ = damagingMoves.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (withRandDamage((long) i)) {
                 return true;
             }
@@ -3696,7 +3697,7 @@ public class FightHelpBean extends CommonBean {
     public boolean withMultDamageAny() {
         int len_;
         len_ = damagingMoves.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (withMultDamage((long) i)) {
                 return true;
             }
@@ -3874,7 +3875,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveGlobalMultNormalAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveGlobalMultNormal((long) i)) {
                 return true;
             }
@@ -3901,7 +3902,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveGlobalMultEvasinessAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveGlobalMultEvasiness((long) i)) {
                 return true;
             }
@@ -3928,7 +3929,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveGlobalMultSpeedAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveGlobalMultSpeed((long) i)) {
                 return true;
             }
@@ -3955,7 +3956,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveGlobalMultAccuracyAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveGlobalMultAccuracy((long) i)) {
                 return true;
             }
@@ -3990,7 +3991,7 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean moveTeamMultNormalAny() {
         int len_ = movesTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultNormal((long) i)) {
                 return true;
             }
@@ -4014,7 +4015,7 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean moveTeamMultEvasinessAny() {
         int len_ = movesTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultEvasiness((long) i)) {
                 return true;
             }
@@ -4038,7 +4039,7 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean moveTeamMultSpeedAny() {
         int len_ = movesTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultSpeed((long) i)) {
                 return true;
             }
@@ -4062,7 +4063,7 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean moveTeamMultAccuracyAny() {
         int len_ = movesTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultAccuracy((long) i)) {
                 return true;
             }
@@ -4096,7 +4097,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveFoeTeamMultNormalAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveFoeTeamMultNormal((long) i)) {
                 return true;
             }
@@ -4121,7 +4122,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveFoeTeamMultEvasinessAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveFoeTeamMultEvasiness((long) i)) {
                 return true;
             }
@@ -4146,7 +4147,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveFoeTeamMultSpeedAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveFoeTeamMultSpeed((long) i)) {
                 return true;
             }
@@ -4171,7 +4172,7 @@ public class FightHelpBean extends CommonBean {
     public boolean moveFoeTeamMultAccuracyAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (moveFoeTeamMultAccuracy((long) i)) {
                 return true;
             }
@@ -4268,7 +4269,7 @@ public class FightHelpBean extends CommonBean {
     public boolean hasLawForAttackAny() {
         int len_;
         len_ = beginRoundStatus.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (hasLawForAttack((long) i)) {
                 return true;
             }
@@ -4288,7 +4289,7 @@ public class FightHelpBean extends CommonBean {
     public boolean hasLawForHealAny() {
         int len_;
         len_ = beginRoundStatus.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (hasLawForHeal((long) i)) {
                 return true;
             }
@@ -4350,7 +4351,7 @@ public class FightHelpBean extends CommonBean {
     public boolean statusMultNormalAny() {
         int len_;
         len_ = statusMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (statusMultNormal((long) i)) {
                 return true;
             }
@@ -4366,7 +4367,7 @@ public class FightHelpBean extends CommonBean {
     public boolean statusMultEvasinessAny() {
         int len_;
         len_ = statusMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (statusMultEvasiness((long) i)) {
                 return true;
             }
@@ -4382,7 +4383,7 @@ public class FightHelpBean extends CommonBean {
     public boolean statusMultSpeedAny() {
         int len_;
         len_ = statusMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (statusMultSpeed((long) i)) {
                 return true;
             }
@@ -4398,7 +4399,7 @@ public class FightHelpBean extends CommonBean {
     public boolean statusMultAccuracyAny() {
         int len_;
         len_ = statusMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (statusMultAccuracy((long) i)) {
                 return true;
             }
@@ -4423,7 +4424,7 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultNormalAny() {
         int len_;
         len_ = comboMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (comboMultNormal((long) i)) {
                 return true;
             }
@@ -4437,7 +4438,7 @@ public class FightHelpBean extends CommonBean {
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
             tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
-            if (!StringList.eqStrings(tmp_, combo_)) {
+            if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
             EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
@@ -4448,7 +4449,7 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultEvasinessAny() {
         int len_;
         len_ = comboMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (comboMultEvasiness((long) i)) {
                 return true;
             }
@@ -4462,7 +4463,7 @@ public class FightHelpBean extends CommonBean {
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
             tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
-            if (!StringList.eqStrings(tmp_, combo_)) {
+            if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
             EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
@@ -4473,7 +4474,7 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultSpeedAny() {
         int len_;
         len_ = comboMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (comboMultSpeed((long) i)) {
                 return true;
             }
@@ -4487,7 +4488,7 @@ public class FightHelpBean extends CommonBean {
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
             tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
-            if (!StringList.eqStrings(tmp_, combo_)) {
+            if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
             EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
@@ -4498,7 +4499,7 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultAccuracyAny() {
         int len_;
         len_ = comboMultStat.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (comboMultAccuracy((long) i)) {
                 return true;
             }
@@ -4512,7 +4513,7 @@ public class FightHelpBean extends CommonBean {
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
             tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
-            if (!StringList.eqStrings(tmp_, combo_)) {
+            if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
             EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
@@ -4527,7 +4528,7 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboMultStat.get(_index.intValue())) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return StringList.join(moves_, SEP_DASH);
+        return StringUtil.join(moves_, SEP_DASH);
     }
     public String clickComboMultStat(Long _index) {
         getForms().put(COMBO, comboMultStat.get(_index.intValue()));
@@ -4540,19 +4541,19 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboEvtStat.get(_index.intValue())) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return StringList.join(moves_, SEP_DASH);
+        return StringUtil.join(moves_, SEP_DASH);
     }
     public String clickComboEvtStat(Long _index) {
         getForms().put(COMBO, comboEvtStat.get(_index.intValue()));
         return COMBO;
     }
     public boolean nextRowAfter(Long _index) {
-        if (_index == CustList.FIRST_INDEX) {
+        if (_index == IndexConstants.FIRST_INDEX) {
             return true;
         }
         TypesDuo types_ = efficiency.getKey(_index.intValue());
         TypesDuo typesNext_ = efficiency.getKey(_index.intValue() - 1);
-        return !StringList.quickEq(types_.getPokemonType(),typesNext_.getPokemonType());
+        return !StringUtil.quickEq(types_.getPokemonType(),typesNext_.getPokemonType());
     }
     public String getEfficiency(Long _def, Long _off) {
         int i_ = (int) (_def * types.size() + _off);

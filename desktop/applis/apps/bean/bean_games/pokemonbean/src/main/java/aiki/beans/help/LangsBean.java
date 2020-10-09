@@ -9,6 +9,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 public class LangsBean extends CommonBean {
     private TreeMap<LanguageElementStringKey,String> translatedCategories;
@@ -35,7 +36,7 @@ public class LangsBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         StringList lgs_ = data_.getLanguages();
         for (String l: lgs_) {
-            if (StringList.quickEq(l, curLg_)) {
+            if (StringUtil.quickEq(l, curLg_)) {
                 continue;
             }
             languages.add(l);

@@ -4,9 +4,9 @@ import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.tarot.comparators.CalledSuitComparator;
 import cards.tarot.enumerations.CardTarot;
-import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
 
 public final class GameTarotCallDiscard {
     private GameTarotBid infosBid;
@@ -138,7 +138,7 @@ public final class GameTarotCallDiscard {
             int reste_ = tailleChien - ecart_.total();
             HandTarot atoutsEcartables_ = repEcartables_.getVal(couleurAtout_);
             int nbAtoutsEcartables_ = atoutsEcartables_.total();
-            for (byte carte_ = CustList.FIRST_INDEX; carte_ < reste_; carte_++) {
+            for (byte carte_ = IndexConstants.FIRST_INDEX; carte_ < reste_; carte_++) {
                 ecart_.ajouter(atoutsEcartables_.carte(nbAtoutsEcartables_ - 1
                         - carte_));
             }

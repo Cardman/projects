@@ -1,9 +1,9 @@
 package code.util;
 
 
+import code.util.core.IndexConstants;
 
-
-public final class BooleanMap<V> extends AbsMap<Boolean,V> {
+public final class BooleanMap<V> extends AbsBasicMap<Boolean,V> {
 
     //list cannot be null, even by reflection
 //    private final CustList<EntryCust<Boolean,V>> list = new CustList<EntryCust<Boolean,V>>();
@@ -16,15 +16,7 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    protected int indexOfEntry(Boolean _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<Boolean, V> e:getList()) {
-            if (e.getKey() == _key) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(Boolean _one, Boolean _two) {
+        return _one == _two;
     }
-
 }

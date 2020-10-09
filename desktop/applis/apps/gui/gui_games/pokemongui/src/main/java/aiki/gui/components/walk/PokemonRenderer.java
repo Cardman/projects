@@ -11,8 +11,8 @@ import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.*;
-import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class PokemonRenderer extends CustCellRender {
 
@@ -75,7 +75,7 @@ public class PokemonRenderer extends CustCellRender {
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainHp = pk_.getRemainingHp().toNumberString();
             intRate = pk_.rateRemainHp(facade.getData());
-            rateRemain = StringList.concat(intRate.toNumberString(),PER_CENT);
+            rateRemain = StringUtil.concat(intRate.toNumberString(),PER_CENT);
             gender = facade.translateGenders(pk_.getGender());
             withItem = !pk_.getItem().isEmpty();
             if (withItem) {
@@ -120,7 +120,7 @@ public class PokemonRenderer extends CustCellRender {
                 _g.setColor(Color.BLACK);
                 _g.drawString(KO, coords + sideLength, h_ * 3);
             } else if (!rateRemain.isEmpty()) {
-                int rate_ = Numbers.parseInt(intRate.toNumberString());
+                int rate_ = NumberUtil.parseInt(intRate.toNumberString());
                 int red_ = 255;
                 int green_ = 255;
                 green_ = green_ * rate_ / Rate.CENT;

@@ -8,6 +8,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private static final String INCR = "++";
@@ -21,7 +22,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
-        if (StringList.quickEq(op_, "??")) {
+        if (StringUtil.quickEq(op_, "??")) {
             Struct first_ = _left.getStruct();
             if (first_ != NullStruct.NULL_VALUE) {
                 res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls));
@@ -35,7 +36,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     }
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
         Argument o_;
-        if (StringList.quickEq(_op, INCR)) {
+        if (StringUtil.quickEq(_op, INCR)) {
             o_ = new Argument(ExecAddOperation.addOne(NumParsers.convertToNumber(_left.getStruct()), _cast));
         } else {
             o_ = new Argument(ExecAddOperation.removeOne(NumParsers.convertToNumber(_left.getStruct()), _cast));
@@ -60,63 +61,63 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             return;
         }
         String op_ = _op.substring(0, _op.length() - 1);
-        if (StringList.quickEq(op_, "+")) {
+        if (StringUtil.quickEq(op_, "+")) {
             _res.setResult(NumParsers.calculateSum(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "-")) {
+        if (StringUtil.quickEq(op_, "-")) {
             _res.setResult(NumParsers.calculateDiff(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "*")) {
+        if (StringUtil.quickEq(op_, "*")) {
             _res.setResult(NumParsers.calculateMult(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "/")) {
+        if (StringUtil.quickEq(op_, "/")) {
             _res.setResult(calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast));
             return;
         }
-        if (StringList.quickEq(op_, "%")) {
+        if (StringUtil.quickEq(op_, "%")) {
             _res.setResult(calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast));
             return;
         }
-        if (StringList.quickEq(op_, "&")) {
+        if (StringUtil.quickEq(op_, "&")) {
             _res.setResult(NumParsers.calculateAnd(_first, _second, _cast));
             return;
         }
-        if (StringList.quickEq(op_, "|")) {
+        if (StringUtil.quickEq(op_, "|")) {
             _res.setResult(NumParsers.calculateOr(_first, _second, _cast));
             return;
         }
-        if (StringList.quickEq(op_, "^")) {
+        if (StringUtil.quickEq(op_, "^")) {
             _res.setResult(NumParsers.calculateXor(_first, _second, _cast));
             return;
         }
-        if (StringList.quickEq(op_, "<<")) {
+        if (StringUtil.quickEq(op_, "<<")) {
             _res.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, ">>")) {
+        if (StringUtil.quickEq(op_, ">>")) {
             _res.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "<<<")) {
+        if (StringUtil.quickEq(op_, "<<<")) {
             _res.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, ">>>")) {
+        if (StringUtil.quickEq(op_, ">>>")) {
             _res.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "<<<<")) {
+        if (StringUtil.quickEq(op_, "<<<<")) {
             _res.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, ">>>>")) {
+        if (StringUtil.quickEq(op_, ">>>>")) {
             _res.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringList.quickEq(op_, "&&")) {
+        if (StringUtil.quickEq(op_, "&&")) {
             BooleanStruct b_ = NumParsers.convertToBoolean(_first);
             if (BooleanStruct.isFalse(b_)) {
                 _res.setResult(b_);

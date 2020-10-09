@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ContextUtil {
     private ContextUtil() {
@@ -38,7 +39,7 @@ public final class ContextUtil {
         if (root_.isSubTypeOf(_block.getFullName(), _analyzing)) {
             return true;
         }
-        return StringList.quickEq(belongPkg_, rootPkg_);
+        return StringUtil.quickEq(belongPkg_, rootPkg_);
     }
 
     public static boolean canAccessType(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
@@ -76,9 +77,9 @@ public final class ContextUtil {
     }
     private static boolean processPackagePrivate(AccessibleBlock _block, RootBlock root_, String belongPkg_, String rootPkg_) {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
-            return StringList.quickEq(belongPkg_, rootPkg_);
+            return StringUtil.quickEq(belongPkg_, rootPkg_);
         }
-        return StringList.quickEq(_block.getOuterFullName(), root_.getOuterFullName());
+        return StringUtil.quickEq(_block.getOuterFullName(), root_.getOuterFullName());
     }
 
     public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
@@ -269,7 +270,7 @@ public final class ContextUtil {
                 continue;
             }
             InfoBlock i_ = (InfoBlock) b;
-            int ind_ = StringList.indexOf(i_.getFieldName(), search_);
+            int ind_ = StringUtil.indexOf(i_.getFieldName(), search_);
             if (ind_ < 0) {
                 continue;
             }
@@ -288,7 +289,7 @@ public final class ContextUtil {
                     continue;
                 }
                 InfoBlock i_ = (InfoBlock) b;
-                int ind_ = StringList.indexOf(i_.getFieldName(), search_);
+                int ind_ = StringUtil.indexOf(i_.getFieldName(), search_);
                 if (ind_ < 0) {
                     continue;
                 }
@@ -313,7 +314,7 @@ public final class ContextUtil {
         }
         if (cust_ instanceof StandardType) {
             for (StandardField f: ((StandardType)cust_).getFields()) {
-                if (!StringList.contains(f.getFieldName(), search_)) {
+                if (!StringUtil.contains(f.getFieldName(), search_)) {
                     continue;
                 }
                 String type_ = f.getImportedClassName();

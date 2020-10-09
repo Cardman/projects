@@ -21,10 +21,11 @@ import code.gui.events.QuittingEvent;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +104,7 @@ public final class MainWindow extends GroupFrame {
         if (content_ == null) {
             return;
         }
-        StringList lines_ = StringList.splitStrings(content_, "\n", "\r\n");
+        StringList lines_ = StringUtil.splitStrings(content_, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
             if (s.trim().isEmpty()) {
@@ -134,7 +135,7 @@ public final class MainWindow extends GroupFrame {
                 if (linesFiles_.size() > 3) {
                     lg_ = linesFiles_.get(3);
                     StringList curr_ = new StringList();
-                    if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
+                    if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
                         lg_ = getLanguageKey();
                         setupOptionals(3, exec_,linesFiles_,curr_);
                     } else {
@@ -165,14 +166,14 @@ public final class MainWindow extends GroupFrame {
             }
             if (l.startsWith("tabWidth=")) {
                 String output_ = l.substring("tabWidth=".length());
-                int t_ = Numbers.parseInt(output_);
+                int t_ = NumberUtil.parseInt(output_);
                 if (t_ > 0) {
                     _exec.setTabWidth(t_);
                 }
             }
             if (l.startsWith("lgs=")) {
                 String output_ = l.substring("lgs=".length());
-                for (String s: StringList.splitChars(output_,',')) {
+                for (String s: StringUtil.splitChars(output_,',')) {
                     String tr_ = s.trim();
                     if (tr_.isEmpty()) {
                         continue;

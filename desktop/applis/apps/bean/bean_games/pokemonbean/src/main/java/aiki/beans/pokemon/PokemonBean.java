@@ -35,12 +35,13 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class PokemonBean extends CommonBean {
 
@@ -112,7 +113,7 @@ public class PokemonBean extends CommonBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         name = (String) getForms().getVal(PK);
         int nbPlaces_ = places.size();
-        for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             if (isAppearingPlace((long) i)) {
                 placesAppears.add(i);
             }
@@ -193,14 +194,14 @@ public class PokemonBean extends CommonBean {
             //eggGroups.add(translationsEggs_.getVal(e));
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
-                if (StringList.contains(pkData_.getEggGroups(), e)) {
+                if (StringUtil.contains(pkData_.getEggGroups(), e)) {
                     eggGroupsPk.add(p);
                 }
             }
         }
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (StringList.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
+            if (StringUtil.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
                 eggGroupsPk.add(p);
             }
         }
@@ -234,7 +235,7 @@ public class PokemonBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (images.getKey(w_).getYcoords() != CustList.SECOND_INDEX) {
+        while (images.getKey(w_).getYcoords() != IndexConstants.SECOND_INDEX) {
             w_++;
         }
         return w_;
@@ -244,7 +245,7 @@ public class PokemonBean extends CommonBean {
             return false;
         }
         MiniMapCoords key_ = images.getKey(_index.intValue());
-        return key_.getXcoords() == CustList.FIRST_INDEX;
+        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
     }
     public String roundWeight() {
         return weight.evaluate(2);
@@ -363,9 +364,9 @@ public class PokemonBean extends CommonBean {
     }
     public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
-        for (int i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             int nbLayers_ = layers((long)i).size();
-            for (int j = CustList.FIRST_INDEX; j < nbLayers_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < nbLayers_; j++) {
                 if (isAppearing((long)i,(long) j)) {
                     return true;
                 }
@@ -374,7 +375,7 @@ public class PokemonBean extends CommonBean {
         return false;
     }
     public boolean isMultiLayer(Long _index) {
-        return layers(_index).size() > CustList.SECOND_INDEX;
+        return layers(_index).size() > IndexConstants.SECOND_INDEX;
     }
     public CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
@@ -382,7 +383,7 @@ public class PokemonBean extends CommonBean {
     }
     public boolean isAppearingPlace(Long _index) {
         int nbLayers_ = layers(_index).size();
-        for (int j = CustList.FIRST_INDEX; j < nbLayers_; j++) {
+        for (int j = IndexConstants.FIRST_INDEX; j < nbLayers_; j++) {
             if (isAppearing(_index,(long) j)) {
                 return true;
             }
@@ -398,18 +399,18 @@ public class PokemonBean extends CommonBean {
         LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
         for (AreaApparition a: w_.getWildPokemonAreas()) {
             for (Pokemon p: a.getWildPokemon()) {
-                if (StringList.quickEq(p.getName(), name)) {
+                if (StringUtil.quickEq(p.getName(), name)) {
                     return true;
                 }
             }
             for (Pokemon p: a.getWildPokemonFishing()) {
-                if (StringList.quickEq(p.getName(), name)) {
+                if (StringUtil.quickEq(p.getName(), name)) {
                     return true;
                 }
             }
         }
         for (Pokemon p: w_.getLegendaryPks().values()) {
-            if (StringList.quickEq(p.getName(), name)) {
+            if (StringUtil.quickEq(p.getName(), name)) {
                 return true;
             }
         }
@@ -423,7 +424,7 @@ public class PokemonBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
     }

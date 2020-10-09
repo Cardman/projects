@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.opers;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -11,7 +10,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
@@ -30,7 +29,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     @Override
     public void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
-        if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
+        if (StringUtil.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_page.getLocalizer().getCurrentFileName());
             int index_ = _page.getLocalizer().getCurrentLocationIndex();

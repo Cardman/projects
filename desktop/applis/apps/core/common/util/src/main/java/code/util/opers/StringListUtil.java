@@ -1,7 +1,7 @@
 package code.util.opers;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class StringListUtil {
 
@@ -14,8 +14,8 @@ public final class StringListUtil {
 
     public static CustList<StringList> commonLinesFiles(String _s, String _t) {
         CustList<StringList> results_ = new CustList<StringList>();
-        StringList s_ = StringList.splitChars(_s,LR,LF);
-        StringList t_ = StringList.splitChars(_t,LR,LF);
+        StringList s_ = StringUtil.splitChars(_s,LR,LF);
+        StringList t_ = StringUtil.splitChars(_t,LR,LF);
         while (true) {
             StringList c_ = firstCommonLinesBlock(s_, t_);
             if (c_.isEmpty()) {
@@ -58,7 +58,7 @@ public final class StringListUtil {
         boolean found_ = false;
         for (int i = 0; i < _s.size(); i++) {
             for (int j = 0; j < _t.size(); j++) {
-                if (StringList.quickEq(_s.get(i), _t.get(j))) {
+                if (StringUtil.quickEq(_s.get(i), _t.get(j))) {
                     i_ = i;
                     j_ = j;
                     found_ = true;
@@ -73,7 +73,7 @@ public final class StringListUtil {
             return new StringList();
         }
         while (i_ < _s.size() && j_ < _t.size()) {
-            if (!StringList.quickEq(_s.get(i_), _t.get(j_))) {
+            if (!StringUtil.quickEq(_s.get(i_), _t.get(j_))) {
                 break;
             }
             firstOne_.add(_s.get(i_));
@@ -86,7 +86,7 @@ public final class StringListUtil {
         found_=false;
         while(true) {
             for (int i = 0; i < _s.size(); i++) {
-                if (StringList.quickEq(_s.get(i), _t.get(k_))) {
+                if (StringUtil.quickEq(_s.get(i), _t.get(k_))) {
                     i_ = i;
                     j_ = k_;
                     found_ = true;
@@ -99,7 +99,7 @@ public final class StringListUtil {
             k_++;
         }
         while (i_ < _s.size() && j_ < _t.size()) {
-            if (!StringList.quickEq(_s.get(i_), _t.get(j_))) {
+            if (!StringUtil.quickEq(_s.get(i_), _t.get(j_))) {
                 break;
             }
             firstTwo_.add(_s.get(i_));

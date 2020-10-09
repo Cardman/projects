@@ -1,8 +1,9 @@
 package code.images;
-import code.util.CustList;
 import code.util.Ints;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class Image implements Displayable {
@@ -30,12 +31,12 @@ public final class Image implements Displayable {
         pixels = new Ints();
 //        String string_ = _contentFile.replace(RETURN_LINE, EMPTY_STRING);
 //        string_ = string_.replace(RETURN_LINE2, EMPTY_STRING);
-        String string_ = StringList.removeStrings(_contentFile, RETURN_LINE, RETURN_LINE2);
-        StringList lines_ = StringList.splitChars(string_, SEPARATOR_CHAR);
-        width = Numbers.parseInt(lines_.first());
+        String string_ = StringUtil.removeStrings(_contentFile, RETURN_LINE, RETURN_LINE2);
+        StringList lines_ = StringUtil.splitChars(string_, SEPARATOR_CHAR);
+        width = NumberUtil.parseInt(lines_.first());
         int len_ = lines_.size();
-        for (int i=CustList.SECOND_INDEX;i<len_;i++) {
-            pixels.add(Numbers.parseInt(lines_.get(i)));
+        for (int i = IndexConstants.SECOND_INDEX; i<len_; i++) {
+            pixels.add(NumberUtil.parseInt(lines_.get(i)));
         }
     }
 
@@ -50,18 +51,18 @@ public final class Image implements Displayable {
     }
 
     public static boolean isValidNotEmpty(String _img, int _sideLength) {
-        if (StringList.quickEq(_img,EMPTY_IMAGE)) {
+        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
             return false;
         }
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
+        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
-        for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringList.isNumber(s)) {
+        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
+            if (!StringUtil.isNumber(s)) {
                 return false;
             }
             nb_++;
@@ -70,29 +71,29 @@ public final class Image implements Displayable {
             return false;
         }
         nb_--;
-        if (!_img.startsWith(StringList.concat(String.valueOf(_sideLength), String.valueOf(SEPARATOR_CHAR)))) {
+        if (!_img.startsWith(StringUtil.concat(String.valueOf(_sideLength), String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         return nb_ == _sideLength * _sideLength;
     }
 
     public static boolean isValidNotEmptyLower(String _img, int _sideLength) {
-        if (StringList.quickEq(_img,EMPTY_IMAGE)) {
+        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
             return false;
         }
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
+        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
         int w_ = -1;
-        for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringList.isNumber(s)) {
+        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
+            if (!StringUtil.isNumber(s)) {
                 return false;
             }
-            int int_ = Numbers.parseInt(s);
+            int int_ = NumberUtil.parseInt(s);
             nb_++;
             if (w_ < 0) {
                 w_ = int_;
@@ -110,18 +111,18 @@ public final class Image implements Displayable {
     }
 
     public static boolean isValidNotEmpty(String _img, int _width, int _height) {
-        if (StringList.quickEq(_img,EMPTY_IMAGE)) {
+        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
             return false;
         }
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
+        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
-        for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringList.isNumber(s)) {
+        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
+            if (!StringUtil.isNumber(s)) {
                 return false;
             }
             nb_++;
@@ -130,17 +131,17 @@ public final class Image implements Displayable {
             return false;
         }
         nb_--;
-        if (!_img.startsWith(StringList.concat(String.valueOf(_width),String.valueOf(SEPARATOR_CHAR)))) {
+        if (!_img.startsWith(StringUtil.concat(String.valueOf(_width),String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         return nb_ == _width * _height;
     }
 
     public static IntPoint getDimensions(String _img, int _sideLength) {
-        int nb_ = StringList.splitChars(_img, SEPARATOR_CHAR).size() - 1;
+        int nb_ = StringUtil.splitChars(_img, SEPARATOR_CHAR).size() - 1;
         int i_ = _img.indexOf(SEPARATOR_CHAR);
         String w_ = _img.substring(0, i_);
-        int width_ = Numbers.parseInt(w_);
+        int width_ = NumberUtil.parseInt(w_);
         int heigth_ = nb_ / width_;
         return new IntPoint(width_/_sideLength, heigth_/_sideLength);
     }
@@ -162,9 +163,9 @@ public final class Image implements Displayable {
     }
 
     public static String clip(String _image,int _x,int _y,int _w,int _h) {
-        StringList list_ = StringList.splitChars(_image, SEPARATOR_CHAR);
+        StringList list_ = StringUtil.splitChars(_image, SEPARATOR_CHAR);
         int nb_ = list_.size() - 1;
-        int width_ = Numbers.parseInt(list_.first());
+        int width_ = NumberUtil.parseInt(list_.first());
         int heigth_ = nb_ / width_;
         int xp_ = Math.min(_x+_w,width_);
         int yp_ = Math.min(_y+_h,heigth_);

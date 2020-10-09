@@ -13,6 +13,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class RendSelect extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -99,7 +100,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
         if (id_ && !elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()).trim().isEmpty()) {
-            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
+            docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
                     elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);

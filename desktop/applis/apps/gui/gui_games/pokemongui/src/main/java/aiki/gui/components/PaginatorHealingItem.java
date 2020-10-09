@@ -16,10 +16,12 @@ import aiki.util.SortingHealingItem;
 import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.Numbers;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class PaginatorHealingItem extends Paginator {
 
@@ -210,7 +212,7 @@ public final class PaginatorHealingItem extends Paginator {
         cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;
-        for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
             cmpDescriptionPrio.addItem(i);
             cmpPricePrio.addItem(i);
@@ -566,17 +568,17 @@ public final class PaginatorHealingItem extends Paginator {
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         int side_ = getFacade().getMap().getSideLength();
-        int nameWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
-        int numberWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
+        int nameWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACES));
+        int numberWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(NUMBER),SPACES));
         int width_ = side_+nameWidth_+numberWidth_;
-        width_ += getHeader().width(StringList.concat(getMessages().getVal(PRICE),SPACES));
+        width_ += getHeader().width(StringUtil.concat(getMessages().getVal(PRICE),SPACES));
         if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
             width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
         }
-        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), side_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
-        getHeader().addString(StringList.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
-        getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
@@ -627,7 +629,7 @@ public final class PaginatorHealingItem extends Paginator {
             getFacade().setDeltaHealingItem(1);
             return;
         }
-        int nbDelta_ = Numbers.parseInt(text_);
+        int nbDelta_ = NumberUtil.parseInt(text_);
         if (nbDelta_ <= 0) {
             return;
         }
@@ -745,21 +747,21 @@ public final class PaginatorHealingItem extends Paginator {
         getResultsLabels().clear();
         getHeader().clearStrings();
         int side_ = getFacade().getMap().getSideLength();
-        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), side_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
 
 
         CustList<SortingHealingItem> rendered_ = getFacade().getRenderedHealingItem();
         CustList<HealingItemLabel> list_ = new CustList<HealingItemLabel>();
-        int thirdColumn_ = CustList.SIZE_EMPTY;
-        int fourthColumn_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
-        int fifthColumn_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
+        int thirdColumn_ = IndexConstants.SIZE_EMPTY;
+        int fourthColumn_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACES));
+        int fifthColumn_ = getHeader().width(StringUtil.concat(getMessages().getVal(NUMBER),SPACES));
         //item.getName()
         //item.getItemClass()
         //item.getHp().toString()
         int nb_ = rendered_.size();
         String lg_ = getMain().getLanguageKey();
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             HealingItemLabel l_ = new HealingItemLabel(rendered_.get(i));
             l_.initMessages(lg_);
             l_.addMouseListener(new PaginatorEvent(this,i));
@@ -778,8 +780,8 @@ public final class PaginatorHealingItem extends Paginator {
             }
             list_.add(l_);
         }
-        getHeader().addString(StringList.concat(getMessages().getVal(NUMBER),SPACES), side_+fourthColumn_);
-        getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+fourthColumn_+fifthColumn_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+fourthColumn_);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+fourthColumn_+fifthColumn_);
         for (HealingItemLabel l: list_) {
             l.setImagesResults(getFacade(), thirdColumn_, fourthColumn_, fifthColumn_);
         }
@@ -795,7 +797,7 @@ public final class PaginatorHealingItem extends Paginator {
         setAdding(true);
         getPages().removeAllItems();
         int nbPages_ = getFacade().pagesHealingItem();
-        for (int i = CustList.FIRST_INDEX; i < nbPages_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
         getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));

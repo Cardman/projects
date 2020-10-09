@@ -40,6 +40,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNull;
@@ -185,7 +187,7 @@ public abstract class CommonRender {
     }
 
     protected static OperationNode rendOp(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return RenderAnalysis.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_.getAnalyzingDoc(), conf_.getAnalyzing());
+        return RenderAnalysis.createOperationNode(i, IndexConstants.FIRST_INDEX, null, opTwo_, conf_.getAnalyzingDoc(), conf_.getAnalyzing());
     }
 
     protected static OperationsSequence rendOpSeq(int i, AnalyzedTestConfiguration conf_, Delimiters d_, String el_) {
@@ -574,7 +576,7 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops2_ = new CustList<RendDynOperationNode>();
         int i_ = 0;
         for (EntryCust<String,BeanInfo> e: a_.getConfiguration().getBeansInfos().entryList()) {
-            if (StringList.quickEq(e.getKey(),_bean_one)) {
+            if (StringUtil.quickEq(e.getKey(),_bean_one)) {
                 BeanInfo b_ = e.getValue();
                 ops2_ = RendForwardInfos.getExecutableNodes(a_.getAnalyzingDoc().getBeansInfos().getKey(i_), a_.getForwards());
                 b_.setExps(ops2_);

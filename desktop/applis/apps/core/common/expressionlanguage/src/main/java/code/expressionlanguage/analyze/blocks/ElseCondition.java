@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ElseCondition extends BracedBlock implements BlockCondition, BuildableElMethod {
 
@@ -51,7 +52,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordElse(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordIf(),
                                         _page.getKeyWords().getKeyWordElseif()

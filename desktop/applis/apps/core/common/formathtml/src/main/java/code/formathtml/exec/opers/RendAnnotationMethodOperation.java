@@ -9,7 +9,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendAnnotationMethodOperation extends RendInvokingOperation  implements RendCalculableOperation {
 
@@ -28,7 +28,7 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
     }
 
     Argument getArgument(Argument _previous, Configuration _conf, ContextEl _context) {
-        int off_ = StringList.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         return ExecAnnotationMethodOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context);
     }

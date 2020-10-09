@@ -1,17 +1,12 @@
 package code.util;
 
-public final class StringMapObject extends AbsMap<String,Object> {
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+
+public final class StringMapObject extends AbsBasicMap<String,Object> {
 
     @Override
-    protected int indexOfEntry(String _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<String, Object> e:getList()) {
-            String k_ = e.getKey();
-            if (StringList.quickEq(_key, k_)) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(String _one, String _two) {
+        return StringUtil.quickEq(_one,_two);
     }
 }

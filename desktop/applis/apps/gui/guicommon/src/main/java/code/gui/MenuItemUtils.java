@@ -1,7 +1,7 @@
 package code.gui;
 import javax.swing.JMenuItem;
 
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 
 final class MenuItemUtils {
@@ -14,7 +14,7 @@ final class MenuItemUtils {
         while (mPar_ != null) {
             if (!_b) {
                 int nbSubMenus_ = mPar_.getItemCount();
-                for (int i = CustList.FIRST_INDEX; i < nbSubMenus_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nbSubMenus_; i++) {
                     JMenuItem m_ = mPar_.getItem(i);
                     if (m_ == null) {
                         continue;

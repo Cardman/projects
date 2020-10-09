@@ -3,7 +3,7 @@ package aiki.fight.pokemon.evolution;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class EvolutionTeam extends Evolution {
@@ -17,7 +17,7 @@ public final class EvolutionTeam extends Evolution {
             _dataBase.setError(true);
             return;
         }
-        if (!StringList.quickEq(pk_.getBaseEvo(),pokemon)) {
+        if (!StringUtil.quickEq(pk_.getBaseEvo(),pokemon)) {
             _dataBase.setError(true);
         }
         if (pk_.getGenderRep() == GenderRepartition.LEGENDARY) {

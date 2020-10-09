@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.analyze.opers.AssocationOperation;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalysis {
     private final AnalyzedPageEl context;
@@ -30,6 +30,6 @@ public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalys
             return false;
         }
         String op_ = _seq.getOperators().firstValue();
-        return StringList.quickEq(op_, String.valueOf('{'));
+        return StringUtil.quickEq(op_, String.valueOf('{'));
     }
 }

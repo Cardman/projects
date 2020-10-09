@@ -8,6 +8,7 @@ import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class VariablesOffsets {
     private IdList<OperationNode> visited = new IdList<OperationNode>();
@@ -34,7 +35,7 @@ public final class VariablesOffsets {
 
     public static RootBlock getClassBody(String _type, CustList<RootBlock> _refFoundTypes) {
         for (RootBlock r: _refFoundTypes) {
-            if (StringList.quickEq(r.getFullName(),_type)) {
+            if (StringUtil.quickEq(r.getFullName(),_type)) {
                 return r;
             }
         }

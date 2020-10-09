@@ -18,6 +18,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class CaseCondition extends SwitchPartBlock {
 
@@ -94,7 +96,7 @@ public final class CaseCondition extends SwitchPartBlock {
             ParsedType p_ = new ParsedType();
             p_.parse(value);
             String declaringType_ = p_.getInstruction().toString();
-            if (StringList.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
+            if (StringUtil.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
                 nullCase = true;
                 return;
             }
@@ -107,7 +109,7 @@ public final class CaseCondition extends SwitchPartBlock {
             partOffsets.addAllElts(_page.getCurrentParts());
             variableOffset = valueOffset + declaringType_.length();
             String info_ = value.substring(declaringType_.length());
-            variableOffset += StringList.getFirstPrintableCharIndex(info_);
+            variableOffset += StringUtil.getFirstPrintableCharIndex(info_);
             variableName = info_.trim();
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
             if (res_.isError()) {
@@ -140,9 +142,9 @@ public final class CaseCondition extends SwitchPartBlock {
                 }
                 _page.setLookLocalClass(id_);
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                Delimiters d_ = ElResolver.checkSyntax(value, CustList.FIRST_INDEX, _page);
-                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, d_, _page);
-                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _page);
+                Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
+                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
+                OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
                 ElUtil.retrieveErrorsAnalyze(op_, _page);
                 _page.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
@@ -185,7 +187,7 @@ public final class CaseCondition extends SwitchPartBlock {
             return false;
         }
         InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
-        return StringList.contains(e_.getFieldName(), value.trim());
+        return StringUtil.contains(e_.getFieldName(), value.trim());
     }
 
     @Override

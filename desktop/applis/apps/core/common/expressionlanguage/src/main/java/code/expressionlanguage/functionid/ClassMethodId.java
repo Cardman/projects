@@ -2,7 +2,7 @@ package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ClassMethodId {
 
@@ -38,7 +38,7 @@ public final class ClassMethodId {
     }
 
     public boolean eq(ClassMethodId _g) {
-        if (!StringList.quickEq(className, _g.className)) {
+        if (!StringUtil.quickEq(className, _g.className)) {
             return false;
         }
         return constraints.eq(_g.constraints);

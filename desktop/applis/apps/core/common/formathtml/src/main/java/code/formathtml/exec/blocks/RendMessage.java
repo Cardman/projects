@@ -10,6 +10,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations {
 
@@ -66,12 +67,12 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             anchorArg_.add(res_);
         }
         String preRend_;
-        preRend_=StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
+        preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
         CustList<Document> docs_ = new CustList<Document>();
         docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
         String lt_ = String.valueOf(LT_BEGIN_TAG);
         String gt_ = String.valueOf(GT_TAG);
-        String concat_ = StringList.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
+        String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();
         docs_.add(docLoc_);
@@ -99,7 +100,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont,ip_, created_);
-                if (StringList.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
+                if (StringUtil.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
                     _cont.getFormParts().getAnchorsArgs().add(anchorArg_);
                     _cont.getFormParts().getAnchorsVars().add(varNames);
                 }
@@ -140,12 +141,12 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     private void processImportedNode(Configuration _conf,
                                             ImportingPage _ip, Element _tag) {
         String beanName_ = _ip.getBeanName();
-        if (StringList.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
-            String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
+        if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
+            String href_ = _tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
+                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
             }
-            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
+            if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
                 _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
         }

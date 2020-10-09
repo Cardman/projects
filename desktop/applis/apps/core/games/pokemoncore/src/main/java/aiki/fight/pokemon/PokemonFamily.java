@@ -2,6 +2,7 @@ package aiki.fight.pokemon;
 import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class PokemonFamily {
 
@@ -26,14 +27,14 @@ public final class PokemonFamily {
                     if (evo_ == null) {
                         continue;
                     }
-                    if (!StringList.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
+                    if (!StringUtil.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
                         _data.setError(true);
                     }
-                    if (StringList.contains(evolutionsLevels_, e_)) {
+                    if (StringUtil.contains(evolutionsLevels_, e_)) {
                         _data.setError(true);
                         return;
                     }
-                    if (StringList.contains(newEvolutions_, e_)) {
+                    if (StringUtil.contains(newEvolutions_, e_)) {
                         _data.setError(true);
                         return;
                     }

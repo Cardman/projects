@@ -2,7 +2,7 @@ package cards.president.enumerations;
 import cards.consts.CardChar;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public enum CardPresident {
     WHITE,
@@ -155,7 +155,7 @@ public enum CardPresident {
     }
 
     public String getImageFileName(String _ext) {
-        return StringList.concat(name(),_ext);
+        return StringUtil.concat(name(),_ext);
     }
 
 }

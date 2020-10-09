@@ -1,7 +1,7 @@
 package code.formathtml.classes;
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public class BeanTwo extends Bean {
@@ -37,7 +37,7 @@ public class BeanTwo extends Bean {
         if (typedString == null) {
             typedString = "TYPED_STRING";
         } else {
-            typedString = StringList.concatNbs(typedString,2);
+            typedString = StringUtil.concatNbs(typedString,2);
         }
     }
 

@@ -12,8 +12,9 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.options.KeyWords;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
 
@@ -47,7 +48,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         if (ElUtil.isDeclaringLoopVariable(this, _page)) {
@@ -70,7 +71,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             String c_ = _page.getCurrentVarSetting();
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(c_, keyWordVar_)) {
+            if (StringUtil.quickEq(c_, keyWordVar_)) {
                 _page.getVariablesNamesToInfer().add(str_);
             }
             AnaLoopVariable lv_ = new AnaLoopVariable();
@@ -79,7 +80,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             lv_.setIndexClassName(indexClassName_);
             _page.getLoopsVars().put(str_, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
-            if (StringList.quickEq(c_, keyWordVar_)) {
+            if (StringUtil.quickEq(c_, keyWordVar_)) {
                 lInfo_.setClassName(_page.getAliasObject());
             } else {
                 lInfo_.setClassName(c_);

@@ -6,7 +6,7 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class DocumentReaderGuiUtil {
     private static final String WIDTH = "width";
@@ -31,11 +31,11 @@ public final class DocumentReaderGuiUtil {
     }
 
     private static void getTopLeftFrame(TopLeftFrame _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, WIDTH)) {
+        if (StringUtil.quickEq(_fieldName, WIDTH)) {
             _object.setWidth(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, HEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, HEIGHT)) {
             _object.setHeight(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }

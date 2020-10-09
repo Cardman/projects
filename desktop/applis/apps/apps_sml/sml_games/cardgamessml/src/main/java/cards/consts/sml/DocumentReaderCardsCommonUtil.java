@@ -7,14 +7,15 @@ import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderCardsCommonUtil {
 
     private static final String ATTR_VALUE = "value";
 
     public static GameType getGameType(Element _elt) {
         for (GameType e: GameType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -23,7 +24,7 @@ public final class DocumentReaderCardsCommonUtil {
 
     public static MixCardsChoice getMixCardsChoice(Element _elt) {
         for (MixCardsChoice e: MixCardsChoice.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -32,7 +33,7 @@ public final class DocumentReaderCardsCommonUtil {
 
     public static Order getOrder(Element _elt) {
         for (Order e: Order.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -41,7 +42,7 @@ public final class DocumentReaderCardsCommonUtil {
 
     public static Suit getSuit(Element _elt) {
         for (Suit e: Suit.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }

@@ -1,7 +1,8 @@
 package code.maths.geo;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -27,11 +28,11 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
 
     
     public static Rect newRect(String _input) {
-        StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
-        int left_ = Numbers.parseInt(elts_.first());
-        int top_ = Numbers.parseInt(elts_.get(1));
-        int width_ = Numbers.parseInt(elts_.get(2));
-        int height_ = Numbers.parseInt(elts_.last());
+        StringList elts_ = StringUtil.splitStrings(_input, SEPARATOR);
+        int left_ = NumberUtil.parseInt(elts_.first());
+        int top_ = NumberUtil.parseInt(elts_.get(1));
+        int width_ = NumberUtil.parseInt(elts_.get(2));
+        int height_ = NumberUtil.parseInt(elts_.last());
         Rect r_ = new Rect();
         r_.left = left_;
         r_.top = top_;
@@ -101,10 +102,7 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         if (getTop() > _pt.getYcoords()) {
             return false;
         }
-        if (getBottom() < _pt.getYcoords()) {
-            return false;
-        }
-        return true;
+        return getBottom() >= _pt.getYcoords();
     }
 
     public boolean intersects(Rect _r) {
@@ -117,10 +115,7 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         if (getTop() > _r.getBottom()) {
             return false;
         }
-        if (getBottom() < _r.getTop()) {
-            return false;
-        }
-        return true;
+        return getBottom() >= _r.getTop();
     }
 
     public boolean isEmpty() {
@@ -173,10 +168,7 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         if (_obj.width != width) {
             return false;
         }
-        if (_obj.height != height) {
-            return false;
-        }
-        return true;
+        return _obj.height == height;
     }
     @Override
     

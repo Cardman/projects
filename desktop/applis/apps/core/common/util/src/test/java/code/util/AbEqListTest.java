@@ -430,6 +430,20 @@ public class AbEqListTest {
         assertTrue(e_.eq(f_));
     }
     @Test
+    public void remove4Test() {
+        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
+        e_.add(new MyCmp(1));
+        e_.add(new MyCmp(2));
+        e_.add(new MyCmp(3));
+        e_.add(new MyCmp(1));
+        e_.removeObj(new MyCmp(1));
+        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
+        f_.add(new MyCmp(2));
+        f_.add(new MyCmp(3));
+        f_.add(new MyCmp(1));
+        assertTrue(e_.eq(f_));
+    }
+    @Test
     public void containsAllObj1Test() {
         SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
         e_.add(new MyCmp(1));

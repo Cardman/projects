@@ -10,11 +10,11 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
 
@@ -33,8 +33,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        beanName = elt.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
-        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
+        beanName = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
+        imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
@@ -60,7 +60,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _anaDoc.setCurrentBlock(en_);
             _page.setCurrentAnaBlock(en_);
             if (en_ instanceof AnaRendStdElement) {
-                if (StringList.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_anaDoc.getRendKeyWords().getKeyWordBody())) {
+                if (StringUtil.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_anaDoc.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);
                 }
             }
@@ -166,7 +166,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             String label_ = ((AnaRendLocBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringList.isDollarWordChar(c)) {
+                if (StringUtil.isDollarWordChar(c)) {
                     continue;
                 }
                 wc_ = false;
@@ -179,7 +179,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 bad_.buildError(_page.getAnalysisMessages().getBadLabel());
                 AnalyzingDoc.addError(bad_, _anaDoc, _page);
             } else if (!label_.isEmpty()){
-                if (StringList.contains(_labels, label_)) {
+                if (StringUtil.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(_anaDoc.getFileName());
                     dup_.setIndexFile(((AnaRendLocBreakableBlock) _block).getRealLabelOffset());

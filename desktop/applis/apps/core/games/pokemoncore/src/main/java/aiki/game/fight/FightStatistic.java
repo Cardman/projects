@@ -16,12 +16,13 @@ import aiki.fight.util.StatisticPokemon;
 import aiki.fight.util.StatisticStatus;
 import aiki.fight.util.StatisticType;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EnumMap;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightStatistic {
 
@@ -52,7 +53,7 @@ final class FightStatistic {
         for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttGlobal_=_import.getMove(c);
             int nbEffets_=fAttGlobal_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttGlobal_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;
@@ -162,7 +163,7 @@ final class FightStatistic {
         for(String c:equipe_.enabledTeamMoves()){
             MoveData fAttaque_=_import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectTeam)){
                     continue;
@@ -183,7 +184,7 @@ final class FightStatistic {
         for(String c:equipe_.enabledTeamMoves()){
             MoveData fAttaque_=_import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectTeam)){
                     continue;
@@ -209,7 +210,7 @@ final class FightStatistic {
         Rate rate_ = DataBase.defRateProduct();
         Fighter fighter_ = _fight.getFighter(_fighter);
         for(String c:fighter_.getStatusSet()){
-            if(Numbers.eq(fighter_.getStatusNbRoundShort(c), 0)){
+            if(NumberUtil.eq(fighter_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
             Status statut_=_import.getStatus().getVal(c);
@@ -237,7 +238,7 @@ final class FightStatistic {
         //RATE_BOOST
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), Integer.toString(_boost));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Integer.toString(_boost));
         return _import.evaluatePositiveExp(numericExp_, variables_, Rate.one());
     }
 
@@ -246,7 +247,7 @@ final class FightStatistic {
         for(String c2_: FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttGlobal_=_import.getMove(c2_);
             int nbEffets_=fAttGlobal_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttGlobal_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;

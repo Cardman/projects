@@ -4,8 +4,8 @@ import cards.belote.DeclareHandBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
-import code.util.CustList;
-import code.util.Numbers;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class DeclareHandBeloteComparator implements Comparing<DeclareHandBelote> {
@@ -21,13 +21,13 @@ public final class DeclareHandBeloteComparator implements Comparing<DeclareHandB
         DeclaresBelote annonce2_ = _o2.getDeclare();
         HandBelote main1_ = _o1.getHand();
         HandBelote main2_ = _o2.getHand();
-        int cmp_ = Numbers.compareLg(annonce1_.getForce(), annonce2_.getForce());
+        int cmp_ = NumberUtil.compareLg(annonce1_.getForce(), annonce2_.getForce());
         if (cmp_ != 0) {
             return -cmp_;
         }
         int minTaille_ = Math.min(main1_.total(), main2_.total());
-        for (int i = CustList.FIRST_INDEX;i<minTaille_;i++){
-            cmp_ = Numbers.compareLg(main1_.carte(i).forceAnnonce(), main2_.carte(i).forceAnnonce());
+        for (int i = IndexConstants.FIRST_INDEX; i<minTaille_; i++){
+            cmp_ = NumberUtil.compareLg(main1_.carte(i).forceAnnonce(), main2_.carte(i).forceAnnonce());
             if (cmp_ != 0) {
                 return -cmp_;
             }
@@ -36,12 +36,12 @@ public final class DeclareHandBeloteComparator implements Comparing<DeclareHandB
         if(trumpSuit_ != Suit.UNDEFINED){
             int first_ = main1_.couleurs(bid).getVal(trumpSuit_).total();
             int second_ = main2_.couleurs(bid).getVal(trumpSuit_).total();
-            cmp_ = Numbers.compareLg(first_, second_);
+            cmp_ = NumberUtil.compareLg(first_, second_);
             if (cmp_ != 0) {
                 return -cmp_;
             }
         }
-        return -Numbers.compareLg(main1_.total(), main2_.total());
+        return -NumberUtil.compareLg(main1_.total(), main2_.total());
     }
 
 }

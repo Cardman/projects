@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class IdOperation extends AbstractUnaryOperation {
 
@@ -113,7 +114,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             StringList all_ = new StringList(rBase_.getAllSuperTypes());
             all_.add(id_);
             all_.removeAllString(_page.getAliasObject());
-            if (!StringList.equalsSet(all_,previousInts_)) {
+            if (!StringUtil.equalsSet(all_,previousInts_)) {
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();

@@ -1,8 +1,4 @@
 package cards.gui.dialogs;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
@@ -12,9 +8,9 @@ import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 public final class DialogHelpPresident extends Dialog {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialoghelppresident";
@@ -69,7 +65,7 @@ public final class DialogHelpPresident extends Dialog {
         } else {
             value_ = DIALOG.messages.getVal(NO);
         }
-        message_ = StringList.simpleStringsFormat(message_, value_);
+        message_ = StringUtil.simpleStringsFormat(message_, value_);
         TextLabel reversed_ = new TextLabel(message_);
         contentPane_.add(reversed_);
         DIALOG.setContentPane(contentPane_);

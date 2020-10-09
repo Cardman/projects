@@ -10,12 +10,13 @@ import aiki.game.fight.StacksOfUses;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import code.maths.LgInt;
-import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class TeamBean extends CommonFightBean {
     private TreeMap<StringList,ActivityOfMove> enabledMovesByGroup;
@@ -139,28 +140,28 @@ public class TeamBean extends CommonFightBean {
         Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
         Fighter fighter_ = team_.getMembers().getVal(index_);
-        byte i_ = CustList.FIRST_INDEX;
-        byte nb_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
+        byte nb_ = IndexConstants.FIRST_INDEX;
         while (i_ < _index.intValue()) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
-            if (StringList.quickEq(fighter_.getName(), current_.getName())) {
+            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == CustList.FIRST_INDEX) {
+        if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
     public String clickFighter(Long _index) {
         getForms().put(NO_FIGHTER, _index);
         return FIGHTER;
     }
     public String getKey(Long _index) {
-        return StringList.join(enabledMovesByGroup.getKey(_index.intValue()), MOVES_SEPARATOR);
+        return StringUtil.join(enabledMovesByGroup.getKey(_index.intValue()), MOVES_SEPARATOR);
     }
     public boolean isFoeMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
         return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getTeam() == Fight.FOE;
@@ -182,21 +183,21 @@ public class TeamBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getUserTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
-        byte i_ = CustList.FIRST_INDEX;
-        byte nb_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
+        byte nb_ = IndexConstants.FIRST_INDEX;
         while (i_ < _index.intValue()) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
-            if (StringList.quickEq(fighter_.getName(), current_.getName())) {
+            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == CustList.FIRST_INDEX) {
+        if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     private String getDisplayFoeName(byte _indexOne, Long _index) {
@@ -204,21 +205,21 @@ public class TeamBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getFoeTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
-        byte i_ = CustList.FIRST_INDEX;
-        byte nb_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
+        byte nb_ = IndexConstants.FIRST_INDEX;
         while (i_ < _index.intValue()) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
-            if (StringList.quickEq(fighter_.getName(), current_.getName())) {
+            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == CustList.FIRST_INDEX) {
+        if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     public boolean getFoeTeam() {

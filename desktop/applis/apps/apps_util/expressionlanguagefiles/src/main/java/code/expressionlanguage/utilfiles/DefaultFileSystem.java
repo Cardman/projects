@@ -6,6 +6,7 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 import java.io.File;
 
@@ -48,7 +49,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public String absolutePath(String _file, RunnableContextEl _rCont) {
-        return StringList.replaceBackSlash(new File(_file).getAbsolutePath());
+        return StringUtil.replaceBackSlash(new File(_file).getAbsolutePath());
     }
 
     @Override
@@ -63,7 +64,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public String getParentPath(String _file, RunnableContextEl _rCont) {
-        return StringList.replaceBackSlash(new File(_file).getParentFile().getAbsolutePath());
+        return StringUtil.replaceBackSlash(new File(_file).getParentFile().getAbsolutePath());
     }
 
     @Override
@@ -110,7 +111,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             if (f.isDirectory()) {
                 continue;
             }
-            filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
+            filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
         }
         return filesList_;
     }
@@ -130,7 +131,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             if (!f.isDirectory()) {
                 continue;
             }
-            filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
+            filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
         }
         return filesList_;
     }

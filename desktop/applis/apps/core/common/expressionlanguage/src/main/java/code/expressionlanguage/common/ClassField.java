@@ -1,5 +1,5 @@
 package code.expressionlanguage.common;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ClassField {
 
@@ -13,10 +13,10 @@ public final class ClassField {
     }
 
     public boolean eq(ClassField _obj) {
-        if (!StringList.quickEq(className, _obj.className)) {
+        if (!StringUtil.quickEq(className, _obj.className)) {
             return false;
         }
-        return StringList.quickEq(fieldName, _obj.fieldName);
+        return StringUtil.quickEq(fieldName, _obj.fieldName);
     }
 
     public String getClassName() {

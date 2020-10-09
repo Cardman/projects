@@ -6,6 +6,7 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class DealPresident implements Iterable<HandPresident> {
@@ -100,7 +101,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     private void donnerEnBattant(RulesPresident _regles,AbstractGenerator _gene) {
 
         byte nbJrs_ = (byte) _regles.getNbPlayers();
-        for (int i = CustList.FIRST_INDEX; i < nbJrs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbJrs_; i++) {
             deal.add(new HandPresident());
         }
         HandPresident m = HandPresident.stack(_regles.getNbStacks());
@@ -109,7 +110,7 @@ public final class DealPresident implements Iterable<HandPresident> {
 //        }
         byte nombreTotalCarteJoueurs_ = (byte) (m.total());
 
-        for (int i = CustList.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
             deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
     }
@@ -123,7 +124,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
         byte nbJrs_ = (byte) _regles.getNbPlayers();
         /* On prepare_ les_ mains_ des_ joueurs_ */
-        for (int i = CustList.FIRST_INDEX; i < nbJrs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbJrs_; i++) {
             deal.add(new HandPresident());
         }
         Bytes ordreDisributionJoueurs_;
@@ -134,7 +135,7 @@ public final class DealPresident implements Iterable<HandPresident> {
                 if (deck.estVide()) {
                     break;
                 }
-                deal.get(j).ajouter(deck.jouer(CustList.FIRST_INDEX));
+                deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
             }
         }
     }

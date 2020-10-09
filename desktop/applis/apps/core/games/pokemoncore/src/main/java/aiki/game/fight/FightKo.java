@@ -8,13 +8,13 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightKo {
 
@@ -34,7 +34,7 @@ final class FightKo {
         if(_fight.getFighter(_combattant).isBelongingToPlayer()){
             equipe_.toutSupprimerCombattantsContreAdvMembre(_combattant.getPosition());
             _fight.getFirstPositPlayerFighters().put(_combattant.getPosition(),Fighter.BACK);
-        }else if(Numbers.eq(_combattant.getTeam(),Fight.FOE)){
+        }else if(NumberUtil.eq(_combattant.getTeam(),Fight.FOE)){
             Team equipeUt_=_fight.getUserTeam();
             Bytes liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
             addExpEvsFighters(_fight,liste_,_combattant.getPosition(),_diff,_import);
@@ -201,8 +201,8 @@ final class FightKo {
         Fighter winner_ = _fight.getUserTeam().refPartMembres(_winner.getPosition());
         Fighter looser_ = _fight.getFoeTeam().refPartMembres(_looser.getPosition());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Integer.toString(winner_.getLevel()));
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Integer.toString(looser_.getLevel()));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Integer.toString(winner_.getLevel()));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Integer.toString(looser_.getLevel()));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }
@@ -271,7 +271,7 @@ final class FightKo {
         for(String c:equipeAdv_.enabledTeamMoves()){
             MoveData fAttAdv_=_import.getMove(c);
             int nbEffets_=fAttAdv_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttAdv_.getEffet(i);
                 if(!(effet_ instanceof EffectTeam)){
                     continue;

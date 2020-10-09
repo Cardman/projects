@@ -7,6 +7,7 @@ import aiki.fight.moves.effects.EffectSwitchMoveTypes;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 final class FightMoves {
@@ -29,7 +30,7 @@ final class FightMoves {
             if(!_fight.getEnabledMoves().getVal(c).isEnabled()){
                 continue;
             }
-            if(!StringList.contains(_import.getMovesEffectGlobalWeather(), c)){
+            if(!StringUtil.contains(_import.getMovesEffectGlobalWeather(), c)){
                 continue;
             }
             climats_.add(c);
@@ -56,7 +57,7 @@ final class FightMoves {
             if(!_fight.getEnabledMoves().getVal(m).isEnabled()){
                 continue;
             }
-            if(StringList.contains(_import.getMovesEffectGlobalWeather(), m)){
+            if(StringUtil.contains(_import.getMovesEffectGlobalWeather(), m)){
                 continue;
             }
             list_.add(m);

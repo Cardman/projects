@@ -3,6 +3,7 @@ package code.expressionlanguage.functionid;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class IdentifiableUtil {
 
@@ -14,7 +15,7 @@ public final class IdentifiableUtil {
             _paramsReturn.add(_foundClass);
         }
         if (_id.isVararg()) {
-            for (String p: params_.mid(0, params_.size() - 1)) {
+            for (String p: params_.left(params_.size() - 1)) {
                 _paramsReturn.add(p);
             }
             String p_ = params_.last();
@@ -36,7 +37,7 @@ public final class IdentifiableUtil {
         for (int i = 0; i < len_; i++) {
             String param_ = _this.getParametersType(i);
             String paramOther_ = _other.getParametersType(i);
-            if (!StringList.eq(param_,paramOther_)) {
+            if (!StringUtil.eq(param_,paramOther_)) {
                 return false;
             }
         }

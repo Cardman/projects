@@ -1,7 +1,7 @@
 package aiki.game.fight;
 import code.util.EqList;
-import code.util.*;
-import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Equallable;
 
 public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
@@ -44,12 +44,9 @@ public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
 
     @Override
     public boolean eq(MoveUsesTeam _obj) {
-        if (!StringList.quickEq(move, _obj.move)) {
+        if (!StringUtil.quickEq(move, _obj.move)) {
             return false;
         }
-        if (!Numbers.eq(nbUses, _obj.nbUses)) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(nbUses, _obj.nbUses);
     }
 }

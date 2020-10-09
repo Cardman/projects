@@ -19,6 +19,7 @@ import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class EndRoundBean extends CommonBean {
 
@@ -64,7 +65,7 @@ public class EndRoundBean extends CommonBean {
             ItemForBattle itBat_ = (ItemForBattle) it_;
             effect_ = itBat_.getEffectEndRound().first();
         } else if (elt_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
-            StringList moves_ = StringList.splitStrings(elt_.getElement(), DataBase.SEPARATOR_MOVES);
+            StringList moves_ = StringUtil.splitStrings(elt_.getElement(), DataBase.SEPARATOR_MOVES);
 //            if (data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().isEmpty()) {
 //                return PAGE_EFF;
 //            }

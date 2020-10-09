@@ -17,7 +17,8 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class RenderAnalysis {
     private RenderAnalysis() {
@@ -50,7 +51,7 @@ public final class RenderAnalysis {
         _anaDoc.setNextIndex(end_+2);
         String el_ = _el.substring(beg_,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page);
-        OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
+        OperationNode op_ = createOperationNode(_minIndex, IndexConstants.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
         getSortedDescNodes(op_, _anaDoc, _page);
         return op_;
     }
@@ -77,7 +78,7 @@ public final class RenderAnalysis {
         }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page);
-        OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
+        OperationNode op_ = createOperationNode(_index, IndexConstants.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
         getSortedDescNodes(op_, _anaDoc, _page);
         return op_;
     }
@@ -203,7 +204,7 @@ public final class RenderAnalysis {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(d_);
-                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+                return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
             }
             return null;
         }
@@ -215,7 +216,7 @@ public final class RenderAnalysis {
             OperationsSequence opSeq_ = new OperationsSequence();
             opSeq_.setFctName(block_.getOperations().getFctName());
             opSeq_.setDelimiter(d_);
-            return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+            return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
         return createOperationNode(offset_, _index, block_, r_, _anaDoc, _page);
@@ -223,7 +224,7 @@ public final class RenderAnalysis {
 
     private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
         return block_ instanceof AbstractInstancingOperation
-                && _index == CustList.FIRST_INDEX
+                && _index == IndexConstants.FIRST_INDEX
                 && ((AbstractInstancingOperation) block_).isNewBefore();
     }
 
@@ -251,7 +252,7 @@ public final class RenderAnalysis {
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                            Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         int len_ = _string.length();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -268,7 +269,7 @@ public final class RenderAnalysis {
             len_ = lastPrintChar_+1;
             String sub_ = _string.substring(i_, len_);
             if (_anaDoc.isInternGlobal()) {
-                if (StringList.quickEq(sub_, keyWordIntern_)) {
+                if (StringUtil.quickEq(sub_, keyWordIntern_)) {
                     OperationsSequence op_ = new OperationsSequence();
                     op_.setConstType(ConstType.WORD);
                     op_.setOperators(new IntTreeMap< String>());
@@ -286,9 +287,9 @@ public final class RenderAnalysis {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         if (_op.getOperators().isEmpty()) {
-            String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+            String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
             String str_ = originalStr_.trim();
-            if (_analyzingDoc.isInternGlobal() && StringList.quickEq(str_, keyWordIntern_)) {
+            if (_analyzingDoc.isInternGlobal() && StringUtil.quickEq(str_, keyWordIntern_)) {
                 return new InternGlobalOperation(_index, _indexChild, _m, _op, _analyzingDoc);
             }
         }

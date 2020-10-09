@@ -20,8 +20,8 @@ import aiki.util.Coords;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.StringList;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 public class SolutionBean extends CommonBean {
 
@@ -53,7 +53,7 @@ public class SolutionBean extends CommonBean {
                 for (GenderName pk_: step_.getCaughtPokemonPlaceLevel().getVal(key_)) {
                     boolean cont_ = false;
                     for (GenderName s: g_) {
-                        if (!StringList.quickEq(s.getName(),pk_.getName())) {
+                        if (!StringUtil.quickEq(s.getName(),pk_.getName())) {
                             continue;
                         }
                         if (s.getGender() != pk_.getGender()) {
@@ -135,7 +135,7 @@ public class SolutionBean extends CommonBean {
         if (place_.getLevelsMap().size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return name_;
         }
-        return StringList.concat(name_,SPACE,Long.toString(key_.getLevel()));
+        return StringUtil.concat(name_,SPACE,Long.toString(key_.getLevel()));
     }
     public CustList<WildPokemonDto> getPokemonList(Long _indexStep, Long _indexLevelPlace) {
         StepDto step_ = steps.get(_indexStep.intValue());

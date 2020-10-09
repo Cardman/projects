@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.blocks.AnaFieldContent;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 
@@ -203,7 +204,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 err_.add(b_.getBuiltError());
             }
             for (String m: idsField_) {
-                if (StringList.quickEq(m, trName_)) {
+                if (StringUtil.quickEq(m, trName_)) {
                     int r_ = _bl.getOffset().getOffsetTrim();
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();

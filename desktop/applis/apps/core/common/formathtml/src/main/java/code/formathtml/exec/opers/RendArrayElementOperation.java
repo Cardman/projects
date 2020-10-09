@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendArrayElementOperation extends
         RendAbstractArrayInstancingOperation {
@@ -21,7 +21,7 @@ public final class RendArrayElementOperation extends
     @Override
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf, ContextEl _ctx) {
         String me_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(me_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
 

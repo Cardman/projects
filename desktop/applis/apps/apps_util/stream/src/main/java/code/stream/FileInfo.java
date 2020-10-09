@@ -3,6 +3,7 @@ import java.io.File;
 
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class FileInfo {
 
@@ -34,7 +35,7 @@ public final class FileInfo {
             return null;
         }
         File f_ = children.first();
-        return new FileInfo(f_, CustList.FIRST_INDEX, this);
+        return new FileInfo(f_, IndexConstants.FIRST_INDEX, this);
     }
 
     public FileInfo getNextSibling() {

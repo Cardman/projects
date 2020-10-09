@@ -151,7 +151,7 @@ public abstract class AbstractPageEl extends PageEl {
     public void removeLastBlock() {
         AbstractStask last_ = blockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
-        blockStacks.removeLast();
+        blockStacks.removeQuicklyLast();
         if (hasBlock()) {
             AbstractStask before_ = blockStacks.last();
             if (before_ instanceof LoopBlockStack) {

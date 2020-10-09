@@ -4,8 +4,8 @@ import java.util.Iterator;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.consts.Suit;
-import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class TrickBelote implements Iterable<CardBelote> {
@@ -81,7 +81,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
     public byte joueurAyantJoue(CardBelote _c,byte _nombreDeJoueurs) {
         if(!contient(_c)) {
-            return CustList.INDEX_NOT_FOUND_ELT;
+            return IndexConstants.INDEX_NOT_FOUND_ELT;
         }
         byte position_=(byte)cards.position(_c);
         return (byte)((position_+getEntameur())%_nombreDeJoueurs);
@@ -105,15 +105,9 @@ public final class TrickBelote implements Iterable<CardBelote> {
         if(total()<_nombreDeJoueurs) {
             //Pli en_ cours_
             if(_joueur>=getEntameur()) {
-                if(_joueur-getEntameur()>=total()) {
-                    return false;
-                }
-                return true;
+                return _joueur - getEntameur() < total();
             }
-            if(_joueur-getEntameur()+_nombreDeJoueurs>=total()) {
-                return false;
-            }
-            return true;
+            return _joueur - getEntameur() + _nombreDeJoueurs < total();
         }
         //Pli non_ separe_
         return true;

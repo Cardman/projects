@@ -4,6 +4,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class StatusSetBean extends CommonBean {
     private StringList sortedStatus = new StringList();
@@ -22,7 +23,7 @@ public class StatusSetBean extends CommonBean {
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         for (String i: data_.getStatus().getKeys()) {
             String displayName_ = translationsStatus_.getVal(i);
-            if (!StringList.match(displayName_, typedStatus)) {
+            if (!StringUtil.match(displayName_, typedStatus)) {
                 continue;
             }
             sortedAbilities_.add(i);

@@ -5,10 +5,9 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedType {
 
@@ -90,7 +89,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     public final String getFullName() {
         String pkg_ = getPackageName();
         String name_ = getName();
-        return StringList.spliceIfFirst('.',StringList.concat(pkg_,".",name_));
+        return StringUtil.spliceIfFirst('.', StringUtil.concat(pkg_,".",name_));
     }
 
     @Override
@@ -115,9 +114,9 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     }
 
     private boolean isSubTypeOf(String _fullName) {
-        if (StringList.quickEq(getFullName(),_fullName)) {
+        if (StringUtil.quickEq(getFullName(),_fullName)) {
             return true;
         }
-        return StringList.contains(getAllSuperTypes(),_fullName);
+        return StringUtil.contains(getAllSuperTypes(),_fullName);
     }
 }

@@ -15,6 +15,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
         GeneCustModifierMethod, WithNotEmptyEl {
@@ -76,7 +77,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         if (in_ && !opValue.isEmpty()) {
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
             setValue(_cont,arg_);
             if (_cont.callsOrException()) {

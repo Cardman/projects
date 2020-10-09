@@ -3,6 +3,8 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import code.maths.LgInt;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +24,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
@@ -1093,7 +1094,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
         StringList list_ = pk_.directEvolutionsByStone(PTITARD, data);
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, PTITARD));
+        assertTrue(StringUtil.contains(list_, PTITARD));
     }
 
     @Test
@@ -1108,9 +1109,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
         StringList list_ = pk_.directEvolutionsByStone(MELOFEE, data);
         assertEq(3, list_.size());
-        assertTrue(StringList.contains(list_, MELOFEE));
-        assertTrue(StringList.contains(list_, MELODELFE));
-        assertTrue(StringList.contains(list_, MELODELFE_2));
+        assertTrue(StringUtil.contains(list_, MELOFEE));
+        assertTrue(StringUtil.contains(list_, MELODELFE));
+        assertTrue(StringUtil.contains(list_, MELODELFE_2));
     }
 
     @Test
@@ -1219,8 +1220,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         assertEq(2, pk_.getNewAbilitiesToBeChosen().size());
-        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
-        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
+        assertTrue(StringUtil.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
+        assertTrue(StringUtil.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
         assertEq(0, pk_.getMovesToBeKeptEvo().size());
         assertEq(MELODELFE_2, pk_.getPossibleEvolution());
         assertEq(MELOFEE, pk_.getName());
@@ -1317,8 +1318,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.getMovesToBeKeptEvo().put(VIVE_ATTAQUE, false);
         pk_.learnMovesAfterEvolving(GARDE_MAGIK,data_);
         assertEq(2, pk_.getNewAbilitiesToBeChosen().size());
-        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
-        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
+        assertTrue(StringUtil.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
+        assertTrue(StringUtil.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
         assertEq(5, pk_.getMovesToBeKeptEvo().size());
         assertTrue(pk_.getMovesToBeKeptEvo().getVal(JACKPOT));
         assertTrue(!pk_.getMovesToBeKeptEvo().getVal(ECLAIR));
@@ -1730,33 +1731,33 @@ public class PokemonPlayerTest extends InitializationDataBase {
     public void getAllEvolutions6Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(PTITARD, (short) 3, true, data);
         assertEq(3, evos_.size());
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE)));
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARTARD)));
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARPAUD)));
+        assertEq(25, evos_.getVal(StringUtil.concat(PTITARD,SEPARATOR,TETARTE)));
+        assertEq(25, evos_.getVal(StringUtil.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARTARD)));
+        assertEq(25, evos_.getVal(StringUtil.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARPAUD)));
     }
 
     @Test
     public void getAllEvolutions7Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NINGALE, (short) 3, true, data);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,NINJASK)));
-        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,MUNJA)));
+        assertEq(20, evos_.getVal(StringUtil.concat(NINGALE,SEPARATOR,NINJASK)));
+        assertEq(20, evos_.getVal(StringUtil.concat(NINGALE,SEPARATOR,MUNJA)));
     }
 
     @Test
     public void getAllEvolutions8Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NUCLEOS, (short) 3, true, data);
         assertEq(2, evos_.size());
-        assertEq(32, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS)));
-        assertEq(41, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS,SEPARATOR,SYMBIOS)));
+        assertEq(32, evos_.getVal(StringUtil.concat(NUCLEOS,SEPARATOR,MEIOS)));
+        assertEq(41, evos_.getVal(StringUtil.concat(NUCLEOS,SEPARATOR,MEIOS,SEPARATOR,SYMBIOS)));
     }
 
     @Test
     public void getAllEvolutions9Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(TETARTE, (short) 20, true, data);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARTARD)));
-        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARPAUD)));
+        assertEq(20, evos_.getVal(StringUtil.concat(TETARTE,SEPARATOR,TARTARD)));
+        assertEq(20, evos_.getVal(StringUtil.concat(TETARTE,SEPARATOR,TARPAUD)));
     }
 
     @Test
@@ -2294,7 +2295,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
     }
 
     private void loopMoving(PokemonPlayer _pk, int _nb) {
-        for (int i = CustList.FIRST_INDEX; i < _nb; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
             _pk.deplacement(data);
         }
     }

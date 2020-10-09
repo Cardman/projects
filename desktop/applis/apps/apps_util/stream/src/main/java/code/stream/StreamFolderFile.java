@@ -1,8 +1,8 @@
 package code.stream;
 
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.io.File;
 
@@ -11,14 +11,14 @@ public final class StreamFolderFile {
     }
 
     public static String getCurrentPath() {
-        return StringList.replaceBackSlashDot(new File(".").getAbsolutePath());
+        return StringUtil.replaceBackSlashDot(new File(".").getAbsolutePath());
     }
 
     public static boolean isAbsolute(String _path) {
         File file_ = new File(_path);
-        String absPath_ = StringList.replaceBackSlash(file_.getAbsolutePath());
-        String path_ = StringList.replaceBackSlash(_path);
-        return StringList.quickEq(absPath_,path_);
+        String absPath_ = StringUtil.replaceBackSlash(file_.getAbsolutePath());
+        String path_ = StringUtil.replaceBackSlash(_path);
+        return StringUtil.quickEq(absPath_,path_);
     }
     public static StringMap<String> getFiles(String _archiveOrFolder) {
         StringMap<String> zipFiles_ = new StringMap<String>();
@@ -45,11 +45,11 @@ public final class StreamFolderFile {
                 if (key_.endsWith("/")) {
                     continue;
                 }
-                String dec_ = StringList.decode(e.getValue());
+                String dec_ = StringUtil.decode(e.getValue());
                 if (dec_ == null) {
                     continue;
                 }
-                zipFiles_.addEntry(key_,StringList.removeChars(dec_,'\r'));
+                zipFiles_.addEntry(key_, StringUtil.removeChars(dec_,'\r'));
             }
         }
         return zipFiles_;

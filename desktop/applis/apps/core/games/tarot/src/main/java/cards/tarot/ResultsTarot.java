@@ -9,6 +9,7 @@ import cards.tarot.enumerations.Miseres;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class ResultsTarot {
@@ -87,7 +88,7 @@ public final class ResultsTarot {
                 end_.setupPlayersWonTricks();
                 boolean pasJeuMisere_=game.pasJeuMisere();
                 if(pasJeuMisere_) {
-                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                         short ptsDb_ = end_.scoreJoueurPlisDouble(joueur_);
                         doubledScoresPlayersTricks_.add(ptsDb_);
                         short ptsNeed_ = end_.scoreNecessaireJoueur(joueur_);
@@ -107,7 +108,7 @@ public final class ResultsTarot {
                     game.setScores(end_.calculerScoresJoueurs(coefficients, maxDoubledDifference_, additionnalBonuses_));
                     scoresDeal_=game.getScores();
                 } else {
-                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                         needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
@@ -126,7 +127,7 @@ public final class ResultsTarot {
                 finalUserPosition = positionsFour.get(user);
             }
         } else {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresDeal_.add((short)0);
             }
         }

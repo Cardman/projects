@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -216,7 +217,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         StringList list_ = FightSuccess.forbiddenStatus(fight_,data);
         assertEq(1, list_.size());
-        assertTrue(StringList.contains(list_, GEL));
+        assertTrue(StringUtil.contains(list_, GEL));
     }
 
     @Test

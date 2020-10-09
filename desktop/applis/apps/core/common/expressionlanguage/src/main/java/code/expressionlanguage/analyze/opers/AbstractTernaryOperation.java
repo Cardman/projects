@@ -15,6 +15,8 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class AbstractTernaryOperation extends MethodOperation {
 
@@ -62,7 +64,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(clMatch_.getNames(),"&"));
+                            StringUtil.join(clMatch_.getNames(),"&"));
                     _page.getLocalizer().addError(un_);
                     getErrs().add(un_.getBuiltError());
                 }
@@ -72,13 +74,13 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (!deep_.isEmpty()) {
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+1));
             getPartOffsetsChildren().add(list_);
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         opOne_.getResultClass().setCheckOnlyNullPe(true);
-        OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
+        OperationNode opTwo_ = chidren_.get(IndexConstants.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();

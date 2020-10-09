@@ -1,4 +1,5 @@
 package aiki.db;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 import aiki.fight.enums.EndTurnType;
@@ -79,12 +80,12 @@ public final class EquallablePkUtil {
     }
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
+        Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
     
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
+        Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
     public static void assertEq(TeamPosition _expected, TeamPosition _result) {
         Assert.assertNotNull(_result);

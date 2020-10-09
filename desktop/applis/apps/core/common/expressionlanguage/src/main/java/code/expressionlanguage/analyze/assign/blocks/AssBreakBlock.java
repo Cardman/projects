@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.blocks.BreakBlock;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AssBreakBlock extends AssAbruptBlock {
     private String label;
@@ -20,7 +20,7 @@ public final class AssBreakBlock extends AssAbruptBlock {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((AssBreakableBlock)b_).getRealLabel())){
+                    if (StringUtil.quickEq(label, ((AssBreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         break;
                     }

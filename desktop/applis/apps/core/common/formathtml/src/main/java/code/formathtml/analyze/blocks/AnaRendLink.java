@@ -5,9 +5,10 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class AnaRendLink extends AnaRendElement {
     private String content;
@@ -25,14 +26,14 @@ public final class AnaRendLink extends AnaRendElement {
         if (href_ != null) {
             StringMap<String> files_ = _anaDoc.getFiles();
             content = files_.getVal(href_);
-            int i_ = CustList.FIRST_INDEX;
-            while (_read.hasAttribute(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
-                _list.removeAllString(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-                String attribute_ = _read.getAttribute(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-                int rowsGrId_ = getAttributeDelimiter(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            int i_ = IndexConstants.FIRST_INDEX;
+            while (_read.hasAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+                _list.removeAllString(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+                String attribute_ = _read.getAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+                int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
                 ResultText r_ = new ResultText();
                 r_.buildAna(attribute_, rowsGrId_, _anaDoc, _page);
-                opExpTitle.addEntry(StringList.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
+                opExpTitle.addEntry(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
                 i_++;
             }
         }

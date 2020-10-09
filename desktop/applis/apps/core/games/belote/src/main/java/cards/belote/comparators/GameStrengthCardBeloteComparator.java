@@ -3,7 +3,7 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.Numbers;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class GameStrengthCardBeloteComparator implements Comparing<CardBelote> {
@@ -39,9 +39,9 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
             mult_ = -1;
         }
         if(bid.getEnchere() == BidBelote.FOLD){
-            return mult_*Numbers.compareLg(_arg0.strength(trumpSuit, demandedSuit), _arg1.strength(trumpSuit, demandedSuit));
+            return mult_*NumberUtil.compareLg(_arg0.strength(trumpSuit, demandedSuit), _arg1.strength(trumpSuit, demandedSuit));
         }
-        return mult_*Numbers.compareLg(_arg0.strength(demandedSuit, bid) , _arg1.strength(demandedSuit, bid));
+        return mult_* NumberUtil.compareLg(_arg0.strength(demandedSuit, bid) , _arg1.strength(demandedSuit, bid));
     }
 
 }

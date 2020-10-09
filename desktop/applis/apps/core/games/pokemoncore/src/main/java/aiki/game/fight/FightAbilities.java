@@ -8,8 +8,9 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.StatisticStatus;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightAbilities {
 
@@ -26,7 +27,7 @@ final class FightAbilities {
             return false;
         }
         AbilityData fCapac_=creatureLanceur_.ficheCapaciteActuelle(_import);
-        return StringList.contains(fCapac_.getIgnAbility(), creatureCible_.getCurrentAbility());
+        return StringUtil.contains(fCapac_.getIgnAbility(), creatureCible_.getCurrentAbility());
     }
 
     static void enableAbility(Fight _fight,TeamPosition _cbt,DataBase _import){
@@ -46,11 +47,11 @@ final class FightAbilities {
             }
         }
         for(String c:creatureCbt_.getStatusSet()){
-            if(Numbers.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
+            if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
             for(StatisticStatus e:fCapac_.getImmuLowStatIfStatus()){
-                if(StringList.quickEq(e.getStatus(),c)){
+                if(StringUtil.quickEq(e.getStatus(),c)){
                     //remise a zero du boost si negatif en fonction du statut
                     byte boost_=creatureCbt_.getStatisBoost().getVal(e.getStatistic());
                     if(boost_<defStatistic_){
@@ -63,7 +64,7 @@ final class FightAbilities {
         enableAbilityByWeather(_fight, _cbt, _import);
         FightSending.effectPlate(_fight, _cbt, _import);
         for(String c:creatureCbt_.getStatusSet()){
-            if(Numbers.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
+            if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
             if(!fCapac_.getDivideStatusRound().contains(c)){
@@ -124,7 +125,7 @@ final class FightAbilities {
 
     static void disableAbility(Fight _fight,TeamPosition _cbt,String _newAbility,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        if(StringList.quickEq(creatureCbt_.getCurrentAbility(),_newAbility)){
+        if(StringUtil.quickEq(creatureCbt_.getCurrentAbility(),_newAbility)){
             return;
         }
         creatureCbt_.setCurrentAbility(_newAbility);

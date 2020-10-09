@@ -10,8 +10,8 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AssSettableFieldOperation extends AssLeafOperation implements AssSettableElResult {
     private FieldInfo fieldMetaInfo;
@@ -69,7 +69,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         }
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
+                if (StringUtil.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
                     if (fieldMetaInfo.isFinalField() && !declare) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_page);
@@ -115,7 +115,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         ClassField clField_ = fieldMetaInfo.getClassField();
         String gl_ = _page.getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
-        return !StringList.quickEq(clField_.getClassName(), id_);
+        return !StringUtil.quickEq(clField_.getClassName(), id_);
     }
 
     public boolean isDeclare() {

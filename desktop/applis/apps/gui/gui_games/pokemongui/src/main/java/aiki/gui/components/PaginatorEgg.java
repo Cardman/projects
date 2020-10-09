@@ -15,9 +15,11 @@ import aiki.util.SortingEgg;
 import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.Numbers;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class PaginatorEgg extends Paginator {
 
@@ -71,7 +73,7 @@ public final class PaginatorEgg extends Paginator {
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;
-        for (int i = CustList.FIRST_INDEX; i <= nbCmp_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nbCmp_; i++) {
             cmpNamePrio.addItem(i);
             cmpStepsPrio.addItem(i);
         }
@@ -215,7 +217,7 @@ public final class PaginatorEgg extends Paginator {
             getFacade().setDeltaEgg(1);
             return;
         }
-        int nb_ = Numbers.parseInt(text_);
+        int nb_ = NumberUtil.parseInt(text_);
         if (nb_ <= 0) {
             return;
         }
@@ -309,25 +311,25 @@ public final class PaginatorEgg extends Paginator {
         CustList<EggLabel> list_ = new CustList<EggLabel>();
         int h_ = Math.max(getFacade().getMap().getSideLength(), HEIGTH_CHARS);
         int nb_ = rendered_.size();
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             EggLabel l_ = new EggLabel(rendered_.get(i));
             l_.setImagesResults(getFacade());
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
-        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), FIRST_PIXEL);
-        int maxPixName_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
+        getHeader().addString(StringUtil.concat(getMessages().getVal(NAME),SPACES), FIRST_PIXEL);
+        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getEgg().getName(),SPACES));
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getEgg().getName(),SPACES));
             if (value_ > maxPixName_) {
                 maxPixName_ = value_;
             }
         }
         int side_ = getFacade().getMap().getSideLength();
-        getHeader().addString(StringList.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
-        int maxPixSteps_ = getHeader().width(StringList.concat(getMessages().getVal(STEPS),SPACES));
+        getHeader().addString(StringUtil.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
+        int maxPixSteps_ = getHeader().width(StringUtil.concat(getMessages().getVal(STEPS),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(Integer.toString(l.getEgg().getSteps()),SPACES));
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(Integer.toString(l.getEgg().getSteps()),SPACES));
             if (value_ > maxPixSteps_) {
                 maxPixSteps_ = value_;
             }
@@ -347,7 +349,7 @@ public final class PaginatorEgg extends Paginator {
         setAdding(true);
         getPages().removeAllItems();
         int nbPages_ = getFacade().pagesEgg();
-        for (int i = CustList.FIRST_INDEX; i < nbPages_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
         getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));

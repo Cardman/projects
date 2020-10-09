@@ -14,7 +14,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public abstract class QuickOperation extends MethodOperation {
@@ -80,8 +80,8 @@ public abstract class QuickOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(getResultClass().getNames(),"&"),
-                            StringList.join(leftRes_.getNames(),"&"));
+                            StringUtil.join(getResultClass().getNames(),"&"),
+                            StringUtil.join(leftRes_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     int index_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -100,7 +100,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(leftRes_.getNames(),"&"));
+                    StringUtil.join(leftRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             int index_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -114,7 +114,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(rightRes_.getNames(),"&"));
+                    StringUtil.join(rightRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             int index_ = _page.getLocalizer().getCurrentLocationIndex()+1;

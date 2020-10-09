@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -242,11 +243,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MoveData move_ = data.getMove(_move);
         StringList typeAtt_=FightMoves.moveTypes(_fight, _thrower,_move,data);
         String nomActuelLanceur_=fighter_.getCurrentName();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), move_.getCategory());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringList.join(typeAtt_, data.getSepartorSetChar()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _move);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), _power.toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), move_.getCategory());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringUtil.join(typeAtt_, data.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _move);
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), _power.toNumberString());
         return variables_;
     }
 
@@ -1494,8 +1495,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = _fight.getFighter(_thrower);
         StringMap<String> variables_;
         variables_ = getValues(_fight, _thrower, _target, _move, _power);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), _efficiency.toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), _efficiency.toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
         return variables_;
     }
 
@@ -5004,7 +5005,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(StringList.contains(types_, TENEBRE));
+        assertTrue(StringUtil.contains(types_, TENEBRE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5031,7 +5032,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringUtil.contains(types_, FEU));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5058,7 +5059,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringUtil.contains(types_, FEU));
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5085,7 +5086,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringUtil.contains(types_, FEU));
         assertEq(2, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5112,7 +5113,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringUtil.contains(types_, FEU));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));

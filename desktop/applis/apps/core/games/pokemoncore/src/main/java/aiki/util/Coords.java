@@ -1,7 +1,8 @@
 package aiki.util;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -11,7 +12,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
     static final char SEPARATOR = ';';
     static final String INVALID = "";
 
-    private static final byte INVALID_NUMBER = CustList.INDEX_NOT_FOUND_ELT - 1;
+    private static final byte INVALID_NUMBER = IndexConstants.INDEX_NOT_FOUND_ELT - 1;
 
     private short numberPlace;
 
@@ -33,16 +34,16 @@ public final class Coords implements Equallable<Coords>, Displayable {
     }
 
     public Coords(String _string) {
-        if (StringList.quickEq(_string, INVALID)) {
+        if (StringUtil.quickEq(_string, INVALID)) {
             numberPlace = INVALID_NUMBER;
             return;
         }
-        StringList elements_ = StringList.splitChars(_string,SEPARATOR);
-        numberPlace = (short) Numbers.parseInt(elements_.first());
+        StringList elements_ = StringUtil.splitChars(_string,SEPARATOR);
+        numberPlace = (short) NumberUtil.parseInt(elements_.first());
         if (_string.indexOf(SEPARATOR) == _string.lastIndexOf(SEPARATOR)) {
             insideBuilding = null;
         } else {
-            insideBuilding = new Point(elements_.get(CustList.SECOND_INDEX));
+            insideBuilding = new Point(elements_.get(IndexConstants.SECOND_INDEX));
         }
         level = new LevelPoint(elements_.last());
     }
@@ -102,7 +103,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
     }
 
     public boolean isValid() {
-        return !Numbers.eq(numberPlace, INVALID_NUMBER);
+        return !NumberUtil.eq(numberPlace, INVALID_NUMBER);
     }
 
     public static boolean eq(Coords _c1,Coords _c2) {
@@ -111,7 +112,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
 
     @Override
     public boolean eq(Coords _g) {
-        if (!Numbers.eq(numberPlace,_g.numberPlace)) {
+        if (!NumberUtil.eq(numberPlace,_g.numberPlace)) {
             return false;
         }
         if (isInside() && _g.isInside()) {
@@ -125,10 +126,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
         } else {
             return false;
         }
-        if (!LevelPoint.eq(level,_g.level)) {
-            return false;
-        }
-        return true;
+        return LevelPoint.eq(level, _g.level);
     }
 
     public short getNumberPlace() {

@@ -8,6 +8,8 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class StringExpUtil {
     public static final String ARR_CLASS = "[";
@@ -41,7 +43,7 @@ public final class StringExpUtil {
     public static StringList getAllSepCommaTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
@@ -93,7 +95,7 @@ public final class StringExpUtil {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
         StringBuilder id_ = new StringBuilder();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
@@ -137,7 +139,7 @@ public final class StringExpUtil {
     public static StringList getAllPartInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
@@ -195,7 +197,7 @@ public final class StringExpUtil {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -203,7 +205,7 @@ public final class StringExpUtil {
                 String value_ = _varTypes.getVal(sub_);
                 int max_ = str_.length() -1;
                 int j_ = getMaxIndex(str_, max_);
-                if (StringList.quickEq(value_, SUB_TYPE)) {
+                if (StringUtil.quickEq(value_, SUB_TYPE)) {
                     if (isSubOrSubChar(str_, j_)) {
                         j_--;
                     }
@@ -279,7 +281,7 @@ public final class StringExpUtil {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             quickReplaceType(str_,_type,_varTypes,diese_,i);
@@ -318,7 +320,7 @@ public final class StringExpUtil {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -381,7 +383,7 @@ public final class StringExpUtil {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -409,7 +411,7 @@ public final class StringExpUtil {
     static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         String value_ = _varTypes.getVal(_sub);
-        if (StringList.quickEq(value_,SUB_TYPE)) {
+        if (StringUtil.quickEq(value_,SUB_TYPE)) {
             _str.delete(j_+1,_str.length());
             _str.append(value_);
         } else if (value_.startsWith(SUB_TYPE)) {
@@ -442,7 +444,7 @@ public final class StringExpUtil {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -450,7 +452,7 @@ public final class StringExpUtil {
                 String value_ = _varTypes.getVal(sub_);
                 int max_ = str_.length() -1;
                 int j_ = getMaxIndex(str_, max_);
-                if (StringList.quickEq(value_, SUB_TYPE)) {
+                if (StringUtil.quickEq(value_, SUB_TYPE)) {
                     if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(_objType);
@@ -533,7 +535,7 @@ public final class StringExpUtil {
     public static StringList getAllInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
@@ -574,7 +576,7 @@ public final class StringExpUtil {
         return types_;
     }
     public static MappingPairs getMappingFctPairs(DimComp _dArg, DimComp _dParam, String _baseArrayParam, String _aliasObject) {
-        if (StringList.quickEq(_baseArrayParam, _aliasObject)) {
+        if (StringUtil.quickEq(_baseArrayParam, _aliasObject)) {
             int dim_ = _dArg.getDim();
             if (dim_ >= _dParam.getDim()) {
                 return new MappingPairs();
@@ -588,16 +590,16 @@ public final class StringExpUtil {
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int len_ = _params.size();
         int argCall_ = len_ - 1;
-        for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < argCall_; i++) {
             String arg_ = _args.get(i);
             String param_ = _params.get(i);
-            if (StringList.quickEq(arg_, SUB_TYPE)) {
-                if (StringList.quickEq(param_, SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, SUB_TYPE)) {
+                if (StringUtil.quickEq(param_, SUB_TYPE)) {
                     continue;
                 }
                 return null;
             }
-            if (StringList.quickEq(param_, SUB_TYPE)) {
+            if (StringUtil.quickEq(param_, SUB_TYPE)) {
                 continue;
             }
             Matching match_ = new Matching();
@@ -609,16 +611,16 @@ public final class StringExpUtil {
         String a_ = _args.last();
         String p_ = _params.last();
         boolean add_ = true;
-        if (StringList.quickEq(a_, SUB_TYPE)) {
-            if (!StringList.quickEq(p_, SUB_TYPE)) {
+        if (StringUtil.quickEq(a_, SUB_TYPE)) {
+            if (!StringUtil.quickEq(p_, SUB_TYPE)) {
                 return null;
             }
             add_ = false;
         }
-        if (StringList.quickEq(p_, SUB_TYPE)) {
+        if (StringUtil.quickEq(p_, SUB_TYPE)) {
             add_ = false;
         }
-        if (!StringList.quickEq(p_, _objectType) && add_) {
+        if (!StringUtil.quickEq(p_, _objectType) && add_) {
             Matching match_ = new Matching();
             match_.setArg(a_);
             match_.setParam(p_);
@@ -638,17 +640,17 @@ public final class StringExpUtil {
         if (_params.size() != len_) {
             return null;
         }
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
             String arg_ = foundSuperClass_.get(i);
             String param_ = _params.get(i);
-            if (StringList.quickEq(arg_, SUB_TYPE)) {
-                if (StringList.quickEq(param_, SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, SUB_TYPE)) {
+                if (StringUtil.quickEq(param_, SUB_TYPE)) {
                     continue;
                 }
                 return null;
             }
-            if (StringList.quickEq(param_, SUB_TYPE)) {
+            if (StringUtil.quickEq(param_, SUB_TYPE)) {
                 continue;
             }
             if (arg_.startsWith(SUP_TYPE)) {
@@ -749,82 +751,82 @@ public final class StringExpUtil {
         return j_;
     }
     public static boolean isOper(String _op) {
-        if(StringList.quickEq(_op, "+")) {
+        if(StringUtil.quickEq(_op, "+")) {
             return true;
         }
-        if(StringList.quickEq(_op, "-")) {
+        if(StringUtil.quickEq(_op, "-")) {
             return true;
         }
-        if(StringList.quickEq(_op, "!")) {
+        if(StringUtil.quickEq(_op, "!")) {
             return true;
         }
-        if(StringList.quickEq(_op, "*")) {
+        if(StringUtil.quickEq(_op, "*")) {
             return true;
         }
-        if(StringList.quickEq(_op, "/")) {
+        if(StringUtil.quickEq(_op, "/")) {
             return true;
         }
-        if(StringList.quickEq(_op, "%")) {
+        if(StringUtil.quickEq(_op, "%")) {
             return true;
         }
-        if(StringList.quickEq(_op, "==")) {
+        if(StringUtil.quickEq(_op, "==")) {
             return true;
         }
-        if(StringList.quickEq(_op, "!=")) {
+        if(StringUtil.quickEq(_op, "!=")) {
             return true;
         }
-        if(StringList.quickEq(_op, "<=")) {
+        if(StringUtil.quickEq(_op, "<=")) {
             return true;
         }
-        if(StringList.quickEq(_op, ">")) {
+        if(StringUtil.quickEq(_op, ">")) {
             return true;
         }
-        if(StringList.quickEq(_op, ">=")) {
+        if(StringUtil.quickEq(_op, ">=")) {
             return true;
         }
-        if(StringList.quickEq(_op, "<")) {
+        if(StringUtil.quickEq(_op, "<")) {
             return true;
         }
-        if(StringList.quickEq(_op, "&")) {
+        if(StringUtil.quickEq(_op, "&")) {
             return true;
         }
-        if(StringList.quickEq(_op, "|")) {
+        if(StringUtil.quickEq(_op, "|")) {
             return true;
         }
-        if(StringList.quickEq(_op, "&&")) {
+        if(StringUtil.quickEq(_op, "&&")) {
             return true;
         }
-        if(StringList.quickEq(_op, "||")) {
+        if(StringUtil.quickEq(_op, "||")) {
             return true;
         }
-        if(StringList.quickEq(_op, "^")) {
+        if(StringUtil.quickEq(_op, "^")) {
             return true;
         }
-        if(StringList.quickEq(_op, "~")) {
+        if(StringUtil.quickEq(_op, "~")) {
             return true;
         }
-        if(StringList.quickEq(_op, "<<")) {
+        if(StringUtil.quickEq(_op, "<<")) {
             return true;
         }
-        if(StringList.quickEq(_op, ">>")) {
+        if(StringUtil.quickEq(_op, ">>")) {
             return true;
         }
-        if(StringList.quickEq(_op, "<<<")) {
+        if(StringUtil.quickEq(_op, "<<<")) {
             return true;
         }
-        if(StringList.quickEq(_op, ">>>")) {
+        if(StringUtil.quickEq(_op, ">>>")) {
             return true;
         }
-        if(StringList.quickEq(_op, "<<<<")) {
+        if(StringUtil.quickEq(_op, "<<<<")) {
             return true;
         }
-        if(StringList.quickEq(_op, ">>>>")) {
+        if(StringUtil.quickEq(_op, ">>>>")) {
             return true;
         }
-        if(StringList.quickEq(_op, "++")) {
+        if(StringUtil.quickEq(_op, "++")) {
             return true;
         }
-        return StringList.quickEq(_op, "--");
+        return StringUtil.quickEq(_op, "--");
     }
 
     public static int countPrefix(String _varRef) {
@@ -866,7 +868,7 @@ public final class StringExpUtil {
     }
 
     public static boolean isTypeLeafExec(String _string) {
-        for (String p : StringList.splitChars(_string, SEP_CLASS_CHAR)) {
+        for (String p : StringUtil.splitChars(_string, SEP_CLASS_CHAR)) {
             if (!isTypeLeafPartExec(p.trim())) {
                 return false;
             }
@@ -902,7 +904,7 @@ public final class StringExpUtil {
         return true;
     }
     public static boolean isTypeLeafChar(char _ch) {
-        if (StringList.isDollarWordChar(_ch)) {
+        if (StringUtil.isDollarWordChar(_ch)) {
             return true;
         }
         return _ch == PREFIX_VAR_TYPE_CHAR;
@@ -910,7 +912,7 @@ public final class StringExpUtil {
 
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();
-        for (String q: StringList.splitCharSep(_type, SEP_CLASS_CHAR)) {
+        for (String q: StringUtil.splitCharSep(_type, SEP_CLASS_CHAR)) {
             b_.append(q.trim());
         }
         return b_.toString();
@@ -918,13 +920,13 @@ public final class StringExpUtil {
 
     public static String getPrettyArrayType(String _className, int _nb) {
         String cl_ = _className;
-        for (int i = CustList.FIRST_INDEX; i < _nb; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
             cl_ = getPrettyArrayType(cl_);
         }
         return cl_;
     }
     public static String getPrettyArrayType(String _className) {
-        return StringList.concat(ARR_CLASS,_className);
+        return StringUtil.concat(ARR_CLASS,_className);
     }
     /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
@@ -976,7 +978,7 @@ public final class StringExpUtil {
         return e_;
     }
     public static int getOffset(String _str) {
-        return Math.max(0,StringList.getFirstPrintableCharIndex(_str));
+        return Math.max(0, StringUtil.getFirstPrintableCharIndex(_str));
     }
 
     public static ArrayResult tryGetArray(String _string, IntTreeMap<String> _values, IntTreeMap<String> _operators) {
@@ -1010,11 +1012,11 @@ public final class StringExpUtil {
         if (arr_) {
             if (j_ >= 0) {
                 String str_ = _string.substring(0, j_);
-                int last_ = StringList.getLastPrintableCharIndex(str_);
+                int last_ = StringUtil.getLastPrintableCharIndex(str_);
                 if (last_ < 0) {
                     return ArrayResult.ERROR;
                 }
-                _values.put((int)CustList.FIRST_INDEX, str_);
+                _values.put((int) IndexConstants.FIRST_INDEX, str_);
                 _operators.put(last_, _string.substring(j_));
                 return ArrayResult.OK;
             }

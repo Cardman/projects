@@ -24,6 +24,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ForEachTable extends BracedBlock implements Loop,ImportForEachTable {
 
@@ -203,7 +204,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         String keyWordVar_ = keyWords_.getKeyWordVar();
         _page.setGlobalOffset(classNameOffsetFirst);
         _page.setOffset(0);
-        if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+        if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
             importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(classNameFirst, _page);
             partOffsetsFirst.addAllElts(_page.getCurrentParts());
         } else {
@@ -211,7 +212,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         }
         _page.setGlobalOffset(classNameOffsetSecond);
         _page.setOffset(0);
-        if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+        if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
             importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(classNameSecond, _page);
             partOffsetsSecond.addAllElts(_page.getCurrentParts());
         } else {
@@ -231,14 +232,14 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = _page.getAliasObject();
             }
-            if (StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
                 importedClassNameFirst = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -259,14 +260,14 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             }
             mapping_ = new Mapping();
             paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = _page.getAliasObject();
             }
-            if (StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
                 importedClassNameSecond = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -300,7 +301,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
 
     private void processVariables(AnalyzedPageEl _page) {
         if (okVarFirst && okVarSecond) {
-            if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
+            if (StringUtil.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(getFile().getFileName());
                 d_.setIndexFile(variableNameOffsetSecond);

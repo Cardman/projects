@@ -8,7 +8,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendCloneOperation extends RendInvokingOperation implements RendCalculableOperation {
 
@@ -22,7 +22,7 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument argres_ = ExecCloneOperation.cloneArray(previous_, _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);

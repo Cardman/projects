@@ -1,7 +1,8 @@
 package aiki.util;
 import aiki.map.enums.Direction;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -27,9 +28,9 @@ public final class Point implements Equallable<Point>, Displayable {
     }
 
     public Point(String _string) {
-        StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        setx((short) Numbers.parseInt(elements_.first()));
-        sety((short) Numbers.parseInt(elements_.last()));
+        StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
+        setx((short) NumberUtil.parseInt(elements_.first()));
+        sety((short) NumberUtil.parseInt(elements_.last()));
     }
 
     
@@ -48,13 +49,10 @@ public final class Point implements Equallable<Point>, Displayable {
 
     @Override
     public boolean eq(Point _obj) {
-        if (!Numbers.eq(xCoord, _obj.xCoord)) {
+        if (!NumberUtil.eq(xCoord, _obj.xCoord)) {
             return false;
         }
-        if (!Numbers.eq(yCoord, _obj.yCoord)) {
-            return false;
-        }
-        return true;
+        return NumberUtil.eq(yCoord, _obj.yCoord);
     }
 
     public short getx() {

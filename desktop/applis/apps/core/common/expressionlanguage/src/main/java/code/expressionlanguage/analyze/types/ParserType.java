@@ -5,10 +5,11 @@ import code.expressionlanguage.common.ArrayResult;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
-import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ParserType {
 
@@ -67,7 +68,7 @@ public final class ParserType {
                     continue;
                 }
                 String tr_ = StringExpUtil.removeDottedSpaces(id_.toString());
-                if (!StringList.contains(_pkg,tr_)) {
+                if (!StringUtil.contains(_pkg,tr_)) {
                     addDot_ = true;
                 }
                 if (addDot_) {
@@ -113,11 +114,11 @@ public final class ParserType {
 
     private static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
         if (_string.trim().isEmpty()) {
-            _a.getValues().put((int)CustList.FIRST_INDEX, _string);
+            _a.getValues().put((int)IndexConstants.FIRST_INDEX, _string);
             _a.setError(true);
             return _a;
         }
-        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             _a.setKind(KindPartType.EMPTY_WILD_CARD);
             _a.setupValue(_string);
             return _a;
@@ -128,7 +129,7 @@ public final class ParserType {
             return _a;
         }
         if (_string.trim().startsWith(Templates.SUP_TYPE)) {
-            if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+            if (StringUtil.quickEq(_string.trim(), Templates.SUP_TYPE)) {
                 _a.setError(true);
             }
             _a.setPrio(WILD_CARD_PRIO);
@@ -138,7 +139,7 @@ public final class ParserType {
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, _a.getValues(), _a.getOperators());
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                _a.getValues().put((int)CustList.FIRST_INDEX, _string);
+                _a.getValues().put((int) IndexConstants.FIRST_INDEX, _string);
                 _a.setError(true);
             } else {
                 _a.setPrio(ARR_PRIO);
@@ -201,7 +202,7 @@ public final class ParserType {
         return _a;
     }
     private static boolean isTypeLeaf(String _string) {
-        for (String p : StringList.splitChars(_string, Templates.SEP_CLASS_CHAR)) {
+        for (String p : StringUtil.splitChars(_string, Templates.SEP_CLASS_CHAR)) {
             if (!StringExpUtil.isTypeLeafPart(p.trim())) {
                 return false;
             }

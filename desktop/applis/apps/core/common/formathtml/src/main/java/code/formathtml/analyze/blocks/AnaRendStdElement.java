@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendStdElement extends AnaRendElement {
     AnaRendStdElement(Element _elt, OffsetsBlock _offset) {
@@ -13,9 +14,9 @@ public final class AnaRendStdElement extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (StringList.quickEq(_read.getTagName(),StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordParam()))) {
+        if (StringUtil.quickEq(_read.getTagName(), StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordParam()))) {
             _list.clear();
         }
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
     }
 }

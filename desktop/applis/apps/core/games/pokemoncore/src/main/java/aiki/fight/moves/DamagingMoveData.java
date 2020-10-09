@@ -12,7 +12,7 @@ import aiki.fight.moves.effects.EffectOrder;
 import aiki.fight.moves.effects.EffectProtection;
 import aiki.fight.moves.effects.EffectSwitchPointView;
 import aiki.fight.moves.effects.EffectSwitchPosition;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 
 public final class DamagingMoveData extends MoveData {
@@ -40,7 +40,7 @@ public final class DamagingMoveData extends MoveData {
         } else if (!(getEffet(index_) instanceof EffectDamage)) {
             _data.setError(true);
         }
-        int nbDamages_ = CustList.SIZE_EMPTY;
+        int nbDamages_ = IndexConstants.SIZE_EMPTY;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectDamage) {
                 nbDamages_++;

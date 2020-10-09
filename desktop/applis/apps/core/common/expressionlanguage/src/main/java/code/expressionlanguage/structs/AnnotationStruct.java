@@ -7,7 +7,7 @@ import code.expressionlanguage.common.ClassField;
 
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnnotationStruct extends WithoutParentStruct implements FieldableStruct,DisplayableStruct {
 
@@ -30,7 +30,7 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
             return false;
         }
         AnnotationStruct a_ = (AnnotationStruct) _other;
-        return StringList.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,this));
+        return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,this));
     }
 
     @Override

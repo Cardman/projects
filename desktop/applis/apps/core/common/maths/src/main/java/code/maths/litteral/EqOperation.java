@@ -3,8 +3,8 @@ import code.maths.MathList;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class EqOperation extends PrimitiveBoolOperation {
 
@@ -54,7 +54,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         Argument second_ = chidren_.last().getArgument();
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
-        if (StringList.quickEq(op_, DIFF)) {
+        if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }
         Argument arg_ = calculateEq(first_, second_);

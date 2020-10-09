@@ -1,15 +1,12 @@
 package code.player.gui;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FontMetrics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public class SongRenderer extends PaintableLabel {
 
@@ -58,7 +55,7 @@ public class SongRenderer extends PaintableLabel {
         _g.fillRect(0, 0, getWidth(), getHeight());
         FontMetrics f_ = getFontMetrics(getFont());
         int hstring_ = f_.getHeight();
-        for (int i = CustList.FIRST_INDEX; i < songs.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < songs.size(); i++) {
             if (i == noSong) {
                 _g.setColor(Color.YELLOW);
                 _g.fillRect(0, hstring_ * i, getWidth(), hstring_);

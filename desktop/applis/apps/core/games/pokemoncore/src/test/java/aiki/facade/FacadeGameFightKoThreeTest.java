@@ -2,14 +2,7 @@ package aiki.facade;
 
 import aiki.db.DataBase;
 import aiki.game.Game;
-import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.Action;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSwitch;
-import aiki.game.fight.enums.ActionType;
-import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
@@ -22,6 +15,7 @@ import aiki.util.Point;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -98,8 +92,8 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         assertTrue(evolutions_.getVal(TARINORME));
         StringList abilities_ = facadeGame.getAbilities();
         assertEq(2, abilities_.size());
-        assertTrue(StringList.contains(abilities_, FERMETE));
-        assertTrue(StringList.contains(abilities_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(abilities_, FERMETE));
+        assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
         assertEq(MAGNEPIEGE, facadeGame.getAbility());
     }
 

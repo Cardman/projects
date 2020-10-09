@@ -25,6 +25,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForEachLoop {
 
@@ -167,7 +168,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (!StringList.quickEq(className.trim(), keyWordVar_)) {
+        if (!StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
@@ -182,7 +183,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         AnaClassArgumentMatching compo_ = AnaTypeUtil.getQuickComponentType(_elt);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
+        if (StringUtil.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
             Mapping mapping_ = new Mapping();
@@ -208,7 +209,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                     cast_.setIndexFile(expressionOffset);
                     //separator char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(compo_.getNames(),"&"),
+                            StringUtil.join(compo_.getNames(),"&"),
                             importedClassName);
                     _page.addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
@@ -267,7 +268,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
@@ -276,7 +277,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             }
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);

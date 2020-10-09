@@ -30,12 +30,13 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 
 public final class PokemonPlayer extends Pokemon implements UsablePokemon {
@@ -212,7 +213,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             if (_import.getStatus(c).getDisabledEffIfSwitch()) {
                 continue;
             }
-            if(!Numbers.eq(_pokemonSauvage.getStatusNbRoundShort(c), 0)){
+            if(!NumberUtil.eq(_pokemonSauvage.getStatusNbRoundShort(c), 0)){
                 status.add(c);
             }
         }
@@ -288,20 +289,20 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     public static StringMap<Short> getAllEvolutions(String _base, short _level, boolean _sep, DataBase _import) {
         StringMap<Short> evolutionsLevels_ = new StringMap<Short>();
         StringMap<Short> currentEvolutions_ = new StringMap<Short>();
-        currentEvolutions_.put(_base, (short) CustList.FIRST_INDEX);
+        currentEvolutions_.put(_base, (short) IndexConstants.FIRST_INDEX);
         StringMap<Short> newEvolutions_;
         if (_sep) {
             while (true) {
                 newEvolutions_ = new StringMap<Short>();
                 for (String e: currentEvolutions_.getKeys()) {
-                    PokemonData fPk_ = _import.getPokemon(StringList.splitStrings(e, SEPARATOR).last());
+                    PokemonData fPk_ = _import.getPokemon(StringUtil.splitStrings(e, SEPARATOR).last());
                     for (String e2_: fPk_.getEvolutions().getKeys()) {
                         Evolution evo_ = fPk_.getEvolution(e2_);
                         short max_ = (short) Math.max(currentEvolutions_.getVal(e), _level);
                         if (evo_ instanceof EvolutionLevel) {
                             max_= (short) Math.max(max_, ((EvolutionLevel) evo_).getLevel());
                         }
-                        newEvolutions_.put(StringList.concat(e,SEPARATOR,e2_), max_);
+                        newEvolutions_.put(StringUtil.concat(e,SEPARATOR,e2_), max_);
                     }
                 }
                 if (newEvolutions_.isEmpty()) {
@@ -403,7 +404,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             return false;
         }
         for (EntryCust<String, UsesOfMove> m: moves.entryList()) {
-            if (StringList.quickEq(m.getKey(), _data.getDefaultMove())) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove())) {
                 return false;
             }
             if (!_data.getMoves().contains(m.getKey())) {
@@ -458,10 +459,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         if (!(_data.getItem(usedBallCatching) instanceof Ball)) {
             return false;
         }
-        if (!wonExpSinceLastLevel.isZeroOrGt()) {
-            return false;
-        }
-        return true;
+        return wonExpSinceLastLevel.isZeroOrGt();
     }
 
     public void initilializeFromExchange(DataBase _dateBase){
@@ -492,7 +490,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             if (!_dateBase.getMoves().contains(m)) {
                 continue;
             }
-            if (StringList.quickEq(m, _dateBase.getDefaultMove())) {
+            if (StringUtil.quickEq(m, _dateBase.getDefaultMove())) {
                 continue;
             }
             existingMoves_.add(m);
@@ -601,7 +599,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             mt_.add(p.getMove());
         }
         mt_.removeDuplicates();
-        StringList.removeAllElements(mt_, moves.getKeys());
+        StringUtil.removeAllElements(mt_, moves.getKeys());
         mt_.sort();
         return mt_;
     }
@@ -673,7 +671,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                 continue;
             }
             EvolutionStone evolPierre_=(EvolutionStone)evol_;
-            if(!StringList.quickEq(evolPierre_.getStone(),_pierreEvo)){
+            if(!StringUtil.quickEq(evolPierre_.getStone(),_pierreEvo)){
                 continue;
             }
             if(!(evol_ instanceof EvolutionStoneGender)){
@@ -786,7 +784,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     public void soinStatuts(StringList _statuts){
-        StringList.removeAllElements(status, _statuts);
+        StringUtil.removeAllElements(status, _statuts);
     }
 
     public void soinTousStatuts(){
@@ -938,7 +936,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         remainingHp.affect(_pokemon.getRemainingHp());
         status.clear();
         for(String c:_pokemon.getStatusSet()){
-            if (Numbers.eq(_pokemon.getStatusNbRoundShort(c), 0)) {
+            if (NumberUtil.eq(_pokemon.getStatusNbRoundShort(c), 0)) {
                 continue;
             }
             if (_import.getStatus(c).getDisabledEffIfSwitch()) {

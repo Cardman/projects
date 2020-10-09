@@ -4,7 +4,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 final class CompleteAnnotPart extends ParentAnnotPart {
@@ -14,7 +14,7 @@ final class CompleteAnnotPart extends ParentAnnotPart {
     private NatStringTreeMap<Struct> fields;
     @Override
     String getBegin() {
-        return StringList.concat("@",className,"(");
+        return StringUtil.concat("@",className,"(");
     }
 
     @Override

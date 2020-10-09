@@ -25,6 +25,7 @@ import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.io.File;
 
@@ -38,7 +39,7 @@ public final class GuiProcess implements Runnable {
 
     public static GuiProcess build(String _conf, MainWindow _window, String _content) {
         StringList mainArgs_ = new StringList(_conf);
-        StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
+        StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
             if (s.trim().isEmpty()) {

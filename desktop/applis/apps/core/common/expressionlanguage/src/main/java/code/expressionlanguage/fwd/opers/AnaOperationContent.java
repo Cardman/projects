@@ -3,7 +3,7 @@ package code.expressionlanguage.fwd.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class AnaOperationContent {
 
@@ -13,7 +13,7 @@ public final class AnaOperationContent {
     private AnaClassArgumentMatching resultClass;
     private final int indexBegin;
     private Argument argument;
-    private int order = CustList.INDEX_NOT_FOUND_ELT;
+    private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     public AnaOperationContent(int _indexInEl, int _indexChild, OperationsSequence _op) {
         indexInEl = _indexInEl;

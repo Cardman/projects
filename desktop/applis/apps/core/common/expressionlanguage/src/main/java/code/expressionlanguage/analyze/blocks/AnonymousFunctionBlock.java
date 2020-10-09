@@ -8,8 +8,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class AnonymousFunctionBlock extends NamedFunctionBlock implements GeneCustStaticMethod,ReturnableWithSignature {
     private RootBlock parentType;
@@ -49,7 +49,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }

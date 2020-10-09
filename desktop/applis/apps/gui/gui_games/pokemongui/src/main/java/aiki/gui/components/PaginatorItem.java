@@ -15,6 +15,8 @@ import aiki.util.SortingItem;
 import code.gui.*;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class PaginatorItem extends Paginator {
 
@@ -99,7 +101,7 @@ public final class PaginatorItem extends Paginator {
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationItem.NB_CMPARATORS;
-        for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
             cmpDescriptionPrio.addItem(i);
             cmpPricePrio.addItem(i);
@@ -314,7 +316,7 @@ public final class PaginatorItem extends Paginator {
             getFacade().setDeltaItem(1);
             return;
         }
-        int nbDelta_ = Numbers.parseInt(text_);
+        int nbDelta_ = NumberUtil.parseInt(text_);
         if (nbDelta_ <= 0) {
             return;
         }
@@ -413,7 +415,7 @@ public final class PaginatorItem extends Paginator {
         CustList<SortingItem> rendered_ = getFacade().getRenderedItem();
         CustList<ItemLabel> list_ = new CustList<ItemLabel>();
         int nb_ = rendered_.size();
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             ItemLabel l_ = new ItemLabel(rendered_.get(i));
             l_.setImagesResults(getFacade());
             l_.addMouseListener(new PaginatorEvent(this,i));
@@ -431,7 +433,7 @@ public final class PaginatorItem extends Paginator {
         setAdding(true);
         getPages().removeAllItems();
         int nbPages_ = getFacade().pagesItem();
-        for (int i = CustList.FIRST_INDEX; i < nbPages_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
         getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));

@@ -8,6 +8,8 @@ import aiki.game.fight.actions.*;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,7 +43,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.*;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -750,7 +751,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -764,7 +765,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -864,10 +865,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!map_.contains((byte) 1));
         ChoiceOfEvolutionAndMoves moves_ = map_.getVal((byte) 0);
         assertEq(4,moves_.getKeptMoves().size());
-        assertTrue(StringList.contains(moves_.getKeptMoves(), ECUME));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), HYPNOSE));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), ECUME));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), HYPNOSE));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), TORGNOLES));
     }
 
     @Test
@@ -904,10 +905,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(map_.contains((byte) 0));
         assertTrue(!map_.contains((byte) 1));
         ChoiceOfEvolutionAndMoves moves_ = map_.getVal((byte) 0);
-        assertTrue(StringList.contains(moves_.getKeptMoves(), PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), TORGNOLES));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), DANSE_PLUIE));
-        assertTrue(StringList.contains(moves_.getKeptMoves(), PLAQUAGE));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), DANSE_PLUIE));
+        assertTrue(StringUtil.contains(moves_.getKeptMoves(), PLAQUAGE));
     }
 
     private Fight possibleChoices(
@@ -918,7 +919,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -932,7 +933,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1031,7 +1032,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
-        StringList.removeObj(moves_, HYPNOSE);
+        StringUtil.removeObj(moves_, HYPNOSE);
         moves_.add(DANSE_PLUIE);
         assertTrue(FightFacade.possibleChoices(fight_, data));
         assertTrue(!fight_.isError());
@@ -1070,7 +1071,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_,diff_, data);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
-        StringList.removeObj(moves_, HYPNOSE);
+        StringUtil.removeObj(moves_, HYPNOSE);
         assertTrue(!FightFacade.possibleChoices(fight_, data));
         assertTrue(fight_.isError());
     }
@@ -1215,7 +1216,7 @@ public class FightFacadeTest extends InitializationDataBase {
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
         choice_.setAbility(ABSORB_EAU);
-        StringList.removeObj(choice_.getKeptMoves(), DANSE_PLUIE);
+        StringUtil.removeObj(choice_.getKeptMoves(), DANSE_PLUIE);
         choice_.getKeptMoves().add(BULLES_D_O);
         assertTrue(FightFacade.possibleChoices(fight_, data));
         assertTrue(!fight_.isError());
@@ -1310,7 +1311,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1324,7 +1325,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1492,7 +1493,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1506,7 +1507,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1662,7 +1663,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1676,7 +1677,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1811,7 +1812,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1825,7 +1826,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -3316,7 +3317,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -3330,7 +3331,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -6402,7 +6403,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -6416,7 +6417,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -7068,7 +7069,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -7082,7 +7083,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -7139,10 +7140,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = allowedMovesNotEmpty(partnersMoves_, foesMoves_, player_, diff_);
         StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -7175,7 +7176,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, LUTTE));
+        assertTrue(StringUtil.contains(moves_, LUTTE));
     }
 
     private Fight remainingThrowersTargetsHp(
@@ -7186,7 +7187,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -7200,7 +7201,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -7312,7 +7313,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -7326,7 +7327,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -8432,8 +8433,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data);
         StringList list_ = FightFacade.getAbilities(fight_, (byte) 0, TARINORME);
         assertEq(2, list_.size());
-        assertTrue(StringList.contains(list_, MAGNEPIEGE));
-        assertTrue(StringList.contains(list_, FERMETE));
+        assertTrue(StringUtil.contains(list_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(list_, FERMETE));
     }
 
     @Test
@@ -8702,10 +8703,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, ULTRASON));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POURSUITE));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, ULTRASON));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8750,10 +8751,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(METEO, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, ULTRASON));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POURSUITE));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, ULTRASON));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8798,10 +8799,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(MAGNEPIEGE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, ULTRASON));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POURSUITE));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, ULTRASON));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8892,9 +8893,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(3, list_.size());
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POURSUITE));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8940,10 +8941,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(StringList.contains(list_, BOMBAIMANT));
-        assertTrue(StringList.contains(list_, DETECTION));
-        assertTrue(StringList.contains(list_, BROUHAHA));
-        assertTrue(StringList.contains(list_, POURSUITE));
+        assertTrue(StringUtil.contains(list_, BOMBAIMANT));
+        assertTrue(StringUtil.contains(list_, DETECTION));
+        assertTrue(StringUtil.contains(list_, BROUHAHA));
+        assertTrue(StringUtil.contains(list_, POURSUITE));
     }
 
     @Test
@@ -9948,7 +9949,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -9962,7 +9963,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -10155,7 +10156,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -10169,7 +10170,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -10550,7 +10551,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -10564,7 +10565,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -10900,7 +10901,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -10914,7 +10915,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -11422,7 +11423,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -11436,7 +11437,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -11899,7 +11900,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -11913,7 +11914,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -12120,7 +12121,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -12134,7 +12135,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -13043,7 +13044,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -13057,7 +13058,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -13519,7 +13520,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -13533,7 +13534,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -13903,7 +13904,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -13917,7 +13918,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -14112,7 +14113,7 @@ public class FightFacadeTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -14126,7 +14127,7 @@ public class FightFacadeTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -14614,7 +14615,7 @@ public class FightFacadeTest extends InitializationDataBase {
     }
 
     private int getNbKoByValue(ByteMap<Boolean> _map, Boolean _value) {
-        int nb_ = CustList.FIRST_INDEX;
+        int nb_ = IndexConstants.FIRST_INDEX;
         for (EntryCust<Byte,Boolean> e: _map.entryList()) {
             if (e.getValue() == _value) {
                 nb_++;

@@ -5,7 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class AnaWildCardPartType extends AnaParentPartType {
 
@@ -45,10 +45,10 @@ final class AnaWildCardPartType extends AnaParentPartType {
         AnaPartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
         base_ = StringExpUtil.getIdFromAllTypes(base_);
-        if (StringList.quickEq(base_.trim(), _page.getAliasFct())) {
+        if (StringUtil.quickEq(base_.trim(), _page.getAliasFct())) {
             return;
         }
-        ch_ = StringList.concat(getBegin(),ch_);
+        ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
 

@@ -24,6 +24,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 public class FighterBean extends CommonFightBean {
     private String name;
@@ -367,7 +368,7 @@ public class FighterBean extends CommonFightBean {
             movesPr_.sort();
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            privateMoves_.put(m_, StringList.join(movesPr_, MOVES_SEPARATOR));
+            privateMoves_.put(m_, StringUtil.join(movesPr_, MOVES_SEPARATOR));
         }
         privateMoves = privateMoves_;
         TreeMap<MoveTeamPosition,ActivityOfMove> trappingMoves_;
@@ -453,11 +454,11 @@ public class FighterBean extends CommonFightBean {
         PokemonData fPk_=data_.getPokemon(keyName);
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level + 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level + 1));
         Rate next_;
         next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level));
         current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

@@ -8,6 +8,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public final class EffectSwitchTypes extends Effect {
@@ -33,7 +34,7 @@ public final class EffectSwitchTypes extends Effect {
             }
             for (EntryCust<EnvironmentType, String> e : chgtTypeByEnv
                     .entryList()) {
-                if (!StringList.contains(_data.getTypes(), e.getValue())) {
+                if (!StringUtil.contains(_data.getTypes(), e.getValue())) {
                     _data.setError(true);
                 }
             }

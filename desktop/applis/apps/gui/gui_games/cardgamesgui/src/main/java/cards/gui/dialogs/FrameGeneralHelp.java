@@ -22,10 +22,12 @@ import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class FrameGeneralHelp extends ChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
@@ -98,27 +100,27 @@ public final class FrameGeneralHelp extends ChildFrame {
         messages = getMessages(_w,FileConst.FOLDER_MESSAGES_GUI);
         String lg_ = _w.getLanguageKey();
         elementsBis.clear();
-        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,
+        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,
                 StreamTextFile.SEPARATEUR,XML_FILE_PATHS)));
         Element element_ = doc_.getDocumentElement();
         CustList<Node> noeudsActuels_ = new CustList<Node>();
         noeudsActuels_.add(element_);
         StringList cheminsActuels_ = new StringList();
-        cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
+        cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
         HelpIndexes indices_ = new HelpIndexes();
-        indices_.add(Numbers.parseInt(element_.getAttribute(POSITION)));
+        indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
         CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
         cheminsNumeriquesActuels_.add(indices_);
         ElementHelp elementRacine_ = new ElementHelp(element_
                 .getAttribute(TEXTE));
-        elementRacine_.ajouterInfo(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_, StreamTextFile.SEPARATEUR,
+        elementRacine_.ajouterInfo(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_, StreamTextFile.SEPARATEUR,
                 element_.getTagName(), FileConst.XML_EXT));
         elementsBis.put(indices_, elementRacine_);
         while (true) {
             CustList<Node> nouveauxElements_ = new CustList<Node>();
             StringList nouveauxChemins_ = new StringList();
             CustList<HelpIndexes> nouveauxCheminsNum_ = new CustList<HelpIndexes>();
-            int j_ = CustList.FIRST_INDEX;
+            int j_ = IndexConstants.FIRST_INDEX;
             for (Node e : noeudsActuels_) {
                 String cheminCourant_ = cheminsActuels_.get(j_);
                 HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
@@ -127,9 +129,9 @@ public final class FrameGeneralHelp extends ChildFrame {
                     if (e2_.hasAttributes()) {
                         ElementHelp noeud_ = new ElementHelp(e2_
                                 .getAttribute(TEXTE));
-                        nouveauxChemins_.add(StringList.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
+                        nouveauxChemins_.add(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName()));
-                        noeud_.ajouterInfo(StringList.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
+                        noeud_.ajouterInfo(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName(), FileConst.XML_EXT));
                         nouveauxElements_.add(e2_);
                         HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
@@ -169,7 +171,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_.removeAll();
         }
         for (HelpIndexes chemin_ : cles_) {
-            CustList<Integer> cheminSansNoeud_ = chemin_.mid(CustList.FIRST_INDEX,
+            CustList<Integer> cheminSansNoeud_ = chemin_.left(
                     chemin_.getLastIndex());
             NodeHelp noeudLoc_;
             DefaultMutableTreeNode noeudLocGraphique_;
@@ -180,7 +182,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                 noeudLocGraphique_ = (DefaultMutableTreeNode) root_
                         .getChildAt(cheminSansNoeud_.first());
                 int lengthPath_ = cheminSansNoeud_.size();
-                for (int indice_ = CustList.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
+                for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
                     noeudLocGraphique_ = (DefaultMutableTreeNode) noeudLocGraphique_
                             .getChildAt(cheminSansNoeud_.get(indice_));
                 }

@@ -27,6 +27,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public abstract class AbstractInstancingOperation extends InvokingOperation {
 
@@ -49,14 +50,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         String afterNew_ = instancingCommonContent.getMethodName().trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
         int delta_ = 0;
-        int offDelta_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int offDelta_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);
             delta_ = j_+1;
             newBefore = false;
         }
-        int local_ = StringList.getFirstPrintableCharIndex(afterNew_)+delta_;
+        int local_ = StringUtil.getFirstPrintableCharIndex(afterNew_)+delta_;
         String className_ = afterNew_.trim();
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
         ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
@@ -121,7 +122,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 String iter_ = _page.getAliasIterable();
-                typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
+                typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
             }
         } else if (m_ == null && cur_ instanceof ImportForEachTable) {
             ImportForEachTable i_ = (ImportForEachTable) cur_;
@@ -129,7 +130,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
                 String iter_ = _page.getAliasIterableTable();
-                typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
+                typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
         } else {
             typeAff_ = tryGetTypeAff(m_);
@@ -156,20 +157,20 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     typeInfer = res_;
                 }
             } else {
-                int offset_ = newKeyWord_.length()+local_+StringList.getFirstPrintableCharIndex(className_);
+                int offset_ = newKeyWord_.length()+local_+ StringUtil.getFirstPrintableCharIndex(className_);
                 int begin_ = offset_;
                 className_ = className_.trim();
                 String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
-                ContextUtil.appendParts(begin_,begin_ + idClass_.length(),StringList.concat(sup_, "..", idClass_),partOffsets_, _page);
+                ContextUtil.appendParts(begin_,begin_ + idClass_.length(), StringUtil.concat(sup_, "..", idClass_),partOffsets_, _page);
                 offset_ += idClass_.length() + 1;
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
-                    int loc_ = StringList.getFirstPrintableCharIndex(a);
+                    int loc_ = StringUtil.getFirstPrintableCharIndex(a);
                     partsArgs_.add(ResolvingImportTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a,true,partOffsets_, _page));
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                String res_ = AnaTemplates.tryGetAllInners(StringList.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
+                String res_ = AnaTemplates.tryGetAllInners(StringUtil.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
                     partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -179,7 +180,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         if (!isIntermediateDottedOperation()) {
-            int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+            int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());
@@ -187,11 +188,11 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 return;
             }
         } else {
-            int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+            int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
-            type_ = StringList.concat(id_,"..",idClass_);
+            type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
             ContextUtil.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_, _page);
         }
@@ -343,7 +344,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (g_ != null && !g_.withoutInstance()) {
             String glClass_ = _page.getGlobalClass();
             StringList parts_ = StringExpUtil.getAllPartInnerTypes(_realClassName);
-            String outer_ = StringList.join(parts_.mid(0, parts_.size() - 2),"");
+            String outer_ = StringUtil.join(parts_.left(parts_.size() - 2),"");
             if (_staticAccess != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());

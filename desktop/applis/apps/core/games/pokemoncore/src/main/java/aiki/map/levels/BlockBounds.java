@@ -1,10 +1,9 @@
 package aiki.map.levels;
-import code.util.CustList;
-import code.util.ints.Displayable;
+import code.util.core.IndexConstants;
 
 public class BlockBounds {
 
-    public static final short INVALIDATE = CustList.INDEX_NOT_FOUND_ELT;
+    public static final short INVALIDATE = IndexConstants.INDEX_NOT_FOUND_ELT;
     private short xLeftTop;
     private short yLeftTop;
     private short xRightTop;

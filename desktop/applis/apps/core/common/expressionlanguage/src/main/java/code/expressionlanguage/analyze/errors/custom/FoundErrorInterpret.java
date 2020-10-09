@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.errors.custom;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class FoundErrorInterpret {
 
@@ -24,7 +24,7 @@ public final class FoundErrorInterpret {
     }
 
     public static String buildARError(String _message, String... _args) {
-        return StringList.simpleStringsFormat(_message,_args);
+        return StringUtil.simpleStringsFormat(_message,_args);
     }
     public String display() {
         StringBuilder str_ = new StringBuilder(fullLocationFile);

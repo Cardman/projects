@@ -17,6 +17,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeSolutionDtoStd {
     public static final String TYPE_PLACE_TRAINER_DTO = "aiki.beans.facade.solution.dto.PlaceTrainerDto";
@@ -86,11 +87,11 @@ public final class AikiBeansFacadeSolutionDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PlaceTrainerDto instance_ = (PlaceTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,TRAINER)) {
+        if (StringUtil.quickEq(fieldName_,TRAINER)) {
             res_.setResult(new StringStruct(instance_.getTrainer()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PLACE)) {
+        if (StringUtil.quickEq(fieldName_,PLACE)) {
             res_.setResult(new StringStruct(instance_.getPlace()));
             return res_;
         }
@@ -100,15 +101,15 @@ public final class AikiBeansFacadeSolutionDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         WildPokemonDto instance_ = (WildPokemonDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,IMAGE)) {
+        if (StringUtil.quickEq(fieldName_,IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,NAME)) {
+        if (StringUtil.quickEq(fieldName_,NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GENDER)) {
+        if (StringUtil.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
             return res_;
         }
@@ -119,11 +120,11 @@ public final class AikiBeansFacadeSolutionDtoStd {
         StepDto instance_ = (StepDto) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_POKEMON)) {
+        if (StringUtil.quickEq(methodName_,GET_POKEMON)) {
             res_.setResult(new DefaultStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(methodName_,GET_NAMES)) {
+        if (StringUtil.quickEq(methodName_,GET_NAMES)) {
             res_.setResult(new DefaultStruct(instance_.getNames(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }

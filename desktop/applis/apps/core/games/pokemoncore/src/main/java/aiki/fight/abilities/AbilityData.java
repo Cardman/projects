@@ -23,6 +23,7 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class AbilityData {
@@ -140,7 +141,7 @@ public final class AbilityData {
             _data.setError(true);
         }
         StringList events_ = new StringList(singleStatus.events());
-        StringList.removeObj(events_, DataBase.EMPTY_STRING);
+        StringUtil.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
         }
@@ -150,10 +151,10 @@ public final class AbilityData {
             }
         }
         for (WeatherType t : healHpByTypeIfWeather.getKeys()) {
-            if (!StringList.contains(_data.getMovesEffectGlobalWeather(), t.getWeather()) && !t.getWeather().isEmpty()) {
+            if (!StringUtil.contains(_data.getMovesEffectGlobalWeather(), t.getWeather()) && !t.getWeather().isEmpty()) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), t.getType())) {
+            if (!StringUtil.contains(_data.getTypes(), t.getType())) {
                 _data.setError(true);
             }
             if (!healHpByTypeIfWeather.getVal(t).isZeroOrGt()) {
@@ -167,7 +168,7 @@ public final class AbilityData {
             if (!t.getStatistic().isBoost()) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getAllCategories(), t.getCategory())) {
+            if (!StringUtil.contains(_data.getAllCategories(), t.getCategory())) {
                 _data.setError(true);
             }
             if (!multStatIfCat.getVal(t).isZeroOrGt()) {
@@ -183,10 +184,10 @@ public final class AbilityData {
             }
         }
         for (TypesDuo t : breakFoeImmune) {
-            if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
+            if (!StringUtil.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
+            if (!StringUtil.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
             }
         }
@@ -195,7 +196,7 @@ public final class AbilityData {
         }
         CustList<String> keys_ = chgtTypeByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
             }
@@ -205,7 +206,7 @@ public final class AbilityData {
         }
         keys_ = immuStatus.getKeys();
         if (!keys_.isEmpty()) {
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
             }
@@ -217,7 +218,7 @@ public final class AbilityData {
         }
         keys_ = immuMoveTypesByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
             }
@@ -229,7 +230,7 @@ public final class AbilityData {
         }
         keys_ = healHpByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
             }
@@ -304,7 +305,7 @@ public final class AbilityData {
             for (String k : failStatus.getKeys()) {
                 boolean appear_ = false;
                 for (String v : forwardStatus.values()) {
-                    if (StringList.quickEq(k, v)) {
+                    if (StringUtil.quickEq(k, v)) {
                         appear_ = true;
                         break;
                     }
@@ -321,7 +322,7 @@ public final class AbilityData {
             _data.setError(true);
         }
         if (!typeForMoves.isEmpty()) {
-            if (!StringList.contains(_data.getTypes(), typeForMoves)) {
+            if (!StringUtil.contains(_data.getTypes(), typeForMoves)) {
                 _data.setError(true);
             }
         }
@@ -386,7 +387,7 @@ public final class AbilityData {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getCategories(), k.getCategory())) {
+            if (!StringUtil.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
             }
         }
@@ -394,7 +395,7 @@ public final class AbilityData {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
             }
-            if (!StringList.contains(_data.getTypes(), k.getType())) {
+            if (!StringUtil.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
             }
         }
@@ -405,11 +406,11 @@ public final class AbilityData {
             _data.setError(true);
         }
         for (String k : changingBoostTypes.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k)) {
+            if (!StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
             TypeDamageBoost type_ = changingBoostTypes.getVal(k);
-            if (!StringList.contains(_data.getTypes(), type_.getType())) {
+            if (!StringUtil.contains(_data.getTypes(), type_.getType())) {
                 _data.setError(true);
             }
             if (!type_.getBoost().greaterOrEqualsOne()) {
@@ -420,7 +421,7 @@ public final class AbilityData {
             _data.setError(true);
         }
         for (String k : immuStatusTypes.getKeys()) {
-            if (!StringList.contains(_data.getTypes(), k)) {
+            if (!StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
             if (!_data.getStatus().containsAllAsKeys(immuStatusTypes.getVal(k))) {
@@ -429,7 +430,7 @@ public final class AbilityData {
         }
         for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
                 .entryList()) {
-            if (!StringList.contains(_data.getTypes(), e.getKey())) {
+            if (!StringUtil.contains(_data.getTypes(), e.getKey())) {
                 _data.setError(true);
             }
         }

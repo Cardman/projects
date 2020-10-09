@@ -4,7 +4,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.Panel;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 import java.awt.BorderLayout;
 
@@ -42,31 +42,31 @@ public final class PanelBorderStruct extends PanelStruct {
         String ct_ = c_.getInstance();
         String value_ = "";
         boolean ok_ = false;
-        if (StringList.quickEq(ct_, CENTER)) {
+        if (StringUtil.quickEq(ct_, CENTER)) {
             ok_ = true;
             value_ = BorderLayout.CENTER;
-        } else if (StringList.quickEq(ct_, NORTH)) {
+        } else if (StringUtil.quickEq(ct_, NORTH)) {
             ok_ = true;
             value_ = BorderLayout.NORTH;
-        } else if (StringList.quickEq(ct_, SOUTH)) {
+        } else if (StringUtil.quickEq(ct_, SOUTH)) {
             ok_ = true;
             value_ = BorderLayout.SOUTH;
-        } else if (StringList.quickEq(ct_, WEST)) {
+        } else if (StringUtil.quickEq(ct_, WEST)) {
             ok_ = true;
             value_ = BorderLayout.WEST;
-        } else if (StringList.quickEq(ct_, EAST)) {
+        } else if (StringUtil.quickEq(ct_, EAST)) {
             ok_ = true;
             value_ = BorderLayout.EAST;
-        } else if (StringList.quickEq(ct_, BEFORE_FIRST_LINE)) {
+        } else if (StringUtil.quickEq(ct_, BEFORE_FIRST_LINE)) {
             ok_ = true;
             value_ = BorderLayout.BEFORE_FIRST_LINE;
-        } else if (StringList.quickEq(ct_, AFTER_LAST_LINE)) {
+        } else if (StringUtil.quickEq(ct_, AFTER_LAST_LINE)) {
             ok_ = true;
             value_ = BorderLayout.AFTER_LAST_LINE;
-        } else if (StringList.quickEq(ct_, BEFORE_LINE_BEGINS)) {
+        } else if (StringUtil.quickEq(ct_, BEFORE_LINE_BEGINS)) {
             ok_ = true;
             value_ = BorderLayout.BEFORE_LINE_BEGINS;
-        } else if (StringList.quickEq(ct_, AFTER_LINE_ENDS)) {
+        } else if (StringUtil.quickEq(ct_, AFTER_LINE_ENDS)) {
             ok_ = true;
             value_ = BorderLayout.AFTER_LINE_ENDS;
         }

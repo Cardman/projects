@@ -6,7 +6,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecEqOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
@@ -29,7 +29,7 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         Argument second_ = getArgument(_nodes,opTwo_);
         boolean complement_ = false;
         String op_ = oper.trim();
-        if (StringList.quickEq(op_, DIFF)) {
+        if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }
         boolean b_ = calculateEq(first_, second_);

@@ -16,6 +16,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class IdFctOperation extends LeafOperation {
 
@@ -76,7 +77,7 @@ public final class IdFctOperation extends LeafOperation {
         int anc_ = 0;
         if (!(m_ instanceof ExplicitOperatorOperation)) {
             String firstFull_ = args_.first();
-            int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
@@ -169,7 +170,7 @@ public final class IdFctOperation extends LeafOperation {
         }
         for (int i = _from; i < len_; i++) {
             String full_ = _params.get(i);
-            int loc_ = StringList.getFirstPrintableCharIndex(full_);
+            int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
             String arg_ = StringExpUtil.removeDottedSpaces(full_);
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {

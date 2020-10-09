@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendContinueBlock extends AnaRendLeaf {
     private String label;
@@ -26,7 +27,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf {
                     childOfLoop_ = true;
                     break;
                 }
-                if (StringList.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
+                if (StringUtil.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
                     break;
                 }
@@ -42,7 +43,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf {
             if (label.isEmpty()) {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
                         _page.getKeyWords().getKeyWordContinue(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordFor(),
                                         _page.getKeyWords().getKeyWordForeach(),
@@ -54,7 +55,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
                         _page.getKeyWords().getKeyWordContinue(),
                         label,
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordFor(),
                                         _page.getKeyWords().getKeyWordForeach(),

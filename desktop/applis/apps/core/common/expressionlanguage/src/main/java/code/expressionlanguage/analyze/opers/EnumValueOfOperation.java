@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
@@ -89,7 +90,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //separator after className
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(argCl_.getNames(),"&"));
+                    StringUtil.join(argCl_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
         }

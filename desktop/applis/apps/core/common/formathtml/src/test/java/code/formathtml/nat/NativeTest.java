@@ -43,6 +43,7 @@ import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
@@ -1350,7 +1351,7 @@ public final class NativeTest {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_, page_);
         lgNames_.build();

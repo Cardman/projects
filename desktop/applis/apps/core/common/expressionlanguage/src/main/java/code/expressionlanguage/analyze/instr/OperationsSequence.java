@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
+import code.util.core.IndexConstants;
 
 public final class OperationsSequence {
     private static final char DOT_VAR = '.';
@@ -48,7 +49,7 @@ public final class OperationsSequence {
     private int length;
     public void setValue(String _string, int _offset) {
         values = new IntTreeMap<String>();
-        values.put((int)CustList.FIRST_INDEX, _string);
+        values.put((int)IndexConstants.FIRST_INDEX, _string);
         offset = _offset;
     }
 
@@ -56,7 +57,7 @@ public final class OperationsSequence {
         values = new IntTreeMap<String>();
         instance = _instance;
         if (operators.isEmpty()) {
-            values.put((int)CustList.FIRST_INDEX, _string);
+            values.put((int) IndexConstants.FIRST_INDEX, _string);
             constType = ConstType.ERROR;
             return;
         }
@@ -65,11 +66,11 @@ public final class OperationsSequence {
         boolean initArrayDim_ = false;
         if (!op_.isEmpty()) {
             if (op_.charAt(0) == ARR_ANNOT) {
-                int beginValuePart_ = CustList.FIRST_INDEX;
+                int beginValuePart_ = IndexConstants.FIRST_INDEX;
                 int endValuePart_ = operators.firstKey();
                 String str_ = _string.substring(beginValuePart_, endValuePart_);
                 values.put(beginValuePart_, str_);
-                int i_ = CustList.SECOND_INDEX;
+                int i_ = IndexConstants.SECOND_INDEX;
                 int nbKeys_ = operators.size();
                 if (nbKeys_ == 2) {
                     beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
@@ -110,7 +111,7 @@ public final class OperationsSequence {
                                 return;
                             }
                             if (block == null) {
-                                values.put((int)CustList.FIRST_INDEX, _string);
+                                values.put((int) IndexConstants.FIRST_INDEX, _string);
                                 constType = ConstType.ERROR_INST;
                                 return;
                             }
@@ -125,13 +126,13 @@ public final class OperationsSequence {
         } else {
             pureDot_ = true;
         }
-        int beginValuePart_ = CustList.FIRST_INDEX;
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
         if (priority == ElResolver.DECL_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
-            int i_ = CustList.SECOND_INDEX;
+            int i_ = IndexConstants.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
                 beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
@@ -147,7 +148,7 @@ public final class OperationsSequence {
         }
         if (priority == ElResolver.POST_INCR_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put((int)CustList.FIRST_INDEX, str_);
+            values.put((int) IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
@@ -157,7 +158,7 @@ public final class OperationsSequence {
             //instanceof operator
             instanceTest = true;
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put((int)CustList.FIRST_INDEX, str_);
+            values.put((int) IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
@@ -175,7 +176,7 @@ public final class OperationsSequence {
             return;
         }
         if (initArrayDim_) {
-            int i_ = CustList.SECOND_INDEX;
+            int i_ = IndexConstants.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
                 beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
@@ -199,12 +200,12 @@ public final class OperationsSequence {
         if (priority == ElResolver.FCT_OPER_PRIO) {
             if (operators.size() == 2) {
                 beginValuePart_ = endValuePart_ + operators.firstValue().length();
-                endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
+                endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
                 str_ = _string.substring(beginValuePart_, endValuePart_);
                 addValueIfNotEmpty(beginValuePart_, str_);
                 return;
             }
-            int i_ = CustList.SECOND_INDEX;
+            int i_ = IndexConstants.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
                 beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
@@ -215,7 +216,7 @@ public final class OperationsSequence {
             }
             return;
         }
-        int i_ = CustList.SECOND_INDEX;
+        int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
             beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();

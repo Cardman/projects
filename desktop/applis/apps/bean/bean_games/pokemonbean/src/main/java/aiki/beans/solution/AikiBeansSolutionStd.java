@@ -18,6 +18,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansSolutionStd {
     public static final String TYPE_SOLUTION_BEAN = "aiki.beans.solution.SolutionBean";
@@ -50,7 +51,7 @@ public final class AikiBeansSolutionStd {
         ResultErrorStd res_ = new ResultErrorStd();
         SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,STEPS)) {
+        if (StringUtil.quickEq(fieldName_,STEPS)) {
             res_.setResult(new DefaultStruct(instance_.getSteps(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -60,7 +61,7 @@ public final class AikiBeansSolutionStd {
         SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_PLACE)) {
+        if (StringUtil.quickEq(methodName_,GET_PLACE)) {
             res_.setResult(new StringStruct(instance_.getPlace((Long)_args[0],(Long)_args[1])));
             return res_;
         }

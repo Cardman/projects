@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.util.*;
-import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class StackTraceElementStruct extends WithoutParentStruct implements DisplayableStruct {
 
@@ -33,10 +33,10 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
         if (!(_other instanceof StackTraceElementStruct)) {
             return false;
         }
-        if (!StringList.quickEq(fileName, other_.fileName)) {
+        if (!StringUtil.quickEq(fileName, other_.fileName)) {
             return false;
         }
-        return Numbers.eq(indexFileType, other_.indexFileType);
+        return NumberUtil.eq(indexFileType, other_.indexFileType);
     }
 
     public static StackTraceElementStruct getStack(Struct _str) {

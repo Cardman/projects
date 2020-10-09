@@ -9,6 +9,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -2676,9 +2677,9 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.clear();
         assertEq(0, pagination_.getResults().size());
         assertEq(0, pagination_.getRendered().size());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
     @Test
@@ -2727,9 +2728,9 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.clear();
         assertEq(0, pagination_.getResults().size());
         assertEq(0, pagination_.getRendered().size());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
 }

@@ -7,7 +7,7 @@ import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecDirectStandardInstancingOperation extends
         ExecInvokingOperation {
@@ -26,7 +26,7 @@ public final class ExecDirectStandardInstancingOperation extends
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_ = getArgs(_nodes);
         return instancePrepareStd(_conf, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);

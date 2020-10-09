@@ -2,7 +2,7 @@ package aiki.fight.effects;
 
 import aiki.db.DataBase;
 import code.maths.Rate;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 
 public class EffectWhileSending {
@@ -22,7 +22,7 @@ public class EffectWhileSending {
             }
         } else {
             if (!enabledWeather.isEmpty()) {
-                if (!StringList.contains(_data.getMovesEffectGlobalWeather(), enabledWeather)) {
+                if (!StringUtil.contains(_data.getMovesEffectGlobalWeather(), enabledWeather)) {
                     _data.setError(true);
                 }
             }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendElseIfCondition extends AnaRendCondition implements AnaRendBreakableBlock {
     AnaRendElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -24,7 +25,7 @@ public final class AnaRendElseIfCondition extends AnaRendCondition implements An
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordElseif(),
-                            StringList.join(
+                            StringUtil.join(
                                     new StringList(
                                             _page.getKeyWords().getKeyWordIf(),
                                             _page.getKeyWords().getKeyWordElseif()
@@ -38,7 +39,7 @@ public final class AnaRendElseIfCondition extends AnaRendCondition implements An
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordElseif(),
-                                StringList.join(
+                                StringUtil.join(
                                         new StringList(
                                                 _page.getKeyWords().getKeyWordIf(),
                                                 _page.getKeyWords().getKeyWordElseif()

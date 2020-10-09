@@ -2,8 +2,9 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -30,10 +31,10 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
 
     
     public static VectThreeDims newCustPoint(String _input) {
-        StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
-        int x_ = Numbers.parseInt(elts_.first());
-        int y_ = Numbers.parseInt(elts_.get(1));
-        int z_ = Numbers.parseInt(elts_.last());
+        StringList elts_ = StringUtil.splitStrings(_input, SEPARATOR);
+        int x_ = NumberUtil.parseInt(elts_.first());
+        int y_ = NumberUtil.parseInt(elts_.get(1));
+        int z_ = NumberUtil.parseInt(elts_.last());
         return new VectThreeDims(x_, y_, z_);
     }
 
@@ -111,10 +112,7 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
         if (_obj.deltay != deltay) {
             return false;
         }
-        if (_obj.deltaz != deltaz) {
-            return false;
-        }
-        return true;
+        return _obj.deltaz == deltaz;
     }
 
     

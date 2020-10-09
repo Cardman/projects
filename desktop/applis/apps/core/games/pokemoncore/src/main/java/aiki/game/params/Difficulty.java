@@ -4,7 +4,7 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 
 public final class Difficulty {
@@ -104,7 +104,7 @@ public final class Difficulty {
     }
 
     public MonteCarloNumber loi(short _team, short _player, DataBase _import) {
-        if (Numbers.eq(_team,_player)) {
+        if (NumberUtil.eq(_team,_player)) {
             return _import.getLawsDamageRate().getVal(getDamageRatePlayer()).getLaw();
         }
         return _import.getLawsDamageRate().getVal(getDamageRateLawFoe()).getLaw();

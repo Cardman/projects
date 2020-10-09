@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.ClassCategory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct,AnaDisplayableStruct {
 
@@ -272,7 +273,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         vars_ = g_.getParamTypesMapValues();
         String varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
         for (ExecTypeVar b: vars_) {
-            if (!StringList.quickEq(b.getName(), varName_)) {
+            if (!StringUtil.quickEq(b.getName(), varName_)) {
                 continue;
             }
             for (String u: b.getConstraints()) {
@@ -294,7 +295,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         StringList upperBounds_ = new StringList();
         StringList lowerBounds_ = new StringList();
         for (ExecTypeVar b: vars_) {
-            String pref_ = StringList.concat(Templates.PREFIX_VAR_TYPE, b.getName());
+            String pref_ = StringUtil.concat(Templates.PREFIX_VAR_TYPE, b.getName());
             list_.add(new ClassMetaInfo(pref_, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }
         return list_;
@@ -436,10 +437,10 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             return false;
         }
         ClassMetaInfo info_ = (ClassMetaInfo) _other;
-        if (!StringList.quickEq(variableOwner, info_.variableOwner)) {
+        if (!StringUtil.quickEq(variableOwner, info_.variableOwner)) {
             return false;
         }
-        return StringList.quickEq(name, info_.name);
+        return StringUtil.quickEq(name, info_.name);
     }
 
 
@@ -465,6 +466,6 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         if (variableOwner.isEmpty()) {
             return new StringStruct(getName());
         }
-        return new StringStruct(StringList.concat(variableOwner,";",getName()));
+        return new StringStruct(StringUtil.concat(variableOwner,";",getName()));
     }
 }

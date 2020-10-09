@@ -1,6 +1,6 @@
 package code.maths.litteral;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class EvolvedBooleanString {
 
@@ -11,7 +11,7 @@ public final class EvolvedBooleanString {
         if (_vars.isEmpty()) {
             numericString = new StringBuilder(_chaineNumerique);
         } else {
-            numericString = new StringBuilder(StringList.replaceWordsJoin(_chaineNumerique, _vars));
+            numericString = new StringBuilder(StringUtil.replaceWordsJoin(_chaineNumerique, _vars));
         }
     }
 

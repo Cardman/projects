@@ -8,8 +8,9 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 final class GameTarotTrickHypothesis {
 
@@ -36,7 +37,7 @@ final class GameTarotTrickHypothesis {
         if(appelesTousConnus_) {
             if (st_ == Status.DEFENDER) {
                 for(CardTarot c: _calledCards) {
-                    for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                         if (joueur_ == _teamReal.getTaker()) {
                             continue;
                         }
@@ -48,7 +49,7 @@ final class GameTarotTrickHypothesis {
                 }
             } else {
                 for(CardTarot c: _calledCards) {
-                    for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                         if (_cartesCertaines.getVal(c.couleur())
                                 .get(joueur_).contient(c)) {
                             possibleAlly_.add(joueur_);
@@ -61,7 +62,7 @@ final class GameTarotTrickHypothesis {
             }
         }
         boolean arreterRechercheJoueurJoueCartePoint_;
-        for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //iteration sur la confiance du joueur numero en le joueur j
             //vis a vis du Petit joue en premier atout mais jamais virtuellement maitre
             //le Petit doit etre ramasse par le plus grand atout encore en jeu
@@ -103,7 +104,7 @@ final class GameTarotTrickHypothesis {
             res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
-        for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant l'entameur du Petit
             byte ramasseur_ = -1;
             for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
@@ -134,7 +135,7 @@ final class GameTarotTrickHypothesis {
             res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
-        for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             byte ramasseur_ = -1;
             boolean petitJoueDemandeAtout_ = false;
             boolean defausse_ = _cartesPossibles.getVal(Suit.TRUMP).get(j).estVide();
@@ -186,7 +187,7 @@ final class GameTarotTrickHypothesis {
                 joueursNonConfiancePresqueSure_.add(j);
             }
         }
-        for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant les figures jouees au premier tour d'une couleur ordinaire demandee
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
@@ -233,7 +234,7 @@ final class GameTarotTrickHypothesis {
             }
 
         }
-        for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant les figures defaussese sur demande d'atout
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
@@ -270,7 +271,7 @@ final class GameTarotTrickHypothesis {
         }
         if (st_ == Status.DEFENDER) {
             for(CardTarot c: _calledCards) {
-                for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                     if (joueur_ == _teamReal.getTaker()) {
                         continue;
                     }
@@ -282,7 +283,7 @@ final class GameTarotTrickHypothesis {
             }
         } else {
             for(CardTarot c: _calledCards) {
-                for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                     if (_cartesPossibles.getVal(c.couleur())
                             .get(joueur_).estVide()) {
                         joueursNonConfiancePresqueSure_.add(joueur_);
@@ -299,7 +300,7 @@ final class GameTarotTrickHypothesis {
         Bytes allConf_ = new Bytes();
         allConf_.addAllElts(possibleAlly_);
         allConf_.addAllElts(joueursNonConfiancePresqueSure_);
-        if (Numbers.equalsSetBytes(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
+        if (NumberUtil.equalsSetBytes(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
             for (byte b: possibleAlly_) {
                 _teamReal.faireConfiance(_numero,b);
             }

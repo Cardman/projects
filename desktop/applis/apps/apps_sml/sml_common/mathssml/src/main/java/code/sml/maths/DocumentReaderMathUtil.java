@@ -14,12 +14,13 @@ import code.sml.ElementList;
 import code.util.BooleanList;
 import code.util.BooleanMap;
 import code.util.CollCapacity;
-import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class DocumentReaderMathUtil {
 
@@ -72,7 +73,7 @@ public final class DocumentReaderMathUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -93,7 +94,7 @@ public final class DocumentReaderMathUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -115,7 +116,7 @@ public final class DocumentReaderMathUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -136,7 +137,7 @@ public final class DocumentReaderMathUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -149,7 +150,7 @@ public final class DocumentReaderMathUtil {
         law_.setLaw(new BooleanMap<LgInt>());
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringList.quickEq(fieldName_, FIELD_LAW)) {
+            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
                 law_.setLaw(getBooleanMapLgInt(c));
             }
         }
@@ -163,7 +164,7 @@ public final class DocumentReaderMathUtil {
         law_.setLaw(new StringMap<LgInt>());
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringList.quickEq(fieldName_, FIELD_LAW)) {
+            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
                 law_.setLaw(getStringMapLgInt(c));
             }
         }
@@ -177,7 +178,7 @@ public final class DocumentReaderMathUtil {
         law_.setLaw(new ObjectMap<Rate,LgInt>(cap_));
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringList.quickEq(fieldName_, FIELD_LAW)) {
+            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
                 law_.setLaw(getMapRateLgInt(c));
             }
         }
@@ -198,7 +199,7 @@ public final class DocumentReaderMathUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -218,7 +219,7 @@ public final class DocumentReaderMathUtil {
     }
 
     private static void getPolygon(Polygon _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_POINTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POINTS)) {
             _object.setPoints(getListCustPoint(_element));
             return;
         }

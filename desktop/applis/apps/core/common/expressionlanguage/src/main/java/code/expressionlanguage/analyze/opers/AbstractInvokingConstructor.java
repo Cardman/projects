@@ -18,6 +18,7 @@ import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
@@ -43,7 +44,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         from = getFrom(_page);
         if (from == null) {
@@ -56,7 +57,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();

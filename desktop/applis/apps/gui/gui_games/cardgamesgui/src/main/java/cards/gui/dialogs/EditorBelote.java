@@ -25,7 +25,7 @@ import code.gui.*;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
@@ -209,7 +209,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                break;
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
-            message_ = StringList.simpleStringsFormat(message_, n);
+            message_ = StringUtil.simpleStringsFormat(message_, n);
             plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_);
             plc_.initSelectionCarteBelote(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -236,12 +236,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);
-            message_ = StringList.simpleStringsFormat(message_, n);
+            message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
         sousPanneau_.add(listeTwo);
-        labelSelectCards = new TextLabel(StringList.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
+        labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
@@ -322,7 +322,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private void erreur(BeloteCardsScrollableList _plc) {
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
-        mes_ = StringList.simpleNumberFormat(mes_, _plc.taille());
+        mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
         ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
@@ -366,7 +366,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             nombreCartesSelectionnees=0;
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
-            mes_ = StringList.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
+            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
             ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }

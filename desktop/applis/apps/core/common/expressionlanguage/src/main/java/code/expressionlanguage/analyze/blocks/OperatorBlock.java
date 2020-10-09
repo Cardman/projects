@@ -8,9 +8,9 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,GeneMethod,ReturnableWithSignature {
 
@@ -37,7 +37,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }

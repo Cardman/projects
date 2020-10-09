@@ -1,6 +1,7 @@
 package aiki.game;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 
@@ -13,9 +14,9 @@ public final class UsesOfMove implements Displayable{
     private short max;
 
     public UsesOfMove(String _string) {
-        StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        current = (short) Numbers.parseInt(elements_.first());
-        max = (short) Numbers.parseInt(elements_.last());
+        StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
+        current = (short) NumberUtil.parseInt(elements_.first());
+        max = (short) NumberUtil.parseInt(elements_.last());
     }
 
     public UsesOfMove(short _max) {

@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class AnaVariablePartType extends AnaLeafPartType {
     private int value;
@@ -24,16 +24,16 @@ final class AnaVariablePartType extends AnaLeafPartType {
     @Override
     void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
-        String t_ = StringList.removeAllSpaces(type_);
-        t_ = StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
+        String t_ = StringUtil.removeAllSpaces(type_);
+        t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
         setAnalyzedType(t_);
     }
 
     @Override
     void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
-        String t_ = StringList.removeAllSpaces(type_);
-        t_ = StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
+        String t_ = StringUtil.removeAllSpaces(type_);
+        t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
         setAnalyzedType(t_);
     }
 

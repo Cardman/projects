@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AssSimReadWriteAffectationOperation extends AssMethodOperation {
     private AssOperationNode settable;
@@ -31,7 +31,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
                 for (EntryCust<String, Boolean> e: variables_.entryList()) {
-                    if (StringList.quickEq(str_, e.getKey())) {
+                    if (StringUtil.quickEq(str_, e.getKey())) {
                         if (_a.isFinalLocalVar(str_)) {
                             //error
                             analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _page);

@@ -1,9 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
-import javax.swing.JTextArea;
 
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -17,8 +14,9 @@ import code.gui.TextArea;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class DialogHelpTarot extends Dialog {
 
@@ -53,25 +51,25 @@ public final class DialogHelpTarot extends Dialog {
         int nbPlayers_ = _pseudos.size();
         nbPlayers_++;
         //Dog hand
-        for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbPlayers_;indicePseudo_++) {
+        for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbPlayers_; indicePseudo_++) {
             zone_=new TextArea(EMPTY,84,15);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {
-                zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
+                zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             } else {
                 zone_.append(RETURN_LINE);
             }
             for (Suit s: suits_) {
                 HandTarot h_ = tout_.couleur(s);
                 if(s != Suit.UNDEFINED) {
-                    zone_.append(StringList.concat(Games.toString(s,_lg),RETURN_LINE));
+                    zone_.append(StringUtil.concat(Games.toString(s,_lg),RETURN_LINE));
                 }
                 for(CardTarot carte_:h_) {
                     zone_.append(TAB);
                     if(carte_ == CardTarot.EXCUSE) {
-                        zone_.append(StringList.concat(Games.toString(carte_,_lg),SPACE));
+                        zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
                     } else {
-                        zone_.append(StringList.concat(Games.getSymbol(carte_,_lg),SPACE));
+                        zone_.append(StringUtil.concat(Games.getSymbol(carte_,_lg),SPACE));
                     }
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);

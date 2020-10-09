@@ -25,6 +25,7 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
 
@@ -275,7 +276,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     String formattedRetDer_ = AnaTemplates.quickFormat(c.getType(),nameCl_, retBase_);
                     String formattedRetBase_ = AnaTemplates.quickFormat(i.getType(),name_, retInt_);
                     if (supCl_.getKind() != MethodKind.STD_METHOD) {
-                        if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
+                        if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
                             err_.setFileName(getFile().getFileName());
@@ -362,7 +363,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (t.getErrors().isEmpty()) {
                         constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
                     } else {
-                        String err_ = StringList.join(t.getErrors(),"\n\n");
+                        String err_ = StringUtil.join(t.getErrors(),"\n\n");
                         constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\" title=\""+err_+"\" class=\"e\">",t.getOffset()));
                     }
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
@@ -390,7 +391,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 for (EntryCust<String,TypeVar> e: r.rootBlockContent.getParamTypesMap().entryList()) {
                     boolean exist_ = false;
                     for (TypeVar t: r.getParamTypes()) {
-                        if (StringList.quickEq(t.getName(),e.getKey())) {
+                        if (StringUtil.quickEq(t.getName(),e.getKey())) {
                             exist_ = true;
                         }
                     }
@@ -437,7 +438,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public String getFullDefinition() {
-        return StringList.concat(getFullName(),getTemplateDef());
+        return StringUtil.concat(getFullName(),getTemplateDef());
     }
 
     public String getTemplateDef() {
@@ -447,7 +448,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public abstract String getName();
 
     public String getSuffixedName() {
-        return StringList.concat(getName(), rootBlockContent.getSuffix());
+        return StringUtil.concat(getName(), rootBlockContent.getSuffix());
     }
     public String getPackageName() {
         return rootBlockContent.getPackageName();
@@ -567,47 +568,47 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     if (m_.getId().getKind() == MethodAccessKind.STATIC_CALL) {
                         if (m_.getParametersTypes().size() == 2) {
-                            if (StringList.quickEq(m_.getName(),"+")
-                              ||StringList.quickEq(m_.getName(),"-")
-                              ||StringList.quickEq(m_.getName(),"*")
-                              ||StringList.quickEq(m_.getName(),"/")
-                              ||StringList.quickEq(m_.getName(),"%")
-                              ||StringList.quickEq(m_.getName(),"<")
-                              ||StringList.quickEq(m_.getName(),">")
-                              ||StringList.quickEq(m_.getName(),"<=")
-                              ||StringList.quickEq(m_.getName(),">=")
-                              ||StringList.quickEq(m_.getName(),"&")
-                              ||StringList.quickEq(m_.getName(),"|")
-                              ||StringList.quickEq(m_.getName(),"&&")
-                              ||StringList.quickEq(m_.getName(),"||")
-                              ||StringList.quickEq(m_.getName(),"^")
-                              ||StringList.quickEq(m_.getName(),"<<")
-                              ||StringList.quickEq(m_.getName(),">>")
-                              ||StringList.quickEq(m_.getName(),"<<<")
-                              ||StringList.quickEq(m_.getName(),">>>")
-                              ||StringList.quickEq(m_.getName(),"<<<<")
-                              ||StringList.quickEq(m_.getName(),">>>>")
-                              ||StringList.quickEq(m_.getName(),"==")
-                              ||StringList.quickEq(m_.getName(),"!=")) {
-                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                                    if (StringList.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
+                            if (StringUtil.quickEq(m_.getName(),"+")
+                              || StringUtil.quickEq(m_.getName(),"-")
+                              || StringUtil.quickEq(m_.getName(),"*")
+                              || StringUtil.quickEq(m_.getName(),"/")
+                              || StringUtil.quickEq(m_.getName(),"%")
+                              || StringUtil.quickEq(m_.getName(),"<")
+                              || StringUtil.quickEq(m_.getName(),">")
+                              || StringUtil.quickEq(m_.getName(),"<=")
+                              || StringUtil.quickEq(m_.getName(),">=")
+                              || StringUtil.quickEq(m_.getName(),"&")
+                              || StringUtil.quickEq(m_.getName(),"|")
+                              || StringUtil.quickEq(m_.getName(),"&&")
+                              || StringUtil.quickEq(m_.getName(),"||")
+                              || StringUtil.quickEq(m_.getName(),"^")
+                              || StringUtil.quickEq(m_.getName(),"<<")
+                              || StringUtil.quickEq(m_.getName(),">>")
+                              || StringUtil.quickEq(m_.getName(),"<<<")
+                              || StringUtil.quickEq(m_.getName(),">>>")
+                              || StringUtil.quickEq(m_.getName(),"<<<<")
+                              || StringUtil.quickEq(m_.getName(),">>>>")
+                              || StringUtil.quickEq(m_.getName(),"==")
+                              || StringUtil.quickEq(m_.getName(),"!=")) {
+                                if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                                    if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
                                         binaryAll_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     } else {
                                         binaryFirst_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     }
-                                } else if (StringList.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
+                                } else if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
                                     binarySecond_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
                         if (m_.getParametersTypes().size() == 1) {
-                            if (StringList.quickEq(m_.getName(),"+")
-                              ||StringList.quickEq(m_.getName(),"-")
-                              ||StringList.quickEq(m_.getName(),"!")
-                              ||StringList.quickEq(m_.getName(),"++")
-                              ||StringList.quickEq(m_.getName(),"--")
-                              ||StringList.quickEq(m_.getName(),"~")) {
-                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                            if (StringUtil.quickEq(m_.getName(),"+")
+                              || StringUtil.quickEq(m_.getName(),"-")
+                              || StringUtil.quickEq(m_.getName(),"!")
+                              || StringUtil.quickEq(m_.getName(),"++")
+                              || StringUtil.quickEq(m_.getName(),"--")
+                              || StringUtil.quickEq(m_.getName(),"~")) {
+                                if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     unary_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
@@ -625,7 +626,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_page));
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedReturnType(),_page.getAliasPrimBoolean())) {
+                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimBoolean())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -636,7 +637,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 getGenericString());
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                    } else if (!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -685,7 +686,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_page));
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -718,17 +719,17 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         m_.addNameErrors(badMeth_);
                     } else {
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
-                            if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
+                            if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
                                 explicitId_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
+                            } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
                                 explicit_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
                                 explicitFrom_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         } else {
-                            if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
+                            if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
                                 implicitId_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
+                            } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
                                 implicit_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
                                 implicitFrom_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
@@ -736,7 +737,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         }
                     }
                 } else if (m_.getKind() == MethodKind.TO_STRING) {
-                    if (!StringList.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
+                    if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -762,7 +763,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         _page.getToStringMethods().addEntry(getFullName(), t_);
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
-                    if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
+                    if (!StringUtil.quickEq(name_, keyWords_.getKeyWordToString())) {
                         TokenErrorMessage mess_ = ManageTokens.partMethod(_page).checkToken(name_, _page);
                         if (mess_.isError()) {
                             int r_ = m_.getNameOffset();
@@ -921,7 +922,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 method_.buildImportedTypes(_page);
                 String ctorName_ = ((ConstructorBlock) method_).getCtorName();
                 if (StringExpUtil.isTypeLeafPart(ctorName_)) {
-                    if (!StringList.quickEq(ctorName_,getName())) {
+                    if (!StringUtil.quickEq(ctorName_,getName())) {
                         int r_ = method_.getOffset().getOffsetTrim();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -989,7 +990,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (_method instanceof OverridableBlock) {
                 OverridableBlock i_ = (OverridableBlock) _method;
                 if (i_.getKind() == MethodKind.SET_INDEX) {
-                    if (StringList.quickEq(v, keyWordValue_)) {
+                    if (StringUtil.quickEq(v, keyWordValue_)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
                         b_.setFileName(getFile().getFileName());
@@ -1002,7 +1003,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 }
             }
-            if (StringList.contains(seen_, v)){
+            if (StringUtil.contains(seen_, v)){
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
                 b_.setFileName(getFile().getFileName());
@@ -1041,8 +1042,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
                     set_ = j;
-                    i.setMatchParamNames(StringList.eqStrings(i.getParametersNames(),j.getParametersNames()));
-                    j.setMatchParamNames(StringList.eqStrings(i.getParametersNames(),j.getParametersNames()));
+                    i.setMatchParamNames(StringUtil.eqStrings(i.getParametersNames(),j.getParametersNames()));
+                    j.setMatchParamNames(StringUtil.eqStrings(i.getParametersNames(),j.getParametersNames()));
                 }
             }
             if (!ok_) {
@@ -1126,7 +1127,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 StringList j_ = new StringList();
                 StringList allTypes_ = StringExpUtil.getAllTypes(s);
                 for (String p: allTypes_.mid(1)) {
-                    int loc_ = StringList.getFirstPrintableCharIndex(p);
+                    int loc_ = StringUtil.getFirstPrintableCharIndex(p);
                     AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p, this, o_ + loc_, new CustList<PartOffset>(), _page);
                     if (resType_ != null) {
                         j_.add(resType_.getResult());
@@ -1145,7 +1146,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             } else if (index_ < 0){
                 s_ = new AnaResultPartType(s,null);
             } else {
-                int off_ = StringList.getFirstPrintableCharIndex(s);
+                int off_ = StringUtil.getFirstPrintableCharIndex(s);
                 s_ = ResolvingSuperTypes.resolveTypeInherits(s, this, off_+index_, getSuperTypesParts(), _page);
                 results.add(s_);
             }
@@ -1222,7 +1223,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return all_;
     }
     private static boolean added(String _type, StringList _list,AnaFormattedRootBlock _n, CustList<AnaFormattedRootBlock> _next) {
-        if (StringList.contains(_list, _type)) {
+        if (StringUtil.contains(_list, _type)) {
             return false;
         }
         _next.add(_n);
@@ -1274,8 +1275,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
-                    StringList.join(types_,"&"),
-                    StringList.join(retClasses_,"&"));
+                    StringUtil.join(types_,"&"),
+                    StringUtil.join(retClasses_,"&"));
             _page.addLocError(err_);
             addNameErrors(err_);
         }
@@ -1324,8 +1325,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
-                    StringList.join(types_,"&"),
-                    StringList.join(retClasses_,"&"));
+                    StringUtil.join(types_,"&"),
+                    StringUtil.join(retClasses_,"&"));
             _page.addLocError(err_);
             addNameErrors(err_);
         }
@@ -1450,7 +1451,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (skip_) {
                 continue;
             }
-            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 StringList retClasses_ = new StringList();
                 for (MethodInfo s: e.getMethodInfos()) {
                     retClasses_.add(s.getReturnType());
@@ -1485,7 +1486,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     fClasses_.add(s);
                 }
             }
-            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {
@@ -1528,7 +1529,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 retClasses_.add(s.getReturnType());
             }
-            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {
@@ -1541,7 +1542,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 boolean sub_ = true;
                 for (int j = 0; j < len_; j++) {
                     String other_ = retClasses_.get(j);
-                    if (StringList.quickEq(cur_, other_)) {
+                    if (StringUtil.quickEq(cur_, other_)) {
                         continue;
                     }
                     if (!AnaTemplates.isReturnCorrect(other_, cur_, _vars, _page)) {
@@ -1566,7 +1567,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         boolean skip_ = false;
         for (MethodInfo m: _classes) {
             String id_ = StringExpUtil.getIdFromAllTypes(m.getClassName());
-            if (StringList.quickEq(id_,_fullName)) {
+            if (StringUtil.quickEq(id_,_fullName)) {
                 skip_ = true;
                 break;
             }
@@ -1579,7 +1580,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             boolean contained_ = false;
             for (TypeVar u: rootBlockContent.getParamTypes()) {
-                if (!StringList.quickEq(t.getName(),u.getName())) {
+                if (!StringUtil.quickEq(t.getName(),u.getName())) {
                     continue;
                 }
                 contained_ = true;
@@ -1693,7 +1694,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     cyclic_.setIndexFile(getOffset().getOffsetTrim());
                     //original contructor id len
                     cyclic_.buildError(_page.getAnalysisMessages().getCyclicCtorCall(),
-                            StringList.join(c_,"&"),
+                            StringUtil.join(c_,"&"),
                             getFullName());
                     _page.addLocError(cyclic_);
                     found_.addNameErrors(cyclic_);
@@ -1848,7 +1849,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     vars_.add(Templates.SUB_TYPE);
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
+                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             previous_ = r;
@@ -1867,10 +1868,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     private boolean isSubTypeOf(String _parName) {
-        if (StringList.quickEq(_parName,getFullName())) {
+        if (StringUtil.quickEq(_parName,getFullName())) {
             return true;
         }
-        return StringList.contains(getAllSuperTypes(), _parName);
+        return StringUtil.contains(getAllSuperTypes(), _parName);
     }
 
     public StringList getAllSuperTypes(){
@@ -1894,10 +1895,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t: r.rootBlockContent.getParamTypes()) {
-                    vars_.add(StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
+                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             previous_ = r;

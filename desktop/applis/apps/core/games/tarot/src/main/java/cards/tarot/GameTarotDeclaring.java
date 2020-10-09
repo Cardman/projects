@@ -6,6 +6,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
 
 public final class GameTarotDeclaring {
     private GameTarotTrickInfo doneTrickInfo;
@@ -45,7 +46,7 @@ public final class GameTarotDeclaring {
                 return va_;
             }
             int nbHandfuls_ = poigneesOrdonnees_.size();
-            for(int i = CustList.SECOND_INDEX; i<nbHandfuls_; i++) {
+            for(int i = IndexConstants.SECOND_INDEX; i<nbHandfuls_; i++) {
                 Handfuls p_ = poigneesOrdonnees_.get(i);
                 if(atouts_.total() < poigneesNbAtout_.getVal(p_)) {
                     va_.add(poigneesAutorisees_.getPrev(i));
@@ -79,7 +80,7 @@ public final class GameTarotDeclaring {
         HandTarot poignee_ = new HandTarot();
         for(Handfuls p: getAnnoncesPoignees(next_)) {
             int max_ = teamsRelation.getRules().getPoigneesAutorisees().getVal(p);
-            byte trumpIndex_ = CustList.FIRST_INDEX;
+            byte trumpIndex_ = IndexConstants.FIRST_INDEX;
             if(atouts_.total() == max_) {
                 while (poignee_.total() < max_) {
                     poignee_.ajouter(atouts_.carte(trumpIndex_));

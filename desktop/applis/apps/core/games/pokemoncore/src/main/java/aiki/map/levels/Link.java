@@ -3,8 +3,9 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class Link implements Displayable {
@@ -22,11 +23,11 @@ public final class Link implements Displayable {
     }
 
     public Link(String _string) {
-        StringList list_ = StringList.splitChars(_string, SEPARATOR);
+        StringList list_ = StringUtil.splitChars(_string, SEPARATOR);
         name = list_.first();
         if (_string.indexOf(SEPARATOR) != _string.lastIndexOf(SEPARATOR)) {
             dir = Direction
-                    .getDirectionByName(list_.get(CustList.SECOND_INDEX));
+                    .getDirectionByName(list_.get(IndexConstants.SECOND_INDEX));
         }
         coords = new Coords(list_.last());
     }

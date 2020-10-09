@@ -5,7 +5,7 @@ import code.images.BaseSixtyFourUtil;
 import code.minirts.MainWindow;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -60,7 +60,7 @@ public class ImageTask implements ActionListener {
         tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
         b_.getGraphics().drawImage(tmpImg_, pt_.x, pt_.y, null);
         try {
-            ImageIO.write(b_, PNG, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
+            ImageIO.write(b_, PNG, new File(StringUtil.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
         } catch (IOException e) {
             //skip
         }

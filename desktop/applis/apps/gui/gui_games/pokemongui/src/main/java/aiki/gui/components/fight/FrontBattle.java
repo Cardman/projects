@@ -30,6 +30,7 @@ import code.maths.LgInt;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public class FrontBattle extends PaintableLabel {
 
@@ -161,24 +162,24 @@ public class FrontBattle extends PaintableLabel {
             }
             foeTargets.put(k, target_);
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (TargetLabel t: playerTargets.values()) {
             if (mult_ == 1) {
                 t.setxPoint(0);
                 t.setyPoint(maxHeight);
             } else if (mult_ == 2) {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(0);
                     t.setyPoint(maxHeight);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth);
                     t.setyPoint(maxHeight);
                 }
             } else if (mult_ == 3) {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(0);
                     t.setyPoint(maxHeight * 2);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth);
                     t.setyPoint(maxHeight * 2);
                 } else {
@@ -186,13 +187,13 @@ public class FrontBattle extends PaintableLabel {
                     t.setyPoint(maxHeight * 3);
                 }
             } else {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(0);
                     t.setyPoint(maxHeight * 2);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth);
                     t.setyPoint(maxHeight * 2);
-                } else if (i_ == CustList.FIRST_INDEX + 2) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 2) {
                     t.setxPoint(0);
                     t.setyPoint(maxHeight * 3);
                 } else {
@@ -270,7 +271,7 @@ public class FrontBattle extends PaintableLabel {
 //            playerTargets.put(k, target_);
 //            i_++;
 //        }
-        i_ = CustList.FIRST_INDEX;
+        i_ = IndexConstants.FIRST_INDEX;
         for (TargetLabel t: foeTargets.values()) {
 //            if (mult_ == 1) {
 //                t.setxPoint(0);
@@ -313,18 +314,18 @@ public class FrontBattle extends PaintableLabel {
                 t.setxPoint(maxWidth);
                 t.setyPoint(0);
             } else if (mult_ == 2) {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(maxWidth * 2);
                     t.setyPoint(0);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth * 3);
                     t.setyPoint(0);
                 }
             } else if (mult_ == 3) {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(maxWidth * 2);
                     t.setyPoint(0);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth * 2);
                     t.setyPoint(maxHeight);
                 } else {
@@ -332,13 +333,13 @@ public class FrontBattle extends PaintableLabel {
                     t.setyPoint(maxHeight);
                 }
             } else {
-                if (i_ == CustList.FIRST_INDEX) {
+                if (i_ == IndexConstants.FIRST_INDEX) {
                     t.setxPoint(maxWidth * 2);
                     t.setyPoint(0);
-                } else if (i_ == CustList.FIRST_INDEX + 1) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.setxPoint(maxWidth * 3);
                     t.setyPoint(0);
-                } else if (i_ == CustList.FIRST_INDEX + 2) {
+                } else if (i_ == IndexConstants.FIRST_INDEX + 2) {
                     t.setxPoint(maxWidth * 2);
                     t.setyPoint(maxHeight);
                 } else {
@@ -968,8 +969,8 @@ public class FrontBattle extends PaintableLabel {
         drawBlueRect = false;
 //        xIni = xCoords.getVal((byte) CustList.FIRST_INDEX);
 //        yIni = yCoords.getVal((byte) CustList.FIRST_INDEX);
-        xIni = playerTargets.getVal(CustList.FIRST_INDEX).getxPoint();
-        yIni = playerTargets.getVal(CustList.FIRST_INDEX).getyPoint();
+        xIni = playerTargets.getVal(IndexConstants.FIRST_INDEX).getxPoint();
+        yIni = playerTargets.getVal(IndexConstants.FIRST_INDEX).getyPoint();
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
@@ -988,8 +989,8 @@ public class FrontBattle extends PaintableLabel {
         int yEnd_;
 //        xEnd_ = xCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
 //        yEnd_ = yCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
-        xEnd_ = foeTargets.getVal(CustList.FIRST_INDEX).getxPoint();
-        yEnd_ = foeTargets.getVal(CustList.FIRST_INDEX).getyPoint();
+        xEnd_ = foeTargets.getVal(IndexConstants.FIRST_INDEX).getxPoint();
+        yEnd_ = foeTargets.getVal(IndexConstants.FIRST_INDEX).getyPoint();
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
         int[][] img_ = facade.getData().getMiniItems().getVal(_ball);

@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
@@ -32,14 +33,14 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
     }
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
         Listable<E> cles_ = events();
-        if(cles_.size() == CustList.SECOND_INDEX - CustList.FIRST_INDEX){
+        if(cles_.size() == IndexConstants.SECOND_INDEX - IndexConstants.FIRST_INDEX){
             return cles_.first();
         }
         return editNumberSeed(randomNumberSe(randomNumbersSeed(_lgInt,_gene),_lgInt));
     }
     private static EqList<LgInt> randomNumbersSeed(LgInt _lgInt,AbstractGenerator _gene) {
         EqList<LgInt> numbers_ = new EqList<LgInt>();
-        for(int i = CustList.FIRST_INDEX; i < NB_RAND; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
             numbers_.add(randomLgIntSeed(_lgInt,_gene));
         }
@@ -70,7 +71,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     protected static LgInt maxNumber(LgInt _max) {
         EqList<LgInt> numbers_ = new EqList<LgInt>();
-        for(int i = CustList.FIRST_INDEX; i< NB_RAND; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i< NB_RAND; i++){
             numbers_.add(new LgInt(Long.MAX_VALUE));
         }
         return randomNumberSe(numbers_,_max);
@@ -163,9 +164,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
             return false;
         }
         if (!getLaw().isEmpty()) {
-            if (sum().isZero()) {
-                return false;
-            }
+            return !sum().isZero();
         }
         return true;
     }

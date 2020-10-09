@@ -9,6 +9,7 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class League extends Place {
@@ -29,16 +30,16 @@ public final class League extends Place {
             _data.setError(true);
             return;
         }
-        if (!_placeArea.getLevel(CustList.FIRST_INDEX).isValid(begin, true)) {
+        if (!_placeArea.getLevel(IndexConstants.FIRST_INDEX).isValid(begin, true)) {
             _data.setError(true);
         }
         rooms.first()
-                .validate(_data, _placeArea.getLevel(CustList.FIRST_INDEX));
+                .validate(_data, _placeArea.getLevel(IndexConstants.FIRST_INDEX));
         if (!rooms.first().isEmpty(begin)) {
             _data.setError(true);
         }
         int nbRooms_ = rooms.size();
-        for (byte i = CustList.SECOND_INDEX; i < nbRooms_; i++) {
+        for (byte i = IndexConstants.SECOND_INDEX; i < nbRooms_; i++) {
             getLevelLeague(i).validate(_data, _placeArea.getLevel(i));
             Point next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
             if (!getLevelLeague(i).isEmpty(next_)) {

@@ -3,8 +3,9 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.CustList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class GameStrengthLowLastHandBeloteComparator implements
@@ -26,7 +27,7 @@ public final class GameStrengthLowLastHandBeloteComparator implements
         boolean aussiHaut_ = true;
         boolean permuter_ = false;
         int min_ = Math.min(main1_.total(), main2_.total());
-        if(min_ == CustList.SIZE_EMPTY) {
+        if(min_ == IndexConstants.SIZE_EMPTY) {
             if(main1_.estVide() && !main2_.estVide()) {
                 aussiHaut_ = false;
                 permuter_ = true;
@@ -48,12 +49,12 @@ public final class GameStrengthLowLastHandBeloteComparator implements
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (aussiHaut_) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

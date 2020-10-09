@@ -17,6 +17,7 @@ import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.util.*;
+import code.util.core.StringUtil;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
 import code.util.ints.SimpleList;
@@ -104,13 +105,13 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
+        if (StringUtil.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
             details_.setClassName(TYPE_PRESIDENT_BEAN);
             res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), TYPE_RULES_PRESIDENT_BEAN)) {
+        if (StringUtil.quickEq(_method.getName(), TYPE_RULES_PRESIDENT_BEAN)) {
             RulesPresidentBean details_ = new RulesPresidentBean();
             details_.setClassName(TYPE_RULES_PRESIDENT_BEAN);
             res_.setResult(new BeanStruct(details_));
@@ -123,68 +124,68 @@ public final class PresidentStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
-            if (StringList.quickEq(fieldName_, NICKNAMES)) {
+            if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
                 res_.setResult(new DefaultStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, LINES_DEAL)) {
+            if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
                 res_.setResult(new DefaultStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
-            if (StringList.quickEq(fieldName_, SCORES)) {
+            if (StringUtil.quickEq(fieldName_, SCORES)) {
                 res_.setResult(DefaultStruct.newListLong(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, NUMBER)) {
+            if (StringUtil.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getNumber()));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             RulesPresidentBean rules_ = (RulesPresidentBean) ((RealInstanceStruct)_instance).getInstance();
-            if (StringList.quickEq(fieldName_, NB_PLAYERS)) {
+            if (StringUtil.quickEq(fieldName_, NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, NB_STACKS)) {
+            if (StringUtil.quickEq(fieldName_, NB_STACKS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
+            if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMin()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MAX)) {
+            if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MAX)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMax()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
+            if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(rules_.getCartesBattues()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, EQUALTY)) {
+            if (StringUtil.quickEq(fieldName_, EQUALTY)) {
                 res_.setResult(new StringStruct(rules_.getEqualty()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, POSSIBLE_REVERSING)) {
+            if (StringUtil.quickEq(fieldName_, POSSIBLE_REVERSING)) {
                 res_.setResult(BooleanStruct.of(rules_.isPossibleReversing()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, HAS_TO_PLAY)) {
+            if (StringUtil.quickEq(fieldName_, HAS_TO_PLAY)) {
                 res_.setResult(BooleanStruct.of(rules_.isHasToPlay()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, LOOSING_IF_FINISH_BY_BEST_CARDS)) {
+            if (StringUtil.quickEq(fieldName_, LOOSING_IF_FINISH_BY_BEST_CARDS)) {
                 res_.setResult(BooleanStruct.of(rules_.isLoosingIfFinishByBestCards()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, SWITCH_CARDS)) {
+            if (StringUtil.quickEq(fieldName_, SWITCH_CARDS)) {
                 res_.setResult(BooleanStruct.of(rules_.isSwitchCards()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, LOOSER_STARTS_FIRST)) {
+            if (StringUtil.quickEq(fieldName_, LOOSER_STARTS_FIRST)) {
                 res_.setResult(BooleanStruct.of(rules_.isLooserStartsFirst()));
                 return res_;
             }
@@ -196,7 +197,7 @@ public final class PresidentStandards extends BeanNatLgNames {
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
-            if (StringList.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
+            if (StringUtil.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
                 res_.setResult(BooleanStruct.of(((RulesPresidentBean)((RealInstanceStruct)_instance).getInstance()).sameAmount()));
                 return res_;
             }

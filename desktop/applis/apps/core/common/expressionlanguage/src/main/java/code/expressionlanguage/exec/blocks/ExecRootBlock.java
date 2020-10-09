@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
     private ExecRootBlockContent rootBlockContent;
@@ -138,10 +139,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     }
 
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {
-        if (StringList.quickEq(getFullName(),_fullName)) {
+        if (StringUtil.quickEq(getFullName(),_fullName)) {
             return true;
         }
-        return StringList.contains(getAllSuperTypes(),_fullName);
+        return StringUtil.contains(getAllSuperTypes(),_fullName);
     }
 
 

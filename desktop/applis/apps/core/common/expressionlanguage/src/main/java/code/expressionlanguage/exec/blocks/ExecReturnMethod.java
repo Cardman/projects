@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
 
@@ -57,7 +58,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
             if (_cont.callsOrException()) {
                 return;

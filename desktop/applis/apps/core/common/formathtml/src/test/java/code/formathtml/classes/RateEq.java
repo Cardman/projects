@@ -1,7 +1,7 @@
 package code.formathtml.classes;
-import code.util.CustList;
-import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 public final class RateEq implements Displayable {
@@ -21,7 +21,7 @@ public final class RateEq implements Displayable {
 
     public RateEq(String _value) {
         string = _value;
-        zero = StringList.quickEq(_value,ZERO);
+        zero = StringUtil.quickEq(_value,ZERO);
     }
 
     public RateEq(RateEq _rateEq) {
@@ -33,14 +33,14 @@ public final class RateEq implements Displayable {
         if (ComparatorBoolean.diff(zero, _obj.zero)) {
             return false;
         }
-        return StringList.quickEq(string, _obj.string);
+        return StringUtil.quickEq(string, _obj.string);
     }
 
     public static boolean matchesRate(String _input) {
         if (_input.isEmpty()) {
             return false;
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS) {
             i_++;
         }

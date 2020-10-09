@@ -6,6 +6,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ParsedFctHeader {
     private static final char SEP_CALLING = ',';
@@ -37,7 +38,7 @@ public final class ParsedFctHeader {
             if (info_.indexOf(END_CALLING) == 0) {
                 info_ = info_.substring(1);
                 offsetLast++;
-                offsetLast +=  StringList.getFirstPrintableCharIndex(info_);
+                offsetLast +=  StringUtil.getFirstPrintableCharIndex(info_);
                 break;
             }
             int lenInfo_ = info_.length();
@@ -51,7 +52,7 @@ public final class ParsedFctHeader {
                 annotationsParam_ = par_.getAnnotations();
                 info_ = par_.getAfter();
                 paramOffest = par_.getIndex()-_offset;
-                paramOffest += StringList.getFirstPrintableCharIndex(info_);
+                paramOffest += StringUtil.getFirstPrintableCharIndex(info_);
             }
             annotationsIndexesParams.add(annotationsIndexesParam_);
             annotationsParams.add(annotationsParam_);
@@ -67,7 +68,7 @@ public final class ParsedFctHeader {
             } else {
                 call_ = Math.min(call_,stopInd_);
             }
-            int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(afterParamType_);
             offestsParams.add(paramOffest + paramType_.length() + off_+_offset);
             offsetLast = paramOffest + paramType_.length() + off_;
             if (call_ >= 0) {
@@ -83,7 +84,7 @@ public final class ParsedFctHeader {
             info_ = afterParamName_.trim();
             if (exist_) {
                 if (StringExpUtil.startsWithKeyWord(info_, _keyWordIntern)) {
-                    offsetLast +=  StringList.getFirstPrintableCharIndex(afterParamName_);
+                    offsetLast +=  StringUtil.getFirstPrintableCharIndex(afterParamName_);
                     break;
                 }
             }
@@ -91,9 +92,9 @@ public final class ParsedFctHeader {
                 break;
             }
             paramOffest += paramType_.length();
-            paramOffest += StringList.getFirstPrintableCharIndex(afterParamType_);
+            paramOffest += StringUtil.getFirstPrintableCharIndex(afterParamType_);
             paramOffest += call_ + 1;
-            paramOffest += StringList.getFirstPrintableCharIndex(afterParamName_);
+            paramOffest += StringUtil.getFirstPrintableCharIndex(afterParamName_);
         }
         info = info_;
     }
@@ -106,7 +107,7 @@ public final class ParsedFctHeader {
             if (info_.indexOf(_sepRet) == 0||info_.indexOf(END_CALLING) == 0) {
                 info_ = info_.substring(1);
                 offsetLast++;
-                offsetLast +=  StringList.getFirstPrintableCharIndex(info_);
+                offsetLast +=  StringUtil.getFirstPrintableCharIndex(info_);
                 break;
             }
             int lenInfo_ = info_.length();
@@ -161,7 +162,7 @@ public final class ParsedFctHeader {
                     call_ = Math.min(call_,stopRightPar_);
                 }
             }
-            int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(afterParamType_);
             offestsParams.add(paramOffest + paramType_.length() + off_+_offset);
             offsetLast = paramOffest + paramType_.length() + off_;
             if (call_ >= 0) {
@@ -176,9 +177,9 @@ public final class ParsedFctHeader {
             String afterParamName_ = info_.substring(call_ + 1);
             info_ = afterParamName_.trim();
             paramOffest += paramType_.length();
-            paramOffest += StringList.getFirstPrintableCharIndex(afterParamType_);
+            paramOffest += StringUtil.getFirstPrintableCharIndex(afterParamType_);
             paramOffest += call_ + 1;
-            paramOffest += StringList.getFirstPrintableCharIndex(afterParamName_);
+            paramOffest += StringUtil.getFirstPrintableCharIndex(afterParamName_);
             if (stopInd_ > -1 && call_ + 1 >= stopInd_) {
                 break;
             }

@@ -25,8 +25,9 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 final class FightOrder {
 
@@ -67,7 +68,7 @@ final class FightOrder {
         for(String c:FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttaque_=_import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
-            for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;
@@ -88,7 +89,7 @@ final class FightOrder {
         retour_=new NextUsers(_cbts, new EqList<TeamPosition>());
         int nbCombattants_=_cbts.size();
         EqList<TeamPosition> itemUsers_ = retour_.getItemUsers();
-        for(int i = CustList.FIRST_INDEX; i<nbCombattants_; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbCombattants_; i++){
             int iFighter_ = i;
             iFighter_++;
             for(int i2_=iFighter_;i2_<nbCombattants_;i2_++){
@@ -145,7 +146,7 @@ final class FightOrder {
             return new EqList<TeamPosition>();
         }
         int indexRemoving_= indexOfRemoving(_fight,tmp_, _import);
-        if(indexRemoving_ <= CustList.FIRST_INDEX){
+        if(indexRemoving_ <= IndexConstants.FIRST_INDEX){
             return new EqList<TeamPosition>(tmp_.first());
         }
         return randomFigtherHavingToAct(_fight,tmp_,indexRemoving_,_import);
@@ -181,7 +182,7 @@ final class FightOrder {
     static EqList<TeamPosition> fightersUsingMoveWithBerry(Fight _fight,EqList<TeamPosition> _cbts,DataBase _import) {
         EqList<TeamPosition> fightersWithBerry_=new EqList<TeamPosition>();
         int nbCombattants_=_cbts.size();
-        for(int i=CustList.FIRST_INDEX;i<nbCombattants_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbCombattants_; i++){
             TeamPosition cbtOne_=_cbts.get(i);
             Fighter creatureOne_=_fight.getFighter(cbtOne_);
             if(!(creatureOne_.getAction() instanceof ActionMove)){
@@ -203,7 +204,7 @@ final class FightOrder {
     static EqList<TeamPosition> fightersUsingMove(Fight _fight,EqList<TeamPosition> _cbts) {
         EqList<TeamPosition> fighters_=new EqList<TeamPosition>();
         int nbCombattants_=_cbts.size();
-        for(int i=CustList.FIRST_INDEX;i<nbCombattants_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbCombattants_; i++){
             TeamPosition cbtOne_=_cbts.get(i);
             Fighter creatureOne_=_fight.getFighter(cbtOne_);
             if(!(creatureOne_.getAction() instanceof ActionMove)){
@@ -217,7 +218,7 @@ final class FightOrder {
     static EqList<TeamPosition> fightersSwitching(Fight _fight,EqList<TeamPosition> _cbts) {
         EqList<TeamPosition> fighters_=new EqList<TeamPosition>();
         int nbCombattants_=_cbts.size();
-        for(int i=CustList.FIRST_INDEX;i<nbCombattants_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbCombattants_; i++){
             TeamPosition cbtOne_=_cbts.get(i);
             Fighter creatureOne_=_fight.getFighter(cbtOne_);
             if(!(creatureOne_.getAction() instanceof ActionSwitch)){
@@ -231,7 +232,7 @@ final class FightOrder {
     static EqList<TeamPosition> fightersBeingHealed(Fight _fight,EqList<TeamPosition> _cbts) {
         EqList<TeamPosition> fighters_=new EqList<TeamPosition>();
         int nbCombattants_=_cbts.size();
-        for(int i=CustList.FIRST_INDEX;i<nbCombattants_;i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbCombattants_; i++){
             TeamPosition cbtOne_=_cbts.get(i);
             Fighter creatureOne_=_fight.getFighter(cbtOne_);
             if(!(creatureOne_.getAction() instanceof ActionHeal)){
@@ -243,8 +244,8 @@ final class FightOrder {
     }
 
     static int indexOfRemoving(Fight _fight,EqList<TeamPosition> _cbts, DataBase _import) {
-        int i_=CustList.INDEX_NOT_FOUND_ELT;
-        int indiceTirage_=CustList.INDEX_NOT_FOUND_ELT;
+        int i_=IndexConstants.INDEX_NOT_FOUND_ELT;
+        int indiceTirage_= IndexConstants.INDEX_NOT_FOUND_ELT;
         for(TeamPosition e:_cbts){
             i_++;
             Fighter creatureOne_=_fight.getFighter(e);
@@ -259,7 +260,7 @@ final class FightOrder {
             if(objetAttachable_.getLawForAttackFirst().events().size() <= DataBase.ONE_POSSIBLE_CHOICE){
                 continue;
             }
-            if(indiceTirage_==CustList.INDEX_NOT_FOUND_ELT){
+            if(indiceTirage_== IndexConstants.INDEX_NOT_FOUND_ELT){
                 indiceTirage_=i_;
             }
         }
@@ -347,7 +348,7 @@ final class FightOrder {
             }
             MoveData fAttaque_=_import.getMove(creature_.getFinalChosenMove());
             int nbEffets_=fAttaque_.nbEffets();
-            for(int i=CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
                 if(!(effet_ instanceof EffectOrder)){
                     continue;
@@ -394,7 +395,7 @@ final class FightOrder {
         int nbPartenairesArriere_=0;
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         for(byte c:equipe_.getMembers().getKeys()){
-            if(Numbers.eq(c,_combattant.getPosition())){
+            if(NumberUtil.eq(c,_combattant.getPosition())){
                 continue;
             }
             Fighter partenaire_=equipe_.getMembers().getVal(c);
@@ -412,7 +413,7 @@ final class FightOrder {
         int nbPartenairesArriere_=0;
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         for(byte c:equipe_.getMembers().getKeys()){
-            if(Numbers.eq(c,_combattant.getPosition())){
+            if(NumberUtil.eq(c,_combattant.getPosition())){
                 continue;
             }
             Fighter partenaire_=equipe_.getMembers().getVal(c);
@@ -544,7 +545,7 @@ final class FightOrder {
             }
             membres_=_fight.getTeams().getVal(noEq_).getMembers();
             for(byte c2_:membres_.getKeys()){
-                if(Numbers.eq(c2_,_lanceur.getPosition())){
+                if(NumberUtil.eq(c2_,_lanceur.getPosition())){
                     continue;
                 }
                 Fighter membre_=membres_.getVal(c2_);
@@ -566,7 +567,7 @@ final class FightOrder {
         if(ciblesChoisies_.isEmpty()){
             return cbts_;
         }
-        if(Numbers.eq(ciblesChoisies_.first().getTeam(),noEqAdv_)){
+        if(NumberUtil.eq(ciblesChoisies_.first().getTeam(),noEqAdv_)){
             //existence partenaire non ko de la cible initial vise. ce partenaire utilise PAR_ICI ou POUDREFUREUR
             Bytes combattantsAttirant_ = new Bytes();
             Team foeTeam_ = _fight.getTeams().getVal(noEqAdv_);
@@ -685,7 +686,7 @@ final class FightOrder {
         for(byte e:posAdv_){
             int currDiff_ = Math.abs(e-posCbt_);
             int sgn_ = Integer.signum(e-posCbt_);
-            if(Numbers.eq(diff_,Fighter.BACK)){
+            if(NumberUtil.eq(diff_,Fighter.BACK)){
                 diff_=(byte) currDiff_;
                 continue;
             }
@@ -710,7 +711,7 @@ final class FightOrder {
     static PointViewChangementType getPointViewChangementType(String _move,DataBase _import) {
         MoveData fAttCible_ = _import.getMove(_move);
         int nbEffetsCible_=fAttCible_.nbEffets();
-        for (int i = CustList.FIRST_INDEX;i<nbEffetsCible_;i++){
+        for (int i = IndexConstants.FIRST_INDEX; i<nbEffetsCible_; i++){
             Effect effetLoc_=fAttCible_.getEffet(i);
             if(!(effetLoc_ instanceof EffectSwitchPointView)){
                 continue;

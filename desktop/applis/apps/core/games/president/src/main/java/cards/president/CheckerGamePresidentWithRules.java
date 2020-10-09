@@ -4,6 +4,8 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class CheckerGamePresidentWithRules {
 
@@ -62,9 +64,9 @@ public final class CheckerGamePresidentWithRules {
             }
         }
         DealPresident deal_ = new DealPresident(_loadedGame.getDistribution());
-        int indexCurTrick_ = CustList.FIRST_INDEX;
+        int indexCurTrick_ = IndexConstants.FIRST_INDEX;
         for (TrickPresident t : allTricks_) {
-            int index_ = CustList.FIRST_INDEX;
+            int index_ = IndexConstants.FIRST_INDEX;
             for (HandPresident c : t) {
                 byte player_ = t.getPlayer(index_, nbPlayers_);
                 deal_.hand(player_).ajouterCartes(c);
@@ -123,7 +125,7 @@ public final class CheckerGamePresidentWithRules {
                     return;
                 }
             }
-            for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
+            for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayers_; p++) {
                 if (_loadedGame.getWinners().containsObj(p)) {
                     continue;
                 }
@@ -191,7 +193,7 @@ public final class CheckerGamePresidentWithRules {
                 hCopy_.sortCardsBegin();
                 hSwitchCopy_.sortCardsBegin();
                 int lenGiv_ = hSwitchCopy_.total();
-                for (int i = CustList.FIRST_INDEX; i < lenGiv_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < lenGiv_; i++) {
                     byte strGiv_ = hSwitchCopy_.carte(i).strength(false);
                     byte str_ = hCopy_.carte(i).strength(false);
                     if (strGiv_ != str_) {
@@ -302,7 +304,7 @@ public final class CheckerGamePresidentWithRules {
             int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
             int nbHands_ = trick_.total();
             if (nbCardsPerPlayerTrick_ == 0) {
-                for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
                     byte player_ = trick_.getPlayer(i, nbPlayers_);
                     HandPresident curHand_ = trick_.carte(i);
                     loadedGameCopy_.checkPlayerHand(player_,MESSAGE_ERROR);
@@ -314,7 +316,7 @@ public final class CheckerGamePresidentWithRules {
                 loadedGameCopy_.initializeTrick(trick_.getPlayer(
                         trick_.total(), nbPlayers_));
             } else {
-                for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
                     byte player_ = trick_.getPlayer(i, nbPlayers_);
                     HandPresident curHand_ = trick_.carte(i);
                     Bytes str_ = new Bytes();
@@ -322,7 +324,7 @@ public final class CheckerGamePresidentWithRules {
                         str_.add(c.strength(loadedGameCopy_.isReversed()));
                     }
                     if (!str_.isEmpty()) {
-                        boolean same_ = Numbers.eq(str_.getMinimum((byte) 0),
+                        boolean same_ = NumberUtil.eq(str_.getMinimum((byte) 0),
                                 str_.getMaximum((byte) 0));
                         if (!same_ || str_.size() != nbCardsPerPlayerTrick_) {
                             _loadedGame.setError(MESSAGE_ERROR);
@@ -362,7 +364,7 @@ public final class CheckerGamePresidentWithRules {
                     }
                 }
             }
-            for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
+            for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayers_; p++) {
                 loadedGameCopy_.getPassOrFinish().set(p,
                         loadedGameCopy_.getDistribution().hand(p).estVide());
             }

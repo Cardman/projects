@@ -1,5 +1,5 @@
 package aiki.beans.help;
-import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Equallable;
 
 public final class LanguageElementStringKey implements Equallable<LanguageElementStringKey> {
@@ -15,13 +15,10 @@ public final class LanguageElementStringKey implements Equallable<LanguageElemen
 
     @Override
     public boolean eq(LanguageElementStringKey _g) {
-        if (!StringList.quickEq(language, _g.language)) {
+        if (!StringUtil.quickEq(language, _g.language)) {
             return false;
         }
-        if (!StringList.quickEq(key, _g.key)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(key, _g.key);
     }
 
     public String getLanguage() {

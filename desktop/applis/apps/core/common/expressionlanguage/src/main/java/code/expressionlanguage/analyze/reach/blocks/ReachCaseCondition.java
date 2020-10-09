@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachCaseCondition extends ReachSwitchPartBlock {
     private OperationNode root;
@@ -107,7 +108,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
                         _page.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page),
-                        StringList.join(_resSwitch.getNames(),"&"));
+                        StringUtil.join(_resSwitch.getNames(),"&"));
                 _page.addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
@@ -149,7 +150,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             if (first_ instanceof ReachCaseCondition) {
                 ReachCaseCondition c_ = (ReachCaseCondition) first_;
                 String v_ = c_.value.trim();
-                if (StringList.quickEq(v_, value.trim())) {
+                if (StringUtil.quickEq(v_, value.trim())) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
@@ -185,7 +186,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return false;
         }
         InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
-        return StringList.contains(e_.getFieldName(), value.trim());
+        return StringUtil.contains(e_.getFieldName(), value.trim());
     }
 
     @Override
@@ -209,7 +210,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 }
                 b_ = b_.getPreviousSibling();
             }
-            if (!StringList.contains(classes_,"")) {
+            if (!StringUtil.contains(classes_,"")) {
                 _anEl.reach(this);
             } else {
                 _anEl.unreach(this);

@@ -6,17 +6,18 @@ import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class DocumentReaderCoreUtil {
 
     private DocumentReaderCoreUtil() {
     }
     public static boolean isNull(Element _elt) {
-        return StringList.quickEq(_elt.getTagName(), "null");
+        return StringUtil.quickEq(_elt.getTagName(), "null");
     }
 
     public static boolean getBoolean(Element _elt) {
@@ -24,19 +25,19 @@ public final class DocumentReaderCoreUtil {
     }
 
     public static byte getByte(Element _elt) {
-        return (byte) Numbers.parseLongZero(_elt.getAttribute("value"));
+        return (byte) NumberUtil.parseLongZero(_elt.getAttribute("value"));
     }
 
     public static short getShort(Element _elt) {
-        return (short) Numbers.parseLongZero(_elt.getAttribute("value"));
+        return (short) NumberUtil.parseLongZero(_elt.getAttribute("value"));
     }
 
     public static int getInteger(Element _elt) {
-        return (int) Numbers.parseLongZero(_elt.getAttribute("value"));
+        return (int) NumberUtil.parseLongZero(_elt.getAttribute("value"));
     }
 
     public static long getLong(Element _elt) {
-        return Numbers.parseLongZero(_elt.getAttribute("value"));
+        return NumberUtil.parseLongZero(_elt.getAttribute("value"));
     }
 
     public static String getString(Element _elt) {
@@ -148,7 +149,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -169,7 +170,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -190,7 +191,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -211,7 +212,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -232,7 +233,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -253,7 +254,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -274,7 +275,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -294,7 +295,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -314,7 +315,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -334,7 +335,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -354,7 +355,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -374,7 +375,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -394,7 +395,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -414,7 +415,7 @@ public final class DocumentReaderCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;

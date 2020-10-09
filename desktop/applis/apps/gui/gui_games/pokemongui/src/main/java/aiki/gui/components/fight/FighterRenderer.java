@@ -9,8 +9,8 @@ import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.*;
-import code.util.StringList;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class FighterRenderer extends CustCellRender {
 
@@ -75,13 +75,13 @@ public class FighterRenderer extends CustCellRender {
             _g.setColor(Color.BLACK);
             _g.drawString(KO, sideLength, getHeight());
         } else {
-            int rate_ = Numbers.parseInt(intRate.toNumberString());
+            int rate_ = NumberUtil.parseInt(intRate.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             _g.setColor(new Color(red_, green_, 0));
-            _g.drawString(StringList.concat(intRate.toNumberString(),PER_CENT), sideLength, getHeight());
+            _g.drawString(StringUtil.concat(intRate.toNumberString(),PER_CENT), sideLength, getHeight());
         }
         if (selected) {
             _g.setColor(Color.RED);

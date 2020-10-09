@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecClassArgumentMatching {
 
@@ -42,7 +43,7 @@ public final class ExecClassArgumentMatching {
     }
 
     public static Struct convert(Struct _arg, ContextEl _exec, StringList className_) {
-        if (StringList.equalsSet(className_,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
+        if (StringUtil.equalsSet(className_,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
             return NumParsers.convertToNumber(_arg);
         }
         byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(className_), _exec.getStandards());
@@ -106,7 +107,7 @@ public final class ExecClassArgumentMatching {
 
     private static String toPrimitive(String _class, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
-            if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
+            if (StringUtil.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
             }
         }
@@ -137,7 +138,7 @@ public final class ExecClassArgumentMatching {
 
     public boolean matchClass(String _class) {
         StringList l_ = new StringList(_class);
-        return StringList.equalsSet(className, l_);
+        return StringUtil.equalsSet(className, l_);
     }
 
     public StringList getNames() {

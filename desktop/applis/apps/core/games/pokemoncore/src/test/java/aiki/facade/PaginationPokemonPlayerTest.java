@@ -4,6 +4,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -883,8 +884,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, sorted_.get(1).getItem());
         assertEq(2, sorted_.get(1).getLevel());
         assertEq(1, sorted_.get(1).getIndex());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
         assertEq(-1, pagination_.currentIndex());
     }
 
@@ -929,8 +930,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         CustList<SortingPokemonPlayer> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1005,8 +1006,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(FOUR, sorted_.get(1).getAbility());
         assertEq(BAIE_MEPO, sorted_.get(1).getItem());
         assertEq(2, sorted_.get(1).getLevel());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1106,8 +1107,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, sorted_.get(1).getItem());
         assertEq(2, sorted_.get(1).getLevel());
         assertEq(2, sorted_.get(1).getIndex());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1164,8 +1165,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(3, pk_.getLevel());
         sorted_ = pagination_.getRendered();
         assertEq(2, sorted_.size());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1266,8 +1267,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, sorted_.get(1).getItem());
         assertEq(2, sorted_.get(1).getLevel());
         assertEq(1, sorted_.get(1).getIndex());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1361,7 +1362,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(NULL_REF, pk_.getItem());
         assertEq(2, pk_.getLevel());
         assertEq(1, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1683,7 +1684,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(NULL_REF, pk_.getItem());
         assertEq(2, pk_.getLevel());
         assertEq(1, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1742,7 +1743,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(NULL_REF, pk_.getItem());
         assertEq(2, pk_.getLevel());
         assertEq(1, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1801,7 +1802,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, pk_.getItem());
         assertEq(2, pk_.getLevel());
         assertEq(0, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1851,7 +1852,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(MULTI_EXP, pk_.getItem());
         assertEq(3, pk_.getLevel());
         assertEq(3, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1902,7 +1903,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(MULTI_EXP, pk_.getItem());
         assertEq(3, pk_.getLevel());
         assertEq(3, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -1960,7 +1961,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, pk_.getItem());
         assertEq(2, pk_.getLevel());
         assertEq(0, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -2036,8 +2037,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(ABSORB_EAU, sorted_.get(1).getAbility());
         assertEq(MULTI_EXP, sorted_.get(1).getItem());
         assertEq(3, sorted_.get(1).getLevel());
-        assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.FIRST_INDEX, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
     }
 
     @Test
@@ -2079,9 +2080,9 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.clear();
         assertEq(0, pagination_.getResults().size());
         assertEq(0, pagination_.getRendered().size());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
-        assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getNumberPage());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
     private SortingPokemonPlayer toSorting(

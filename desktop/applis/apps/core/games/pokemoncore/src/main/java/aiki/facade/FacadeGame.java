@@ -48,7 +48,6 @@ import aiki.util.SortingPokemonPlayer;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -61,6 +60,9 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class FacadeGame {
 
@@ -88,9 +90,9 @@ public class FacadeGame {
 
     private Shorts chosenTmForBuy = new Shorts();
 
-    private short firstSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+    private short firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
 
-    private short secondSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+    private short secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean givingObject;
 
@@ -109,7 +111,7 @@ public class FacadeGame {
     private ExchangedData exchangeData;
 
     private MiniMapCoords miniMapCoords = new MiniMapCoords(
-            CustList.INDEX_NOT_FOUND_ELT, CustList.INDEX_NOT_FOUND_ELT);
+            IndexConstants.INDEX_NOT_FOUND_ELT, IndexConstants.INDEX_NOT_FOUND_ELT);
 
     private String language;
     private StringList languages = new StringList();
@@ -211,11 +213,7 @@ public class FacadeGame {
 
     void setupMovingHeros() {
         changeToFightScene = game.getFight().getFightType().isExisting();
-        if (changeToFightScene) {
-            enabledMovingHero = false;
-        } else {
-            enabledMovingHero = true;
-        }
+        enabledMovingHero = !changeToFightScene;
     }
     public void directInteraction() {
         game.setInterfaceType(InterfaceType.RIEN);
@@ -402,7 +400,7 @@ public class FacadeGame {
 
     public void switchBoxTeam() {
         int currentIndex_ = firstPaginationPk.currentIndex();
-        if (currentIndex_ != CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndex_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
             game.getPlayer().switchPokemon(currentIndex_, data);
             firstPaginationPk.clear();
             // firstPaginationPk.search(game.getPlayer().getBox());
@@ -423,13 +421,13 @@ public class FacadeGame {
 
     public boolean isSwitchable() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             currentIndexPk_ = paginationEgg.currentIndex();
-            if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+            if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return false;
             }
             int selected_ = game.getPlayer().getChosenTeamPokemon();
-            if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
+            if (selected_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return false;
             }
             UsablePokemon us_ = game.getPlayer().getTeam().get(selected_);
@@ -437,26 +435,20 @@ public class FacadeGame {
                 return true;
             }
             int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
-            if (nbPk_ > CustList.ONE_ELEMENT) {
-                return true;
-            }
-            return false;
+            return nbPk_ > IndexConstants.ONE_ELEMENT;
         }
-        if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
+        if (paginationEgg.currentIndex() != IndexConstants.INDEX_NOT_FOUND_ELT) {
             return false;
         }
         int selected_ = game.getPlayer().getChosenTeamPokemon();
-        if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
+        return selected_ != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
     public boolean isSelectedPkTeamStorage() {
         int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
-        if (nbPk_ <= CustList.ONE_ELEMENT) {
+        if (nbPk_ <= IndexConstants.ONE_ELEMENT) {
             return false;
         }
-        return game.getPlayer().getChosenTeamPokemon() != CustList.INDEX_NOT_FOUND_ELT;
+        return game.getPlayer().getChosenTeamPokemon() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public void store() {
@@ -471,7 +463,7 @@ public class FacadeGame {
 
     public void takeObjectFromBox() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         comment.clearMessages();
@@ -483,7 +475,7 @@ public class FacadeGame {
 
     public void withdrawEgg() {
         int currentIndexEgg_ = paginationEgg.currentIndex();
-        if (currentIndexEgg_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexEgg_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         // int teamSize_ = game.getPlayer().getTeam().size();
@@ -497,7 +489,7 @@ public class FacadeGame {
 
     public void withdrawPk() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         // int teamSize_ = game.getPlayer().getTeam().size();
@@ -513,7 +505,7 @@ public class FacadeGame {
 
     public void release() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             currentIndexPk_ = paginationEgg.currentIndex();
             game.getPlayer().releasePokemon(currentIndexPk_, data);
             paginationEgg.clear();
@@ -528,16 +520,16 @@ public class FacadeGame {
 
     public boolean isReleasable() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             currentIndexPk_ = paginationEgg.currentIndex();
-            if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+            if (currentIndexPk_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return false;
             }
             return game.getPlayer().isReleasable(currentIndexPk_, data);
             // release egg
             // paginationEgg.search(game.getPlayer().getBox());
         }
-        if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
+        if (paginationEgg.currentIndex() != IndexConstants.INDEX_NOT_FOUND_ELT) {
             return false;
         }
         return game.getPlayer().isReleasable(currentIndexPk_, data);
@@ -968,7 +960,7 @@ public class FacadeGame {
         miniMap_ = data.getMap().getImages(data);
         for (MiniMapCoords m : miniMap_.getKeys()) {
             TileMiniMap tile_ = data.getMap().getMiniMap().getVal(m);
-            if (Numbers.eq(tile_.getPlace(), CustList.INDEX_NOT_FOUND_ELT)) {
+            if (NumberUtil.eq(tile_.getPlace(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 continue;
             }
             Place pl_ = data.getMap().getPlace(tile_.getPlace());
@@ -1010,7 +1002,7 @@ public class FacadeGame {
             return;
         }
         int notFound_;
-        notFound_ = CustList.INDEX_NOT_FOUND_ELT;
+        notFound_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         setMiniMapCoords(notFound_, notFound_);
         // miniMapCoords.setXcoords((short) CustList.INDEX_NOT_FOUND_ELT);
         // miniMapCoords.setYcoords((short) CustList.INDEX_NOT_FOUND_ELT);
@@ -1044,7 +1036,7 @@ public class FacadeGame {
     }
 
     public boolean isSelectedIndexTeamTrading() {
-        return exchangeData.getIndexTeam() != CustList.INDEX_NOT_FOUND_ELT;
+        return exchangeData.getIndexTeam() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public PokemonPlayer getSentPokemon() {
@@ -1401,7 +1393,7 @@ public class FacadeGame {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
-        StringList.removeAllElements(list_, getOwnedMoves());
+        StringUtil.removeAllElements(list_, getOwnedMoves());
         paginationMove.search(list_, data);
     }
 
@@ -1769,21 +1761,21 @@ public class FacadeGame {
 
     // %%%%begin%%%% hosting pokemon
     public void setSelectPkToHost(short _selectPkToHost) {
-        if (firstSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
+        if (firstSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
             firstSelectPkToHost = _selectPkToHost;
             return;
         }
         if (firstSelectPkToHost == _selectPkToHost) {
-            if (secondSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
-                firstSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+            if (secondSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
+                firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
                 return;
             }
             firstSelectPkToHost = secondSelectPkToHost;
-            secondSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+            secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
             return;
         }
         if (secondSelectPkToHost == _selectPkToHost) {
-            secondSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+            secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
             return;
         }
         secondSelectPkToHost = _selectPkToHost;
@@ -1798,10 +1790,10 @@ public class FacadeGame {
     }
 
     public void attemptForStoringPokemonToHost() {
-        if (firstSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
+        if (firstSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        if (secondSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
+        if (secondSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         ByteTreeMap< PokemonPlayer> team_ = game.getPlayer()
@@ -1810,14 +1802,14 @@ public class FacadeGame {
         // int teamSize_ = game.getPlayer().getTeam().size();
         game.attemptForStoringPokemonToHost(keys_.get(firstSelectPkToHost),
                 keys_.get(secondSelectPkToHost), data);
-        firstSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
-        secondSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
+        firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
+        secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public int getRemaingingSteps() {
         Coords voisin_ = closestTile();
         if (game.availableHosting(voisin_)) {
-            return CustList.INDEX_NOT_FOUND_ELT;
+            return IndexConstants.INDEX_NOT_FOUND_ELT;
         }
         return game.nbRemainingSteps(voisin_, data);
     }
@@ -1851,10 +1843,7 @@ public class FacadeGame {
         }
         Place pl_ = data.getMap().getPlace(next_.getNumberPlace());
         Level l_ = pl_.getLevelByCoords(next_);
-        if (l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
-            return true;
-        }
-        return false;
+        return l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER;
     }
 
     public Coords closestTile() {

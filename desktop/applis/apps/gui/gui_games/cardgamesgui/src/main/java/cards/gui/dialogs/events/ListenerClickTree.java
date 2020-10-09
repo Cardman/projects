@@ -11,6 +11,7 @@ import code.gui.TreeGui;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.core.IndexConstants;
 
 public class ListenerClickTree implements TreeSelectionListener {
 
@@ -46,7 +47,7 @@ public class ListenerClickTree implements TreeSelectionListener {
         if (!chemin_.isEmpty()) {
             indices_ = new Ints();
             int pathLength_ = chemin_.size();
-            for (int indice_ = CustList.SECOND_INDEX; indice_ < pathLength_; indice_++) {
+            for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < pathLength_; indice_++) {
                 noeudParent_ = chemin_.getPrev(indice_);
                 noeud_ = chemin_.get(indice_);
                 indices_.add(noeudParent_.getIndex(noeud_));

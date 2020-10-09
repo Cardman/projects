@@ -1,5 +1,4 @@
 package cards.gui.containers;
-import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import cards.belote.DisplayingBelote;
@@ -20,11 +19,13 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.*;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class ContainerGame implements Containable {
 
@@ -99,13 +100,13 @@ public class ContainerGame implements Containable {
     }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames) {
-        String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         StringList vl_=new StringList();
         boolean read_ = true;
         StringList lines_ = new StringList();
         if (content_ != null) {
-            lines_.addAllElts(StringList.splitChars(content_, LINE_RETURN));
+            lines_.addAllElts(StringUtil.splitChars(content_, LINE_RETURN));
         } else {
             read_ = false;
         }
@@ -114,12 +115,12 @@ public class ContainerGame implements Containable {
             read_ = false;
         }
         if (read_) {
-            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
+            for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
                 vl_.add(lines_.get(indice_));
             }
         } else {
             vl_=new StringList();
-            for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
+            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
                 vl_.add("0");
             }
         }
@@ -127,7 +128,7 @@ public class ContainerGame implements Containable {
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
         vl_.set(_game.ordinal(), Long.toString(_nbGames + 1));
-        StreamTextFile.saveTextFile(fileName_, StringList.join(vl_, LINE_RETURN));
+        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN));
     }
 
     public void ajouterTexteDansZone(String _texte) {
@@ -162,14 +163,14 @@ public class ContainerGame implements Containable {
 
     }
     protected static long chargerNombreDeParties(GameEnum _jeu) {
-        String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         if (content_ == null) {
             return 0L;
         }
-        StringList lines_ = StringList.splitChars(content_, LINE_RETURN);
+        StringList lines_ = StringUtil.splitChars(content_, LINE_RETURN);
         lines_.removeAllString(EMPTY_STRING);
-        return Numbers.parseLongZero(lines_.get(_jeu.ordinal()));
+        return NumberUtil.parseLongZero(lines_.get(_jeu.ordinal()));
     }
     public void aideAuJeu() {}
     public void showTricksHands() {}

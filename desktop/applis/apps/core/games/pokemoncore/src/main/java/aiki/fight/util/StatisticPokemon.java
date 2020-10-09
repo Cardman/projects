@@ -1,6 +1,7 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -13,7 +14,7 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon>, Dis
     private final String pokemon;
 
     public StatisticPokemon(String _str) {
-        StringList elements_ = StringList.splitChars(_str, SEPARATOR);
+        StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         statistic = Statistic.getStatisticByName(elements_.first());
         pokemon = elements_.last();
     }
@@ -33,10 +34,7 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon>, Dis
         if (statistic != _obj.statistic) {
             return false;
         }
-        if (!StringList.quickEq(pokemon, _obj.pokemon)) {
-            return false;
-        }
-        return true;
+        return StringUtil.quickEq(pokemon, _obj.pokemon);
     }
 
     public Statistic getStatistic() {

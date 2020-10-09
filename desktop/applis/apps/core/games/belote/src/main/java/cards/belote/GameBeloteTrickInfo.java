@@ -1,11 +1,11 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
-import cards.consts.CardChar;
 import cards.consts.Hypothesis;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class GameBeloteTrickInfo {
 
@@ -74,11 +74,11 @@ public final class GameBeloteTrickInfo {
             cartesCertaines_.put(couleur_,new CustList<HandBelote>());
         }
         for (Suit couleur_:cartesCertaines_.getKeys()) {
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
                 cartesCertaines_.getVal(couleur_).add(new HandBelote());
             }
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             addToKnown(toutesCouleurs_,cartesPossibles_,joueur_,cartesCertaines_,joueursRepartitionConnue_,joueursRepartitionConnueMemo_);
         }
         while (!joueursRepartitionConnue_.isEmpty()) {
@@ -97,7 +97,7 @@ public final class GameBeloteTrickInfo {
         les joueurs
         */
             for (byte joueur_ : joueursRepartitionConnue_) {
-                for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
+                for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
                     if (!joueursRepartitionConnueMemo_.containsObj(joueur2_)) {
                         for (Suit couleur_:toutesCouleurs_) {
                             cartesPossibles_.getVal(couleur_)
@@ -109,7 +109,7 @@ public final class GameBeloteTrickInfo {
                     addToKnown(toutesCouleurs_,cartesPossibles_,joueur_,cartesCertaines_,joueursRepartitionConnue2_,joueursRepartitionConnueMemo_);
                 }
             }
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
                 if (!joueursRepartitionConnueMemo_.containsObj(joueur_)) {
                     joueursRepartitionInconnue_.add(joueur_);
                 }
@@ -119,7 +119,7 @@ public final class GameBeloteTrickInfo {
                     for (CardBelote carte_ : cartesPossibles_.getVal(couleur_).get(
                             joueur_)) {
                         nombreDApparitionCarte_ = 0;
-                        for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
+                        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
                             if (cartesPossibles_.getVal(couleur_).get(joueur2_)
                                     .contient(carte_)) {
                                 nombreDApparitionCarte_++;
@@ -139,12 +139,12 @@ public final class GameBeloteTrickInfo {
             joueursRepartitionConnue_.addAllElts(joueursRepartitionConnue2_);
             joueursRepartitionConnue2_.clear();
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             if (!joueursRepartitionConnueMemo_.containsObj(joueur_)) {
                 joueursRepartitionInconnue_.add(joueur_);
             }
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             sortSuits(cartesPossibles_, joueur_);
             sortSuits(cartesCertaines_, joueur_);
         }
@@ -242,7 +242,7 @@ public final class GameBeloteTrickInfo {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         CustList<HandBelote> m=new CustList<HandBelote>();
         boolean defausse_;
-        for (byte j = CustList.FIRST_INDEX;j<nbPlayers;j++) {
+        for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
             HandBelote h_ = new HandBelote();
             m.add(h_);
             if (j == next_) {
@@ -285,7 +285,7 @@ public final class GameBeloteTrickInfo {
                     if(!declaresBeloteRebelote.get(joueur_).contient(c)) {
                         continue;
                     }
-                    for (byte j = CustList.FIRST_INDEX;j<nbPlayers;j++) {
+                    for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
                         if(j == next_) {
                             continue;
                         }
@@ -477,7 +477,7 @@ public final class GameBeloteTrickInfo {
         }
         for(DeclareHandBelote a:declares) {
             HandBelote mainCouleur_ = a.getHand().couleurs(bid).getVal(_couleurAtout);
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
                 if(joueur_ == a.getPlayer()) {
                     continue;
                 }
@@ -616,7 +616,7 @@ public final class GameBeloteTrickInfo {
         cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<HandBelote> m=new CustList<HandBelote>();
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
             HandBelote h_ = new HandBelote();
             m.add(h_);
             if(joueur_ == next_) {
@@ -638,7 +638,7 @@ public final class GameBeloteTrickInfo {
             }
         }
         if(progressingTrick.couleurDemandee()==_couleur) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
                 if(joueur_ == next_) {
                     continue;
                 }
@@ -653,7 +653,7 @@ public final class GameBeloteTrickInfo {
         }
         for(DeclareHandBelote a:declares) {
             HandBelote mainCouleur_ = a.getHand().couleurs(bid).getVal(_couleur);
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
                 if(joueur_ == a.getPlayer()) {
                     continue;
                 }
@@ -674,7 +674,7 @@ public final class GameBeloteTrickInfo {
         }
         Suit couleurAtout_=bid.getCouleur();
         int lastIndex_ = _plisFaits.getLastIndex();
-        for(int indicePli_=lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
+        for(int indicePli_ = lastIndex_; indicePli_>= IndexConstants.FIRST_INDEX; indicePli_--) {
             TrickBelote pli_=_plisFaits.get(indicePli_);
             if(pli_.couleurDemandee()!=_couleur) {
                 continue;
@@ -723,7 +723,7 @@ public final class GameBeloteTrickInfo {
     }
     static boolean neFournitPas(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
         int lastIndex_ = _plisFaits.getLastIndex();
-        for(int indicePli_= lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
+        for(int indicePli_ = lastIndex_; indicePli_>= IndexConstants.FIRST_INDEX; indicePli_--) {
             TrickBelote pli_=_plisFaits.get(indicePli_);
             if(pli_.couleurDemandee()==_couleur) {
                 if(pli_.carteDuJoueur(_joueur).couleur()!=_couleur) {

@@ -31,8 +31,7 @@ public final class WindowPage implements Runnable {
         page.getAnims().clear();
         MetaComponent metaroot_ = meta.getRoot();
         IntComponent meta_ = metaroot_.getFirstChildCompo();
-        DualContainer root_ = page.getPage();
-        DualComponent cur_ = root_;
+        DualComponent cur_ = page.getPage();
         CustList<ObjectMap<FormInputCoords,CustButtonGroup>> radiosGroup_ = new CustList<ObjectMap<FormInputCoords,CustButtonGroup>>();
         while (true) {
             if (meta_ instanceof MetaContainer) {

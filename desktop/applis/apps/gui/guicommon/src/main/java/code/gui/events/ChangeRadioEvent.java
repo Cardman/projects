@@ -3,7 +3,7 @@ package code.gui.events;
 import code.gui.CustButtonGroup;
 import code.gui.RadioButton;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +36,7 @@ public final class ChangeRadioEvent implements ActionListener {
             for (int i = 0; i < len_; i++) {
                 RadioButton r_ = g_.get(i);
                 String v_ = group.getValues().get(i);
-                if (StringList.quickEq(v_, value)) {
+                if (StringUtil.quickEq(v_, value)) {
                     r_.setSelected(true);
                 }
             }

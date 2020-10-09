@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.EqOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachEqOperation extends ReachMethodOperation implements ReachCalculable {
     private String oper;
@@ -23,7 +23,7 @@ public final class ReachEqOperation extends ReachMethodOperation implements Reac
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();
         boolean complement_ = false;
-        if (StringList.quickEq(oper, DIFF)) {
+        if (StringUtil.quickEq(oper, DIFF)) {
             complement_ = true;
         }
         boolean b_ = calculateEq(first_, second_);

@@ -6,7 +6,7 @@ import code.formathtml.Configuration;
 import code.formathtml.ReadConfiguration;
 import code.sml.Document;
 import code.sml.Element;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class AbstractConfigurationLoader {
 
@@ -14,36 +14,36 @@ public abstract class AbstractConfigurationLoader {
         DualConfigurationContext d_ = new DualConfigurationContext();
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "firstUrl")) {
+            if (StringUtil.quickEq(fieldName_, "firstUrl")) {
                 _configuration.setFirstUrl(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "prefix")) {
+            if (StringUtil.quickEq(fieldName_, "prefix")) {
                 _configuration.setPrefix(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "messagesFolder")) {
+            if (StringUtil.quickEq(fieldName_, "messagesFolder")) {
                 d_.setMessagesFolder(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "beans")) {
+            if (StringUtil.quickEq(fieldName_, "beans")) {
                 _configuration.setBeansInfos(ReadConfiguration.loadBeans(c));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "properties")) {
+            if (StringUtil.quickEq(fieldName_, "properties")) {
                 d_.setProperties(ReadConfiguration.loadStringMapString(c));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "navigation")) {
+            if (StringUtil.quickEq(fieldName_, "navigation")) {
                 _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(c));
                 continue;
             }
 
-            if (StringList.quickEq(fieldName_, "addedFiles")) {
+            if (StringUtil.quickEq(fieldName_, "addedFiles")) {
                 d_.setAddedFiles(ReadConfiguration.getStringList(c));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "renderFiles")) {
+            if (StringUtil.quickEq(fieldName_, "renderFiles")) {
                 d_.setRenderFiles(ReadConfiguration.getStringList(c));
             }
         }

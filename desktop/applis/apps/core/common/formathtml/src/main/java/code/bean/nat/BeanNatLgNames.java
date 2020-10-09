@@ -44,6 +44,7 @@ import code.formathtml.util.NodeInformations;
 import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.StringUtil;
 import code.util.ints.*;
 
 public abstract class BeanNatLgNames extends BeanLgNames {
@@ -168,7 +169,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
         String lastType_ = _rend.getLastType();
@@ -314,7 +315,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
-        return new Argument(newId(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
+        return new Argument(newId(it_, StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -350,7 +351,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         String typeInst_ = _arg.getClassName(_ctx);
         String it_ = getIterables().getVal(typeInst_);
-        return new Argument(newId(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
+        return new Argument(newId(((SimpleIterable) instance_).simpleIterator(), StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
 
     @Override

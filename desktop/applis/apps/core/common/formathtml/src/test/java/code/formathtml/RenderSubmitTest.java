@@ -1,8 +1,7 @@
 package code.formathtml;
 
-import code.expressionlanguage.structs.Struct;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
@@ -132,7 +131,7 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, StringList.concat(relative_, "2")));
+        assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, StringUtil.concat(relative_, "2")));
     }
 
     private boolean hasErrOneBean(String folder_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String concat) {

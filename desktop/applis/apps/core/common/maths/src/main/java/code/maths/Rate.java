@@ -1,8 +1,9 @@
 package code.maths;
-import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -38,25 +39,25 @@ public final class Rate implements Cmp<Rate>, Displayable {
         String tauxPris_ = _chaine;
         // Ajout de 0 devant le . si ce n'est pas fait
         if (tauxPris_.startsWith(String.valueOf(SEP_INT_DEC))) {
-            tauxPris_ = StringList.concat(String.valueOf(ZERO), tauxPris_);
+            tauxPris_ = StringUtil.concat(String.valueOf(ZERO), tauxPris_);
         }
         // Ajout de 0 devant le . et derriere le - si ce n'est pas fait
-        if (tauxPris_.startsWith(StringList.concat(MINUS,String.valueOf(SEP_INT_DEC)))) {
-            tauxPris_ = StringList.concat(MINUS, String.valueOf(ZERO), tauxPris_.substring(1));
+        if (tauxPris_.startsWith(StringUtil.concat(MINUS,String.valueOf(SEP_INT_DEC)))) {
+            tauxPris_ = StringUtil.concat(MINUS, String.valueOf(ZERO), tauxPris_.substring(1));
         }
         if (tauxPris_.endsWith(String.valueOf(SEP_INT_DEC))) {
-            numerateur = new LgInt(StringList.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
+            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
             denominateur = LgInt.one();
         } else if (tauxPris_.contains(String.valueOf(SEP_INT_DEC))) {
             // Un caractere au moins precede le .
             int nbChiffresApresVirgule_ = tauxPris_.length() - 1 - tauxPris_.indexOf(SEP_INT_DEC);
             // Pour calculer nbChiffresApresVirgule_, il faut enlever les chiffres avant la virgule et la virgule
-            numerateur = new LgInt(StringList.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
+            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
             denominateur = LgInt.powNb(new LgInt(LgInt.BASE_NUMER), new LgInt(nbChiffresApresVirgule_));
             simplifier();
         } else if (tauxPris_.indexOf(SEP_NUM_DEN_CHAR) > -1) {
             // Fraction classique
-            StringList numDen_ = StringList.splitChar(tauxPris_, SEP_NUM_DEN_CHAR);
+            StringList numDen_ = StringUtil.splitChar(tauxPris_, SEP_NUM_DEN_CHAR);
             numerateur = new LgInt(numDen_.first());
             denominateur = new LgInt(numDen_.last());
             if (denominateur.isZero()) {
@@ -144,17 +145,14 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (_string == null) {
             return false;
         }
-        if (!matchesRate(_string)) {
-            return false;
-        }
-        return true;
+        return matchesRate(_string);
     }
 
     private static boolean matchesRate(String _input) {
         if (_input.isEmpty()) {
             return false;
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS_CHAR) {
             i_++;
         }
@@ -386,7 +384,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 int_ = LgInt.zero();
                 signum_ = EMPTY_STRING;
             }
-            return StringList.concat(signum_,int_.toNumberString());
+            return StringUtil.concat(signum_,int_.toNumberString());
         }
         String signum_;
         if (!numerateur.isZeroOrGt()) {
@@ -408,22 +406,22 @@ public final class Rate implements Cmp<Rate>, Displayable {
         int nbZeros_ = puissance_ - 1;
         LgInt intPart_ = abs_.intPart();
         String intPartStr_ = intPart_.toNumberString();
-        String return_ = StringList.concat(signum_, intPart_.toNumberString());
+        String return_ = StringUtil.concat(signum_, intPart_.toNumberString());
         boolean zero_ = false;
         if (intPart_.isZero()) {
             zero_ = true;
         }
-        return_ = StringList.concat(return_, String.valueOf(SEP_INT_DEC));
+        return_ = StringUtil.concat(return_, String.valueOf(SEP_INT_DEC));
         StringBuilder str_ = new StringBuilder();
-        for (int i = CustList.FIRST_INDEX; i < nbZeros_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
             str_.append(ZERO);
         }
         str_.append(copie_.intPart().toNumberString());
 //        if (str_.length() > _numberDec) {
 //            str_ = str_.substring(CustList.FIRST_INDEX, _numberDec);
 //        }
-        str_ = new StringBuilder(str_.substring(CustList.FIRST_INDEX, _numberDec));
-        if (!StringList.removeChars(str_.toString(), ZERO).isEmpty()) {
+        str_ = new StringBuilder(str_.substring(IndexConstants.FIRST_INDEX, _numberDec));
+        if (!StringUtil.removeChars(str_.toString(), ZERO).isEmpty()) {
             zero_ = false;
         }
         if (zero_) {
@@ -632,11 +630,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (!numerateur.eq(_autre.numerateur)) {
             return false;
         }
-        if (!denominateur.eq(_autre.denominateur)) {
-            return false;
-        }
-//        return numerateur.eq(_autre.numerateur) && denominateur.eq(_autre.denominateur);
-        return true;
+        return denominateur.eq(_autre.denominateur);
     }
 
     public boolean greaterThanOne() {
@@ -733,20 +727,14 @@ public final class Rate implements Cmp<Rate>, Displayable {
             if (_max == null) {
                 return true;
             }
-            if (_max.cmp(this) < 0) {
-                return false;
-            }
-            return true;
+            return _max.cmp(this) >= 0;
         }
         if (_max != null) {
             if (_max.cmp(this) < 0) {
                 return false;
             }
         }
-        if (_min.cmp(this) > 0) {
-            return false;
-        }
-        return true;
+        return _min.cmp(this) <= 0;
     }
 
     @Override

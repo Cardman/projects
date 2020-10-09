@@ -1,6 +1,6 @@
 package cards.president.comparators;
 import cards.president.enumerations.CardPresident;
-import code.util.CustList;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class GameStrengthCardPresidentComparator implements Comparing<CardPresident> {
@@ -29,7 +29,7 @@ public final class GameStrengthCardPresidentComparator implements Comparing<Card
         if(_o1.strength(reverseGame) < _o2.strength(reverseGame)){
             return -mult_;
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
 }

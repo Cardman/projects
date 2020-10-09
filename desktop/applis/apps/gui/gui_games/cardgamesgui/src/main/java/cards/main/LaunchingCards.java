@@ -7,7 +7,6 @@ import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
@@ -16,9 +15,11 @@ import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+
 /**
     le lancement du logiciel*/
 public class LaunchingCards extends SoftApplicationCore {
@@ -65,34 +66,34 @@ public class LaunchingCards extends SoftApplicationCore {
     private static void installer() {
 
         File f;
-        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER));
+        f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER));
         f.mkdirs();
-        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
+        f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_));
         }
-        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
+        f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_));
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
-        for (int i = CustList.ONE_ELEMENT; i <= maxStacks_; i++) {
-            f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
+        for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
+            f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
                 StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_));
             }
         }
-        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
+        f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
         if(!f.exists()) {
             StringList dealsNumbers_ = new StringList();
             int nbGames_ = GameEnum.values().length;
-            for (int i=CustList.FIRST_INDEX;i<nbGames_;i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
                 dealsNumbers_.add("0");
             }
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringList.join(dealsNumbers_, LINE_RETURN));
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN));
         }
     }
 
@@ -102,12 +103,12 @@ public class LaunchingCards extends SoftApplicationCore {
     }
 
     public static String getTempFolderSl() {
-        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
+        return StringUtil.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
     }
 
     public static String getTempFolder() {
-        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     public static String getMainWindowClass() {

@@ -13,6 +13,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendForm extends AnaRendElement {
     private CustList<OperationNode> roots;
@@ -26,14 +27,14 @@ public final class AnaRendForm extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
         roots = new CustList<OperationNode>();
-        String href_ = _read.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
-            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+            int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             r_.buildAna(lk_, rowsGrId_, _anaDoc, _page);
             texts = r_.getTexts();
             roots = r_.getOpExpRoot();
@@ -46,7 +47,7 @@ public final class AnaRendForm extends AnaRendElement {
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(e.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(e.getResultClass().getNames(),AND_ERR),
                             _page.getAliasLong());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
@@ -64,12 +65,12 @@ public final class AnaRendForm extends AnaRendElement {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(roots.get(i_).getResultClass().getSingleNameOrEmpty());
                 _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringList.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
+                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
                 i_++;
             }
             String pref_ = r_.quickRender(lk_, formArg_);
             if (pref_.indexOf('(') < 0) {
-                pref_ = StringList.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
+                pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
             }
             root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
             for (String v:varNames_) {

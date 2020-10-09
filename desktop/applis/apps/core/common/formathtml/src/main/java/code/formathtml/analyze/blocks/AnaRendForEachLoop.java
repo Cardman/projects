@@ -26,6 +26,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaRendLoop,ImportForEachLoop {
 
@@ -149,7 +150,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(compo_.getNames(),AND_ERR),
+                            StringUtil.join(compo_.getNames(),AND_ERR),
                             importedClassName);
                     AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
@@ -165,7 +166,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
@@ -202,7 +203,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     private boolean toInfer(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
+        return StringUtil.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }
     public void putVariable(AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();

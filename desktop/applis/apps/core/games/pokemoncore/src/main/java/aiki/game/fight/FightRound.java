@@ -45,12 +45,14 @@ import code.maths.Rate;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightRound {
 
@@ -76,7 +78,7 @@ final class FightRound {
             TeamPosition found_ = FightOrder.notKoFrontFightersBelongingToUser(_fight,true).first();
             Fighter fighter_ = _fight.getFighter(found_);
             String move_ = fighter_.getFirstChosenMove();
-            if (!StringList.quickEq(move_, p.getMove())) {
+            if (!StringUtil.quickEq(move_, p.getMove())) {
                 continue;
             }
             EqList<TargetCoords> list_ = fighter_.getChosenTargets();
@@ -103,7 +105,7 @@ final class FightRound {
                 TeamPosition found_ = FightOrder.notKoFrontFightersBelongingToUser(_fight,true).first();
                 Fighter fighter_ = _fight.getFighter(found_);
                 String move_ = fighter_.getFirstChosenMove();
-                if (!StringList.quickEq(move_, p.getMove())) {
+                if (!StringUtil.quickEq(move_, p.getMove())) {
                     continue;
                 }
                 String allyMove_ = _fight.getAllyChoiceVal(p).getMove();
@@ -233,7 +235,7 @@ final class FightRound {
         }else{
             TeamPosition currentUser_ = _fight.getCurrentUser();
             Fighter creature_=_fight.getFighter(currentUser_);
-            if(!Numbers.eq(creature_.getSubstistute(),Fighter.BACK)){
+            if(!NumberUtil.eq(creature_.getSubstistute(),Fighter.BACK)){
                 roundThrowerSwitch(_fight, currentUser_, _diff, _import);
                 if(!_fight.getAcceptableChoices()){
                     _fight.setKeepRound(false);
@@ -308,7 +310,7 @@ final class FightRound {
         _fight.setKeepStatus(true);
         String attaqueLanceur_=creature_.getFinalChosenMove();
         for(String c:creature_.getStatusSet()){
-            if(Numbers.eq(creature_.getStatusNbRoundShort(c), 0)){
+            if(NumberUtil.eq(creature_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
             statusBeginRoundAttack(_fight,_lanceur,c,_diff,_import);
@@ -325,7 +327,7 @@ final class FightRound {
                 return;
             }
         }
-        if(!StringList.quickEq(creature_.getLastUsedMove(),creature_.getFinalChosenMove())){
+        if(!StringUtil.quickEq(creature_.getLastUsedMove(),creature_.getFinalChosenMove())){
             creature_.affectNoUsesMove();
         }
         if(!FightSuccess.canUseDirectlyMove(_fight,_lanceur, _import)){
@@ -359,7 +361,7 @@ final class FightRound {
         }
         attaqueLanceur_=creature_.getFinalChosenMove();
         if (FightOrder.nbBackPartners(_fight,_lanceur) == 0) {
-            if (StringList.contains(_import.getMovesFullHeal(), attaqueLanceur_)) {
+            if (StringUtil.contains(_import.getMovesFullHeal(), attaqueLanceur_)) {
                 endRoundThrower(_fight, _lanceur, attaqueLanceur_, false, _import);
                 return;
             }
@@ -402,7 +404,7 @@ final class FightRound {
         }
         Ints previousEffects_;
         previousEffects_ = new Ints();
-        for(int i=CustList.FIRST_INDEX; i<nbEffets_; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAttFinal_.getEffet(i);
             if(preliminaire_) {
                 if(effet_.getTargetChoice() == fAttFinal_.getTargetChoice()){
@@ -451,14 +453,14 @@ final class FightRound {
                     continue;
                 }
             }
-            if(!Numbers.eq(e.getTeam(),_finalThrower.getTeam()) && !_fight.isChangeThrower()){
+            if(!NumberUtil.eq(e.getTeam(),_finalThrower.getTeam()) && !_fight.isChangeThrower()){
                 _fight.setLettingUserAttackWithStatus(true);
                 _fight.setKeepStatus(true);
                 for(MoveTeamPosition c:creature_.getStatusRelatSet()){
                     if(!TeamPosition.eq(c.getTeamPosition(),e)){
                         continue;
                     }
-                    if(Numbers.eq(creature_.getStatusRelatNbRoundShort(c), 0)){
+                    if(NumberUtil.eq(creature_.getStatusRelatNbRoundShort(c), 0)){
                         continue;
                     }
                     statusBeginRoundAttack(_fight,_finalThrower,c.getMove(),_diff,_import);
@@ -516,7 +518,7 @@ final class FightRound {
             }
             if(effet_ instanceof EffectDamage){
                 boolean continueLoop_ = false;
-                if (Numbers.eq(e.getTeam(),_finalThrower.getTeam())) {
+                if (NumberUtil.eq(e.getTeam(),_finalThrower.getTeam())) {
                     //ally
                     healPartner(_fight,_finalThrower, e, tauxMultPv_, _import);
                     if (_fight.isEnabledHealingPartner()) {
@@ -613,11 +615,11 @@ final class FightRound {
                 MonteCarloBoolean loiModif_=lawNbRound_.knowingGreater(new Rate(nbTour_));
                 String moveName_ = creature_.getFinalChosenMove();
                 MoveData move_ = _import.getMove(moveName_);
-                if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
+                if (StringUtil.contains(move_.getDeletedStatus(), _nomStatut)) {
                     fini_= true;
                 } else {
                     if(_fight.getSimulation()){
-                        fini_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
+                        fini_= NumberUtil.eq(_combattant.getTeam(),Fight.FOE);
                     } else {
                         fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
                     }
@@ -633,7 +635,7 @@ final class FightRound {
                 }
             } else {
                 for (MoveTeamPosition s: creature_.getStatusRelatSet()) {
-                    if (!StringList.quickEq(_nomStatut, s.getMove())) {
+                    if (!StringUtil.quickEq(_nomStatut, s.getMove())) {
                         continue;
                     }
                     short nbTour_=creature_.getStatusRelatNbRoundShort(s);
@@ -641,11 +643,11 @@ final class FightRound {
                     String moveName_ = creature_.getFinalChosenMove();
                     MoveData move_ = _import.getMove(moveName_);
                     boolean fini_;
-                    if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
+                    if (StringUtil.contains(move_.getDeletedStatus(), _nomStatut)) {
                         fini_= true;
                     } else {
                         if(_fight.getSimulation()){
-                            fini_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
+                            fini_= NumberUtil.eq(_combattant.getTeam(),Fight.FOE);
                         } else {
                             fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
                         }
@@ -665,7 +667,7 @@ final class FightRound {
         //immu "paralysie totale"
         if(creature_.capaciteActive()){
             AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if(StringList.contains(fCapac_.getImmuStatusBeginRound(), _nomStatut)){
+            if(StringUtil.contains(fCapac_.getImmuStatusBeginRound(), _nomStatut)){
                 tirageGuerison_=true;
             }
         }
@@ -673,12 +675,12 @@ final class FightRound {
         if(!tirageGuerison_&&!lawUseMove_.events().isEmpty()){
             String moveName_ = creature_.getFinalChosenMove();
             MoveData move_ = _import.getMove(moveName_);
-            if (StringList.contains(move_.getRequiredStatus(), _nomStatut)) {
+            if (StringUtil.contains(move_.getRequiredStatus(), _nomStatut)) {
                 tirageGuerison_=true;
-            } else if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
+            } else if (StringUtil.contains(move_.getDeletedStatus(), _nomStatut)) {
                 tirageGuerison_=true;
             } else if(_fight.getSimulation()){
-                if(Numbers.eq(_combattant.getTeam(),Fight.PLAYER)){
+                if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
                     attaquer_=false;
                 }else{
                     tirageGuerison_=true;
@@ -696,7 +698,7 @@ final class FightRound {
         boolean attaquerAdv_=true;
         if(!lawUseMoveIfFoe_.events().isEmpty()){
             if(_fight.getSimulation()){
-                if(Numbers.eq(_combattant.getTeam(),Fight.PLAYER)){
+                if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
                     attaquerAdv_=false;
                 }
             } else {
@@ -730,7 +732,7 @@ final class FightRound {
         LgInt maxRd_ = _import.getMaxRd();
         Fighter creature_=_fight.getFighter(_combattant);
         if(_fight.getSimulation()){
-            if(Numbers.eq(_combattant.getTeam(),Fight.FOE)){
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.FOE)){
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
             }
@@ -770,16 +772,16 @@ final class FightRound {
         boost_ = FightStatistic.rateBoost((byte) Math.min(cran_, maxBoost_), _import);
         def_.multiplyBy(boost_);
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NIVEAU), Short.toString(creature_.getLevel()));
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.POWER), _puissance.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NIVEAU), Short.toString(creature_.getLevel()));
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), _puissance.toNumberString());
         String damageFormula_ = _import.getDamageFormula();
         Rate degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, _puissance);
         if(Rate.greaterEq(degats_,creature_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
             _fight.addAnimationKoFighter(_combattant);
-            if(Numbers.eq(_combattant.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
                 if (_fight.getSimulation()) {
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
@@ -795,7 +797,7 @@ final class FightRound {
     static EqList<TeamPosition> takers(Fight _fight, TeamPosition _fighter, DataBase _data) {
         EqList<TeamPosition> takers_ = new EqList<TeamPosition>();
         for (TeamPosition t: FightOrder.frontFighters(_fight)) {
-            if (Numbers.eq(t.getTeam(), _fighter.getTeam())) {
+            if (NumberUtil.eq(t.getTeam(), _fighter.getTeam())) {
                 continue;
             }
             byte pos_ = _fight.getFighter(_fighter).getGroundPlace();
@@ -819,7 +821,7 @@ final class FightRound {
             String _move,
             Difficulty _diff, DataBase _import) {
         Fighter creature_=_fight.getFighter(_thrower);
-        if(Numbers.eq(_thrower.getTeam(),_target.getTeam())){
+        if(NumberUtil.eq(_thrower.getTeam(),_target.getTeam())){
             return;
         }
         short ppSuppl_=0;
@@ -828,7 +830,7 @@ final class FightRound {
             AbilityData fCapacCible_=creatureCible_.ficheCapaciteActuelle(_import);
             ppSuppl_+=fCapacCible_.getNbUsedPp();
         }
-        if(StringList.quickEq(creature_.getFirstChosenMove(),_move)){
+        if(StringUtil.quickEq(creature_.getFirstChosenMove(),_move)){
             creature_.usePowerPointsByMove(_diff,_move,ppSuppl_);
         }
     }
@@ -842,14 +844,14 @@ final class FightRound {
         Fighter creatureCible_=_fight.getFighter(_target);
         Fighter user_ = _fight.getFighter(_thrower);
         StringList typeAttaque_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
-        if (!Numbers.eq(_thrower.getTeam(), _target.getTeam())) {
+        if (!NumberUtil.eq(_thrower.getTeam(), _target.getTeam())) {
             for (String m :creatureCible_.getEnabledCounteringMoves().getKeys()) {
                 if (!creatureCible_.getEnabledCounteringMoves().getVal(m).isEnabled()) {
                     continue;
                 }
                 MoveData fMove_ = _import.getMove(m);
                 int nbEffects_ = fMove_.nbEffets();
-                for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
                     Effect eff_ = fMove_.getEffet(i);
                     if (!(eff_ instanceof EffectCounterAttack)) {
                         continue;
@@ -912,11 +914,11 @@ final class FightRound {
         }
         StringList activeWeathers_ = FightMoves.climatsActifs(_fight,_import);
         for(WeatherType k: fCapac_.getHealHpByTypeIfWeather().getKeys()){
-            if (!StringList.contains(typeAttaque_, k.getType())) {
+            if (!StringUtil.contains(typeAttaque_, k.getType())) {
                 continue;
             }
             for (String w: activeWeathers_) {
-                if(!StringList.quickEq(k.getWeather(),w)){
+                if(!StringUtil.quickEq(k.getWeather(),w)){
                     continue;
                 }
                 Rate varPv_=new Rate(fCapac_.getHealHpByTypeIfWeather().getVal(k));
@@ -925,7 +927,7 @@ final class FightRound {
                 _fight.addHpMessage(_target, _import);
             }
             if (activeWeathers_.isEmpty()) {
-                if(!StringList.quickEq(k.getWeather(),DataBase.EMPTY_STRING)){
+                if(!StringUtil.quickEq(k.getWeather(),DataBase.EMPTY_STRING)){
                     continue;
                 }
                 //ABSORB_VOLT, ABSORB_EAU
@@ -949,7 +951,7 @@ final class FightRound {
             if(!TeamPosition.eq(c.getTeamPosition(),_partner)){
                 continue;
             }
-            if(Numbers.eq(creatureLanceur_.getStatusRelatNbRoundShort(c), 0)){
+            if(NumberUtil.eq(creatureLanceur_.getStatusRelatNbRoundShort(c), 0)){
                 continue;
             }
             Status statut_=_import.getStatus().getVal(c.getMove());
@@ -998,7 +1000,7 @@ final class FightRound {
             MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(precision_);
             boolean success_;
             if (FightSuccess.isBadSimulation(_fight, law_)) {
-                if(Numbers.eq(_target.getTeam(),Fight.FOE)){
+                if(NumberUtil.eq(_target.getTeam(),Fight.FOE)){
                     return;
                 }
                 success_ = true;
@@ -1113,7 +1115,7 @@ final class FightRound {
         }
         MoveData fAttaque_=_import.getMove(creature_.getFinalChosenMove());
         int nbEffets_=fAttaque_.nbEffets();
-        for(int i=CustList.FIRST_INDEX; i<nbEffets_; i++){
+        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAttaque_.getEffet(i);
             if(!(effet_ instanceof EffectOrder)){
                 continue;
@@ -1154,14 +1156,14 @@ final class FightRound {
             animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), Fighter.BACK));
             _fight.getEffects().add(animationHeal_);
             if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-                if (Numbers.eq(_lanceur.getTeam(), Fight.PLAYER)) {
+                if (NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)) {
                     //As for all team, is exists a "no ko fighter" at the front, so there a single free place
                     EqList<TeamPosition> pkPlayers_;
                     pkPlayers_ = FightOrder.fightersBelongingToUser(_fight, true);
                     _fight.setFullHealing(true);
                     Bytes ally_ = new Bytes();
                     int mult_ = _fight.getMult();
-                    for (byte m = CustList.FIRST_INDEX; m < mult_; m++) {
+                    for (byte m = IndexConstants.FIRST_INDEX; m < mult_; m++) {
                         ally_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(m));
                     }
                     Fighter allyPk_ = _fight.getFighter(Fight.toUserFighter(ally_.first()));
@@ -1214,10 +1216,10 @@ final class FightRound {
                 _fight.addHpMessage(_lanceur, _import);
             }
             for(String c:creatureLanceur_.getStatusSet()){
-                if(Numbers.eq(creatureLanceur_.getStatusNbRoundShort(c), 0)){
+                if(NumberUtil.eq(creatureLanceur_.getStatusNbRoundShort(c), 0)){
                     continue;
                 }
-                if(StringList.contains(berry_.getHealStatus(), c)){
+                if(StringUtil.contains(berry_.getHealStatus(), c)){
                     creatureLanceur_.supprimerStatut(c);
                     _fight.addDisabledStatusMessage(c, _lanceur, _import);
                 }
@@ -1305,7 +1307,7 @@ final class FightRound {
         creature_.exitFrontBattleForBeingSubstitued();
         FightSending.withdrawal(_fight,_lanceur,_import);
         FightSending.sending(_fight,envoye_,_diff,_import);
-        if(Numbers.eq(_lanceur.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),Fighter.BACK);
             _fight.getFirstPositPlayerFighters().put(remplacant_,placeTerrainPourRemplacement_);
         } else {
@@ -1342,7 +1344,7 @@ final class FightRound {
                 creature_.setActed(true);
                 return true;
             }
-        } else if(!Numbers.eq(creature_.getSubstistute(),Fighter.BACK)) {
+        } else if(!NumberUtil.eq(creature_.getSubstistute(),Fighter.BACK)) {
             roundThrowerSwitch(_fight, _thrower, _diff, _import);
         }
         return false;
@@ -1469,27 +1471,27 @@ final class FightRound {
     static StringMap<String> calculateCatchingVariables(Fight _fight,boolean _dejaCapture,DataBase _import) {
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
+        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(IndexConstants.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
         if(_dejaCapture){
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.DEJA_CAPTURE),Fight.ONE);
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEJA_CAPTURE),Fight.ONE);
         }else{
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.DEJA_CAPTURE),Fight.ZERO);
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEJA_CAPTURE),Fight.ZERO);
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.MASSE_MOYENNE_PK),_import.getAvgWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Integer.toString(creatureUt_.getLevel()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.MASSE_MOYENNE_PK),_import.getAvgWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Integer.toString(creatureUt_.getLevel()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(IndexConstants.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringList.join(fPk_.getTypes(), _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringUtil.join(fPk_.getTypes(), _import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();
         for(String c:fPk_.getEvolutions().getKeys()){
             Evolution evo_=fPk_.getEvolution(c);
@@ -1499,7 +1501,7 @@ final class FightRound {
             EvolutionStone pierreEvo_=(EvolutionStone)evo_;
             pierresEvo_.add(pierreEvo_.getStone());
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringList.join(pierresEvo_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringUtil.join(pierresEvo_, _import.getSepartorSetChar()));
         return variables_;
     }
 
@@ -1542,23 +1544,23 @@ final class FightRound {
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import){
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
+        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(IndexConstants.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_FLEES),Short.toString(_fight.getNbFleeAttempt()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.MASSE_MOYENNE_PK),_import.getAvgWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Integer.toString(creatureUt_.getLevel()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_FLEES),Short.toString(_fight.getNbFleeAttempt()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.MASSE_MOYENNE_PK),_import.getAvgWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Integer.toString(creatureUt_.getLevel()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(IndexConstants.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringList.join(fPk_.getTypes(), _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringUtil.join(fPk_.getTypes(), _import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();
         for(String c:fPk_.getEvolutions().getKeys()){
             Evolution evo_=fPk_.getEvolution(c);
@@ -1568,7 +1570,7 @@ final class FightRound {
             EvolutionStone pierreEvo_=(EvolutionStone)evo_;
             pierresEvo_.add(pierreEvo_.getStone());
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringList.join(pierresEvo_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringUtil.join(pierresEvo_, _import.getSepartorSetChar()));
         return variables_;
     }
 }

@@ -2,6 +2,7 @@ package cards.belote.enumerations;
 import code.util.EnumList;
 import code.util.*;
 import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public enum DealingBelote {
     CLASSIC_2_VS_2(4),
@@ -83,15 +84,15 @@ public enum DealingBelote {
     }
     private int[] valDistributionDebut() {
         if (this == CLASSIC_2_VS_2) {
-            return Numbers.wrapIntArray(3,2);
+            return NumberUtil.wrapIntArray(3,2);
         }
-        return Numbers.wrapIntArray(3,3,2);
+        return NumberUtil.wrapIntArray(3,3,2);
     }
     private int[] valDistributionFin() {
         if (this == CLASSIC_2_VS_2) {
-            return Numbers.wrapIntArray(3);
+            return NumberUtil.wrapIntArray(3);
         }
-        return Numbers.wrapIntArray();
+        return NumberUtil.wrapIntArray();
     }
     public static EnumList<DealingBelote> getRepartitionsValides() {
         EnumList<DealingBelote> repartitions_ = new EnumList<DealingBelote>();

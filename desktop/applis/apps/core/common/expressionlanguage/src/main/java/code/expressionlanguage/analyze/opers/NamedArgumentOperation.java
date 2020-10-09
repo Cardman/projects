@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedContent;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class NamedArgumentOperation extends AbstractUnaryOperation {
 
@@ -28,7 +28,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
         offset = vs_.firstKey();
         String first_ = vs_.firstValue();
         name = first_.trim();
-        offsetTr = StringList.getFirstPrintableCharIndex(first_);
+        offsetTr = StringUtil.getFirstPrintableCharIndex(first_);
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }

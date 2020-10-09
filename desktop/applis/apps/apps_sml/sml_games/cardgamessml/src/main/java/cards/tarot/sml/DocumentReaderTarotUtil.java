@@ -25,8 +25,9 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderTarotUtil {
 
     private static final String ATTR_FIELD = "field";
@@ -81,15 +82,15 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getDealTarot(DealTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getListHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALER)) {
             _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
@@ -113,15 +114,15 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getDisplayingTarot(DisplayingTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CLOCKWISE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOCKWISE)) {
             _object.setClockwise(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUITS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUITS)) {
             _object.setSuits(DocumentReaderCardsCommonUtil.getListSuit(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECREASING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECREASING)) {
             _object.setDecreasing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -141,63 +142,63 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getGameTarot(GameTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCardsCommonUtil.getGameType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEAL)) {
             _object.setDeal(getDealTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARES_HANDFULS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARES_HANDFULS)) {
             _object.setDeclaresHandfuls(getListListHandfuls(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARES_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARES_MISERES)) {
             _object.setDeclaresMiseres(getListListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECLARES_SLAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECLARES_SLAM)) {
             _object.setDeclaresSlam(DocumentReaderCoreUtil.getBooleanList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SMALL_BOUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SMALL_BOUND)) {
             _object.setSmallBound(DocumentReaderCoreUtil.getBooleanList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HANDFULS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HANDFULS)) {
             _object.setHandfuls(getListHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONFIDENCE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONFIDENCE)) {
             _object.setConfidence(DocumentReaderCoreUtil.getListBooleanList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROGRESSING_TRICK)) {
             _object.setProgressingTrick(getTrickTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CALLED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CALLED_CARDS)) {
             _object.setCalledCards(getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BIDS)) {
             _object.setBids(getListBidTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NUMBER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NUMBER)) {
             _object.setNumber(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES)) {
             _object.setRules(getRulesTarot(_element));
             return;
         }
@@ -221,26 +222,26 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getHandTarot(HandTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getListCardTarot(_element));
             return;
         }
     }
 
     public static void getResultsTarot(ResultsTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GAME)) {
             _object.setGame(getGameTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAMES)) {
             _object.setNicknames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USER)) {
             _object.setUser(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOC)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOC)) {
             _object.setLoc(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -265,39 +266,39 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getRulesTarot(RulesTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
             _object.setMixedCards(DocumentReaderCardsCommonUtil.getMixCardsChoice(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MISERES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MISERES)) {
             _object.setMiseres(getListMiseres(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_BIDS)) {
             _object.setAllowedBids(getMapBidTarotBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MODE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MODE)) {
             _object.setMode(getModeTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEALING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEALING)) {
             _object.setDealing(getDealingTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_HANDFULS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_HANDFULS)) {
             _object.setAllowedHandfuls(getMapHandfulsInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_END_DEAL_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_END_DEAL_TAROT)) {
             _object.setEndDealTarot(getEndDealTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_DEALS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
             _object.setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISCARD_AFTER_CALL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISCARD_AFTER_CALL)) {
             _object.setDiscardAfterCall(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -313,15 +314,15 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getTrickTarot(TrickTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STARTER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STARTER)) {
             _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS)) {
             _object.setCards(getHandTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SEEN_BY_ALL_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SEEN_BY_ALL_PLAYERS)) {
             _object.setSeenByAllPlayers(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -337,19 +338,19 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getTricksHandsTarot(TricksHandsTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISTRIBUTION)) {
             _object.setDistribution(getDealTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PRENEUR)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PRENEUR)) {
             _object.setPreneur(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CARDS_HANDS_AT_INITIAL_STATE)) {
             _object.setCardsHandsAtInitialState(getListHandTarot(_element));
             return;
         }
@@ -357,7 +358,7 @@ public final class DocumentReaderTarotUtil {
 
     public static BidTarot getBidTarot(Element _elt) {
         for (BidTarot e: BidTarot.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -366,7 +367,7 @@ public final class DocumentReaderTarotUtil {
 
     public static CardTarot getCardTarot(Element _elt) {
         for (CardTarot e: CardTarot.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -375,7 +376,7 @@ public final class DocumentReaderTarotUtil {
 
     public static DealingTarot getDealingTarot(Element _elt) {
         for (DealingTarot e: DealingTarot.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -384,7 +385,7 @@ public final class DocumentReaderTarotUtil {
 
     private static EndDealTarot getEndDealTarot(Element _elt) {
         for (EndDealTarot e: EndDealTarot.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -393,7 +394,7 @@ public final class DocumentReaderTarotUtil {
 
     public static Handfuls getHandfuls(Element _elt) {
         for (Handfuls e: Handfuls.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -402,7 +403,7 @@ public final class DocumentReaderTarotUtil {
 
     private static Miseres getMiseres(Element _elt) {
         for (Miseres e: Miseres.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -411,7 +412,7 @@ public final class DocumentReaderTarotUtil {
 
     private static ModeTarot getModeTarot(Element _elt) {
         for (ModeTarot e: ModeTarot.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -499,7 +500,7 @@ public final class DocumentReaderTarotUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -519,7 +520,7 @@ public final class DocumentReaderTarotUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;

@@ -3,8 +3,9 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.CustList;
 import code.util.EnumMap;
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 /**Only "no trump" suits can be sorted with this comparator*/
@@ -26,7 +27,7 @@ public final class GameStrengthGreatHandBeloteComparator implements Comparing<Su
         boolean aussiHaut_ = true;
         boolean permuter_ = false;
         int min_ = Math.min(main1_.total(), main2_.total());
-        for (int k = CustList.FIRST_INDEX; k < min_; k++) {
+        for (int k = IndexConstants.FIRST_INDEX; k < min_; k++) {
             CardBelote carte1_ = main1_.carte(k);
             CardBelote carte2_ = main2_.carte(k);
             if (carte1_.strength(carte1_.couleur(),bid) < carte2_
@@ -49,12 +50,12 @@ public final class GameStrengthGreatHandBeloteComparator implements Comparing<Su
             }
         }
         if (permuter_) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (aussiHaut_) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 
 }

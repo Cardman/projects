@@ -70,6 +70,9 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 
@@ -166,14 +169,14 @@ public final class DataMap {
         ObjectMap<PlaceLevel, Ints> wildPokemonBeforeFirstLeague_ = new ObjectMap<PlaceLevel, Ints>();
         int nbPlaces_ = places.size();
         Shorts placesNumbers_ = new Shorts();
-        for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             placesNumbers_.add(p);
             places.get(p).validate(_d, tree.getPlace(p));
             if (!(places.get(p).validLinks(p, tree))) {
                 _d.setError(true);
             }
         }
-        for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             if (places.get(p) instanceof InitializedPlace) {
                 InitializedPlace place_ = (InitializedPlace) places.get(p);
                 ObjectMap<Point, Link> links_;
@@ -335,7 +338,7 @@ public final class DataMap {
                     for (Person p : ((LevelIndoorPokemonCenter) l_).getGerants()
                             .values()) {
                         if (p instanceof Seller) {
-                            if (StringList.contains(((Seller) p).getItems(), _d.getDefaultBall())) {
+                            if (StringUtil.contains(((Seller) p).getItems(), _d.getDefaultBall())) {
                                 ball_ = true;
                             }
                             if (((Seller) p).getSell() == SellType.MOVE) {
@@ -363,7 +366,7 @@ public final class DataMap {
             PlaceLevel keyPlaceLevel_ = new PlaceLevel(c.getNumberPlace(), c
                     .getLevel().getLevelIndex());
             int index_ = level_.getIndex(c.getLevel().getPoint());
-            if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+            if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 continue;
             }
             if (wildPokemonBeforeFirstLeague_.contains(keyPlaceLevel_)) {
@@ -385,12 +388,12 @@ public final class DataMap {
         for (String o : _d.getItems().getKeys()) {
             Item o_ = _d.getItems().getVal(o);
             if (o_ instanceof EvolvingStone) {
-                if (!StringList.contains(evoObjects_, o)) {
+                if (!StringUtil.contains(evoObjects_, o)) {
                     _d.setError(true);
                 }
             }
             if (o_ instanceof EvolvingItem) {
-                if (!StringList.contains(evoObjects_, o)) {
+                if (!StringUtil.contains(evoObjects_, o)) {
                     _d.setError(true);
                 }
             }
@@ -416,7 +419,7 @@ public final class DataMap {
             }
             movesRetr_.addAllElts(movesTmHm_);
             for (String m : moves_) {
-                if (!StringList.contains(movesRetr_, m)) {
+                if (!StringUtil.contains(movesRetr_, m)) {
                     _d.setError(true);
                 }
             }
@@ -450,7 +453,7 @@ public final class DataMap {
             }
         }
         StringMap<EnumList<Gender>> directCatchPk_ = new StringMap<EnumList<Gender>>();
-        for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
             for (byte l : pl_.getLevelsMap().getKeys()) {
                 Level level_ = pl_.getLevelsMap().getVal(l);
@@ -509,7 +512,7 @@ public final class DataMap {
             if (pk_.getGenderRep() != GenderRepartition.NO_GENDER) {
                 continue;
             }
-            if (StringList.contains(pk_.getEggGroups(), _d.getDefaultEggGroup())) {
+            if (StringUtil.contains(pk_.getEggGroups(), _d.getDefaultEggGroup())) {
                 existPkDefaultEgg_ = true;
                 break;
             }
@@ -519,7 +522,7 @@ public final class DataMap {
         }
         StringList legPk_ = new StringList();
         for (String n : _d.getPokedex().getKeys()) {
-            if (!StringList.contains(_d.getLegPks(),n)) {
+            if (!StringUtil.contains(_d.getLegPks(),n)) {
                 continue;
             }
             legPk_.add(n);
@@ -568,7 +571,7 @@ public final class DataMap {
         Shorts placesMiniMap_ = new Shorts();
         for (MiniMapCoords m : list_) {
             TileMiniMap tile_ = miniMap.getVal(m);
-            if (Numbers.eq(tile_.getPlace(), CustList.INDEX_NOT_FOUND_ELT)) {
+            if (NumberUtil.eq(tile_.getPlace(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 continue;
             }
             placesMiniMap_.add(tile_.getPlace());
@@ -589,7 +592,7 @@ public final class DataMap {
             TileMiniMap tile_ = miniMap.getVal(m);
             int[][] image_ = _d.getMiniMap(tile_.getFile());
             short place_ = tile_.getPlace();
-            if (Numbers.eq(place_, CustList.INDEX_NOT_FOUND_ELT)) {
+            if (NumberUtil.eq(place_, IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 imagesOutside_.add(image_);
                 continue;
             }
@@ -619,8 +622,8 @@ public final class DataMap {
         images_.add(imagesLeagues_);
         images_.add(imageUnlockedCity_);
         int size_ = images_.size();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < size_; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < size_; j++) {
                 if (i == j) {
                     continue;
                 }
@@ -656,7 +659,7 @@ public final class DataMap {
                 }
             }
         }
-        if (!Numbers.equalsSetShorts(placesMiniMap_, placesNumbers_)) {
+        if (!NumberUtil.equalsSetShorts(placesMiniMap_, placesNumbers_)) {
             _d.setError(true);
         }
         if (list_.size() != (maxWidth_ + 1) * (maxHeight_ + 1)) {
@@ -810,7 +813,7 @@ public final class DataMap {
         takenPokemon = new EqList<Coords>();
         takenObjects = new EqList<Coords>();
         int nbPlaces_ = places.size();
-        for (short s = CustList.FIRST_INDEX; s < nbPlaces_; s++) {
+        for (short s = IndexConstants.FIRST_INDEX; s < nbPlaces_; s++) {
             Place place_ = places.get(s);
             if (place_ instanceof City) {
                 for (EntryCust<Point, Building> b : ((City) place_)
@@ -947,7 +950,7 @@ public final class DataMap {
                         TrainerMultiFights tr_ = (TrainerMultiFights) c
                                 .getValue();
                         int nb_ = tr_.getTeamsRewards().size();
-                        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+                        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
                             beatTrainer.add(new NbFightCoords(c_, i));
                         }
                     }
@@ -979,7 +982,7 @@ public final class DataMap {
         if (miniMap.contains(_m)) {
             short place_ = miniMap.getVal(_m).getPlace();
             for (Coords c : cities) {
-                if (Numbers.eq(c.getNumberPlace(), place_)) {
+                if (NumberUtil.eq(c.getNumberPlace(), place_)) {
                     return c;
                 }
             }
@@ -991,7 +994,7 @@ public final class DataMap {
         MiniMapCoords m_ = new MiniMapCoords((byte) _x, (byte) _y);
         if (miniMap.contains(m_)) {
             short place_ = miniMap.getVal(m_).getPlace();
-            if (!Numbers.eq(place_, CustList.INDEX_NOT_FOUND_ELT)) {
+            if (!NumberUtil.eq(place_, IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 return places.get(place_).getName();
             }
         }
@@ -1215,7 +1218,7 @@ public final class DataMap {
             if (place_ instanceof League) {
                 League league_ = (League) place_;
                 byte ind_ = c.getLevel().getLevelIndex();
-                if (Numbers.eq(ind_ + 1, league_.getRooms().size())) {
+                if (NumberUtil.eq(ind_ + 1, league_.getRooms().size())) {
                     Coords coords_ = new Coords(c);
 
                     coords_.getLevel().setLevelIndex((byte) 0);
@@ -1488,7 +1491,7 @@ public final class DataMap {
         if (level_ instanceof LevelWithWildPokemon) {
             LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
             if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return StringList.join(w_.getDualFights().getVal(_coords.getLevel().getPoint())
+                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint())
                         .getNames(), SPACE);
             }
         }
@@ -1498,7 +1501,7 @@ public final class DataMap {
     public boolean validSavedLink() {
         int nbPlaces_ = places.size();
         boolean valid_ = true;
-        for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
             if (!(place_ instanceof InitializedPlace)) {
                 continue;
@@ -1510,23 +1513,23 @@ public final class DataMap {
             Point rightBottomPoint_ = limits_.getBottomRight();
             for (PlaceInterConnect k : pl_.getSavedlinks().getKeys()) {
                 if (k.getDir() == Direction.UP) {
-                    if (!Numbers.eq(leftTopPoint_.gety(), k.getSource().gety())) {
+                    if (!NumberUtil.eq(leftTopPoint_.gety(), k.getSource().gety())) {
                         valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.DOWN) {
-                    if (!Numbers.eq(rightBottomPoint_.gety(), k.getSource()
+                    if (!NumberUtil.eq(rightBottomPoint_.gety(), k.getSource()
                             .gety())) {
                         valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.LEFT) {
-                    if (!Numbers.eq(leftTopPoint_.getx(), k.getSource().getx())) {
+                    if (!NumberUtil.eq(leftTopPoint_.getx(), k.getSource().getx())) {
                         valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.RIGHT) {
-                    if (!Numbers.eq(rightBottomPoint_.getx(), k.getSource()
+                    if (!NumberUtil.eq(rightBottomPoint_.getx(), k.getSource()
                             .getx())) {
                         valid_ = false;
                     }
@@ -1546,7 +1549,7 @@ public final class DataMap {
                     continue;
                 }
                 Coords otherCoords_ = other_.getSavedlinks().getVal(key_);
-                if (!Numbers.eq(otherCoords_.getNumberPlace(), i)) {
+                if (!NumberUtil.eq(otherCoords_.getNumberPlace(), i)) {
                     valid_ = false;
                 }
                 if (!Point
@@ -1561,7 +1564,7 @@ public final class DataMap {
     public void initializeLinks() {
         ShortMap< EqList<PlaceInterConnect>> visited_ = new ShortMap< EqList<PlaceInterConnect>>();
         int nbPlaces_ = places.size();
-        for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
             if (!(place_ instanceof InitializedPlace)) {
                 continue;
@@ -1569,7 +1572,7 @@ public final class DataMap {
             InitializedPlace pl_ = (InitializedPlace) place_;
             pl_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         }
-        for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
             if (!(place_ instanceof InitializedPlace)) {
                 continue;
@@ -1633,7 +1636,7 @@ public final class DataMap {
             int d_ = Math.min(rightBottomPointOne_.getx() - p1_.getx(),
                     rightBottomPointTwo_.getx() - p2_.getx());
             length_ = u_ + d_ + 1;
-            for (short i = CustList.FIRST_INDEX; i < length_; i++) {
+            for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(
                         (short) (xtop1_ + i), p1_.gety()), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(
@@ -1655,7 +1658,7 @@ public final class DataMap {
             int d_ = Math.min(rightBottomPointOne_.gety() - p1_.gety(),
                     rightBottomPointTwo_.gety() - p2_.gety());
             length_ = u_ + d_ + 1;
-            for (short i = CustList.FIRST_INDEX; i < length_; i++) {
+            for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(p1_.getx(),
                         (short) (ytop1_ + i)), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(p2_.getx(),
@@ -1678,7 +1681,7 @@ public final class DataMap {
                 _dir1.getOpposite()), coords2_);
         ObjectMap<PlaceInterConnect, Coords> join1_ = new ObjectMap<PlaceInterConnect, Coords>();
         ObjectMap<PlaceInterConnect, Coords> join2_ = new ObjectMap<PlaceInterConnect, Coords>();
-        for (short i = CustList.FIRST_INDEX; i < length_; i++) {
+        for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
             Coords c1_ = new Coords();
             c1_.setNumberPlace(_pl1);
             LevelPoint lp1_ = new LevelPoint();
@@ -1709,16 +1712,13 @@ public final class DataMap {
         if (_coords.isInside()) {
             Building building_ = ((City) place_).getBuildings().getVal(
                     _coords.getInsideBuilding());
-            if (Point.eq(pt_, building_.getExitCity())) {
-                return false;
-            }
-            return true;
+            return !Point.eq(pt_, building_.getExitCity());
         }
         if (place_ instanceof League) {
             LevelPoint lPoint_ = _coords.getLevel();
             LevelLeague levelLeague_ = (LevelLeague) place_
                     .getLevelsMap().getVal(lPoint_.getLevelIndex());
-            if (lPoint_.getLevelIndex() == CustList.FIRST_INDEX) {
+            if (lPoint_.getLevelIndex() == IndexConstants.FIRST_INDEX) {
                 if (Point.eq(((League) place_).getBegin(), pt_)) {
                     return false;
                 }
@@ -1754,10 +1754,7 @@ public final class DataMap {
             if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                 return false;
             }
-            if (((Cave) place_).getLinksWithOtherPlaces().contains(lPoint_)) {
-                return false;
-            }
-            return true;
+            return !((Cave) place_).getLinksWithOtherPlaces().contains(lPoint_);
         }
         for (Place p : places) {
             if (!(p instanceof League)) {
@@ -1843,9 +1840,9 @@ public final class DataMap {
 
     public void moveCamera(Direction _direction) {
         if (_direction == Direction.DOWN) {
-            for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
                 int maxHeight_ = screenHeight - 1;
-                for (int j = CustList.FIRST_INDEX; j < maxHeight_; j++) {
+                for (int j = IndexConstants.FIRST_INDEX; j < maxHeight_; j++) {
                     tiles.put(new ScreenCoords(i, j),
                             tiles.getVal(new ScreenCoords(i, j + 1)));
                 }
@@ -1855,9 +1852,9 @@ public final class DataMap {
                 putCoordsIfValid(_direction, key_, coords_);
             }
         } else if (_direction == Direction.UP) {
-            for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
                 int maxHeight_ = screenHeight - 1;
-                for (int j = maxHeight_; j > CustList.FIRST_INDEX; j--) {
+                for (int j = maxHeight_; j > IndexConstants.FIRST_INDEX; j--) {
                     tiles.put(new ScreenCoords(i, j),
                             tiles.getVal(new ScreenCoords(i, j - 1)));
                 }
@@ -1867,9 +1864,9 @@ public final class DataMap {
                 putCoordsIfValid(_direction, key_, coords_);
             }
         } else if (_direction == Direction.RIGHT) {
-            for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
                 int maxWidth_ = screenWidth - 1;
-                for (int i = CustList.FIRST_INDEX; i < maxWidth_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < maxWidth_; i++) {
                     tiles.put(new ScreenCoords(i, j),
                             tiles.getVal(new ScreenCoords(i + 1, j)));
                 }
@@ -1879,9 +1876,9 @@ public final class DataMap {
                 putCoordsIfValid(_direction, key_, coords_);
             }
         } else {
-            for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
                 int maxWidth_ = screenWidth - 1;
-                for (int i = maxWidth_; i > CustList.FIRST_INDEX; i--) {
+                for (int i = maxWidth_; i > IndexConstants.FIRST_INDEX; i--) {
                     tiles.put(new ScreenCoords(i, j),
                             tiles.getVal(new ScreenCoords(i - 1, j)));
                 }
@@ -1908,8 +1905,8 @@ public final class DataMap {
     ObjectMap<ScreenCoords, Coords> intersectWithScreen(Coords _coords) {
         ObjectMap<ScreenCoords, Coords> liste_ = new ObjectMap<ScreenCoords, Coords>();
 
-        for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
-            for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
                 liste_.put(new ScreenCoords(i, j), new Coords());
             }
         }
@@ -1953,21 +1950,21 @@ public final class DataMap {
     public void calculateIntersectWithScreenDirection(Coords _coords) {
         ObjectMap<ScreenCoords, Coords> liste_ = new ObjectMap<ScreenCoords, Coords>();
 
-        for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
-            for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
                 liste_.put(new ScreenCoords(i, j), new Coords());
             }
         }
-        for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
             liste_.put(new ScreenCoords(i, -1), new Coords());
         }
-        for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
             liste_.put(new ScreenCoords(i, screenHeight), new Coords());
         }
-        for (int i = CustList.FIRST_INDEX; i < screenHeight; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenHeight; i++) {
             liste_.put(new ScreenCoords(screenWidth, i), new Coords());
         }
-        for (int i = CustList.FIRST_INDEX; i < screenHeight; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < screenHeight; i++) {
             liste_.put(new ScreenCoords(-1, i), new Coords());
         }
         liste_.put(new ScreenCoords(screenWidth, -1), new Coords());

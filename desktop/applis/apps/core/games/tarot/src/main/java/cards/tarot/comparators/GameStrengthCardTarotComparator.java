@@ -1,7 +1,7 @@
 package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import code.util.CustList;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public final class GameStrengthCardTarotComparator implements Comparing<CardTarot> {
@@ -41,7 +41,7 @@ public final class GameStrengthCardTarotComparator implements Comparing<CardTaro
             if(_o1.strength(_o1.couleur()) < _o2.strength(_o2.couleur())){
                 return -mult_;
             }
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         if(_o1.strength(demandedSuit) > _o2.strength(demandedSuit)){
             return mult_;
@@ -49,7 +49,7 @@ public final class GameStrengthCardTarotComparator implements Comparing<CardTaro
         if(_o1.strength(demandedSuit) < _o2.strength(demandedSuit)){
             return -mult_;
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
 }

@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.BreakBlock;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReachBreakBlock extends ReachAbruptBlock {
     private String label;
@@ -29,7 +29,7 @@ public final class ReachBreakBlock extends ReachAbruptBlock {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((ReachBreakableBlock)b_).getRealLabel())){
+                    if (StringUtil.quickEq(label, ((ReachBreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         break;
                     }

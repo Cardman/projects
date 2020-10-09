@@ -87,6 +87,8 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 import aiki.facade.enums.SelectedBoolean;
 
@@ -635,8 +637,7 @@ public class DataBase {
 
     static boolean nextIteration(MoveData _move, int _primaryEffect) {
         boolean next_ = false;
-        int len_ = _move.getEffects().size();
-        for (Effect sec_ : _move.getEffects().mid(_primaryEffect + 1, len_)) {
+        for (Effect sec_ : _move.getEffects().mid(_primaryEffect + 1)) {
             if (sec_ instanceof EffectDamageRate) {
                 if (!((EffectDamageRate) sec_).getRateDamage().isZeroOrGt()) {
                     next_ = true;
@@ -742,7 +743,7 @@ public class DataBase {
                 }
             }
         }
-        if (StringList.contains(getCategories(), AUTRE)) {
+        if (StringUtil.contains(getCategories(), AUTRE)) {
             setError(true);
         }
         for (String s : getCategories()) {
@@ -796,7 +797,7 @@ public class DataBase {
                 if (!(e instanceof EvolutionMove)) {
                     continue;
                 }
-                if (!StringList.contains(moves_, ((EvolutionMove) e).getMove())) {
+                if (!StringUtil.contains(moves_, ((EvolutionMove) e).getMove())) {
                     setError(true);
                 }
             }
@@ -824,7 +825,7 @@ public class DataBase {
             }
         }
         for (String m : tm.values()) {
-            if (StringList.quickEq(m, getDefaultMove())) {
+            if (StringUtil.quickEq(m, getDefaultMove())) {
                 setError(true);
             }
             if (!getMoves().contains(m)) {
@@ -852,13 +853,13 @@ public class DataBase {
 
     public void validateEvolutions() {
         for (EntryCust<String,PokemonData> e: pokedex.entryList()) {
-            if (!StringList.contains(legPks,e.getKey())) {
+            if (!StringUtil.contains(legPks,e.getKey())) {
                 continue;
             }
             if (!e.getValue().getEvolutions().isEmpty()) {
                 setError(true);
             }
-            if (!StringList.quickEq(e.getKey(),e.getValue().getBaseEvo())) {
+            if (!StringUtil.quickEq(e.getKey(),e.getValue().getBaseEvo())) {
                 setError(true);
             }
         }
@@ -867,14 +868,14 @@ public class DataBase {
         for (PokemonFamily f : families.values()) {
             lists_.add(f.getAllPokemon());
         }
-        if (!StringList.disjoints(lists_)) {
+        if (!StringUtil.disjoints(lists_)) {
             setError(true);
         }
         StringList allPokemon_ = new StringList();
         for (StringList l : lists_) {
             allPokemon_.addAllElts(l);
         }
-        if (!StringList.equalsSet(allPokemon_, pokedex.getKeys())) {
+        if (!StringUtil.equalsSet(allPokemon_, pokedex.getKeys())) {
             setError(true);
         }
     }
@@ -998,10 +999,10 @@ public class DataBase {
         if (!animStatis.containsAllAsKeys(statisNames_)) {
             setError(true);
         }
-        if (!StringList.equalsSet(types, typesColors.getKeys())) {
+        if (!StringUtil.equalsSet(types, typesColors.getKeys())) {
             setError(true);
         }
-        if (!StringList.equalsSet(types, typesImages.getKeys())) {
+        if (!StringUtil.equalsSet(types, typesImages.getKeys())) {
             setError(true);
         }
         for (String v : typesColors.values()) {
@@ -1230,7 +1231,7 @@ public class DataBase {
     public void validateTranslations() {
         StringList allCustKeys_ = new StringList();
         StringList allStandardKeys_ = new StringList();
-        if (!StringList.equalsSet(translatedGenders.getKeys(),
+        if (!StringUtil.equalsSet(translatedGenders.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1251,7 +1252,7 @@ public class DataBase {
             String name_ = g.name();
             gearHomonyms(homonyms_, distinct_, name_);
         }
-        if (!StringList.equalsSet(translatedBooleans.getKeys(),
+        if (!StringUtil.equalsSet(translatedBooleans.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1266,7 +1267,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        if (!StringList.equalsSet(translatedDiffWinPts.getKeys(),
+        if (!StringUtil.equalsSet(translatedDiffWinPts.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1282,7 +1283,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        if (!StringList.equalsSet(translatedDiffModelLaw.getKeys(),
+        if (!StringUtil.equalsSet(translatedDiffModelLaw.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1298,7 +1299,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        if (!StringList.equalsSet(translatedEnvironment.getKeys(),
+        if (!StringUtil.equalsSet(translatedEnvironment.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1318,7 +1319,7 @@ public class DataBase {
             String name_ = g.name();
             gearHomonyms(homonyms_, distinct_, name_);
         }
-        if (!StringList.equalsSet(translatedStatistics.getKeys(),
+        if (!StringUtil.equalsSet(translatedStatistics.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1337,13 +1338,13 @@ public class DataBase {
             String name_ = g.name();
             gearHomonyms(homonyms_, distinct_, name_);
         }
-        if (!StringList.equalsSet(translatedTypes.getKeys(),
+        if (!StringUtil.equalsSet(translatedTypes.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(types);
         for (StringMap<String> v : translatedTypes.values()) {
-            if (!StringList.equalsSet(v.getKeys(), types)) {
+            if (!StringUtil.equalsSet(v.getKeys(), types)) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1353,13 +1354,13 @@ public class DataBase {
         for (String g : types) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedCategories.getKeys(),
+        if (!StringUtil.equalsSet(translatedCategories.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(allCategories);
         for (StringMap<String> v : translatedCategories.values()) {
-            if (!StringList.equalsSet(v.getKeys(), allCategories)) {
+            if (!StringUtil.equalsSet(v.getKeys(), allCategories)) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1369,13 +1370,13 @@ public class DataBase {
         for (String g : allCategories) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedPokemon.getKeys(),
+        if (!StringUtil.equalsSet(translatedPokemon.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(pokedex.getKeys());
         for (StringMap<String> v : translatedPokemon.values()) {
-            if (!StringList.equalsSet(v.getKeys(), pokedex.getKeys())) {
+            if (!StringUtil.equalsSet(v.getKeys(), pokedex.getKeys())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1385,13 +1386,13 @@ public class DataBase {
         for (String g : pokedex.getKeys()) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedItems.getKeys(),
+        if (!StringUtil.equalsSet(translatedItems.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(items.getKeys());
         for (StringMap<String> v : translatedItems.values()) {
-            if (!StringList.equalsSet(v.getKeys(), items.getKeys())) {
+            if (!StringUtil.equalsSet(v.getKeys(), items.getKeys())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1401,13 +1402,13 @@ public class DataBase {
         for (String g : items.getKeys()) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedAbilities.getKeys(),
+        if (!StringUtil.equalsSet(translatedAbilities.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(abilities.getKeys());
         for (StringMap<String> v : translatedAbilities.values()) {
-            if (!StringList.equalsSet(v.getKeys(), abilities.getKeys())) {
+            if (!StringUtil.equalsSet(v.getKeys(), abilities.getKeys())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1417,13 +1418,13 @@ public class DataBase {
         for (String g : abilities.getKeys()) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedMoves.getKeys(),
+        if (!StringUtil.equalsSet(translatedMoves.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(moves.getKeys());
         for (StringMap<String> v : translatedMoves.values()) {
-            if (!StringList.equalsSet(v.getKeys(), moves.getKeys())) {
+            if (!StringUtil.equalsSet(v.getKeys(), moves.getKeys())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1433,13 +1434,13 @@ public class DataBase {
         for (String g : moves.getKeys()) {
             gearHomonyms(homonyms_, distinct_, g);
         }
-        if (!StringList.equalsSet(translatedStatus.getKeys(),
+        if (!StringUtil.equalsSet(translatedStatus.getKeys(),
                 languages)) {
             setError(true);
         }
         allCustKeys_.addAllElts(status.getKeys());
         for (StringMap<String> v : translatedStatus.values()) {
-            if (!StringList.equalsSet(v.getKeys(), status.getKeys())) {
+            if (!StringUtil.equalsSet(v.getKeys(), status.getKeys())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1450,7 +1451,7 @@ public class DataBase {
             gearHomonyms(homonyms_, distinct_, g);
         }
         homonyms_.removeDuplicates();
-        if (!StringList.equalsSet(translatedFctMath.getKeys(),
+        if (!StringUtil.equalsSet(translatedFctMath.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1466,86 +1467,86 @@ public class DataBase {
             for (String s : homonyms_) {
                 StringList tr_ = new StringList();
                 for (EntryCust<String,StringMap<String>> e: translatedMoves.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedTypes.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedAbilities.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedPokemon.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedItems.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedStatus.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (EntryCust<String,StringMap<String>> e: translatedCategories.entryList()) {
-                    if (!StringList.quickEq(e.getKey(),l)) {
+                    if (!StringUtil.quickEq(e.getKey(),l)) {
                         continue;
                     }
                     for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringList.quickEq(f.getKey(),s)) {
+                        if (!StringUtil.quickEq(f.getKey(),s)) {
                             continue;
                         }
                         tr_.add(f.getValue());
                     }
                 }
                 for (Statistic s_ : Statistic.values()) {
-                    if (StringList.quickEq(s, s_.name())) {
+                    if (StringUtil.quickEq(s, s_.name())) {
                         for (EntryCust<String,EnumMap<Statistic,String>> e: translatedStatistics.entryList()) {
-                            if (!StringList.quickEq(e.getKey(),l)) {
+                            if (!StringUtil.quickEq(e.getKey(),l)) {
                                 continue;
                             }
                             for (EntryCust<Statistic,String> f: e.getValue().entryList()) {
@@ -1558,9 +1559,9 @@ public class DataBase {
                     }
                 }
                 for (Gender g : Gender.values()) {
-                    if (StringList.quickEq(s, g.name())) {
+                    if (StringUtil.quickEq(s, g.name())) {
                         for (EntryCust<String,EnumMap<Gender,String>> e: translatedGenders.entryList()) {
-                            if (!StringList.quickEq(e.getKey(),l)) {
+                            if (!StringUtil.quickEq(e.getKey(),l)) {
                                 continue;
                             }
                             for (EntryCust<Gender,String> f: e.getValue().entryList()) {
@@ -1578,7 +1579,7 @@ public class DataBase {
             }
         }
 
-        if (!StringList.equalsSet(translatedClassesDescriptions.getKeys(),
+        if (!StringUtil.equalsSet(translatedClassesDescriptions.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1595,7 +1596,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        if (!StringList.equalsSet(translatedTargets.getKeys(),
+        if (!StringUtil.equalsSet(translatedTargets.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1614,11 +1615,11 @@ public class DataBase {
             setError(true);
         }
         for (String n : allStandardKeys_) {
-            if (StringList.contains(allCustKeys_, n)) {
+            if (StringUtil.contains(allCustKeys_, n)) {
                 setError(true);
             }
         }
-        if (!StringList.equalsSet(litterals.getKeys(),
+        if (!StringUtil.equalsSet(litterals.getKeys(),
                 languages)) {
             setError(true);
         }
@@ -1626,10 +1627,10 @@ public class DataBase {
             for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
-                StringList varParts_ = StringList.splitStrings(v, SEP_BETWEEN_KEYS);
-                String var_ = StringList.join(varParts_.sub(0, 2), SEP_BETWEEN_KEYS);
+                StringList varParts_ = StringUtil.splitStrings(v, SEP_BETWEEN_KEYS);
+                String var_ = StringUtil.join(varParts_.left( 2), SEP_BETWEEN_KEYS);
                 for (EntryCust<String,String> e: m.getValue().entryList()) {
-                    if (StringList.quickEq(var_,StringList.concat(VAR_PREFIX ,e.getKey()))) {
+                    if (StringUtil.quickEq(var_, StringUtil.concat(VAR_PREFIX ,e.getKey()))) {
                         f_ = true;
                         line_ = e.getValue();
                         break;
@@ -1639,7 +1640,7 @@ public class DataBase {
                     setError(true);
                     continue;
                 }
-                StringList infos_ = StringList.splitStrings(line_, TAB);
+                StringList infos_ = StringUtil.splitStrings(line_, TAB);
                 if (infos_.size() < 3) {
                     setError(true);
                     continue;
@@ -1648,7 +1649,7 @@ public class DataBase {
                 if (infosVar_.isEmpty()) {
                     continue;
                 }
-                StringList kinds_ = StringList.splitChar(infos_.first(), getSepartorSetChar());
+                StringList kinds_ = StringUtil.splitChar(infos_.first(), getSepartorSetChar());
                 int len_ = infosVar_.size();
                 if (len_ != kinds_.size()) {
                     setError(true);
@@ -1656,30 +1657,30 @@ public class DataBase {
                 }
                 for (int i = 0; i < len_; i++) {
                     String k_ = kinds_.get(i);
-                    if (StringList.quickEq(k_,MOVE_FORMULA)) {
+                    if (StringUtil.quickEq(k_,MOVE_FORMULA)) {
                         if (!moves.contains(infosVar_.get(i))) {
                             setError(true);
                         }
                     }
-                    if (StringList.quickEq(k_,CAT_FORMULA)) {
-                        if (!StringList.contains(categories, infosVar_.get(i))) {
+                    if (StringUtil.quickEq(k_,CAT_FORMULA)) {
+                        if (!StringUtil.contains(categories, infosVar_.get(i))) {
                             setError(true);
                         }
                     }
-                    if (StringList.quickEq(k_,TYPE_FORMULA)) {
-                        if (!StringList.contains(types, infosVar_.get(i))) {
+                    if (StringUtil.quickEq(k_,TYPE_FORMULA)) {
+                        if (!StringUtil.contains(types, infosVar_.get(i))) {
                             setError(true);
                         }
                     }
-                    if (StringList.quickEq(k_,STATUS_FORMULA)) {
+                    if (StringUtil.quickEq(k_,STATUS_FORMULA)) {
                         if (!status.contains(infosVar_.get(i))) {
                             setError(true);
                         }
                     }
-                    if (StringList.quickEq(k_,STATIS_FORMULA)) {
+                    if (StringUtil.quickEq(k_,STATIS_FORMULA)) {
                         boolean ok_ = false;
                         for (Statistic s: Statistic.values()) {
-                            if (StringList.quickEq(s.name(),infosVar_.get(i))) {
+                            if (StringUtil.quickEq(s.name(),infosVar_.get(i))) {
                                 ok_ = true;
                                 break;
                             }
@@ -1694,7 +1695,7 @@ public class DataBase {
     }
 
     private static void gearHomonyms(Listable<String> _homonyms, CustList<String> _distinct, String _cst) {
-        if (!StringList.contains(_distinct, _cst)) {
+        if (!StringUtil.contains(_distinct, _cst)) {
             _distinct.add(_cst);
         } else {
             _homonyms.add(_cst);
@@ -1724,7 +1725,7 @@ public class DataBase {
             }
             pkTypes_.add(t.getPokemonType());
         }
-        if (!StringList.equalsSet(moveTypes_, pkTypes_)) {
+        if (!StringUtil.equalsSet(moveTypes_, pkTypes_)) {
             setError(true);
         }
         types = moveTypes_;
@@ -1735,7 +1736,7 @@ public class DataBase {
             return false;
         }
         int len_ = _string.length();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             char curr_ = _string.charAt(i);
             boolean ok_ = false;
             if (curr_ >= 'a' && curr_ <= 'z') {
@@ -2012,7 +2013,7 @@ public class DataBase {
         if (value_ == null) {
             return DataBase.EMPTY_STRING;
         }
-        return StringList.simpleStringsFormat(value_, _name);
+        return StringUtil.simpleStringsFormat(value_, _name);
     }
 
     public StringMap<String> getMessagesFight() {
@@ -2048,10 +2049,10 @@ public class DataBase {
         filesNamesWithSameCase_ = new StringList();
         for (String s : _files) {
             String upperCase_ = toUpperCase(s);
-            if (StringList.contains(filesNamesWithSameCase_, upperCase_)) {
-                String name_ = StringList.concat(_folderName, SEPARATOR_FILES,
+            if (StringUtil.contains(filesNamesWithSameCase_, upperCase_)) {
+                String name_ = StringUtil.concat(_folderName, SEPARATOR_FILES,
                         upperCase_);
-                if (!StringList.contains(filesWithSameNameDifferentCase, name_)) {
+                if (!StringUtil.contains(filesWithSameNameDifferentCase, name_)) {
                     filesWithSameNameDifferentCase.add(name_);
                 }
             }
@@ -2343,8 +2344,8 @@ public class DataBase {
                 movesInvoking.add(_moveName);
             }
         }
-        if (!StringList.contains(movesEffectIndiv, _moveName)) {
-            if (!StringList.contains(movesEffEndRoundIndiv, _moveName)) {
+        if (!StringUtil.contains(movesEffectIndiv, _moveName)) {
+            if (!StringUtil.contains(movesEffEndRoundIndiv, _moveName)) {
                 if (_move.getRepeatRoundLaw().events().size() > 0) {
                     if (_move.getConstUserChoice()) {
                         movesConstChoices.add(_moveName);
@@ -2379,11 +2380,11 @@ public class DataBase {
                 evtEndRound.add(endTurn_);
             }
 
-            variables.addAllElts(getVariableWords(StringList.join(new StringList(obj_
+            variables.addAllElts(getVariableWords(StringUtil.join(new StringList(obj_
                     .getMultStat().values()), EMPTY_STRING)));
             variables.addAllElts(getVariableWords(obj_.getMultDamage()));
             variables.addAllElts(getVariableWords(obj_.getMultPower()));
-            variables.addAllElts(getVariableWords(StringList.join(new StringList(obj_
+            variables.addAllElts(getVariableWords(StringUtil.join(new StringList(obj_
                     .getFailStatus().values()), EMPTY_STRING)));
         }
     }
@@ -2411,11 +2412,11 @@ public class DataBase {
             evtEndRound.add(endTurn_);
         }
 
-        variables.addAllElts(getVariableWords(StringList.join(new StringList(_ability
+        variables.addAllElts(getVariableWords(StringUtil.join(new StringList(_ability
                 .getMultStat().values()), EMPTY_STRING)));
         variables.addAllElts(getVariableWords(_ability.getMultDamage()));
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
-        variables.addAllElts(getVariableWords(StringList.join(new StringList(_ability
+        variables.addAllElts(getVariableWords(StringUtil.join(new StringList(_ability
                 .getFailStatus().values()), EMPTY_STRING)));
     }
 
@@ -2474,7 +2475,7 @@ public class DataBase {
             endTurn_.setNumberIncrement(_effect.getRankIncrementNbRound());
             endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
-            endTurn_.setElement(StringList.join(_moves, SEPARATOR_MOVES));
+            endTurn_.setElement(StringUtil.join(_moves, SEPARATOR_MOVES));
             endTurn_.setRelation(RelationType.EQUIPE);
             evtEndRound.add(endTurn_);
         }
@@ -2486,7 +2487,7 @@ public class DataBase {
                 .getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);
         endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
-        endTurn_.setElement(StringList.join(_moves, SEPARATOR_MOVES));
+        endTurn_.setElement(StringUtil.join(_moves, SEPARATOR_MOVES));
         endTurn_.setRelation(_effect.getEffectEndRound().first().getRelation());
         evtEndRound.add(endTurn_);
     }
@@ -2495,11 +2496,11 @@ public class DataBase {
         removeDuplicatesCategoriesMoves();
         varParamsMove = new StringMap<StringList>();
         for (String e : variables) {
-            StringList infos_ = StringList.splitStrings(e, SEP_BETWEEN_KEYS);
-            String key_ = infos_.get(CustList.SECOND_INDEX);
-            String element_ = StringList
-                    .join(new StringList(infos_.sub(
-                            CustList.SECOND_INDEX + 1, infos_.size())), SEP_BETWEEN_KEYS);
+            StringList infos_ = StringUtil.splitStrings(e, SEP_BETWEEN_KEYS);
+            String key_ = infos_.get(IndexConstants.SECOND_INDEX);
+            int nbInfos_ = infos_.size();
+            String element_ = StringUtil
+                    .join(new StringList(infos_.leftMinusOne(nbInfos_).leftMinusOne(nbInfos_)), SEP_BETWEEN_KEYS);
             if (varParamsMove.contains(key_)) {
                 StringList ref_ = varParamsMove.getVal(key_);
                 ref_.add(element_);
@@ -2541,12 +2542,12 @@ public class DataBase {
                 boolean dig_ = Character.isDigit(cur_);
                 int j_ = i_;
                 int delta_ = 0;
-                if (!StringList.isWordChar(cur_)) {
+                if (!StringUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                     delta_++;
                 }
-                while (StringList.isWordChar(cur_)) {
+                while (StringUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                 }
@@ -2557,19 +2558,19 @@ public class DataBase {
                     list_.add(translate(word_, _language));
                 } else {
                     String tok_ = word_.substring(VAR_PREFIX.length());
-                    StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+                    StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
                     String line_ = litt_.getVal(elts_.first());
-                    StringList infos_ = StringList.splitStrings(line_, TAB);
+                    StringList infos_ = StringUtil.splitStrings(line_, TAB);
                     StringList objDisplay_ = getVars(word_, _language);
                     String pattern_ = infos_.get(1);
 
-                    String format_ = StringList.simpleStringsFormat(pattern_,
+                    String format_ = StringUtil.simpleStringsFormat(pattern_,
                             objDisplay_);
                     list_.add(format_);
                 }
                 if (cur_ == '}') {
                     list_.sort();
-                    str_.append(StringList.join(list_, getSepartorSetChar()));
+                    str_.append(StringUtil.join(list_, getSepartorSetChar()));
                     list_.clear();
                     br_ = false;
                 }
@@ -2584,10 +2585,10 @@ public class DataBase {
                 }
                 continue;
             }
-            if (StringList.isWordChar(cur_)) {
+            if (StringUtil.isWordChar(cur_)) {
                 boolean dig_ = Character.isDigit(cur_);
                 int j_ = i_;
-                while (StringList.isWordChar(cur_)) {
+                while (StringUtil.isWordChar(cur_)) {
                     j_++;
                     if (j_ >= _litt.length()) {
                         break;
@@ -2600,7 +2601,7 @@ public class DataBase {
                     i_ = j_;
                     continue;
                 }
-                if (cur_ == '(' || StringList.quickEq(getTrueString(), word_)|| StringList.quickEq(getFalseString(), word_)) {
+                if (cur_ == '(' || StringUtil.quickEq(getTrueString(), word_)|| StringUtil.quickEq(getFalseString(), word_)) {
                     str_.append(translatedFctMath.getVal(_language).getVal(word_));
                     i_ = j_;
                     continue;
@@ -2611,13 +2612,13 @@ public class DataBase {
                     continue;
                 }
                 String tok_ = word_.substring(VAR_PREFIX.length());
-                StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+                StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
                 String line_ = litt_.getVal(elts_.first());
-                StringList infos_ = StringList.splitStrings(line_, TAB);
+                StringList infos_ = StringUtil.splitStrings(line_, TAB);
                 StringList objDisplay_ = getVars(word_, _language);
                 String pattern_ = infos_.get(1);
 
-                String format_ = StringList.simpleStringsFormat(pattern_,
+                String format_ = StringUtil.simpleStringsFormat(pattern_,
                         objDisplay_);
                 str_.append(format_);
                 i_ = j_;
@@ -2630,9 +2631,9 @@ public class DataBase {
     }
 
     private static StringList getVariableWords(String _str) {
-        StringList list_ = StringList.getWordsSeparators(_str);
+        StringList list_ = StringUtil.getWordsSeparators(_str);
         StringList newList_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (String t : list_) {
             if (i_ % 2 == 0) {
                 i_++;
@@ -2659,26 +2660,26 @@ public class DataBase {
             String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
 
-        StringList tokens_ = StringList.getWordsSeparatorsPrefix(_litt,
+        StringList tokens_ = StringUtil.getWordsSeparatorsPrefix(_litt,
                 VAR_PREFIX);
         NatStringTreeMap< String> desc_ = new NatStringTreeMap< String>();
         int len_ = tokens_.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (i % 2 == 0) {
                 continue;
             }
             String tok_ = tokens_.get(i).substring(VAR_PREFIX.length());
-            StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+            StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
             String line_ = litt_.getVal(elts_.first());
-            StringList infos_ = StringList.splitStrings(line_, TAB);
+            StringList infos_ = StringUtil.splitStrings(line_, TAB);
             String key_ = infos_.get(1);
             StringList objDisplay_ = getVars(tokens_.get(i), _language);
 
-            String formatKey_ = StringList.simpleStringsFormat(key_,
+            String formatKey_ = StringUtil.simpleStringsFormat(key_,
                     objDisplay_);
             String pattern_ = infos_.get(2);
 
-            String format_ = StringList.simpleStringsFormat(pattern_,
+            String format_ = StringUtil.simpleStringsFormat(pattern_,
                     objDisplay_);
             desc_.put(formatKey_, format_);
         }
@@ -2688,31 +2689,31 @@ public class DataBase {
     private StringList getVars(String _token, String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
         String tok_ = _token.substring(VAR_PREFIX.length());
-        StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+        StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
         String line_ = litt_.getVal(elts_.first());
-        StringList infos_ = StringList.splitStrings(line_, TAB);
+        StringList infos_ = StringUtil.splitStrings(line_, TAB);
         String type_ = infos_.get(0);
-        StringList types_ = StringList.splitChars(type_, getSepartorSetChar());
+        StringList types_ = StringUtil.splitChars(type_, getSepartorSetChar());
         StringList objDisplay_ = new StringList();
         int len_ = elts_.size();
-        for (int j = CustList.SECOND_INDEX; j < len_; j++) {
-            if (StringList.quickEq(types_.get(j - 1), MOVE_FORMULA)) {
+        for (int j = IndexConstants.SECOND_INDEX; j < len_; j++) {
+            if (StringUtil.quickEq(types_.get(j - 1), MOVE_FORMULA)) {
                 objDisplay_.add(translatedMoves.getVal(_language).getVal(
                         elts_.get(j)));
             }
-            if (StringList.quickEq(types_.get(j - 1), CAT_FORMULA)) {
+            if (StringUtil.quickEq(types_.get(j - 1), CAT_FORMULA)) {
                 objDisplay_.add(translatedCategories.getVal(_language).getVal(
                         elts_.get(j)));
             }
-            if (StringList.quickEq(types_.get(j - 1), STATIS_FORMULA)) {
+            if (StringUtil.quickEq(types_.get(j - 1), STATIS_FORMULA)) {
                 objDisplay_.add(translatedStatistics.getVal(_language).getVal(
                         Statistic.getStatisticByName(elts_.get(j))));
             }
-            if (StringList.quickEq(types_.get(j - 1), STATUS_FORMULA)) {
+            if (StringUtil.quickEq(types_.get(j - 1), STATUS_FORMULA)) {
                 objDisplay_.add(translatedStatus.getVal(_language).getVal(
                         elts_.get(j)));
             }
-            if (StringList.quickEq(types_.get(j - 1), TYPE_FORMULA)) {
+            if (StringUtil.quickEq(types_.get(j - 1), TYPE_FORMULA)) {
                 objDisplay_.add(translatedTypes.getVal(_language).getVal(
                         elts_.get(j)));
             }
@@ -2724,25 +2725,25 @@ public class DataBase {
         if (!isCheckTranslation()) {
             return;
         }
-        String emptySet_ = StringList.concat(DataBase.EMPTY_STRING,
-                String.valueOf(StringList.LEFT_BRACE),
-                String.valueOf(StringList.RIGHT_BRACE));
-        StringList sets_ = StringList.getTokensSets(StringList.removeStrings(
+        String emptySet_ = StringUtil.concat(DataBase.EMPTY_STRING,
+                String.valueOf(StringUtil.LEFT_BRACE),
+                String.valueOf(StringUtil.RIGHT_BRACE));
+        StringList sets_ = StringUtil.getTokensSets(StringUtil.removeStrings(
                 _string, emptySet_));
         for (String s : sets_) {
-            if (!s.startsWith(StringList.concat(DataBase.EMPTY_STRING,
-                    String.valueOf(StringList.LEFT_BRACE)))) {
+            if (!s.startsWith(StringUtil.concat(DataBase.EMPTY_STRING,
+                    String.valueOf(StringUtil.LEFT_BRACE)))) {
                 continue;
             }
-            String insideSet_ = s.substring(CustList.SECOND_INDEX,
+            String insideSet_ = s.substring(IndexConstants.SECOND_INDEX,
                     s.length() - 1);
-            StringList words_ = StringList.getWordsSeparators(insideSet_);
+            StringList words_ = StringUtil.getWordsSeparators(insideSet_);
             for (String w : words_) {
-                if (!StringList.isWord(w)) {
+                if (!StringUtil.isWord(w)) {
                     if (w.isEmpty()) {
                         continue;
                     }
-                    if (StringList.quickEq(w,
+                    if (StringUtil.quickEq(w,
                             String.valueOf(getSepartorSetChar()))) {
                         continue;
                     }
@@ -2787,21 +2788,21 @@ public class DataBase {
             return translatedAbilities.getVal(_language).getVal(_key);
         }
         for (EnvironmentType s : EnvironmentType.values()) {
-            if (StringList.quickEq(_key, s.name())) {
+            if (StringUtil.quickEq(_key, s.name())) {
                 if (translatedEnvironment.getVal(_language).contains(s)) {
                     return translatedEnvironment.getVal(_language).getVal(s);
                 }
             }
         }
         for (Statistic s : Statistic.values()) {
-            if (StringList.quickEq(_key, s.name())) {
+            if (StringUtil.quickEq(_key, s.name())) {
                 if (translatedStatistics.getVal(_language).contains(s)) {
                     return translatedStatistics.getVal(_language).getVal(s);
                 }
             }
         }
         for (Gender g : Gender.values()) {
-            if (StringList.quickEq(_key, g.name())) {
+            if (StringUtil.quickEq(_key, g.name())) {
                 if (translatedGenders.getVal(_language).contains(g)) {
                     return translatedGenders.getVal(_language).getVal(g);
                 }
@@ -2814,7 +2815,7 @@ public class DataBase {
         MoveData fAtt_ = getMove(_move);
         int nbEffets_ = fAtt_.nbEffets();
         short pp_ = 0;
-        for (int i = CustList.FIRST_INDEX; i < nbEffets_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
             if (!(effet_ instanceof EffectCopyMove)) {
                 continue;
@@ -2835,7 +2836,7 @@ public class DataBase {
         MoveData fAtt_ = getMove(_move);
         boolean relais_ = false;
         int nbEffets_ = fAtt_.nbEffets();
-        for (int i = CustList.FIRST_INDEX; i < nbEffets_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
             if (!(effet_ instanceof EffectBatonPass)) {
                 continue;
@@ -2913,7 +2914,7 @@ public class DataBase {
     public Shorts getTmByMove(String _move) {
         Shorts tms_ = new Shorts();
         for (EntryCust<Short, String> e : tm.entryList()) {
-            if (StringList.quickEq(e.getValue(), _move)) {
+            if (StringUtil.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());
             }
         }
@@ -2931,7 +2932,7 @@ public class DataBase {
     public Shorts getHmByMove(String _move) {
         Shorts tms_ = new Shorts();
         for (EntryCust<Short, String> e : hm.entryList()) {
-            if (StringList.quickEq(e.getValue(), _move)) {
+            if (StringUtil.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());
             }
         }
@@ -3045,7 +3046,7 @@ public class DataBase {
     public int[][] getImageTile(String _name, ScreenCoords _coords) {
         for (EntryCust<String, ObjectMap<ScreenCoords, int[][]>> e : imagesTiles
                 .entryList()) {
-            if (!StringList.quickEq(e.getKey(),_name)) {
+            if (!StringUtil.quickEq(e.getKey(),_name)) {
                 continue;
             }
             return e.getValue().getVal(_coords);
@@ -3061,7 +3062,7 @@ public class DataBase {
     private static int[][] getValueCaseInsensitive(StringMap<int[][]> _map,
                                                    String _name) {
         for (EntryCust<String, int[][]> e : _map.entryList()) {
-            if (StringList.quickEq(e.getKey(),_name)) {
+            if (StringUtil.quickEq(e.getKey(),_name)) {
                 return e.getValue();
             }
         }

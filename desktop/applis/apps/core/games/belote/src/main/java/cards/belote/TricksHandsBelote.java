@@ -2,6 +2,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 
 public final class TricksHandsBelote {
@@ -19,7 +20,7 @@ public final class TricksHandsBelote {
     private CustList<HandBelote> cardsHandsAtInitialState;
 
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli) {
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
             getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
         }
@@ -39,7 +40,7 @@ public final class TricksHandsBelote {
         sortHands(_displaying,_nombreJoueurs);
     }
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli,byte _numeroCarte) {
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
             getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
         }
@@ -77,15 +78,15 @@ public final class TricksHandsBelote {
 
     void sortHands(DisplayingBelote _displaying, byte _nombreJoueurs, BidBeloteSuit _bid) {
         if(_bid.getCouleurDominante()) {
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
                 getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(), _bid.getCouleur());
             }
         } else if(_bid.ordreCouleur()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
                 getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(),Order.SUIT);
             }
         } else if(_bid.ordreAtout()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
                 getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(),Order.TRUMP);
             }
         }
@@ -128,7 +129,7 @@ public final class TricksHandsBelote {
     public void setTricks(CustList<TrickBelote> _tricks, byte _nbPlayers) {
         tricks = _tricks;
         cardsHandsAtInitialState = new CustList<HandBelote>();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandBelote hand_ = new HandBelote();
             hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickBelote pli_ : tricks) {
@@ -139,7 +140,7 @@ public final class TricksHandsBelote {
         HandBelote stack_ = new HandBelote();
         stack_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(stack_);
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             cardsHandsAtInitialState.get(joueur_).supprimerCartes(cardsHandsAtInitialState.last());
         }
     }

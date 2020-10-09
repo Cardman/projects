@@ -12,6 +12,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -445,7 +446,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl126Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<java.lang.Integer>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -461,7 +462,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl127Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<java.lang.Integer>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -494,7 +495,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl129Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -510,7 +511,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl130Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -526,7 +527,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl131Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -542,7 +543,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl132Test() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1095,7 +1096,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?>");
+        String g_ = StringUtil.concat("pkg.ExTwo<?>");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1121,7 +1122,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?>");
+        String g_ = StringUtil.concat("pkg.ExTwo<?>");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1147,7 +1148,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<java.lang.Number>");
+        String g_ = StringUtil.concat("pkg.ExTwo<java.lang.Number>");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1173,7 +1174,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1199,7 +1200,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1229,7 +1230,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1259,7 +1260,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1285,7 +1286,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1318,7 +1319,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1351,7 +1352,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1389,7 +1390,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1415,7 +1416,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<java.lang.Number>");
+        String g_ = StringUtil.concat("pkg.ExTwo<java.lang.Number>");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1441,7 +1442,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Object[])$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1467,7 +1468,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Object[])$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1493,7 +1494,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null,$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1520,7 +1521,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null,$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1547,7 +1548,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1573,7 +1574,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString());
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
@@ -1599,7 +1600,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString());
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
@@ -1665,7 +1666,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkQuick(files_);
@@ -1728,7 +1729,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString());
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
@@ -1754,7 +1755,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExTwo,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString());
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
@@ -1782,7 +1783,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExPar,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString());
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
@@ -1808,7 +1809,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -1875,7 +1876,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 3i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkQuick(files_);
@@ -1907,7 +1908,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo");
+        String g_ = StringUtil.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExPar,Number...),(Integer[])$null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
@@ -3418,7 +3419,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean analyzeIndirectLocalVarsParamFailValue(String s) {
-        String g_ = StringList.concat(MY_GENE_CLASS, "<?W>");
+        String g_ = StringUtil.concat(MY_GENE_CLASS, "<?W>");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(s, g_, "W", "myvar"));
         files_.put("pkg/Ex", file());
@@ -3456,7 +3457,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        String g_ = StringUtil.concat("pkg.ExTwo<?,?>");
         assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null)", g_));
     }
     @Test
@@ -3470,7 +3471,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        String g_ = StringUtil.concat("pkg.ExTwo<?,?>");
         assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null)", g_));
     }
     @Test
@@ -3484,7 +3485,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        String g_ = StringUtil.concat("pkg.ExTwo<?,?>");
         assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null,$null)", g_));
     }
     @Test
@@ -3706,7 +3707,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
     }
     @Test
@@ -3724,7 +3725,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
@@ -3743,7 +3744,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
@@ -3762,7 +3763,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
@@ -3781,7 +3782,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExFour");
+        String g_ = StringUtil.concat("pkg.ExFour");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
@@ -3812,7 +3813,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExThree");
+        String g_ = StringUtil.concat("pkg.ExThree");
         assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get($null)"));
     }
 

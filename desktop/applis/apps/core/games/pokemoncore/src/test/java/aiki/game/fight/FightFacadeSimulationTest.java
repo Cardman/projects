@@ -4,6 +4,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +50,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -63,7 +64,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1960,7 +1961,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -2035,7 +2036,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2100,7 +2101,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2155,7 +2156,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 4, 1), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 4, 1), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2210,7 +2211,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2317,7 +2318,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight7Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2387,7 +2388,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight8Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 1);
         pokemon_.setName(TETARTE);
@@ -2450,7 +2451,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFight9Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 1);
         pokemon_.setName(TETARTE);
@@ -2788,7 +2789,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void hasNextFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2849,7 +2850,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void hasNextFight2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 1, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 1, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2910,7 +2911,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void hasNextFight3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(1, 0, 5, 1, 1, 7), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3031,7 +3032,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void nextFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3144,7 +3145,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -3220,7 +3221,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights2Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3285,7 +3286,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights3Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 1, 7), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 1, 7), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3340,7 +3341,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights4Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 4, 1), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(1, 0, 5, 1, 4, 1), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3395,7 +3396,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights5Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3502,7 +3503,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights7Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3572,7 +3573,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights8Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 1);
         pokemon_.setName(TETARTE);
@@ -3635,7 +3636,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
     public void simulateFights9Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, data);
-        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), CustList.INDEX_NOT_FOUND_ELT, data);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), IndexConstants.INDEX_NOT_FOUND_ELT, data);
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 1);
         pokemon_.setName(TETARTE);

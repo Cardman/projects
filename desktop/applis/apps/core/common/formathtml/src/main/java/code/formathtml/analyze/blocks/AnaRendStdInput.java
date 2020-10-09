@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendStdInput extends AnaRendInput {
     AnaRendStdInput(Element _elt, OffsetsBlock _offset) {
@@ -17,12 +18,12 @@ public final class AnaRendStdInput extends AnaRendInput {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
-        _list.removeAllString(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
     }
 }

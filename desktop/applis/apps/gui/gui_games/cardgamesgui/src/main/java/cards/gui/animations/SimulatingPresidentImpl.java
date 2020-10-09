@@ -23,6 +23,7 @@ import code.util.ByteMap;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,7 +55,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void displayLooserMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
-        String event_ = StringList.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -62,7 +63,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void displayWinnerMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
-        String event_ = StringList.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -148,7 +149,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     @Override
     public void beginDemo() {
         String event_;
-        event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -212,7 +213,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void displayPlayedHandMessage(HandPresident _hand, byte _nextPlayer) {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
-        String event_ = StringList.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -220,7 +221,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void displayTrickLeader(byte _player) {
         StringList nicknames_=pseudosSimuleePresident();
         String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
-        String event_ = StringList.concat(StringList.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 

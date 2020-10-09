@@ -12,6 +12,8 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 
 public abstract class MoveData {
@@ -79,7 +81,7 @@ public abstract class MoveData {
                 _data.setError(true);
             }
             CustList<String> keys_ = typesByOwnedItem.getKeys();
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
             }
@@ -89,7 +91,7 @@ public abstract class MoveData {
         }
         if (!secEffectsByItem.isEmpty()) {
             CustList<String> keys_ = secEffectsByItem.getKeys();
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
             }
@@ -105,7 +107,7 @@ public abstract class MoveData {
                 _data.setError(true);
             }
             CustList<String> keys_ = typesByWeather.getKeys();
-            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
+            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
             }
@@ -151,11 +153,11 @@ public abstract class MoveData {
             _data.setError(true);
         }
         int indexOfPrimaryEffect_ = indexOfPrimaryEffect();
-        if (indexOfPrimaryEffect_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (indexOfPrimaryEffect_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             _data.setError(true);
         }
         int nbEffects_ = nbEffets();
-        for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
             Effect effect_ = effects.get(i);
             if (i <= indexOfPrimaryEffect_) {
                 if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
@@ -177,7 +179,7 @@ public abstract class MoveData {
                 }
             }
         }
-        for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
             if (i < indexOfPrimaryEffect_) {
                 continue;
             }
@@ -208,14 +210,14 @@ public abstract class MoveData {
     }
 
     public int indexOfPrimaryEffect() {
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (Effect e : effects) {
             if (e.getTargetChoice() == targetChoice) {
                 return i_;
             }
             i_++;
         }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public abstract String getMoveType();

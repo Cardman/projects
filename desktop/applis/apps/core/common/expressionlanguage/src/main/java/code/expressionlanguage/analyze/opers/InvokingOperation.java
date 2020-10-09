@@ -22,6 +22,8 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted {
     private AnaClassArgumentMatching previousResultClass;
@@ -75,7 +77,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (o instanceof NamedArgumentOperation) {
                 String name_ = ((NamedArgumentOperation) o).getName();
                 OperationNode next_ = o.getNextSibling();
-                if (StringList.contains(names_,name_) || !(next_ instanceof NamedArgumentOperation)&& next_ != null) {
+                if (StringUtil.contains(names_,name_) || !(next_ instanceof NamedArgumentOperation)&& next_ != null) {
                     ok_ = false;
                     filterErr_.add(((NamedArgumentOperation) o));
                 }
@@ -108,7 +110,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
             String ret_ = n_.getImportedReturnType();
             String void_ = _page.getAliasVoid();
-            if (!StringList.quickEq(ret_, void_)) {
+            if (!StringUtil.quickEq(ret_, void_)) {
                 return ret_;
             }
         }
@@ -165,11 +167,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!isValidNameIndex(_filter,_param,_name)) {
             return null;
         }
-        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _page);
     }
     protected static boolean isValidNameIndex(NameParametersFilter _filter, Parametrable _param, String _name) {
-        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         StringList formattedParams_ = _param.getFormattedParams();
         if (!formattedParams_.isValidIndex(ind_)) {
             return false;
@@ -181,7 +183,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!_param.isVararg()) {
             return null;
         }
-        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         StringList formattedParams_ = _param.getFormattedParams();
         if (!formattedParams_.isValidIndex(ind_)) {
             return null;
@@ -266,7 +268,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
-                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                if (!StringUtil.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
                     continue;
                 }
                 newList_.add(methodInfo_);
@@ -324,15 +326,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return f_;
     }
     public static boolean isTrueFalseKeyWord(String _trimMeth, AnalyzedPageEl _page) {
-        return StringList.quickEq(_trimMeth, _page.getKeyWords().getKeyWordTrue())
-                ||StringList.quickEq(_trimMeth, _page.getKeyWords().getKeyWordFalse());
+        return StringUtil.quickEq(_trimMeth, _page.getKeyWords().getKeyWordTrue())
+                || StringUtil.quickEq(_trimMeth, _page.getKeyWords().getKeyWordFalse());
     }
     protected static boolean isNotCorrectDim(String cp_) {
         return cp_ == null||cp_.startsWith("[");
     }
 
     protected static boolean isUndefined(String typeAff_, String keyWordVar_) {
-        return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
+        return typeAff_.isEmpty() || StringUtil.quickEq(typeAff_, keyWordVar_);
     }
 
     static StringList getBounds(String _cl, AnalyzedPageEl _page) {
@@ -356,7 +358,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, AnalyzedPageEl _page) {
         if (_natvararg > -1) {
             int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
@@ -371,7 +373,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         } else {
             int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 OperationNode a_ = _args.get(i);
                 String param_ = _id.getParametersTypes().get(i);
                 if (i + 1 == lenCh_ && _id.isVararg()) {

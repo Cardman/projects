@@ -4,8 +4,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import code.gui.Slider;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class ListenerChangeSlide implements ChangeListener {
 
@@ -30,8 +30,8 @@ public class ListenerChangeSlide implements ChangeListener {
         int min_=slide.getMinimum();
         int max_=slide.getMaximum();
         String prefix_ = messages.getVal(key);
-        String values_ = StringList.simpleNumberFormat(sentence, min_, max_, slide.getValue());
-        etiquette.setText(StringList.simpleStringsFormat(sentence, prefix_, values_));
+        String values_ = StringUtil.simpleNumberFormat(sentence, min_, max_, slide.getValue());
+        etiquette.setText(StringUtil.simpleStringsFormat(sentence, prefix_, values_));
     }
 
 }

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class StaticInitOperation extends LeafOperation {
 
@@ -29,7 +29,7 @@ public final class StaticInitOperation extends LeafOperation {
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (_page.getAnaClassBody(_base) != null) {
             possibleInitClass = true;

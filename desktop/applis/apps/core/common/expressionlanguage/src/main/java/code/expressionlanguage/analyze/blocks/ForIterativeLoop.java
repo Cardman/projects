@@ -21,6 +21,7 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ForIterativeLoop extends BracedBlock implements ForLoop {
 
@@ -225,7 +226,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 cast_.setIndexFile(_offset);
                 //char before expression
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(arg_.getNames(),"&"),
+                        StringUtil.join(arg_.getNames(),"&"),
                         _elementClass);
                 _page.addLocError(cast_);
                 setReachableError(true);

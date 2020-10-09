@@ -20,9 +20,10 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class EndTarotGame {
 
@@ -271,7 +272,7 @@ public final class EndTarotGame {
                 scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
                         .getPoints();
             }
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
                 if (joueur_ != _taker && !_called.containsObj(joueur_)
                         && _smallBound.get(joueur_)) {
                     scorePreneurSansAnnonces_ -= BonusTarot.SMALL_BOUND
@@ -290,15 +291,15 @@ public final class EndTarotGame {
     static Shorts calculateScores(AbsMap<Status, Rate> _coefficientsRepartition, short _sommeTemporaire, short _scorePreneurSansAnnonces, GameTarotTeamsRelation _relations) {
         Shorts scores_ = new Shorts();
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.add((short) 0);
         }
         if (_sommeTemporaire == 0) {
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 scores_.set( joueur_, (short) 0);
             }
         } else {
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 Status st_ = _relations.statutDe(joueur_);
                 Rate rate_ = _coefficientsRepartition.getVal(st_);
                 if (st_ == Status.DEFENDER) {
@@ -346,7 +347,7 @@ public final class EndTarotGame {
             return "0";
         }
         if (_status.get(p_) == Status.DEFENDER) {
-            return StringList.concat("(-",Integer.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
+            return StringUtil.concat("(-",Integer.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
         }
         return Integer.toString(BonusTarot.SMALL_BOUND.getPoints());
     }
@@ -363,7 +364,7 @@ public final class EndTarotGame {
         return _nicknames.get(p_);
     }
     static byte joueurPetitAuBout(byte _nombreJoueurs, BooleanList _smallBound) {
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (_smallBound.get(joueur_)) {
                 return joueur_;
             }
@@ -375,7 +376,7 @@ public final class EndTarotGame {
 
         CustList<TreeMap<Miseres,Short>> scores1_ = new CustList<TreeMap<Miseres,Short>>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
             TreeMap<Miseres, Short> miseresPlayer_ = new TreeMap<Miseres, Short>(new MiseresComparator());
             scores1_.add(miseresPlayer_);
             if (relations.aPourDefenseur(joueur_)) {
@@ -407,7 +408,7 @@ public final class EndTarotGame {
 
     static CustList<TreeMap<Handfuls, Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<EnumList<Handfuls>> _declaresHandfuls) {
         CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreDeJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreDeJoueurs; joueur_++) {
             scores1_.add(new TreeMap<Handfuls,Short>(new HandfulComparator()));
             for (Handfuls poignee_ : _declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
@@ -546,7 +547,7 @@ public final class EndTarotGame {
     }
 
     public short scoreJoueurPlisDouble(byte _joueur) {
-        short nbPointsAtt_ = CustList.SIZE_EMPTY;
+        short nbPointsAtt_ = IndexConstants.SIZE_EMPTY;
         for (CardTarot c: getWonCardsPlayer(_joueur,BidTarot.GUARD_AGAINST)) {
             nbPointsAtt_ += c.points();
         }
@@ -593,7 +594,7 @@ public final class EndTarotGame {
     public static Shorts positionsDifference(Shorts _differences) {
         Shorts positions_ = new Shorts();
         int nbDiff_ = _differences.size();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbDiff_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbDiff_; joueur_++) {
             positions_.add((short) 1);
             for (short difference_ : _differences) {
                 if (difference_ > _differences.get(joueur_)) {
@@ -844,7 +845,7 @@ public final class EndTarotGame {
                                                     HandTarot _charactersTwo, byte _positionTmp) {
         byte positionTmp_ = _positionTmp;
         int nbCharacters_ = _charactersOne.total();
-        for (int indiceFigure_ = CustList.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
+        for (int indiceFigure_ = IndexConstants.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
             if (_charactersTwo.carte(indiceFigure_).points() < _charactersOne
                     .carte(indiceFigure_).points()) {
                 positionTmp_++;
@@ -862,7 +863,7 @@ public final class EndTarotGame {
                                                   HandTarot _charactersTwo, byte _positionTmp) {
         byte positionTmp_ = _positionTmp;
         int nbCharacters_ = _charactersOne.total();
-        for (int indiceFigure_ = CustList.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
+        for (int indiceFigure_ = IndexConstants.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
             if (_charactersTwo.carte(indiceFigure_).points() > _charactersOne
                     .carte(indiceFigure_).points()) {
                 positionTmp_++;
@@ -1426,7 +1427,7 @@ public final class EndTarotGame {
     static CustList<EnumMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<EnumMap<Handfuls,Short>> scores1_ = new CustList<EnumMap<Handfuls,Short>>();
-        for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
             scores1_.add(new EnumMap<Handfuls,Short>());
 
             if (_relations.memeEquipe(joueur2_,_player)) {
@@ -1446,7 +1447,7 @@ public final class EndTarotGame {
     static CustList<EnumMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Miseres>> _declaresMiseres) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<EnumMap<Miseres,Short>> scores1_ = new CustList<EnumMap<Miseres,Short>>();
-        for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
             scores1_.add(new EnumMap<Miseres,Short>());
 
             if (_relations.memeEquipe(joueur2_,_player)) {
@@ -1466,7 +1467,7 @@ public final class EndTarotGame {
     static CustList<Shorts> calculSmallLastTurnScorePlayer(byte _player, GameTarotTeamsRelation _relations, BooleanList _smallBound) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<Shorts> scores1_ = new CustList<Shorts>();
-        for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
             scores1_.add(new Shorts());
 
             if (_relations.memeEquipe(joueur2_,_player)) {
@@ -1486,7 +1487,7 @@ public final class EndTarotGame {
     static short primeSupplementaire(byte _joueur, GameTarotTeamsRelation _relations, CustList<HandTarot> _wonPlayersTeam) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         HandTarot plisAdversaires_ = new HandTarot();
-        for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nombreJoueurs_; joueur2_++) {
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreJoueurs_; joueur2_++) {
             if (!_relations.memeEquipe(_joueur, joueur2_)) {
                 plisAdversaires_.ajouterCartes(_wonPlayersTeam.get(joueur2_));
             }
@@ -1508,10 +1509,10 @@ public final class EndTarotGame {
 
     static Shorts calculerScoresJoueurs(Shorts _coefficients, byte _nombreJoueurs, int _sumLoc) {
         Shorts scores_ = new Shorts();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             scores_.add((short)0);
         }
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             scores_.set(joueur_,
                     (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2))));
         }
@@ -1553,13 +1554,13 @@ public final class EndTarotGame {
                                         BooleanList _smallBound) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.add((short)0);
         }
         short pointsAnnoncesJoueur_;
         short pointsAnnoncesAutresJoueurs_;
         short sommePrimeSupplementaire_;
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             pointsAnnoncesJoueur_ = 0;
             pointsAnnoncesAutresJoueurs_ = 0;
             for (EnumMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(joueur_, _relations, _declaresHandfuls)) {
@@ -1574,7 +1575,7 @@ public final class EndTarotGame {
                 pointsAnnoncesJoueur_ += sum(annoncesJoueur_);
             }
             sommePrimeSupplementaire_ = 0;
-            for (byte j_ = CustList.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
+            for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
                 if (!_relations.memeEquipe(j_, joueur_)) {
                     sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
                     for (Handfuls h : _declaresHandfuls.get(j_)) {
@@ -1639,7 +1640,7 @@ public final class EndTarotGame {
             maxExclude_--;
         }
         int nbOther_ = 0;
-        for (TrickTarot t: _tricks.sub(0,maxExclude_)) {
+        for (TrickTarot t: _tricks.left(maxExclude_)) {
             if (!t.getVuParToutJoueur()) {
                 continue;
             }

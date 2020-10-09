@@ -15,7 +15,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class GraphicBeloteCard extends PaintableLabel {
     static final String DEFAULT="Default";
@@ -31,7 +31,7 @@ public class GraphicBeloteCard extends PaintableLabel {
         this(_lg,_i,_fullCard);
         peindreCarte = true;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
     }
@@ -67,7 +67,7 @@ public class GraphicBeloteCard extends PaintableLabel {
         card=_pc;
         peinte=false;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
     }

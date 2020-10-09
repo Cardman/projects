@@ -5,9 +5,9 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import code.bean.Bean;
-import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class CommonFightBean extends Bean {
 
@@ -24,8 +24,8 @@ public abstract class CommonFightBean extends Bean {
         Team team_ = _facade.getGame().getFight().getTeams().getVal(_teamPosition.getTeam());
         Fighter fighter_ = _facade.getGame().getFight().getFighter(_teamPosition);
         Bytes membersIndex_ = getMembers(_facade,_teamPosition.getTeam());
-        byte i_ = CustList.FIRST_INDEX;
-        byte nb_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
+        byte nb_ = IndexConstants.FIRST_INDEX;
         while (true) {
             if (i_ >= membersIndex_.size()) {
                 break;
@@ -36,15 +36,15 @@ public abstract class CommonFightBean extends Bean {
             }
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
-            if (StringList.quickEq(fighter_.getName(), current_.getName())) {
+            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == CustList.FIRST_INDEX) {
+        if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     protected static Bytes getMembers(FacadeGame _facade, byte _noTeam) {

@@ -12,8 +12,8 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
-import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class SelectHealingItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
@@ -69,7 +69,7 @@ public final class SelectHealingItem extends SelectDialog {
 
     public static boolean isSelectedIndex() {
         DIALOG.setVisible(true);
-        return DIALOG.facade.getLineHealingItem() != CustList.INDEX_NOT_FOUND_ELT;
+        return DIALOG.facade.getLineHealingItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk() {

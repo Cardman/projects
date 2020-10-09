@@ -12,6 +12,8 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class AliasNumber {
     private String aliasCompareTo;
@@ -84,10 +86,10 @@ public final class AliasNumber {
         String intType_ = lgNames_.getContent().getNbAlias().getAliasInteger();
         String longType_ = lgNames_.getContent().getNbAlias().getAliasLong();
         String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
-        if (StringList.quickEq(type_, booleanType_)) {
-            if (StringList.quickEq(list_.first(), stringType_)) {
+        if (StringUtil.quickEq(type_, booleanType_)) {
+            if (StringUtil.quickEq(list_.first(), stringType_)) {
                 String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-                if (StringList.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
+                if (StringUtil.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                     return;
                 }
@@ -97,12 +99,12 @@ public final class AliasNumber {
             _res.setResult(NumParsers.convertToBoolean(_args[0]));
             return;
         }
-      if (StringList.quickEq(type_, charType_)) {
+      if (StringUtil.quickEq(type_, charType_)) {
           _res.setResult(_args[0]);
           return;
       }
-      if (StringList.quickEq(type_, byteType_)) {
-          if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(type_, byteType_)) {
+          if (StringUtil.quickEq(list_.first(), stringType_)) {
               parseByte(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
@@ -110,8 +112,8 @@ public final class AliasNumber {
           _res.setResult(new ByteStruct(one_));
           return;
       }
-      if (StringList.quickEq(type_, shortType_)) {
-          if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(type_, shortType_)) {
+          if (StringUtil.quickEq(list_.first(), stringType_)) {
               parseShort(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
@@ -119,8 +121,8 @@ public final class AliasNumber {
           _res.setResult(new ShortStruct(one_));
           return;
       }
-      if (StringList.quickEq(type_, intType_)) {
-          if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(type_, intType_)) {
+          if (StringUtil.quickEq(list_.first(), stringType_)) {
               parseInt(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
@@ -128,8 +130,8 @@ public final class AliasNumber {
           _res.setResult(new IntStruct(one_));
           return;
       }
-      if (StringList.quickEq(type_, longType_)) {
-          if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(type_, longType_)) {
+          if (StringUtil.quickEq(list_.first(), stringType_)) {
               parseLong(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
@@ -137,8 +139,8 @@ public final class AliasNumber {
           _res.setResult(new LongStruct(one_));
           return;
       }
-      if (StringList.quickEq(type_, floatType_)) {
-          if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(type_, floatType_)) {
+          if (StringUtil.quickEq(list_.first(), stringType_)) {
               parseFloat(_res,lgNames_,_args[0],true, _cont);
               return;
           }
@@ -146,7 +148,7 @@ public final class AliasNumber {
           _res.setResult(new FloatStruct(one_));
           return;
       }
-      if (StringList.quickEq(list_.first(), stringType_)) {
+      if (StringUtil.quickEq(list_.first(), stringType_)) {
           parseDouble(_res,lgNames_,_args[0],true, _cont);
           return;
       }
@@ -223,7 +225,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new LongStruct(lg_.getValue()));
       }
@@ -247,7 +249,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new IntStruct((int) lg_.getValue()));
       }
@@ -271,7 +273,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new ShortStruct((short) lg_.getValue()));
       }
@@ -295,7 +297,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,StringList.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
       } else {
           _res.setResult(new ByteStruct((byte)lg_.getValue()));
       }
@@ -305,7 +307,7 @@ public final class AliasNumber {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             if (!(_args[0] instanceof NumberStruct)) {
                 _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return;
@@ -317,7 +319,7 @@ public final class AliasNumber {
             _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             if (!(_args[0] instanceof  NumberStruct)) {
                 _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
@@ -326,7 +328,7 @@ public final class AliasNumber {
             _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
             if (list_.size() > 1) {
                 _res.setResult(BooleanStruct.of(NumParsers.sameValue(_args[0],_args[1])));
                 return;
@@ -334,32 +336,32 @@ public final class AliasNumber {
             _res.setResult(BooleanStruct.of(NumParsers.sameValue(_struct,_args[0])));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasByteValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasByteValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new ByteStruct(instance_.byteStruct()));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasShortValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasShortValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new ShortStruct(instance_.shortStruct()));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIntValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIntValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new IntStruct(instance_.intStruct()));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasLongValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasLongValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new LongStruct(instance_.longStruct()));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasFloatValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasFloatValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new FloatStruct(instance_.floatStruct()));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDoubleValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDoubleValue())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new DoubleStruct(instance_.doubleStruct()));
             return;
@@ -382,69 +384,69 @@ public final class AliasNumber {
         String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
             return;
         }
-        if (StringList.quickEq(type_, byteType_)) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(type_, byteType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
                 return;
             }
-            boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseByte());
+            boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseByte());
             parseByte(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringList.quickEq(type_, shortType_)) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(type_, shortType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
                 return;
             }
-            boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseShort());
+            boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseShort());
             parseShort(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringList.quickEq(type_, intType_)) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(type_, intType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
                 return;
             }
-            boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseInt());
+            boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseInt());
             parseInt(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringList.quickEq(type_, longType_)) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(type_, longType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                 _res.setResult(new StringStruct(Long.toString(one_)));
                 return;
             }
-            boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseLong());
+            boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseLong());
             parseLong(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringList.quickEq(type_, floatType_)) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
+        if (StringUtil.quickEq(type_, floatType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
                 float one_;
                 one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
                 _res.setResult(BooleanStruct.of(Float.isNaN(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
                 float one_;
                 one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
                 _res.setResult(BooleanStruct.of(Float.isInfinite(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
                 NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                 StringStruct tmp = NumParsers.getFloatString(nb_,dis_.getInfinity(),
@@ -453,21 +455,21 @@ public final class AliasNumber {
                 _res.setResult(tmp);
                 return;
             }
-            boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseFloat());
+            boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseFloat());
             parseFloat(_res, lgNames_, _args[0],exc_, _cont);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
             double one_ = NumParsers.asDouble(_struct, list_, _args);
             _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
             double one_ = NumParsers.asDouble(_struct, list_, _args);
             _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
             DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
             NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
             StringStruct displayedString = NumParsers.getDoubleString(nb_,dis_.getInfinity(),
@@ -476,7 +478,7 @@ public final class AliasNumber {
             _res.setResult(displayedString);
             return;
         }
-        boolean exc_ = StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseDouble());
+        boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseDouble());
         parseDouble(_res, lgNames_, _args[0],exc_, _cont);
         return;
     }
@@ -485,80 +487,80 @@ public final class AliasNumber {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         if (_method.getConstraints().isStaticMethod()) {
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 char two_ = NumParsers.convertToChar(_args[1]).getChar();
-                _res.setResult(new IntStruct(Numbers.compareLg(one_,two_)));
+                _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDigit())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
                 _res.setResult(new IntStruct(Character.digit(one_, two_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasForDigit())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasForDigit())) {
                 Integer one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
                 _res.setResult(new CharStruct(Character.forDigit(one_, two_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetDirectionality())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetDirectionality())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(new ByteStruct(Character.getDirectionality(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(new IntStruct(Character.getType(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsDigit())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(StringExpUtil.isDigit(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isLetter(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isLetterOrDigit(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLowerCase())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLowerCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isLowerCase(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsUpperCase())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsUpperCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isUpperCase(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsSpace())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsSpace())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWhitespace())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWhitespace())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWordChar())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWordChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringList.isWordChar(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isWordChar(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToLowerCaseChar())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToLowerCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(new CharStruct(Character.toLowerCase(one_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToUpperCaseChar())) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToUpperCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 _res.setResult(new CharStruct(Character.toUpperCase(one_)));
                 return;
@@ -568,7 +570,7 @@ public final class AliasNumber {
             return;
         }
         CharStruct ch_ = NumParsers.convertToChar(_struct);
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCharValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCharValue())) {
             _res.setResult(new CharStruct(ch_.getChar()));
             return;
         }
@@ -578,7 +580,7 @@ public final class AliasNumber {
         }
         char one_ = ch_.getChar();
         char two_ = ((CharStruct) _args[0]).getChar();
-        _res.setResult(new IntStruct(Numbers.compareLg(one_,two_)));
+        _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
         return;
     }
 
@@ -587,35 +589,35 @@ public final class AliasNumber {
         String booleanPrimType_ = lgNames_.getContent().getPrimTypes().getAliasPrimBoolean();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasBooleanValue())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasBooleanValue())) {
             BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
             _res.setResult(instance_);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             _res.setResult(NumParsers.cmpBool((NumParsers.convertToBoolean(_args[0])),(NumParsers.convertToBoolean(_args[1]))));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
             _res.setResult(NumParsers.cmpBool(instance_,(NumParsers.convertToBoolean(_args[0]))));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
             BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
             _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseBoolean())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseBoolean())) {
             StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
-            if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
+            if (StringUtil.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                 _res.setResult(BooleanStruct.of(true));
                 return;
             }
             _res.setResult(BooleanStruct.of(false));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
             if (!list_.isEmpty()) {
                 _res.setResult((NumParsers.convertToBoolean(_args[0])).getDisplayedString(_cont));
                 return;
@@ -624,12 +626,12 @@ public final class AliasNumber {
             _res.setResult(instance_.getDisplayedString(_cont));
             return;
         }
-        if (StringList.quickEq(list_.first(), booleanPrimType_)) {
+        if (StringUtil.quickEq(list_.first(), booleanPrimType_)) {
             _res.setResult(_args[0]);
             return;
         }
         StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
-        if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
+        if (StringUtil.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
             _res.setResult(BooleanStruct.of(true));
             return;
         }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendBreakBlock extends AnaRendLeaf {
 
@@ -29,7 +30,7 @@ public final class AnaRendBreakBlock extends AnaRendLeaf {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
+                    if (StringUtil.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         break;
                     }
@@ -46,7 +47,7 @@ public final class AnaRendBreakBlock extends AnaRendLeaf {
             if (label.isEmpty()) {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
                         _page.getKeyWords().getKeyWordBreak(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordSwitch(),
                                         _page.getKeyWords().getKeyWordFor(),
@@ -59,7 +60,7 @@ public final class AnaRendBreakBlock extends AnaRendLeaf {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
                         _page.getKeyWords().getKeyWordBreak(),
                         label,
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordSwitch(),
                                         _page.getKeyWords().getKeyWordTry(),

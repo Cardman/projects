@@ -10,6 +10,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class MovesBean extends CommonBean {
     static final String MOVES_BEAN="web/html/moves/moveline.html";
@@ -77,10 +78,10 @@ public class MovesBean extends CommonBean {
             boolean selectedLearn_ = (Boolean) getForms().getVal(LEARNT);
             StringList learntMoves_ = (StringList) getForms().getVal(LEARNT_MOVES);
             for (String k: data_.getMoves().getKeys()) {
-                if (StringList.contains(learntMoves_, k) && !selectedLearn_) {
+                if (StringUtil.contains(learntMoves_, k) && !selectedLearn_) {
                     continue;
                 }
-                if (!StringList.contains(learntMoves_, k) && selectedLearn_) {
+                if (!StringUtil.contains(learntMoves_, k) && selectedLearn_) {
                     continue;
                 }
                 MoveData moveData_ = data_.getMoves().getVal(k);
@@ -138,7 +139,7 @@ public class MovesBean extends CommonBean {
         moves_ = new StringList();
         for (String k: data_.getMoves().getKeys()) {
             String displayName_ = translationsMoves_.getVal(k);
-            if (!StringList.match(displayName_, typedName)) {
+            if (!StringUtil.match(displayName_, typedName)) {
                 continue;
             }
             MoveData moveData_ = data_.getMoves().getVal(k);
@@ -150,11 +151,11 @@ public class MovesBean extends CommonBean {
                     if (typedType == null) {
                         continue;
                     }
-                    if (!StringList.quickEq(displayType_, typedType)) {
+                    if (!StringUtil.quickEq(displayType_, typedType)) {
                         continue;
                     }
                 } else {
-                    if (!StringList.match(displayType_, typedType)) {
+                    if (!StringUtil.match(displayType_, typedType)) {
                         continue;
                     }
                 }
@@ -163,8 +164,8 @@ public class MovesBean extends CommonBean {
             if (!atLeastMatchType_) {
                 continue;
             }
-            if (!StringList.quickEq(category, DataBase.EMPTY_STRING)) {
-                if (!StringList.quickEq(category, moveData_.getCategory())) {
+            if (!StringUtil.quickEq(category, DataBase.EMPTY_STRING)) {
+                if (!StringUtil.quickEq(category, moveData_.getCategory())) {
                     continue;
                 }
             }

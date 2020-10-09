@@ -24,6 +24,7 @@ import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 
 public class SimulationLevelBean extends CommonBean {
     private TreeMap<Point,String> tiles;
@@ -38,7 +39,7 @@ public class SimulationLevelBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        levelIndex = CustList.INDEX_NOT_FOUND_ELT;
+        levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = new TreeMap<Point, String>(new ComparatorPoint());
         noFight = (Integer) getForms().getVal(NO_FIGHT);
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
@@ -71,7 +72,7 @@ public class SimulationLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, CustList.FIRST_INDEX, ptInside_).entryList()) {
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
@@ -96,7 +97,7 @@ public class SimulationLevelBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (tiles.getKey(w_).gety() != CustList.SECOND_INDEX) {
+        while (tiles.getKey(w_).gety() != IndexConstants.SECOND_INDEX) {
             w_++;
         }
         return w_;
@@ -106,7 +107,7 @@ public class SimulationLevelBean extends CommonBean {
             return false;
         }
         Point pt_ = tiles.getKey(_index.intValue());
-        return pt_.getx() == CustList.FIRST_INDEX;
+        return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public static String cancel() {
         return SIMULATION;

@@ -1,7 +1,7 @@
 package code.maths.litteral;
 import code.maths.Rate;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class EvolvedNumString {
 
@@ -12,7 +12,7 @@ public final class EvolvedNumString {
         if (_vars.isEmpty()) {
             numericString = new StringBuilder(_chaineNumerique);
         } else {
-            numericString = new StringBuilder(StringList.replaceWordsJoin(_chaineNumerique, _vars));
+            numericString = new StringBuilder(StringUtil.replaceWordsJoin(_chaineNumerique, _vars));
         }
     }
 

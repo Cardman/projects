@@ -1,6 +1,6 @@
 package aiki.sml;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class Resources {
 
@@ -48,15 +48,15 @@ public final class Resources {
 
     public static final String ACCESS_TO_DEFAULT_FILES_FIGHT = "resources_pk/rom/web_fight";
 
-    public static final String ACCESS_TO_DEFAULT_DATA = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DATA);
+    public static final String ACCESS_TO_DEFAULT_DATA = StringUtil.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DATA);
 
-    public static final String ACCESS_TO_DEFAULT_DIFF = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DIFF);
+    public static final String ACCESS_TO_DEFAULT_DIFF = StringUtil.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DIFF);
 
-    public static final String ACCESS_TO_DEFAULT_PROG = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PROG);
+    public static final String ACCESS_TO_DEFAULT_PROG = StringUtil.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PROG);
 
-    public static final String ACCESS_TO_DEFAULT_PK = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PK);
+    public static final String ACCESS_TO_DEFAULT_PK = StringUtil.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PK);
 
-    public static final String ACCESS_TO_DEFAULT_FIGHT = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_FIGHT);
+    public static final String ACCESS_TO_DEFAULT_FIGHT = StringUtil.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_FIGHT);
 
     private Resources(){
     }

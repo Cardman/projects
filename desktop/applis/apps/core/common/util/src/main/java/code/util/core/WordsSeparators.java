@@ -1,6 +1,8 @@
-package code.util;
+package code.util.core;
 
-final class WordsSeparators {
+import code.util.StringList;
+
+public final class WordsSeparators {
 
     private StringList words;
     private StringList separators;

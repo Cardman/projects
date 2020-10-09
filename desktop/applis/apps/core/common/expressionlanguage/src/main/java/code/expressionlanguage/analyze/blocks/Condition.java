@@ -11,7 +11,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class Condition extends BracedBlock implements BuildableElMethod {
 
@@ -72,7 +72,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                     un_.setIndexFile(conditionOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(resultClass_.getNames(),"&"));
+                            StringUtil.join(resultClass_.getNames(),"&"));
                     _page.addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());

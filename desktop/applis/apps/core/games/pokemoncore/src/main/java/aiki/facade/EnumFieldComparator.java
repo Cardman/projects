@@ -1,7 +1,7 @@
 package aiki.facade;
-import code.util.CustList;
 import code.util.AbsMap;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.SortConstants;
 
 public final class EnumFieldComparator<E> {
 
@@ -18,7 +18,7 @@ public final class EnumFieldComparator<E> {
         if (increasing == SelectedBoolean.NO) {
             return translations.getVal(_o2).compareTo(translations.getVal(_o1));
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
     public void setIncreasing(SelectedBoolean _increasing) {

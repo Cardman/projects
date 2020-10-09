@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.StringUtil;
 
 
 public final class EffectInvoke extends Effect {
@@ -31,7 +32,7 @@ public final class EffectInvoke extends Effect {
             }
         }
         for (String k : invokingMoveByUserTypes.getKeys()) {
-            if (!k.isEmpty() && !StringList.contains(_data.getTypes(), k)) {
+            if (!k.isEmpty() && !StringUtil.contains(_data.getTypes(), k)) {
                 _data.setError(true);
             }
             if (!_data.getMoves().contains(invokingMoveByUserTypes.getVal(k))) {

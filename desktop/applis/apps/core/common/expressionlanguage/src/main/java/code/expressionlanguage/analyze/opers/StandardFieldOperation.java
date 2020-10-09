@@ -5,7 +5,8 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class StandardFieldOperation extends SettableAbstractFieldOperation {
 
@@ -33,15 +34,15 @@ public final class StandardFieldOperation extends SettableAbstractFieldOperation
     @Override
     String getFieldName() {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return originalStr_.trim();
     }
 
     @Override
     public int getDelta() {
         OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        return StringList.getFirstPrintableCharIndex(originalStr_);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        return StringUtil.getFirstPrintableCharIndex(originalStr_);
     }
     @Override
     boolean isBaseAccess() {

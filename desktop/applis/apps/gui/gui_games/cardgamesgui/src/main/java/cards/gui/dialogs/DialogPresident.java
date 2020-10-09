@@ -17,8 +17,8 @@ import code.gui.Spinner;
 import code.gui.TextLabel;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public abstract class DialogPresident extends DialogCards implements DialogVaryingPlayerNumber {
@@ -130,7 +130,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(new TextLabel(""));
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
-        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing = new CustCheckBox(message_);
         possibleReversing.setSelected(getReglesPresident().isPossibleReversing());
         rules_.add(possibleReversing);
@@ -197,14 +197,14 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         nbStacks.setRangeValue(v_,minStacks_,maxStacks_);
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= v_;
-        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 
     public void validateStacks() {
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= nbStacks.getValue();
-        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 

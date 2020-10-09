@@ -7,8 +7,8 @@ import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.gui.CustComponent;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class AnchorEvent extends MouseAdapter {
 
@@ -38,9 +38,9 @@ public final class AnchorEvent extends MouseAdapter {
         } else if (leaf instanceof DualAnimatedImage) {
             anchorRef_ = ((DualAnimatedImage)leaf).getHref();
         }
-        long na_ = CustList.INDEX_NOT_FOUND_ELT;
+        long na_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (anchor.hasAttribute("n-a")) {
-            na_ = Numbers.parseLongZero(anchor.getAttribute("n-a"));
+            na_ = NumberUtil.parseLongZero(anchor.getAttribute("n-a"));
         }
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);

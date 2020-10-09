@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -774,7 +775,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
     }
 
     private int nbBeatTrainers(ObjectMap<NbFightCoords,Boolean> _map,boolean _taken) {
-        int n_ = CustList.FIRST_INDEX;
+        int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
             for (EntryCust<NbFightCoords, Boolean> e: _map.entryList()) {
                 if (e.getValue()) {
@@ -978,7 +979,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
     }
 
     private int nbPokemon(ObjectMap<Coords,Boolean> _map,boolean _taken) {
-        int n_ = CustList.FIRST_INDEX;
+        int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
             for (EntryCust<Coords, Boolean> e: _map.entryList()) {
                 if (e.getValue()) {

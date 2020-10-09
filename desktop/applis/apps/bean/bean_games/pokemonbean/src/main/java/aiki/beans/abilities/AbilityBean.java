@@ -22,6 +22,7 @@ import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public class AbilityBean extends CommonBean {
     static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
@@ -125,7 +126,7 @@ public class AbilityBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pk_ = data_.getPokemon(p);
-            if (!StringList.contains(pk_.getAbilities(), name)) {
+            if (!StringUtil.contains(pk_.getAbilities(), name)) {
                 continue;
             }
             pokemon.add(p);
@@ -144,11 +145,7 @@ public class AbilityBean extends CommonBean {
             reasonsEndRound = new StringList();
             mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
-        if (!ability_.getEffectSending().isEmpty()) {
-            sending = true;
-        } else {
-            sending = false;
-        }
+        sending = !ability_.getEffectSending().isEmpty();
         StringMap<String> translatedCategories_;
         translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         StringMap<String> translatedAbilities_;

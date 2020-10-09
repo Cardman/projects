@@ -25,6 +25,7 @@ import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.awt.event.WindowListener;
 
@@ -852,7 +853,7 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
         _predefinedInterfacesInitOrder.add(aliasActionListener);
@@ -864,7 +865,7 @@ public final class GuiAliases {
         map_.put("{stateChanged}", aliasStateChanged);
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
         _predefinedInterfacesInitOrder.add(aliasChangeListener);
@@ -878,7 +879,7 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
         _predefinedInterfacesInitOrder.add(aliasTreeListener);
@@ -893,7 +894,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
         map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasTableListener);
         stds_.put(aliasTableListener, content_);
         _predefinedInterfacesInitOrder.add(aliasTableListener);
@@ -919,7 +920,7 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasMouseListener0MouseDragged0());
         map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
         _predefinedInterfacesInitOrder.add(aliasMouseListener);
@@ -933,7 +934,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasWheelListener0WheelMove0());
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasWheelListener);
         stds_.put(aliasWheelListener, content_);
         _predefinedInterfacesInitOrder.add(aliasWheelListener);
@@ -951,7 +952,7 @@ public final class GuiAliases {
         map_.put("{b}", guiAliasParameters.getAliasKeyListener0KeyTyped0());
         map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasKeyListener);
         stds_.put(aliasKeyListener, content_);
         _predefinedInterfacesInitOrder.add(aliasKeyListener);
@@ -977,7 +978,7 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasWindowListener0WindowActivated0());
         map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
         _predefinedInterfacesInitOrder.add(aliasWindowListener);
@@ -992,7 +993,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasListSelection0ValueChanged0());
         map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         _predefinedInterfacesInitOrder.add(aliasListSelection);
@@ -1174,7 +1175,7 @@ public final class GuiAliases {
         map_.put("{GrList}",aliasGrList);
         map_.put("{Object}",co_.getAliasObject());
         map_.put("{dispose}",aliasImageDispose);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasPaint);
         stds_.put(aliasPaint, content_);
         _predefinedInterfacesInitOrder.add(aliasPaint);
@@ -1388,7 +1389,7 @@ public final class GuiAliases {
         methods_.add( method_);
 
         params_ = new StringList();
-        String type_ = StringList.concat(_content.getReflect().getAliasFct(),"<",aliasComponent,",?>");
+        String type_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasComponent,",?>");
         method_ = new StandardMethod(aliasComponentGetPaint, params_, type_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(type_);
@@ -2279,21 +2280,21 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        String typeHeight_ = StringList.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
+        String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typeHeight_);
         method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetHeight0()));
         methods_.add( method_);
-        String typeWidth_ = StringList.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
+        String typeWidth_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typeWidth_);
         method_ = new StandardMethod(aliasRenderSetWidth, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetWidth0()));
         methods_.add( method_);
-        String typePaint_ = StringList.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",aliasImage,",?>");
+        String typePaint_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",aliasImage,",?>");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetPaint, params_, typePaint_, false, MethodModifier.FINAL);
         methods_.add( method_);
@@ -2672,10 +2673,10 @@ public final class GuiAliases {
     }
 
     public Struct getInnerSimpleResult(ClassField _classField,LgNamesContent _content) {
-        if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
+        if (StringUtil.quickEq(_classField.getClassName(),aliasConfirm)) {
             return getResultConfirm(_classField);
         }
-        if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
+        if (StringUtil.quickEq(_classField.getClassName(),aliasPanelBorder)) {
             return getResultPanelBorder(_classField);
         }
         return ValidatorStandard.getSimpleResultBase(_classField, _content.getNbAlias());
@@ -2683,28 +2684,28 @@ public final class GuiAliases {
 
     private Struct getResultPanelBorder(ClassField _classField) {
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,aliasPanelBorderNorth)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderNorth)) {
             return new StringStruct(PanelBorderStruct.NORTH);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderSouth)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderSouth)) {
             return new StringStruct(PanelBorderStruct.SOUTH);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderWest)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderWest)) {
             return new StringStruct(PanelBorderStruct.WEST);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderEast)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderEast)) {
             return new StringStruct(PanelBorderStruct.EAST);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderCenter)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderCenter)) {
             return new StringStruct(PanelBorderStruct.CENTER);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeFirst)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderBeforeFirst)) {
             return new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeLineBegins)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderBeforeLineBegins)) {
             return new StringStruct(PanelBorderStruct.BEFORE_LINE_BEGINS);
         }
-        if (StringList.quickEq(fieldName_,aliasPanelBorderAfterLineEnds)) {
+        if (StringUtil.quickEq(fieldName_,aliasPanelBorderAfterLineEnds)) {
             return new StringStruct(PanelBorderStruct.AFTER_LINE_ENDS);
         }
         return new StringStruct(PanelBorderStruct.AFTER_LAST_LINE);
@@ -2712,13 +2713,13 @@ public final class GuiAliases {
 
     private Struct getResultConfirm(ClassField _classField) {
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,aliasConfirmFieldOk)) {
+        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldOk)) {
             return new IntStruct(OtherConfirmDialog.OK_OPTION);
         }
-        if (StringList.quickEq(fieldName_,aliasConfirmFieldYes)) {
+        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldYes)) {
             return new IntStruct(OtherConfirmDialog.YES_OPTION);
         }
-        if (StringList.quickEq(fieldName_,aliasConfirmFieldNo)) {
+        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldNo)) {
             return new IntStruct(OtherConfirmDialog.NO_OPTION);
         }
         return new IntStruct(OtherConfirmDialog.CANCEL_OPTION);
@@ -2728,10 +2729,10 @@ public final class GuiAliases {
         if (!arg_.isNull() || _cont.callsOrException()) {
             return arg_;
         }
-        if (StringList.quickEq(_id,aliasFont)) {
+        if (StringUtil.quickEq(_id,aliasFont)) {
             return new Argument(new FontStruct());
         }
-        if (StringList.quickEq(_id,aliasWindowSet)) {
+        if (StringUtil.quickEq(_id,aliasWindowSet)) {
             WindowSetStruct set_ = new WindowSetStruct(true);
             return new Argument(set_);
         }
@@ -2739,44 +2740,44 @@ public final class GuiAliases {
             processFailInit(_cont, _custAliases);
             return new Argument();
         }
-        if (StringList.quickEq(_id,aliasFrame)) {
+        if (StringUtil.quickEq(_id,aliasFrame)) {
             FrameStruct fr_ = new FrameStruct(new OtherFrame());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
             return new Argument(fr_);
         }
-        if (StringList.quickEq(_id,aliasDialog)) {
+        if (StringUtil.quickEq(_id,aliasDialog)) {
             DialogStruct di_ = new DialogStruct(new OtherDialog());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
             return new Argument(di_);
         }
-        if (StringList.quickEq(_id,aliasPanel)) {
+        if (StringUtil.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
         }
-        if (StringList.quickEq(_id,aliasTabbedPane)) {
+        if (StringUtil.quickEq(_id,aliasTabbedPane)) {
             return new Argument(new TabbedPaneStruct(aliasTabbedPane));
         }
-        if (StringList.quickEq(_id,aliasScrollPane)) {
+        if (StringUtil.quickEq(_id,aliasScrollPane)) {
             return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane));
         }
-        if (StringList.quickEq(_id,aliasPanelBorder)) {
+        if (StringUtil.quickEq(_id,aliasPanelBorder)) {
             return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder));
         }
-        if (StringList.quickEq(_id,aliasButton)) {
+        if (StringUtil.quickEq(_id,aliasButton)) {
             return new Argument(new PlainButtonStruct(aliasButton));
         }
-        if (StringList.quickEq(_id,aliasTextLabel)) {
+        if (StringUtil.quickEq(_id,aliasTextLabel)) {
             return new Argument(new TextLabelStruct(aliasTextLabel));
         }
-        if (StringList.quickEq(_id,aliasImageLabel)) {
+        if (StringUtil.quickEq(_id,aliasImageLabel)) {
             return new Argument(new PreparedLabelStruct(aliasImageLabel));
         }
-        if (StringList.quickEq(_id,aliasRender)) {
+        if (StringUtil.quickEq(_id,aliasRender)) {
             return new Argument(new RenderStruct());
         }
-        if (StringList.quickEq(_id,aliasGrList)) {
+        if (StringUtil.quickEq(_id,aliasGrList)) {
             return new Argument(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
         }
-        if (StringList.quickEq(_id,aliasCombo)) {
+        if (StringUtil.quickEq(_id,aliasCombo)) {
             return new Argument(new GraphicComboStruct(aliasCombo));
         }
         return arg_;
@@ -2785,7 +2786,7 @@ public final class GuiAliases {
                                          ConstructorId _method, Struct... _args) {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
-        if (StringList.quickEq(name_,aliasActionEvent)) {
+        if (StringUtil.quickEq(name_,aliasActionEvent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2794,12 +2795,12 @@ public final class GuiAliases {
             r_.setResult(new ActionEventStruct(aliasActionEvent));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasWindowSet)) {
+        if (StringUtil.quickEq(name_,aliasWindowSet)) {
             WindowSetStruct set_ = new WindowSetStruct(true);
             r_.setResult(set_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasWindowEvent)) {
+        if (StringUtil.quickEq(name_,aliasWindowEvent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2808,7 +2809,7 @@ public final class GuiAliases {
             r_.setResult(new WindowEventStruct(aliasWindowEvent));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasMouseEvent)) {
+        if (StringUtil.quickEq(name_,aliasMouseEvent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2827,7 +2828,7 @@ public final class GuiAliases {
             r_.setResult(res_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasWheelEvent)) {
+        if (StringUtil.quickEq(name_,aliasWheelEvent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2847,7 +2848,7 @@ public final class GuiAliases {
             r_.setResult(res_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasKeyEvent)) {
+        if (StringUtil.quickEq(name_,aliasKeyEvent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2862,7 +2863,7 @@ public final class GuiAliases {
             r_.setResult(res_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasFrame)) {
+        if (StringUtil.quickEq(name_,aliasFrame)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2873,7 +2874,7 @@ public final class GuiAliases {
             r_.setResult(fr_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasDialog)) {
+        if (StringUtil.quickEq(name_,aliasDialog)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2884,7 +2885,7 @@ public final class GuiAliases {
             r_.setResult(di_);
             return r_;
         }
-        if (StringList.quickEq(name_,aliasPanel)) {
+        if (StringUtil.quickEq(name_,aliasPanel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2893,7 +2894,7 @@ public final class GuiAliases {
             r_.setResult(PanelStruct.newFlow(aliasPanel));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasPanelBorder)) {
+        if (StringUtil.quickEq(name_,aliasPanelBorder)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2902,7 +2903,7 @@ public final class GuiAliases {
             r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasTabbedPane)) {
+        if (StringUtil.quickEq(name_,aliasTabbedPane)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2911,7 +2912,7 @@ public final class GuiAliases {
             r_.setResult(new TabbedPaneStruct(aliasTabbedPane));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasScrollPane)) {
+        if (StringUtil.quickEq(name_,aliasScrollPane)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2924,7 +2925,7 @@ public final class GuiAliases {
             }
             return r_;
         }
-        if (StringList.quickEq(name_,aliasSplitPane)) {
+        if (StringUtil.quickEq(name_,aliasSplitPane)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2955,7 +2956,7 @@ public final class GuiAliases {
             r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasProgBar)) {
+        if (StringUtil.quickEq(name_, aliasProgBar)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2964,7 +2965,7 @@ public final class GuiAliases {
             r_.setResult(new ProgressBarStruct(aliasProgBar));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasButton)) {
+        if (StringUtil.quickEq(name_,aliasButton)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2977,7 +2978,7 @@ public final class GuiAliases {
             }
             return r_;
         }
-        if (StringList.quickEq(name_,aliasTextLabel)) {
+        if (StringUtil.quickEq(name_,aliasTextLabel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -2990,7 +2991,7 @@ public final class GuiAliases {
             }
             return r_;
         }
-        if (StringList.quickEq(name_,aliasImageLabel)) {
+        if (StringUtil.quickEq(name_,aliasImageLabel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3003,7 +3004,7 @@ public final class GuiAliases {
             }
             return r_;
         }
-        if (StringList.quickEq(name_,aliasFont)) {
+        if (StringUtil.quickEq(name_,aliasFont)) {
             if (_method.getParametersTypes().size() == 0) {
                 r_.setResult(new FontStruct());
                 return r_;
@@ -3015,7 +3016,7 @@ public final class GuiAliases {
             r_.setResult(new FontStruct(_args[0],BooleanStruct.isTrue(_args[1]),BooleanStruct.isTrue(_args[2]),((NumberStruct)_args[3]).intStruct()));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasColor)) {
+        if (StringUtil.quickEq(name_,aliasColor)) {
             if (_method.getParametersTypes().size() == 1) {
                 r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct()));
                 return r_;
@@ -3031,11 +3032,11 @@ public final class GuiAliases {
             r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct()));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasImage)) {
+        if (StringUtil.quickEq(name_,aliasImage)) {
             r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),BooleanStruct.isTrue(_args[2])));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasDimension)) {
+        if (StringUtil.quickEq(name_,aliasDimension)) {
             if (_method.getParametersTypes().size() == 1) {
                 if (!(_args[0] instanceof DimensionStruct)) {
                     r_.setResult(new DimensionStruct(0,0));
@@ -3047,7 +3048,7 @@ public final class GuiAliases {
             r_.setResult(new DimensionStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasTreeNode)) {
+        if (StringUtil.quickEq(name_,aliasTreeNode)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3060,7 +3061,7 @@ public final class GuiAliases {
             r_.setResult(new TreeNodeStruct(_args[0]));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasTree)) {
+        if (StringUtil.quickEq(name_,aliasTree)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3073,7 +3074,7 @@ public final class GuiAliases {
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasTableGui)) {
+        if (StringUtil.quickEq(name_,aliasTableGui)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3082,7 +3083,7 @@ public final class GuiAliases {
             r_.setResult(new TableStruct(aliasTableGui, _args[0]));
             return r_;
         }
-        if (StringList.quickEq(name_,aliasRender)) {
+        if (StringUtil.quickEq(name_,aliasRender)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3091,7 +3092,7 @@ public final class GuiAliases {
             r_.setResult(new RenderStruct());
             return r_;
         }
-        if (StringList.quickEq(name_,aliasGrList)) {
+        if (StringUtil.quickEq(name_,aliasGrList)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3100,7 +3101,7 @@ public final class GuiAliases {
             r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,BooleanStruct.isTrue(_args[0])));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasCombo)) {
+        if (StringUtil.quickEq(name_, aliasCombo)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3117,7 +3118,7 @@ public final class GuiAliases {
             r_.setResult(new GraphicComboStruct(aliasCombo,((NumberStruct)_args[0]).intStruct(),_args[1]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasButtonGroup)) {
+        if (StringUtil.quickEq(name_, aliasButtonGroup)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3126,7 +3127,7 @@ public final class GuiAliases {
             r_.setResult(new CustButtonGroupStruct());
             return r_;
         }
-        if (StringList.quickEq(name_, aliasRadio)) {
+        if (StringUtil.quickEq(name_, aliasRadio)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3143,7 +3144,7 @@ public final class GuiAliases {
             r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasCheckBox)) {
+        if (StringUtil.quickEq(name_, aliasCheckBox)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3160,7 +3161,7 @@ public final class GuiAliases {
             r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0],_args[1]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasPopupMenu)) {
+        if (StringUtil.quickEq(name_, aliasPopupMenu)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3169,7 +3170,7 @@ public final class GuiAliases {
             r_.setResult(new PopupStruct(aliasPopupMenu));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasTextField)) {
+        if (StringUtil.quickEq(name_, aliasTextField)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3190,7 +3191,7 @@ public final class GuiAliases {
             r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_args[1]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasTextArea)) {
+        if (StringUtil.quickEq(name_, aliasTextArea)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3211,7 +3212,7 @@ public final class GuiAliases {
             r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasSpinner)) {
+        if (StringUtil.quickEq(name_, aliasSpinner)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3220,7 +3221,7 @@ public final class GuiAliases {
             r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasSlider)) {
+        if (StringUtil.quickEq(name_, aliasSlider)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3245,7 +3246,7 @@ public final class GuiAliases {
             r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasMenuBar)) {
+        if (StringUtil.quickEq(name_, aliasMenuBar)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3254,7 +3255,7 @@ public final class GuiAliases {
             r_.setResult(new MenuBarStruct());
             return r_;
         }
-        if (StringList.quickEq(name_, aliasMenu)) {
+        if (StringUtil.quickEq(name_, aliasMenu)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3267,7 +3268,7 @@ public final class GuiAliases {
             r_.setResult(new MenuStruct(_args[0]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasMenuItem)) {
+        if (StringUtil.quickEq(name_, aliasMenuItem)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3280,7 +3281,7 @@ public final class GuiAliases {
             r_.setResult(new MenuItemStruct(_args[0]));
             return r_;
         }
-        if (StringList.quickEq(name_, aliasMenuItemCheck)) {
+        if (StringUtil.quickEq(name_, aliasMenuItemCheck)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 r_.setResult(NullStruct.NULL_VALUE);
@@ -3300,38 +3301,38 @@ public final class GuiAliases {
         ResultErrorStd res_ = new ResultErrorStd();
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
-        if (StringList.quickEq(type_, aliasWindowType)) {
+        if (StringUtil.quickEq(type_, aliasWindowType)) {
             WindowStruct inst_ = (WindowStruct) _instance;
-            if (StringList.quickEq(name_, aliasSetMenuBar)) {
+            if (StringUtil.quickEq(name_, aliasSetMenuBar)) {
                 inst_.setMenuBar(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGetMenuBar)) {
+            if (StringUtil.quickEq(name_, aliasGetMenuBar)) {
                 res_.setResult(inst_.getMenuBar());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPack)) {
+            if (StringUtil.quickEq(name_, aliasPack)) {
                 inst_.pack();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasWindowTypeRelative)) {
+            if (StringUtil.quickEq(name_, aliasWindowTypeRelative)) {
                 inst_.setLocationRelativeTo(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAddWindowListener)) {
+            if (StringUtil.quickEq(name_, aliasAddWindowListener)) {
                 _guiEx.addWindowListener(inst_, _args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRemoveWindowListener)) {
+            if (StringUtil.quickEq(name_, aliasRemoveWindowListener)) {
                 _guiEx.removeWindowListener(inst_, _args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGetWindowListeners)) {
+            if (StringUtil.quickEq(name_, aliasGetWindowListeners)) {
                 WindowListener[] listeners_ = inst_.getWindowListeners();
                 CustList<Struct> user_ = new CustList<Struct>();
                 for (WindowListener w: inst_.getWindowListeners()) {
@@ -3347,16 +3348,16 @@ public final class GuiAliases {
                 res_.setResult(arr_);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasIsVisible)) {
+            if (StringUtil.quickEq(name_, aliasIsVisible)) {
                 res_.setResult(BooleanStruct.of(inst_.isVisible()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSetVisible)) {
+            if (StringUtil.quickEq(name_, aliasSetVisible)) {
                 inst_.setVisible(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasDispose)) {
+            if (StringUtil.quickEq(name_, aliasDispose)) {
                 if (inst_ instanceof FrameStruct && ((FrameStruct)inst_).getCommonFrame().isMainFrame()) {
                     ((GuiContextEl)_cont).disposeAll(_guiEx);
                 } else {
@@ -3372,8 +3373,8 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasWindowSet)) {
-            if (StringList.quickEq(name_,aliasWindowSetAdd)) {
+        if (StringUtil.quickEq(type_, aliasWindowSet)) {
+            if (StringUtil.quickEq(name_,aliasWindowSetAdd)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3388,7 +3389,7 @@ public final class GuiAliases {
                 }
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasWindowSetAll)) {
+            if (StringUtil.quickEq(name_,aliasWindowSetAll)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont, _custAliases);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3397,7 +3398,7 @@ public final class GuiAliases {
                 res_.setResult(((GuiContextEl)_cont).getGuiInit().getWindows());
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasWindowSetRemove)) {
+            if (StringUtil.quickEq(name_,aliasWindowSetRemove)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3408,7 +3409,7 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasWindowSetContains)) {
+            if (StringUtil.quickEq(name_,aliasWindowSetContains)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3422,13 +3423,13 @@ public final class GuiAliases {
             res_.setResult(ins_.toSnapshotArray(_cont));
             return res_;
         }
-        if (StringList.quickEq(type_, aliasConfirm)) {
+        if (StringUtil.quickEq(type_, aliasConfirm)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasConfirmField)) {
+            if (StringUtil.quickEq(name_, aliasConfirmField)) {
                 if (_method.getConstraints().getParametersTypes().size() == 7) {
                     res_.setResult(_guiEx.showTextField(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5], _args[6]));
                     return res_;
@@ -3436,7 +3437,7 @@ public final class GuiAliases {
                 res_.setResult(_guiEx.showTextField(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasConfirmFull)) {
+            if (StringUtil.quickEq(name_, aliasConfirmFull)) {
                 if (_method.getConstraints().getParametersTypes().size() == 7) {
                     res_.setResult(_guiEx.getAnswer(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5], _args[6]));
                     return res_;
@@ -3444,7 +3445,7 @@ public final class GuiAliases {
                 res_.setResult(_guiEx.getAnswer(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasConfirmYesNo)) {
+            if (StringUtil.quickEq(name_, aliasConfirmYesNo)) {
                 if (_method.getConstraints().getParametersTypes().size() == 6) {
                     res_.setResult(_guiEx.getAnswerYesNo(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5]));
                     return res_;
@@ -3452,7 +3453,7 @@ public final class GuiAliases {
                 res_.setResult(_guiEx.getAnswerYesNo(_args[0], _args[1], _args[2], _args[3], _args[4]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasConfirmOk)) {
+            if (StringUtil.quickEq(name_, aliasConfirmOk)) {
                 if (_method.getConstraints().getParametersTypes().size() == 5) {
                     res_.setResult(_guiEx.getAnswerOk(_args[0], _args[1], _args[2], _args[3], _args[4]));
                     return res_;
@@ -3469,13 +3470,13 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasFrame)) {
+        if (StringUtil.quickEq(type_, aliasFrame)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasWindow)) {
+            if (StringUtil.quickEq(name_, aliasWindow)) {
                 res_.setResult(_guiEx.getFrame());
                 return res_;
             }
@@ -3490,9 +3491,9 @@ public final class GuiAliases {
             res_.setResult(result_);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasDialog)) {
+        if (StringUtil.quickEq(type_, aliasDialog)) {
             OtherDialog inst_ = ((DialogStruct)_instance).getDialog();
-            if (StringList.quickEq(name_, aliasDialogSetModal)) {
+            if (StringUtil.quickEq(name_, aliasDialogSetModal)) {
                 inst_.setModal(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -3500,41 +3501,41 @@ public final class GuiAliases {
             res_.setResult(BooleanStruct.of(inst_.isModal()));
             return res_;
         }
-        if (StringList.quickEq(type_, aliasDimension)) {
+        if (StringUtil.quickEq(type_, aliasDimension)) {
             DimensionStruct inst_ = (DimensionStruct)_instance;
-            if (StringList.quickEq(name_, aliasDimensionGetHeight)) {
+            if (StringUtil.quickEq(name_, aliasDimensionGetHeight)) {
                 res_.setResult(inst_.getHeight());
                 return res_;
             }
             res_.setResult(inst_.getWidth());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasComponent)) {
+        if (StringUtil.quickEq(type_, aliasComponent)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentInvokeLater)) {
+            if (StringUtil.quickEq(name_, aliasComponentInvokeLater)) {
                 CustComponentStruct.invokeLater((RunnableContextEl) _cont,_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             CustComponentStruct inst_ = (CustComponentStruct)_instance;
-            if (StringList.quickEq(name_, aliasAddKeyListener)) {
+            if (StringUtil.quickEq(name_, aliasAddKeyListener)) {
                 inst_.addKeyListener(_args[0]);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAddWheelListener)) {
+            if (StringUtil.quickEq(name_, aliasAddWheelListener)) {
                 inst_.addWheel(_args[0]);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAddListener)) {
+            if (StringUtil.quickEq(name_, aliasAddListener)) {
                 inst_.addMouse(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompBack)) {
+            if (StringUtil.quickEq(name_, aliasCompBack)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setBackground(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3543,7 +3544,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.getBackground());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompFore)) {
+            if (StringUtil.quickEq(name_, aliasCompFore)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setForeground(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3552,7 +3553,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.getForeground());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompFocusable)) {
+            if (StringUtil.quickEq(name_, aliasCompFocusable)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setFocusable(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3561,7 +3562,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.isFocusable());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompOpaque)) {
+            if (StringUtil.quickEq(name_, aliasCompOpaque)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setOpaque(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3570,7 +3571,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.isOpaque());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompToolTip)) {
+            if (StringUtil.quickEq(name_, aliasCompToolTip)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setToolTipText(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3579,20 +3580,20 @@ public final class GuiAliases {
                 res_.setResult(inst_.getToolTipText());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompGetFirstPos)) {
+            if (StringUtil.quickEq(name_, aliasCompGetFirstPos)) {
                 res_.setResult(inst_.getXcoords());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompGetSecondPos)) {
+            if (StringUtil.quickEq(name_, aliasCompGetSecondPos)) {
                 res_.setResult(inst_.getYcoords());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompLoc)) {
+            if (StringUtil.quickEq(name_, aliasCompLoc)) {
                 inst_.setLocation(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompBorLine)) {
+            if (StringUtil.quickEq(name_, aliasCompBorLine)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setLineBorder(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3602,88 +3603,88 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompBorTitle)) {
+            if (StringUtil.quickEq(name_, aliasCompBorTitle)) {
                 inst_.setTitledBorder(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompBorLower)) {
+            if (StringUtil.quickEq(name_, aliasCompBorLower)) {
                 inst_.setLoweredBorder();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCompBorRaise)) {
+            if (StringUtil.quickEq(name_, aliasCompBorRaise)) {
                 inst_.setRaisedBorder();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRequestFocus)) {
+            if (StringUtil.quickEq(name_, aliasRequestFocus)) {
                 inst_.requestFocus();
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGetFont)) {
+            if (StringUtil.quickEq(name_, aliasGetFont)) {
                 res_.setResult(inst_.getFont());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSetFont)) {
+            if (StringUtil.quickEq(name_, aliasSetFont)) {
                 inst_.setFont(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGetNextCompo)) {
+            if (StringUtil.quickEq(name_, aliasGetNextCompo)) {
                 res_.setResult(inst_.getNext());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentGetPaint)) {
+            if (StringUtil.quickEq(name_, aliasComponentGetPaint)) {
                 res_.setResult(inst_.getPaintEvent());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentSetPaint)) {
+            if (StringUtil.quickEq(name_, aliasComponentSetPaint)) {
                 inst_.setPaintEvent(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentGetHeight)) {
+            if (StringUtil.quickEq(name_, aliasComponentGetHeight)) {
                 res_.setResult(new IntStruct(inst_.getHeight()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentGetWidth)) {
+            if (StringUtil.quickEq(name_, aliasComponentGetWidth)) {
                 res_.setResult(new IntStruct(inst_.getWidth()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentGetPreferredSize)) {
+            if (StringUtil.quickEq(name_, aliasComponentGetPreferredSize)) {
                 res_.setResult(inst_.getPreferredSize());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentSetSize)) {
+            if (StringUtil.quickEq(name_, aliasComponentSetSize)) {
                 inst_.setSize(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentSetPreferredSize)) {
+            if (StringUtil.quickEq(name_, aliasComponentSetPreferredSize)) {
                 inst_.setPreferredSize(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentIsVisible)) {
+            if (StringUtil.quickEq(name_, aliasComponentIsVisible)) {
                 res_.setResult(inst_.isVisible());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentSetVisible)) {
+            if (StringUtil.quickEq(name_, aliasComponentSetVisible)) {
                 inst_.setVisible(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentIsAutoscrolls)) {
+            if (StringUtil.quickEq(name_, aliasComponentIsAutoscrolls)) {
                 res_.setResult(inst_.isAutoscrolls());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentSetAutoscrolls)) {
+            if (StringUtil.quickEq(name_, aliasComponentSetAutoscrolls)) {
                 inst_.setAutoscrolls(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComponentRepaint)) {
+            if (StringUtil.quickEq(name_, aliasComponentRepaint)) {
                 Argument arg_ = new Argument(inst_);
                 ExecRootBlock classBody_ = _guiEx.getPaint();
                 ExecNamedFunctionBlock fct_ = _guiEx.getPaintMethod();
@@ -3694,44 +3695,44 @@ public final class GuiAliases {
             res_.setResult(inst_.getParentComponent());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasPanel)) {
+        if (StringUtil.quickEq(type_, aliasPanel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPanelAbsolute)) {
+            if (StringUtil.quickEq(name_, aliasPanelAbsolute)) {
                 res_.setResult(PanelStruct.newAbsolute(aliasPanel));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPanelFlow)) {
+            if (StringUtil.quickEq(name_, aliasPanelFlow)) {
                 res_.setResult(PanelStruct.newFlow(aliasPanel));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPanelGrid)) {
+            if (StringUtil.quickEq(name_, aliasPanelGrid)) {
                 res_.setResult(PanelStruct.newGrid(aliasPanel,((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPanelPageBox)) {
+            if (StringUtil.quickEq(name_, aliasPanelPageBox)) {
                 res_.setResult(PanelStruct.newPageBox(aliasPanel));
                 return res_;
             }
             PanelStruct strPan_ = (PanelStruct) _instance;
-            if (StringList.quickEq(name_, aliasCount)) {
+            if (StringUtil.quickEq(name_, aliasCount)) {
                 res_.setResult(new IntStruct(strPan_.getComponentCount()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPanelValidate)) {
+            if (StringUtil.quickEq(name_, aliasPanelValidate)) {
                 strPan_.validate();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRemoveAll)) {
+            if (StringUtil.quickEq(name_, aliasRemoveAll)) {
                 strPan_.removeAll();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAddCompo)) {
+            if (StringUtil.quickEq(name_, aliasAddCompo)) {
                 if (!(_args[0] instanceof CustComponentStruct)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3745,18 +3746,18 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGetIndexCompo)) {
+            if (StringUtil.quickEq(name_, aliasGetIndexCompo)) {
                 res_.setResult(strPan_.getComponent(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
-            if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                 res_.setResult(strPan_.remove(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
             res_.setResult(strPan_.remove(_args[0]));
             return res_;
         }
-        if (StringList.quickEq(type_, aliasPanelBorder)) {
+        if (StringUtil.quickEq(type_, aliasPanelBorder)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -3771,18 +3772,18 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTabbedPane)) {
+        if (StringUtil.quickEq(type_, aliasTabbedPane)) {
             TabbedPaneStruct strPan_ = (TabbedPaneStruct) _instance;
-            if (StringList.quickEq(name_, aliasTabbedPaneNb)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneNb)) {
                 res_.setResult(strPan_.getComponentCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRemoveAll)) {
+            if (StringUtil.quickEq(name_, aliasRemoveAll)) {
                 strPan_.removeAll();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneAdd)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneAdd)) {
                 if (!(_args[1] instanceof CustComponentStruct)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3791,7 +3792,7 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneSet)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneSet)) {
                 if (!(_args[1] instanceof CustComponentStruct)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3800,20 +3801,20 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneSetTitle)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneSetTitle)) {
                 strPan_.setTitle(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneGet)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneGet)) {
                 res_.setResult(strPan_.getComponent(_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneGetTitle)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneGetTitle)) {
                 res_.setResult(strPan_.getTitle(_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneSelIndex)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneSelIndex)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     strPan_.setSelectedIndex(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3822,7 +3823,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.getSelectedIndex());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTabbedPaneIndex)) {
+            if (StringUtil.quickEq(name_, aliasTabbedPaneIndex)) {
                 if (!(_args[0] instanceof CustComponentStruct)) {
                     res_.setResult(new IntStruct(-1));
                     return res_;
@@ -3830,7 +3831,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.index((CustComponentStruct)_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                 res_.setResult(strPan_.remove(_args[0]));
                 return res_;
             }
@@ -3841,9 +3842,9 @@ public final class GuiAliases {
             res_.setResult(strPan_.remove((CustComponentStruct) _args[0]));
             return res_;
         }
-        if (StringList.quickEq(type_,aliasScrollPane)) {
+        if (StringUtil.quickEq(type_,aliasScrollPane)) {
             ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
-            if (StringList.quickEq(name_, aliasScrollPaneHorizontalValue)) {
+            if (StringUtil.quickEq(name_, aliasScrollPaneHorizontalValue)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     strPan_.setHorizontalValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3852,7 +3853,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.getHorizontalValue());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasScrollPaneVerticalValue)) {
+            if (StringUtil.quickEq(name_, aliasScrollPaneVerticalValue)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     strPan_.setVerticalValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -3861,11 +3862,11 @@ public final class GuiAliases {
                 res_.setResult(strPan_.getVerticalValue());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasScrollPaneGetView)) {
+            if (StringUtil.quickEq(name_, aliasScrollPaneGetView)) {
                 res_.setResult(strPan_.getView());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasScrollPaneValidate)) {
+            if (StringUtil.quickEq(name_, aliasScrollPaneValidate)) {
                 strPan_.revalidate();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -3874,59 +3875,59 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_,aliasSplitPane)) {
+        if (StringUtil.quickEq(type_,aliasSplitPane)) {
             SplitPaneStruct strPan_ = (SplitPaneStruct) _instance;
-            if (StringList.quickEq(name_, aliasScrollPaneValidate)) {
+            if (StringUtil.quickEq(name_, aliasScrollPaneValidate)) {
                 strPan_.revalidate();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneIsOneTouchExpandable)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneIsOneTouchExpandable)) {
                 res_.setResult(strPan_.isOneTouchExpandable());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneSetOneTouchExpandable)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneSetOneTouchExpandable)) {
                 strPan_.setOneTouchExpandable(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneIsContinuousLayout)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneIsContinuousLayout)) {
                 res_.setResult(strPan_.isContinuousLayout());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneSetContinuousLayout)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneSetContinuousLayout)) {
                 strPan_.setContinuousLayout(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneGetLeft)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneGetLeft)) {
                 res_.setResult(strPan_.getLeftComponent());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneSetLeft)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneSetLeft)) {
                 strPan_.setLeftComponent(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneGetRight)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneGetRight)) {
                 res_.setResult(strPan_.getRightComponent());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneSetRight)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneSetRight)) {
                 strPan_.setRightComponent(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneGetDividerSize)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneGetDividerSize)) {
                 res_.setResult(strPan_.getDividerSize());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneSetDividerSize)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneSetDividerSize)) {
                 strPan_.setDividerSize(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSplitPaneGetDividerLocation)) {
+            if (StringUtil.quickEq(name_, aliasSplitPaneGetDividerLocation)) {
                 res_.setResult(strPan_.getDividerLocation());
                 return res_;
             }
@@ -3934,7 +3935,7 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTextLabel)) {
+        if (StringUtil.quickEq(type_, aliasTextLabel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -3945,7 +3946,7 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasImageLabel)) {
+        if (StringUtil.quickEq(type_, aliasImageLabel)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -3956,72 +3957,72 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasMouseEvent)) {
+        if (StringUtil.quickEq(type_, aliasMouseEvent)) {
             MouseEventStruct event_ = (MouseEventStruct)_instance;
-            if (StringList.quickEq(name_, aliasMouseEventIsAlt)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsAlt)) {
                 res_.setResult(event_.isAlt());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventIsCtrl)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsCtrl)) {
                 res_.setResult(event_.isCtrl());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventIsShift)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsShift)) {
                 res_.setResult(event_.isShift());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventIsLeft)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsLeft)) {
                 res_.setResult(event_.isLeft());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventIsMiddle)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsMiddle)) {
                 res_.setResult(event_.isMiddle());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventIsRight)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventIsRight)) {
                 res_.setResult(event_.isRight());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventGetClicks)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventGetClicks)) {
                 res_.setResult(event_.getClicks());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMouseEventGetFirst)) {
+            if (StringUtil.quickEq(name_, aliasMouseEventGetFirst)) {
                 res_.setResult(event_.getFirst());
                 return res_;
             }
             res_.setResult(event_.getSecond());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasWheelEvent)) {
+        if (StringUtil.quickEq(type_, aliasWheelEvent)) {
             MouseWheelEventStruct event_ = (MouseWheelEventStruct)_instance;
             res_.setResult(event_.getRotated());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasKeyEvent)) {
+        if (StringUtil.quickEq(type_, aliasKeyEvent)) {
             KeyEventStruct event_ = (KeyEventStruct)_instance;
-            if (StringList.quickEq(name_, aliasKeyEventIsAlt)) {
+            if (StringUtil.quickEq(name_, aliasKeyEventIsAlt)) {
                 res_.setResult(event_.isAlt());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasKeyEventIsCtrl)) {
+            if (StringUtil.quickEq(name_, aliasKeyEventIsCtrl)) {
                 res_.setResult(event_.isCtrl());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasKeyEventIsShift)) {
+            if (StringUtil.quickEq(name_, aliasKeyEventIsShift)) {
                 res_.setResult(event_.isShift());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasKeyEventChar)) {
+            if (StringUtil.quickEq(name_, aliasKeyEventChar)) {
                 res_.setResult(event_.getKeyChar());
                 return res_;
             }
             res_.setResult(event_.getKeyCode());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasInput)) {
+        if (StringUtil.quickEq(type_, aliasInput)) {
             InputStruct in_ = (InputStruct) _instance;
-            if (StringList.quickEq(name_, aliasInputSetEnabled)) {
+            if (StringUtil.quickEq(name_, aliasInputSetEnabled)) {
                 in_.setEnabled(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4029,9 +4030,9 @@ public final class GuiAliases {
             res_.setResult(in_.isEnabled());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasProgBar)) {
+        if (StringUtil.quickEq(type_, aliasProgBar)) {
             ProgressBarStruct inst_ = (ProgressBarStruct) _instance;
-            if (StringList.quickEq(name_, aliasProgBarMin)) {
+            if (StringUtil.quickEq(name_, aliasProgBarMin)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setMinimum(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4040,7 +4041,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.getMinimum());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasProgBarMax)) {
+            if (StringUtil.quickEq(name_, aliasProgBarMax)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setMaximum(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4049,7 +4050,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.getMaximum());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasProgBarValue)) {
+            if (StringUtil.quickEq(name_, aliasProgBarValue)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.setValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4066,7 +4067,7 @@ public final class GuiAliases {
             res_.setResult(inst_.isHorizontal());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasButton)) {
+        if (StringUtil.quickEq(type_, aliasButton)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -4077,7 +4078,7 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasFont)) {
+        if (StringUtil.quickEq(type_, aliasFont)) {
             if (_method.getConstraints().isStaticMethod()) {
                 Struct first_ = _args[0];
                 if (!(first_ instanceof ImageStruct)) {
@@ -4094,57 +4095,57 @@ public final class GuiAliases {
                 return res_;
             }
             FontStruct f_ = (FontStruct) _instance;
-            if (StringList.quickEq(name_, aliasFontGetName)) {
+            if (StringUtil.quickEq(name_, aliasFontGetName)) {
                 res_.setResult(f_.getName());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasFontGetSize)) {
+            if (StringUtil.quickEq(name_, aliasFontGetSize)) {
                 res_.setResult(f_.getSize());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasFontIsBold)) {
+            if (StringUtil.quickEq(name_, aliasFontIsBold)) {
                 res_.setResult(f_.isBold());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasFontIsItalic)) {
+            if (StringUtil.quickEq(name_, aliasFontIsItalic)) {
                 res_.setResult(f_.isItalic());
                 return res_;
             }
             res_.setResult(_guiEx.stringWidth(f_, _args[0]));
             return res_;
         }
-        if (StringList.quickEq(type_, aliasColor)) {
+        if (StringUtil.quickEq(type_, aliasColor)) {
             ColorStruct c_ = (ColorStruct) _instance;
-            if (StringList.quickEq(name_, aliasColorAlpha)) {
+            if (StringUtil.quickEq(name_, aliasColorAlpha)) {
                 res_.setResult(c_.getAlpha());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasColorRed)) {
+            if (StringUtil.quickEq(name_, aliasColorRed)) {
                 res_.setResult(c_.getRed());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasColorGreen)) {
+            if (StringUtil.quickEq(name_, aliasColorGreen)) {
                 res_.setResult(c_.getGreen());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasColorBlue)) {
+            if (StringUtil.quickEq(name_, aliasColorBlue)) {
                 res_.setResult(c_.getBlue());
                 return res_;
             }
             res_.setResult(c_.isTransparent());
             return res_;
         }
-        if (StringList.quickEq(type_,aliasImage)) {
+        if (StringUtil.quickEq(type_,aliasImage)) {
             ImageStruct image_ = (ImageStruct) _instance;
-            if (StringList.quickEq(name_, aliasImageGetHeight)) {
+            if (StringUtil.quickEq(name_, aliasImageGetHeight)) {
                 res_.setResult(image_.getHeight());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageGetWidth)) {
+            if (StringUtil.quickEq(name_, aliasImageGetWidth)) {
                 res_.setResult(image_.getWidth());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageSet)) {
+            if (StringUtil.quickEq(name_, aliasImageSet)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4154,19 +4155,19 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageGet)) {
+            if (StringUtil.quickEq(name_, aliasImageGet)) {
                 res_.setResult(image_.getPixel(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageIsWithAlpha)) {
+            if (StringUtil.quickEq(name_, aliasImageIsWithAlpha)) {
                 res_.setResult(image_.isWithAlpha());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageGetColor)) {
+            if (StringUtil.quickEq(name_, aliasImageGetColor)) {
                 res_.setResult(image_.getColor());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageSetColor)) {
+            if (StringUtil.quickEq(name_, aliasImageSetColor)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4176,11 +4177,11 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageGetFont)) {
+            if (StringUtil.quickEq(name_, aliasImageGetFont)) {
                 res_.setResult(image_.getFont());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageSetFont)) {
+            if (StringUtil.quickEq(name_, aliasImageSetFont)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4195,13 +4196,13 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDispose)) {
+            if (StringUtil.quickEq(name_, aliasImageDispose)) {
                 image_.dispose();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDraw)) {
-                if (StringList.quickEq(getAliasImage(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(name_, aliasImageDraw)) {
+                if (StringUtil.quickEq(getAliasImage(),_method.getConstraints().getParametersTypes().first())) {
                     image_.drawImage(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4210,32 +4211,32 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDrawLine)) {
+            if (StringUtil.quickEq(name_, aliasImageDrawLine)) {
                 image_.drawLine(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDrawRect)) {
+            if (StringUtil.quickEq(name_, aliasImageDrawRect)) {
                 image_.drawRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDrawOval)) {
+            if (StringUtil.quickEq(name_, aliasImageDrawOval)) {
                 image_.drawOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageDrawPolygon)) {
+            if (StringUtil.quickEq(name_, aliasImageDrawPolygon)) {
                 image_.drawPolygon(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageFillRect)) {
+            if (StringUtil.quickEq(name_, aliasImageFillRect)) {
                 image_.fillRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasImageFillOval)) {
+            if (StringUtil.quickEq(name_, aliasImageFillOval)) {
                 image_.fillOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4244,20 +4245,20 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTreeNode)) {
+        if (StringUtil.quickEq(type_, aliasTreeNode)) {
             TreeNodeStruct inst_ = (TreeNodeStruct) _instance;
-            if (StringList.quickEq(name_, aliasTreeNodeAdd)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeAdd)) {
                 inst_.add(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeInsert)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeInsert)) {
                 inst_.insert(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeRemove)) {
-                if (StringList.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeRemove)) {
+                if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                     inst_.remove(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4266,64 +4267,64 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
                 inst_.removeFromParent();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
                 inst_.removeAllChildren();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeSetUserObject)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeSetUserObject)) {
                 inst_.setUserObject(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetUserObject)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetUserObject)) {
                 res_.setResult(inst_.getUserObject());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeNb)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeNb)) {
                 res_.setResult(inst_.getChildCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetFirstChild)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetFirstChild)) {
                 res_.setResult(inst_.getFirstChild());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetLastChild)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetLastChild)) {
                 res_.setResult(inst_.getLastChild());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetNextSibling)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetNextSibling)) {
                 res_.setResult(inst_.getNextSibling());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
                 res_.setResult(inst_.getPreviousSibling());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeGetParentNode)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeGetParentNode)) {
                 res_.setResult(inst_.getParentNode());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeNodeIsAncestor)) {
+            if (StringUtil.quickEq(name_, aliasTreeNodeIsAncestor)) {
                 res_.setResult(inst_.isAncestorMethod(_args[0]));
                 return res_;
             }
             res_.setResult(inst_.isDescendantMethod(_args[0]));
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTree)) {
+        if (StringUtil.quickEq(type_, aliasTree)) {
             TreeStruct inst_ = (TreeStruct) _instance;
-            if (StringList.quickEq(name_, aliasTreeAddTreeListener)) {
+            if (StringUtil.quickEq(name_, aliasTreeAddTreeListener)) {
                 inst_.addTreeSelectionListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeGetSelected)) {
+            if (StringUtil.quickEq(name_, aliasTreeGetSelected)) {
                 if (_method.getConstraints().getParametersTypes().size() == 1) {
                     inst_.select(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -4332,11 +4333,11 @@ public final class GuiAliases {
                 res_.setResult(inst_.getLastSelectedPathComponent());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeIsRootVisible)) {
+            if (StringUtil.quickEq(name_, aliasTreeIsRootVisible)) {
                 res_.setResult(inst_.isRootVisible());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTreeSetRootVisible)) {
+            if (StringUtil.quickEq(name_, aliasTreeSetRootVisible)) {
                 inst_.setRootVisible(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4345,182 +4346,182 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTableGui)) {
+        if (StringUtil.quickEq(type_, aliasTableGui)) {
             TableStruct inst_ = (TableStruct) _instance;
-            if (StringList.quickEq(name_, aliasTableAddSelect)) {
+            if (StringUtil.quickEq(name_, aliasTableAddSelect)) {
                 inst_.addListSelectionListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableAddHeader)) {
+            if (StringUtil.quickEq(name_, aliasTableAddHeader)) {
                 inst_.addHeaderListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableMoveColumn)) {
+            if (StringUtil.quickEq(name_, aliasTableMoveColumn)) {
                 inst_.moveColumn(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableAddInterval)) {
+            if (StringUtil.quickEq(name_, aliasTableAddInterval)) {
                 inst_.addSelectInterval(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableRemoveInterval)) {
+            if (StringUtil.quickEq(name_, aliasTableRemoveInterval)) {
                 inst_.removeSelectInterval(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableApplyChanges)) {
+            if (StringUtil.quickEq(name_, aliasTableApplyChanges)) {
                 inst_.applyChanges();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetColumnAtPoint)) {
+            if (StringUtil.quickEq(name_, aliasTableGetColumnAtPoint)) {
                 res_.setResult(inst_.columnAtPoint(_args[0],_args[1]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetRowAtPoint)) {
+            if (StringUtil.quickEq(name_, aliasTableGetRowAtPoint)) {
                 res_.setResult(inst_.rowAtPoint(_args[0],_args[1]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetColumnCount)) {
+            if (StringUtil.quickEq(name_, aliasTableGetColumnCount)) {
                 res_.setResult(inst_.getColumnCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetRowCount)) {
+            if (StringUtil.quickEq(name_, aliasTableGetRowCount)) {
                 res_.setResult(inst_.getRowCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetColumnName)) {
+            if (StringUtil.quickEq(name_, aliasTableGetColumnName)) {
                 res_.setResult(inst_.getColumnName(_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetSelectedRow)) {
+            if (StringUtil.quickEq(name_, aliasTableGetSelectedRow)) {
                 res_.setResult(inst_.getSelectedRow());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetSelectedRows)) {
+            if (StringUtil.quickEq(name_, aliasTableGetSelectedRows)) {
                 res_.setResult(inst_.getSelectedRows(_cont));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetSelectedRowCount)) {
+            if (StringUtil.quickEq(name_, aliasTableGetSelectedRowCount)) {
                 res_.setResult(inst_.getSelectedRowCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableGetValue)) {
+            if (StringUtil.quickEq(name_, aliasTableGetValue)) {
                 res_.setResult(inst_.getValueAt(_args[0],_args[1]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableSetValue)) {
+            if (StringUtil.quickEq(name_, aliasTableSetValue)) {
                 inst_.setValueAt(_args[0],_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableSetColumns)) {
+            if (StringUtil.quickEq(name_, aliasTableSetColumns)) {
                 inst_.setColumnIdentifiers(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableSetMultiple)) {
+            if (StringUtil.quickEq(name_, aliasTableSetMultiple)) {
                 inst_.setMultiSelect(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableSetReorder)) {
+            if (StringUtil.quickEq(name_, aliasTableSetReorder)) {
                 inst_.setReorderingAllowed(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableSetRowCount)) {
+            if (StringUtil.quickEq(name_, aliasTableSetRowCount)) {
                 inst_.setRowCount(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTableIsMultiple)) {
+            if (StringUtil.quickEq(name_, aliasTableIsMultiple)) {
                 res_.setResult(inst_.isMultiSelect());
                 return res_;
             }
             res_.setResult(inst_.isReorderingAllowed());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasRender)) {
+        if (StringUtil.quickEq(type_, aliasRender)) {
             RenderStruct image_ = (RenderStruct) _instance;
-            if (StringList.quickEq(name_, aliasRenderSetPaint)) {
+            if (StringUtil.quickEq(name_, aliasRenderSetPaint)) {
                 image_.setPaint(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRenderSetWidth)) {
+            if (StringUtil.quickEq(name_, aliasRenderSetWidth)) {
                 image_.setWidth(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRenderSetHeight)) {
+            if (StringUtil.quickEq(name_, aliasRenderSetHeight)) {
                 image_.setHeight(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRenderGetPaint)) {
+            if (StringUtil.quickEq(name_, aliasRenderGetPaint)) {
                 res_.setResult(image_.getPaint());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRenderGetHeight)) {
+            if (StringUtil.quickEq(name_, aliasRenderGetHeight)) {
                 res_.setResult(image_.getHeight());
                 return res_;
             }
             res_.setResult(image_.getWidth());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasGrList)) {
+        if (StringUtil.quickEq(type_, aliasGrList)) {
             GraphicListStruct inst_ = (GraphicListStruct) _instance;
-            if (StringList.quickEq(name_, aliasGrListSetSelection)) {
+            if (StringUtil.quickEq(name_, aliasGrListSetSelection)) {
                 inst_.setListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListGetSelection)) {
+            if (StringUtil.quickEq(name_, aliasGrListGetSelection)) {
                 res_.setResult(inst_.getListener());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListSetVisibleRowCount)) {
+            if (StringUtil.quickEq(name_, aliasGrListSetVisibleRowCount)) {
                 inst_.setVisibleRowCount(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListGetVisibleRowCount)) {
+            if (StringUtil.quickEq(name_, aliasGrListGetVisibleRowCount)) {
                 res_.setResult(inst_.getVisibleRowCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListSetRender)) {
+            if (StringUtil.quickEq(name_, aliasGrListSetRender)) {
                 inst_.setRender(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListGetRender)) {
+            if (StringUtil.quickEq(name_, aliasGrListGetRender)) {
                 res_.setResult(inst_.getRender());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListGetListView)) {
+            if (StringUtil.quickEq(name_, aliasGrListGetListView)) {
                 res_.setResult(inst_.getListView(_cont));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListGetSelectedIndexes)) {
+            if (StringUtil.quickEq(name_, aliasGrListGetSelectedIndexes)) {
                 res_.setResult(inst_.getSelectedIndexes(_cont));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListRemove)){
+            if (StringUtil.quickEq(name_, aliasGrListRemove)){
                 inst_.remove(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListClear)){
+            if (StringUtil.quickEq(name_, aliasGrListClear)){
                 inst_.clear();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListSetSelectedIndexes)) {
+            if (StringUtil.quickEq(name_, aliasGrListSetSelectedIndexes)) {
                 inst_.setSelectedIndexes(_args[0]);
                 if (_args[0] instanceof ArrayStruct) {
                     Argument arg_ = new Argument(inst_);
@@ -4532,7 +4533,7 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListClearSelection)) {
+            if (StringUtil.quickEq(name_, aliasGrListClearSelection)) {
                 inst_.clearSelection();
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
@@ -4542,12 +4543,12 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListUpdateGraphics)) {
+            if (StringUtil.quickEq(name_, aliasGrListUpdateGraphics)) {
                 inst_.updateGraphics();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasGrListSet)) {
+            if (StringUtil.quickEq(name_, aliasGrListSet)) {
                 inst_.set(_cont,((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4566,45 +4567,45 @@ public final class GuiAliases {
             wrapAndCall(_cont, classBody_, fct_, args_);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasCombo)) {
+        if (StringUtil.quickEq(type_, aliasCombo)) {
             GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
-            if (StringList.quickEq(name_, aliasComboSetListener)) {
+            if (StringUtil.quickEq(name_, aliasComboSetListener)) {
                 inst_.setListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboGetListener)) {
+            if (StringUtil.quickEq(name_, aliasComboGetListener)) {
                 res_.setResult(inst_.getListener());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboGetSelectedIndexes)) {
+            if (StringUtil.quickEq(name_, aliasComboGetSelectedIndexes)) {
                 res_.setResult(inst_.getSelectedIndexes(_cont));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboGetSelectedIndex)) {
+            if (StringUtil.quickEq(name_, aliasComboGetSelectedIndex)) {
                 res_.setResult(inst_.getSelectedIndex());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboGetSelectedItem)) {
+            if (StringUtil.quickEq(name_, aliasComboGetSelectedItem)) {
                 res_.setResult(inst_.getSelectedItem());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboAddItem)) {
+            if (StringUtil.quickEq(name_, aliasComboAddItem)) {
                 inst_.addItem(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboSelectItem)) {
+            if (StringUtil.quickEq(name_, aliasComboSelectItem)) {
                 inst_.selectItem((RunnableContextEl) _cont,(NumberStruct) _args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboRemoveItem)) {
+            if (StringUtil.quickEq(name_, aliasComboRemoveItem)) {
                 inst_.removeItem(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasComboRemoveAllItems)) {
+            if (StringUtil.quickEq(name_, aliasComboRemoveAllItems)) {
                 inst_.removeAllItems();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4612,23 +4613,23 @@ public final class GuiAliases {
             res_.setResult(inst_.getItemCount());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasRadio)) {
+        if (StringUtil.quickEq(type_, aliasRadio)) {
             RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
-            if (StringList.quickEq(name_, aliasAddChange)) {
+            if (StringUtil.quickEq(name_, aliasAddChange)) {
                 inst_.addChangeListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRadioSetSelected)) {
+            if (StringUtil.quickEq(name_, aliasRadioSetSelected)) {
                 inst_.setSelected(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRadioIsSelected)) {
+            if (StringUtil.quickEq(name_, aliasRadioIsSelected)) {
                 res_.setResult(inst_.isSelected());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRadioSetText)) {
+            if (StringUtil.quickEq(name_, aliasRadioSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4636,18 +4637,18 @@ public final class GuiAliases {
             res_.setResult(inst_.getText());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasCheckBox)) {
+        if (StringUtil.quickEq(type_, aliasCheckBox)) {
             CheckBoxStruct inst_ = (CheckBoxStruct) _instance;
-            if (StringList.quickEq(name_, aliasCheckBoxSetSelected)) {
+            if (StringUtil.quickEq(name_, aliasCheckBoxSetSelected)) {
                 inst_.setSelected(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCheckBoxIsSelected)) {
+            if (StringUtil.quickEq(name_, aliasCheckBoxIsSelected)) {
                 res_.setResult(inst_.isSelected());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasCheckBoxSetText)) {
+            if (StringUtil.quickEq(name_, aliasCheckBoxSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4655,41 +4656,41 @@ public final class GuiAliases {
             res_.setResult(inst_.getText());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasPopupMenu)) {
+        if (StringUtil.quickEq(type_, aliasPopupMenu)) {
             PopupStruct inst_ = (PopupStruct) _instance;
-            if (StringList.quickEq(name_, aliasPopupMenuAdd)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuAdd)) {
                 inst_.add(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuGetComp)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuGetComp)) {
                 res_.setResult(inst_.getCompo(_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuRemoveComp)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuRemoveComp)) {
                 inst_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuNbComp)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuNbComp)) {
                 res_.setResult(inst_.getCompoCount());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuAddMenu)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuAddMenu)) {
                 inst_.addMenu(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuGetMenu)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuGetMenu)) {
                 res_.setResult(inst_.getMenu(_args[0]));
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuRemoveMenu)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuRemoveMenu)) {
                 inst_.removeMenu(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasPopupMenuNbMenu)) {
+            if (StringUtil.quickEq(name_, aliasPopupMenuNbMenu)) {
                 res_.setResult(inst_.getMenuCount());
                 return res_;
             }
@@ -4697,14 +4698,14 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTextField)) {
+        if (StringUtil.quickEq(type_, aliasTextField)) {
             TextFieldStruct inst_ = (TextFieldStruct) _instance;
-            if (StringList.quickEq(name_, aliasTextFieldSetText)) {
+            if (StringUtil.quickEq(name_, aliasTextFieldSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextFieldAddAction)) {
+            if (StringUtil.quickEq(name_, aliasTextFieldAddAction)) {
                 inst_.addActionListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4712,62 +4713,62 @@ public final class GuiAliases {
             res_.setResult(inst_.getText());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasTextArea)) {
+        if (StringUtil.quickEq(type_, aliasTextArea)) {
             TextAreaStruct inst_ = (TextAreaStruct) _instance;
-            if (StringList.quickEq(name_, aliasTextAreaAppend)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaAppend)) {
                 inst_.append(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaInsert)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaInsert)) {
                 inst_.insert(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaReplaceRange)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaReplaceRange)) {
                 inst_.replaceRange(_args[0],_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaReplaceSelection)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaReplaceSelection)) {
                 inst_.replaceSelection(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSelect)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSelect)) {
                 inst_.select(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSelectAll)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSelectAll)) {
                 inst_.selectAll();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaGetSelectedText)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaGetSelectedText)) {
                 res_.setResult(inst_.getSelectedText());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSetSelectionStart)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSetSelectionStart)) {
                 inst_.setSelectionStart(_args[0]);
                 res_.setResult(inst_.getSelectedText());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSetSelectionEnd)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSetSelectionEnd)) {
                 inst_.setSelectionEnd(_args[0]);
                 res_.setResult(inst_.getSelectedText());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSetTabSize)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSetTabSize)) {
                 inst_.setTabSize(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaGetTabSize)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaGetTabSize)) {
                 res_.setResult(inst_.getTabSize());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasTextAreaSetText)) {
+            if (StringUtil.quickEq(name_, aliasTextAreaSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4775,51 +4776,51 @@ public final class GuiAliases {
             res_.setResult(inst_.getText());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasSpinner)) {
+        if (StringUtil.quickEq(type_, aliasSpinner)) {
             SpinnerStruct inst_ = (SpinnerStruct) _instance;
-            if (StringList.quickEq(name_, aliasAddChange)) {
+            if (StringUtil.quickEq(name_, aliasAddChange)) {
                 inst_.addChangeListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerSetRange)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerSetRange)) {
                 inst_.setRange(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerSetRangeValue)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerSetRangeValue)) {
                 inst_.setRangeValue(_args[0],_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerGetMin)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerGetMin)) {
                 res_.setResult(inst_.getMin());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerSetMin)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerSetMin)) {
                 inst_.setMin(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerGetMax)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerGetMax)) {
                 res_.setResult(inst_.getMax());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerSetMax)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerSetMax)) {
                 inst_.setMax(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerGetValue)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerGetValue)) {
                 res_.setResult(inst_.getValue());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerSetValue)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerSetValue)) {
                 inst_.setValue(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSpinnerGetStep)) {
+            if (StringUtil.quickEq(name_, aliasSpinnerGetStep)) {
                 res_.setResult(inst_.getStep());
                 return res_;
             }
@@ -4827,41 +4828,41 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasSlider)) {
+        if (StringUtil.quickEq(type_, aliasSlider)) {
             SliderStruct inst_ = (SliderStruct) _instance;
-            if (StringList.quickEq(name_, aliasAddChange)) {
+            if (StringUtil.quickEq(name_, aliasAddChange)) {
                 inst_.addChangeListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderGetMin)) {
+            if (StringUtil.quickEq(name_, aliasSliderGetMin)) {
                 res_.setResult(inst_.getMin());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderSetMin)) {
+            if (StringUtil.quickEq(name_, aliasSliderSetMin)) {
                 inst_.setMin(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderGetMax)) {
+            if (StringUtil.quickEq(name_, aliasSliderGetMax)) {
                 res_.setResult(inst_.getMax());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderSetMax)) {
+            if (StringUtil.quickEq(name_, aliasSliderSetMax)) {
                 inst_.setMax(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderGetValue)) {
+            if (StringUtil.quickEq(name_, aliasSliderGetValue)) {
                 res_.setResult(inst_.getValue());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderSetValue)) {
+            if (StringUtil.quickEq(name_, aliasSliderSetValue)) {
                 inst_.setValue(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasSliderGetOrientation)) {
+            if (StringUtil.quickEq(name_, aliasSliderGetOrientation)) {
                 res_.setResult(inst_.getOrientation());
                 return res_;
             }
@@ -4869,45 +4870,45 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasMenuBar)) {
+        if (StringUtil.quickEq(type_, aliasMenuBar)) {
             MenuBarStruct inst_ = (MenuBarStruct)_instance;
-            if (StringList.quickEq(name_, aliasMenuBarAdd)) {
+            if (StringUtil.quickEq(name_, aliasMenuBarAdd)) {
                 inst_.add(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMenuBarRemove)) {
+            if (StringUtil.quickEq(name_, aliasMenuBarRemove)) {
                 inst_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMenuBarGet)) {
+            if (StringUtil.quickEq(name_, aliasMenuBarGet)) {
                 res_.setResult(inst_.getMenu(_args[0]));
                 return res_;
             }
             res_.setResult(inst_.getMenuCount());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasAbsMenu)) {
+        if (StringUtil.quickEq(type_, aliasAbsMenu)) {
             AbsMenuStruct inst_ = (AbsMenuStruct)_instance;
-            if (StringList.quickEq(name_, aliasAbsMenuGetParent)) {
+            if (StringUtil.quickEq(name_, aliasAbsMenuGetParent)) {
                 res_.setResult(inst_.getParentMenu());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAbsMenuGetText)) {
+            if (StringUtil.quickEq(name_, aliasAbsMenuGetText)) {
                 res_.setResult(inst_.getText());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAbsMenuSetText)) {
+            if (StringUtil.quickEq(name_, aliasAbsMenuSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAbsMenuIsEnabled)) {
+            if (StringUtil.quickEq(name_, aliasAbsMenuIsEnabled)) {
                 res_.setResult(inst_.isEnabled());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasAbsMenuSetEnabled)) {
+            if (StringUtil.quickEq(name_, aliasAbsMenuSetEnabled)) {
                 inst_.setEnabled(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4916,39 +4917,39 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasMenu)) {
+        if (StringUtil.quickEq(type_, aliasMenu)) {
             MenuStruct inst_ = (MenuStruct) _instance;
-            if (StringList.quickEq(name_, aliasMenuAdd)) {
+            if (StringUtil.quickEq(name_, aliasMenuAdd)) {
                 inst_.add(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMenuRemove)) {
+            if (StringUtil.quickEq(name_, aliasMenuRemove)) {
                 inst_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMenuAddSeparator)) {
+            if (StringUtil.quickEq(name_, aliasMenuAddSeparator)) {
                 inst_.addSeparator();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasMenuGet)) {
+            if (StringUtil.quickEq(name_, aliasMenuGet)) {
                 res_.setResult(inst_.getMenu(_args[0]));
                 return res_;
             }
             res_.setResult(inst_.getMenuCount());
             return res_;
         }
-        if (StringList.quickEq(type_, aliasAbsMenuItem)) {
+        if (StringUtil.quickEq(type_, aliasAbsMenuItem)) {
             AbsMenuItemStruct inst_ = (AbsMenuItemStruct) _instance;
             inst_.addActionListener(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(type_, aliasMenuItemCheck)) {
+        if (StringUtil.quickEq(type_, aliasMenuItemCheck)) {
             MenuItemCheckStruct inst_ = (MenuItemCheckStruct) _instance;
-            if (StringList.quickEq(name_, aliasMenuItemCheckIsSelected)) {
+            if (StringUtil.quickEq(name_, aliasMenuItemCheckIsSelected)) {
                 res_.setResult(inst_.isSelected());
                 return res_;
             }

@@ -1,9 +1,10 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
 public class OperatorCmp implements Comparing<MethodMetaInfo> {
@@ -11,19 +12,19 @@ public class OperatorCmp implements Comparing<MethodMetaInfo> {
     @Override
     public int compare(MethodMetaInfo _one, MethodMetaInfo _two) {
         int res_ = _one.getName().compareTo(_two.getName());
-        if (res_ != CustList.EQ_CMP) {
+        if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }
         StringList pOne_ = _one.getParameterNames();
         StringList pTwo_ = _two.getParameterNames();
-        res_ = Numbers.compareLg(pOne_.size(), pTwo_.size());
-        if (res_ != CustList.EQ_CMP) {
+        res_ = NumberUtil.compareLg(pOne_.size(), pTwo_.size());
+        if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
             res_ = pOne_.get(i_).compareTo(pTwo_.get(i_));
-            if (res_ != CustList.EQ_CMP) {
+            if (res_ != SortConstants.EQ_CMP) {
                 return res_;
             }
             i_++;

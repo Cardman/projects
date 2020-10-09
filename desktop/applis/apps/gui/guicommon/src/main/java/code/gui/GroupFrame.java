@@ -9,8 +9,9 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.sml.stream.ExtractFromFiles;
 import code.maths.random.AdvancedGenerator;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class GroupFrame extends CommonFrame {
     private static final String ACCESS = "gui.groupframe";
@@ -54,7 +55,7 @@ public abstract class GroupFrame extends CommonFrame {
 
     public static boolean tryToReopen(String _applicationName) {
         for (GroupFrame g: FRAMES) {
-            if (StringList.quickEq(g.getApplicationName(), _applicationName)) {
+            if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
                 g.pack();
                 g.setVisible(true);
                 return true;
@@ -86,7 +87,7 @@ public abstract class GroupFrame extends CommonFrame {
     public abstract String getApplicationName();
 
     public void destroy() {
-        int index_ = CustList.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         for (GroupFrame g: FRAMES) {
             if (g == this) {
                 FRAMES.remove(index_);

@@ -6,6 +6,8 @@ import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class StreamTextFile {
 
@@ -18,7 +20,7 @@ public final class StreamTextFile {
         FileInfo f_ = new FileInfo(new File(_folder));
         StringList files_ = new StringList();
         for (FileInfo s: getSortedDescNodes(f_)) {
-            files_.add(StringList.replaceBackSlash(s.getInfo().getAbsolutePath()));
+            files_.add(StringUtil.replaceBackSlash(s.getInfo().getAbsolutePath()));
         }
         return files_;
     }
@@ -55,11 +57,11 @@ public final class StreamTextFile {
         StringList current_ = new StringList(_folder);
         String folder_ = _folder;
         folder_ = new File(folder_).getAbsolutePath();
-        folder_ = StringList.replaceBackSlash(folder_);
-        if (folder_.endsWith(StringList.concat(SEPARATEUR,_folder))) {
-            String suffix_ = StringList.concat(SEPARATEUR,_folder);
-            folder_ = folder_.substring(CustList.FIRST_INDEX, folder_.length() - suffix_.length());
-            folder_ = StringList.concat(folder_,SEPARATEUR);
+        folder_ = StringUtil.replaceBackSlash(folder_);
+        if (folder_.endsWith(StringUtil.concat(SEPARATEUR,_folder))) {
+            String suffix_ = StringUtil.concat(SEPARATEUR,_folder);
+            folder_ = folder_.substring(IndexConstants.FIRST_INDEX, folder_.length() - suffix_.length());
+            folder_ = StringUtil.concat(folder_,SEPARATEUR);
         }
         while (true) {
             StringList new_ = new StringList();
@@ -79,7 +81,7 @@ public final class StreamTextFile {
             current_ = new StringList(new_);
         }
         files_.replaceBackSlashesInStrings();
-        StringList.removePrefixInStrings(files_,folder_);
+        StringUtil.removePrefixInStrings(files_,folder_);
         return files_;
     }
 

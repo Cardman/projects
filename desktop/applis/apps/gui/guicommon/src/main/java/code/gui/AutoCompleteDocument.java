@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -143,7 +144,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         String tr_ = text_.trim();
         if (!tr_.isEmpty()) {
             for (String s : dictionary) {
-                if (StringList.quickEq(s, tr_)) {
+                if (StringUtil.quickEq(s, tr_)) {
                     continue;
                 }
                 if (s.startsWith(tr_)) {

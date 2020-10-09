@@ -10,7 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecAnonymousInstancingOperation extends
         ExecInvokingOperation {
@@ -34,7 +34,7 @@ public final class ExecAnonymousInstancingOperation extends
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = _conf.formatVarType(instancingCommonContent.getClassName());
         String base_ = StringExpUtil.getIdFromAllTypes(className_);

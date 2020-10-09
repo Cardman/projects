@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class DoBlock extends BracedBlock implements Loop {
 
@@ -44,7 +45,7 @@ public final class DoBlock extends BracedBlock implements Loop {
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                     _page.getKeyWords().getKeyWordDo(),
-                    StringList.join(
+                    StringUtil.join(
                             new StringList(
                                     _page.getKeyWords().getKeyWordWhile()
                             ),
@@ -61,7 +62,7 @@ public final class DoBlock extends BracedBlock implements Loop {
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                     _page.getKeyWords().getKeyWordDo(),
-                    StringList.join(
+                    StringUtil.join(
                             new StringList(
                                     _page.getKeyWords().getKeyWordWhile()
                             ),

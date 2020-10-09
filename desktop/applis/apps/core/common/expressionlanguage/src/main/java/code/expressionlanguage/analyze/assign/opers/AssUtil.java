@@ -13,8 +13,8 @@ import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AssUtil {
     private AssUtil() {
@@ -235,7 +235,7 @@ public final class AssUtil {
                 } else {
                     checkFinal_ = false;
                     for (EntryCust<String, Boolean> e: _ass.entryList()) {
-                        if (!StringList.quickEq(e.getKey(), _fieldName)) {
+                        if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                             continue;
                         }
                         if (e.getValue()) {
@@ -253,7 +253,7 @@ public final class AssUtil {
             } else {
                 checkFinal_ = false;
                 for (EntryCust<String, Boolean> e: _ass.entryList()) {
-                    if (!StringList.quickEq(e.getKey(), _fieldName)) {
+                    if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
                     if (e.getValue()) {

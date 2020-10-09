@@ -1,6 +1,7 @@
 package aiki.comments;
 import aiki.db.DataBase;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class Comment {
 
@@ -15,7 +16,7 @@ public class Comment {
             messages.add(DataBase.EMPTY_STRING);
             return;
         }
-        messages.add(StringList.simpleStringsFormat(_messageFormat, _args));
+        messages.add(StringUtil.simpleStringsFormat(_messageFormat, _args));
     }
 
     public void clearMessages() {
@@ -31,6 +32,6 @@ public class Comment {
     }
 
     public String join() {
-        return StringList.join(messages, DataBase.EMPTY_STRING);
+        return StringUtil.join(messages, DataBase.EMPTY_STRING);
     }
 }

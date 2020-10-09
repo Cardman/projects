@@ -26,6 +26,9 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.mainwindow";
@@ -132,7 +135,7 @@ public class MainWindow extends GroupFrame {
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addActionListener(new SetLanguage(l));
-            radio_.setSelected(StringList.quickEq(l,_lg));
+            radio_.setSelected(StringUtil.quickEq(l,_lg));
             group.add(radio_);
             pane_.add(radio_);
             radios.add(radio_);
@@ -168,7 +171,7 @@ public class MainWindow extends GroupFrame {
         if (clipStream == null) {
             noSong++;
             if (_click && random.isSelected()) {
-                songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
+                songsList = StringUtil.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
                 StringList songsList_ = new StringList();
                 for (String o: suffledSongsNames(songsList,getGenerator())) {
@@ -176,7 +179,7 @@ public class MainWindow extends GroupFrame {
                 }
                 songsList = songsList_;
             } else if (_click) {
-                songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
+                songsList = StringUtil.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
             }
             if (noSong >= songsList.size()) {
@@ -232,7 +235,7 @@ public class MainWindow extends GroupFrame {
                 ElementList e_ = doc_.getElementsByTagName(MEDIA);
                 int len_ = e_.getLength();
                 songsList.clear();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     Element elt_ = e_.item(i);
                     String v_ = elt_.getAttribute(SRC);
                     if (!v_.endsWith(WAV)) {
@@ -250,14 +253,14 @@ public class MainWindow extends GroupFrame {
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
                 boolean applyRand_ = true;
                 if (elts_.getLength() > 0) {
-                    if (StringList.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
+                    if (StringUtil.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
                         String txtCont_ = elts_.get(0).getAttribute(ATTR_VALUE);
-                        int paused_ = Numbers.parseInt(txtCont_);
+                        int paused_ = NumberUtil.parseInt(txtCont_);
                         if (songsList.isValidIndex(paused_)) {
                             noSong = paused_;
                             applyRand_ = false;
                         }
-                    } else if (StringList.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
+                    } else if (StringUtil.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
                         random.setSelected(true);
                     }
                 }
@@ -361,7 +364,7 @@ public class MainWindow extends GroupFrame {
         Ints indexes_ = new Ints();
         Ints indexesEdited_ = new Ints();
         int size_ = list_.size();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
             indexes_.add(i);
         }
         while (!indexes_.isEmpty()) {
@@ -510,10 +513,10 @@ public class MainWindow extends GroupFrame {
 
     public void updateClip(LineEvent _event) {
         String ev_ = toLowerCase(_event.getType().toString());
-        if (StringList.quickEq(ev_, START)) {
+        if (StringUtil.quickEq(ev_, START)) {
             //LineEvent.Type.START
             play.setTextAndSize(PAUSE);
-        } else if (StringList.quickEq(ev_, STOP_EVT)) {
+        } else if (StringUtil.quickEq(ev_, STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
             play.setTextAndSize(PLAY);
@@ -524,7 +527,7 @@ public class MainWindow extends GroupFrame {
                 tryClose();
                 next = false;
             }
-        } else if (StringList.quickEq(ev_, CLOSE)) {
+        } else if (StringUtil.quickEq(ev_, CLOSE)) {
             //LineEvent.Type.CLOSE
             play.setTextAndSize(PLAY);
             clipStream = null;

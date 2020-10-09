@@ -207,6 +207,9 @@ import code.sml.ElementList;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class DocumentReaderAikiCoreUtil {
 
@@ -1056,7 +1059,7 @@ public final class DocumentReaderAikiCoreUtil {
         for (String f : listRelativePaths_) {
             StringBuilder str_ = new StringBuilder();
             for (char c : f.toCharArray()) {
-                if (!StringList.isWordChar(c)) {
+                if (!StringUtil.isWordChar(c)) {
                     break;
                 }
                 str_.append(c);
@@ -1065,8 +1068,8 @@ public final class DocumentReaderAikiCoreUtil {
             foldersBase_.add(strFolder_);
         }
         if (foldersBase_.onlyOneElt()) {
-            common_ = StringList.concat(foldersBase_.first(), SEPARATOR_FILES);
-            StringList.removePrefixInStrings(listRelativePaths_,common_);
+            common_ = StringUtil.concat(foldersBase_.first(), SEPARATOR_FILES);
+            StringUtil.removePrefixInStrings(listRelativePaths_,common_);
         }
         StringList listCopy_ = new StringList();
         for (String s : listRelativePaths_) {
@@ -1080,10 +1083,10 @@ public final class DocumentReaderAikiCoreUtil {
         StringList filesNames_;
         filesNames_ = new StringList();
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(POKEDEX_FOLDER, SEPARATOR_FILES))) {
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1092,16 +1095,16 @@ public final class DocumentReaderAikiCoreUtil {
                 _d.setError(true);
             }
             filesNames_.add(n_);
-            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(notNull(files_,StringList.concat(common_, f)));
+            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), f_);
         }
         _d.calculateAvgPound();
         filesNames_.clear();
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(MOVES_FOLDER, SEPARATOR_FILES))) {
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1110,19 +1113,19 @@ public final class DocumentReaderAikiCoreUtil {
                 _d.setError(true);
             }
             filesNames_.add(n_);
-            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_,StringList.concat(common_, f)));
+            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), move_);
         }
         _perCentLoading.setPercent(10);
-        String fileHmTm_ = notNull(files_,StringList.concat(common_, CT_CS_FILE));
+        String fileHmTm_ = notNull(files_, StringUtil.concat(common_, CT_CS_FILE));
         StringList tmHm_;
-        tmHm_ = StringList.splitChars(
+        tmHm_ = StringUtil.splitChars(
                 fileHmTm_,
                 RETURN_LINE_CHAR);
         for (String l : tmHm_) {
             if (l.startsWith(CT)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
+                StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+                short cle_ = (short) NumberUtil.parseInt(infos_.first().substring(2));
                 _d.getTm().put(cle_, infos_.get(1));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
@@ -1134,17 +1137,17 @@ public final class DocumentReaderAikiCoreUtil {
 
             }
             if (l.startsWith(CS)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
+                StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+                short cle_ = (short) NumberUtil.parseInt(infos_.first().substring(2));
                 _d.getHm().put(cle_, infos_.get(1));
             }
         }
         filesNames_.clear();
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(ITEMS_FOLDER, SEPARATOR_FILES))) {
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1153,15 +1156,15 @@ public final class DocumentReaderAikiCoreUtil {
                 _d.setError(true);
             }
             filesNames_.add(n_);
-            Item o_ = DocumentReaderAikiCoreUtil.getItem(notNull(files_,StringList.concat(common_, f)));
+            Item o_ = DocumentReaderAikiCoreUtil.getItem(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), o_);
         }
         filesNames_.clear();
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(ABILITIES_FOLDER, SEPARATOR_FILES))) {
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1170,15 +1173,15 @@ public final class DocumentReaderAikiCoreUtil {
                 _d.setError(true);
             }
             filesNames_.add(n_);
-            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(notNull(files_,StringList.concat(common_, f)));
+            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), ab_);
         }
         filesNames_.clear();
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(STATUS_FOLDER, SEPARATOR_FILES))) {
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1187,7 +1190,7 @@ public final class DocumentReaderAikiCoreUtil {
                 _d.setError(true);
             }
             filesNames_.add(n_);
-            Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_,StringList.concat(common_, f)));
+            Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_, StringUtil.concat(common_, f)));
             _d.completeMembers(DataBase.toUpperCase(n_), st_);
         }
         _perCentLoading.setPercent(15);
@@ -1197,61 +1200,61 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setImagesTiles(new StringMap<ObjectMap<ScreenCoords, int[][]>>());
         StringList images_;
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            _d.getImages().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
+            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            _d.getImages().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
 
         _d.setMiniMap(new StringMap<int[][]>());
         StringList miniMap_;
 
-        miniMap_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        miniMap_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(MINI_MAP_FOLDER, SEPARATOR_FILES));
         for (String s : miniMap_) {
             filesNames_.add(s);
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            _d.getMiniMap().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
+            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            _d.getMiniMap().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
 
         filesNames_.clear();
         _d.setLinks(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(LINKS_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            _d.getLinks().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
+            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            _d.getLinks().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setPeople(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(PEOPLE_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            _d.getPeople().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
+            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            _d.getPeople().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setFrontHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        String frHeros_ = notNull(files_,StringList.concat(
+        String frHeros_ = notNull(files_, StringUtil.concat(
                 common_, HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT));
-        for (String l : StringList.splitChars(frHeros_,
+        for (String l : StringUtil.splitChars(frHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
@@ -1260,15 +1263,15 @@ public final class DocumentReaderAikiCoreUtil {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         _d.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        String bkHeros_ = notNull(files_,StringList.concat(
+        String bkHeros_ = notNull(files_, StringUtil.concat(
                 common_, HERO_FOLDER, SEPARATOR_FILES, HERO_BACK));
-        for (String l : StringList.splitChars(bkHeros_,
+        for (String l : StringUtil.splitChars(bkHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
@@ -1277,20 +1280,20 @@ public final class DocumentReaderAikiCoreUtil {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         _d.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        String ovHeros_ = notNull(files_,StringList.concat(
+        String ovHeros_ = notNull(files_, StringUtil.concat(
                 common_, HERO_FOLDER, SEPARATOR_FILES, HERO_MINI));
-        for (String l : StringList.splitChars(ovHeros_,
+        for (String l : StringUtil.splitChars(ovHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
-                    .get(CustList.SECOND_INDEX));
+                    .get(IndexConstants.SECOND_INDEX));
             Sex sex_ = getSexByName(keyStrings_.last());
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
@@ -1299,166 +1302,166 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
         _d.setTrainers(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(TRAINERS_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            _d.getTrainers().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
+            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            _d.getTrainers().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setMaxiPkBack(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMaxiPkBack().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
         filesNames_.clear();
         _d.setMaxiPkFront(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMaxiPkFront().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
         filesNames_.clear();
         _d.setMiniPk(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMiniPk().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
         _perCentLoading.setPercent(25);
         filesNames_.clear();
         _d.setMiniItems(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(OBJECTS_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
                 continue;
             }
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMiniItems().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
 
         filesNames_.clear();
         _d.setTypesImages(new StringMap<int[][]>());
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
                 continue;
             }
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
 
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getTypesImages().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             s))));
         }
 
-        String imgHmTm_ = notNull(files_,StringList
+        String imgHmTm_ = notNull(files_, StringUtil
                 .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT));
         _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(imgHmTm_));
-        String storeImg_ = notNull(files_,StringList
+        String storeImg_ = notNull(files_, StringUtil
                 .concat(common_, IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT));
         _d.setStorage(BaseSixtyFourUtil.getImageByString(storeImg_));
-        String combos_ = notNull(files_,StringList
+        String combos_ = notNull(files_, StringUtil
                 .concat(common_, COMBOS));
         _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(combos_));
         _d.completeMembersCombos();
         _d.sortEndRound();
-        String mapFile_ = notNull(files_,StringList
+        String mapFile_ = notNull(files_, StringUtil
                 .concat(common_, MAP_FILE));
         _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(mapFile_));
         _d.setConstNum(new StringMap<Rate>());
-        String cstNum_ = notNull(files_,StringList.concat(common_, CONST_NUM));
-        StringList linesNum_ = StringList.splitChar(
+        String cstNum_ = notNull(files_, StringUtil.concat(common_, CONST_NUM));
+        StringList linesNum_ = StringUtil.splitChar(
                 cstNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNum_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChar(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChar(l, TAB_CHAR);
             _d.getConstNum().put(infos_.first(), new Rate(infos_.last()));
         }
 
-        String cstNotNum_ = notNull(files_,StringList.concat(common_, CONST_NOT_NUM));
-        StringList linesNotNum_ = StringList.splitChar(
+        String cstNotNum_ = notNull(files_, StringUtil.concat(common_, CONST_NOT_NUM));
+        StringList linesNotNum_ = StringUtil.splitChar(
                 cstNotNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNotNum_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            if (StringList.quickEq(infos_.first(), DEF_MOVE)) {
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            if (StringUtil.quickEq(infos_.first(), DEF_MOVE)) {
                 _d.setDefMove(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_BOOST)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_BOOST)) {
                 _d.setRateBoost(infos_.last());
-            } else if (StringList.quickEq(infos_.first(),
+            } else if (StringUtil.quickEq(infos_.first(),
                     RATE_BOOST_CRITICAL_HIT)) {
                 _d.setRateBoostCriticalHit(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_FLEEING)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_FLEEING)) {
                 _d.setRateFleeing(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_CATCHING)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_CATCHING)) {
                 _d.setRateCatching(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
+            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
+            } else if (StringUtil.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
                 _d.setDefaultEggGroup(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
+            } else if (StringUtil.quickEq(infos_.first(), DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }
 
         }
         _d.setTableTypes(new ObjectMap<TypesDuo, Rate>());
-        String tTable_ = notNull(files_,StringList.concat(common_, TABLE_TYPES));
-        StringList linesTableTypes_ = StringList.splitChars(
+        String tTable_ = notNull(files_, StringUtil.concat(common_, TABLE_TYPES));
+        StringList linesTableTypes_ = StringUtil.splitChars(
                 tTable_,
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
-        StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
+        StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
         typesOff_.removeString(EMPTY_STRING);
         StringList typesDef_ = new StringList();
-        for (String l : linesTableTypes_.sub(1, linesTableTypes_.size())) {
-            typesDef_.add(StringList.getFirstToken(l, TAB_CHAR));
+        for (String l : linesTableTypes_.leftMinusOne(linesTableTypes_.size())) {
+            typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
         }
         typesDef_.removeString(EMPTY_STRING);
         for (String pkType_ : typesDef_) {
 
             String l_ = getElements(linesTableTypes_, pkType_).first();
-            StringList infos_ = StringList.splitChars(l_, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l_, TAB_CHAR);
             infos_.removeString(pkType_);
             int i_ = 0;
             for (String damageType_ : typesOff_) {
@@ -1475,20 +1478,20 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         _d.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
-        String rdLaw_ = notNull(files_,StringList.concat(common_, LOIS_RANDOM));
-        StringList laws_ = StringList.splitChars(
+        String rdLaw_ = notNull(files_, StringUtil.concat(common_, LOIS_RANDOM));
+        StringList laws_ = StringUtil.splitChars(
                 rdLaw_,
                 RETURN_LINE_CHAR);
         for (String l : laws_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             MonteCarloNumber law_ = new MonteCarloNumber();
 
-            for (String evt_ : StringList.splitStrings(infos_.get(1),
+            for (String evt_ : StringUtil.splitStrings(infos_.get(1),
                     SEPARATOR_RAND)) {
-                StringList infosLoc_ = StringList.splitStrings(evt_,
+                StringList infosLoc_ = StringUtil.splitStrings(evt_,
                         SEPARATOR_RAND_EVENTS);
                 boolean defaultLaw_ = false;
                 if (!Rate.isValid(infosLoc_.first())) {
@@ -1514,344 +1517,343 @@ public final class DocumentReaderAikiCoreUtil {
             }
             _d.getLawsDamageRate().put(
                     getModelByName(infos_.first()),
-                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
+                    new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
         }
         _d.setExpGrowth(new EnumMap<ExpType, String>());
-        String pts_ = notNull(files_,StringList.concat(common_, COURBE_PTS_EXP));
-        StringList courbes_ = StringList.splitChars(
+        String pts_ = notNull(files_, StringUtil.concat(common_, COURBE_PTS_EXP));
+        StringList courbes_ = StringUtil.splitChars(
                 pts_,
                 RETURN_LINE_CHAR);
         for (String l : courbes_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             _d.getExpGrowth().put(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
         _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
-        String rWon_ = notNull(files_,StringList.concat(common_, RATE_WON_POINTS));
-        StringList rates_ = StringList.splitChars(
+        String rWon_ = notNull(files_, StringUtil.concat(common_, RATE_WON_POINTS));
+        StringList rates_ = StringUtil.splitChars(
                 rWon_,
                 RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             _d.getRates().put(getDiffWonPtsByName(infos_
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
-        String imgTypes_ = notNull(files_,StringList
+        String imgTypes_ = notNull(files_, StringUtil
                 .concat(common_, TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT));
-        StringList colorTypes_ = StringList.splitChars(imgTypes_,
+        StringList colorTypes_ = StringUtil.splitChars(imgTypes_,
                 RETURN_LINE_CHAR);
         for (String l : colorTypes_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             String colorStr_ = infos_.get(1);
             _d.getTypesColors().put(infos_.first(), colorStr_);
         }
-        String endGame_ = notNull(files_,StringList.concat(common_, END_GAME_IMAGE,
+        String endGame_ = notNull(files_, StringUtil.concat(common_, END_GAME_IMAGE,
                 IMG_FILES_RES_EXT_TXT));
         _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(endGame_));
         _d.initTranslations();
         _perCentLoading.setPercent(30);
         for (String l : _d.getLanguages()) {
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
             EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 genders_.put(getGenderByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().put(l, genders_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 booleans_.put(getBoolByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().put(l, booleans_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 diffWinPts_.put(
                         getDiffWonPtsByName(infos_.first()), DocumentBuilder
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 diffLaw_.put(getModelByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 environments_.put(getEnvByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().put(l, environments_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
             EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 statistics_.put(Statistic.getStatisticByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatistics().put(l, statistics_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
             EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 targets_.put(
                         getTargetChoiceByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTargets().put(l, targets_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 categories_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedCategories().put(l, categories_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 types_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTypes().put(l, types_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 pokemon_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedPokemon().put(l, pokemon_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 moves_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedMoves().put(l, moves_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 items_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedItems().put(l, items_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 abilities_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedAbilities().put(l, abilities_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 status_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatus().put(l, status_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 fctsMath_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedFctMath().put(l, fctsMath_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 descrClasses_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedClassesDescriptions().put(l, descrClasses_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(
+                    notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 litteral_
                         .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(StringList
-                                        .join(infos_.mid(
-                                                CustList.SECOND_INDEX, infos_.size()), TAB)));
+                                .transformSpecialChars(StringUtil
+                                        .join(infos_.leftMinusOne(infos_.size()), TAB)));
             }
             _d.getLitterals().put(l, litteral_);
         }
         _perCentLoading.setPercent(35);
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(ANIM_STATIS, SEPARATOR_FILES))) {
 
-            String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String f_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
             }
             _d.getAnimStatis().put(DataBase.toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             f))));
         }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
                 .concat(ANIM_STATUS, SEPARATOR_FILES))) {
 
-            String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
+            String f_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
             }
             _d.getAnimStatus().put(DataBase.toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
+                    .getImageByString(notNull(files_, StringUtil.concat(common_,
                             f))));
         }
-        String anAbs_ = notNull(files_,StringList.concat(common_, ANIM_ABSORB));
+        String anAbs_ = notNull(files_, StringUtil.concat(common_, ANIM_ABSORB));
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(anAbs_));
         _perCentLoading.setPercent(40);
     }
@@ -1862,13 +1864,13 @@ public final class DocumentReaderAikiCoreUtil {
 
         _d.initializeMembers();
         String common_ = Resources.ACCESS_TO_DEFAULT_FILES;
-        StringList tmHm_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, CT_CS_FILE)),
+        StringList tmHm_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CT_CS_FILE)),
                 RETURN_LINE_CHAR);
         for (String l : tmHm_) {
             if (l.startsWith(CT)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
+                StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+                short cle_ = (short) NumberUtil.parseInt(infos_.first().substring(2));
                 _d.getTm().put(cle_, infos_.get(1).trim());
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2).trim())) {
@@ -1880,20 +1882,20 @@ public final class DocumentReaderAikiCoreUtil {
 
             }
             if (l.startsWith(CS)) {
-                StringList infos_ = StringList.splitChars(l.trim(), TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
+                StringList infos_ = StringUtil.splitChars(l.trim(), TAB_CHAR);
+                short cle_ = (short) NumberUtil.parseInt(infos_.first().substring(2));
                 _d.getHm().put(cle_, infos_.get(1));
             }
         }
         _d.setFrontHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
+        for (String l : StringUtil.splitChars(ResourceFiles
+                .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
@@ -1902,14 +1904,14 @@ public final class DocumentReaderAikiCoreUtil {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         _d.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
+        for (String l : StringUtil.splitChars(ResourceFiles
+                .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
@@ -1918,91 +1920,91 @@ public final class DocumentReaderAikiCoreUtil {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         _d.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
+        for (String l : StringUtil.splitChars(ResourceFiles
+                .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            StringList keyStrings_ = StringUtil.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
-                    .get(CustList.SECOND_INDEX));
+                    .get(IndexConstants.SECOND_INDEX));
             Sex sex_ = getSexByName(keyStrings_.last());
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, IMAGE_TM_HM_FILES,
+                .ressourceFichier(StringUtil.concat(common_, IMAGE_TM_HM_FILES,
                         IMG_FILES_RES_EXT_TXT))));
         _d.setStorage(BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_,
+                .ressourceFichier(StringUtil.concat(common_,
                         IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT))));
         _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, COMBOS))));
+                .ressourceFichier(StringUtil.concat(common_, COMBOS))));
         _d.completeMembersCombos();
         _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, MAP_FILE))));
+                .ressourceFichier(StringUtil.concat(common_, MAP_FILE))));
         _perCentLoading.addPercent(delta_);
         _d.setConstNum(new StringMap<Rate>());
-        StringList lines_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, CONST_NUM)),
+        StringList lines_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CONST_NUM)),
                 RETURN_LINE_CHAR);
         for (String l : lines_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             _d.getConstNum().put(infos_.first(), new Rate(infos_.last()));
         }
 
-        lines_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, CONST_NOT_NUM)),
+        lines_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CONST_NOT_NUM)),
                 RETURN_LINE_CHAR);
         for (String l : lines_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            if (StringList.quickEq(infos_.first(), DEF_MOVE)) {
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            if (StringUtil.quickEq(infos_.first(), DEF_MOVE)) {
                 _d.setDefMove(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_BOOST)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_BOOST)) {
                 _d.setRateBoost(infos_.last());
-            } else if (StringList.quickEq(infos_.first(),
+            } else if (StringUtil.quickEq(infos_.first(),
                     RATE_BOOST_CRITICAL_HIT)) {
                 _d.setRateBoostCriticalHit(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_FLEEING)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_FLEEING)) {
                 _d.setRateFleeing(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), RATE_CATCHING)) {
+            } else if (StringUtil.quickEq(infos_.first(), RATE_CATCHING)) {
                 _d.setRateCatching(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
+            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
+            } else if (StringUtil.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
                 _d.setDefaultEggGroup(infos_.last());
-            } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
+            } else if (StringUtil.quickEq(infos_.first(), DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }
 
         }
         _d.setTableTypes(new ObjectMap<TypesDuo, Rate>());
-        StringList linesTableTypes_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, TABLE_TYPES)),
+        StringList linesTableTypes_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, TABLE_TYPES)),
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
-        StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
+        StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
         typesOff_.removeString(EMPTY_STRING);
         StringList typesDef_ = new StringList();
-        for (String l : linesTableTypes_.sub(1, linesTableTypes_.size())) {
-            typesDef_.add(StringList.getFirstToken(l, TAB_CHAR));
+        for (String l : linesTableTypes_.leftMinusOne(linesTableTypes_.size())) {
+            typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
         }
         typesDef_.removeString(EMPTY_STRING);
         for (String pkType_ : typesDef_) {
 
             String l_ = getElements(linesTableTypes_, pkType_).first();
-            StringList infos_ = StringList.splitChars(l_, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l_, TAB_CHAR);
             infos_.removeString(pkType_);
             int i_ = 0;
             for (String damageType_ : typesOff_) {
@@ -2020,19 +2022,19 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.initTypesByTable();
         _d.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
-        StringList laws_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, LOIS_RANDOM)),
+        StringList laws_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, LOIS_RANDOM)),
                 RETURN_LINE_CHAR);
         for (String l : laws_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             MonteCarloNumber law_ = new MonteCarloNumber();
 
-            for (String evt_ : StringList.splitStrings(infos_.get(1),
+            for (String evt_ : StringUtil.splitStrings(infos_.get(1),
                     SEPARATOR_RAND)) {
-                StringList infosLoc_ = StringList.splitStrings(evt_,
+                StringList infosLoc_ = StringUtil.splitStrings(evt_,
                         SEPARATOR_RAND_EVENTS);
                 boolean defaultLaw_ = false;
                 if (!Rate.isValid(infosLoc_.first())) {
@@ -2058,309 +2060,309 @@ public final class DocumentReaderAikiCoreUtil {
             }
             _d.getLawsDamageRate().put(
                     getModelByName(infos_.first()),
-                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
+                    new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
         }
         _d.setExpGrowth(new EnumMap<ExpType, String>());
-        StringList courbes_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, COURBE_PTS_EXP)),
+        StringList courbes_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, COURBE_PTS_EXP)),
                 RETURN_LINE_CHAR);
         for (String l : courbes_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             _d.getExpGrowth().put(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
         _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
-        StringList rates_ = StringList.splitChars(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, RATE_WON_POINTS)),
+        StringList rates_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, RATE_WON_POINTS)),
                 RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             _d.getRates().put(getDiffWonPtsByName(infos_
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
-        rates_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, TYPES_COLOR_CODE,
+        rates_ = StringUtil.splitChars(ResourceFiles
+                .ressourceFichier(StringUtil.concat(common_, TYPES_COLOR_CODE,
                         IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
             String colorStr_ = infos_.get(1);
             _d.getTypesColors().put(infos_.first(), colorStr_);
         }
         _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, END_GAME_IMAGE,
+                .ressourceFichier(StringUtil.concat(common_, END_GAME_IMAGE,
                         IMG_FILES_RES_EXT_TXT))));
         _d.initTranslations();
         for (String l : _d.getLanguages()) {
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
             EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 genders_.put(getGenderByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().put(l, genders_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 booleans_.put(getBoolByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().put(l, booleans_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 diffWinPts_.put(
                         getDiffWonPtsByName(infos_.first()), DocumentBuilder
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 diffLaw_.put(getModelByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 environments_.put(getEnvByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().put(l, environments_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
             EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 statistics_.put(Statistic.getStatisticByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatistics().put(l, statistics_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
             EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 targets_.put(
                         getTargetChoiceByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTargets().put(l, targets_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 categories_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedCategories().put(l, categories_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 types_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTypes().put(l, types_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 pokemon_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedPokemon().put(l, pokemon_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 moves_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedMoves().put(l, moves_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 items_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedItems().put(l, items_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 abilities_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedAbilities().put(l, abilities_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 status_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatus().put(l, status_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 fctsMath_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedFctMath().put(l, fctsMath_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 descrClasses_.put(infos_.first(),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedClassesDescriptions().put(l, descrClasses_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                            .ressourceFichier(StringList.concat(common_, fileName_)),
+            for (String l2_ : StringUtil.splitChars(ResourceFiles
+                            .ressourceFichier(StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
                 litteral_
                         .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(StringList
-                                        .join(infos_.mid(
-                                                CustList.SECOND_INDEX, infos_.size()), TAB)));
+                                .transformSpecialChars(StringUtil
+                                        .join(infos_.leftMinusOne(
+                                                infos_.size()), TAB)));
             }
             _d.getLitterals().put(l, litteral_);
         }
@@ -2370,30 +2372,30 @@ public final class DocumentReaderAikiCoreUtil {
             if (!f.isBoost()) {
                 continue;
             }
-            String f_ = StringList.concat(ANIM_STATIS, SEPARATOR_FILES,
+            String f_ = StringUtil.concat(ANIM_STATIS, SEPARATOR_FILES,
                     f.name(), IMG_FILES_RES_EXT_TXT);
             _d.getAnimStatis().put(f.name(), BaseSixtyFourUtil
-                    .getImageByString(ResourceFiles.ressourceFichier(StringList
+                    .getImageByString(ResourceFiles.ressourceFichier(StringUtil
                             .concat(common_, f_))));
         }
         for (String f : _d.getTranslatedStatus().getVal(_lg)
                 .getKeys()) {
-            String f_ = StringList.concat(ANIM_STATUS, SEPARATOR_FILES, f,
+            String f_ = StringUtil.concat(ANIM_STATUS, SEPARATOR_FILES, f,
                     IMG_FILES_RES_EXT_TXT);
             _d.getAnimStatus().put(DataBase.toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, f_))));
+                    .ressourceFichier(StringUtil.concat(common_, f_))));
         }
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, ANIM_ABSORB))));
+                .ressourceFichier(StringUtil.concat(common_, ANIM_ABSORB))));
         StringList filesNames_;
         filesNames_ = new StringList();
         for (String f : _d.getTranslatedPokemon().getVal(_lg)
                 .getKeys()) {
-            String n_ = StringList.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
+            String n_ = StringUtil.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
             filesNames_.add(f);
             PokemonData f_ = DocumentReaderAikiCoreUtil
-                    .getPokemonData(ResourceFiles.ressourceFichier(StringList
+                    .getPokemonData(ResourceFiles.ressourceFichier(StringUtil
                             .concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), f_);
         }
@@ -2401,11 +2403,11 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
         for (String f : _d.getTranslatedMoves().getVal(_lg)
                 .getKeys()) {
-            String n_ = StringList.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
+            String n_ = StringUtil.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
             filesNames_.add(n_);
             MoveData move_ = DocumentReaderAikiCoreUtil
-                    .getMoveData(ResourceFiles.ressourceFichier(StringList
+                    .getMoveData(ResourceFiles.ressourceFichier(StringUtil
                             .concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), move_);
         }
@@ -2427,32 +2429,32 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
         for (String f : _d.getTranslatedItems().getVal(_lg)
                 .getKeys()) {
-            String n_ = StringList.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
+            String n_ = StringUtil.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_)));
+                    .ressourceFichier(StringUtil.concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), o_);
         }
         filesNames_.clear();
         for (String f : _d.getTranslatedAbilities().getVal(_lg)
                 .getKeys()) {
-            String n_ = StringList.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
+            String n_ = StringUtil.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
             filesNames_.add(n_);
             AbilityData ab_ = DocumentReaderAikiCoreUtil
-                    .getAbilityData(ResourceFiles.ressourceFichier(StringList
+                    .getAbilityData(ResourceFiles.ressourceFichier(StringUtil
                             .concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), ab_);
         }
         filesNames_.clear();
         for (String f : _d.getTranslatedStatus().getVal(_lg)
                 .getKeys()) {
-            String n_ = StringList.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
+            String n_ = StringUtil.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_)));
+                    .ressourceFichier(StringUtil.concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), st_);
         }
         _d.completeVariables();
@@ -2475,47 +2477,47 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.setMaxiPkBack(new StringMap<int[][]>());
         for (String s : _d.getPokedex().getKeys()) {
-            String n_ = StringList.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
+            String n_ = StringUtil.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMaxiPkBack().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
+                    .ressourceFichier(StringUtil.concat(common_, n_))));
         }
         filesNames_.clear();
         _d.setMaxiPkFront(new StringMap<int[][]>());
         for (String s : _d.getPokedex().getKeys()) {
-            String n_ = StringList.concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES,
+            String n_ = StringUtil.concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMaxiPkFront().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
+                    .ressourceFichier(StringUtil.concat(common_, n_))));
         }
         filesNames_.clear();
         _d.setMiniPk(new StringMap<int[][]>());
         for (String s : _d.getPokedex().getKeys()) {
-            String n_ = StringList.concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES,
+            String n_ = StringUtil.concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMiniPk().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
+                    .ressourceFichier(StringUtil.concat(common_, n_))));
         }
         filesNames_.clear();
         _d.setMiniItems(new StringMap<int[][]>());
         for (String s : _d.getItems().getKeys()) {
-            String n_ = StringList.concat(OBJECTS_IMAGES_FOLDER,
+            String n_ = StringUtil.concat(OBJECTS_IMAGES_FOLDER,
                     SEPARATOR_FILES, s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMiniItems().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
+                    .ressourceFichier(StringUtil.concat(common_, n_))));
         }
         filesNames_.clear();
         _d.setTypesImages(new StringMap<int[][]>());
         for (String s : _d.getTypes()) {
-            String n_ = StringList.concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES,
+            String n_ = StringUtil.concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getTypesImages().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
+                    .ressourceFichier(StringUtil.concat(common_, n_))));
         }
         _perCentLoading.addPercent(delta_);
         filesNames_.clear();
@@ -2535,41 +2537,41 @@ public final class DocumentReaderAikiCoreUtil {
                 for (Level l : l_.getLevelsList()) {
                     LevelLeague lev_ = (LevelLeague) l;
                     String f_ = lev_.getTrainer().getImageMaxiFileName();
-                    String file_ = StringList.concat(TRAINERS_FOLDER,
+                    String file_ = StringUtil.concat(TRAINERS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getTrainers().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                     f_ = lev_.getTrainer().getImageMiniFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
+                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
                             f_);
                     _d.getPeople().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                     for (Block b_ : l.getBlocks().values()) {
                         f_ = b_.getTileFileName();
-                        file_ = StringList.concat(IMAGES_FOLDER,
+                        file_ = StringUtil.concat(IMAGES_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getImages().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                     }
                     f_ = lev_.getFileName();
-                    file_ = StringList
+                    file_ = StringUtil
                             .concat(LINKS_FOLDER, SEPARATOR_FILES, f_);
                     _d.getLinks().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 String f_ = l_.getFileName();
-                String file_ = StringList.concat(LINKS_FOLDER, SEPARATOR_FILES,
+                String file_ = StringUtil.concat(LINKS_FOLDER, SEPARATOR_FILES,
                         f_);
                 _d.getLinks().put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, file_))));
+                        .ressourceFichier(StringUtil.concat(common_, file_))));
                 continue;
             }
             if (p instanceof City) {
@@ -2580,35 +2582,35 @@ public final class DocumentReaderAikiCoreUtil {
                         for (Trainer t : g_.getIndoor().getGymTrainers()
                                 .values()) {
                             String f_ = t.getImageMaxiFileName();
-                            String file_ = StringList.concat(TRAINERS_FOLDER,
+                            String file_ = StringUtil.concat(TRAINERS_FOLDER,
                                     SEPARATOR_FILES, f_);
                             _d.getTrainers().put(f_, BaseSixtyFourUtil
                                     .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
+                                            .ressourceFichier(StringUtil
                                                     .concat(common_, file_))));
                             f_ = t.getImageMiniFileName();
-                            file_ = StringList.concat(PEOPLE_FOLDER,
+                            file_ = StringUtil.concat(PEOPLE_FOLDER,
                                     SEPARATOR_FILES, f_);
                             _d.getPeople().put(f_, BaseSixtyFourUtil
                                     .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
+                                            .ressourceFichier(StringUtil
                                                     .concat(common_, file_))));
                         }
                         String f_ = g_.getIndoor().getGymLeader()
                                 .getImageMaxiFileName();
-                        String file_ = StringList.concat(TRAINERS_FOLDER,
+                        String file_ = StringUtil.concat(TRAINERS_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getTrainers().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                         f_ = g_.getIndoor().getGymLeader()
                                 .getImageMiniFileName();
-                        file_ = StringList.concat(PEOPLE_FOLDER,
+                        file_ = StringUtil.concat(PEOPLE_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getPeople().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                     }
                     if (b instanceof PokemonCenter) {
@@ -2616,47 +2618,47 @@ public final class DocumentReaderAikiCoreUtil {
                         for (Person g : pkCenter_.getIndoor().getGerants()
                                 .values()) {
                             String f_ = g.getImageMiniFileName();
-                            String file_ = StringList.concat(PEOPLE_FOLDER,
+                            String file_ = StringUtil.concat(PEOPLE_FOLDER,
                                     SEPARATOR_FILES, f_);
                             _d.getPeople().put(f_, BaseSixtyFourUtil
                                     .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
+                                            .ressourceFichier(StringUtil
                                                     .concat(common_, file_))));
                         }
                     }
                     for (Block b_ : b.getLevel().getBlocks().values()) {
                         String f_ = b_.getTileFileName();
-                        String file_ = StringList.concat(IMAGES_FOLDER,
+                        String file_ = StringUtil.concat(IMAGES_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getImages().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                     }
                     String f_ = b.getImageFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
+                    String file_ = StringUtil.concat(LINKS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getLinks().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 for (Block b_ : c_.getLevel().getBlocks().values()) {
                     String f_ = b_.getTileFileName();
-                    String file_ = StringList.concat(IMAGES_FOLDER,
+                    String file_ = StringUtil.concat(IMAGES_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getImages().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 for (Link k : c_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
+                    String file_ = StringUtil.concat(LINKS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getLinks().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 continue;
@@ -2668,51 +2670,51 @@ public final class DocumentReaderAikiCoreUtil {
                     if (c instanceof TrainerMultiFights) {
                         TrainerMultiFights tr_ = (TrainerMultiFights) c;
                         String f_ = tr_.getImageMaxiFileName();
-                        String file_ = StringList.concat(TRAINERS_FOLDER,
+                        String file_ = StringUtil.concat(TRAINERS_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getTrainers().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                         f_ = tr_.getImageMiniFileName();
-                        file_ = StringList.concat(PEOPLE_FOLDER,
+                        file_ = StringUtil.concat(PEOPLE_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getPeople().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                     }
                 }
                 for (DualFight d : level_.getDualFights().values()) {
                     String f_ = d.getFoeTrainer().getImageMaxiFileName();
-                    String file_ = StringList.concat(TRAINERS_FOLDER,
+                    String file_ = StringUtil.concat(TRAINERS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getTrainers().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                     f_ = d.getFoeTrainer().getImageMiniFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
+                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
                             f_);
                     _d.getPeople().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                     f_ = d.getFoeTrainer().getImageMiniSecondTrainerFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
+                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
                             f_);
                     _d.getPeople().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 for (Block b_ : l.getBlocks().values()) {
                     String f_ = b_.getTileFileName();
-                    String file_ = StringList.concat(IMAGES_FOLDER,
+                    String file_ = StringUtil.concat(IMAGES_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getImages().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
             }
@@ -2720,11 +2722,11 @@ public final class DocumentReaderAikiCoreUtil {
                 InitializedPlace p_ = (InitializedPlace) p;
                 for (Link k : p_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
+                    String file_ = StringUtil.concat(LINKS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getLinks().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
             }
@@ -2732,22 +2734,22 @@ public final class DocumentReaderAikiCoreUtil {
                 Cave cave_ = (Cave) p;
                 for (Link k : cave_.getLinksWithOtherPlaces().values()) {
                     String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
+                    String file_ = StringUtil.concat(LINKS_FOLDER,
                             SEPARATOR_FILES, f_);
                     _d.getLinks().put(f_, BaseSixtyFourUtil
                             .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
+                                    .ressourceFichier(StringUtil.concat(
                                             common_, file_))));
                 }
                 for (Level l : cave_.getLevelsMap().values()) {
                     LevelCave lCave_ = (LevelCave) l;
                     for (Link k : lCave_.getLinksOtherLevels().values()) {
                         String f_ = k.getFileName();
-                        String file_ = StringList.concat(LINKS_FOLDER,
+                        String file_ = StringUtil.concat(LINKS_FOLDER,
                                 SEPARATOR_FILES, f_);
                         _d.getLinks().put(f_, BaseSixtyFourUtil
                                 .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
+                                        .ressourceFichier(StringUtil.concat(
                                                 common_, file_))));
                     }
                 }
@@ -2755,13 +2757,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         for (TileMiniMap t : _d.getMap().getMiniMap().values()) {
             String f_ = t.getFile();
-            String file_ = StringList.concat(MINI_MAP_FOLDER, SEPARATOR_FILES,
+            String file_ = StringUtil.concat(MINI_MAP_FOLDER, SEPARATOR_FILES,
                     f_);
             _d.getMiniMap().put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, file_))));
+                    .ressourceFichier(StringUtil.concat(common_, file_))));
         }
         _d.getMiniMap().put(_d.getMap().getUnlockedCity(), BaseSixtyFourUtil
-                .getImageByString(ResourceFiles.ressourceFichier(StringList
+                .getImageByString(ResourceFiles.ressourceFichier(StringUtil
                         .concat(common_, MINI_MAP_FOLDER, SEPARATOR_FILES,
                                 _d.getMap().getUnlockedCity()))));
         _perCentLoading.addPercent(delta_);
@@ -2821,7 +2823,7 @@ public final class DocumentReaderAikiCoreUtil {
             return false;
         }
         int len_ = _string.length();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             char curr_ = _string.charAt(i);
             boolean ok_ = false;
             if (curr_ >= 'a' && curr_ <= 'z') {
@@ -2870,7 +2872,7 @@ public final class DocumentReaderAikiCoreUtil {
             if (!DataBase.toUpperCase(s).startsWith(patt_)) {
                 continue;
             }
-            if (StringList.quickEq(DataBase.toUpperCase(s),patt_)) {
+            if (StringUtil.quickEq(DataBase.toUpperCase(s),patt_)) {
                 continue;
             }
             list_.add(s);
@@ -2890,7 +2892,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     static String removeExtension(String _string) {
-        return StringList.replaceExtension(_string);
+        return StringUtil.replaceExtension(_string);
 
     }
 
@@ -2900,12 +2902,12 @@ public final class DocumentReaderAikiCoreUtil {
             if (!l.startsWith(_prefixWord)) {
                 continue;
             }
-            if (StringList.quickEq(l, _prefixWord)) {
+            if (StringUtil.quickEq(l, _prefixWord)) {
                 elts_.add(l);
                 continue;
             }
             char next_ = l.charAt(_prefixWord.length());
-            if (!StringList.isWordChar(next_)) {
+            if (!StringUtil.isWordChar(next_)) {
                 elts_.add(l);
             }
         }
@@ -2927,7 +2929,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getCombos(Combos _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_EFFECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECTS)) {
             _object.setEffects(getMapStringListEffectCombo(_element));
             return;
         }
@@ -2951,323 +2953,323 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getAbilityData(AbilityData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BREAK_FOE_IMMUNE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BREAK_FOE_IMMUNE)) {
             _object.setBreakFoeImmune(getListTypesDuo(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FORBID_USE_BERRY_AGAINST_FOES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORBID_USE_BERRY_AGAINST_FOES)) {
             _object.setForbidUseBerryAgainstFoes(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_WEATHER)) {
             _object.setChgtTypeByWeather(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_DAMAGE)) {
             _object.setChgtTypeByDamage(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RECOIL_DAMAGE_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RECOIL_DAMAGE_FOE)) {
             _object.setRecoilDamageFoe(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DECREASE_NEC_STEPS_HATCH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DECREASE_NEC_STEPS_HATCH)) {
             _object.setDecreaseNecStepsHatch(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DIVIDE_STATUS_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DIVIDE_STATUS_ROUND)) {
             _object.setDivideStatusRound(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_BY_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_BY_WEATHER)) {
             _object.setHealHpByWeather(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_ABILITY)) {
             _object.setIgnAbility(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_FOE_TEAM_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_FOE_TEAM_MOVE)) {
             _object.setIgnFoeTeamMove(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_FOE_STATIS_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_FOE_STATIS_BOOST)) {
             _object.setIgnFoeStatisBoost(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_MOVE)) {
             _object.setImmuMove(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_LOW_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_LOW_STAT)) {
             _object.setImmuLowStat(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_LOW_STAT_IF_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_LOW_STAT_IF_STATUS)) {
             _object.setImmuLowStatIfStatus(getListStatisticStatus(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_CH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_CH)) {
             _object.setImmuCh(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_WEATHER)) {
             _object.setImmuWeather(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_DAMAGE_TRAPPING_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_DAMAGE_TRAPPING_MOVES)) {
             _object.setImmuDamageTrappingMoves(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_DAMAGE_ALLY_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_DAMAGE_ALLY_MOVES)) {
             _object.setImmuDamageAllyMoves(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_DAMAGE_RECOIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_DAMAGE_RECOIL)) {
             _object.setImmuDamageRecoil(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_ABILITY)) {
             _object.setImmuAbility(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_STATUS_BEGIN_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_STATUS_BEGIN_ROUND)) {
             _object.setImmuStatusBeginRound(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_RECHARGE_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_RECHARGE_ROUND)) {
             _object.setImmuRechargeRound(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_STATUS)) {
             _object.setImmuStatus(DocumentReaderCoreUtil.getStringMapStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SLOWING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SLOWING)) {
             _object.setSlowing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_FOE)) {
             _object.setMultDamageFoe(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_CH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_CH)) {
             _object.setMultDamageCh(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_ALLY_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_ALLY_DAMAGE)) {
             _object.setMultAllyDamage(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_SUFFERED_DAMAGE_SUPER_EFF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_SUFFERED_DAMAGE_SUPER_EFF)) {
             _object.setMultSufferedDamageSuperEff(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
             _object.setImmuSufferedDamageLowEff(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_EVT_RATE_CH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_EVT_RATE_CH)) {
             _object.setMultEvtRateCh(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_SEC_EFFECT_OTHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_SEC_EFFECT_OTHER)) {
             _object.setCancelSecEffectOther(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_SEC_EFFECT_OWNER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_SEC_EFFECT_OWNER)) {
             _object.setCancelSecEffectOwner(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_EVT_RATE_SEC_EFFECT_OWNER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_EVT_RATE_SEC_EFFECT_OWNER)) {
             _object.setMultEvtRateSecEffectOwner(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_POWER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_POWER)) {
             _object.setMultPower(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
             _object.setMultDamage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAB)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAB)) {
             _object.setMultStab(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BONUS_STAT_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BONUS_STAT_RANK)) {
             _object.setBonusStatRank(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STAT_RANK_PROTECTED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STAT_RANK_PROTECTED)) {
             _object.setBoostStatRankProtected(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STAT_RANK_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STAT_RANK_END_ROUND)) {
             _object.setBoostStatRankEndRound(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_ALLY)) {
             _object.setMultStatAlly(getMapStatisticRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_KO_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_KO_FOE)) {
             _object.setMultStatIfKoFoe(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_LOW_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_LOW_STAT)) {
             _object.setMultStatIfLowStat(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_CAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_CAT)) {
             _object.setMultStatIfCat(getMapStatisticCategoryRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_STATUT_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_STATUT_RANK)) {
             _object.setMultStatIfStatutRank(getMapStatisticStatusByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_DAMAGE_CAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_DAMAGE_CAT)) {
             _object.setMultStatIfDamageCat(getMapStatisticCategoryByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_DAMGE_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_DAMGE_TYPE)) {
             _object.setMultStatIfDamgeType(getMapStatisticTypeByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT)) {
             _object.setMultStat(getMapStatisticString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING)) {
             _object.setInflictingDamageInsteadOfSuffering(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_VAR_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_VAR_BOOST)) {
             _object.setMultVarBoost(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_USED_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_USED_PP)) {
             _object.setNbUsedPp(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_HITS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_HITS)) {
             _object.setNbHits(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BREAK_PROTECTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BREAK_PROTECTION)) {
             _object.setBreakProtection(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLATE)) {
             _object.setPlate(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALED_STATUS_BY_SWITCH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALED_STATUS_BY_SWITCH)) {
             _object.setHealedStatusBySwitch(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALED_HP_RATE_BY_SWITCH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALED_HP_RATE_BY_SWITCH)) {
             _object.setHealedHpRateBySwitch(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREASED_PRIO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREASED_PRIO)) {
             _object.setIncreasedPrio(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREASED_PRIO_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREASED_PRIO_TYPES)) {
             _object.setIncreasedPrioTypes(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MAX_STATISTICS_IF_CH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MAX_STATISTICS_IF_CH)) {
             _object.setMaxStatisticsIfCh(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SINGLE_STATUS)) {
             _object.setSingleStatus(DocumentReaderMathUtil.getMonteCarloString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACHIEVED_DISAPPEARED_PK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACHIEVED_DISAPPEARED_PK)) {
             _object.setAchievedDisappearedPk(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FORWARD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORWARD_STATUS)) {
             _object.setForwardStatus(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FAIL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL_STATUS)) {
             _object.setFailStatus(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPE_FOR_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE_FOR_MOVES)) {
             _object.setTypeForMoves(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MAX_HP_FOR_USING_BERRY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MAX_HP_FOR_USING_BERRY)) {
             _object.setMaxHpForUsingBerry(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MUMY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MUMY)) {
             _object.setMumy(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_BY_TYPE_IF_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_BY_TYPE_IF_WEATHER)) {
             _object.setHealHpByTypeIfWeather(getMapWeatherTypeRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_MOVE_TYPES_BY_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_MOVE_TYPES_BY_WEATHER)) {
             _object.setImmuMoveTypesByWeather(DocumentReaderCoreUtil.getStringMapStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
             _object.setEffectEndRound(getListEffectEndRound(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_SENDING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_SENDING)) {
             _object.setEffectSending(getListEffectWhileSending(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHANGING_BOOST_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHANGING_BOOST_TYPES)) {
             _object.setChangingBoostTypes(getStringMapTypeDamageBoost(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_ALLY_FROM_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_ALLY_FROM_MOVES)) {
             _object.setImmuAllyFromMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_STATUS_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_STATUS_TYPES)) {
             _object.setImmuStatusTypes(DocumentReaderCoreUtil.getStringMapStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_LOW_STATIS_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_LOW_STATIS_TYPES)) {
             _object.setImmuLowStatisTypes(getStringMapListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOW_STAT_FOE_HIT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOW_STAT_FOE_HIT)) {
             _object.setLowStatFoeHit(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COPY_MOVES_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPY_MOVES_TYPES)) {
             _object.setCopyMovesTypes(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_POWER_MOVES_TYPES_GLOBAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_POWER_MOVES_TYPES_GLOBAL)) {
             _object.setMultPowerMovesTypesGlobal(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL)) {
             _object.setReverseEffectsPowerMovesTypesGlobal(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_WHILE_USING_BERRY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_WHILE_USING_BERRY)) {
             _object.setHealHpWhileUsingBerry(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKE_ITEM_BY_DAMAGING_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKE_ITEM_BY_DAMAGING_MOVE)) {
             _object.setTakeItemByDamagingMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED)) {
             _object.setGiveItemToAllyHavingUsed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3277,14 +3279,14 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_WHILE_SENDING_SIMPLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_WHILE_SENDING_SIMPLE)) {
             EffectWhileSendingSimple object_ = Instances.newEffectWhileSendingSimple();
             for (Element c: childElements_) {
                 getEffectWhileSending(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC)) {
             EffectWhileSendingWithStatistic object_ = Instances.newEffectWhileSendingWithStatistic();
             for (Element c: childElements_) {
                 getEffectWhileSendingWithStatistic(object_,c.getAttribute(ATTR_FIELD),c);
@@ -3295,26 +3297,26 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectWhileSending(EffectWhileSending _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_WEATHER)) {
             _object.setDisableWeather(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_WEATHER)) {
             _object.setEnabledWeather(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COPYING_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPYING_ABILITY)) {
             _object.setCopyingAbility(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_WEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_WEIGHT)) {
             _object.setMultWeight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
     }
 
     private static void getEffectWhileSendingWithStatistic(EffectWhileSendingWithStatistic _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT)) {
             _object.setEffect(getEffectStatistic(_element));
             return;
         }
@@ -3323,7 +3325,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static Statistic getStatistic(Element _elt) {
         for (Statistic e: Statistic.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -3331,7 +3333,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getBall(Ball _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
             _object.setCatchingRate(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -3339,59 +3341,59 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getBerry(Berry _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_BY_SUPER_EFF_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_BY_SUPER_EFF_MOVE)) {
             _object.setHealHpBySuperEffMove(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_ATTACK_FIRST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_ATTACK_FIRST)) {
             _object.setLawForAttackFirst(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_FOES_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_FOES_DAMAGE)) {
             _object.setMultFoesDamage(getStringMapEfficiencyRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT)) {
             _object.setMultStat(getMapStatisticBoostHpRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WITHOUT_FAIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WITHOUT_FAIL)) {
             _object.setWithoutFail(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_PP)) {
             _object.setHealPp(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP)) {
             _object.setHealHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MAX_HP_HEALING_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MAX_HP_HEALING_HP)) {
             _object.setMaxHpHealingHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_STATUS)) {
             _object.setHealStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_RATE)) {
             _object.setHealHpRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MAX_HP_HEALING_HP_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MAX_HP_HEALING_HP_RATE)) {
             _object.setMaxHpHealingHpRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_RECOIL_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_RECOIL_FOE)) {
             _object.setDamageRateRecoilFoe(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CATEGORY_BOOSTING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATEGORY_BOOSTING)) {
             _object.setCategoryBoosting(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STATIS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STATIS)) {
             _object.setBoostStatis(getMapStatisticByte(_element));
             return;
         }
@@ -3399,15 +3401,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getBoost(Boost _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WIN_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WIN_PP)) {
             _object.setWinPp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS)) {
             _object.setHappiness(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EVS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EVS)) {
             _object.setEvs(getMapStatisticShort(_element));
             return;
         }
@@ -3415,11 +3417,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getFossil(Fossil _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
             _object.setPokemon(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -3427,7 +3429,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHealingHp(HealingHp _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HP)) {
             _object.setHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -3435,7 +3437,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHealingHpStatus(HealingHpStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HEALED_HP_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALED_HP_RATE)) {
             _object.setHealedHpRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -3443,11 +3445,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHealingItem(HealingItem _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS)) {
             _object.setHappiness(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_TEAM)) {
             _object.setHealingTeam(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3455,19 +3457,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHealingPp(HealingPp _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HEALED_MOVE_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALED_MOVE_PP)) {
             _object.setHealedMovePp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_ALL_MOVES_FULLPP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_ALL_MOVES_FULLPP)) {
             _object.setHealingAllMovesFullpp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_ALL_MOVES_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_ALL_MOVES_PP)) {
             _object.setHealingAllMovesPp(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_MOVE_FULLPP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_MOVE_FULLPP)) {
             _object.setHealingMoveFullpp(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3475,11 +3477,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHealingStatus(HealingStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_KO)) {
             _object.setHealingKo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3497,98 +3499,98 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_BALL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BALL)) {
             Ball object_ = Instances.newBall();
             for (Element c: childElements_) {
                 getBall(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_BERRY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BERRY)) {
             Berry object_ = Instances.newBerry();
             for (Element c: childElements_) {
                 getBerry(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_BOOST)) {
+        if (StringUtil.quickEq(tagName_,TYPE_BOOST)) {
             Boost object_ = Instances.newBoost();
             for (Element c: childElements_) {
                 getBoost(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLVING_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLVING_ITEM)) {
             EvolvingItem object_ = Instances.newEvolvingItem();
             for (Element c: childElements_) {
                 getItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLVING_STONE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLVING_STONE)) {
             EvolvingStone object_ = Instances.newEvolvingStone();
             for (Element c: childElements_) {
                 getItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_FOSSIL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_FOSSIL)) {
             Fossil object_ = Instances.newFossil();
             for (Element c: childElements_) {
                 getFossil(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_HEALING_HP)) {
+        if (StringUtil.quickEq(tagName_,TYPE_HEALING_HP)) {
             HealingHp object_ = Instances.newHealingHp();
             for (Element c: childElements_) {
                 getHealingHp(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_HEALING_HP_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_HEALING_HP_STATUS)) {
             HealingHpStatus object_ = Instances.newHealingHpStatus();
             for (Element c: childElements_) {
                 getHealingHpStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_HEALING_PP)) {
+        if (StringUtil.quickEq(tagName_,TYPE_HEALING_PP)) {
             HealingPp object_ = Instances.newHealingPp();
             for (Element c: childElements_) {
                 getHealingPp(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_HEALING_SIMPLE_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_HEALING_SIMPLE_ITEM)) {
             HealingSimpleItem object_ = Instances.newHealingSimpleItem();
             for (Element c: childElements_) {
                 getHealingItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_HEALING_SIMPLE_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_HEALING_SIMPLE_STATUS)) {
             HealingSimpleStatus object_ = Instances.newHealingSimpleStatus();
             for (Element c: childElements_) {
                 getHealingStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ITEM_FOR_BATTLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ITEM_FOR_BATTLE)) {
             ItemForBattle object_ = Instances.newItemForBattle();
             for (Element c: childElements_) {
                 getItemForBattle(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_REPEL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_REPEL)) {
             Repel object_ = Instances.newRepel();
             for (Element c: childElements_) {
                 getRepel(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SELLING_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SELLING_ITEM)) {
             SellingItem object_ = Instances.newSellingItem();
             for (Element c: childElements_) {
                 getItem(object_,c.getAttribute(ATTR_FIELD),c);
@@ -3599,157 +3601,157 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getItem(Item _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PRICE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PRICE)) {
             _object.setPrice(DocumentReaderCoreUtil.getInteger(_element));
         }
     }
 
     private static void getItemForBattle(ItemForBattle _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPES_PK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES_PK)) {
             _object.setTypesPk(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_IMMU_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_IMMU_TYPE)) {
             _object.setCancelImmuType(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_AGAINST_EVO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_AGAINST_EVO)) {
             _object.setAgainstEvo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ATTACK_LAST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ATTACK_LAST)) {
             _object.setAttackLast(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_EXP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_EXP)) {
             _object.setBoostExp(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_STATUS)) {
             _object.setImmuStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_LOW_STATIS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_LOW_STATIS)) {
             _object.setImmuLowStatis(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_TRAP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_TRAP)) {
             _object.setIncreasingMaxNbRoundTrap(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ATTACKS_SOON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ATTACKS_SOON)) {
             _object.setAttacksSoon(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SYNCHRO_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SYNCHRO_STATUS)) {
             _object.setSynchroStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FAIL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL_STATUS)) {
             _object.setFailStatus(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_AGAINST_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_AGAINST_KO)) {
             _object.setProtectAgainstKo(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_AGAINST_KO_IF_FULL_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_AGAINST_KO_IF_FULL_HP)) {
             _object.setProtectAgainstKoIfFullHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DRAINED_HP_BY_DAMAGE_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DRAINED_HP_BY_DAMAGE_RATE)) {
             _object.setDrainedHpByDamageRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WIN_EV_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WIN_EV_FIGHT)) {
             _object.setWinEvFight(getMapStatisticShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_ATTACK_FIRST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_ATTACK_FIRST)) {
             _object.setLawForAttackFirst(DocumentReaderMathUtil.getMonteCarloBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_TRAPPING_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_TRAPPING_DAMAGE)) {
             _object.setMultTrappingDamage(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_WINNING_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_WINNING_HAPPINESS)) {
             _object.setMultWinningHappiness(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_WINNING_EV)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_WINNING_EV)) {
             _object.setMultWinningEv(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_WINNING_EXP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_WINNING_EXP)) {
             _object.setMultWinningExp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_POWER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_POWER)) {
             _object.setMultPower(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
             _object.setMultDamage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DRAINED_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DRAINED_HP)) {
             _object.setMultDrainedHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RECOIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RECOIL)) {
             _object.setDamageRecoil(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_RANK)) {
             _object.setMultStatRank(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_POKEMON_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_POKEMON_RANK)) {
             _object.setMultStatPokemonRank(getMapStatisticPokemonByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT)) {
             _object.setMultStat(getMapStatisticString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_GLOBAL_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_GLOBAL_MOVE)) {
             _object.setIncreasingMaxNbRoundGlobalMove(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_TEAM_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREASING_MAX_NB_ROUND_TEAM_MOVE)) {
             _object.setIncreasingMaxNbRoundTeamMove(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_MOVES)) {
             _object.setImmuMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HATCHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HATCHING)) {
             _object.setHatching(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_TYPES)) {
             _object.setImmuTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_WEATHER)) {
             _object.setImmuWeather(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STATIS_SUPER_EFF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STATIS_SUPER_EFF)) {
             _object.setBoostStatisSuperEff(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STATIS_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STATIS_TYPES)) {
             _object.setBoostStatisTypes(getStringMapMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
             _object.setEffectEndRound(getListEffectEndRound(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_SENDING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_SENDING)) {
             _object.setEffectSending(getListEffectWhileSending(_element));
             return;
         }
@@ -3757,7 +3759,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getRepel(Repel _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STEPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STEPS)) {
             _object.setSteps(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
@@ -3765,19 +3767,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getDamagingMoveData(DamagingMoveData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CATEGORY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATEGORY)) {
             _object.setCategory(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DIRECT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DIRECT)) {
             _object.setDirect(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANNOT_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANNOT_KO)) {
             _object.setCannotKo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_KO_SINGLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_KO_SINGLE)) {
             _object.setStoppableMoveKoSingle(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3796,14 +3798,14 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_DAMAGING_MOVE_DATA)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DAMAGING_MOVE_DATA)) {
             DamagingMoveData object_ = Instances.newDamagingMoveData();
             for (Element c: childElements_) {
                 getDamagingMoveData(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_STATUS_MOVE_DATA)) {
+        if (StringUtil.quickEq(tagName_,TYPE_STATUS_MOVE_DATA)) {
             StatusMoveData object_ = Instances.newStatusMoveData();
             for (Element c: childElements_) {
                 getStatusMoveData(object_,c.getAttribute(ATTR_FIELD),c);
@@ -3814,118 +3816,118 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PP)) {
             _object.setPp(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES)) {
             _object.setTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOSTED_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOSTED_TYPES)) {
             _object.setBoostedTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PRIORITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PRIORITY)) {
             _object.setPriority(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACCURACY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACCURACY)) {
             _object.setAccuracy(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECTS)) {
             _object.setEffects(getListEffect(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_PREPA_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_PREPA_ROUND)) {
             _object.setNbPrepaRound(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISAPPEAR_BEFORE_USE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISAPPEAR_BEFORE_USE)) {
             _object.setDisappearBeforeUse(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REPEAT_ROUND_LAW)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REPEAT_ROUND_LAW)) {
             _object.setRepeatRoundLaw(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANK_INCREMENT_NB_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANK_INCREMENT_NB_ROUND)) {
             _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RECHARGE_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RECHARGE_ROUND)) {
             _object.setRechargeRound(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONST_USER_CHOICE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONST_USER_CHOICE)) {
             _object.setConstUserChoice(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_SOLO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_SOLO)) {
             _object.setStoppableMoveSolo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_MULTI)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_MULTI)) {
             _object.setStoppableMoveMulti(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_PRIO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STOPPABLE_MOVE_PRIO)) {
             _object.setStoppableMovePrio(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SEC_EFFECT_IF_NO_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SEC_EFFECT_IF_NO_DAMAGE)) {
             _object.setSecEffectIfNoDamage(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SEC_EFFECTS_BY_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SEC_EFFECTS_BY_ITEM)) {
             _object.setSecEffectsByItem(DocumentReaderCoreUtil.getStringMapListInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_VAR_ACCUR_USER_NEG)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_VAR_ACCUR_USER_NEG)) {
             _object.setIgnVarAccurUserNeg(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_VAR_EVAS_TARGET_POS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_VAR_EVAS_TARGET_POS)) {
             _object.setIgnVarEvasTargetPos(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE)) {
             _object.setAchieveDisappearedPkUsingMove(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCH_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SWITCH_TYPE)) {
             _object.setSwitchType(getSwitchType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPES_BY_OWNED_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES_BY_OWNED_ITEM)) {
             _object.setTypesByOwnedItem(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPES_BY_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES_BY_WEATHER)) {
             _object.setTypesByWeather(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TARGET_CHOICE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TARGET_CHOICE)) {
             _object.setTargetChoice(getTargetChoice(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELETED_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETED_STATUS)) {
             _object.setDeletedStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REQUIRED_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REQUIRED_STATUS)) {
             _object.setRequiredStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
     }
 
     private static void getStatusMoveData(StatusMoveData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_THIEVABLE_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_THIEVABLE_MOVE)) {
             _object.setThievableMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COUNTERABLE_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COUNTERABLE_MOVE)) {
             _object.setCounterableMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -3936,301 +3938,301 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_ACCURACY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_ACCURACY)) {
             EffectAccuracy object_ = Instances.newEffectAccuracy();
             for (Element c: childElements_) {
                 getEffect(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_ALLY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_ALLY)) {
             EffectAlly object_ = Instances.newEffectAlly();
             for (Element c: childElements_) {
                 getEffectAlly(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_BATON_PASS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_BATON_PASS)) {
             EffectBatonPass object_ = Instances.newEffectBatonPass();
             for (Element c: childElements_) {
                 getEffect(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_CLONE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_CLONE)) {
             EffectClone object_ = Instances.newEffectClone();
             for (Element c: childElements_) {
                 getEffectClone(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_COMMON_STATISTICS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_COMMON_STATISTICS)) {
             EffectCommonStatistics object_ = Instances.newEffectCommonStatistics();
             for (Element c: childElements_) {
                 getEffectCommonStatistics(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_COPY_FIGHTER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_COPY_FIGHTER)) {
             EffectCopyFighter object_ = Instances.newEffectCopyFighter();
             for (Element c: childElements_) {
                 getEffectCopyFighter(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_COPY_MOVE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_COPY_MOVE)) {
             EffectCopyMove object_ = Instances.newEffectCopyMove();
             for (Element c: childElements_) {
                 getEffectCopyMove(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_COUNTER_ATTACK)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_COUNTER_ATTACK)) {
             EffectCounterAttack object_ = Instances.newEffectCounterAttack();
             for (Element c: childElements_) {
                 getEffectCounterAttack(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_DAMAGE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_DAMAGE)) {
             EffectDamage object_ = Instances.newEffectDamage();
             for (Element c: childElements_) {
                 getEffectDamage(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_DAMAGE_RATE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_DAMAGE_RATE)) {
             EffectDamageRate object_ = Instances.newEffectDamageRate();
             for (Element c: childElements_) {
                 getEffectDamageRate(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_FOE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_FOE)) {
             EffectEndRoundFoe object_ = Instances.newEffectEndRoundFoe();
             for (Element c: childElements_) {
                 getEffectEndRoundFoe(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_GLOBAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_GLOBAL)) {
             EffectEndRoundGlobal object_ = Instances.newEffectEndRoundGlobal();
             for (Element c: childElements_) {
                 getEffectEndRound(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_INDIVIDUAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_INDIVIDUAL)) {
             EffectEndRoundIndividual object_ = Instances.newEffectEndRoundIndividual();
             for (Element c: childElements_) {
                 getEffectEndRoundIndividual(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_MULTI_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_MULTI_RELATION)) {
             EffectEndRoundMultiRelation object_ = Instances.newEffectEndRoundMultiRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundMultiRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_RELATION)) {
             EffectEndRoundPositionRelation object_ = Instances.newEffectEndRoundPositionRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundPositionRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION)) {
             EffectEndRoundPositionTargetRelation object_ = Instances.newEffectEndRoundPositionTargetRelation();
             for (Element c: childElements_) {
                 getEffectEndRound(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
             EffectEndRoundSingleRelation object_ = Instances.newEffectEndRoundSingleRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundSingleRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
             EffectEndRoundSingleStatus object_ = Instances.newEffectEndRoundSingleStatus();
             for (Element c: childElements_) {
                 getEffectEndRoundSingleStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
             EffectEndRoundStatusRelation object_ = Instances.newEffectEndRoundStatusRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundStatusRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_TEAM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_TEAM)) {
             EffectEndRoundTeam object_ = Instances.newEffectEndRoundTeam();
             for (Element c: childElements_) {
                 getEffectEndRoundTeam(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_FULL_HP_RATE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_FULL_HP_RATE)) {
             EffectFullHpRate object_ = Instances.newEffectFullHpRate();
             for (Element c: childElements_) {
                 getEffectFullHpRate(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_GLOBAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_GLOBAL)) {
             EffectGlobal object_ = Instances.newEffectGlobal();
             for (Element c: childElements_) {
                 getEffectGlobal(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_INVOKE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_INVOKE)) {
             EffectInvoke object_ = Instances.newEffectInvoke();
             for (Element c: childElements_) {
                 getEffectInvoke(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER)) {
             EffectMultSufferedMovePower object_ = Instances.newEffectMultSufferedMovePower();
             for (Element c: childElements_) {
                 getEffectMultSufferedMovePower(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_MULT_USED_MOVE_POWER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_MULT_USED_MOVE_POWER)) {
             EffectMultUsedMovePower object_ = Instances.newEffectMultUsedMovePower();
             for (Element c: childElements_) {
                 getEffectMultUsedMovePower(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_ORDER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_ORDER)) {
             EffectOrder object_ = Instances.newEffectOrder();
             for (Element c: childElements_) {
                 getEffectOrder(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_PROTECT_FROM_TYPES)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_PROTECT_FROM_TYPES)) {
             EffectProtectFromTypes object_ = Instances.newEffectProtectFromTypes();
             for (Element c: childElements_) {
                 getEffectProtectFromTypes(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_PROTECTION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_PROTECTION)) {
             EffectProtection object_ = Instances.newEffectProtection();
             for (Element c: childElements_) {
                 getEffectProtection(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_REMAINED_HP_RATE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_REMAINED_HP_RATE)) {
             EffectRemainedHpRate object_ = Instances.newEffectRemainedHpRate();
             for (Element c: childElements_) {
                 getEffectRemainedHpRate(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_RESTRICTION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_RESTRICTION)) {
             EffectRestriction object_ = Instances.newEffectRestriction();
             for (Element c: childElements_) {
                 getEffectRestriction(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_STATISTIC)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_STATISTIC)) {
             EffectStatistic object_ = Instances.newEffectStatistic();
             for (Element c: childElements_) {
                 getEffectStatistic(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_STATUS)) {
             EffectStatus object_ = Instances.newEffectStatus();
             for (Element c: childElements_) {
                 getEffectStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_ABILITIES)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_ABILITIES)) {
             EffectSwitchAbilities object_ = Instances.newEffectSwitchAbilities();
             for (Element c: childElements_) {
                 getEffectSwitchAbilities(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_ITEMS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_ITEMS)) {
             EffectSwitchItems object_ = Instances.newEffectSwitchItems();
             for (Element c: childElements_) {
                 getEffectSwitchItems(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_MOVE_TYPES)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_MOVE_TYPES)) {
             EffectSwitchMoveTypes object_ = Instances.newEffectSwitchMoveTypes();
             for (Element c: childElements_) {
                 getEffectSwitchMoveTypes(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_POINT_VIEW)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_POINT_VIEW)) {
             EffectSwitchPointView object_ = Instances.newEffectSwitchPointView();
             for (Element c: childElements_) {
                 getEffectSwitchPointView(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_POSITION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_POSITION)) {
             EffectSwitchPosition object_ = Instances.newEffectSwitchPosition();
             for (Element c: childElements_) {
                 getEffect(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_SWITCH_TYPES)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_SWITCH_TYPES)) {
             EffectSwitchTypes object_ = Instances.newEffectSwitchTypes();
             for (Element c: childElements_) {
                 getEffectSwitchTypes(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_TEAM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_TEAM)) {
             EffectTeam object_ = Instances.newEffectTeam();
             for (Element c: childElements_) {
                 getEffectTeam(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_TEAM_WHILE_SEND_FOE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_TEAM_WHILE_SEND_FOE)) {
             EffectTeamWhileSendFoe object_ = Instances.newEffectTeamWhileSendFoe();
             for (Element c: childElements_) {
                 getEffectTeamWhileSendFoe(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_UNPROTECT_FROM_TYPES)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_UNPROTECT_FROM_TYPES)) {
             EffectUnprotectFromTypes object_ = Instances.newEffectUnprotectFromTypes();
             for (Element c: childElements_) {
                 getEffectUnprotectFromTypes(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_VAR_P_P)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_VAR_P_P)) {
             EffectVarPP object_ = Instances.newEffectVarPP();
             for (Element c: childElements_) {
                 getEffectVarPP(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_WIN_MONEY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_WIN_MONEY)) {
             EffectWinMoney object_ = Instances.newEffectWinMoney();
             for (Element c: childElements_) {
                 getEffectWinMoney(object_,c.getAttribute(ATTR_FIELD),c);
@@ -4241,22 +4243,22 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffect(Effect _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TARGET_CHOICE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TARGET_CHOICE)) {
             _object.setTargetChoice(getTargetChoice(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FAIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL)) {
             _object.setFail(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REQUIRED_SUCCESSFUL_EFFECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REQUIRED_SUCCESSFUL_EFFECTS)) {
             _object.setRequiredSuccessfulEffects(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
     }
 
     private static void getEffectAlly(EffectAlly _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_ALLY_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_ALLY_DAMAGE)) {
             _object.setMultAllyDamage(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4264,7 +4266,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectClone(EffectClone _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HP_RATE_CLONE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HP_RATE_CLONE)) {
             _object.setHpRateClone(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4281,30 +4283,30 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectCombo(EffectCombo _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_EVT_RATE_SEC_EFF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_EVT_RATE_SEC_EFF)) {
             _object.setMultEvtRateSecEff(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REPEATED_ROUNDS_LAW)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REPEATED_ROUNDS_LAW)) {
             _object.setRepeatedRoundsLaw(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANK_INCREMENT_NB_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANK_INCREMENT_NB_ROUND)) {
             _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
             _object.setEffectEndRound(getListEffectEndRoundFoe(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TEAM_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM_MOVE)) {
             _object.setTeamMove(getListEffectTeam(_element));
             return;
         }
     }
 
     private static void getEffectCommonStatistics(EffectCommonStatistics _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_COMMON_VALUE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COMMON_VALUE)) {
             _object.setCommonValue(getMapStatisticString(_element));
             return;
         }
@@ -4312,7 +4314,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectCopyFighter(EffectCopyFighter _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PP_FOR_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PP_FOR_MOVES)) {
             _object.setPpForMoves(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -4320,15 +4322,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectCopyMove(EffectCopyMove _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_COPYING_MOVE_FOR_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPYING_MOVE_FOR_USER)) {
             _object.setCopyingMoveForUser(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COPYING_MOVE_FOR_USER_DEF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPYING_MOVE_FOR_USER_DEF)) {
             _object.setCopyingMoveForUserDef(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_NOT_TO_BE_COPIED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_NOT_TO_BE_COPIED)) {
             _object.setMovesNotToBeCopied(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -4336,23 +4338,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectCounterAttack(EffectCounterAttack _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_SUFFERING_DAMAGE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUFFERING_DAMAGE_TYPES)) {
             _object.setSufferingDamageTypes(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DROPPED_STAT_DIRECT_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DROPPED_STAT_DIRECT_MOVE)) {
             _object.setDroppedStatDirectMove(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUFFERING_DAMAGE_DIRECT_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUFFERING_DAMAGE_DIRECT_MOVE)) {
             _object.setSufferingDamageDirectMove(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_FAIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_FAIL)) {
             _object.setProtectFail(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COUNTER_FAIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COUNTER_FAIL)) {
             _object.setCounterFail(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -4360,67 +4362,67 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectDamage(EffectDamage _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CH_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CH_RATE)) {
             _object.setChRate(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONST_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONST_DAMAGE)) {
             _object.setConstDamage(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_LAW)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_LAW)) {
             _object.setDamageLaw(DocumentReaderMathUtil.getMonteCarloString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_AGAINST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_AGAINST)) {
             _object.setMultDamageAgainst(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CH_LAW)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CH_LAW)) {
             _object.setChLaw(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HITS_LAW)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HITS_LAW)) {
             _object.setHitsLaw(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_POWER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POWER)) {
             _object.setPower(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RAND_MAX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RAND_MAX)) {
             _object.setRandMax(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUMMING_USER_TEAM_OK_FIGHTER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUMMING_USER_TEAM_OK_FIGHTER)) {
             _object.setSummingUserTeamOkFighter(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_VAR_STAT_TARGET_POS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_VAR_STAT_TARGET_POS)) {
             _object.setIgnVarStatTargetPos(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IGN_VAR_STAT_USER_NEG)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IGN_VAR_STAT_USER_NEG)) {
             _object.setIgnVarStatUserNeg(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USER_ATTACK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USER_ATTACK)) {
             _object.setUserAttack(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATIS_ATT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATIS_ATT)) {
             _object.setStatisAtt(getStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TARGET_DEFENSE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TARGET_DEFENSE)) {
             _object.setTargetDefense(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATIS_DEF)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATIS_DEF)) {
             _object.setStatisDef(getStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOOST_STATIS_ONCE_KO_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOOST_STATIS_ONCE_KO_FOE)) {
             _object.setBoostStatisOnceKoFoe(getMapStatisticByte(_element));
             return;
         }
@@ -4428,7 +4430,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectDamageRate(EffectDamageRate _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RATE_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_DAMAGE)) {
             _object.setRateDamage(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4439,70 +4441,70 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_FOE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_FOE)) {
             EffectEndRoundFoe object_ = Instances.newEffectEndRoundFoe();
             for (Element c: childElements_) {
                 getEffectEndRoundFoe(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_GLOBAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_GLOBAL)) {
             EffectEndRoundGlobal object_ = Instances.newEffectEndRoundGlobal();
             for (Element c: childElements_) {
                 getEffectEndRound(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_INDIVIDUAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_INDIVIDUAL)) {
             EffectEndRoundIndividual object_ = Instances.newEffectEndRoundIndividual();
             for (Element c: childElements_) {
                 getEffectEndRoundIndividual(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_MULTI_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_MULTI_RELATION)) {
             EffectEndRoundMultiRelation object_ = Instances.newEffectEndRoundMultiRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundMultiRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_RELATION)) {
             EffectEndRoundPositionRelation object_ = Instances.newEffectEndRoundPositionRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundPositionRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION)) {
             EffectEndRoundPositionTargetRelation object_ = Instances.newEffectEndRoundPositionTargetRelation();
             for (Element c: childElements_) {
                 getEffectEndRound(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
             EffectEndRoundSingleRelation object_ = Instances.newEffectEndRoundSingleRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundSingleRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
             EffectEndRoundSingleStatus object_ = Instances.newEffectEndRoundSingleStatus();
             for (Element c: childElements_) {
                 getEffectEndRoundSingleStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
             EffectEndRoundStatusRelation object_ = Instances.newEffectEndRoundStatusRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundStatusRelation(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_TEAM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_TEAM)) {
             EffectEndRoundTeam object_ = Instances.newEffectEndRoundTeam();
             for (Element c: childElements_) {
                 getEffectEndRoundTeam(object_,c.getAttribute(ATTR_FIELD),c);
@@ -4513,11 +4515,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRound(EffectEndRound _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FAIL_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL_END_ROUND)) {
             _object.setFailEndRound(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_END_ROUND_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_END_ROUND_RANK)) {
             _object.setEndRoundRank(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -4534,7 +4536,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundFoe(EffectEndRoundFoe _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_INFLICTED_RATE_HP_TARGET)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INFLICTED_RATE_HP_TARGET)) {
             _object.setInflictedRateHpTarget(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4542,27 +4544,27 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundIndividual(EffectEndRoundIndividual _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS)) {
             _object.setDeleteAllStatus(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RECOIL_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RECOIL_DAMAGE)) {
             _object.setRecoilDamage(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP)) {
             _object.setHealHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP_BY_OWNER_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP_BY_OWNER_TYPES)) {
             _object.setHealHpByOwnerTypes(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_STATUS)) {
             _object.setMultDamageStatus(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USER_STATUS_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USER_STATUS_END_ROUND)) {
             _object.setUserStatusEndRound(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -4570,7 +4572,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundMultiRelation(EffectEndRoundMultiRelation _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_BY_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_BY_STATUS)) {
             _object.setDamageByStatus(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
@@ -4578,7 +4580,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundPositionRelation(EffectEndRoundPositionRelation _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_HP)) {
             _object.setHealHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4586,11 +4588,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundSingleRelation(EffectEndRoundSingleRelation _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS)) {
             _object.setRateDamageFunctionOfNbRounds(DocumentReaderMathUtil.getMapLongRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_ENABLING_EFFECT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_ENABLING_EFFECT)) {
             _object.setLawForEnablingEffect(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
@@ -4598,7 +4600,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundSingleStatus(EffectEndRoundSingleStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_INCREMENTING_DAMAGE_BY_ROUNDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREMENTING_DAMAGE_BY_ROUNDS)) {
             _object.setIncrementingDamageByRounds(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -4609,14 +4611,14 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
             EffectEndRoundSingleStatus object_ = Instances.newEffectEndRoundSingleStatus();
             for (Element c: childElements_) {
                 getEffectEndRoundSingleStatus(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
             EffectEndRoundStatusRelation object_ = Instances.newEffectEndRoundStatusRelation();
             for (Element c: childElements_) {
                 getEffectEndRoundStatusRelation(object_,c.getAttribute(ATTR_FIELD),c);
@@ -4627,7 +4629,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundStatus(EffectEndRoundStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_INFLICTED_RATE_HP_TARGET)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INFLICTED_RATE_HP_TARGET)) {
             _object.setInflictedRateHpTarget(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4635,7 +4637,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundStatusRelation(EffectEndRoundStatusRelation _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_THIEVED_HP_RATE_TARGET_TO_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_THIEVED_HP_RATE_TARGET_TO_USER)) {
             _object.setThievedHpRateTargetToUser(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4643,11 +4645,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundTeam(EffectEndRoundTeam _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS)) {
             _object.setDeleteAllStatus(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETE_ALL_STATUS_ALLY)) {
             _object.setDeleteAllStatusAlly(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4655,15 +4657,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectFullHpRate(EffectFullHpRate _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LEFT_USER_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEFT_USER_HP)) {
             _object.setLeftUserHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RESTORED_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RESTORED_HP)) {
             _object.setRestoredHp(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CLOSEST_FOE_DAMAGE_RATE_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLOSEST_FOE_DAMAGE_RATE_HP)) {
             _object.setClosestFoeDamageRateHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4671,103 +4673,103 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectGlobal(EffectGlobal _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WEATHER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WEATHER)) {
             _object.setWeather(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCELED_IF_USED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCELED_IF_USED)) {
             _object.setCanceledIfUsed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REVERSE_ORDER_OF_SORT_BY_SPEED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REVERSE_ORDER_OF_SORT_BY_SPEED)) {
             _object.setReverseOrderOfSortBySpeed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PUTTING_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PUTTING_KO)) {
             _object.setPuttingKo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_ACCURACY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_ACCURACY)) {
             _object.setMultAccuracy(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_UNUSABLE_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_UNUSABLE_ITEM)) {
             _object.setUnusableItem(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PREVENT_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PREVENT_STATUS)) {
             _object.setPreventStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMMUNE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMUNE_TYPES)) {
             _object.setImmuneTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_END_ROUND)) {
             _object.setDamageEndRound(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_END_ROUND)) {
             _object.setHealingEndRound(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEALING_END_ROUND_GROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEALING_END_ROUND_GROUND)) {
             _object.setHealingEndRoundGround(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFICIENCY_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFICIENCY_MOVES)) {
             _object.setEfficiencyMoves(getMapTypesDuoRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_IMMU_AGAINST_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_IMMU_AGAINST_TYPES)) {
             _object.setDisableImmuAgainstTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_PROTECTING_ABILITIES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_PROTECTING_ABILITIES)) {
             _object.setCancelProtectingAbilities(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_UNUSABLE_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_UNUSABLE_MOVES)) {
             _object.setUnusableMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_PREPA_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_PREPA_ROUND)) {
             _object.setMultDamagePrepaRound(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_USED_BY_TARGETED_FIGHTERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_USED_BY_TARGETED_FIGHTERS)) {
             _object.setMovesUsedByTargetedFighters(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_EFFECT_LOVING_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_EFFECT_LOVING_ALLY)) {
             _object.setMultEffectLovingAlly(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_POWER_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_POWER_MOVES)) {
             _object.setMultPowerMoves(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT_IF_CONTAINS_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT_IF_CONTAINS_TYPE)) {
             _object.setMultStatIfContainsType(getMapStatisticTypeRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_EFFECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_EFFECTS)) {
             _object.setCancelEffects(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_TYPES_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_TYPES_MOVES)) {
             _object.setMultDamageTypesMoves(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT)) {
             _object.setCancelChgtStat(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKED_MOVE_TERRAIN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKED_MOVE_TERRAIN)) {
             _object.setInvokedMoveTerrain(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHANGED_TYPES_TERRAIN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHANGED_TYPES_TERRAIN)) {
             _object.setChangedTypesTerrain(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -4775,43 +4777,43 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectInvoke(EffectInvoke _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MOVE_FCT_ENV)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVE_FCT_ENV)) {
             _object.setMoveFctEnv(getMapEnvironmentTypeString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_MOVE_BUT_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_MOVE_BUT_USER)) {
             _object.setInvokingMoveButUser(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_TARGET_CHOSEN_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_TARGET_CHOSEN_MOVE)) {
             _object.setInvokingTargetChosenMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_USER_MOVE_WHILE_SLEEP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_USER_MOVE_WHILE_SLEEP)) {
             _object.setInvokingUserMoveWhileSleep(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_ALLY_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_ALLY_MOVE)) {
             _object.setInvokingAllyMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_TARGET_SUCCESFUL_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_TARGET_SUCCESFUL_MOVE)) {
             _object.setInvokingTargetSuccesfulMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_SUFFERED_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_SUFFERED_MOVE)) {
             _object.setInvokingSufferedMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVOKING_MOVE_BY_USER_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVOKING_MOVE_BY_USER_TYPES)) {
             _object.setInvokingMoveByUserTypes(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_NOT_TO_BE_INVOKED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_NOT_TO_BE_INVOKED)) {
             _object.setMovesNotToBeInvoked(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RATE_INVOKATION_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_INVOKATION_MOVE)) {
             _object.setRateInvokationMove(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4819,7 +4821,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectMultSufferedMovePower(EffectMultSufferedMovePower _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_MOVE_POWER_FCT_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_MOVE_POWER_FCT_TYPE)) {
             _object.setMultMovePowerFctType(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
@@ -4827,7 +4829,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectMultUsedMovePower(EffectMultUsedMovePower _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_MOVE_POWER_FCT_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_MOVE_POWER_FCT_TYPE)) {
             _object.setMultMovePowerFctType(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
@@ -4835,7 +4837,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectOrder(EffectOrder _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TARGET_ATTACKS_LAST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TARGET_ATTACKS_LAST)) {
             _object.setTargetAttacksLast(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -4843,7 +4845,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectProtectFromTypes(EffectProtectFromTypes _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_IMMU_AGAINST_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMMU_AGAINST_TYPES)) {
             _object.setImmuAgainstTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -4851,27 +4853,27 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectProtection(EffectProtection _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PROT_SINGLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_SINGLE)) {
             _object.setProtSingle(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROT_SINGLE_AGAINST_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_SINGLE_AGAINST_KO)) {
             _object.setProtSingleAgainstKo(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_MULT_TARGETS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_MULT_TARGETS)) {
             _object.setProtTeamAgainstMultTargets(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_PRIO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_PRIO)) {
             _object.setProtTeamAgainstPrio(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_STATUS_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_STATUS_MOVES)) {
             _object.setProtTeamAgainstStatusMoves(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_DAMAGE_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROT_TEAM_AGAINST_DAMAGE_MOVES)) {
             _object.setProtTeamAgainstDamageMoves(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -4879,7 +4881,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectRemainedHpRate(EffectRemainedHpRate _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_RATE_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_HP)) {
             _object.setRateHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -4887,11 +4889,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectRestriction(EffectRestriction _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FORBID_TARGET_USING_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORBID_TARGET_USING_ITEM)) {
             _object.setForbidTargetUsingItem(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOICE_RESTRICTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOICE_RESTRICTION)) {
             _object.setChoiceRestriction(getMoveChoiceRestrictionType(_element));
             return;
         }
@@ -4908,39 +4910,39 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectStatistic(EffectStatistic _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STATIS_VAR_RANK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATIS_VAR_RANK)) {
             _object.setStatisVarRank(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOCAL_FAIL_STATIS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOCAL_FAIL_STATIS)) {
             _object.setLocalFailStatis(getMapStatisticString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EVT_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EVT_RATE)) {
             _object.setEvtRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COPY_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPY_BOOST)) {
             _object.setCopyBoost(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SWAP_BOOST_STATIS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SWAP_BOOST_STATIS)) {
             _object.setSwapBoostStatis(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOCAL_FAIL_SWAP_BOOST_STATIS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOCAL_FAIL_SWAP_BOOST_STATIS)) {
             _object.setLocalFailSwapBoostStatis(getMapStatisticString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_BOOST)) {
             _object.setLawBoost(getMonteCarloEnumStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_LOW_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_LOW_STAT)) {
             _object.setCancelLowStat(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT)) {
             _object.setCancelChgtStat(getListStatistic(_element));
             return;
         }
@@ -4948,23 +4950,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectStatus(EffectStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LAW_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_STATUS)) {
             _object.setLawStatus(DocumentReaderMathUtil.getMonteCarloString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELETED_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETED_STATUS)) {
             _object.setDeletedStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOCAL_FAIL_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOCAL_FAIL_STATUS)) {
             _object.setLocalFailStatus(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_KO_USER_HEAL_SUBST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_KO_USER_HEAL_SUBST)) {
             _object.setKoUserHealSubst(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS_FROM_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS_FROM_USER)) {
             _object.setStatusFromUser(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -4972,11 +4974,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectSwitchAbilities(EffectSwitchAbilities _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_EXCHANGE_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXCHANGE_ABILITY)) {
             _object.setExchangeAbility(getExchangeType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONST_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONST_ABILITY)) {
             _object.setConstAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -4984,7 +4986,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectSwitchItems(EffectSwitchItems _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MOVE_OBJECT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVE_OBJECT)) {
             _object.setMoveObject(getMoveItemType(_element));
             return;
         }
@@ -4992,11 +4994,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectSwitchMoveTypes(EffectSwitchMoveTypes _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CHANGE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHANGE_TYPES)) {
             _object.setChangeTypes(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REPLACING_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REPLACING_TYPES)) {
             _object.setReplacingTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -5004,7 +5006,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectSwitchPointView(EffectSwitchPointView _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_POINT_VIEW_CHANGEMENT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POINT_VIEW_CHANGEMENT)) {
             _object.setPointViewChangement(getPointViewChangementType(_element));
             return;
         }
@@ -5012,23 +5014,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectSwitchTypes(EffectSwitchTypes _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_ENV)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHGT_TYPE_BY_ENV)) {
             _object.setChgtTypeByEnv(getMapEnvironmentTypeString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONST_VALUES_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONST_VALUES_TYPE)) {
             _object.setConstValuesType(getConstValuesType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXCHANGE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXCHANGE_TYPES)) {
             _object.setExchangeTypes(getExchangeType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CONST_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CONST_TYPES)) {
             _object.setConstTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ADDED_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ADDED_TYPES)) {
             _object.setAddedTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -5045,55 +5047,55 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectTeam(EffectTeam _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FORBIDDING_HEALING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORBIDDING_HEALING)) {
             _object.setForbiddingHealing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FORBIDDEN_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FORBIDDEN_BOOST)) {
             _object.setForbiddenBoost(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_UNUSABLE_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_UNUSABLE_MOVES)) {
             _object.setUnusableMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT_FOE_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT_FOE_TEAM)) {
             _object.setCancelChgtStatFoeTeam(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CANCEL_CHGT_STAT_TEAM)) {
             _object.setCancelChgtStatTeam(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE)) {
             _object.setMultDamage(getMapCategoryMultRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STATISTIC)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STATISTIC)) {
             _object.setMultStatistic(getMapStatisticRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STATISTIC_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STATISTIC_FOE)) {
             _object.setMultStatisticFoe(getMapStatisticRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_AGAINST_LOW_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_AGAINST_LOW_STAT)) {
             _object.setProtectAgainstLowStat(getListStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_AGAINST_CH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_AGAINST_CH)) {
             _object.setProtectAgainstCh(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECT_AGAINST_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECT_AGAINST_STATUS)) {
             _object.setProtectAgainstStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_FOE_TEAM_EFFECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_FOE_TEAM_EFFECTS)) {
             _object.setDisableFoeTeamEffects(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_FOE_TEAM_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_FOE_TEAM_STATUS)) {
             _object.setDisableFoeTeamStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -5101,23 +5103,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectTeamWhileSendFoe(EffectTeamWhileSendFoe _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FAIL_SENDING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL_SENDING)) {
             _object.setFailSending(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS_BY_NB_USES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS_BY_NB_USES)) {
             _object.setStatusByNbUses(DocumentReaderCoreUtil.getMapShortString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELETED_BY_FOE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETED_BY_FOE_TYPES)) {
             _object.setDeletedByFoeTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_AGAINST_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_AGAINST_FOE)) {
             _object.setDamageRateAgainstFoe(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATISTICS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATISTICS)) {
             _object.setStatistics(getMapStatisticByte(_element));
             return;
         }
@@ -5125,19 +5127,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectUnprotectFromTypes(EffectUnprotectFromTypes _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES)) {
             _object.setTypes(getListTypesDuo(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_IMMU_AGAINST_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_IMMU_AGAINST_TYPES)) {
             _object.setDisableImmuAgainstTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLE_IMMU_FROM_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_IMMU_FROM_MOVES)) {
             _object.setDisableImmuFromMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ATTACK_TARGET_WITH_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ATTACK_TARGET_WITH_TYPES)) {
             _object.setAttackTargetWithTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -5145,7 +5147,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectVarPP(EffectVarPP _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_DELETE_PP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELETE_PP)) {
             _object.setDeletePp(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -5153,7 +5155,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectWinMoney(EffectWinMoney _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WINNING_RATE_BY_SUM_TARGET_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WINNING_RATE_BY_SUM_TARGET_USER)) {
             _object.setWinningRateBySumTargetUser(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -5162,7 +5164,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static ConstValuesType getConstValuesType(Element _elt) {
         for (ConstValuesType e: ConstValuesType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5171,7 +5173,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static ExchangeType getExchangeType(Element _elt) {
         for (ExchangeType e: ExchangeType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5180,7 +5182,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static MoveChoiceRestrictionType getMoveChoiceRestrictionType(Element _elt) {
         for (MoveChoiceRestrictionType e: MoveChoiceRestrictionType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5189,7 +5191,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static MoveItemType getMoveItemType(Element _elt) {
         for (MoveItemType e: MoveItemType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5198,7 +5200,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static PointViewChangementType getPointViewChangementType(Element _elt) {
         for (PointViewChangementType e: PointViewChangementType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5207,7 +5209,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static SwitchType getSwitchType(Element _elt) {
         for (SwitchType e: SwitchType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5216,7 +5218,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static TargetChoice getTargetChoice(Element _elt) {
         for (TargetChoice e: TargetChoice.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5241,79 +5243,79 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonData(PokemonData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WEIGHT)) {
             _object.setWeight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES)) {
             _object.setTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATISTICS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATISTICS)) {
             _object.setStatistics(getMapStatisticStatBaseEv(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEV_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEV_MOVES)) {
             _object.setLevMoves(getListLevelMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GENDER_REP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER_REP)) {
             _object.setGenderRep(getGenderRepartition(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITIES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITIES)) {
             _object.setAbilities(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVE_TUTORS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVE_TUTORS)) {
             _object.setMoveTutors(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HIDDEN_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HIDDEN_MOVES)) {
             _object.setHiddenMoves(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TECHNICAL_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TECHNICAL_MOVES)) {
             _object.setTechnicalMoves(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BASE_EVO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BASE_EVO)) {
             _object.setBaseEvo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EVOLUTIONS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EVOLUTIONS)) {
             _object.setEvolutions(getStringMapEvolution(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
             _object.setCatchingRate(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEIGHT)) {
             _object.setHeight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXP_EVO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXP_EVO)) {
             _object.setExpEvo(getExpType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXP_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXP_RATE)) {
             _object.setExpRate(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EGG_GROUPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EGG_GROUPS)) {
             _object.setEggGroups(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HATCHING_STEPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HATCHING_STEPS)) {
             _object.setHatchingSteps(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS)) {
             _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS_HATCH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS_HATCH)) {
             _object.setHappinessHatch(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -5321,7 +5323,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static ExpType getExpType(Element _elt) {
         for (ExpType e: ExpType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5330,7 +5332,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static GenderRepartition getGenderRepartition(Element _elt) {
         for (GenderRepartition e: GenderRepartition.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5341,63 +5343,63 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_HAPPINESS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_HAPPINESS)) {
             EvolutionHappiness object_ = Instances.newEvolutionHappiness();
             for (Element c: childElements_) {
                 getEvolution(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_ITEM)) {
             EvolutionItem object_ = Instances.newEvolutionItem();
             for (Element c: childElements_) {
                 getEvolutionItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_GENDER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_GENDER)) {
             EvolutionLevelGender object_ = Instances.newEvolutionLevelGender();
             for (Element c: childElements_) {
                 getEvolutionLevelGender(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_SIMPLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_SIMPLE)) {
             EvolutionLevelSimple object_ = Instances.newEvolutionLevelSimple();
             for (Element c: childElements_) {
                 getEvolutionLevel(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_MOVE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_MOVE)) {
             EvolutionMove object_ = Instances.newEvolutionMove();
             for (Element c: childElements_) {
                 getEvolutionMove(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_MOVE_TYPE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_MOVE_TYPE)) {
             EvolutionMoveType object_ = Instances.newEvolutionMoveType();
             for (Element c: childElements_) {
                 getEvolutionMoveType(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_STONE_GENDER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_STONE_GENDER)) {
             EvolutionStoneGender object_ = Instances.newEvolutionStoneGender();
             for (Element c: childElements_) {
                 getEvolutionStoneGender(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_STONE_SIMPLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_STONE_SIMPLE)) {
             EvolutionStoneSimple object_ = Instances.newEvolutionStoneSimple();
             for (Element c: childElements_) {
                 getEvolutionStone(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_TEAM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_TEAM)) {
             EvolutionTeam object_ = Instances.newEvolutionTeam();
             for (Element c: childElements_) {
                 getEvolutionTeam(object_,c.getAttribute(ATTR_FIELD),c);
@@ -5411,21 +5413,21 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEvolutionItem(EvolutionItem _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getEvolutionLevel(EvolutionLevel _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
     }
 
     private static void getEvolutionLevelGender(EvolutionLevelGender _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
@@ -5433,28 +5435,28 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEvolutionMove(EvolutionMove _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVE)) {
             _object.setMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getEvolutionMoveType(EvolutionMoveType _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getEvolutionStone(EvolutionStone _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STONE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STONE)) {
             _object.setStone(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getEvolutionStoneGender(EvolutionStoneGender _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
@@ -5462,7 +5464,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEvolutionTeam(EvolutionTeam _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
             _object.setPokemon(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -5480,21 +5482,21 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_STATUS_BEGIN_ROUND_AUTO_DAMAGE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_STATUS_BEGIN_ROUND_AUTO_DAMAGE)) {
             StatusBeginRoundAutoDamage object_ = Instances.newStatusBeginRoundAutoDamage();
             for (Element c: childElements_) {
                 getStatusBeginRoundAutoDamage(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_STATUS_BEGIN_ROUND_SIMPLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_STATUS_BEGIN_ROUND_SIMPLE)) {
             StatusBeginRoundSimple object_ = Instances.newStatusBeginRoundSimple();
             for (Element c: childElements_) {
                 getStatusBeginRound(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_STATUS_SIMPLE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_STATUS_SIMPLE)) {
             StatusSimple object_ = Instances.newStatusSimple();
             for (Element c: childElements_) {
                 getStatus(object_,c.getAttribute(ATTR_FIELD),c);
@@ -5505,58 +5507,58 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getStatus(Status _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_STATUS_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS_TYPE)) {
             _object.setStatusType(getStatusType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATCHING_RATE)) {
             _object.setCatchingRate(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
             _object.setEffectEndRound(getListEffectEndRoundStatus(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EFFECTS_PARTNER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EFFECTS_PARTNER)) {
             _object.setEffectsPartner(getListEffectPartnerStatus(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISABLED_EFF_IF_SWITCH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISABLED_EFF_IF_SWITCH)) {
             _object.setDisabledEffIfSwitch(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREMENT_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREMENT_END_ROUND)) {
             _object.setIncrementEndRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCREMENTING_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCREMENTING_END_ROUND)) {
             _object.setIncrementingEndRound(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_STAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_STAT)) {
             _object.setMultStat(getMapStatisticRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FAIL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FAIL)) {
             _object.setFail(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getStatusBeginRound(StatusBeginRound _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE)) {
             _object.setLawForUsingAMove(DocumentReaderMathUtil.getMonteCarloBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE_NB_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE_NB_ROUND)) {
             _object.setLawForUsingAMoveNbRound(DocumentReaderMathUtil.getMonteCarloNumber(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE_IF_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_USING_A_MOVE_IF_FOE)) {
             _object.setLawForUsingAMoveIfFoe(DocumentReaderMathUtil.getMonteCarloBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAW_FOR_FULL_HEAL_IF_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAW_FOR_FULL_HEAL_IF_MOVE)) {
             _object.setLawForFullHealIfMove(DocumentReaderMathUtil.getMonteCarloBoolean(_element));
             return;
         }
@@ -5564,15 +5566,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getStatusBeginRoundAutoDamage(StatusBeginRoundAutoDamage _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_POWER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_POWER)) {
             _object.setPower(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ATTACK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ATTACK)) {
             _object.setAttack(getStatistic(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DEFENSE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DEFENSE)) {
             _object.setDefense(getStatistic(_element));
             return;
         }
@@ -5581,7 +5583,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static StatusType getStatusType(Element _elt) {
         for (StatusType e: StatusType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -5598,15 +5600,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectPartnerStatus(EffectPartnerStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_AGAINST_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_DAMAGE_AGAINST_FOE)) {
             _object.setMultDamageAgainstFoe(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WEDDING_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WEDDING_ALLY)) {
             _object.setWeddingAlly(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RESTORED_HP_RATE_LOVED_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RESTORED_HP_RATE_LOVED_ALLY)) {
             _object.setRestoredHpRateLovedAlly(DocumentReaderMathUtil.getRate(_element));
             return;
         }
@@ -5666,7 +5668,7 @@ public final class DocumentReaderAikiCoreUtil {
             return null;
         }
         String tagName_ = doc_.getDocumentElement().getTagName();
-        if (StringList.quickEq(tagName_,"LoadingGame")) {
+        if (StringUtil.quickEq(tagName_,"LoadingGame")) {
             return null;
         }
         return getGame(doc_.getDocumentElement());
@@ -5678,7 +5680,7 @@ public final class DocumentReaderAikiCoreUtil {
             return null;
         }
         String tagName_ = doc_.getDocumentElement().getTagName();
-        if (!StringList.quickEq(tagName_,"Game")) {
+        if (!StringUtil.quickEq(tagName_,"Game")) {
             return null;
         }
         return getGame(doc_.getDocumentElement());
@@ -5694,71 +5696,71 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getGame(Game _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ZIPPED_ROM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ZIPPED_ROM)) {
             _object.setZippedRom(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER)) {
             _object.setPlayer(getPlayer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANK_LEAGUE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANK_LEAGUE)) {
             _object.setRankLeague(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BEAT_GYM_TRAINER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BEAT_GYM_TRAINER)) {
             _object.setBeatGymTrainer(getMapShortListPoint(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BEAT_GYM_LEADER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BEAT_GYM_LEADER)) {
             _object.setBeatGymLeader(getMapCoordsBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BEAT_TRAINER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BEAT_TRAINER)) {
             _object.setBeatTrainer(getMapNbFightCoordsBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKEN_OBJECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKEN_OBJECTS)) {
             _object.setTakenObjects(getMapCoordsBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TAKEN_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TAKEN_POKEMON)) {
             _object.setTakenPokemon(getMapCoordsBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER_COORDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER_COORDS)) {
             _object.setPlayerCoords(getCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER_ORIENTATION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER_ORIENTATION)) {
             _object.setPlayerOrientation(getDirection(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HOSTED_PK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HOSTED_PK)) {
             _object.setHostedPk(getMapCoordsHostPokemonDuo(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIGHT)) {
             _object.setFight(getFight(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DIFFICULTY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DIFFICULTY)) {
             _object.setDifficulty(getDifficulty(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX_PERIOD_FISHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX_PERIOD_FISHING)) {
             _object.setIndexPeriodFishing(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX_PERIOD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX_PERIOD)) {
             _object.setIndexPeriod(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX_STEP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX_STEP)) {
             _object.setIndexStep(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_VISITED_PLACES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_VISITED_PLACES)) {
             _object.setVisitedPlaces(getMapCoordsBoolean(_element));
             return;
         }
@@ -5774,15 +5776,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getHostPokemonDuo(HostPokemonDuo _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_POKEMON)) {
             _object.setFirstPokemon(getPokemonPlayer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SECOND_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SECOND_POKEMON)) {
             _object.setSecondPokemon(getPokemonPlayer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_STEPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_STEPS)) {
             _object.setNbSteps(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -5814,15 +5816,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getChoiceOfEvolutionAndMoves(ChoiceOfEvolutionAndMoves _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_KEPT_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_KEPT_MOVES)) {
             _object.setKeptMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -5838,83 +5840,83 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getFight(Fight _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIGHT_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIGHT_TYPE)) {
             _object.setFightType(getFightType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENV_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENV_TYPE)) {
             _object.setEnvType(getEnvironmentType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT)) {
             _object.setMult(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER_MAX_NUMBER_FRONT_FIGHTERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER_MAX_NUMBER_FRONT_FIGHTERS)) {
             _object.setPlayerMaxNumberFrontFighters(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
             _object.setEnabledMoves(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STILL_ENABLED_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STILL_ENABLED_MOVES)) {
             _object.setStillEnabledMoves(DocumentReaderCoreUtil.getStringMapBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TEAMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAMS)) {
             _object.setTeams(getMapByteTeam(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_FLEE_ATTEMPT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_FLEE_ATTEMPT)) {
             _object.setNbFleeAttempt(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_ROUNDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_ROUNDS)) {
             _object.setNbRounds(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WINNING_MONEY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WINNING_MONEY)) {
             _object.setWinningMoney(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CATCHING_BALL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CATCHING_BALL)) {
             _object.setCatchingBall(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CURRENT_USER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CURRENT_USER)) {
             _object.setCurrentUser(getTeamPosition(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATE)) {
             _object.setState(getFightState(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USED_ITEMS_WHILE_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USED_ITEMS_WHILE_ROUND)) {
             _object.setUsedItemsWhileRound(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_POSIT_PLAYER_FIGHTERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_POSIT_PLAYER_FIGHTERS)) {
             _object.setFirstPositPlayerFighters(DocumentReaderCoreUtil.getMapByteByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_POSIT_FOE_FIGHTERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_POSIT_FOE_FIGHTERS)) {
             _object.setFirstPositFoeFighters(DocumentReaderCoreUtil.getMapByteByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLY_CHOICE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLY_CHOICE)) {
             _object.setAllyChoice(getMapMoveTargetMoveTarget(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOST_OBJECTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOST_OBJECTS)) {
             _object.setLostObjects(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOICES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOICES)) {
             _object.setChoices(getMapByteChoiceOfEvolutionAndMoves(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CAUGHT_EVOLUTIONS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CAUGHT_EVOLUTIONS)) {
             _object.setCaughtEvolutions(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -5930,271 +5932,271 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getFighter(Fighter _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAME)) {
             _object.setNickname(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WEIGHT)) {
             _object.setWeight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEIGHT)) {
             _object.setHeight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CURRENT_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CURRENT_NAME)) {
             _object.setCurrentName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CURRENT_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CURRENT_GENDER)) {
             _object.setCurrentGender(getGender(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_USED_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_USED_ITEM)) {
             _object.setLastUsedItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXP_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXP_ITEM)) {
             _object.setExpItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CURRENT_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CURRENT_ABILITY)) {
             _object.setCurrentAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderCoreUtil.getStringMapShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS_RELAT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS_RELAT)) {
             _object.setStatusRelat(getMapMoveTeamPositionShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_ROUNDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_ROUNDS)) {
             _object.setNbRounds(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPES)) {
             _object.setTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES)) {
             _object.setMoves(getStringMapUsesOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CURRENT_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CURRENT_MOVES)) {
             _object.setCurrentMoves(getStringMapUsesOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EV)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EV)) {
             _object.setEv(getMapStatisticShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATIS_BASE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATIS_BASE)) {
             _object.setStatisBase(getMapStatisticRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATIS_BOOST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATIS_BOOST)) {
             _object.setStatisBoost(getMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REMAINING_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REMAINING_HP)) {
             _object.setRemainingHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CLONE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLONE)) {
             _object.setClone(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
             _object.setEnabledMoves(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_PROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_PROT)) {
             _object.setEnabledMovesProt(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PROTECTED_AGAINST_MOVE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PROTECTED_AGAINST_MOVE_TYPES)) {
             _object.setProtectedAgainstMoveTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_UNPROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_UNPROT)) {
             _object.setEnabledMovesUnprot(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_END_ROUND)) {
             _object.setEnabledMovesEndRound(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_CONST_CHOICES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_CONST_CHOICES)) {
             _object.setEnabledMovesConstChoices(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_CHANGING_TYPES_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_CHANGING_TYPES_MOVES)) {
             _object.setEnabledChangingTypesMoves(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_COUNTERING_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_COUNTERING_MOVES)) {
             _object.setEnabledCounteringMoves(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_FOR_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_FOR_ALLY)) {
             _object.setEnabledMovesForAlly(DocumentReaderCoreUtil.getStringMapBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_INFLICTED_BY_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_INFLICTED_BY_TYPE)) {
             _object.setDamageRateInflictedByType(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_SUFFERED_BY_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_SUFFERED_BY_TYPE)) {
             _object.setDamageRateSufferedByType(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACTED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACTED)) {
             _object.setActed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GROUND_PLACE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GROUND_PLACE)) {
             _object.setGroundPlace(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GROUND_PLACE_SUBST)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GROUND_PLACE_SUBST)) {
             _object.setGroundPlaceSubst(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WON_EXP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WON_EXP)) {
             _object.setWonExp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WON_EXP_SINCE_LAST_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WON_EXP_SINCE_LAST_LEVEL)) {
             _object.setWonExpSinceLastLevel(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS)) {
             _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USED_BALL_CATCHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USED_BALL_CATCHING)) {
             _object.setUsedBallCatching(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INCR_USER_ACCURACY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INCR_USER_ACCURACY)) {
             _object.setIncrUserAccuracy(getMapMoveTeamPositionBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_USES_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_USES_MOVES)) {
             _object.setNbUsesMoves(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_PREPA_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_PREPA_ROUND)) {
             _object.setNbPrepaRound(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DISAPPEARED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DISAPPEARED)) {
             _object.setDisappeared(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEEDING_TO_RECHARGE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEEDING_TO_RECHARGE)) {
             _object.setNeedingToRecharge(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRACKING_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRACKING_MOVES)) {
             _object.setTrackingMoves(getMapMoveTeamPositionAffectedMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRAPPING_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRAPPING_MOVES)) {
             _object.setTrappingMoves(getMapMoveTeamPositionActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_SUFFERED_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_SUFFERED_MOVE)) {
             _object.setLastSufferedMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_SUFFERED_MOVE_TYPES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_SUFFERED_MOVE_TYPES)) {
             _object.setLastSufferedMoveTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_SUFFERED_CATEG)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_SUFFERED_CATEG)) {
             _object.setDamageSufferedCateg(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_SUFFERED_CATEG_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_SUFFERED_CATEG_ROUND)) {
             _object.setDamageSufferedCategRound(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_USED_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_USED_MOVE)) {
             _object.setLastUsedMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USED_MOVE_LAST_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USED_MOVE_LAST_ROUND)) {
             _object.setUsedMoveLastRound(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALREADY_INVOKED_MOVES_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALREADY_INVOKED_MOVES_ROUND)) {
             _object.setAlreadyInvokedMovesRound(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_SUCCESSFUL_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_SUCCESSFUL_MOVE)) {
             _object.setLastSuccessfulMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_COPIED_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_COPIED_MOVES)) {
             _object.setCopiedMoves(getStringMapCopiedMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_REPEATING_SUCCESSFUL_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_REPEATING_SUCCESSFUL_MOVES)) {
             _object.setNbRepeatingSuccessfulMoves(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USING_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USING_ITEM)) {
             _object.setUsingItem(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUCCESSFUL_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUCCESSFUL_MOVE)) {
             _object.setSuccessfulMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHANGED)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHANGED)) {
             _object.setChanged(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PRIVATE_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PRIVATE_MOVES)) {
             _object.setPrivateMoves(getMapMoveTeamPositionStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BELONGING_TO_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BELONGING_TO_PLAYER)) {
             _object.setBelongingToPlayer(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACTION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACTION)) {
             _object.setAction(getAbstractAction(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_TO_BE_LEARNT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_TO_BE_LEARNT)) {
             _object.setMovesToBeLearnt(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_ABILITIES_EVOS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_ABILITIES_EVOS)) {
             _object.setMovesAbilitiesEvos(getStringMapMovesAbilities(_element));
             return;
         }
@@ -6222,55 +6224,55 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTeam(Team _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_BY_GROUP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_BY_GROUP)) {
             _object.setEnabledMovesByGroup(getMapStringListActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES)) {
             _object.setEnabledMoves(getStringMapActivityOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_WHILE_SENDING_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_WHILE_SENDING_FOE)) {
             _object.setEnabledMovesWhileSendingFoe(DocumentReaderCoreUtil.getStringMapBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_MOVES_WHILE_SENDING_FOE_USES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_MOVES_WHILE_SENDING_FOE_USES)) {
             _object.setEnabledMovesWhileSendingFoeUses(DocumentReaderMathUtil.getStringMapLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_USES_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_USES_MOVES)) {
             _object.setNbUsesMoves(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_USES_MOVES_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_USES_MOVES_ROUND)) {
             _object.setNbUsesMovesRound(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEAL_AFTER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEAL_AFTER)) {
             _object.setHealAfter(getStringMapMapByteStacksOfUses(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES_ANTICIPATION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES_ANTICIPATION)) {
             _object.setMovesAnticipation(getStringMapMapByteAnticipation(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MEMBERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MEMBERS)) {
             _object.setMembers(getMapByteFighter(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAYER_FIGHTERS_AGAINST_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAYER_FIGHTERS_AGAINST_FOE)) {
             _object.setPlayerFightersAgainstFoe(DocumentReaderCoreUtil.getMapByteListByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_KO_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_KO_ROUND)) {
             _object.setNbKoRound(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_KO_PREVIOUS_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_KO_PREVIOUS_ROUND)) {
             _object.setNbKoPreviousRound(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUCCESSFUL_MOVES_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUCCESSFUL_MOVES_ROUND)) {
             _object.setSuccessfulMovesRound(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -6284,35 +6286,35 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_ACTION)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ACTION)) {
             Action object_ = Instances.newAction();
             for (Element c: childElements_) {
                 getAbstractAction(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ACTION_HEAL_MOVE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ACTION_HEAL_MOVE)) {
             ActionHealMove object_ = Instances.newActionHealMove();
             for (Element c: childElements_) {
                 getActionHealMove(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ACTION_MOVE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ACTION_MOVE)) {
             ActionMove object_ = Instances.newActionMove();
             for (Element c: childElements_) {
                 getActionMove(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ACTION_SIMPLE_HEAL)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ACTION_SIMPLE_HEAL)) {
             ActionSimpleHeal object_ = Instances.newActionSimpleHeal();
             for (Element c: childElements_) {
                 getActionSimpleHeal(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ACTION_SWITCH)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ACTION_SWITCH)) {
             ActionSwitch object_ = Instances.newActionSwitch();
             for (Element c: childElements_) {
                 getActionSwitch(object_,c.getAttribute(ATTR_FIELD),c);
@@ -6326,18 +6328,18 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getActionHeal(ActionHeal _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_CHOSEN_HEALING_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOSEN_HEALING_ITEM)) {
             _object.setChosenHealingItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
     }
 
     private static void getActionHealMove(ActionHealMove _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_CHOSEN_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_CHOSEN_MOVE)) {
             _object.setFirstChosenMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -6345,19 +6347,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getActionMove(ActionMove _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_CHOSEN_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_CHOSEN_MOVE)) {
             _object.setFirstChosenMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FINAL_CHOSEN_MOVE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FINAL_CHOSEN_MOVE)) {
             _object.setFinalChosenMove(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHOSEN_TARGETS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHOSEN_TARGETS)) {
             _object.setChosenTargets(getListTargetCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
             _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -6368,7 +6370,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getActionSwitch(ActionSwitch _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
             _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
@@ -6376,7 +6378,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static FightState getFightState(Element _elt) {
         for (FightState e: FightState.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -6385,7 +6387,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static FightType getFightType(Element _elt) {
         for (FightType e: FightType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -6414,11 +6416,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getMovesAbilities(MovesAbilities _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES)) {
             _object.setMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITIES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITIES)) {
             _object.setAbilities(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -6434,71 +6436,71 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getDifficulty(Difficulty _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ALLOW_CATCHING_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOW_CATCHING_KO)) {
             _object.setAllowCatchingKo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ALLOWED_SWITCH_PLACES_END_ROUND)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOWED_SWITCH_PLACES_END_ROUND)) {
             _object.setAllowedSwitchPlacesEndRound(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DIFF_WINNING_EXP_PTS_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DIFF_WINNING_EXP_PTS_FIGHT)) {
             _object.setDiffWinningExpPtsFight(getDifficultyWinPointsFight(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RATE_WINNING_EXP_PTS_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_WINNING_EXP_PTS_FIGHT)) {
             _object.setRateWinningExpPtsFight(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WIN_TRAINER_EXP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WIN_TRAINER_EXP)) {
             _object.setWinTrainerExp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_PLAYER)) {
             _object.setDamageRatePlayer(getDifficultyModelLaw(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DAMAGE_RATE_LAW_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DAMAGE_RATE_LAW_FOE)) {
             _object.setDamageRateLawFoe(getDifficultyModelLaw(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_END_FIGHT_IF_ONE_TEAM_KO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_END_FIGHT_IF_ONE_TEAM_KO)) {
             _object.setEndFightIfOneTeamKo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RATE_WIN_MONEY_BASE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_WIN_MONEY_BASE)) {
             _object.setRateWinMoneyBase(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RATE_LOOSE_MONEY_WIN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RATE_LOOSE_MONEY_WIN)) {
             _object.setRateLooseMoneyWin(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IV_PLAYER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IV_PLAYER)) {
             _object.setIvPlayer(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IV_FOE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IV_FOE)) {
             _object.setIvFoe(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STILL_POSSIBLE_FLEE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STILL_POSSIBLE_FLEE)) {
             _object.setStillPossibleFlee(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RESTORED_MOVES_END_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RESTORED_MOVES_END_FIGHT)) {
             _object.setRestoredMovesEndFight(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_CLOSING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_CLOSING)) {
             _object.setEnabledClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RANDOM_WILD_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RANDOM_WILD_FIGHT)) {
             _object.setRandomWildFight(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
             _object.setSkipLearningMovesWhileNotGrowingLevel(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -6510,7 +6512,7 @@ public final class DocumentReaderAikiCoreUtil {
             return null;
         }
         String tagName_ = doc_.getDocumentElement().getTagName();
-        if (!StringList.quickEq(tagName_,"LoadingGame")) {
+        if (!StringUtil.quickEq(tagName_,"LoadingGame")) {
             return null;
         }
         return getLoadingGame(doc_.getDocumentElement());
@@ -6533,47 +6535,47 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLoadingGame(LoadingGame _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LAST_ROM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_ROM)) {
             _object.setLastRom(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LAST_SAVED_GAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAST_SAVED_GAME)) {
             _object.setLastSavedGame(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SAVE_HOME_FOLDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SAVE_HOME_FOLDER)) {
             _object.setSaveHomeFolder(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOAD_HOME_FOLDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOAD_HOME_FOLDER)) {
             _object.setLoadHomeFolder(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOAD_LAST_ROM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOAD_LAST_ROM)) {
             _object.setLoadLastRom(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LOAD_LAST_GAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LOAD_LAST_GAME)) {
             _object.setLoadLastGame(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SAVE_GAME_AT_EXIT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SAVE_GAME_AT_EXIT)) {
             _object.setSaveGameAtExit(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLE_ANIMATION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLE_ANIMATION)) {
             _object.setEnableAnimation(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLE_MOVING_HEROS_ANIMATION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLE_MOVING_HEROS_ANIMATION)) {
             _object.setEnableMovingHerosAnimation(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CLICK_BUTTONS_PAD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CLICK_BUTTONS_PAD)) {
             _object.setClickButtonsPad(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ENABLED_KEY_PAD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_KEY_PAD)) {
             _object.setEnabledKeyPad(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -6581,7 +6583,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static DifficultyModelLaw getDifficultyModelLaw(Element _elt) {
         for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -6590,7 +6592,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static DifficultyWinPointsFight getDifficultyWinPointsFight(Element _elt) {
         for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -6607,15 +6609,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getInventory(Inventory _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ITEMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEMS)) {
             _object.setItems(DocumentReaderMathUtil.getStringMapLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TM)) {
             _object.setTm(DocumentReaderCoreUtil.getMapShortBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HM)) {
             _object.setHm(DocumentReaderCoreUtil.getMapShortBoolean(_element));
             return;
         }
@@ -6631,35 +6633,35 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPlayer(Player _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAME)) {
             _object.setNickname(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SEX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SEX)) {
             _object.setSex(getSex(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(getListUsablePokemon(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BOX)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BOX)) {
             _object.setBox(getListUsablePokemon(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INVENTORY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INVENTORY)) {
             _object.setInventory(getInventory(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CAUGHT_PK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CAUGHT_PK)) {
             _object.setCaughtPk(DocumentReaderCoreUtil.getStringMapBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MONEY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MONEY)) {
             _object.setMoney(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REMAINING_REPEL_STEPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REMAINING_REPEL_STEPS)) {
             _object.setRemainingRepelSteps(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -6668,7 +6670,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static Sex getSex(Element _elt) {
         Sex[] values_ = Sex.values();
         for (Sex e: values_) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -6690,47 +6692,47 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getDataMap(DataMap _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PLACES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACES)) {
             _object.setPlaces(getMapShortPlace(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACCESS_CONDITION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACCESS_CONDITION)) {
             _object.setAccessCondition(getMapCoordsListCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MINI_MAP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MINI_MAP)) {
             _object.setMiniMap(getMapMiniMapCoordsTileMiniMap(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_UNLOCKED_CITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_UNLOCKED_CITY)) {
             _object.setUnlockedCity(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BEGIN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BEGIN)) {
             _object.setBegin(getCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FIRST_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FIRST_POKEMON)) {
             _object.setFirstPokemon(getWildPk(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCREEN_WIDTH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCREEN_WIDTH)) {
             _object.setScreenWidth(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCREEN_HEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCREEN_HEIGHT)) {
             _object.setScreenHeight(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SPACE_BETWEEN_LEFT_AND_HEROS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SPACE_BETWEEN_LEFT_AND_HEROS)) {
             _object.setSpaceBetweenLeftAndHeros(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SPACE_BETWEEN_TOP_AND_HEROS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SPACE_BETWEEN_TOP_AND_HEROS)) {
             _object.setSpaceBetweenTopAndHeros(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SIDE_LENGTH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SIDE_LENGTH)) {
             _object.setSideLength(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -6740,14 +6742,14 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_GYM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_GYM)) {
             Gym object_ = Instances.newGym();
             for (Element c: childElements_) {
                 getGym(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_POKEMON_CENTER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_POKEMON_CENTER)) {
             PokemonCenter object_ = Instances.newPokemonCenter();
             for (Element c: childElements_) {
                 getPokemonCenter(object_,c.getAttribute(ATTR_FIELD),c);
@@ -6758,18 +6760,18 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getBuilding(Building _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_IMAGE_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMAGE_FILE_NAME)) {
             _object.setImageFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EXIT_CITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EXIT_CITY)) {
             _object.setExitCity(getPoint(_element));
             return;
         }
     }
 
     private static void getGym(Gym _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(getLevelIndoorGym(_element));
             return;
         }
@@ -6777,7 +6779,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonCenter(PokemonCenter _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(getLevelIndoorPokemonCenter(_element));
             return;
         }
@@ -6794,7 +6796,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getAlly(Ally _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(getListPkTrainer(_element));
             return;
         }
@@ -6804,14 +6806,14 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_DEALER_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DEALER_ITEM)) {
             DealerItem object_ = Instances.newDealerItem();
             for (Element c: childElements_) {
                 getDealerItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_TRAINER_MULTI_FIGHTS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_TRAINER_MULTI_FIGHTS)) {
             TrainerMultiFights object_ = Instances.newTrainerMultiFights();
             for (Element c: childElements_) {
                 getTrainerMultiFights(object_,c.getAttribute(ATTR_FIELD),c);
@@ -6822,11 +6824,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getDealerItem(DealerItem _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ITEMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEMS)) {
             _object.setItems(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TECHNICAL_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TECHNICAL_MOVES)) {
             _object.setTechnicalMoves(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
@@ -6843,26 +6845,26 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getDualFight(DualFight _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_ALLY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLY)) {
             _object.setAlly(getAlly(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FOE_TRAINER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FOE_TRAINER)) {
             _object.setFoeTrainer(getTempTrainer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NAMES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAMES)) {
             _object.setNames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PT)) {
             _object.setPt(getPoint(_element));
             return;
         }
     }
 
     private static void getGerantPokemon(GerantPokemon _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GERANCE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GERANCE)) {
             _object.setGerance(getGeranceType(_element));
             return;
         }
@@ -6879,11 +6881,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getGymLeader(GymLeader _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TM)) {
             _object.setTm(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -6907,56 +6909,56 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_DEALER_ITEM)) {
+        if (StringUtil.quickEq(tagName_,TYPE_DEALER_ITEM)) {
             DealerItem object_ = Instances.newDealerItem();
             for (Element c: childElements_) {
                 getDealerItem(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_GERANT_POKEMON)) {
+        if (StringUtil.quickEq(tagName_,TYPE_GERANT_POKEMON)) {
             GerantPokemon object_ = Instances.newGerantPokemon();
             for (Element c: childElements_) {
                 getGerantPokemon(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_GYM_LEADER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_GYM_LEADER)) {
             GymLeader object_ = Instances.newGymLeader();
             for (Element c: childElements_) {
                 getGymLeader(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_GYM_TRAINER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_GYM_TRAINER)) {
             GymTrainer object_ = Instances.newGymTrainer();
             for (Element c: childElements_) {
                 getGymTrainer(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_SELLER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_SELLER)) {
             Seller object_ = Instances.newSeller();
             for (Element c: childElements_) {
                 getSeller(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_TEMP_TRAINER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_TEMP_TRAINER)) {
             TempTrainer object_ = Instances.newTempTrainer();
             for (Element c: childElements_) {
                 getTempTrainer(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_TRAINER_LEAGUE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_TRAINER_LEAGUE)) {
             TrainerLeague object_ = Instances.newTrainerLeague();
             for (Element c: childElements_) {
                 getTrainerLeague(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_TRAINER_MULTI_FIGHTS)) {
+        if (StringUtil.quickEq(tagName_,TYPE_TRAINER_MULTI_FIGHTS)) {
             TrainerMultiFights object_ = Instances.newTrainerMultiFights();
             for (Element c: childElements_) {
                 getTrainerMultiFights(object_,c.getAttribute(ATTR_FIELD),c);
@@ -6967,22 +6969,22 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPerson(Person _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_IMAGE_MINI_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMAGE_MINI_FILE_NAME)) {
             _object.setImageMiniFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getSeller(Seller _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_SELL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SELL)) {
             _object.setSell(getSellType(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEMS)) {
             _object.setItems(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TM)) {
             _object.setTm(DocumentReaderCoreUtil.getListShort(_element));
             return;
         }
@@ -6999,7 +7001,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTempTrainer(TempTrainer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_IMAGE_MINI_SECOND_TRAINER_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMAGE_MINI_SECOND_TRAINER_FILE_NAME)) {
             _object.setImageMiniSecondTrainerFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -7007,11 +7009,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTrainer(Trainer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULTIPLICITY_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULTIPLICITY_FIGHT)) {
             _object.setMultiplicityFight(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_IMAGE_MAXI_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_IMAGE_MAXI_FILE_NAME)) {
             _object.setImageMaxiFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -7028,7 +7030,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTrainerLeague(TrainerLeague _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -7036,7 +7038,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTrainerMultiFights(TrainerMultiFights _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TEAMS_REWARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAMS_REWARDS)) {
             _object.setTeamsRewards(getListPokemonTeam(_element));
             return;
         }
@@ -7044,11 +7046,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTrainerOneFight(TrainerOneFight _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_REWARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REWARD)) {
             _object.setReward(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(getListPkTrainer(_element));
             return;
         }
@@ -7057,7 +7059,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static GeranceType getGeranceType(Element _elt) {
         for (GeranceType e: GeranceType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -7066,7 +7068,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static SellType getSellType(Element _elt) {
         for (SellType e: SellType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -7075,7 +7077,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static Direction getDirection(Element _elt) {
         for (Direction e: Direction.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -7092,19 +7094,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getAreaApparition(AreaApparition _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WILD_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WILD_POKEMON)) {
             _object.setWildPokemon(getListWildPk(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_AVG_NB_STEPS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_AVG_NB_STEPS)) {
             _object.setAvgNbSteps(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_FIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MULT_FIGHT)) {
             _object.setMultFight(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WILD_POKEMON_FISHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WILD_POKEMON_FISHING)) {
             _object.setWildPokemonFishing(getListWildPk(_element));
             return;
         }
@@ -7120,30 +7122,30 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getBlock(Block _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WIDTH)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WIDTH)) {
             _object.setWidth(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEIGHT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEIGHT)) {
             _object.setHeight(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_INDEX_APPARITION)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_INDEX_APPARITION)) {
             _object.setIndexApparition(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TILE_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TILE_FILE_NAME)) {
             _object.setTileFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(getEnvironmentType(_element));
             return;
         }
     }
 
     private static void getLevel(Level _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BLOCKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BLOCKS)) {
             _object.setBlocks(getMapPointBlock(_element));
             return;
         }
@@ -7159,7 +7161,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLevelCave(LevelCave _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LINKS_OTHER_LEVELS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LINKS_OTHER_LEVELS)) {
             _object.setLinksOtherLevels(getMapPointLink(_element));
             return;
         }
@@ -7176,15 +7178,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLevelIndoorGym(LevelIndoorGym _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GYM_TRAINERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GYM_TRAINERS)) {
             _object.setGymTrainers(getMapPointGymTrainer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GYM_LEADER_COORDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GYM_LEADER_COORDS)) {
             _object.setGymLeaderCoords(getPoint(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GYM_LEADER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GYM_LEADER)) {
             _object.setGymLeader(getGymLeader(_element));
             return;
         }
@@ -7201,11 +7203,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLevelIndoorPokemonCenter(LevelIndoorPokemonCenter _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GERANTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GERANTS)) {
             _object.setGerants(getMapPointPerson(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STORAGE_COORDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STORAGE_COORDS)) {
             _object.setStorageCoords(getPoint(_element));
             return;
         }
@@ -7222,23 +7224,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLevelLeague(LevelLeague _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TRAINER_COORDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRAINER_COORDS)) {
             _object.setTrainerCoords(getPoint(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TRAINER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TRAINER)) {
             _object.setTrainer(getTrainerLeague(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACCESS_POINT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACCESS_POINT)) {
             _object.setAccessPoint(getPoint(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NEXT_LEVEL_TARGET)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NEXT_LEVEL_TARGET)) {
             _object.setNextLevelTarget(getPoint(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FILE_NAME)) {
             _object.setFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -7272,31 +7274,31 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getLevelWithWildPokemon(LevelWithWildPokemon _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_WILD_POKEMON_AREAS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WILD_POKEMON_AREAS)) {
             _object.setWildPokemonAreas(getListAreaApparition(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_CHARACTERS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_CHARACTERS)) {
             _object.setCharacters(getMapPointCharacterInRoadCave(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DUAL_FIGHTS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DUAL_FIGHTS)) {
             _object.setDualFights(getMapPointDualFight(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEGENDARY_PKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEGENDARY_PKS)) {
             _object.setLegendaryPks(getMapPointWildPk(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEMS)) {
             _object.setItems(getMapPointString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_TM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TM)) {
             _object.setTm(getMapPointShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HM)) {
             _object.setHm(getMapPointShort(_element));
             return;
         }
@@ -7309,7 +7311,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static EnvironmentType getEnvironmentType(Element _elt) {
         for (EnvironmentType e: EnvironmentType.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -7317,61 +7319,61 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getCave(Cave _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVELS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVELS)) {
             _object.setLevels(getMapByteLevelCave(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LINKS_WITH_OTHER_PLACES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LINKS_WITH_OTHER_PLACES)) {
             _object.setLinksWithOtherPlaces(getMapLevelPointLink(_element));
             return;
         }
     }
 
     private static void getCity(City _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_BUILDINGS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BUILDINGS)) {
             _object.setBuildings(getMapPointBuilding(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(getLevelOutdoor(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SAVEDLINKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SAVEDLINKS)) {
             _object.setSavedlinks(getMapPlaceInterConnectCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LINKS_WITH_CAVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LINKS_WITH_CAVES)) {
             _object.setLinksWithCaves(getMapPointLink(_element));
             return;
         }
     }
 
     private static void getLeague(League _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ROOMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ROOMS)) {
             _object.setRooms(getListLevelLeague(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ACCESS_COORDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ACCESS_COORDS)) {
             _object.setAccessCoords(getCoords(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_FILE_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FILE_NAME)) {
             _object.setFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BEGIN)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_BEGIN)) {
             _object.setBegin(getPoint(_element));
             return;
         }
@@ -7381,28 +7383,28 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_CAVE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_CAVE)) {
             Cave object_ = Instances.newCave();
             for (Element c: childElements_) {
                 getCave(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_CITY)) {
+        if (StringUtil.quickEq(tagName_,TYPE_CITY)) {
             City object_ = Instances.newCity();
             for (Element c: childElements_) {
                 getCity(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_LEAGUE)) {
+        if (StringUtil.quickEq(tagName_,TYPE_LEAGUE)) {
             League object_ = Instances.newLeague();
             for (Element c: childElements_) {
                 getLeague(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_ROAD)) {
+        if (StringUtil.quickEq(tagName_,TYPE_ROAD)) {
             Road object_ = Instances.newRoad();
             for (Element c: childElements_) {
                 getRoad(object_,c.getAttribute(ATTR_FIELD),c);
@@ -7413,19 +7415,19 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getRoad(Road _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(getLevelRoad(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LINKS_WITH_CAVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LINKS_WITH_CAVES)) {
             _object.setLinksWithCaves(getMapPointLink(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SAVEDLINKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SAVEDLINKS)) {
             _object.setSavedlinks(getMapPlaceInterConnectCoords(_element));
             return;
         }
@@ -7445,27 +7447,27 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPkTrainer(PkTrainer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES)) {
             _object.setMoves(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -7485,59 +7487,59 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonPlayer(PokemonPlayer _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REMAINING_HP)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REMAINING_HP)) {
             _object.setRemainingHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_STATUS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_STATUS)) {
             _object.setStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NICKNAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NICKNAME)) {
             _object.setNickname(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MOVES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_MOVES)) {
             _object.setMoves(getStringMapUsesOfMove(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_EV)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_EV)) {
             _object.setEv(getMapStatisticShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WON_EXP_SINCE_LAST_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WON_EXP_SINCE_LAST_LEVEL)) {
             _object.setWonExpSinceLastLevel(DocumentReaderMathUtil.getRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HAPPINESS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS)) {
             _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_USED_BALL_CATCHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_USED_BALL_CATCHING)) {
             _object.setUsedBallCatching(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_NB_STEPS_TEAM_LEAD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NB_STEPS_TEAM_LEAD)) {
             _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -7554,11 +7556,11 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonTeam(PokemonTeam _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(getListPkTrainer(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REWARD)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_REWARD)) {
             _object.setReward(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
@@ -7568,11 +7570,11 @@ public final class DocumentReaderAikiCoreUtil {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EGG)) {
+        if (StringUtil.quickEq(tagName_,TYPE_EGG)) {
             Egg object_ = getEgg(_element);
             return object_;
         }
-        if (StringList.quickEq(tagName_,TYPE_POKEMON_PLAYER)) {
+        if (StringUtil.quickEq(tagName_,TYPE_POKEMON_PLAYER)) {
             PokemonPlayer object_ = Instances.newPokemonPlayer();
             for (Element c: childElements_) {
                 getPokemonPlayer(object_,c.getAttribute(ATTR_FIELD),c);
@@ -7592,23 +7594,23 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getWildPk(WildPk _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_LEVEL)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_GENDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GENDER)) {
             _object.setGender(getGender(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ABILITY)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
@@ -7617,7 +7619,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static Gender getGender(Element _elt) {
         for (Gender e: Gender.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
@@ -7642,15 +7644,15 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getTileMiniMap(TileMiniMap _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_FILE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_FILE)) {
             _object.setFile(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLACE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_HEROS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_HEROS)) {
             _object.setHeros(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -7692,7 +7694,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7855,7 +7857,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7875,7 +7877,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7895,7 +7897,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7915,7 +7917,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7935,7 +7937,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7955,7 +7957,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -7975,7 +7977,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8072,7 +8074,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8092,7 +8094,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8112,7 +8114,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8132,7 +8134,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8152,7 +8154,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8172,7 +8174,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8222,7 +8224,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8242,7 +8244,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8262,7 +8264,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8282,7 +8284,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8302,7 +8304,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8322,7 +8324,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8342,7 +8344,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8362,7 +8364,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8382,7 +8384,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8402,7 +8404,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8422,7 +8424,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8442,7 +8444,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8462,7 +8464,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8482,7 +8484,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8502,7 +8504,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8522,7 +8524,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8542,7 +8544,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8562,7 +8564,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8582,7 +8584,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8602,7 +8604,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8622,7 +8624,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8642,7 +8644,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8662,7 +8664,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8682,7 +8684,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8702,7 +8704,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8722,7 +8724,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8742,7 +8744,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8762,7 +8764,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8782,7 +8784,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8802,7 +8804,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8822,7 +8824,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8842,7 +8844,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8862,7 +8864,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8882,7 +8884,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(new ListEffectCombo(keys_.get(i), values_.get(i)));
         }
         return map_;
@@ -8902,7 +8904,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(new ListActivityOfMove(keys_.get(i), values_.get(i)));
         }
         return map_;
@@ -8922,7 +8924,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8942,7 +8944,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8962,7 +8964,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -8982,7 +8984,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9002,7 +9004,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9022,7 +9024,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9042,7 +9044,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9062,7 +9064,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9082,7 +9084,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9102,7 +9104,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9122,7 +9124,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9142,7 +9144,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
@@ -9157,7 +9159,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static SelectedBoolean getBoolByName(String _env) {
         for (SelectedBoolean e : SelectedBoolean.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9165,7 +9167,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static SearchingMode getSearchingModeByName(String _env) {
         for (SearchingMode e: SearchingMode.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9173,7 +9175,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static DifficultyModelLaw getModelByName(String _env) {
         for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9181,7 +9183,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
         for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9191,7 +9193,7 @@ public final class DocumentReaderAikiCoreUtil {
     public static Sex getSexByName(String _env) {
         Sex[] values_ = Sex.values();
         for (Sex e: values_) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9200,7 +9202,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static ExpType getExpTypeByName(String _env) {
         for (ExpType e: ExpType.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9208,7 +9210,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static EnvironmentType getEnvByName(String _env) {
         for (EnvironmentType e: EnvironmentType.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9216,7 +9218,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static Gender getGenderByName(String _env) {
         for (Gender e: Gender.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }
@@ -9225,7 +9227,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static TargetChoice getTargetChoiceByName(String _env) {
         for (TargetChoice e: TargetChoice.values()) {
-            if (StringList.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.name(), _env)) {
                 return e;
             }
         }

@@ -10,6 +10,7 @@ import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -32,7 +33,7 @@ public final class AnimationBidBelote implements Runnable {
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
             BidBeloteSuit contrat_=container.getContratUtilisateurBelote();
             partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
-            String event_ = StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
+            String event_ = StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR);
@@ -53,7 +54,7 @@ public final class AnimationBidBelote implements Runnable {
             BidBeloteSuit contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
-            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
+            String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
             if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {

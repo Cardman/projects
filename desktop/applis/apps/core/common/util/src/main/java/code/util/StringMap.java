@@ -1,10 +1,12 @@
 package code.util;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.ListableEntries;
 
 
 
 
-public final class StringMap<V> extends AbsMap<String,V> {
+public final class StringMap<V> extends AbsBasicMap<String,V> {
 
     public StringMap() {
     }
@@ -19,16 +21,7 @@ public final class StringMap<V> extends AbsMap<String,V> {
     }
 
     @Override
-    protected int indexOfEntry(String _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<String, V> e:getList()) {
-            String k_ = e.getKey();
-            if (StringList.quickEq(_key, k_)) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(String _one, String _two) {
+        return StringUtil.quickEq(_one,_two);
     }
-
 }

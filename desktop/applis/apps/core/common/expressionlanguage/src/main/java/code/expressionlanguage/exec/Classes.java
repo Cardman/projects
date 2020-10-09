@@ -16,6 +16,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class Classes {
 
@@ -140,7 +141,7 @@ public final class Classes {
                     new_.add(c);
                 }
             }
-            StringList.removeAllElements(all_, new_);
+            StringUtil.removeAllElements(all_, new_);
             if (new_.isEmpty()) {
                 break;
             }

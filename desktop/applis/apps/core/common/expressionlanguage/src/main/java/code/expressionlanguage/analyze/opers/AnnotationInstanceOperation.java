@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 
@@ -96,7 +97,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
             }
         } else {
-            int off_ = StringList.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
+            int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String realClassName_ = instancingAnnotContent.getMethodName().trim().substring(AROBASE.length());
             realClassName_ = ResolvingImportTypes.resolveCorrectType(1,realClassName_, _page);
@@ -123,7 +124,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (instancingAnnotContent.isArray()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         } else {
-            int off_ = StringList.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
+            int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         }
         if (isIntermediateDottedOperation()){
@@ -177,7 +178,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(argType_.getNames(),"&"),
+                            StringUtil.join(argType_.getNames(),"&"),
                             eltType_);
                     _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
@@ -199,7 +200,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _page.getAliasObject();
-        if (StringList.quickEq(instancingAnnotContent.getClassName(), objCl_)) {
+        if (StringUtil.quickEq(instancingAnnotContent.getClassName(), objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -260,13 +261,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
                     //first parenthese
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(arg_.getNames(),"&"),
-                            StringList.join(param_.getNames(),"&"));
+                            StringUtil.join(arg_.getNames(),"&"),
+                            StringUtil.join(param_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                     StringList deep_ = getErrs();
                     int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                    partOffsetsErrPar.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+                    partOffsetsErrPar.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
                     partOffsetsErrPar.add(new PartOffset("</a>",i_+1));
                 }
                 AnnotationTypeInfo i_ = new AnnotationTypeInfo();
@@ -286,7 +287,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             getErrs().add(cast_.getBuiltError());
             StringList deep_ = getErrs();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-            getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+            getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
             getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
             setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
             return;
@@ -309,7 +310,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         for (AssocationOperation s: suppliedFields_) {
             int c_ = 0;
             for (AssocationOperation t: suppliedFields_) {
-                if (StringList.quickEq(s.getFieldName(), t.getFieldName())) {
+                if (StringUtil.quickEq(s.getFieldName(), t.getFieldName())) {
                     c_++;
                 }
             }
@@ -338,7 +339,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             }
             boolean found_ = false;
             for (AssocationOperation f: suppliedFields_) {
-                if (StringList.quickEq(e.getKey(),f.getFieldName())) {
+                if (StringUtil.quickEq(e.getKey(),f.getFieldName())) {
                     found_ = true;
                     break;
                 }
@@ -366,18 +367,18 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (!operators_.isEmpty()) {
                 int k_ = operators_.lastKey();
                 int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+                getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
                 getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
             } else {
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                partOffsetsErr.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n"))+"\" class=\"e\">",i_));
+                partOffsetsErr.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n"))+"\" class=\"e\">",i_));
                 partOffsetsErr.add(new PartOffset("</a>",i_+1));
             }
         }
         for (AssocationOperation e: suppliedFields_) {
             String suppliedKey_ = e.getFieldName();
             for (EntryCust<String, AnnotationFieldInfo> f: fields_.entryList()) {
-                if (!StringList.quickEq(suppliedKey_, f.getKey())) {
+                if (!StringUtil.quickEq(suppliedKey_, f.getKey())) {
                     continue;
                 }
                 String paramName_ = f.getValue().getType();
@@ -403,8 +404,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //equal char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(arg_.getNames(),"&"),
-                            StringList.join(param_.getNames(),"&"));
+                            StringUtil.join(arg_.getNames(),"&"),
+                            StringUtil.join(param_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
                     e.setErrAff(cast_.getBuiltError());
                 }

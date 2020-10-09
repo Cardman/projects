@@ -11,8 +11,8 @@ import aiki.map.levels.Level;
 import aiki.map.places.City;
 import aiki.map.places.Place;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.ints.Listable;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class MapBean extends CommonBean {
     private CustList<PlaceIndex> places;
@@ -33,7 +33,7 @@ public class MapBean extends CommonBean {
         places.sortElts(new ComparatorPlaceIndex());
     }
     public boolean isMultiLayer(Long _index) {
-        return layers(_index).size() > CustList.ONE_ELEMENT;
+        return layers(_index).size() > IndexConstants.ONE_ELEMENT;
     }
     public CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
@@ -64,7 +64,7 @@ public class MapBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
     }

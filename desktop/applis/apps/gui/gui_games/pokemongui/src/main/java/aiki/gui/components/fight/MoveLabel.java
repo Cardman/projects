@@ -11,6 +11,7 @@ import code.gui.PaintableLabel;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class MoveLabel extends PaintableLabel {
 
@@ -33,7 +34,7 @@ public class MoveLabel extends PaintableLabel {
         move = _move;
         infos = _infos;
         UsesOfMove uses_ = infos.getUses();
-        String usesStr_ = StringList.concat(Long.toString(uses_.getCurrent()),RATIO,Long.toString(uses_.getMax()));
+        String usesStr_ = StringUtil.concat(Long.toString(uses_.getCurrent()),RATIO,Long.toString(uses_.getMax()));
         StringList types_ = new StringList();
         for (String t: infos.getTypes()) {
             String type_ = _facade.translateType(t);
@@ -42,13 +43,13 @@ public class MoveLabel extends PaintableLabel {
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
-        text = StringList.concat(move,SPACE, StringList.join(types_, SPACE),SPACE,usesStr_);
+        text = StringUtil.concat(move,SPACE, StringUtil.join(types_, SPACE),SPACE,usesStr_);
         setOpaque(true);
         setPreferredSize(new Dimension(150, 20));
     }
 
     public void setSelected(String _move) {
-        selected = StringList.quickEq(infos.getName(), _move);
+        selected = StringUtil.quickEq(infos.getName(), _move);
     }
 
     public void setSelected(boolean _selected) {

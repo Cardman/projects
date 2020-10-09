@@ -19,6 +19,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 
 public final class AnaTypeUtil {
     private static final byte DOUBLE_CASTING = 7;
@@ -40,8 +42,8 @@ public final class AnaTypeUtil {
         }
         for (OverridingMethodDto e: getAllInstanceSignatures(_type)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
-            if (!StringList.quickEq(key_.getName(),"[]")
-                    &&!StringList.quickEq(key_.getName(),"[]=")) {
+            if (!StringUtil.quickEq(key_.getName(),"[]")
+                    &&!StringUtil.quickEq(key_.getName(),"[]=")) {
                 for (Block b: ClassesUtil.getDirectChildren(_type)) {
                     if (b instanceof InternOverrideBlock) {
                         CustList<OverridingMethodDto> overrides_ = ((InternOverrideBlock) b).getOverrides();
@@ -63,8 +65,8 @@ public final class AnaTypeUtil {
                 for (GeneStringOverridable s: allMethods_) {
                     String super_ = s.getGeneString();
                     String isSuper_ = StringExpUtil.getIdFromAllTypes(super_);
-                    if (!StringList.quickEq(typeName_,isSuper_)) {
-                        if (!StringList.contains(allSuperTypes_,isSuper_)) {
+                    if (!StringUtil.quickEq(typeName_,isSuper_)) {
+                        if (!StringUtil.contains(allSuperTypes_,isSuper_)) {
                             continue;
                         }
                     }
@@ -133,7 +135,7 @@ public final class AnaTypeUtil {
                         continue;
                     }
                     if (supId_.getBlock().getKind() != MethodKind.STD_METHOD) {
-                        if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
+                        if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
                             err_.setFileName(fileName_);
@@ -348,12 +350,12 @@ public final class AnaTypeUtil {
             }
             StringList all_ = c.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            StringList.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
+            StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = StringExpUtil.getIdFromAllTypes(clName_);
             RootBlock superType_ = _page.getAnaClassBody(id_);
             if (superType_ instanceof UniqueRootedBlock) {
-                StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
+                StringUtil.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
@@ -387,9 +389,9 @@ public final class AnaTypeUtil {
                     }
                 }
             }
-            if (!StringList.equalsSet(filteredStatic_, trimmedInt_)) {
+            if (!StringUtil.equalsSet(filteredStatic_, trimmedInt_)) {
                 for (String s: filteredStatic_) {
-                    if (!StringList.contains(trimmedInt_,s)) {
+                    if (!StringUtil.contains(trimmedInt_,s)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(un_.getFile().getFileName());
@@ -402,7 +404,7 @@ public final class AnaTypeUtil {
                     }
                 }
                 for (String s: trimmedInt_) {
-                    if (!StringList.contains(filteredStatic_,s)) {
+                    if (!StringUtil.contains(filteredStatic_,s)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(un_.getFile().getFileName());
@@ -421,7 +423,7 @@ public final class AnaTypeUtil {
     public static StringList getInners(String _root, String _innerName, AnalyzedPageEl _page) {
         StringList inners_ = new StringList();
         for (String o: getOwners(_root, _innerName, _page)) {
-            inners_.add(StringList.concat(o,"..",_innerName));
+            inners_.add(StringUtil.concat(o,"..",_innerName));
         }
         return inners_;
     }
@@ -430,13 +432,13 @@ public final class AnaTypeUtil {
     }
     public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
         StringList inners_ = new StringList();
-        if (StringList.quickEq(_sep,".")) {
+        if (StringUtil.quickEq(_sep,".")) {
             for (String o: getOwners(_root, _innerName,_staticOnly, _page)) {
-                inners_.add(StringList.concat(o,"..",_innerName));
+                inners_.add(StringUtil.concat(o,"..",_innerName));
             }
         } else {
             for (String o: getEnumOwners(_root, _innerName, _page)) {
-                inners_.add(StringList.concat(o,"-",_innerName));
+                inners_.add(StringUtil.concat(o,"-",_innerName));
             }
         }
         return inners_;
@@ -498,7 +500,7 @@ public final class AnaTypeUtil {
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
-        if (StringList.contains(_visited, _format)) {
+        if (StringUtil.contains(_visited, _format)) {
             return;
         }
         _visited.add(_format);
@@ -513,7 +515,7 @@ public final class AnaTypeUtil {
                 }
             }
             String name_ = b.getName();
-            if (StringList.quickEq(name_, _innerName)) {
+            if (StringUtil.quickEq(name_, _innerName)) {
                 owners_.add(s);
             }
         }
@@ -530,7 +532,7 @@ public final class AnaTypeUtil {
     private static void addedInnerElement(String _innerName, StringList owners_, String s, RootBlock sub_) {
         for (RootBlock b: ClassesUtil.accessedInnerElements(sub_)) {
             String name_ = b.getName();
-            if (StringList.quickEq(name_, _innerName)) {
+            if (StringUtil.quickEq(name_, _innerName)) {
                 owners_.add(s);
             }
         }
@@ -544,7 +546,7 @@ public final class AnaTypeUtil {
             for (String j: _classNames) {
                 String baseSup_ = StringExpUtil.getIdFromAllTypes(i);
                 String baseSub_ = StringExpUtil.getIdFromAllTypes(j);
-                if (StringList.quickEq(baseSup_, baseSub_)) {
+                if (StringUtil.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
                 AnaGeneType subType_ = _page.getAnaGeneType(baseSub_);
@@ -565,12 +567,12 @@ public final class AnaTypeUtil {
         AnaInheritedType one_ = _page.getAnaGeneType(_one);
         AnaInheritedType two_ = _page.getAnaGeneType(_two);
         if (two_.isSubTypeOf(_one, _page)) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
         if (one_.isSubTypeOf(_two, _page)) {
-            return CustList.NO_SWAP_SORT;
+            return SortConstants.NO_SWAP_SORT;
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
     public static boolean isFloatOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, AnalyzedPageEl _page) {
@@ -626,7 +628,7 @@ public final class AnaTypeUtil {
 
     public static String toPrimitive(String _class, StringMap<PrimitiveType> _primitiveTypes) {
         for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
-            if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
+            if (StringUtil.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
             }
         }
@@ -656,7 +658,7 @@ public final class AnaTypeUtil {
     public static boolean isWrapper(String _className, StringMap<PrimitiveType> _primitiveTypes) {
         for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
             String wrap_ = e.getValue().getWrapper();
-            if (StringList.quickEq(wrap_, _className)) {
+            if (StringUtil.quickEq(wrap_, _className)) {
                 return true;
             }
         }
@@ -702,7 +704,7 @@ public final class AnaTypeUtil {
     public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, StringMap<PrimitiveType> _primitiveTypes) {
         for (String w: _class.getNames()) {
             for (EntryCust<String, PrimitiveType> e: _primitiveTypes.entryList()) {
-                if (StringList.quickEq(e.getValue().getWrapper(), w)) {
+                if (StringUtil.quickEq(e.getValue().getWrapper(), w)) {
                     return new AnaClassArgumentMatching(e.getKey(),e.getValue().getCastNb());
                 }
             }

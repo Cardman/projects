@@ -13,7 +13,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.ConfirmDialog;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot {
 
@@ -39,7 +39,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 if (partie_.getPliEnCours().total() != partie_.getDistribution().derniereMain().total()) {
                     int remove_ = partie_.getDistribution().derniereMain().total();
                     remove_ -= partie_.getPliEnCours().total();
-                    String mesCard_ = StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.HAS_TO_DISCARD), remove_);
+                    String mesCard_ = StringUtil.simpleNumberFormat(container.getMessages().getVal(MainWindow.HAS_TO_DISCARD), remove_);
                     ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -51,7 +51,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
             partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
+            container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
                 container.getValidateDog().setEnabledLabel(true);
@@ -69,7 +69,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
         partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
+        container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {

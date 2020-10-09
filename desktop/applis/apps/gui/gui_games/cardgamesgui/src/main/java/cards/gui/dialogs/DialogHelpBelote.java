@@ -1,9 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
-import javax.swing.JTextArea;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
@@ -19,8 +16,9 @@ import code.gui.TextArea;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class DialogHelpBelote extends Dialog {
 
@@ -80,16 +78,16 @@ public final class DialogHelpBelote extends Dialog {
         panneau3_=Panel.newLineBox();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
-        for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbBotPlayers_;indicePseudo_++) {
+        for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbBotPlayers_; indicePseudo_++) {
             zone_=new TextArea(EMPTY,37,15);
             zone_.setEditable(false);
-            zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
+            zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {
                 HandBelote h_ = tout_.couleurs(_bid).getVal(s);
-                zone_.append(StringList.concat(Games.toString(s,_lg),RETURN_LINE));
+                zone_.append(StringUtil.concat(Games.toString(s,_lg),RETURN_LINE));
                 for(CardBelote carte_:h_) {
                     zone_.append(TAB);
-                    zone_.append(StringList.concat(Games.getSymbol(carte_,_lg),SPACE));
+                    zone_.append(StringUtil.concat(Games.getSymbol(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);
                     }

@@ -1,5 +1,8 @@
 package code.images;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ConverterBufferedImage {
 
@@ -41,15 +44,15 @@ public final class ConverterBufferedImage {
     }
 
     public static int getIntColor(String _color, String _separator) {
-        StringList list_ = StringList.splitStrings(_color,_separator);
+        StringList list_ = StringUtil.splitStrings(_color,_separator);
         Ints ints_ = new Ints();
         for (String c: list_) {
-            ints_.add((int)Numbers.parseLongZero(c));
+            ints_.add((int) NumberUtil.parseLongZero(c));
         }
         if (ints_.size() != 3) {
             return -1;
         }
-        return Numbers.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
+        return NumberUtil.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
     }
 
     public static EqList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {
@@ -57,8 +60,8 @@ public final class ConverterBufferedImage {
         int w_ = _buffered[0].length;
         EqList<IntPoint> addedPixels_ = whitePixels(_hf,_buffered);
         EqList<IntPoint> list_ = new EqList<IntPoint>();
-        for (int i = CustList.FIRST_INDEX; i < h_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < w_; j++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < w_; j++) {
                 if (addedPixels_.containsObj(new IntPoint(j,i))) {
                     continue;
                 }
@@ -80,35 +83,35 @@ public final class ConverterBufferedImage {
         EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
         EqList<IntPoint> newPixels_;
         if (_hf) {
-            if (_buffered[CustList.FIRST_INDEX][CustList.FIRST_INDEX] == white_) {
-                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
+            if (_buffered[IndexConstants.FIRST_INDEX][IndexConstants.FIRST_INDEX] == white_) {
+                addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, (int) IndexConstants.FIRST_INDEX));
             }
-            if (_buffered[CustList.FIRST_INDEX][w_ - 1] == white_) {
-                addedPixels_.add(new IntPoint(w_ - 1, (int)CustList.FIRST_INDEX));
+            if (_buffered[IndexConstants.FIRST_INDEX][w_ - 1] == white_) {
+                addedPixels_.add(new IntPoint(w_ - 1, (int) IndexConstants.FIRST_INDEX));
             }
-            if (_buffered[h_ - 1][CustList.FIRST_INDEX] == white_) {
-                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, h_ - 1));
+            if (_buffered[h_ - 1][IndexConstants.FIRST_INDEX] == white_) {
+                addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, h_ - 1));
             }
             if (_buffered[h_ - 1][w_ - 1] == white_) {
                 addedPixels_.add(new IntPoint(w_ -1, h_ - 1));
             }
         } else {
-            for (int i = CustList.FIRST_INDEX; i < w_; i++) {
-                if (_buffered[CustList.FIRST_INDEX][i] == white_) {
-                    addedPixels_.add(new IntPoint(i, (int)CustList.FIRST_INDEX));
+            for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
+                if (_buffered[IndexConstants.FIRST_INDEX][i] == white_) {
+                    addedPixels_.add(new IntPoint(i, (int) IndexConstants.FIRST_INDEX));
                 }
             }
-            for (int i = CustList.FIRST_INDEX; i < w_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
                 if (_buffered[h_-1][i] == white_) {
                     addedPixels_.add(new IntPoint(i, h_ - 1));
                 }
             }
-            for (int i = CustList.FIRST_INDEX; i < h_; i++) {
-                if (_buffered[i][CustList.FIRST_INDEX] == white_) {
-                    addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, i));
+            for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
+                if (_buffered[i][IndexConstants.FIRST_INDEX] == white_) {
+                    addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, i));
                 }
             }
-            for (int i = CustList.FIRST_INDEX; i < h_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
                 if (_buffered[i][w_-1] == white_) {
                     addedPixels_.add(new IntPoint(w_ - 1, i));
                 }
@@ -141,12 +144,12 @@ public final class ConverterBufferedImage {
 
     public static String getSquareColorSixtyFour(String _color,
             String _separatorRgb, int _sideLength) {
-        StringList list_ = StringList.splitStrings(_color,_separatorRgb);
+        StringList list_ = StringUtil.splitStrings(_color,_separatorRgb);
         Ints ints_ = new Ints();
         for (String c: list_) {
-            ints_.add(Numbers.parseInt(c));
+            ints_.add(NumberUtil.parseInt(c));
         }
-        int rgb_ = Numbers.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
+        int rgb_ = NumberUtil.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
         int[][] pixels_ = new int[_sideLength][_sideLength];
         for (int i = 0; i < _sideLength; i++) {
             for (int j = 0; j < _sideLength; j++) {
@@ -161,13 +164,13 @@ public final class ConverterBufferedImage {
         if (_visited.getXcoords() + 1 < _w) {
             list_.add(new IntPoint(_visited.getXcoords() + 1, _visited.getYcoords()));
         }
-        if (_visited.getXcoords() - 1 >= CustList.FIRST_INDEX) {
+        if (_visited.getXcoords() - 1 >= IndexConstants.FIRST_INDEX) {
             list_.add(new IntPoint(_visited.getXcoords() - 1, _visited.getYcoords()));
         }
         if (_visited.getYcoords() + 1 < _h) {
             list_.add(new IntPoint(_visited.getXcoords(), _visited.getYcoords() + 1));
         }
-        if (_visited.getYcoords() - 1 >= CustList.FIRST_INDEX) {
+        if (_visited.getYcoords() - 1 >= IndexConstants.FIRST_INDEX) {
             list_.add(new IntPoint(_visited.getXcoords(), _visited.getYcoords() - 1));
         }
         return list_;

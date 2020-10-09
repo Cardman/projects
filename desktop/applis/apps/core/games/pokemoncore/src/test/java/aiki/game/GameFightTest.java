@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1072,8 +1073,8 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(evolutions_.getVal(TARINORME));
         StringList abilities_ = game_.getAbilities();
         assertEq(2, abilities_.size());
-        assertTrue(StringList.contains(abilities_, FERMETE));
-        assertTrue(StringList.contains(abilities_, MAGNEPIEGE));
+        assertTrue(StringUtil.contains(abilities_, FERMETE));
+        assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
         assertEq(MAGNEPIEGE, game_.getAbility());
         //assertEq(TURBO, game_.getFight().getChoices().getVal((byte) 0).getAbility());
     }

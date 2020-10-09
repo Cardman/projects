@@ -12,6 +12,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
 public final class PaginationPokemonPlayer
@@ -66,7 +67,7 @@ public final class PaginationPokemonPlayer
     public void search(CustList<UsablePokemon> _pokemon) {
         pokemon.clear();
         int len_ = _pokemon.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             UsablePokemon us_ = _pokemon.get(i);
             if (!(us_ instanceof PokemonPlayer)) {
                 continue;
@@ -92,14 +93,14 @@ public final class PaginationPokemonPlayer
             pokemon.put(s_, pk_);
         }
         if (!pokemon.isEmpty()) {
-            setNumberPage(CustList.FIRST_INDEX);
+            setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
-            setLine(CustList.INDEX_NOT_FOUND_ELT);
-            setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
+            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
             rendered.clear();
             return;
         }
-        setLine(CustList.INDEX_NOT_FOUND_ELT);
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
         if (sortable()) {
             sort();
         }

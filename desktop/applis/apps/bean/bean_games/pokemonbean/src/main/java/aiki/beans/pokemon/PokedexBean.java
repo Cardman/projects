@@ -16,6 +16,8 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class PokedexBean extends CommonBean {
     private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
@@ -75,7 +77,7 @@ public class PokedexBean extends CommonBean {
         StringList pokedex_ = new StringList();
         for (String k: data_.getPokedex().getKeys()) {
             String displayName_ = translationsPk_.getVal(k);
-            if (!StringList.match(displayName_, typedName)) {
+            if (!StringUtil.match(displayName_, typedName)) {
                 continue;
             }
             PokemonData pkData_ = data_.getPokedex().getVal(k);
@@ -87,11 +89,11 @@ public class PokedexBean extends CommonBean {
                     if (typedType == null) {
                         continue;
                     }
-                    if (!StringList.quickEq(displayType_, typedType)) {
+                    if (!StringUtil.quickEq(displayType_, typedType)) {
                         continue;
                     }
                 } else {
-                    if (!StringList.match(displayType_, typedType)) {
+                    if (!StringUtil.match(displayType_, typedType)) {
                         continue;
                     }
                 }
@@ -101,13 +103,13 @@ public class PokedexBean extends CommonBean {
                 continue;
             }
             if (!typedMinNbPossEvos.isEmpty()) {
-                long min_ = Numbers.parseLongZero(typedMinNbPossEvos);
+                long min_ = NumberUtil.parseLongZero(typedMinNbPossEvos);
                 if (pkData_.getDirectEvolutions().size() < min_) {
                     continue;
                 }
             }
             if (!typedMaxNbPossEvos.isEmpty()) {
-                long max_ = Numbers.parseLongZero(typedMaxNbPossEvos);
+                long max_ = NumberUtil.parseLongZero(typedMaxNbPossEvos);
                 if (pkData_.getDirectEvolutions().size() > max_) {
                     continue;
                 }
@@ -115,7 +117,7 @@ public class PokedexBean extends CommonBean {
             if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(hasEvo),pkData_.getEvolutions().isEmpty())) {
                 continue;
             }
-            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringList.quickEq(k, pkData_.getBaseEvo()))) {
+            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringUtil.quickEq(k, pkData_.getBaseEvo()))) {
                 continue;
             }
             if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isLeg),pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {

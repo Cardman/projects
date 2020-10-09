@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ValuesOperation extends LeafOperation {
 
@@ -35,7 +36,7 @@ public final class ValuesOperation extends LeafOperation {
         String glClass_ = _page.getGlobalClass();
         int leftPar_ = className.indexOf('(')+1;
         String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
-        leftPar_ += StringList.getFirstPrintableCharIndex(sub_);
+        leftPar_ += StringUtil.getFirstPrintableCharIndex(sub_);
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(leftPar_,sub_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());

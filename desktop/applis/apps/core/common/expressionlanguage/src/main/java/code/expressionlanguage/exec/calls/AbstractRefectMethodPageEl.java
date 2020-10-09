@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
@@ -108,7 +108,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                     _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size() + 1,mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
-            } else if (!StringList.quickEq(mid_.getName(),"[]=")) {
+            } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
                 if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -123,7 +123,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                     return false;
                 }
                 rightArg = args.last();
-                args = args.mid(0,args.size()-1);
+                args = args.left(args.size()-1);
             }
         }
         if (!calledAfter) {

@@ -7,8 +7,8 @@ import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.stream.ExtractFromFiles;
 import code.sml.util.ResourcesMessagesUtil;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DocumentReaderCardsResultsUtil {
 
@@ -56,80 +56,80 @@ public final class DocumentReaderCardsResultsUtil {
     }
 
     public static void getResultsGame(ResultsBelote _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
             _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
             _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
             _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SIGMAS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
             _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
             _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }
     }
 
     public static void getResultsGame(ResultsPresident _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
             _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
             _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
             _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SIGMAS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
             _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
             _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }
     }
     public static void getResultsGame(ResultsTarot _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
             _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
             _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
             _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SIGMAS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
             _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SUMS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
             _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SCORES)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
             _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }

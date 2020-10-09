@@ -13,6 +13,7 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class CarpetBelote {
 
@@ -77,9 +78,9 @@ public class CarpetBelote {
                 if(i==3) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -91,9 +92,9 @@ public class CarpetBelote {
                 } else if(i==5) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -105,9 +106,9 @@ public class CarpetBelote {
                 } else if(i==6) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(5),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -119,9 +120,9 @@ public class CarpetBelote {
                 } else if(i==8) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(5),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -132,7 +133,7 @@ public class CarpetBelote {
                     surPanneau_.add(panneau_);
                 } else if(i==1) {
                     surPanneau_= Panel.newLineBox();
-                    jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
+                    jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
@@ -142,7 +143,7 @@ public class CarpetBelote {
                     surPanneau_.add(panneau_);
                 } else if(i==10) {
                     surPanneau_= Panel.newLineBox();
-                    jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
+                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
@@ -166,9 +167,9 @@ public class CarpetBelote {
                 jta_.setEditable(false);
                 if(i==0) {
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -179,9 +180,9 @@ public class CarpetBelote {
                     surPanneau_.add(panneau_);
                 } else if(i==2) {
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -191,7 +192,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
-                    jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
+                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
@@ -214,9 +215,9 @@ public class CarpetBelote {
                 if(i==0) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -228,9 +229,9 @@ public class CarpetBelote {
                 } else if(i==2) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -242,9 +243,9 @@ public class CarpetBelote {
                 } else if(i==3) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -256,9 +257,9 @@ public class CarpetBelote {
                 } else if(i==5) {
                     surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
-                        jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
-                        jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
+                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -269,7 +270,7 @@ public class CarpetBelote {
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
                     surPanneau_= Panel.newLineBox();
-                    jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
+                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);

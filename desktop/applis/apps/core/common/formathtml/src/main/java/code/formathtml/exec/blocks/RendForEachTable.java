@@ -19,6 +19,7 @@ import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl,RendReducableOperations {
 
@@ -66,7 +67,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             return;
         }
         Struct iterStr_;
-        long length_ = CustList.INDEX_NOT_FOUND_ELT;
+        long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Argument arg_ = iteratorMultTable(its_,_cont, _stds, _ctx);
         if (_ctx.callsOrException()) {
             return;

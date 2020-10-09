@@ -16,6 +16,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class Configuration {
 
@@ -61,14 +62,14 @@ public final class Configuration {
     private StringMap<String> files = new StringMap<String>();
 
     public static String getRealFilePath(String _lg, String _link) {
-        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
+        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
     public void init(DualConfigurationContext _dual) {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
-        prefix = StringList.concat(prefix,SEP);
+        prefix = StringUtil.concat(prefix,SEP);
         _dual.getRenderFiles().removeAllString(firstUrl);
         _dual.getRenderFiles().add(firstUrl);
     }
@@ -169,7 +170,7 @@ public final class Configuration {
         return importing.last();
     }
     public void removeLastPage() {
-        importing.removeLast();
+        importing.removeQuicklyLast();
     }
     public CustList<ImportingPage> getImporting() {
         return importing;

@@ -13,6 +13,7 @@ import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.core.StringUtil;
 
 public final class MainWindow extends GroupFrame {
 
@@ -84,7 +85,7 @@ public final class MainWindow extends GroupFrame {
         if (_readImages) {
             StringList files_ = StreamTextFile.files(pathExport.getText());
             for (String f: files_) {
-                String f_ = StringList.replaceBackSlash(f);
+                String f_ = StringUtil.replaceBackSlash(f);
                 if (!new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
@@ -94,27 +95,27 @@ public final class MainWindow extends GroupFrame {
                 if (new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                String f_ = StringList.replaceBackSlash(f);
+                String f_ = StringUtil.replaceBackSlash(f);
                 BufferedImage img_ = StreamImageFile.read(pathExport.getText()+f);
                 if (img_ == null) {
                     continue;
                 }
                 String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
                 if (f_.endsWith(DOT+PNG_EXT)) {
-                    String path_ = StringList.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
+                    String path_ = StringUtil.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
                     StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
                 } else if (f_.endsWith(DOT+JPG_EXT)) {
-                    String path_ = StringList.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
+                    String path_ = StringUtil.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
                     StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
                 } else if (f_.endsWith(DOT+JPEG_EXT)) {
-                    String path_ = StringList.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
+                    String path_ = StringUtil.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
                     StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
                 }
             }
         } else {
             StringList files_ = StreamTextFile.files(pathExport.getText());
             for (String f: files_) {
-                String f_ = StringList.replaceBackSlash(f);
+                String f_ = StringUtil.replaceBackSlash(f);
                 if (!new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
@@ -124,13 +125,13 @@ public final class MainWindow extends GroupFrame {
                 if (new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                String f_ = StringList.replaceBackSlash(f);
+                String f_ = StringUtil.replaceBackSlash(f);
                 String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
                 if (readImage_ == null) {
                     continue;
                 }
                 BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-                StreamImageFile.write(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+                StreamImageFile.write(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+ StringUtil.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
             }
         }
     }
@@ -141,11 +142,11 @@ public final class MainWindow extends GroupFrame {
         }
         String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
         if (_readPath.endsWith(DOT+PNG_EXT)) {
-            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
         } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
-            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
         } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
-            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
         }
     }
     public void writeOneImageArg(String _writePath) {
@@ -154,7 +155,7 @@ public final class MainWindow extends GroupFrame {
             return;
         }
         BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-        StreamImageFile.write(PNG_EXT,StringList.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+        StreamImageFile.write(PNG_EXT, StringUtil.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
     }
     @Override
     public void quit() {

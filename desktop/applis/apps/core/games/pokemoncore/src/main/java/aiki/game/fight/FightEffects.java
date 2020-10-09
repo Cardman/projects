@@ -73,7 +73,6 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
@@ -81,6 +80,9 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 final class FightEffects {
 
@@ -324,7 +326,7 @@ final class FightEffects {
                 return;
             }
             for(MoveTeamPosition c:creatureCible_.getTrackingMoves().getKeys()){
-                if(!StringList.quickEq(c.getMove(),_attaqueLanceur)){
+                if(!StringUtil.quickEq(c.getMove(),_attaqueLanceur)){
                     continue;
                 }
                 AffectedMove attaqueViseeActif_=creatureCible_.refPartAttaquesSurCombatAtt(c);
@@ -334,7 +336,7 @@ final class FightEffects {
             }
         } else if (_effet.getChoiceRestriction() == MoveChoiceRestrictionType.LANCEUR_ATTAQUES) {
             for(String c:creatureCible_.attaquesUtilisables()){
-                if(StringList.contains(creatureLanceur_.attaquesUtilisables(), c)){
+                if(StringUtil.contains(creatureLanceur_.attaquesUtilisables(), c)){
                     creatureLanceur_.getPrivateMoves().getVal(new MoveTeamPosition(_attaqueLanceur,_cible)).add(c);
                 }
             }
@@ -353,11 +355,11 @@ final class FightEffects {
         }
         for (String t: _effet.getDisableImmuAgainstTypes()) {
             //disable protection against moves of type
-            StringList.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
+            StringUtil.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
         }
         for (String t: _effet.getAttackTargetWithTypes()) {
             //disable protection against moves of type
-            StringList.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
+            StringUtil.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
         }
         if(!_effet.getDisableImmuFromMoves().isEmpty()){
             //activer l'attaque _attaqueLanceur
@@ -420,8 +422,8 @@ final class FightEffects {
             _fight.addSwitchItemsMessage(_cible, objetCible_, objetLanceur_, _import);
             FightSending.effectPlate(_fight, _lanceur, _import);
             FightSending.effectPlate(_fight, _cible, _import);
-            storeTargetObject_ = Numbers.eq(_cible.getTeam(), Fight.PLAYER);
-            storeThrowerObject_ = Numbers.eq(_lanceur.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
+            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER);
         } else if(_effet.getMoveObject() == MoveItemType.GIVE_OBJECT_TARGET) {
             String objetLanceur_=creatureLanceur_.getItem();
             creatureCible_.backUpObject(objetLanceur_);
@@ -429,13 +431,13 @@ final class FightEffects {
             creatureLanceur_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_lanceur, objetLanceur_, DataBase.EMPTY_STRING, _import);
             FightSending.effectPlate(_fight, _cible, _import);
-            storeThrowerObject_ = Numbers.eq(_lanceur.getTeam(), Fight.PLAYER);
+            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER);
         } else if(_effet.getMoveObject() == MoveItemType.DELETE_DEF_TARGET_BERRY) {
             if(creatureCible_.possedeObjet()){
                 String objetCible_ =creatureCible_.getItem();
                 Item objet_=creatureCible_.ficheObjet(_import);
                 if(objet_ instanceof Berry){
-                    storeTargetObject_ = Numbers.eq(_cible.getTeam(), Fight.PLAYER);
+                    storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
                     creatureCible_.backUpObject(DataBase.EMPTY_STRING);
                     _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
                 }
@@ -447,7 +449,7 @@ final class FightEffects {
                     if(objet_ instanceof Berry){
                         FightItems.enableBerry(_fight,_lanceur,creatureCible_.getItem(),_import);
                         creatureCible_.useObject();
-                        storeTargetObject_ = Numbers.eq(_cible.getTeam(), Fight.PLAYER);
+                        storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
                     }
                 }
             }
@@ -460,14 +462,14 @@ final class FightEffects {
             creatureCible_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
             FightSending.effectPlate(_fight, _lanceur, _import);
-            storeTargetObject_ = Numbers.eq(_cible.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
         } else {
             String objetCible_=creatureCible_.getItem();
             creatureCible_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
-            storeTargetObject_ = Numbers.eq(_cible.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
         }
-        if (Numbers.eq(_cible.getTeam(), _lanceur.getTeam())) {
+        if (NumberUtil.eq(_cible.getTeam(), _lanceur.getTeam())) {
             return;
         }
         if (storeTargetObject_) {
@@ -488,7 +490,7 @@ final class FightEffects {
                 for(String c:creatureLanceur_.attaquesUtilisables()){
                     lanceurAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight,_lanceur,c,_import));
                 }
-                StringList.removeAllElements(lanceurAttaquesActuellesTypes_, creatureLanceur_.getTypes());
+                StringUtil.removeAllElements(lanceurAttaquesActuellesTypes_, creatureLanceur_.getTypes());
                 lanceurAttaquesActuellesTypes_.removeDuplicates();
                 MonteCarloString types_=new MonteCarloString();
                 for(String e:lanceurAttaquesActuellesTypes_){
@@ -520,7 +522,7 @@ final class FightEffects {
             for (String m: FightMoves.enabledGlobalMoves(_fight, _import)) {
                 MoveData moveDta_ = _import.getMove(m);
                 int nbEffects_ = moveDta_.nbEffets();
-                for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
                     Effect eff_ = moveDta_.getEffet(i);
                     if (!(eff_ instanceof EffectGlobal)) {
                         continue;
@@ -609,13 +611,13 @@ final class FightEffects {
         if (derAttaqueCible_.isEmpty()) {
             return;
         }
-        if (!StringList.contains(FightInvoke.copiableMoves(_fight, _lanceur, _cible, _effet, _import), derAttaqueCible_)) {
+        if (!StringUtil.contains(FightInvoke.copiableMoves(_fight, _lanceur, _cible, _effet, _import), derAttaqueCible_)) {
             return;
         }
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
         String first_ = creatureLanceur_.getFirstChosenMove();
         if(_effet.getCopyingMoveForUserDef()){
-            if (StringList.quickEq(_import.getDefaultMove(), first_)) {
+            if (StringUtil.quickEq(_import.getDefaultMove(), first_)) {
                 return;
             }
             creatureLanceur_.apprendreAttaqueEcrasantDef(derAttaqueCible_,first_,_import);
@@ -645,7 +647,7 @@ final class FightEffects {
             Difficulty _diff,DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        if(StringList.contains(_import.getMovesConstChoices(), _attaqueLanceur) &&!_fight.isInvokedMove()){
+        if(StringUtil.contains(_import.getMovesConstChoices(), _attaqueLanceur) &&!_fight.isInvokedMove()){
             if(!creatureLanceur_.getEnabledMovesConstChoices().getVal(_attaqueLanceur).isEnabled()){
                 //utilisation attaque et mise a zero
                 creatureLanceur_.activerAttaqueBlocantLanceur(_attaqueLanceur);
@@ -653,7 +655,7 @@ final class FightEffects {
             }
         }
         ThrowerDamageLaws throwerDamageLaws_ = calculateLawsForDamageByTeam(_fight, _lanceur, _cible, _attaqueLanceur, _diff, _import);
-        if(StringList.contains(_import.getMovesAnticipation(), _attaqueLanceur)){
+        if(StringUtil.contains(_import.getMovesAnticipation(), _attaqueLanceur)){
             Rate sommeCoups_=Rate.zero();
             for (TeamPosition t: throwerDamageLaws_.getNumberHits().getKeys()) {
                 DamageMoveCountUser damage_ = damageByUserOfMove(_fight, _import,t, _cible, throwerDamageLaws_);
@@ -793,7 +795,7 @@ final class FightEffects {
         } else {
             if (Rate.greaterEq(pvSoignes_.opposNb(), creatureLanceur_.getRemainingHp())) {
                 FightKo.setKoMoveTeams(_fight, _lanceur, _diff, _import);
-                if(Numbers.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -816,7 +818,7 @@ final class FightEffects {
         }
         if(!creatureCible_.estKo()&&FightItems.canUseItsBerry(_fight,_cible,_import)){
             Berry berry_ = (Berry) creatureCible_.ficheObjet(_import);
-            if (StringList.quickEq(berry_.getCategoryBoosting(), fAttaqueLanceur_.getCategory())) {
+            if (StringUtil.quickEq(berry_.getCategoryBoosting(), fAttaqueLanceur_.getCategory())) {
                 for (Statistic s: berry_.getBoostStatis().getKeys()) {
                     creatureCible_.variationBoostStatistique(s, berry_.getBoostStatis().getVal(s));
                     _fight.addStatisticMessage(_cible, s, berry_.getBoostStatis().getVal(s), _import);
@@ -899,7 +901,7 @@ final class FightEffects {
         LgInt maxRd_ = _import.getMaxRd();
         byte nbCoups_ = (byte) randomRate(_fight, _import, repetCoup_, _target).ll();
         boolean coupCritique_ = false;
-        for (int i = CustList.FIRST_INDEX;i<nbCoups_;i++){
+        for (int i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
             Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import,_laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
@@ -934,7 +936,7 @@ final class FightEffects {
         boolean coupCritique_ = false;
         boolean keepProcessing_ = true;
         int nbHits_ = 0;
-        for (int i = CustList.FIRST_INDEX;i<nbCoups_;i++){
+        for (int i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
             Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import, _laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
@@ -1036,7 +1038,7 @@ final class FightEffects {
         } else {
             degats_.affect(creatureCible_.getRemainingHp());
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
-            if(Numbers.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }
@@ -1047,7 +1049,7 @@ final class FightEffects {
         Rate cc_;
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
-            if(Numbers.eq(_target.getTeam(),Fight.FOE)){
+            if(NumberUtil.eq(_target.getTeam(),Fight.FOE)){
                 cc_=_lawCriticalHitRate.minimum();
             }else{
                 cc_=_lawCriticalHitRate.maximum();
@@ -1064,7 +1066,7 @@ final class FightEffects {
         Fighter creatureCible_=_fight.getFighter(_cible);
         String finalMove_ = creatureCible_.getFinalChosenMove();
         DamagingMoveData move_ = (DamagingMoveData) _import.getMove(_move);
-        if(StringList.contains(_import.getMovesProtSingleTargetAgainstKo(), finalMove_) &&creatureCible_.isSuccessfulMove() && move_.getStoppableMoveKoSingle()){
+        if(StringUtil.contains(_import.getMovesProtSingleTargetAgainstKo(), finalMove_) &&creatureCible_.isSuccessfulMove() && move_.getStoppableMoveKoSingle()){
             pv_.affect(remainingHp(finalMove_, _import));
         } else if(move_.getCannotKo()){
             pv_.affect(_import.getMinHp());
@@ -1109,11 +1111,11 @@ final class FightEffects {
         basePower_ = _import.evaluatePositiveExp(effect_.getPower(), variables_, DataBase.getDefaultPower());
         StringList typeAtt_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         String nomActuelLanceur_=creatureLanceur_.getCurrentName();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), fAtt_.getCategory());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringList.join(typeAtt_, _import.getSepartorSetChar()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), basePower_.toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), fAtt_.getCategory());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringUtil.join(typeAtt_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), basePower_.toNumberString());
         Rate finalPower_ = new Rate(basePower_);
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
@@ -1122,9 +1124,9 @@ final class FightEffects {
         Rate def_ = defense(_fight, _lanceur, _cible, effect_, variables_, _import);
         Rate degats_;
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
-        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.POWER), finalPower_.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), finalPower_.toNumberString());
         varLocs_.putAllMap(variables_);
         String damageFormula_ = _import.getDamageFormula();
         degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, finalPower_);
@@ -1135,8 +1137,8 @@ final class FightEffects {
         degats_.multiplyBy(rateDamageGlobalAbilities(_fight, typeAtt_, _import));
         degats_.multiplyBy(multBaseDamage(_fight, _attaqueLanceur, _import));
         degats_.multiplyBy(rateDamageGlobalMoves(_fight, typeAtt_, _import));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), coeffEff_.toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), coeffEff_.toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
         degats_.multiplyBy(rateDamageThrowerObject(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageThrowerAbility(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageInvokedMove(_fight, _lanceur, _cible, _import));
@@ -1154,7 +1156,7 @@ final class FightEffects {
         for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttGlobal_=_import.getMove(c);
             int nbEffets_=fAttGlobal_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttGlobal_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;
@@ -1176,7 +1178,7 @@ final class FightEffects {
             }
             MoveData fAttPart_=_import.getMove(c);
             int nbEffets_=fAttPart_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttPart_.getEffet(i);
                 if(!(effet_ instanceof EffectAlly)){
                     continue;
@@ -1213,9 +1215,9 @@ final class FightEffects {
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
-            for (String t: StringList.splitChars(_variables.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES)), _import.getSepartorSetChar())) {
+            for (String t: StringUtil.splitChars(_variables.getVal(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES)), _import.getSepartorSetChar())) {
                 for (TypeDamageBoost tDamage_: ab_.getChangingBoostTypes().values()) {
-                    if (!StringList.quickEq(tDamage_.getType(), t)) {
+                    if (!StringUtil.quickEq(tDamage_.getType(), t)) {
                         continue;
                     }
                     rate_.multiplyBy(tDamage_.getBoost());
@@ -1339,7 +1341,7 @@ final class FightEffects {
             boolean priseEnCompteEquipeCible_=true;
             if(thrower_.capaciteActive()){
                 AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
-                if(StringList.contains(fCapac_.getIgnFoeTeamMove(), c)){
+                if(StringUtil.contains(fCapac_.getIgnFoeTeamMove(), c)){
                     priseEnCompteEquipeCible_=false;
                 }
             }
@@ -1348,7 +1350,7 @@ final class FightEffects {
             }
             MoveData fAttEquipe_=_import.getMove(c);
             int nbEffets_=fAttEquipe_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttEquipe_.getEffet(i);
                 if(!(effet_ instanceof EffectTeam)){
                     continue;
@@ -1403,7 +1405,7 @@ final class FightEffects {
         for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttGlobal_=_import.getMove(c);
             int nbEffets_=fAttGlobal_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttGlobal_.getEffet(i);
                 if(!(effet_ instanceof EffectGlobal)){
                     continue;
@@ -1449,11 +1451,11 @@ final class FightEffects {
         Fighter target_ = _fight.getFighter(_target);
         if(!target_.isActed()){
             for(String e:thrower_.getAlreadyInvokedMovesRound()){
-                if (!StringList.contains(_import.getMovesInvoking(), e)) {
+                if (!StringUtil.contains(_import.getMovesInvoking(), e)) {
                     continue;
                 }
                 MoveData fAttInvoque_=_import.getMove(e);
-                EffectInvoke effetInvoque_=(EffectInvoke)fAttInvoque_.getEffet(CustList.FIRST_INDEX);
+                EffectInvoke effetInvoque_=(EffectInvoke)fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
                 if(effetInvoque_.getRateInvokationMove().isZero()){
                     continue;
                 }
@@ -1491,13 +1493,13 @@ final class FightEffects {
             for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
                 MoveData fAttGlobal_=_import.getMove(c);
                 int nbEffets_=fAttGlobal_.nbEffets();
-                for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                     Effect effet_=fAttGlobal_.getEffet(i);
                     if(!(effet_ instanceof EffectGlobal)){
                         continue;
                     }
                     EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                    if(StringList.contains(effetGlobal_.getMovesUsedByTargetedFighters(), target_.getFinalChosenMove())){
+                    if(StringUtil.contains(effetGlobal_.getMovesUsedByTargetedFighters(), target_.getFinalChosenMove())){
                         for (String t:_moveTypes) {
                             if(effetGlobal_.getMultDamagePrepaRound().contains(t)){
                                 rate_.multiplyBy(effetGlobal_.getMultDamagePrepaRound().getVal(t));
@@ -1514,13 +1516,13 @@ final class FightEffects {
         Rate rate_ = DataBase.defRateProduct();
         Fighter thrower_ = _fight.getFighter(_thrower);
         for(MoveTeamPosition c:thrower_.getStatusRelatSet()){
-            if(!Numbers.eq(_thrower.getTeam(),c.getTeamPosition().getTeam())) {
+            if(!NumberUtil.eq(_thrower.getTeam(),c.getTeamPosition().getTeam())) {
                 continue;
             }
             if(TeamPosition.eq(_thrower,c.getTeamPosition())){
                 continue;
             }
-            if(Numbers.eq(thrower_.getStatusRelatNbRoundShort(c), 0)){
+            if(NumberUtil.eq(thrower_.getStatusRelatNbRoundShort(c), 0)){
                 continue;
             }
             Status statutLoc_=_import.getStatus().getVal(c.getMove());
@@ -1531,7 +1533,7 @@ final class FightEffects {
             if(!effetPart_.getWeddingAlly()){
                 continue;
             }
-            if (Numbers.eq(_thrower.getTeam(), _target.getTeam())) {
+            if (NumberUtil.eq(_thrower.getTeam(), _target.getTeam())) {
                 continue;
             }
             rate_.multiplyBy(effetPart_.getMultDamageAgainstFoe());
@@ -1545,7 +1547,7 @@ final class FightEffects {
         Fighter thrower_ = _fight.getFighter(_thrower);
         MoveData fAtt_ = _import.getMove(_move);
         for (String t: fAtt_.getBoostedTypes()) {
-            if(!StringList.contains(thrower_.getTypes(), t)){
+            if(!StringUtil.contains(thrower_.getTypes(), t)){
                 continue;
             }
             rate_.multiplyBy(_import.getStab());
@@ -1563,7 +1565,7 @@ final class FightEffects {
     static Rate rateDamageThrowerTargetAbility(Fight _fight, TeamPosition _thrower, TeamPosition _target, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
         Fighter thrower_ = _fight.getFighter(_thrower);
-        if(Numbers.eq(_thrower.getTeam(),_target.getTeam())){
+        if(NumberUtil.eq(_thrower.getTeam(),_target.getTeam())){
             if(thrower_.capaciteActive()){
                 AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
                 if(!fCapac_.getMultAllyDamage().isZero()){
@@ -1750,7 +1752,7 @@ final class FightEffects {
             boolean priseEnCompteEquipeCible_=true;
             if(thrower_.capaciteActive()){
                 AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
-                if(StringList.contains(fCapac_.getIgnFoeTeamMove(), c)){
+                if(StringUtil.contains(fCapac_.getIgnFoeTeamMove(), c)){
                     priseEnCompteEquipeCible_=false;
                 }
             }
@@ -1759,7 +1761,7 @@ final class FightEffects {
             }
             MoveData fAttEquipe_=_import.getMove(c);
             int nbEffets_=fAttEquipe_.nbEffets();
-            for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttEquipe_.getEffet(i);
                 if(!(effet_ instanceof EffectTeam)){
                     continue;
@@ -1929,7 +1931,7 @@ final class FightEffects {
             if (Rate.greaterEq(degatsReculContreCible_, creatureCible_.getRemainingHp())) {
                 Rate remainHp_ = new Rate(creatureCible_.getRemainingHp());
                 FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
-                if(Numbers.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -1991,12 +1993,12 @@ final class FightEffects {
         creatureLanceur_.setGroundPlace(placeTerrainCible_);
         creatureLanceur_.setGroundPlaceSubst(placeTerrainCiblePourRemplacement_);
         _fight.addSwitchPlacesMessage(_lanceur, _cible, _import);
-        if(Numbers.eq(_lanceur.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
         } else {
             _fight.getFirstPositFoeFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
         }
-        if(Numbers.eq(_cible.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_cible.getTeam(), Fight.PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_cible.getPosition(),placeTerrainLanceurPourRemplacement_);
         } else {
             _fight.getFirstPositFoeFighters().put(_cible.getPosition(),placeTerrainLanceurPourRemplacement_);
@@ -2008,21 +2010,21 @@ final class FightEffects {
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_combattant.getTeam()));
         for(String c:equipeAdv_.getEnabledMoves().getKeys()){
-            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
+            if(StringUtil.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //desactiver attaques adv
                 equipeAdv_.desactiverEffetEquipe(c);
                 _fight.addDisabledTeamMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
             }
         }
         for(String c:equipeAdv_.getEnabledMovesWhileSendingFoe().getKeys()){
-            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
+            if(StringUtil.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //disable team foe moves sending
                 equipeAdv_.supprimerEffetEquipeEntreeAdv(c);
                 _fight.addDisabledTeamUsesMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
             }
         }
         for (String c:equipeAdv_.getNbUsesMoves().getKeys()) {
-            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
+            if(StringUtil.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //disable team foe moves sending
                 equipeAdv_.getNbUsesMoves().put(c, 0);
                 _fight.addDisabledTeamUsesMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
@@ -2030,14 +2032,14 @@ final class FightEffects {
         }
         Fighter fighter_ = _fight.getFighter(_combattant);
         for (MoveTeamPosition k: fighter_.getStatusRelatSet()) {
-            if (!StringList.contains(_effet.getDisableFoeTeamStatus(), k.getMove())) {
+            if (!StringUtil.contains(_effet.getDisableFoeTeamStatus(), k.getMove())) {
                 continue;
             }
             fighter_.supprimerPseudoStatut(k.getMove());
             _fight.addDisabledStatusOtherRelMessage(k.getMove(), _combattant, _import);
         }
         for (MoveTeamPosition k: fighter_.getTrappingMoves().getKeys()) {
-            if (!StringList.contains(_effet.getDisableFoeTeamEffects(), k.getMove())) {
+            if (!StringUtil.contains(_effet.getDisableFoeTeamEffects(), k.getMove())) {
                 continue;
             }
             for (byte f: equipeAdv_.getMembers().getKeys()) {
@@ -2159,7 +2161,7 @@ final class FightEffects {
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
             Fighter creature_ = _fight.getFighter(c);
-            StringList.removeAllElements(creature_.getProtectedAgainstMoveTypes(), _effet.getDisableImmuAgainstTypes());
+            StringUtil.removeAllElements(creature_.getProtectedAgainstMoveTypes(), _effet.getDisableImmuAgainstTypes());
         }
     }
 
@@ -2182,7 +2184,7 @@ final class FightEffects {
         Fighter creatureLanceur_=_fight.getFighter(_user);
         Team equipeLanceur_=_fight.getTeams().getVal(_user.getTeam());
         byte remplacant_=creatureLanceur_.getSubstistute();
-        if (Numbers.eq(remplacant_, Fighter.BACK)) {
+        if (NumberUtil.eq(remplacant_, Fighter.BACK)) {
             return;
         }
         Fighter partenaire_=equipeLanceur_.refPartMembres(remplacant_);
@@ -2196,7 +2198,7 @@ final class FightEffects {
         _fight.addBatonPassMessage(_user, new TeamPosition(_user.getTeam(),remplacant_), _import);
         FightSending.withdrawal(_fight,_user,_import);
         FightSending.sending(_fight,new TeamPosition(_user.getTeam(),remplacant_),_diff,_import);
-        if(Numbers.eq(_user.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_user.getTeam(), Fight.PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_user.getPosition(),Fighter.BACK);
             _fight.getFirstPositPlayerFighters().put(remplacant_,placeTerrainPourRemplacement_);
         } else {
@@ -2224,7 +2226,7 @@ final class FightEffects {
     }
     static boolean randomRate(Fight _fight, DataBase _import, Rate _rate, TeamPosition _thrower) {
         if(_fight.getSimulation()){
-            if(Numbers.eq(_thrower.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(_thrower.getTeam(),Fight.PLAYER)){
                 if(Rate.strLower(_rate, DataBase.determinatedRate())){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.RANDOM);
@@ -2297,7 +2299,7 @@ final class FightEffects {
                 _fight.addStatisticMessage(_cible, e, varCible_, _import);
                 creatureLanceur_.variationBoostStatistique(e,varLanceur_);
                 _fight.addStatisticMessage(_lanceur, e, varLanceur_, _import);
-                _fight.addAnimationStatistic(e, CustList.FIRST_INDEX, true);
+                _fight.addAnimationStatistic(e, IndexConstants.FIRST_INDEX, true);
             }
         }
     }
@@ -2337,7 +2339,7 @@ final class FightEffects {
         if(_effet.getKoUserHealSubst()){
             Team equipeLanceur_=_fight.getTeams().getVal(_lanceur.getTeam());
             Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
-            if (Numbers.eq(creatureCbtLanceur_.getSubstistute(), Fighter.BACK)) {
+            if (NumberUtil.eq(creatureCbtLanceur_.getSubstistute(), Fighter.BACK)) {
                 return;
             }
             byte place_ = creatureCbtLanceur_.getGroundPlace();
@@ -2346,7 +2348,7 @@ final class FightEffects {
             FightKo.setKo(_fight,_lanceur,_diff,_import);
             _fight.addAnimationKoFighter(_lanceur);
             creatureCbtLanceur_.exitFrontBattleForBeingSubstitued();
-            if(Numbers.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
                 return;
@@ -2362,7 +2364,7 @@ final class FightEffects {
             creatureCbtRemplacant_.fullHeal(_import);
             creatureCbtRemplacant_.setGroundPlace(place_);
             creatureCbtRemplacant_.setGroundPlaceSubst(placeSub_);
-            if(Numbers.eq(_lanceur.getTeam(), Fight.PLAYER)){
+            if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
                 _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),Fighter.BACK);
                 _fight.getFirstPositPlayerFighters().put(remplacant_.getPosition(),placeSub_);
             } else {
@@ -2444,7 +2446,7 @@ final class FightEffects {
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
             _fight.addEffectRecoil(_cible, _effet);
             _fight.setAnimationKoFighterEffectDamage(_cible, _effet);
-            if(Numbers.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }
@@ -2499,7 +2501,7 @@ final class FightEffects {
         }else if(Rate.greaterEq(varPv_.absNb(),creatureCible_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
             _fight.addAnimationKoFighter(_cible);
-            if(Numbers.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
                 return;
@@ -2524,7 +2526,7 @@ final class FightEffects {
             if(Rate.strGreater(varPvMembresAdj_, partenaire_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,c,_diff,_import);
                 _fight.addAnimationKoFighter(c);
-                if(Numbers.eq(c.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(c.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -2552,7 +2554,7 @@ final class FightEffects {
         }else if(Rate.greaterEq(varPv_.absNb(),creatureLanceur_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_target,_diff,_import);
             _fight.addAnimationKoFighter(_target);
-            if(Numbers.eq(_target.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_target.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }
@@ -2633,13 +2635,13 @@ final class FightEffects {
             String _statut, DataBase _import) {
         Fighter creatureCible_=_fight.getFighter(_cible);
         if(creatureCible_.isSingleStatus(_statut)){
-            if (Numbers.eq(creatureCible_.getStatusNbRoundShort(_statut), 0)) {
+            if (NumberUtil.eq(creatureCible_.getStatusNbRoundShort(_statut), 0)) {
                 _fight.getSufferingTargetStatus().add(_statut);
             }
             creatureCible_.affecterStatut(_statut);
             _fight.addStatusMessage(_cible, _statut, _import);
         }else{
-            if (Numbers.eq(creatureCible_.getStatusRelatNbRoundShort(new MoveTeamPosition(_statut, _lanceur)), 0)) {
+            if (NumberUtil.eq(creatureCible_.getStatusRelatNbRoundShort(new MoveTeamPosition(_statut, _lanceur)), 0)) {
                 _fight.getSufferingTargetStatus().add(_statut);
             }
             creatureCible_.affecterPseudoStatut(_lanceur,_statut);
@@ -2673,7 +2675,7 @@ final class FightEffects {
             if(!statutLoc_.estActifPartenaire()){
                 continue;
             }
-            if(!Numbers.eq(_lanceur.getTeam(),_cible.getTeam())){
+            if(!NumberUtil.eq(_lanceur.getTeam(),_cible.getTeam())){
                 continue;
             }
             EffectPartnerStatus effet_=statutLoc_.getEffectsPartner().first();
@@ -2688,7 +2690,7 @@ final class FightEffects {
             if (obj_ instanceof ItemForBattle) {
                 ItemForBattle o_ = (ItemForBattle) obj_;
                 for(String e:_fight.getSufferingTargetStatus()){
-                    if(!StringList.contains(o_.getSynchroStatus(), e)){
+                    if(!StringUtil.contains(o_.getSynchroStatus(), e)){
                         continue;
                     }
                     affectStatusToThrower(_fight, _lanceur, e, _cible, _echecStatuts, _import);
@@ -2814,7 +2816,7 @@ final class FightEffects {
         Rate pv_ = Rate.zero();
         MoveData fAttaque_=_import.getMove(_move);
         int nbEffets_=fAttaque_.nbEffets();
-        for (int i = CustList.FIRST_INDEX;i<nbEffets_;i++){
+        for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAttaque_.getEffet(i);
             if(!(effet_ instanceof EffectProtection)){
                 continue;

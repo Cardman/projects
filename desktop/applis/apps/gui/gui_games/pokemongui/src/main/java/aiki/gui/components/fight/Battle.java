@@ -49,10 +49,12 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.NatStringTreeMap;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class Battle extends ChildFrame {
 
@@ -293,7 +295,7 @@ public class Battle extends ChildFrame {
         if (flee != null) {
             if (facade.isWildFight()) {
                 Rate r_ = facade.calculateFleeingRate();
-                flee.setTextAndSize(StringList.simpleStringsFormat(messages.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
+                flee.setTextAndSize(StringUtil.simpleStringsFormat(messages.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
             }
         }
         if (validateActions != null && facade.isExistingFight()) {
@@ -481,7 +483,7 @@ public class Battle extends ChildFrame {
             panelPlaces.removeAll();
             placesLabels.clear();
             byte mult_ = facade.getFight().getMult();
-            for (byte p = CustList.FIRST_INDEX; p < mult_; p++) {
+            for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
                 PlaceLabel plLabel_ = new PlaceLabel(Byte.toString(p), p);
                 plLabel_.addMouseListener(new SelectPlaceEvent(this, p));
                 panelPlaces.add(plLabel_);
@@ -566,7 +568,7 @@ public class Battle extends ChildFrame {
         facade.roundAllThrowers(enableAnimation);
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
+            commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -592,7 +594,7 @@ public class Battle extends ChildFrame {
         facade.sendSubstitutes();
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
+            commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -609,7 +611,7 @@ public class Battle extends ChildFrame {
         facade.learnAndEvolve();
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
+            commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -695,7 +697,7 @@ public class Battle extends ChildFrame {
             }
         } else {
             refresh();
-            commentsRound.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
+            commentsRound.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             pack();
         }
     }
@@ -735,12 +737,12 @@ public class Battle extends ChildFrame {
     }
 
     public void setComments() {
-        commentsRound.setText(StringList.concat(StringList.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
+        commentsRound.setText(StringUtil.concat(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
         window.setNoPaintingScene();
     }
 
     public void appendComments() {
-        commentsRound.append(StringList.concat(StringList.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
+        commentsRound.append(StringUtil.concat(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
     }
 
     public void afterRound() {
@@ -1118,7 +1120,7 @@ public class Battle extends ChildFrame {
     public void chooseFighter() {
         enabledChangeLanguage = false;
         facade.choosePokemonForLearningAndEvolving((byte) fighterPanel.getSelectedIndex());
-        if (Numbers.eq(facade.getChosenIndex(), CustList.INDEX_NOT_FOUND_ELT)) {
+        if (NumberUtil.eq(facade.getChosenIndex(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
             actions.removeAll();
 //            window.pack();
             pack();
@@ -1260,7 +1262,7 @@ public class Battle extends ChildFrame {
         button_.addMouseListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
         if (!str_.isEmpty()) {
-            String mess_ = StringList.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
+            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
             selectedItem.setText(mess_);
         }
         actions.add(button_);
@@ -1304,7 +1306,7 @@ public class Battle extends ChildFrame {
             facade.clearSortingHealingItem();
             window.setSavedGame(false);
             String item_ = facade.getFight().getChosenHealingMove();
-            String mess_ = StringList.simpleStringsFormat(messages.getVal(SELECTED_ITEM), item_);
+            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), item_);
             selectedItem.setText(mess_);
             displayMovesToBeHealed();
 //            window.pack();

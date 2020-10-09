@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendEval,AnaRendLocBreakableBlock {
     private String label;
@@ -27,7 +28,7 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                             _page.getKeyWords().getKeyWordTry(),
-                            StringList.join(
+                            StringUtil.join(
                                     new StringList(
                                             _page.getKeyWords().getKeyWordCatch(),
                                             _page.getKeyWords().getKeyWordFinally()
@@ -41,7 +42,7 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                                 _page.getKeyWords().getKeyWordTry(),
-                                StringList.join(
+                                StringUtil.join(
                                         new StringList(
                                                 _page.getKeyWords().getKeyWordCatch(),
                                                 _page.getKeyWords().getKeyWordFinally()

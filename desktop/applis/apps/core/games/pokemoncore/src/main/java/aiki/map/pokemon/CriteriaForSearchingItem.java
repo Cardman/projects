@@ -8,8 +8,8 @@ import aiki.fight.items.HealingPp;
 import aiki.fight.items.HealingStatus;
 import aiki.fight.items.Item;
 import code.maths.LgInt;
-import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
+import code.util.core.StringUtil;
 
 public class CriteriaForSearchingItem extends CriteriaForSearching {
 
@@ -53,24 +53,24 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
     }
 
     public boolean matchClass(Item _item) {
-        if (StringList.quickEq(selectedClass, DataBase.EMPTY_STRING)) {
+        if (StringUtil.quickEq(selectedClass, DataBase.EMPTY_STRING)) {
             return true;
         }
-        if (StringList.quickEq(selectedClass, HealingItem.ITEM)) {
-            if (StringList.quickEq(HealingPp.ITEM, _item.getItemType())) {
+        if (StringUtil.quickEq(selectedClass, HealingItem.ITEM)) {
+            if (StringUtil.quickEq(HealingPp.ITEM, _item.getItemType())) {
                 return true;
             }
-            if (StringList.quickEq(HealingHp.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(HealingHp.ITEM, _item.getItemType())) {
                 return true;
             }
-            if (StringList.quickEq(HealingStatus.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(HealingStatus.ITEM, _item.getItemType())) {
                 return true;
             }
-            if (StringList.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
                 return true;
             }
         }
-        return StringList.quickEq(selectedClass, _item.getItemType());
+        return StringUtil.quickEq(selectedClass, _item.getItemType());
     }
 
     public void setSearchModeName(SearchingMode _searchModeName) {

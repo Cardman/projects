@@ -2,7 +2,7 @@ package aiki.map;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import aiki.fight.pokemon.TrainerPlaceNames;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.fight.pokemon.GenderName;
@@ -34,7 +34,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -513,7 +512,7 @@ public class StepTest {
         for (GenderName pk_: _list) {
             boolean cont_ = false;
             for (GenderName s : g_) {
-                if (!StringList.quickEq(s.getName(), pk_.getName())) {
+                if (!StringUtil.quickEq(s.getName(), pk_.getName())) {
                     continue;
                 }
                 if (s.getGender() != pk_.getGender()) {
@@ -538,12 +537,9 @@ public class StepTest {
     }
 
     private static boolean eq(GenderName _current, GenderName _g) {
-        if (!StringList.quickEq(_current.getName(), _g.getName())) {
+        if (!StringUtil.quickEq(_current.getName(), _g.getName())) {
             return false;
         }
-        if (_current.getGender() != _g.getGender())  {
-            return false;
-        }
-        return true;
+        return _current.getGender() == _g.getGender();
     }
 }

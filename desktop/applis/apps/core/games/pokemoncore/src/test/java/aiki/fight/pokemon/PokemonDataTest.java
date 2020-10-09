@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -129,9 +130,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.NO_GENDER, false);
         assertEq(3, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "PIKA"));
-        assertTrue(StringList.contains(evosRes_, "CHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "PIKA"));
+        assertTrue(StringUtil.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -147,9 +148,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.FEMALE, false);
         assertEq(3, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "PIKA"));
-        assertTrue(StringList.contains(evosRes_, "CHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "PIKA"));
+        assertTrue(StringUtil.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -165,9 +166,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.MALE, false);
         assertEq(3, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "PIKA"));
-        assertTrue(StringList.contains(evosRes_, "CHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "PIKA"));
+        assertTrue(StringUtil.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -183,7 +184,7 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.NO_GENDER, true);
         assertEq(1, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
     }
 
     @Test
@@ -199,8 +200,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.FEMALE, true);
         assertEq(2, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "PIKA"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "PIKA"));
     }
 
     @Test
@@ -216,8 +217,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.MALE, true);
         assertEq(2, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "CHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -233,8 +234,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions();
         assertEq(3, evosRes_.size());
-        assertTrue(StringList.contains(evosRes_, "RAICHU"));
-        assertTrue(StringList.contains(evosRes_, "PIKA"));
-        assertTrue(StringList.contains(evosRes_, "CHU"));
+        assertTrue(StringUtil.contains(evosRes_, "RAICHU"));
+        assertTrue(StringUtil.contains(evosRes_, "PIKA"));
+        assertTrue(StringUtil.contains(evosRes_, "CHU"));
     }
 }

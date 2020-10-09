@@ -19,6 +19,7 @@ import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
@@ -140,7 +141,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
-        ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0);
         if (_conf.callsOrException()) {
             return null;
@@ -151,7 +152,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, CustList.SECOND_INDEX);
+        ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
         Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0);
         if (_conf.callsOrException()) {
             return null;
@@ -162,7 +163,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         }
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
-        ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX + 1, CustList.SECOND_INDEX + 1);
+        ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX + 1, IndexConstants.SECOND_INDEX + 1);
         Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0);
         if (_conf.callsOrException()) {
             return null;
@@ -212,7 +213,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         long length_;
         boolean finished_ = false;
         length_ = nbMaxIterations_;
-        if (length_ == CustList.SIZE_EMPTY) {
+        if (length_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
         LoopBlockStack l_ = new LoopBlockStack();

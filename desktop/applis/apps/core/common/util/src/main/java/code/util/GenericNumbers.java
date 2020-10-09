@@ -4,8 +4,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 
 import code.util.comparators.BigDecimalComparator;
-import code.util.ints.Equallable;
-import code.util.ints.Listable;
+import code.util.core.IndexConstants;
 
 public final class GenericNumbers extends CustList<BigDecimal> {
 
@@ -50,7 +49,7 @@ public final class GenericNumbers extends CustList<BigDecimal> {
         if (_g.size() != len_) {
             return false;
         }
-        for (int i = FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             BigDecimal e_ = get(i);
             BigDecimal f_ = _g.get(i);
             if (!eq(e_, f_)) {

@@ -1,10 +1,7 @@
 package cards.gui.panels;
-import java.awt.Dimension;
-
-import javax.swing.JLabel;
 
 import code.gui.TextLabel;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 /** */
 public abstract class CardsScrollableList extends ScrollableList {
@@ -15,7 +12,7 @@ public abstract class CardsScrollableList extends ScrollableList {
     private int max;
 
     protected void initText() {
-        getRemCards().setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        getRemCards().setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
 
     void setMax(int _max) {

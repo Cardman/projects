@@ -13,7 +13,6 @@ import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
@@ -22,6 +21,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -1353,7 +1353,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer..InnerTwo").getImportedDirectSuperInterfaces();
-        assertTrue(StringList.contains(types_, "pkg.OuterThree..InnerThree"));
+        assertTrue(StringUtil.contains(types_, "pkg.OuterThree..InnerThree"));
     }
     @Test
     public void resolve80FailTest() {

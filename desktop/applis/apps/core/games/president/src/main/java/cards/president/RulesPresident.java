@@ -1,8 +1,8 @@
 package cards.president;
 import cards.consts.MixCardsChoice;
 import cards.president.enumerations.EqualtyPlaying;
-import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class RulesPresident {
@@ -53,10 +53,7 @@ public final class RulesPresident {
         if (nbStacks < getNbMinStacks()) {
             return false;
         }
-        if (nbStacks > getNbMaxStacks()) {
-            return false;
-        }
-        return true;
+        return nbStacks <= getNbMaxStacks();
     }
 
     public Bytes getSortedPlayersAfterEq(byte _player) {
@@ -64,7 +61,7 @@ public final class RulesPresident {
         for (int p = _player; p < nbPlayers; p++) {
             pl_.add((byte) p);
         }
-        for (int p = CustList.FIRST_INDEX; p < _player; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p < _player; p++) {
             pl_.add((byte) p);
         }
         return pl_;
@@ -75,7 +72,7 @@ public final class RulesPresident {
         for (int p = _player + 1; p < nbPlayers; p++) {
             pl_.add((byte) p);
         }
-        for (int p = CustList.FIRST_INDEX; p <= _player; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p <= _player; p++) {
             pl_.add((byte) p);
         }
         return pl_;

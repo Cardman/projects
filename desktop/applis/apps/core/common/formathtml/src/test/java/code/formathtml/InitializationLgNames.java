@@ -8,6 +8,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
+import code.util.core.IndexConstants;
 import org.junit.Assert;
 
 import code.expressionlanguage.ContextEl;
@@ -29,7 +30,7 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
         lgNames_.build();

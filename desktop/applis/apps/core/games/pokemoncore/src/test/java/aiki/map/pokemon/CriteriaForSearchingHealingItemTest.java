@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,13 +58,13 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
     public void getStatus4Test() {
         StringList st_ = CriteriaForSearchingHealingItem.getStatus(data.getItem(TOTAL_SOIN));
         assertEq(7, st_.size());
-        assertTrue(StringList.contains(st_, BRULURE));
-        assertTrue(StringList.contains(st_, GEL));
-        assertTrue(StringList.contains(st_, PARALYSIE));
-        assertTrue(StringList.contains(st_, POISON_ST));
-        assertTrue(StringList.contains(st_, POISON_GRAVE));
-        assertTrue(StringList.contains(st_, SOMMEIL));
-        assertTrue(StringList.contains(st_, SOMMEIL_REPOS));
+        assertTrue(StringUtil.contains(st_, BRULURE));
+        assertTrue(StringUtil.contains(st_, GEL));
+        assertTrue(StringUtil.contains(st_, PARALYSIE));
+        assertTrue(StringUtil.contains(st_, POISON_ST));
+        assertTrue(StringUtil.contains(st_, POISON_GRAVE));
+        assertTrue(StringUtil.contains(st_, SOMMEIL));
+        assertTrue(StringUtil.contains(st_, SOMMEIL_REPOS));
     }
 
     @Test

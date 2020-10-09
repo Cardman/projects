@@ -7,6 +7,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class ExecPartTypeUtil {
     public static final int WILD_CARD_PRIO = 1;
@@ -368,7 +370,7 @@ public final class ExecPartTypeUtil {
         ExecAnalyzingType a_ = new ExecAnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
-            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+            a_.getValues().put((int)IndexConstants.FIRST_INDEX, _string);
             a_.setError(true);
             return a_;
         }
@@ -377,7 +379,7 @@ public final class ExecPartTypeUtil {
             a_.setupValueExec(_string);
             return a_;
         }
-        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
             a_.setupValueExec(_string);
             return a_;
@@ -388,7 +390,7 @@ public final class ExecPartTypeUtil {
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUP_TYPE)) {
-            if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+            if (StringUtil.quickEq(_string.trim(), Templates.SUP_TYPE)) {
                 a_.setError(true);
             }
             a_.setPrio(WILD_CARD_PRIO);
@@ -398,7 +400,7 @@ public final class ExecPartTypeUtil {
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, a_.getValues(), a_.getOperators());
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                a_.getValues().put((int) IndexConstants.FIRST_INDEX, _string);
                 a_.setError(true);
             } else {
                 a_.setPrio(ARR_PRIO);

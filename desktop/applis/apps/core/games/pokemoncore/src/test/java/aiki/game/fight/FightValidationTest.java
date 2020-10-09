@@ -3,6 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
 import aiki.game.fight.actions.Action;
+import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -5878,7 +5878,7 @@ public class FightValidationTest extends InitializationDataBase {
     }
 
     private void replaceFoeMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
-        byte i_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
         for (StringMap<Short> m: _moves) {
             if (m.isEmpty()) {
                 i_++;
@@ -5896,7 +5896,7 @@ public class FightValidationTest extends InitializationDataBase {
     }
 
     private void replacePlayerMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
-        byte i_ = CustList.FIRST_INDEX;
+        byte i_ = IndexConstants.FIRST_INDEX;
         for (StringMap<Short> m: _moves) {
             if (m.isEmpty()) {
                 i_++;

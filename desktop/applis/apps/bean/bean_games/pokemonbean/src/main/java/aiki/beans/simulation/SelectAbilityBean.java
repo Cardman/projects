@@ -4,6 +4,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class SelectAbilityBean extends CommonBean {
     private StringList sortedAbilities = new StringList();
@@ -26,7 +27,7 @@ public class SelectAbilityBean extends CommonBean {
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String i: data_.getAbilities().getKeys()) {
             String ab_ = translationsAbilities_.getVal(i);
-            if (!StringList.match(ab_, typedAbility)) {
+            if (!StringUtil.match(ab_, typedAbility)) {
                 continue;
             }
             sortedAbilities_.add(i);

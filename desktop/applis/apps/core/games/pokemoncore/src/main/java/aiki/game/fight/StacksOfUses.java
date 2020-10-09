@@ -1,7 +1,8 @@
 package aiki.game.fight;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 
@@ -23,10 +24,10 @@ public final class StacksOfUses implements Displayable {
     }
 
     public StacksOfUses(String _value) {
-        StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        nbRounds = (byte) Numbers.parseInt(elts_.first());
-        firstStacked = StringList.quickEq(elts_.get(CustList.SECOND_INDEX), TRUE);
-        lastStacked = StringList.quickEq(elts_.last(), TRUE);
+        StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
+        nbRounds = (byte) NumberUtil.parseInt(elts_.first());
+        firstStacked = StringUtil.quickEq(elts_.get(IndexConstants.SECOND_INDEX), TRUE);
+        lastStacked = StringUtil.quickEq(elts_.last(), TRUE);
     }
 
     
@@ -35,10 +36,7 @@ public final class StacksOfUses implements Displayable {
     }
 
     public boolean isValid() {
-        if (nbRounds < 0) {
-            return false;
-        }
-        return true;
+        return nbRounds >= 0;
     }
 
     public byte getNbRounds() {

@@ -12,9 +12,9 @@ import cards.gui.MainWindow;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
-import code.util.CustList;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public class BeloteCardsScrollableList extends CardsScrollableList {
 
@@ -34,7 +34,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste,BorderLayout.CENTER);
-        remCards = new TextLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
+        remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -57,7 +57,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
             liste.add(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartesBelote(HandBelote _m) {
         for(CardBelote c:_m) {
@@ -78,7 +78,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartesBelote(HandBelote _cs) {
         int indice_;
@@ -97,12 +97,12 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
-        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
+        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public HandBelote valMainBelote() {
         HandBelote main_=new HandBelote();
         int taille_=taille();
-        for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
             main_.ajouter(liste.get(i));
         }
         return main_;

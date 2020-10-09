@@ -11,6 +11,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class BitXorOperation extends NumericOperation {
 
@@ -45,9 +46,9 @@ public final class BitXorOperation extends NumericOperation {
         un_.setFileName(_page.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                StringList.join(new StringList(
-                        StringList.join(_a.getNames(),"&"),
-                        StringList.join(_b.getNames(),"&")
+                StringUtil.join(new StringList(
+                        StringUtil.join(_a.getNames(),"&"),
+                        StringUtil.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
         _page.getLocalizer().addError(un_);

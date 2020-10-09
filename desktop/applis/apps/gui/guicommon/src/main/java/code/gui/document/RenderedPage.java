@@ -25,6 +25,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.StringUtil;
 
 public final class RenderedPage implements ProcessingSession {
 
@@ -153,7 +154,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     private static String getRealFilePath(String _lg, String _link) {
-        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
+        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
     public void refresh() {
         if (processing.get()) {

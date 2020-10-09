@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.assign.util;
 
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class Assignment {
 
@@ -47,7 +47,7 @@ public abstract class Assignment {
     }
 
     public static Assignment assign(String _assVar, String _key,boolean _boolean, Assignment _ass) {
-        boolean assVar_ = StringList.quickEq(_assVar, _key);
+        boolean assVar_ = StringUtil.quickEq(_assVar, _key);
         boolean ass_ = assVar_ || _ass.isAssignedAfter();
         boolean unass_ = !assVar_ && _ass.isUnassignedAfter();
         return assign(_boolean,ass_,unass_);

@@ -2,8 +2,10 @@ package code.gui;
 import java.io.File;
 
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class FileComparator implements Comparing<File> {
@@ -32,57 +34,57 @@ public final class FileComparator implements Comparing<File> {
         if (indexOfSorted == FileTable.DATE_INDEX) {
             if (increasing) {
                 long lg_ = _o1.lastModified() - _o2.lastModified();
-                if (lg_ > CustList.EQ_CMP) {
-                    return CustList.SWAP_SORT;
+                if (lg_ > SortConstants.EQ_CMP) {
+                    return SortConstants.SWAP_SORT;
                 }
-                if (lg_ < CustList.EQ_CMP) {
-                    return CustList.NO_SWAP_SORT;
+                if (lg_ < SortConstants.EQ_CMP) {
+                    return SortConstants.NO_SWAP_SORT;
                 }
-                return CustList.EQ_CMP;
+                return SortConstants.EQ_CMP;
             }
             long lg_ = _o2.lastModified() - _o1.lastModified();
-            if (lg_ > CustList.EQ_CMP) {
-                return CustList.SWAP_SORT;
+            if (lg_ > SortConstants.EQ_CMP) {
+                return SortConstants.SWAP_SORT;
             }
-            if (lg_ < CustList.EQ_CMP) {
-                return CustList.NO_SWAP_SORT;
+            if (lg_ < SortConstants.EQ_CMP) {
+                return SortConstants.NO_SWAP_SORT;
             }
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         if (indexOfSorted == FileTable.SIZE_INDEX) {
             if (increasing) {
                 long lg_ = _o1.length() - _o2.length();
-                if (lg_ > CustList.EQ_CMP) {
-                    return CustList.SWAP_SORT;
+                if (lg_ > SortConstants.EQ_CMP) {
+                    return SortConstants.SWAP_SORT;
                 }
-                if (lg_ < CustList.EQ_CMP) {
-                    return CustList.NO_SWAP_SORT;
+                if (lg_ < SortConstants.EQ_CMP) {
+                    return SortConstants.NO_SWAP_SORT;
                 }
-                return CustList.EQ_CMP;
+                return SortConstants.EQ_CMP;
             }
             long lg_ = _o2.length() - _o1.length();
-            if (lg_ > CustList.EQ_CMP) {
-                return CustList.SWAP_SORT;
+            if (lg_ > SortConstants.EQ_CMP) {
+                return SortConstants.SWAP_SORT;
             }
-            if (lg_ < CustList.EQ_CMP) {
-                return CustList.NO_SWAP_SORT;
+            if (lg_ < SortConstants.EQ_CMP) {
+                return SortConstants.NO_SWAP_SORT;
             }
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         if (indexOfSorted == FileTable.PATH_INDEX) {
             if (increasing) {
                 String returnOne_ = _o1.getAbsolutePath();
                 returnOne_ = returnOne_.substring(folder.length());
-                returnOne_ = StringList.replaceBackSlash(returnOne_);
-                StringList pathOne_ = StringList.splitStrings(returnOne_, StreamTextFile.SEPARATEUR);
+                returnOne_ = StringUtil.replaceBackSlash(returnOne_);
+                StringList pathOne_ = StringUtil.splitStrings(returnOne_, StreamTextFile.SEPARATEUR);
                 String returnTwo_ = _o2.getAbsolutePath();
                 returnTwo_ = returnTwo_.substring(folder.length());
-                returnTwo_ = StringList.replaceBackSlash(returnTwo_);
-                StringList pathTwo_ = StringList.splitStrings(returnTwo_, StreamTextFile.SEPARATEUR);
+                returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
+                StringList pathTwo_ = StringUtil.splitStrings(returnTwo_, StreamTextFile.SEPARATEUR);
                 int min_ = Math.min(pathOne_.size(), pathTwo_.size());
-                for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+                for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
                     int res_ = pathOne_.get(i).compareTo(pathTwo_.get(i));
-                    if (res_ != CustList.EQ_CMP) {
+                    if (res_ != SortConstants.EQ_CMP) {
                         return res_;
                     }
                 }
@@ -90,22 +92,22 @@ public final class FileComparator implements Comparing<File> {
             }
             String returnOne_ = _o1.getAbsolutePath();
             returnOne_ = returnOne_.substring(folder.length());
-            returnOne_ = StringList.replaceBackSlash(returnOne_);
-            StringList pathOne_ = StringList.splitStrings(returnOne_,StreamTextFile.SEPARATEUR);
+            returnOne_ = StringUtil.replaceBackSlash(returnOne_);
+            StringList pathOne_ = StringUtil.splitStrings(returnOne_,StreamTextFile.SEPARATEUR);
             String returnTwo_ = _o2.getAbsolutePath();
             returnTwo_ = returnTwo_.substring(folder.length());
-            returnTwo_ = StringList.replaceBackSlash(returnTwo_);
-            StringList pathTwo_ = StringList.splitStrings(returnTwo_,StreamTextFile.SEPARATEUR);
+            returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
+            StringList pathTwo_ = StringUtil.splitStrings(returnTwo_,StreamTextFile.SEPARATEUR);
             int min_ = Math.min(pathOne_.size(), pathTwo_.size());
-            for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
                 int res_ = pathTwo_.get(i).compareTo(pathOne_.get(i));
-                if (res_ != CustList.EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }
             }
             return pathTwo_.size() - pathOne_.size();
         }
-        return CustList.EQ_CMP;
+        return SortConstants.EQ_CMP;
     }
 
 }

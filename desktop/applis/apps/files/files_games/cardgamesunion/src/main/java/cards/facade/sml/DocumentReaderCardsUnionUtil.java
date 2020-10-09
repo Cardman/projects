@@ -14,7 +14,8 @@ import code.sml.ElementList;
 import code.stream.StreamTextFile;
 import code.util.CollCapacity;
 import code.util.EnumList;
-import code.util.StringList;
+import code.util.core.StringUtil;
+
 public final class DocumentReaderCardsUnionUtil {
 
     private static final String ATTR_FIELD = "field";
@@ -50,13 +51,13 @@ public final class DocumentReaderCardsUnionUtil {
         }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        if (StringList.quickEq(tagName_, "GameBelote")) {
+        if (StringUtil.quickEq(tagName_, "GameBelote")) {
             return DocumentReaderBeloteUtil.getGameBelote(doc_);
         }
-        if (StringList.quickEq(tagName_, "GamePresident")) {
+        if (StringUtil.quickEq(tagName_, "GamePresident")) {
             return DocumentReaderPresidentUtil.getGamePresident(doc_);
         }
-        if (StringList.quickEq(tagName_, "GameTarot")) {
+        if (StringUtil.quickEq(tagName_, "GameTarot")) {
             return DocumentReaderTarotUtil.getGameTarot(doc_);
         }
         return null;
@@ -71,27 +72,27 @@ public final class DocumentReaderCardsUnionUtil {
     }
 
     private static void getGames(Games _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PARTIES_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_BELOTE)) {
             _object.setPartiesBelote(DocumentReaderBeloteUtil.getListGameBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PARTIES_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_TAROT)) {
             _object.setPartiesTarot(DocumentReaderTarotUtil.getListGameTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PARTIES_PRESIDENT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_PRESIDENT)) {
             _object.setPartiesPresident(DocumentReaderPresidentUtil.getListGamePresident(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_BELOTE)) {
             _object.setRulesBelote(DocumentReaderBeloteUtil.getRulesBelote(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_TAROT)) {
             _object.setRulesTarot(DocumentReaderTarotUtil.getRulesTarot(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_RULES_PRESIDENT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_RULES_PRESIDENT)) {
             _object.setRulesPresident(DocumentReaderPresidentUtil.getRulesPresident(_element));
             return;
         }
@@ -115,19 +116,19 @@ public final class DocumentReaderCardsUnionUtil {
     }
 
     private static void getNicknames(Nicknames _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDO)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDOS_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_BELOTE)) {
             _object.setPseudosBelote(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDOS_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_TAROT)) {
             _object.setPseudosTarot(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PSEUDOS_PRESIDENT)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_PRESIDENT)) {
             _object.setPseudosPresident(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
@@ -151,31 +152,31 @@ public final class DocumentReaderCardsUnionUtil {
     }
 
     private static void getSoftParams(SoftParams _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_LAUNCHING)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_LAUNCHING)) {
             _object.setLaunching(getListGameEnum(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_SAVE_HOME_FOLDER)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_SAVE_HOME_FOLDER)) {
             _object.setSaveHomeFolder(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELAY_WAITING_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_BIDS)) {
             _object.setDelayWaitingBids(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELAY_WAITING_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_CARDS)) {
             _object.setDelayWaitingCards(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DELAY_WAITING_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_TRICKS)) {
             _object.setDelayWaitingTricks(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_WAIT_TRICK_CLICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_WAIT_TRICK_CLICK)) {
             _object.setWaitTrickClick(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLAY_CARD_CLICK)) {
+        if (StringUtil.quickEq(_fieldName, FIELD_PLAY_CARD_CLICK)) {
             _object.setPlayCardClick(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -183,7 +184,7 @@ public final class DocumentReaderCardsUnionUtil {
 
     private static GameEnum getGameEnum(Element _elt) {
         for (GameEnum e: GameEnum.values()) {
-            if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
+            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }

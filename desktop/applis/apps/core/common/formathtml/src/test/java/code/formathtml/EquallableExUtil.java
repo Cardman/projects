@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 import code.util.StringList;
@@ -13,7 +14,7 @@ public final class EquallableExUtil {
         return new Configuration();
     }
     public static String formatFile(String _folder, String _locale, String _relative) {
-        return StringList.concat(_folder,"/",_locale,"/",_relative,".properties");
+        return StringUtil.concat(_folder,"/",_locale,"/",_relative,".properties");
     }
 
     public static void assertEq(boolean _expected, boolean _result) {

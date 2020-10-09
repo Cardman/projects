@@ -30,6 +30,7 @@ import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -762,7 +763,7 @@ public final class CustAliases {
         map_.put("{void}", coreNames_.getAliasVoid());
         map_.put("{run}", aliasRun);
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         predefinedClasses_.add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
         predefinedInterfacesInitOrder_.add(aliasRunnable);
@@ -816,7 +817,7 @@ public final class CustAliases {
         map_.put("{iterator}", predefTypes_.getAliasIterator());
         map_.put("{clear}",aliasListClear);
         map_.put("{endLine}", endLine_);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         predefinedClasses_.add(aliasCustIterator);
         predefinedClasses_.add(aliasList);
         stds_.put(aliasList, content_);
@@ -874,7 +875,7 @@ public final class CustAliases {
         map_.put("{setSecondTa}",aliasSetSecondTa);
         map_.put("{removeTa}",aliasRemoveTa);
         map_.put("{iteratorTable}",predefTypes_.getAliasIteratorTable());
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         predefinedClasses_.add(aliasCustPair);
         predefinedClasses_.add(aliasCustIterTable);
         predefinedClasses_.add(aliasTable);
@@ -1076,7 +1077,7 @@ public final class CustAliases {
         map_.put("{currentClass}",aliasInfoTestCurrentClass);
         map_.put("{currentMethod}",aliasInfoTestCurrentMethod);
         map_.put("{currentParams}",aliasInfoTestCurrentParams);
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
 
         predefinedClasses_.add(aliasInfoTest);
         predefinedClasses_.add(aliasDifference);
@@ -1109,7 +1110,7 @@ public final class CustAliases {
         map_.put("{e}", tr("e", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1()));
         map_.put("{print}",getAliasPrint());
         map_.put("{format}",charSeq_.getAliasFormat());
-        content_ = StringList.formatQuote(content_, map_);
+        content_ = StringUtil.formatQuote(content_, map_);
         predefinedClasses_.add(aliasFormatType);
         stds_.put(aliasFormatType, content_);
         predefinedInterfacesInitOrder_.add(aliasFormatType);
@@ -1591,33 +1592,33 @@ public final class CustAliases {
         }
     }
     public Argument defaultInstance(ContextEl _cont, String _id) {
-        if (StringList.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
+        if (StringUtil.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
             return new Argument(new SimpleObjectStruct());
         }
-        if (StringList.quickEq(_id,aliasThread)) {
+        if (StringUtil.quickEq(_id,aliasThread)) {
             _cont.setCallingState(new ErrorStruct(_cont,_id, _cont.getStandards().getContent().getCoreNames().getAliasIllegalType()));
             return Argument.createVoid();
         }
-        if (StringList.quickEq(_id,aliasThreadSet)) {
+        if (StringUtil.quickEq(_id,aliasThreadSet)) {
             ThreadSetStruct std_ = new ThreadSetStruct();
             return new Argument(std_);
         }
-        if (StringList.quickEq(_id,aliasReentrantLock)) {
+        if (StringUtil.quickEq(_id,aliasReentrantLock)) {
             AbstractLock re_ = LockFactory.newLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             return new Argument(std_);
         }
-        if (StringList.quickEq(_id,aliasAtomicBoolean)) {
+        if (StringUtil.quickEq(_id,aliasAtomicBoolean)) {
             AtomicBoolean at_ = new AtomicBoolean();
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
             return new Argument(std_);
         }
-        if (StringList.quickEq(_id,aliasAtomicInteger)) {
+        if (StringUtil.quickEq(_id,aliasAtomicInteger)) {
             AtomicInteger at_ = new AtomicInteger();
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
             return new Argument(std_);
         }
-        if (StringList.quickEq(_id,aliasAtomicLong)) {
+        if (StringUtil.quickEq(_id,aliasAtomicLong)) {
             AtomicLong at_ = new AtomicLong();
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
             return new Argument(std_);
@@ -1628,16 +1629,16 @@ public final class CustAliases {
                                          ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
-        if (StringList.quickEq(name_, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
+        if (StringUtil.quickEq(name_, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
             res_.setResult(new SimpleObjectStruct());
             return res_;
         }
-        if (StringList.quickEq(name_,aliasThreadSet)) {
+        if (StringUtil.quickEq(name_,aliasThreadSet)) {
             ThreadSetStruct std_ = new ThreadSetStruct();
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasThread)) {
+        if (StringUtil.quickEq(name_,aliasThread)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1654,7 +1655,7 @@ public final class CustAliases {
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasReentrantLock)) {
+        if (StringUtil.quickEq(name_,aliasReentrantLock)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AbstractLock re_ = LockFactory.newLock();
                 StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
@@ -1667,7 +1668,7 @@ public final class CustAliases {
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasAtomicBoolean)) {
+        if (StringUtil.quickEq(name_,aliasAtomicBoolean)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicBoolean at_ = new AtomicBoolean();
                 StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
@@ -1679,7 +1680,7 @@ public final class CustAliases {
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasAtomicInteger)) {
+        if (StringUtil.quickEq(name_,aliasAtomicInteger)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicInteger at_ = new AtomicInteger();
                 StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
@@ -1691,7 +1692,7 @@ public final class CustAliases {
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasAtomicLong)) {
+        if (StringUtil.quickEq(name_,aliasAtomicLong)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicLong at_ = new AtomicLong();
                 StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
@@ -1703,14 +1704,14 @@ public final class CustAliases {
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasEntryBinary)) {
+        if (StringUtil.quickEq(name_,aliasEntryBinary)) {
             String cont_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
             cont_ = StringExpUtil.getPrettyArrayType(cont_);
             EntryBinaryStruct std_ = new EntryBinaryStruct(_args[0],_args[1],cont_);
             res_.setResult(std_);
             return res_;
         }
-        if (StringList.quickEq(name_,aliasEntryText)) {
+        if (StringUtil.quickEq(name_,aliasEntryText)) {
             EntryTextStruct std_ = new EntryTextStruct(_args[0],_args[1]);
             res_.setResult(std_);
             return res_;
@@ -1722,12 +1723,12 @@ public final class CustAliases {
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getClassName();
         String type_ = _method.getClassName();
-        if (StringList.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
+        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
             return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
         }
-        if (StringList.quickEq(className_,aliasThreadSet)) {
+        if (StringUtil.quickEq(className_,aliasThreadSet)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasThreadSetAdd)) {
+            if (StringUtil.quickEq(name_,aliasThreadSetAdd)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1742,7 +1743,7 @@ public final class CustAliases {
                 }
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasThreadSetAll)) {
+            if (StringUtil.quickEq(name_,aliasThreadSetAll)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1751,7 +1752,7 @@ public final class CustAliases {
                 res_.setResult(((RunnableContextEl)_cont).getCustInit().getThreadSet());
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasThreadSetRemove)) {
+            if (StringUtil.quickEq(name_,aliasThreadSetRemove)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1762,7 +1763,7 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasThreadSetContains)) {
+            if (StringUtil.quickEq(name_,aliasThreadSetContains)) {
                 if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
                     _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1776,9 +1777,9 @@ public final class CustAliases {
             res_.setResult(ins_.toSnapshotArray(_cont));
             return res_;
         }
-        if (StringList.quickEq(className_,aliasThread)) {
+        if (StringUtil.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasPrint)) {
+            if (StringUtil.quickEq(name_,aliasPrint)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1791,7 +1792,7 @@ public final class CustAliases {
                 out_.setResult(NullStruct.NULL_VALUE);
                 return out_;
             }
-            if (StringList.quickEq(name_,aliasStart)) {
+            if (StringUtil.quickEq(name_,aliasStart)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1800,7 +1801,7 @@ public final class CustAliases {
                 }
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSleep)) {
+            if (StringUtil.quickEq(name_,aliasSleep)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1813,14 +1814,14 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasJoin)) {
+            if (StringUtil.quickEq(name_,aliasJoin)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 ThreadUtil.join(thread_);
                 res_.setResult(BooleanStruct.of(alive_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasCurrentThread)) {
+            if (StringUtil.quickEq(name_,aliasCurrentThread)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1829,7 +1830,7 @@ public final class CustAliases {
                 res_.setResult(((RunnableContextEl)_cont).getThread());
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasThreadExitHook)) {
+            if (StringUtil.quickEq(name_,aliasThreadExitHook)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1844,7 +1845,7 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasJoinOthers)) {
+            if (StringUtil.quickEq(name_,aliasJoinOthers)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1855,33 +1856,33 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIsAlive)) {
+            if (StringUtil.quickEq(name_,aliasIsAlive)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(BooleanStruct.of(alive_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIsEnded)) {
+            if (StringUtil.quickEq(name_,aliasIsEnded)) {
                 boolean alive_ = ((ThreadStruct) _instance).isEnded();
                 res_.setResult(BooleanStruct.of(alive_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasEnd)) {
+            if (StringUtil.quickEq(name_,aliasEnd)) {
                 ((ThreadStruct) _instance).end();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetId)) {
+            if (StringUtil.quickEq(name_,aliasGetId)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new LongStruct(thread_.getId()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetPriority)) {
+            if (StringUtil.quickEq(name_,aliasGetPriority)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSetPriority)) {
+            if (StringUtil.quickEq(name_,aliasSetPriority)) {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1890,7 +1891,7 @@ public final class CustAliases {
                 }
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasYield)) {
+            if (StringUtil.quickEq(name_,aliasYield)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1908,33 +1909,33 @@ public final class CustAliases {
             res_.setResult(new LongStruct(System.currentTimeMillis()));
             return res_;
         }
-        if (StringList.quickEq(className_,aliasReentrantLock)) {
+        if (StringUtil.quickEq(className_,aliasReentrantLock)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasLock)) {
+            if (StringUtil.quickEq(name_,aliasLock)) {
                 AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.lock((RunnableContextEl)_cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasUnlock)) {
+            if (StringUtil.quickEq(name_,aliasUnlock)) {
                 AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.unlock((RunnableContextEl)_cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
+            if (StringUtil.quickEq(name_,aliasIsHeldByCurrentThread)) {
                 AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.heldLock((RunnableContextEl)_cont);
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
         }
-        if (StringList.quickEq(className_,aliasAtomicBoolean)) {
+        if (StringUtil.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(BooleanStruct.of(held_));
@@ -1945,18 +1946,18 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 re_.set(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.isTrue(_args[0]),BooleanStruct.isTrue(_args[1]))));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_args[0]))));
                 return res_;
@@ -1966,9 +1967,9 @@ public final class CustAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(className_,aliasAtomicInteger)) {
+        if (StringUtil.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
@@ -1979,48 +1980,48 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndSet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndAdd(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.addAndGet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndIncrement()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.incrementAndGet()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndDecrement()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.decrementAndGet()));
                 return res_;
@@ -2030,9 +2031,9 @@ public final class CustAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(className_,aliasAtomicLong)) {
+        if (StringUtil.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
@@ -2043,48 +2044,48 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndSet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndAdd(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.addAndGet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndIncrement()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.incrementAndGet()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
+            if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndDecrement()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
+            if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.decrementAndGet()));
                 return res_;
@@ -2094,20 +2095,20 @@ public final class CustAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringList.quickEq(className_,aliasEntryText)) {
+        if (StringUtil.quickEq(className_,aliasEntryText)) {
             String name_ = _method.getConstraints().getName();
             EntryTextStruct inst_ = (EntryTextStruct) _instance;
-            if (StringList.quickEq(name_,aliasEntryName)) {
+            if (StringUtil.quickEq(name_,aliasEntryName)) {
                 res_.setResult(inst_.getName());
                 return res_;
             }
             res_.setResult(inst_.getText());
             return res_;
         }
-        if (StringList.quickEq(className_,aliasEntryBinary)) {
+        if (StringUtil.quickEq(className_,aliasEntryBinary)) {
             String name_ = _method.getConstraints().getName();
             EntryBinaryStruct inst_ = (EntryBinaryStruct) _instance;
-            if (StringList.quickEq(name_,aliasEntryName)) {
+            if (StringUtil.quickEq(name_,aliasEntryName)) {
                 res_.setResult(inst_.getName());
                 return res_;
             }
@@ -2116,18 +2117,18 @@ public final class CustAliases {
             res_.setResult(bin_);
             return res_;
         }
-        if (StringList.quickEq(className_,aliasFile)) {
+        if (StringUtil.quickEq(className_,aliasFile)) {
             String name_ = _method.getConstraints().getName();
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZipBinArray)) {
+            if (StringUtil.quickEq(name_,aliasFileZipBinArray)) {
                 res_.setResult(ZipBinStructUtil.zipBinFiles(_args[0],(RunnableContextEl) _cont));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZippedBinArray)) {
+            if (StringUtil.quickEq(name_,aliasFileZippedBinArray)) {
                 res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
                 return res_;
             }
@@ -2135,7 +2136,7 @@ public final class CustAliases {
                 _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasRead)) {
+            if (StringUtil.quickEq(name_,aliasRead)) {
                 StringStruct str_ = (StringStruct)_args[0];
                 String read_ = infos.getFileSystem().contentsOfFile(str_.getInstance(), (RunnableContextEl) _cont);
                 if (read_ == null) {
@@ -2145,13 +2146,13 @@ public final class CustAliases {
                 res_.setResult(new StringStruct(read_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasWrite)) {
+            if (StringUtil.quickEq(name_,aliasWrite)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 String txt_ = getStandarString(_cont,_args[1]);
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().saveTextFile(file_, txt_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileReadBin)) {
+            if (StringUtil.quickEq(name_,aliasFileReadBin)) {
                 StringStruct str_ = (StringStruct)_args[0];
                 byte[] read_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
                 if (read_ == null) {
@@ -2166,7 +2167,7 @@ public final class CustAliases {
                 res_.setResult(bin_);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileWriteBin)) {
+            if (StringUtil.quickEq(name_,aliasFileWriteBin)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 if (!(_args[1] instanceof ArrayStruct)) {
                     res_.setResult(BooleanStruct.of(false));
@@ -2185,12 +2186,12 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().writeFile(file_, bin_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileDelete)) {
+            if (StringUtil.quickEq(name_,aliasFileDelete)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().delete(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileRename)) {
+            if (StringUtil.quickEq(name_,aliasFileRename)) {
                 if (!(_args[1] instanceof StringStruct)) {
                     _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
                     return res_;
@@ -2200,48 +2201,48 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().rename(file_,dest_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasAppendToFile)) {
+            if (StringUtil.quickEq(name_,aliasAppendToFile)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 String txt_ = getStandarString(_cont,_args[1]);
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().logToFile(file_, txt_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileAbsolutePath)) {
+            if (StringUtil.quickEq(name_,aliasFileAbsolutePath)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(new StringStruct(infos.getFileSystem().absolutePath(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileGetLength)) {
+            if (StringUtil.quickEq(name_,aliasFileGetLength)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(new LongStruct(infos.getFileSystem().length(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileGetName)) {
+            if (StringUtil.quickEq(name_,aliasFileGetName)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(new StringStruct(infos.getFileSystem().getName(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileGetParentPath)) {
+            if (StringUtil.quickEq(name_,aliasFileGetParentPath)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(new StringStruct(infos.getFileSystem().getParentPath(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileIsDirectory)) {
+            if (StringUtil.quickEq(name_,aliasFileIsDirectory)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().isDirectory(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileIsFile)) {
+            if (StringUtil.quickEq(name_,aliasFileIsFile)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().isFile(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileLastModif)) {
+            if (StringUtil.quickEq(name_,aliasFileLastModif)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(new LongStruct(infos.getFileSystem().lastModified(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileListFiles)) {
+            if (StringUtil.quickEq(name_,aliasFileListFiles)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 StringList files_ = infos.getFileSystem().getFiles(file_, (RunnableContextEl) _cont);
                 if (files_ == null) {
@@ -2256,7 +2257,7 @@ public final class CustAliases {
                 res_.setResult(arr_);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileListDirectories)) {
+            if (StringUtil.quickEq(name_,aliasFileListDirectories)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 StringList files_ = infos.getFileSystem().getFolders(file_, (RunnableContextEl) _cont);
                 if (files_ == null) {
@@ -2271,7 +2272,7 @@ public final class CustAliases {
                 res_.setResult(arr_);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZipBin)) {
+            if (StringUtil.quickEq(name_,aliasFileZipBin)) {
                 String fileName_ = ((StringStruct)_args[0]).getInstance();
                 Struct struct_ = ZipBinStructUtil.zipBinFiles(_args[1], (RunnableContextEl) _cont);
                 if (struct_ instanceof ArrayStruct) {
@@ -2290,14 +2291,14 @@ public final class CustAliases {
                 }
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZipText)) {
+            if (StringUtil.quickEq(name_,aliasFileZipText)) {
                 CustList<EntryBinaryStruct> bins_ = new CustList<EntryBinaryStruct>();
                 if (_args[1] instanceof ArrayStruct) {
                     ArrayStruct arr_ = (ArrayStruct) _args[1];
                     for (Struct s: arr_.getInstance()) {
                         if (s instanceof EntryTextStruct) {
                             EntryTextStruct cont_ = (EntryTextStruct)s;
-                            byte[] encoded_ = StringList.encode(cont_.getText().getInstance());
+                            byte[] encoded_ = StringUtil.encode(cont_.getText().getInstance());
                             String contType_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
                             contType_ = StringExpUtil.getPrettyArrayType(contType_);
                             int bLen_ = encoded_.length;
@@ -2325,7 +2326,7 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(false));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZippedBin)) {
+            if (StringUtil.quickEq(name_,aliasFileZippedBin)) {
                 StringStruct str_ = (StringStruct)_args[0];
                 byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
                 if (bytes_ == null) {
@@ -2342,7 +2343,7 @@ public final class CustAliases {
                 res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(bs_, (RunnableContextEl) _cont));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileZippedText)) {
+            if (StringUtil.quickEq(name_,aliasFileZippedText)) {
                 StringStruct str_ = (StringStruct)_args[0];
                 byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
                 if (bytes_ == null) {
@@ -2363,7 +2364,7 @@ public final class CustAliases {
                         for (int j = 0; j < contLen_; j++) {
                             prim_[j] = ((NumberStruct)bin_.get(j)).byteStruct();
                         }
-                        String dec_ = StringList.decode(prim_);
+                        String dec_ = StringUtil.decode(prim_);
                         if (dec_ == null) {
                             filesOut_.set(i, new EntryTextStruct(fileBin_.getName(),NullStruct.NULL_VALUE));
                         } else {
@@ -2376,7 +2377,7 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasFileIsAbsolute)) {
+            if (StringUtil.quickEq(name_,aliasFileIsAbsolute)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 res_.setResult(BooleanStruct.of(infos.getFileSystem().isAbsolute(file_, (RunnableContextEl) _cont)));
                 return res_;
@@ -2393,7 +2394,7 @@ public final class CustAliases {
         if (_method.getConstraints().getParametersTypes().size() == 1) {
             String type_ = _method.getConstraints().getParametersTypes().first();
             String aliasObject_ = _cont.getStandards().getContent().getCoreNames().getAliasObject();
-            if (StringList.quickEq(type_, aliasObject_)) {
+            if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
                 ExecRootBlock classBody_ = _execBlocks.getFormatType();
                 ExecNamedFunctionBlock fct_ = _execBlocks.getFormatObject();
@@ -2412,7 +2413,7 @@ public final class CustAliases {
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);
-        stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
+        stringAppFile_ = StringUtil.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
         String folder_ = _cont.getExecutingOptions().getLogFolder();
         log(folder_,_dtPart,stringAppFile_,_cont);
     }
@@ -2429,7 +2430,7 @@ public final class CustAliases {
         if (_struct instanceof DisplayableStruct) {
             return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();
         }
-        return StringList.concat(_cont.getStandards().getStringOfObject(_cont,_struct).getInstance(),"...");
+        return StringUtil.concat(_cont.getStandards().getStringOfObject(_cont,_struct).getInstance(),"...");
     }
     public void processFailInit(ContextEl _cont) {
         if (_cont.getInitializingTypeInfos().isInitEnums()) {
@@ -2453,22 +2454,22 @@ public final class CustAliases {
         String strMinute_ = lpadZero(mi_);
         String strSecond_ = lpadZero(s_);
         String strMs_ = lpadZeroMillis(ms_);
-        return StringList.concat(String.valueOf(y_),_separatorDate,strMonth_,
+        return StringUtil.concat(String.valueOf(y_),_separatorDate,strMonth_,
                 _separatorDate,strDay_,_sep,strHour_,
                 _separatorTime,strMinute_,_separatorTime,strSecond_,_separatorTime,strMs_);
     }
     private static String lpadZero(int _nb) {
         if (_nb < 10) {
-            return StringList.concat("0",Integer.toString(_nb));
+            return StringUtil.concat("0",Integer.toString(_nb));
         }
         return Integer.toString(_nb);
     }
     private static String lpadZeroMillis(int _millis) {
         if (_millis < 10) {
-            return StringList.concat("00",Integer.toString(_millis));
+            return StringUtil.concat("00",Integer.toString(_millis));
         }
         if (_millis < 100) {
-            return StringList.concat("0",Integer.toString(_millis));
+            return StringUtil.concat("0",Integer.toString(_millis));
         }
         return Integer.toString(_millis);
     }
@@ -2477,10 +2478,10 @@ public final class CustAliases {
         String content_ = infos.getReader().read("resources_lg/aliases/comments.properties");
         content_ = content_.substring(content_.indexOf('=')+1);
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-        for (String c: StringList.splitChar(
+        for (String c: StringUtil.splitChar(
                 content_.trim(),
                 ';')) {
-            StringList parts_ = StringList.splitChar(
+            StringList parts_ = StringUtil.splitChar(
                     c.trim(),
                     ',');
             String begin_ = ParseLinesArgUtil.parseValue(parts_.first());

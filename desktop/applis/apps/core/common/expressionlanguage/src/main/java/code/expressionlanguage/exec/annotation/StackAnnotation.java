@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.annotation;
 
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 final class StackAnnotation extends StackObject {
 
@@ -12,7 +12,7 @@ final class StackAnnotation extends StackObject {
 
     @Override
     String getPrefix() {
-        return StringList.concat(name,"=");
+        return StringUtil.concat(name,"=");
     }
 
 }

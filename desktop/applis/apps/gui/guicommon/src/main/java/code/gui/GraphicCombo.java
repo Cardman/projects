@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public class GraphicCombo extends CustComponent implements WithPopup,GraphicComboInt, Input  {
 
@@ -51,7 +52,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, s_, s_);
         gr_.setColor(Color.BLACK);
-        gr_.fillPolygon(Numbers.wrapIntArray(s_/4,s_*3/4,s_/2), Numbers.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
+        gr_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
         pseudoButton.setIcon(img_);
         pseudoButton.addMouseListener(new Popup(this));
         currentSelected.setLineBorder(Color.BLACK);

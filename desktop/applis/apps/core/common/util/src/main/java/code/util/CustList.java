@@ -2,28 +2,12 @@ package code.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import code.util.core.IndexConstants;
+import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 import code.util.ints.Listable;
 
 public class CustList<T> implements Listable<T> {
-
-    public static final byte SWAP_SORT = 1;
-
-    public static final byte NO_SWAP_SORT = -1;
-
-    public static final byte EQ_CMP = 0;
-
-    public static final byte INDEX_NOT_FOUND_ELT = -1;
-
-    public static final byte FIRST_INDEX = 0;
-
-    public static final byte SECOND_INDEX = 1;
-
-    public static final byte ONE_ELEMENT = 1;
-
-    public static final byte SIZE_EMPTY = 0;
-
-    protected static final String EMPTY_STRING = "";
 
     private final ArrayList<T> list;
 
@@ -58,12 +42,12 @@ public class CustList<T> implements Listable<T> {
     }
     public final void sortElts(Comparing<T> _comp) {
         int len_ = list.size();
-        for (int i = FIRST_INDEX; i <len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             for (int j = i + 1; j <len_; j++) {
                 T one_ = list.get(i);
                 T two_ = list.get(j);
                 int res_ = _comp.compare(one_, two_);
-                if (res_ > EQ_CMP) {
+                if (res_ > SortConstants.EQ_CMP) {
                     list.set(i, two_);
                     list.set(j, one_);
                 }
@@ -73,17 +57,14 @@ public class CustList<T> implements Listable<T> {
 
     @Override
     public final boolean isValidIndex(int _index) {
-        if (_index < FIRST_INDEX) {
+        if (_index < IndexConstants.FIRST_INDEX) {
             return false;
         }
-        if (_index >= size()) {
-            return false;
-        }
-        return true;
+        return _index < size();
     }
     @Override
     public final T first() {
-        return get(FIRST_INDEX);
+        return get(IndexConstants.FIRST_INDEX);
     }
 
     @Override
@@ -134,7 +115,7 @@ public class CustList<T> implements Listable<T> {
     }
 
     public final void retainAllElements(AbEqList<T> _c) {
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < size()) {
             T e_ = get(i_);
             if (!_c.containsObj(e_)) {
@@ -172,7 +153,7 @@ public class CustList<T> implements Listable<T> {
     @Override
     public final CustList<T> getReverse() {
         CustList<T> list_ = new CustList<T>(this);
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int j_ = list_.size();
         j_--;
         while (i_ < j_) {
@@ -197,13 +178,13 @@ public class CustList<T> implements Listable<T> {
         groups_ = new CustList<CustList<T>>();
         CustList<T> group_;
         group_ = new CustList<T>();
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         int j_ = i_;
         j_--;
         while (i_ < copy_.size()) {
-            if (i_ > FIRST_INDEX) {
+            if (i_ > IndexConstants.FIRST_INDEX) {
                 int res_ = _cmp.compare(copy_.get(i_), copy_.get(j_));
-                if (res_ != EQ_CMP) {
+                if (res_ != SortConstants.EQ_CMP) {
                     groups_.add(group_);
                     group_ = new CustList<T>();
                 }
@@ -220,9 +201,38 @@ public class CustList<T> implements Listable<T> {
         if (isEmpty()) {
             return;
         }
+        removeQuicklyLast();
+    }
+
+    public void removeQuicklyLast() {
         remove(getLastIndex());
     }
 
+    public final CustList<T> left(int _nbElements) {
+        if (_nbElements < 1) {
+            return new CustList<T>();
+        }
+        if (_nbElements >= size()) {
+            return new CustList<T>(this);
+        }
+        CustList<T> list_ = new CustList<T>(new CollCapacity(_nbElements));
+        for (int i = 0; i < _nbElements; i++) {
+            list_.add(get(i));
+        }
+        return list_;
+    }
+
+    public final CustList<T> leftMinusOne(int _nbElements) {
+        if (_nbElements < 1) {
+            return new CustList<T>();
+        }
+        int indexMax_ = Math.max(Math.min(size()-1,_nbElements),0);
+        CustList<T> list_ = new CustList<T>(new CollCapacity(indexMax_));
+        for (int i = 1; i <= indexMax_; i++) {
+            list_.add(get(i));
+        }
+        return list_;
+    }
     public final CustList<T> mid(int _beginIndex, int _nbElements) {
         if (_beginIndex+_nbElements > size()) {
             return mid(_beginIndex);
@@ -231,7 +241,16 @@ public class CustList<T> implements Listable<T> {
     }
 
     public final CustList<T> mid(int _beginIndex) {
-        return new CustList<T>(sub(_beginIndex,size()));
+        if (_beginIndex > size()) {
+            return new CustList<T>();
+        }
+        int b_ = Math.max(_beginIndex, IndexConstants.FIRST_INDEX);
+        int e_ = size();
+        CustList<T> l_ = new CustList<T>();
+        for (T e: list.subList(b_, e_)) {
+            l_.add(e);
+        }
+        return l_;
     }
 
     @Override
@@ -239,8 +258,8 @@ public class CustList<T> implements Listable<T> {
         if (_from > _to) {
             return new CustList<T>();
         }
-        int b_ = Math.max(_from,FIRST_INDEX);
-        int e_ = Math.min(_to, size());
+        int b_ = Math.max(_from, IndexConstants.FIRST_INDEX);
+        int e_ = Math.max(Math.min(_to, size()),b_);
         CustList<T> l_ = new CustList<T>();
         for (T e: list.subList(b_, e_)) {
             l_.add(e);

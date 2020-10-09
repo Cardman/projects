@@ -51,10 +51,11 @@ import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class MapLevelBean extends CommonBean {
     private TreeMap<Point,String> tiles;
@@ -72,7 +73,7 @@ public class MapLevelBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        levelIndex = CustList.INDEX_NOT_FOUND_ELT;
+        levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = new TreeMap<Point, String>(new ComparatorPoint());
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
@@ -104,7 +105,7 @@ public class MapLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, CustList.FIRST_INDEX, ptInside_).entryList()) {
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
@@ -144,7 +145,7 @@ public class MapLevelBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (tiles.getKey(w_).gety() != CustList.SECOND_INDEX) {
+        while (tiles.getKey(w_).gety() != IndexConstants.SECOND_INDEX) {
             w_++;
         }
         return w_;
@@ -154,7 +155,7 @@ public class MapLevelBean extends CommonBean {
             return false;
         }
         Point pt_ = tiles.getKey(_index.intValue());
-        return pt_.getx() == CustList.FIRST_INDEX;
+        return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public String clickTile() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
@@ -168,7 +169,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         //getForms().put(FROM_LIST, false);
         CustList<Place> places_ = data_.getMap().getPlaces();
@@ -180,16 +181,16 @@ public class MapLevelBean extends CommonBean {
             }
             League l_ = (League) place_;
             Coords access_ = l_.getAccessCoords();
-            if (!Numbers.eq(plValue_, access_.getNumberPlace())) {
+            if (!NumberUtil.eq(plValue_, access_.getNumberPlace())) {
                 continue;
             }
-            if (!Numbers.eq(levValue_, access_.getLevel().getLevelIndex())) {
+            if (!NumberUtil.eq(levValue_, access_.getLevel().getLevelIndex())) {
                 continue;
             }
             if (!Point.eq(pt_, access_.getLevel().getPoint())) {
                 continue;
             }
-            getForms().put(LEVEL_MAP_INDEX, CustList.FIRST_INDEX);
+            getForms().put(LEVEL_MAP_INDEX, IndexConstants.FIRST_INDEX);
             getForms().put(PLACE_MAP_INDEX, p);
             return LEVEL;
         }
@@ -395,7 +396,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         //p_.getLevelByCoords(coords_).get
@@ -443,7 +444,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
@@ -465,7 +466,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         Coords current_ = new Coords();
         current_.setNumberPlace(pl_);
@@ -514,17 +515,17 @@ public class MapLevelBean extends CommonBean {
             booleans_.put(PROPONE_LINK,!points_.isEmpty());
             if (points_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
+                    booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
                 }
             } else {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+                    booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
                 }
             }
         } else {
             booleans_.put(PROPONE_LINK,false);
             for (Direction d: Direction.values()) {
-                booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
+                booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
             }
         }
         Coords coordsLoc_ = new Coords();
@@ -533,7 +534,7 @@ public class MapLevelBean extends CommonBean {
         coordsLoc_.getLevel().setLevelIndex(lev_);
         coordsLoc_.getLevel().setPoint(pt_);
         booleans_.put(PROPONE_TILE,!data_.getMap().isEmptyForAdding(coordsLoc_));
-        int nbTrue_ = CustList.SIZE_EMPTY;
+        int nbTrue_ = IndexConstants.SIZE_EMPTY;
         for (boolean b: booleans_.values()) {
             if (b) {
                 nbTrue_++;
@@ -586,10 +587,7 @@ public class MapLevelBean extends CommonBean {
         if (isHost(_index)) {
             return false;
         }
-        if (isMoveTutors(_index)) {
-            return false;
-        }
-        return true;
+        return !isMoveTutors(_index);
     }
     public boolean isAccessibleByBeatingSomeTrainers(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
@@ -615,10 +613,7 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (Point.eq(pk_.getIndoor().getStorageCoords(),pt_)) {
-                        return true;
-                    }
-                    return false;
+                    return Point.eq(pk_.getIndoor().getStorageCoords(), pt_);
                 }
             }
         }
@@ -644,10 +639,7 @@ public class MapLevelBean extends CommonBean {
                         return false;
                     }
                     GerantPokemon g_ = (GerantPokemon) pers_;
-                    if (g_.getGerance() == GeranceType.HEAL) {
-                        return true;
-                    }
-                    return false;
+                    return g_.getGerance() == GeranceType.HEAL;
                 }
             }
         }
@@ -673,10 +665,7 @@ public class MapLevelBean extends CommonBean {
                         return false;
                     }
                     GerantPokemon g_ = (GerantPokemon) pers_;
-                    if (g_.getGerance() == GeranceType.HOST) {
-                        return true;
-                    }
-                    return false;
+                    return g_.getGerance() == GeranceType.HOST;
                 }
             }
         }
@@ -702,10 +691,7 @@ public class MapLevelBean extends CommonBean {
                         return false;
                     }
                     GerantPokemon g_ = (GerantPokemon) pers_;
-                    if (g_.getGerance() == GeranceType.FOSSILE) {
-                        return true;
-                    }
-                    return false;
+                    return g_.getGerance() == GeranceType.FOSSILE;
                 }
             }
         }
@@ -731,10 +717,7 @@ public class MapLevelBean extends CommonBean {
                         return false;
                     }
                     Seller g_ = (Seller) pers_;
-                    if (g_.getSell() == SellType.MOVE) {
-                        return true;
-                    }
-                    return false;
+                    return g_.getSell() == SellType.MOVE;
                 }
             }
         }

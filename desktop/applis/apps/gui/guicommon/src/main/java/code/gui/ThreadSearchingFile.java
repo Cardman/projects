@@ -1,10 +1,9 @@
 package code.gui;
 import java.io.File;
 
-import javax.swing.SwingUtilities;
-
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 /**Thread safe class*/
 public final class ThreadSearchingFile implements Runnable {
@@ -54,7 +53,7 @@ public final class ThreadSearchingFile implements Runnable {
                     nb_++;
                     CustComponent.invokeLater(new SettingInformation(dialog, nb_, results_.size()));
                     if (f.isDirectory()) {
-                        if (StringList.contains(dialog.getExcludedFolders(), StringList.replaceBackSlash(f.getAbsolutePath()))) {
+                        if (StringUtil.contains(dialog.getExcludedFolders(), StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
                         }
                         next_.add(f);
@@ -65,8 +64,8 @@ public final class ThreadSearchingFile implements Runnable {
                             continue;
                         }
                         int len_ = ext_.length();
-                        String base_ = name_.substring(CustList.FIRST_INDEX, name_.length() - len_);
-                        if (!StringList.match(base_, dialog.getTypedString())) {
+                        String base_ = name_.substring(IndexConstants.FIRST_INDEX, name_.length() - len_);
+                        if (!StringUtil.match(base_, dialog.getTypedString())) {
                             continue;
                         }
                         results_.add(f);

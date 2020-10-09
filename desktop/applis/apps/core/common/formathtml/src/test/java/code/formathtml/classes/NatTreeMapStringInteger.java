@@ -1,20 +1,15 @@
 package code.formathtml.classes;
 
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
-public final class NatTreeMapStringInteger extends AbsMap<String,Integer> {
+public final class NatTreeMapStringInteger extends AbsBasicMap<String,Integer> {
 
     @Override
-    protected int indexOfEntry(String _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<String, Integer> e:getList()) {
-            String k_ = e.getKey();
-            if (StringList.quickEq(_key, k_)) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean matchKeys(String _one, String _two) {
+        return StringUtil.quickEq(_one,_two);
     }
+
 
 }

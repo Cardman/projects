@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class ReachTernaryOperation extends ReachMethodOperation implements ReachCalculable {
     ReachTernaryOperation(OperationNode _info) {
@@ -31,7 +32,7 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
         }
         Argument arg_;
         if (BooleanStruct.isTrue(str_)) {
-            arg_ = arguments_.get(CustList.SECOND_INDEX);
+            arg_ = arguments_.get(IndexConstants.SECOND_INDEX);
         } else {
             arg_ = arguments_.last();
         }

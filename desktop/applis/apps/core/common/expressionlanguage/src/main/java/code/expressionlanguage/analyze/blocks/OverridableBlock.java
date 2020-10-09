@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -24,6 +23,8 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class OverridableBlock extends NamedFunctionBlock implements GeneCustStaticMethod,ReturnableWithSignature {
 
@@ -57,11 +58,11 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
-        staticMethod = StringList.quickEq(modifier_, keyWordStatic_);
-        staticCallMethod = StringList.quickEq(modifier_, keyWordStaticCall_);
-        finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
-        abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
-        normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
+        staticMethod = StringUtil.quickEq(modifier_, keyWordStatic_);
+        staticCallMethod = StringUtil.quickEq(modifier_, keyWordStaticCall_);
+        finalMethod = StringUtil.quickEq(modifier_, keyWordFinal_);
+        abstractMethod = StringUtil.quickEq(modifier_, keyWordAbstract_);
+        normalMethod = StringUtil.quickEq(modifier_, keyWordNormal_);
     }
 
     public void setDefinition(String definition) {
@@ -110,7 +111,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
         }
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
@@ -149,18 +150,18 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         int indexDefOv_ = definition.indexOf('(');
         _page.setGlobalOffset(definitionOffset+indexDefOv_+1);
         ExtractedParts extractedParts_ = StringExpUtil.tryToExtract(definition, '(', ')');
-        StringList overrideList_ = StringList.splitChar(extractedParts_.getSecond(), ';');
+        StringList overrideList_ = StringUtil.splitChar(extractedParts_.getSecond(), ';');
         int sum_ = 0;
         for (String o: overrideList_) {
             _page.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
-            StringList parts_ = StringList.splitInTwo(o, indexDef_);
+            StringList parts_ = StringUtil.splitInTwo(o, indexDef_);
             if (parts_.size() <= 1) {
                 sum_ += o.length()+1;
                 continue;
             }
             String key_ = parts_.first();
-            int off_ = StringList.getFirstPrintableCharIndex(key_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(key_);
             String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(off_,key_, _page);
             CustList<PartOffset> allPartTypes_ = new CustList<PartOffset>();
             CustList<PartOffset> allPartSuperTypes_ = new CustList<PartOffset>();
@@ -187,7 +188,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             _page.setOffset(sum_+indexDef_+1);
             StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_.getSecond());
             String firstFull_ = args_.first();
-            off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+            off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             int firstPar_ = extr_.getFirst().length();
             String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);

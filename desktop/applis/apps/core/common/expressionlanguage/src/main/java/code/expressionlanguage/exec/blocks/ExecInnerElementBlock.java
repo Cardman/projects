@@ -10,6 +10,7 @@ import code.expressionlanguage.fwd.blocks.ExecElementContent;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public final class ExecInnerElementBlock extends ExecRootBlock implements ExecInnerTypeOrElement, ExecUniqueRootedBlock {
 
@@ -96,7 +97,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
         if (ip_ instanceof StaticInitPageEl) {
             ip_.setGlobalOffset(elementContent.getFieldNameOffest());
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,el_, trOffset);
             if (_cont.callsOrException()) {
                 return;

@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import aiki.map.enums.Direction;
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
-import code.util.*;
+import code.util.core.NumberUtil;
 
 public class KeyPad extends PaintableLabel {
 
@@ -22,13 +22,13 @@ public class KeyPad extends PaintableLabel {
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);
         if (direction == Direction.UP) {
-            _g.fillPolygon(Numbers.wrapIntArray(0, getWidth()/2, getWidth()), Numbers.wrapIntArray(getHeight()/2, 0, getHeight()/2), 3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(0, getWidth()/2, getWidth()), NumberUtil.wrapIntArray(getHeight()/2, 0, getHeight()/2), 3);
         } else if (direction == Direction.DOWN) {
-            _g.fillPolygon(Numbers.wrapIntArray(0, getWidth()/2, getWidth()), Numbers.wrapIntArray(getHeight()/2, getHeight(), getHeight()/2), 3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(0, getWidth()/2, getWidth()), NumberUtil.wrapIntArray(getHeight()/2, getHeight(), getHeight()/2), 3);
         } else if (direction == Direction.LEFT) {
-            _g.fillPolygon(Numbers.wrapIntArray(getWidth()/2, 0, getWidth()/2), Numbers.wrapIntArray(0, getHeight()/2, getHeight()), 3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(getWidth()/2, 0, getWidth()/2), NumberUtil.wrapIntArray(0, getHeight()/2, getHeight()), 3);
         } else if (direction == Direction.RIGHT) {
-            _g.fillPolygon(Numbers.wrapIntArray(getWidth()/2, getWidth(), getWidth()/2), Numbers.wrapIntArray(0, getHeight()/2, getHeight()), 3);
+            _g.fillPolygon(NumberUtil.wrapIntArray(getWidth()/2, getWidth(), getWidth()/2), NumberUtil.wrapIntArray(0, getHeight()/2, getHeight()), 3);
         }
     }
 }

@@ -12,7 +12,8 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.stream.StreamImageFile;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class VideoLoading {
 
@@ -38,9 +39,9 @@ public final class VideoLoading {
                     }
                     int len_;
                     len_ = files_.length;
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                    for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                         BufferedImage img_ = StreamImageFile.read(
-                                StringList.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
+                                StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
                                 DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
                         if (img_ != null) {
                             imgs_.add(img_);
@@ -50,10 +51,10 @@ public final class VideoLoading {
                 }
             } else {
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
-                int i_ = CustList.FIRST_INDEX;
+                int i_ = IndexConstants.FIRST_INDEX;
                 while (true) {
                     int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                            ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),
+                            ResourceFiles.ressourceFichier(StringUtil.concat(VIDEO_DEFAULT,Long.toString(i_),
                                     DataBase.IMG_FILES_RES_EXT_TXT)));
                     if (txtFile_.length == 0) {
                         break;
@@ -70,11 +71,11 @@ public final class VideoLoading {
             initialized = true;
         }
         int len_ = images.size();
-        if (len_ == CustList.SIZE_EMPTY) {
+        if (len_ == IndexConstants.SIZE_EMPTY) {
             return new CustList<BufferedImage>();
         }
         MonteCarloNumber law_ = new MonteCarloNumber();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             law_.addEvent(new Rate(i), LgInt.one());
         }
         return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd, _abs).ll()));

@@ -3,6 +3,8 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +46,7 @@ public class FightRulesTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -58,7 +60,7 @@ public class FightRulesTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1158,7 +1160,7 @@ public class FightRulesTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1172,7 +1174,7 @@ public class FightRulesTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);
@@ -1229,10 +1231,10 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = allowedMoves(partnersMoves_, foesMoves_, player_, diff_);
         StringList moves_ = FightRules.allowedMoves(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1264,9 +1266,9 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(3, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1299,10 +1301,10 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.setLastUsedMove();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1336,7 +1338,7 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.setNeedingToRecharge(true);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1370,7 +1372,7 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.setNbPrepaRound((short) 1);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1404,7 +1406,7 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE,f_)).getActivity().enable();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1438,9 +1440,9 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENTRAVE,f_)).getActivity().enable();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(3, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1473,10 +1475,10 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON,f_)).enable();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1509,9 +1511,9 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,f_)).add(ECUME);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(3, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1547,8 +1549,8 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.setLastUsedMove();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(2, moves_.size());
-        assertTrue(StringList.contains(moves_, ROULADE));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, ROULADE));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1585,7 +1587,7 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, ROULADE));
+        assertTrue(StringUtil.contains(moves_, ROULADE));
     }
 
     @Test
@@ -1619,7 +1621,7 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1651,10 +1653,10 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.activerAttaque(EMBARGO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
-        assertTrue(StringList.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -1686,10 +1688,10 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.activerAttaque(TOURMENTE);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(4, moves_.size());
-        assertTrue(StringList.contains(moves_, HYPNOSE));
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, HYPNOSE));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
     }
 
     @Test
@@ -1721,9 +1723,9 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.activerAttaque(PROVOC);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(3, moves_.size());
-        assertTrue(StringList.contains(moves_, ECUME));
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, TORGNOLES));
+        assertTrue(StringUtil.contains(moves_, ECUME));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, TORGNOLES));
     }
 
     @Test
@@ -1757,7 +1759,7 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1790,8 +1792,8 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(2, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, PRESCIENCE));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PRESCIENCE));
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMoveTarget(PRESCIENCE, POKEMON_FOE_TARGET_ZERO);
         FightRound.roundAllThrowers(fight_, diff_, player_, data);
@@ -1799,7 +1801,7 @@ public class FightRulesTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1832,7 +1834,7 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(1, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
     }
 
     @Test
@@ -1869,8 +1871,8 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data);
         assertEq(2, moves_.size());
-        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
-        assertTrue(StringList.contains(moves_, DANSE_LUNE));
+        assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringUtil.contains(moves_, DANSE_LUNE));
     }
 
     @Test
@@ -1953,7 +1955,7 @@ public class FightRulesTest extends InitializationDataBase {
             int... _mult) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = CustList.FIRST_INDEX; i < _foeMoves.size(); i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
             PkTrainer foePokemon_ = new PkTrainer();
             foePokemon_.setName(TARTARD);
             foePokemon_.setItem(PLAQUE_DRACO);
@@ -1967,7 +1969,7 @@ public class FightRulesTest extends InitializationDataBase {
             DualFight dual_ = new DualFight();
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = CustList.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
                 PkTrainer allyPokemon_ = new PkTrainer();
                 allyPokemon_.setName(TARTARD);
                 allyPokemon_.setItem(PLAQUE_DRACO);

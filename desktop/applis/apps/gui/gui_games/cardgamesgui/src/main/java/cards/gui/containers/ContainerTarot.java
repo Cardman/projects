@@ -22,6 +22,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ContainerTarot extends ContainerGame{
 
@@ -73,7 +74,7 @@ public class ContainerTarot extends ContainerGame{
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosTarot();
-        pseudosTwo_.addAllElts(pseudos_.mid(0, _nbPlayers - 1));
+        pseudosTwo_.addAllElts(pseudos_.left(_nbPlayers - 1));
         return pseudosTwo_;
     }
     public String pseudo() {
@@ -83,7 +84,7 @@ public class ContainerTarot extends ContainerGame{
     a partir d'un fichier*/
     protected static HandTarot chargerPileTarot() {
         return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT)));
     }
 

@@ -17,11 +17,13 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class Navigation {
 
@@ -132,13 +134,13 @@ public final class Navigation {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);
             info_.setResolvedClassName(info_.getClassName());
             _anaDoc.getBeansInfos().addEntry(root_,info_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page);
             _anaDoc.getLateValidators().addEntry(root_,v_);
         }
     }
@@ -154,11 +156,11 @@ public final class Navigation {
                     .substring(indexPoint_ + 1);
             String methodName_;
             String suffix_;
-            if (action_.indexOf(BEGIN_ARGS) == CustList.INDEX_NOT_FOUND_ELT) {
+            if (action_.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 methodName_ = action_;
                 suffix_ = EMPTY_STRING;
             } else {
-                methodName_ = action_.substring(CustList.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
+                methodName_ = action_.substring(IndexConstants.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
                 suffix_ = action_.substring(action_.indexOf(BEGIN_ARGS));
                 StringBuilder str_ = new StringBuilder();
                 for (char c: suffix_.toCharArray()) {
@@ -186,7 +188,7 @@ public final class Navigation {
             String urlDest_ = currentUrl;
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
-                urlDest_ = getRendUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_, _advStandards, _ctx);
+                urlDest_ = getRendUrlDest(StringUtil.concat(beanName_, DOT, methodName_,suffix_), return_, _advStandards, _ctx);
                 if (_ctx.callsOrException()) {
                     return;
                 }
@@ -253,7 +255,7 @@ public final class Navigation {
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
-        actionCommand_ = formElement_.getAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrCommand()));
+        actionCommand_ = formElement_.getAttribute(StringUtil.concat(session.getPrefix(),session.getRendKeyWords().getAttrCommand()));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
@@ -276,14 +278,14 @@ public final class Navigation {
         //begin deleting previous errors
         ElementList spansForm_ = formElement_.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
         int lengthSpansForom_ = spansForm_.getLength();
-        for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
+        for (int j = IndexConstants.FIRST_INDEX; j < lengthSpansForom_; j++) {
             Element elt_ = spansForm_.item(j);
-            if (!elt_.hasAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor()))) {
+            if (!elt_.hasAttribute(StringUtil.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor()))) {
                 continue;
             }
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
-            for (int i = CustList.FIRST_INDEX; i < ch_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < ch_; i++) {
                 elt_.removeChild((MutableNode) children_.item(i));
             }
             Text text_ = doc_.createTextNode(RendBlock.SPACE);
@@ -339,21 +341,21 @@ public final class Navigation {
             int count_ = 0;
             ElementList spans_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
             int lengthSpans_ = spans_.getLength();
-            for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < lengthSpans_; j++) {
                 Element elt_ = spans_.item(j);
-                if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor())),i)) {
+                if (!StringUtil.quickEq(elt_.getAttribute(StringUtil.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor())),i)) {
                     count_++;
                     continue;
                 }
                 NodeList children_ = elt_.getChildNodes();
                 int ch_ = children_.getLength();
-                for (int k = CustList.FIRST_INDEX; k < ch_; k++) {
+                for (int k = IndexConstants.FIRST_INDEX; k < ch_; k++) {
                     elt_.removeChild((MutableNode) children_.item(k));
                 }
                 String error_ = _errors.getVal(i);
                 String message_ = idFormats_.get(count_);
                 if (!message_.isEmpty()) {
-                    error_ = StringList.simpleStringsFormat(message_,_errorsArgs.getVal(i));
+                    error_ = StringUtil.simpleStringsFormat(message_,_errorsArgs.getVal(i));
                 }
                 Text text_ = _doc.createTextNode(error_);
                 elt_.appendChild(text_);
@@ -362,47 +364,47 @@ public final class Navigation {
         }
         ElementList inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordInput());
         int lengthInputs_ = inputs_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             NodeContainer nCont_ = getValue(containers_, idInput_);
-            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
+            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
                 elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
                 continue;
             }
-            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
-                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(),BeanLgNames.ON)) {
+            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
+                if (StringUtil.quickEq(nCont_.getNodeInformation().getValue().first(),BeanLgNames.ON)) {
                     elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
                     elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
                 }
                 continue;
             }
-            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
+            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
                 String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
-                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(), value_)) {
+                if (StringUtil.quickEq(nCont_.getNodeInformation().getValue().first(), value_)) {
                     elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
                     elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
                 }
                 continue;
             }
-            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueSubmit())) {
+            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueSubmit())) {
                 continue;
             }
             elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
         }
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
         lengthInputs_ = inputs_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             NodeContainer nCont_ = getValue(containers_, idInput_);
             ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
-            for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < optionsLen_; j++) {
                 Element option_ = options_.item(j);
-                if (StringList.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(session.getRendKeyWords().getAttrValue()))) {
+                if (StringUtil.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(session.getRendKeyWords().getAttrValue()))) {
                     option_.setAttribute(session.getRendKeyWords().getAttrSelected(), session.getRendKeyWords().getAttrSelected());
                 } else {
                     option_.removeAttribute(session.getRendKeyWords().getAttrSelected());
@@ -411,13 +413,13 @@ public final class Navigation {
         }
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordTextarea());
         lengthInputs_ = inputs_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             NodeContainer nCont_ = getValue(containers_, idInput_);
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
-            for (int j = CustList.FIRST_INDEX; j < ch_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
                 elt_.removeChild((MutableNode) children_.item(j));
             }
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
@@ -431,7 +433,7 @@ public final class Navigation {
         if (idInput_.isEmpty()) {
             val_ = null;
         } else {
-            val_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            val_ = containers_.getVal(NumberUtil.parseLongZero(idInput_));
         }
         if (val_ == null) {
             val_ = new NodeContainer();
@@ -445,19 +447,19 @@ public final class Navigation {
         title = EMPTY_STRING;
         nodes_ = doc_.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
         int size_ = nodes_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
             Element node_ = nodes_.item(i);
             ElementList subNodes_ = node_.getElementsByTagName(session.getRendKeyWords().getAttrTitle());
             int subListSize_ = subNodes_.getLength();
-            for (int j = CustList.FIRST_INDEX; j < subListSize_; j++) {
+            for (int j = IndexConstants.FIRST_INDEX; j < subListSize_; j++) {
                 Element subNode_ = subNodes_.item(j);
                 title = subNode_.getTextContent().trim();
             }
         }
         htmlText = _text;
-        StringList tokens_ = StringList.splitStrings(currentUrl, REF_TAG);
-        if (tokens_.size() > CustList.ONE_ELEMENT) {
-            referenceScroll = tokens_.get(CustList.SECOND_INDEX);
+        StringList tokens_ = StringUtil.splitStrings(currentUrl, REF_TAG);
+        if (tokens_.size() > IndexConstants.ONE_ELEMENT) {
+            referenceScroll = tokens_.get(IndexConstants.SECOND_INDEX);
             currentUrl = tokens_.first();
         } else {
             referenceScroll = EMPTY_STRING;

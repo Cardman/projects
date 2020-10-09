@@ -20,6 +20,7 @@ import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansMapStd {
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
@@ -170,7 +171,7 @@ public final class AikiBeansMapStd {
         ResultErrorStd res_ = new ResultErrorStd();
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,PLACES)) {
+        if (StringUtil.quickEq(fieldName_,PLACES)) {
             res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
@@ -181,51 +182,51 @@ public final class AikiBeansMapStd {
         ResultErrorStd res_ = new ResultErrorStd();
         MapLevelBean instance_ = (MapLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,POSSIBLE_MULTI_LAYER)) {
+        if (StringUtil.quickEq(fieldName_,POSSIBLE_MULTI_LAYER)) {
             res_.setResult(BooleanStruct.of(instance_.getPossibleMultiLayer()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PLACE_NAME)) {
+        if (StringUtil.quickEq(fieldName_,PLACE_NAME)) {
             res_.setResult(new StringStruct(instance_.getPlaceName()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,LEVEL_INDEX)) {
+        if (StringUtil.quickEq(fieldName_,LEVEL_INDEX)) {
             res_.setResult(new IntStruct(instance_.getLevelIndex()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,OUTSIDE)) {
+        if (StringUtil.quickEq(fieldName_,OUTSIDE)) {
             res_.setResult(BooleanStruct.of(instance_.getOutside()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,ROAD)) {
+        if (StringUtil.quickEq(fieldName_,ROAD)) {
             res_.setResult(BooleanStruct.of(instance_.getRoad()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,GYM)) {
+        if (StringUtil.quickEq(fieldName_,GYM)) {
             res_.setResult(BooleanStruct.of(instance_.getGym()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,POKEMON_CENTER)) {
+        if (StringUtil.quickEq(fieldName_,POKEMON_CENTER)) {
             res_.setResult(BooleanStruct.of(instance_.getPokemonCenter()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,TILES)) {
+        if (StringUtil.quickEq(fieldName_,TILES)) {
             res_.setResult(new DefaultStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROPONE_TILE)) {
+        if (StringUtil.quickEq(fieldName_,PROPONE_TILE)) {
             res_.setResult(BooleanStruct.of(instance_.getProponeTile()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,PROPONE_LINK)) {
+        if (StringUtil.quickEq(fieldName_,PROPONE_LINK)) {
             res_.setResult(BooleanStruct.of(instance_.getProponeLink()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,SEE_AREA)) {
+        if (StringUtil.quickEq(fieldName_,SEE_AREA)) {
             res_.setResult(BooleanStruct.of(instance_.getSeeArea()));
             return res_;
         }
-        if (StringList.quickEq(fieldName_,DIRS)) {
+        if (StringUtil.quickEq(fieldName_,DIRS)) {
             res_.setResult(new DefaultStruct(instance_.getDirs(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
@@ -236,15 +237,15 @@ public final class AikiBeansMapStd {
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,IS_MULTI_LAYER)) {
+        if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
             res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,LAYERS)) {
+        if (StringUtil.quickEq(methodName_,LAYERS)) {
             res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_LEVEL)) {
+        if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel((Long)_args[0],(Long)_args[1])));
             return res_;
         }
@@ -254,75 +255,75 @@ public final class AikiBeansMapStd {
         MapLevelBean instance_ = (MapLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+        if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
             res_.setResult(new IntStruct(instance_.getMapWidth()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
+        if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
             res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,WITHOUT_TITLE)) {
+        if (StringUtil.quickEq(methodName_,WITHOUT_TITLE)) {
             res_.setResult(BooleanStruct.of(instance_.withoutTitle((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS)) {
+        if (StringUtil.quickEq(methodName_,IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS)) {
             res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_TILE_ON_MAP)) {
+        if (StringUtil.quickEq(methodName_,CLICK_TILE_ON_MAP)) {
             res_.setResult(new StringStruct(instance_.clickTileOnMap((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_STORAGE)) {
+        if (StringUtil.quickEq(methodName_,IS_STORAGE)) {
             res_.setResult(BooleanStruct.of(instance_.isStorage((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_HEALER)) {
+        if (StringUtil.quickEq(methodName_,IS_HEALER)) {
             res_.setResult(BooleanStruct.of(instance_.isHealer((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_HOST)) {
+        if (StringUtil.quickEq(methodName_,IS_HOST)) {
             res_.setResult(BooleanStruct.of(instance_.isHost((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_FOSSILE)) {
+        if (StringUtil.quickEq(methodName_,IS_FOSSILE)) {
             res_.setResult(BooleanStruct.of(instance_.isFossile((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_MOVE_TUTORS)) {
+        if (StringUtil.quickEq(methodName_,IS_MOVE_TUTORS)) {
             res_.setResult(BooleanStruct.of(instance_.isMoveTutors((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_TILE)) {
+        if (StringUtil.quickEq(methodName_,CLICK_TILE)) {
             res_.setResult(new StringStruct(instance_.clickTile()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_LINK)) {
+        if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
             res_.setResult(new StringStruct(instance_.clickLink()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,SEE_AREA)) {
+        if (StringUtil.quickEq(methodName_,SEE_AREA)) {
             res_.setResult(new StringStruct(instance_.seeArea()));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_UP)) {
+        if (StringUtil.quickEq(methodName_,IS_UP)) {
             res_.setResult(BooleanStruct.of(instance_.isUp((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,CLICK_DIRECTED_LINK)) {
+        if (StringUtil.quickEq(methodName_,CLICK_DIRECTED_LINK)) {
             res_.setResult(new StringStruct(instance_.clickDirectedLink((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_DOWN)) {
+        if (StringUtil.quickEq(methodName_,IS_DOWN)) {
             res_.setResult(BooleanStruct.of(instance_.isDown((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_LEFT)) {
+        if (StringUtil.quickEq(methodName_,IS_LEFT)) {
             res_.setResult(BooleanStruct.of(instance_.isLeft((Long)_args[0])));
             return res_;
         }
-        if (StringList.quickEq(methodName_,IS_RIGHT)) {
+        if (StringUtil.quickEq(methodName_,IS_RIGHT)) {
             res_.setResult(BooleanStruct.of(instance_.isRight((Long)_args[0])));
             return res_;
         }

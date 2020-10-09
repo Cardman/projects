@@ -12,8 +12,8 @@ import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ContextFactory {
 
@@ -28,7 +28,7 @@ public final class ContextFactory {
 
     public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
         StringMap<String> srcFiles_ = new StringMap<String>();
-        String pref_ = StringList.concat(_folder,"/");
+        String pref_ = StringUtil.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
         	if (!e.getKey().startsWith(pref_)) {
         		continue;

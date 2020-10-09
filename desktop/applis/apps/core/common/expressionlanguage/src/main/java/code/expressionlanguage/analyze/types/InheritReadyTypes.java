@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class InheritReadyTypes implements ReadyTypes {
     private StringList list;
@@ -11,7 +12,7 @@ public final class InheritReadyTypes implements ReadyTypes {
 
     @Override
     public boolean isReady(String _type) {
-        return StringList.contains(list,_type);
+        return StringUtil.contains(list,_type);
     }
 
 }

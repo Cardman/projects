@@ -9,6 +9,8 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
+import code.util.core.IndexConstants;
+
 /**
  */
 
@@ -21,7 +23,7 @@ public final class GameBelote {
     /**Au debut on a besoin d'un variable preneur pour stocker le joueur ayant annonce temporairement le plus haut contrat
     De plus, le choix par defaut de -1 pour le preneur sert pour le tarot lorsque
     personne ne prend un contrat et chacun joue pour soi*/
-    private byte taker=CustList.INDEX_NOT_FOUND_ELT;
+    private byte taker=IndexConstants.INDEX_NOT_FOUND_ELT;
     /** Ce sont les primes, miseres ou poignees annoncees par le(s) joueur(s)*/
     private CustList<DeclareHandBelote> declares=new CustList<DeclareHandBelote>();
     private CustList<DeclaresBelote> declaresPts=new CustList<DeclaresBelote>();
@@ -37,7 +39,7 @@ public final class GameBelote {
     est vrai si et seulement si c'est la fin des encheres de premier tour*/
     private boolean endBidsFirstRound;
     /**PliBelote en cours d'etre joue*/
-    private TrickBelote progressingTrick = new TrickBelote(CustList.INDEX_NOT_FOUND_ELT);
+    private TrickBelote progressingTrick = new TrickBelote(IndexConstants.INDEX_NOT_FOUND_ELT);
 
     /**Entameur du pli qui est en cours d'etre joue*/
     private byte starter;
@@ -52,7 +54,7 @@ public final class GameBelote {
     /**Nombre de fois qu'a ete joue la partie (partie fini)*/
     private long number;
     private RulesBelote rules=new RulesBelote();
-    private byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
+    private byte lastHasBid = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private BidBeloteSuit lastBid=new BidBeloteSuit();
 
@@ -68,13 +70,13 @@ public final class GameBelote {
         deal=_donne;
         rules = _regles;
         byte nombreJoueurs_ = getNombreDeJoueurs();
-        for (int i_ = CustList.FIRST_INDEX;i_<nombreJoueurs_;i_++) {
+        for (int i_ = IndexConstants.FIRST_INDEX; i_<nombreJoueurs_; i_++) {
             scores.add((short) 0);
         }
         //A la belote le jeu se deroule avec deux equipes de deux joueurs
         //Chaque joueur fait equipe avec celui qui est en face
         /*Initialise les annonces*/
-        for (int j_ = CustList.FIRST_INDEX;j_<nombreJoueurs_;j_++) {
+        for (int j_ = IndexConstants.FIRST_INDEX; j_<nombreJoueurs_; j_++) {
             declaresBeloteRebelote.add(new HandBelote());
             declaresBeloteRebelotePts.add((short) 0);
             wonLastTrick.add(false);
@@ -85,7 +87,7 @@ public final class GameBelote {
 
     void loadGame() {
         byte player_ = playerAfter(deal.getDealer());
-        taker = CustList.INDEX_NOT_FOUND_ELT;
+        taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidBeloteSuit bid_ = new BidBeloteSuit();
         if (rules.dealAll()) {
             endBidsFirstRound = false;
@@ -205,7 +207,7 @@ public final class GameBelote {
         progressingTrick=new TrickBelote((byte) -1);
         Shorts scores_=getScores();
         byte nombreJoueurs_=getNombreDeJoueurs();
-        for (int joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             /*Initialise les annonces*/
             scores_.set(joueur_, (short) 0);
             declaresBeloteRebelote.set(joueur_, new HandBelote());
@@ -494,7 +496,7 @@ public final class GameBelote {
         if (getRegles().dealAll()) {
             int lastBid_ = bids.size();
             lastBid_--;
-            int iter_ = CustList.FIRST_INDEX;
+            int iter_ = IndexConstants.FIRST_INDEX;
             int maxPts_ = RulesBelote.getPoints().last();
             if (bid.getPoints() == maxPts_) {
                 return false;
@@ -763,7 +765,7 @@ public final class GameBelote {
         if (_plisFaits.isEmpty()) {
             return;
         }
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
         }
         for(TrickBelote pli_:_plisFaits) {
@@ -771,7 +773,7 @@ public final class GameBelote {
                 getDistribution().ajouter(pli_.joueurAyantJoue(carte_),carte_);
             }
         }
-        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_,getDistribution().derniereMain());
         }
     }

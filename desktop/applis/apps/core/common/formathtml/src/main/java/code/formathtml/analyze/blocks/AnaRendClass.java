@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendClass  extends AnaRendParentBlock {
     private String name;
@@ -28,7 +28,7 @@ public final class AnaRendClass  extends AnaRendParentBlock {
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendPackage par_ = (AnaRendPackage) getParent();
-            fullName = StringList.concat(par_.getName(),DOT,name);
+            fullName = StringUtil.concat(par_.getName(),DOT,name);
             fullName = StringExpUtil.removeDottedSpaces(fullName);
             if (_page.getAnaGeneType(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

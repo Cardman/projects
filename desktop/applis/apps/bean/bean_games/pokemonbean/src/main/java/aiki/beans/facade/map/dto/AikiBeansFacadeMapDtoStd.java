@@ -15,6 +15,7 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AikiBeansFacadeMapDtoStd {
     public static final String TYPE_PLACE_INDEX = "aiki.beans.facade.map.dto.PlaceIndex";
@@ -46,7 +47,7 @@ public final class AikiBeansFacadeMapDtoStd {
         ResultErrorStd res_ = new ResultErrorStd();
         PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,INDEX)) {
+        if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
@@ -56,7 +57,7 @@ public final class AikiBeansFacadeMapDtoStd {
         PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(methodName_,GET_PLACE)) {
+        if (StringUtil.quickEq(methodName_,GET_PLACE)) {
             res_.setResult(DefaultStruct.newInstance(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
             return res_;
         }

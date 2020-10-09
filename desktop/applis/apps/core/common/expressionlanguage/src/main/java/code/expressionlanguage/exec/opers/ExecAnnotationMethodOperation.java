@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
 
@@ -29,7 +29,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         return getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _conf);
     }

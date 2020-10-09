@@ -1,5 +1,7 @@
 package code.util;
 
+import code.util.core.IndexConstants;
+
 public final class CharList extends CustList<Character> {
 
     public CharList() {
@@ -28,10 +30,10 @@ public final class CharList extends CustList<Character> {
                 return i;
             }
         }
-        return INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean containsObj(char _k) {
-        return indexOfObj(_k, FIRST_INDEX) > -1;
+        return indexOfObj(_k, IndexConstants.FIRST_INDEX) > -1;
     }
 }

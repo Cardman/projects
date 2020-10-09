@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
     private AnaCallFctContent callFctContent;
@@ -44,7 +45,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         from = "";
         String op_ = args_.first();
         if (args_.size() > 1) {
-            int off_ = StringList.getFirstPrintableCharIndex(args_.get(1));
+            int off_ = StringUtil.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
             from = ResolvingImportTypes.resolveCorrectTypeAccessible(off_+ callFctContent.getMethodName().indexOf(',')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
@@ -63,7 +64,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = methodInfos.get(i).get(j);
-                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),op_)) {
+                if (!StringUtil.quickEq(methodInfo_.getConstraints().getName(),op_)) {
                     continue;
                 }
                 newList_.add(methodInfo_);
@@ -135,7 +136,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             //_name len
             StringList classesNames_ = new StringList();
             for (OperationNode c: name_.getAll()) {
-                classesNames_.add(StringList.join(c.getResultClass().getNames(), "&"));
+                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
             }
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));

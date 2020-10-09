@@ -12,7 +12,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendStaticFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
@@ -40,7 +40,7 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(staticFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
         String lastType_ = staticFctContent.getLastType();

@@ -4,8 +4,8 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import code.util.CustList;
 import code.util.GenericNumbers;
+import code.util.core.IndexConstants;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -121,7 +121,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         BigDecimal[] big_ = number.divideAndRemainder(_divisor.number);
         int len_ = big_.length;
         BigDec[] ret_ = new BigDec[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             ret_[i] = new BigDec(big_[i]);
         }
         return ret_;
@@ -133,8 +133,8 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
 
     public Rate toRate() {
         BigDecimal[] res_ = number.divideAndRemainder(BigDecimal.ONE, MathContext.UNLIMITED);
-        Rate int_ = new Rate(res_[CustList.FIRST_INDEX].toString());
-        Rate dec_ = new Rate(res_[CustList.SECOND_INDEX].toString());
+        Rate int_ = new Rate(res_[IndexConstants.FIRST_INDEX].toString());
+        Rate dec_ = new Rate(res_[IndexConstants.SECOND_INDEX].toString());
         return Rate.plus(int_, dec_);
     }
 
@@ -142,7 +142,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         BigDecimal[] big_ = number.divideAndRemainder(_divisor.number, _mc);
         int len_ = big_.length;
         BigDec[] ret_ = new BigDec[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             ret_[i] = new BigDec(big_[i]);
         }
         return ret_;

@@ -1,8 +1,8 @@
 package code.format;
 import code.resources.ResourceFiles;
 import code.sml.DocumentBuilder;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 /**Classe gerant l'affichage des constantes enumerees notamment pour l'encodage et le formattage de chaines de caracteres*/
 public final class Format {
@@ -18,12 +18,12 @@ public final class Format {
 
     private Format(){}
     public static String getConstanteLangue(String _dossier,String _fichier, String _loc, String _group ,String _nomConstante) {
-        return getConstanteLangue(_dossier, _fichier, _loc, StringList.concat(_group,Format.DOT,_nomConstante));
+        return getConstanteLangue(_dossier, _fichier, _loc, StringUtil.concat(_group,Format.DOT,_nomConstante));
     }
     public static String getConstanteLangue(String _dossier,String _fichier, String _loc,String _nomConstante) {
         StringMap<String> constantes_ = new StringMap<String>();
-        String fichier_ = ResourceFiles.ressourceFichier(StringList.concat(_dossier,ResourceFiles.SEPARATEUR,_loc,ResourceFiles.SEPARATEUR,_fichier));
-        for(String line_: StringList.splitStrings(fichier_, RETURNE_LINE)){
+        String fichier_ = ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR,_loc,ResourceFiles.SEPARATEUR,_fichier));
+        for(String line_: StringUtil.splitStrings(fichier_, RETURNE_LINE)){
             if(!line_.contains(SEPARATOR)){
                 continue;
             }
@@ -46,17 +46,17 @@ public final class Format {
     @return la chaine de caracteres retournee par la methode getConstante qui est formatte avec _variables*/
     public static String formatter(String _dossier,String _fichier, String _loc,String _nomConstante,String... _variables){
         String constante_ = getConstanteLangue(_dossier,_fichier, _loc,_nomConstante);
-        return StringList.simpleStringsFormat(constante_, _variables);
+        return StringUtil.simpleStringsFormat(constante_, _variables);
     }
 
     public static String getClassProperties(String _class) {
-        return StringList.concat(StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR),DOT,PROPERTIES);
+        return StringUtil.concat(StringUtil.replace(_class, DOT, ResourceFiles.SEPARATEUR),DOT,PROPERTIES);
     }
 
     public static String keepOnlyWordCharsDot(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (!StringList.isWordChar(c)) {
+            if (!StringUtil.isWordChar(c)) {
                 if (c != DOT_CHAR) {
                     continue;
                 }

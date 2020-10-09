@@ -1,5 +1,6 @@
 package code.maths;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
@@ -29,7 +30,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
 
     
     public static Complex newFract(String _arg) {
-        StringList args_ = StringList.splitStrings(_arg, SEPARATOR);
+        StringList args_ = StringUtil.splitStrings(_arg, SEPARATOR);
         return new Complex(new Rate(args_.first()), new Rate(args_.last()));
     }
 
@@ -75,10 +76,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
         if (!Rate.eq(_o.real, real)) {
             return false;
         }
-        if (!Rate.eq(_o.imag, imag)) {
-            return false;
-        }
-        return true;
+        return Rate.eq(_o.imag, imag);
     }
     
     @Override

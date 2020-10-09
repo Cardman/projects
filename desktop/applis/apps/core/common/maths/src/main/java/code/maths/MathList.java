@@ -1,7 +1,8 @@
 package code.maths;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.comparators.NaturalComparator;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public final class MathList extends CustList<String> {
@@ -21,10 +22,10 @@ public final class MathList extends CustList<String> {
         }
     }
     private void removeAllObj(String _obj) {
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < size()) {
             String v_ = get(i_);
-            if (StringList.quickEq(v_, _obj)) {
+            if (StringUtil.quickEq(v_, _obj)) {
                 remove(i_);
             } else {
                 i_++;
@@ -52,15 +53,15 @@ public final class MathList extends CustList<String> {
         return true;
     }
     public boolean containsObj(String _obj) {
-      return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
+      return indexOfObj(_obj) != IndexConstants.INDEX_NOT_FOUND_ELT;
   }
     public void removeDuplicates() {
-        int i_ = FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < size()) {
             String e_ = get(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
-            while (next_ != INDEX_NOT_FOUND_ELT) {
+            while (next_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 remove(next_);
                 rem_ = true;
                 next_ = indexOfObj(e_, i_ + 1);
@@ -71,20 +72,20 @@ public final class MathList extends CustList<String> {
         }
     }
     public int indexOfObj(String _obj) {
-        return indexOfObj(_obj,FIRST_INDEX);
+        return indexOfObj(_obj, IndexConstants.FIRST_INDEX);
     }
     public int indexOfObj(String _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             String e_ = get(i);
-            if (StringList.quickEq(_element, e_)) {
+            if (StringUtil.quickEq(_element, e_)) {
                 return i;
             }
         }
-        return INDEX_NOT_FOUND_ELT;
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public boolean eq(MathList _g) {
-        return StringList.equalsSet(this,_g);
+        return StringUtil.equalsSet(this,_g);
     }
 }

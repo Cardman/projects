@@ -7,8 +7,8 @@ import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.player.gui.CreateMainWindow;
 import code.stream.StreamTextFile;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -67,12 +67,12 @@ public class LaunchingPlayer extends SoftApplicationCore {
     }
 
     public static String getTempFolderSl() {
-        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
+        return StringUtil.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
     }
 
     public static String getTempFolder() {
-        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 }
 

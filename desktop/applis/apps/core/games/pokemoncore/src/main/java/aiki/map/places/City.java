@@ -19,6 +19,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
+import code.util.core.IndexConstants;
 
 
 public final class City extends Place implements InitializedPlace {
@@ -141,7 +142,7 @@ public final class City extends Place implements InitializedPlace {
     @Override
     public ByteMap< Level> getLevelsMap() {
         ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(CustList.FIRST_INDEX, getLevelOutdoor());
+        levels_.put(IndexConstants.FIRST_INDEX, getLevelOutdoor());
         return levels_;
     }
 

@@ -14,6 +14,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements AnaRendLocBreakableBlock {
 
@@ -62,7 +63,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringList.quickEq(id_, _page.getAliasString())) {
+                if (!StringUtil.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;
@@ -102,7 +103,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),
-                    StringList.join(
+                    StringUtil.join(
                             new StringList(
                                     _page.getKeyWords().getKeyWordCase(),
                                     _page.getKeyWords().getKeyWordDefault()

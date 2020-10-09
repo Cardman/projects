@@ -7,8 +7,9 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class MethodId implements Identifiable {
 
@@ -89,21 +90,21 @@ public final class MethodId implements Identifiable {
     public String getSignature(DisplayedStrings _ana) {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
-            pref_ = StringList.concat(_ana.getStaticString()," ");
+            pref_ = StringUtil.concat(_ana.getStaticString()," ");
         } else {
             if (kind == MethodAccessKind.STATIC_CALL) {
-                pref_ = StringList.concat(_ana.getStaticCallString()," ");
+                pref_ = StringUtil.concat(_ana.getStaticCallString()," ");
             }
         }
         String suf_ = EMPTY;
         if (vararg) {
             suf_ = VARARG_DOTS;
         }
-        return StringList.concat(pref_,name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
+        return StringUtil.concat(pref_,name,LEFT, StringUtil.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
     public boolean eq(MethodId _obj) {
-        if (!StringList.quickEq(_obj.name, name)) {
+        if (!StringUtil.quickEq(_obj.name, name)) {
             return false;
         }
         return eqPartial(_obj);
@@ -120,7 +121,7 @@ public final class MethodId implements Identifiable {
         String name_ = getName();
         int len_ = classNames.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = ExecTemplates.reflectFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
@@ -146,7 +147,7 @@ public final class MethodId implements Identifiable {
     private StringList getFormattedTypes(ExecRootBlock _root, String _genericClass) {
         int len_ = classNames.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = ExecTemplates.quickFormat(_root,_genericClass, n_);
             pTypes_.add(formatted_);
@@ -157,7 +158,7 @@ public final class MethodId implements Identifiable {
     private StringList getFormattedTypes(AnaGeneType _root, String _genericClass) {
         int len_ = classNames.size();
         StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = AnaTemplates.quickFormat(_root,_genericClass, n_);
             pTypes_.add(formatted_);

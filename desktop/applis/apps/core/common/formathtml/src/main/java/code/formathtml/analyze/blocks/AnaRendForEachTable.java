@@ -25,6 +25,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnaRendForEachTable extends AnaRendParentBlock implements AnaRendLoop,ImportForEachTable {
 
@@ -173,7 +174,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
@@ -199,7 +200,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             }
             mapping_ = new Mapping();
             paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
@@ -236,7 +237,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
 
     public void putVariable(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (okVarFirst && okVarSecond) {
-            if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
+            if (StringUtil.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(_anaDoc.getFileName());
                 d_.setIndexFile(variableNameOffsetSecond);
@@ -276,13 +277,13 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     private boolean toInferFirst(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        return StringList.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
+        return StringUtil.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
     }
 
     private boolean toInferSecond(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        return StringList.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();
+        return StringUtil.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();
     }
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {

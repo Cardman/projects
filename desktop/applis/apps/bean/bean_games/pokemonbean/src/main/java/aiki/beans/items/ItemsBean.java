@@ -20,9 +20,10 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public class ItemsBean extends CommonBean {
     private CustList<ItemLine> items = new CustList<ItemLine>();
@@ -60,7 +61,7 @@ public class ItemsBean extends CommonBean {
     }
     public String search() {
         if (!typedPrice.isEmpty()) {
-            price = Numbers.parseInt(typedPrice);
+            price = NumberUtil.parseInt(typedPrice);
         } else {
             price = null;
         }
@@ -73,13 +74,13 @@ public class ItemsBean extends CommonBean {
         if (price == null) {
             for (String i: data_.getItems().getKeys()) {
                 String display_ = translationsItems_.getVal(i);
-                if (!StringList.match(display_, typedName)) {
+                if (!StringUtil.match(display_, typedName)) {
                     continue;
                 }
                 Item i_ = data_.getItem(i);
 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 String class_ = translationsClasses_.getVal(i_.getItemType());
-                if (!StringList.match(class_, typedClass)) {
+                if (!StringUtil.match(class_, typedClass)) {
                     continue;
                 }
                 sortedItems_.add(i);
@@ -88,7 +89,7 @@ public class ItemsBean extends CommonBean {
             int int_ = price.intValue();
             for (String i: data_.getItems().getKeys()) {
                 String display_ = translationsItems_.getVal(i);
-                if (!StringList.match(display_, typedName)) {
+                if (!StringUtil.match(display_, typedName)) {
                     continue;
                 }
                 Item i_ = data_.getItem(i);
@@ -97,7 +98,7 @@ public class ItemsBean extends CommonBean {
                 }
 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 String class_ = translationsClasses_.getVal(i_.getItemType());
-                if (!StringList.match(class_, typedClass)) {
+                if (!StringUtil.match(class_, typedClass)) {
                     continue;
                 }
                 sortedItems_.add(i);

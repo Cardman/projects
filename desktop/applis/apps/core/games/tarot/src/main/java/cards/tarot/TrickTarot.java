@@ -4,8 +4,8 @@ import java.util.Iterator;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.CustList;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 
 public final class TrickTarot implements Iterable<CardTarot> {
@@ -106,7 +106,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
             }
             joueurs_.add(j);
         }
-        for(byte j=CustList.FIRST_INDEX;j<starter;j++) {
+        for(byte j = IndexConstants.FIRST_INDEX; j<starter; j++) {
             if(!aJoue(j, _nombreDeJoueurs)) {
                 continue;
             }
@@ -155,15 +155,9 @@ public final class TrickTarot implements Iterable<CardTarot> {
         if(total()<_nombreDeJoueurs) {
             //Pli en_ cours_
             if(_joueur>=getEntameur()) {
-                if(_joueur-getEntameur()>=total()) {
-                    return false;
-                }
-                return true;
+                return _joueur - getEntameur() < total();
             }
-            if(_joueur-getEntameur()+_nombreDeJoueurs>=total()) {
-                return false;
-            }
-            return true;
+            return _joueur - getEntameur() + _nombreDeJoueurs < total();
         }
         //Pli non_ separe_
         return true;

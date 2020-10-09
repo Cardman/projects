@@ -6,11 +6,11 @@ import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public class EffectWhileSendingBean extends CommonBean {
     private EffectWhileSending effect;
@@ -132,7 +132,7 @@ public class EffectWhileSendingBean extends CommonBean {
             mapVarsFail = new NatStringTreeMap<String>();
             lawBoost = new NatStringTreeMap<Rate>();
             evtRate = Rate.zero();
-            defaultBoost = CustList.SIZE_EMPTY;
+            defaultBoost = IndexConstants.SIZE_EMPTY;
             evtRatePerCent = DataBase.EMPTY_STRING;
             copyBoost = new StringList();
             reasons = new StringList();

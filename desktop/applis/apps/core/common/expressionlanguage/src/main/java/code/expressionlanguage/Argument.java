@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class Argument {
 
@@ -17,7 +18,7 @@ public final class Argument {
         int len_ = _args.size();
         Argument[] args_;
         args_ = new Argument[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             args_[i] = _args.get(i);
         }
         return args_;

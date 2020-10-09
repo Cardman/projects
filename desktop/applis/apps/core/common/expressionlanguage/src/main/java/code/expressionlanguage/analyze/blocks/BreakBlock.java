@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class BreakBlock extends AbruptBlock {
 
@@ -46,7 +47,7 @@ public final class BreakBlock extends AbruptBlock {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
+                    if (StringUtil.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         labelOffsetRef = ((BreakableBlock) b_).getRealLabelOffset();
                         break;
@@ -66,7 +67,7 @@ public final class BreakBlock extends AbruptBlock {
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
                         _page.getKeyWords().getKeyWordBreak(),
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordSwitch(),
                                         _page.getKeyWords().getKeyWordFor(),
@@ -81,7 +82,7 @@ public final class BreakBlock extends AbruptBlock {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbruptLab(),
                         _page.getKeyWords().getKeyWordBreak(),
                         label,
-                        StringList.join(
+                        StringUtil.join(
                                 new StringList(
                                         _page.getKeyWords().getKeyWordSwitch(),
                                         _page.getKeyWords().getKeyWordTry(),

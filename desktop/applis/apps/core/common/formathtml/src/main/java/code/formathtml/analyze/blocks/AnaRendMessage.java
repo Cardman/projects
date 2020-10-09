@@ -12,6 +12,8 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class AnaRendMessage extends AnaRendParentBlock {
 
@@ -79,21 +81,21 @@ public final class AnaRendMessage extends AnaRendParentBlock {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(_page.getAliasPrimInteger());
                 _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringList.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
+                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
                 String preRend_;
-                String concat_ = StringList.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);
-                preRend_=StringList.simpleStringsFormat(concat_, formArg_);
+                String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);
+                preRend_=StringUtil.simpleStringsFormat(concat_, formArg_);
                 DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
                 Document docLoc2_ = res2_.getDocument();
                 CustList<OperationNode> callExpsLoc_ = new CustList<OperationNode>();
                 if (docLoc2_ != null) {
                     for (Element a: docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor())){
-                        String href_ = a.getAttribute(StringList.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+                        String href_ = a.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
                         if (href_.startsWith(CALL_METHOD)) {
-                            if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                                href_ = StringList.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
+                            if (href_.indexOf('(') == IndexConstants.INDEX_NOT_FOUND_ELT) {
+                                href_ = StringUtil.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
                             }
                             callExpsLoc_.add(RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page));
                         } else {

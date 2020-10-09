@@ -2,8 +2,8 @@ package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class CmpOperation extends PrimitiveBoolOperation {
 
@@ -52,15 +52,15 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         String useOp_ = op_;
-        if (StringList.quickEq(op_, LOWER_EQ)) {
+        if (StringUtil.quickEq(op_, LOWER_EQ)) {
             complement_ = true;
             useOp_ = GREATER;
-        } else if (StringList.quickEq(op_, GREATER_EQ)) {
+        } else if (StringUtil.quickEq(op_, GREATER_EQ)) {
             complement_ = true;
             useOp_ = LOWER;
         }
         Argument arg_;
-        if (StringList.quickEq(useOp_, LOWER)) {
+        if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = calculateLower(first_, second_);
         } else {
             arg_ = calculateGreater(first_, second_);

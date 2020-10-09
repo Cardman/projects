@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -18,6 +17,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class FullFieldRetriever implements FieldRetriever {
 
@@ -138,8 +138,8 @@ public final class FullFieldRetriever implements FieldRetriever {
         StringList partsFieldsBisFields_ = new StringList();
         int partFieldIndex_ = 0;
         for (String p: partsFields_) {
-            int f_ = StringList.getFirstPrintableCharIndex(p);
-            int l_= StringList.getLastPrintableCharIndex(p);
+            int f_ = StringUtil.getFirstPrintableCharIndex(p);
+            int l_= StringUtil.getLastPrintableCharIndex(p);
             int index_ = -1;
             while (f_ < l_) {
                 char loc_ = p.charAt(f_);
@@ -160,7 +160,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             partFieldIndex_++;
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        String join_ = StringList.join(partsFieldsBisFields_, "");
+        String join_ = StringUtil.join(partsFieldsBisFields_, "");
         StringList inns_ = AnaTemplates.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
@@ -189,15 +189,15 @@ public final class FullFieldRetriever implements FieldRetriever {
         int lenPart_ = inns_.size();
         while (iPart_ < lenPart_) {
             String fullPart_ = inns_.get(iPart_);
-            int locOff_ = StringList.getFirstPrintableCharIndex(fullPart_);
+            int locOff_ = StringUtil.getFirstPrintableCharIndex(fullPart_);
             String p_ = fullPart_.trim();
-            if (StringList.quickEq("..",inns_.get(iPart_-1))) {
+            if (StringUtil.quickEq("..",inns_.get(iPart_-1))) {
                 StringList res_;
                 res_ = AnaTypeUtil.getEnumOwners(start_, p_, _page);
                 if (!res_.onlyOneElt()) {
                     break;
                 }
-                start_ = StringList.concat(res_.first(),"-",p_);
+                start_ = StringUtil.concat(res_.first(),"-",p_);
                 ContextUtil.appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_, _page);
                 nextOff_ += fullPart_.length() + 1;
                 nb_++;

@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.StringStruct;
-import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public final class ConstantOperation extends LeafOperation {
 
@@ -22,7 +22,7 @@ public final class ConstantOperation extends LeafOperation {
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_;

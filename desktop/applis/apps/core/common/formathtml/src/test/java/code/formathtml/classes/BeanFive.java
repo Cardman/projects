@@ -6,6 +6,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 
 public class BeanFive extends Bean {
@@ -120,7 +121,7 @@ public class BeanFive extends Bean {
     }
 
     public String goToPage(Long _index) {
-        return StringList.concatNbs("page",_index);
+        return StringUtil.concatNbs("page",_index);
     }
 
     public EnumNumbers getCombobox() {

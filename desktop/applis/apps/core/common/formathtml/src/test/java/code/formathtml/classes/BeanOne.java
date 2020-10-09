@@ -6,6 +6,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.core.StringUtil;
 
 
 public class BeanOne extends Bean {
@@ -66,11 +67,11 @@ public class BeanOne extends Bean {
     }
 
     public String getSpanClasses(Long _one, Long _two, Long _three) {
-        return StringList.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
+        return StringUtil.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
     }
 
     public String getSpanClass(Long _one) {
-        return StringList.concatNbs("a",_one);
+        return StringUtil.concatNbs("a",_one);
     }
 
     public String getStandard(String _obj) {
@@ -145,7 +146,7 @@ public class BeanOne extends Bean {
     }
 
     public String goToPage(Long _index) {
-        return StringList.concatNbs("page",_index);
+        return StringUtil.concatNbs("page",_index);
     }
 
     public EnumNumbers getCombobox() {

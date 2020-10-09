@@ -16,6 +16,9 @@ import aiki.util.SortingPokemonPlayer;
 import code.gui.*;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class PaginatorPokemon extends Paginator {
 
@@ -143,7 +146,7 @@ public final class PaginatorPokemon extends Paginator {
         cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;
-        for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
             cmpAbilityPrio.addItem(i);
             cmpItemPrio.addItem(i);
@@ -392,22 +395,22 @@ public final class PaginatorPokemon extends Paginator {
         top_.add(button_);
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
-        String h_ = StringList.concat(getMessages().getVal(NAME),SPACE);
+        String h_ = StringUtil.concat(getMessages().getVal(NAME),SPACE);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(h_, side_);
-        h_ = StringList.concat(getMessages().getVal(ABILITY),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(ABILITY),SPACE);
         getHeader().addString(h_, side_, Paginator.HEIGTH_CHARS);
         int secondCol_ = getHeader().width(getMessages().getVal(NAME));
         if (secondCol_ < getHeader().width(getMessages().getVal(ABILITY))) {
             secondCol_ = getHeader().width(getMessages().getVal(ABILITY));
         }
         secondCol_ += side_;
-        h_ = StringList.concat(getMessages().getVal(LEVEL),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(LEVEL),SPACE);
         getHeader().addString(h_, secondCol_);
-        h_ = StringList.concat(getMessages().getVal(GENDER),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(GENDER),SPACE);
         getHeader().addString(h_, secondCol_, Paginator.HEIGTH_CHARS);
         int thirdCol_ = getHeader().width(getMessages().getVal(LEVEL));
         if (thirdCol_ < getHeader().width(getMessages().getVal(GENDER))) {
@@ -466,7 +469,7 @@ public final class PaginatorPokemon extends Paginator {
             getFacade().setDeltaFirstBox(1);
             return;
         }
-        int nbDelta_ = Numbers.parseInt(text_);
+        int nbDelta_ = NumberUtil.parseInt(text_);
         if (nbDelta_ <= 0) {
             return;
         }
@@ -585,7 +588,7 @@ public final class PaginatorPokemon extends Paginator {
         CustList<PokemonLabel> list_ = new CustList<PokemonLabel>();
         //Header header_ = new Header();
         int nb_ = rendered_.size();
-        for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             PokemonLabel l_ = new PokemonLabel(rendered_.get(i));
             l_.setImagesResults(getFacade());
             l_.refresh(getFacade().getTranslatedGendersCurLanguage());
@@ -598,13 +601,13 @@ public final class PaginatorPokemon extends Paginator {
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
-        getHeader().addString(StringList.concat(h_,SPACE), side_);
+        getHeader().addString(StringUtil.concat(h_,SPACE), side_);
         h_ = getMessages().getVal(ABILITY);
-        getHeader().addString(StringList.concat(h_,SPACE), side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(StringUtil.concat(h_,SPACE), side_, Paginator.HEIGTH_CHARS);
         //int maxPixName_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(NAME));
-        int maxPixName_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACE));
+        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getPokemon().getName(),SPACE));
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
             if (value_ > maxPixName_) {
                 maxPixName_ = value_;
             }
@@ -612,14 +615,14 @@ public final class PaginatorPokemon extends Paginator {
         //setNameCoord
         //header_.addString(getMessages().getVal(NAME), 0);
 //        int maxPixAbility_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(ABILITY));
-        int maxPixAbility_ = getHeader().width(StringList.concat(getMessages().getVal(ABILITY),SPACE));
+        int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(ABILITY),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getPokemon().getAbility(),SPACE));
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
             if (value_ > maxPixAbility_) {
                 maxPixAbility_ = value_;
             }
         }
-        int thirdColumn_ = CustList.SIZE_EMPTY;
+        int thirdColumn_ = IndexConstants.SIZE_EMPTY;
         for (PokemonLabel l: list_) {
             int value_ = l.getThirdColumnWidth();
             if (value_ > thirdColumn_) {
@@ -628,12 +631,12 @@ public final class PaginatorPokemon extends Paginator {
         }
         int secondCol_ = Math.max(maxPixAbility_, maxPixName_);
         h_ = getMessages().getVal(LEVEL);
-        getHeader().addString(StringList.concat(h_,SPACE), secondCol_ + side_);
+        getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_);
         h_ = getMessages().getVal(GENDER);
-        getHeader().addString(StringList.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(StringList.concat(getMessages().getVal(LEVEL),SPACE));
-        if (thirdCol_ < getHeader().width(StringList.concat(getMessages().getVal(GENDER),SPACE))) {
-            thirdCol_ = getHeader().width(StringList.concat(getMessages().getVal(GENDER),SPACE));
+        getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
+        int thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(LEVEL),SPACE));
+        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(GENDER),SPACE))) {
+            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(GENDER),SPACE));
         }
         h_ = getMessages().getVal(ITEM);
         getHeader().addString(h_, thirdCol_+secondCol_ + side_);
@@ -684,7 +687,7 @@ public final class PaginatorPokemon extends Paginator {
         setAdding(true);
         getPages().removeAllItems();
         int nbPages_ = getFacade().pagesPk();
-        for (int i = CustList.FIRST_INDEX; i < nbPages_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
         getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));

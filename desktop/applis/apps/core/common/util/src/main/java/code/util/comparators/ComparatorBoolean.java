@@ -1,6 +1,5 @@
 package code.util.comparators;
-import code.util.CustList;
-import code.util.ints.Comparing;
+import code.util.core.SortConstants;
 
 public final class ComparatorBoolean{
 
@@ -16,14 +15,14 @@ public final class ComparatorBoolean{
 
     public static int cmp(boolean _b1, boolean _b2) {
         if (_b1 && _b2) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         if (!_b1 && !_b2) {
-            return CustList.EQ_CMP;
+            return SortConstants.EQ_CMP;
         }
         if (_b1) {
-            return CustList.SWAP_SORT;
+            return SortConstants.SWAP_SORT;
         }
-        return CustList.NO_SWAP_SORT;
+        return SortConstants.NO_SWAP_SORT;
     }
 }

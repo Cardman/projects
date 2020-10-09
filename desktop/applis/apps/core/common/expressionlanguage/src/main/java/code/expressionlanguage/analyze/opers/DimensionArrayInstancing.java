@@ -24,6 +24,7 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DimensionArrayInstancing extends
         AbstractArrayInstancingOperation implements PreAnalyzableOperation {
@@ -43,7 +44,7 @@ public final class DimensionArrayInstancing extends
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String methodName_ = getMethodName();
         String className_ = methodName_.trim().substring(newKeyWord_.length());
-        int local_ = StringList.getFirstPrintableCharIndex(className_);
+        int local_ = StringUtil.getFirstPrintableCharIndex(className_);
         className_ = className_.trim();
         StringMap<String> vars_ = new StringMap<String>();
         ParentInferring par_ = ParentInferring.getParentInferring(this);
@@ -75,7 +76,7 @@ public final class DimensionArrayInstancing extends
         }
         String type_;
         String mName_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(mName_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(mName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
@@ -231,14 +232,14 @@ public final class DimensionArrayInstancing extends
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(m_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
-            int local_ = StringList.getFirstPrintableCharIndex(className_);
+            int local_ = StringUtil.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+local_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
@@ -264,7 +265,7 @@ public final class DimensionArrayInstancing extends
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //first part child bracket
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringList.join(resCh_.getNames(),"&"));
+                            StringUtil.join(resCh_.getNames(),"&"));
                     _page.getLocalizer().addError(un_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));

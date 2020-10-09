@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
+import code.util.core.IndexConstants;
 
 public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl {
 
@@ -31,7 +32,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
 
     public final ConditionReturn evaluateCondition(ContextEl _context) {
         AbstractPageEl last_ = _context.getLastPage();
-        ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+        ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0);

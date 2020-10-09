@@ -20,6 +20,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public final class RendForIterativeLoop extends RendParentBlock implements RendLoop, RendReducableOperations {
 
@@ -170,7 +171,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         long length_;
         boolean finished_ = false;
         length_ = nbMaxIterations_;
-        if (length_ == CustList.SIZE_EMPTY) {
+        if (length_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();

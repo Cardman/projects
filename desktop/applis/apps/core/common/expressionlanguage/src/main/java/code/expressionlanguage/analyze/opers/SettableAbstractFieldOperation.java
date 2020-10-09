@@ -14,7 +14,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.CustList;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
@@ -159,7 +159,7 @@ public abstract class SettableAbstractFieldOperation extends
         ClassField clField_ = settableFieldContent.getFieldMetaInfo().getClassField();
         String gl_ = _page.getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
-        return !StringList.quickEq(clField_.getClassName(), id_);
+        return !StringUtil.quickEq(clField_.getClassName(), id_);
     }
     public final FieldInfo getFieldMetaInfo() {
         return settableFieldContent.getFieldMetaInfo();

@@ -8,6 +8,7 @@ import code.sml.Element;
 import code.sml.NamedNodeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public abstract class AnaRendElement extends AnaRendParentBlock {
     private Element read;
@@ -35,7 +36,7 @@ public abstract class AnaRendElement extends AnaRendParentBlock {
             r_.buildAna(id_, off_, _anaDoc, _page);
             attributesText.put(_anaDoc.getRendKeyWords().getAttrId(),r_);
         }
-        String prefGr_ = StringList.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
+        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
         String groupId_ = read.getAttribute(prefGr_);
         if (!groupId_.isEmpty()) {

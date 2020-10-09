@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -15,7 +14,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecFctOperation extends ExecInvokingOperation {
 
@@ -46,7 +45,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        int off_ = StringList.getFirstPrintableCharIndex(instFctContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String classNameFound_ = getClassName();
         Struct argPrev_ = _previous.getStruct();

@@ -5,6 +5,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class EffectStatus extends Effect {
@@ -66,7 +67,7 @@ public final class EffectStatus extends Effect {
             _data.setError(true);
         }
         StringList events_ = new StringList(lawStatus.events());
-        StringList.removeObj(events_, DataBase.EMPTY_STRING);
+        StringUtil.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
         }

@@ -12,6 +12,8 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 
 public final class ElResolver {
@@ -561,7 +563,7 @@ public final class ElResolver {
             _indexesNew.add(j_);
             return j_;
         }
-        for (String s: StringList.wrapStringArray(
+        for (String s: StringUtil.wrapStringArray(
                 keyWordClasschoice_,
                 keyWordSuperaccess_,keyWordThisaccess_,keyWordInterfaces_,keyWordOperator_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
@@ -582,7 +584,7 @@ public final class ElResolver {
                 return indexSecParLeft_;
             }
         }
-        for (String s: StringList.wrapStringArray(keyWordCast_,keyWordExplicit_,
+        for (String s: StringUtil.wrapStringArray(keyWordCast_,keyWordExplicit_,
                 keyWordVararg_,keyWordDefaultValue_,keyWordClass_,keyWordLambda_,
                 keyWordId_,keyWordStatic_,keyWordStaticCall_,
                 keyWordValues_)) {
@@ -599,7 +601,7 @@ public final class ElResolver {
                 return indexParRight_+1;
             }
         }
-        for (String s: StringList.wrapStringArray(keyWordBool_,keyWordFalse_,keyWordFirstopt_,
+        for (String s: StringUtil.wrapStringArray(keyWordBool_,keyWordFalse_,keyWordFirstopt_,
                 keyWordSuper_,keyWordThis_,keyWordValueOf_,keyWordThat_,keyWordTrue_,keyWordDefault_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
@@ -679,7 +681,7 @@ public final class ElResolver {
         String sub_ = _string.substring(_from + 1, indexParRight_);
         String subTrim_ = sub_.trim();
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
-        for (String s: StringList.wrapStringArray("+=","-=",
+        for (String s: StringUtil.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
                 "||","&&","?",
@@ -732,7 +734,7 @@ public final class ElResolver {
             String after_ = afterArrow_.trim();
             int off_ = 0;
             int deltaArr_ = off_;
-            off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+            off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
             if (after_.startsWith("{")) {
                 String packageName_ = _globalDirType.getPackageName();
                 int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -764,12 +766,12 @@ public final class ElResolver {
                 if (noInternDelimiter(substring_)) {
                     String info_ = _string.substring(rightPar_+1);
                     String tr_ = info_.trim();
-                    int off_ = StringList.getFirstPrintableCharIndex(info_);
+                    int off_ = StringUtil.getFirstPrintableCharIndex(info_);
                     if (tr_.startsWith("->")) {
                         String afterArrow_ = tr_.substring("->".length());
                         String after_ = afterArrow_.trim();
                         int deltaArr_ = off_;
-                        off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                        off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
                         if (after_.startsWith("{")) {
                             String packageName_ = _globalDirType.getPackageName();
                             int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -1804,7 +1806,7 @@ public final class ElResolver {
             return;
         }
         boolean foundValue_ = false;
-        for (String s: StringList.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_,keyWordParent_)) {
+        for (String s: StringUtil.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_,keyWordParent_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int afterSuper_ = i_ + s.length();
                 while (afterSuper_ < len_) {
@@ -1826,7 +1828,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordDefault_)) {
+        for (String s: StringUtil.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordDefault_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int index_ = processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {
@@ -1934,7 +1936,7 @@ public final class ElResolver {
                 String after_ = afterArrow_.trim();
                 int off_ = 0;
                 int deltaArr_ = off_;
-                off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
                 if (after_.startsWith("{")) {
                     ParsedFctHeader parse_ = new ParsedFctHeader();
                     String packageName_ = globalType_.getPackageName();
@@ -2096,12 +2098,12 @@ public final class ElResolver {
                     if (noInternDelimiter(substring_)) {
                         String info_ = _string.substring(rightPar_+1);
                         String tr_ = info_.trim();
-                        int off_ = StringList.getFirstPrintableCharIndex(info_);
+                        int off_ = StringUtil.getFirstPrintableCharIndex(info_);
                         if (tr_.startsWith("->")) {
                             String afterArrow_ = tr_.substring("->".length());
                             String after_ = afterArrow_.trim();
                             int deltaArr_ = off_;
-                            off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                            off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
                             if (after_.startsWith("{")) {
                                 ParsedFctHeader parse_ = new ParsedFctHeader();
                                 String packageName_ = globalType_.getPackageName();
@@ -2647,16 +2649,16 @@ public final class ElResolver {
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
-            if (StringList.quickEq(single_, newLine_)) {
+            if (StringUtil.quickEq(single_, newLine_)) {
                 i_+=newLine_.length();
                 infos_.getStringInfo().getChars().add(LINE_RETURN);
-            } else if (StringList.quickEq(single_, form_)) {
+            } else if (StringUtil.quickEq(single_, form_)) {
                 i_+=form_.length();
                 infos_.getStringInfo().getChars().add(FORM_FEED);
-            } else if (StringList.quickEq(single_, rfeed_)) {
+            } else if (StringUtil.quickEq(single_, rfeed_)) {
                 i_+=rfeed_.length();
                 infos_.getStringInfo().getChars().add(LINE_FEED);
-            } else if (StringList.quickEq(single_, tab_)) {
+            } else if (StringUtil.quickEq(single_, tab_)) {
                 i_+=tab_.length();
                 infos_.getStringInfo().getChars().add(TAB);
             } else {
@@ -3106,14 +3108,14 @@ public final class ElResolver {
     }
 
     private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
-        return hasSpaceByWordChar(_key,_max, _string, _j)||StringList.isDollarWordChar(_string.charAt(_j));
+        return hasSpaceByWordChar(_key,_max, _string, _j)|| StringUtil.isDollarWordChar(_string.charAt(_j));
     }
 
     private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
         boolean space_ = false;
         if (Character.isWhitespace(_string.charAt(_j)) ) {
             int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
-            if (n_ > -1 && StringList.isDollarWordChar(_string.charAt(n_))) {
+            if (n_ > -1 && StringUtil.isDollarWordChar(_string.charAt(n_))) {
                 if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
                     space_ = true;
                 }
@@ -3178,7 +3180,7 @@ public final class ElResolver {
     private static OperationsSequence tryGetSequence(int _offset, String _string,
                                                      Delimiters _d, AnalyzedPageEl _page) {
         int len_ = _string.length();
-        int i_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -3395,7 +3397,7 @@ public final class ElResolver {
             return op_;
         }
         String sub_ = _string.substring(firstPrintChar_, len_);
-        if (StringList.quickEq(sub_, keyWordThis_)) {
+        if (StringUtil.quickEq(sub_, keyWordThis_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.THIS_KEYWORD);
             op_.setOperators(new IntTreeMap< String>());
@@ -3403,7 +3405,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        if (StringList.quickEq(sub_, keyWordParent_)) {
+        if (StringUtil.quickEq(sub_, keyWordParent_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.PARENT_KEY_WORD);
             op_.setOperators(new IntTreeMap< String>());
@@ -3411,7 +3413,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        if (StringList.quickEq(sub_, keyWordNull_)) {
+        if (StringUtil.quickEq(sub_, keyWordNull_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NULL_CST);
             op_.setOperators(new IntTreeMap< String>());
@@ -3419,7 +3421,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        if (StringList.quickEq(sub_, keyWordTrue_)) {
+        if (StringUtil.quickEq(sub_, keyWordTrue_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TRUE_CST);
             op_.setOperators(new IntTreeMap< String>());
@@ -3427,7 +3429,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        if (StringList.quickEq(sub_, keyWordFalse_)) {
+        if (StringUtil.quickEq(sub_, keyWordFalse_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.FALSE_CST);
             op_.setOperators(new IntTreeMap< String>());
@@ -3491,7 +3493,7 @@ public final class ElResolver {
     }
 
     private static boolean delimits(int _begin, int _end) {
-        return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
+        return _begin > IndexConstants.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
 
     private static int indexAfterPossibleCast(String _string, int _from, Delimiters _d, AnalyzedPageEl _page) {
@@ -3504,7 +3506,7 @@ public final class ElResolver {
         }
 
         String sub_ = _string.substring(_from + 1, indexParRight_);
-        int off_ = StringList.getFirstPrintableCharIndex(sub_);
+        int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
         String subTrim_ = sub_.trim();
         int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
         if (noInternDelimiter(sub_)&&subTrim_.startsWith(ARR) && arrRight_ > -1) {
@@ -3513,7 +3515,7 @@ public final class ElResolver {
             return indexParRight_ + 1;
         }
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
-        for (String s: StringList.wrapStringArray("+=","-=",
+        for (String s: StringUtil.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
                 "||","&&","?",

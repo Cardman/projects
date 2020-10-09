@@ -4,6 +4,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public abstract class NumericOperation extends MethodOperation {
 
@@ -54,7 +55,7 @@ public abstract class NumericOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         MathType a_ = chidren_.first().getResultClass();
         MathType r_;
-        int i_ = CustList.SECOND_INDEX;
+        int i_ = IndexConstants.SECOND_INDEX;
         for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
             MathType c_ = chidren_.get(i_).getResultClass();
             r_ = analyzeOper(a_, e.getValue(), c_, chidren_.get(i_).getIndexInEl(), _error);
@@ -75,7 +76,7 @@ public abstract class NumericOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument r_;
-        int i_ = CustList.SECOND_INDEX;
+        int i_ = IndexConstants.SECOND_INDEX;
         for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
             Argument c_ = chidren_.get(i_).getArgument();
             r_ = calculateOper(a_, e.getValue(), c_, chidren_.get(i_).getIndexInEl(), _error);

@@ -1,10 +1,11 @@
 package aiki.beans;
 import aiki.db.DataBase;
 import code.bean.Bean;
-import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class CommonBean extends Bean {
     protected static final String ABILITIES = "abilities";
@@ -109,9 +110,9 @@ public abstract class CommonBean extends Bean {
     protected static String escapedStringQuote(String _string) {
         StringMap<String> map_ = new StringMap<String>();
         map_.put(QUOTE, ESCAPED_QUOTE);
-        map_.put(LEFT_BRACE, StringList.concat(QUOTED_LEFT_BRACE,QUOTE));
-        map_.put(RIGHT_BRACE, StringList.concat(QUOTE,QUOTED_RIGHT_BRACE));
-        return StringList.formatBasic(_string, map_, false);
+        map_.put(LEFT_BRACE, StringUtil.concat(QUOTED_LEFT_BRACE,QUOTE));
+        map_.put(RIGHT_BRACE, StringUtil.concat(QUOTE,QUOTED_RIGHT_BRACE));
+        return StringUtil.formatBasic(_string, map_, false);
     }
     protected static StringList getFormattedReasons(DataBase _data, StringList _reasons, String _language) {
 //      Map<String,String> locHtml_ = new Map<>();
@@ -148,8 +149,8 @@ public abstract class CommonBean extends Bean {
     protected static StringList getReasons(String _booleanString) {
         StringList reasons_;
         reasons_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        int iPostSep_ = CustList.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
+        int iPostSep_ = IndexConstants.FIRST_INDEX;
         int nbLeftPar_ = 0;
         int nbRightPar_ = 0;
         String fail_ = _booleanString;
