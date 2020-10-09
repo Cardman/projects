@@ -3333,10 +3333,16 @@ public final class GuiAliases {
             }
             if (StringList.quickEq(name_, aliasGetWindowListeners)) {
                 WindowListener[] listeners_ = inst_.getWindowListeners();
-                int len_ = listeners_.length;
+                CustList<Struct> user_ = new CustList<Struct>();
+                for (WindowListener w: inst_.getWindowListeners()) {
+                    if (w instanceof Struct) {
+                        user_.add((Struct)w);
+                    }
+                }
+                int len_ = user_.size();
                 ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasWindowListener));
                 for (int i = 0; i< len_; i++) {
-                    arr_.set(i, (Struct)listeners_[i]);
+                    arr_.set(i, user_.get(i));
                 }
                 res_.setResult(arr_);
                 return res_;

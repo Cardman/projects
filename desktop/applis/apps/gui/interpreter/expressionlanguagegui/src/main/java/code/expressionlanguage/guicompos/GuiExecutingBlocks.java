@@ -14,6 +14,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.TextLabel;
+import code.util.CustList;
 import code.util.StringList;
 
 import javax.swing.*;
@@ -61,6 +62,7 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock paintRefresh;
     private ExecNamedFunctionBlock paintMethod;
     private ExecNamedFunctionBlock paintAdd;
+    private DefaultClosingMainWindow eventClose;
 
     public void initApplicationParts(GuiInitializer _guiInit,StringList _mainArgs, MainWindow _window) {
         mainArgs = _mainArgs;
@@ -68,10 +70,14 @@ public final class GuiExecutingBlocks {
         textLabel = new TextLabel("");
         OtherFrame fr_ = new OtherFrame();
         fr_.setMainFrame(true);
-        fr_.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        fr_.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);
         _guiInit.getWindows().add(frame,false);
         confirm = new OtherConfirmDialog();
+    }
+    public void initEventParts(GuiContextEl _context) {
+        eventClose = new DefaultClosingMainWindow(this, _context);
+        frame.getAbstractWindow().addWindowListener(eventClose);
     }
     public void forwardAndClear(GuiAliases _guiAliases,LgNamesContent _content, Classes _classes) {
         String aliasActListener_ = _guiAliases.getAliasActionListener();
@@ -469,6 +475,7 @@ public final class GuiExecutingBlocks {
     }
     public void addWindowListener(WindowStruct _frame,Struct _event) {
         if (_event instanceof WindowListener) {
+            _frame.removeWindowListener(eventClose);
             _frame.addWindowListener((WindowListener)_event);
             _frame.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
@@ -477,9 +484,17 @@ public final class GuiExecutingBlocks {
     public void removeWindowListener(WindowStruct _inst, Struct _event) {
         if (_event instanceof WindowListener) {
             _inst.removeWindowListener((WindowListener)_event);
-            if (_inst.getWindowListeners().length == 0) {
+            CustList<Struct> user_ = new CustList<Struct>();
+            for (WindowListener w: _inst.getWindowListeners()) {
+                if (w instanceof Struct) {
+                    user_.add((Struct)w);
+                }
+            }
+            if (user_.isEmpty()) {
                 if (_inst == frame) {
-                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    _inst.removeWindowListener(eventClose);
+                    _inst.addWindowListener(eventClose);
+                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 } else {
                     _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
                 }
