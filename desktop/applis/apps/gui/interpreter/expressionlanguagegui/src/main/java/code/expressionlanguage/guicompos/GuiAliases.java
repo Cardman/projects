@@ -822,8 +822,6 @@ public final class GuiAliases {
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
         AliasCore co_ = _content.getCoreNames();
-        StringList predefinedClasses_ = _predefinedClasses;
-        StringList predefinedInterfacesInitOrder_ = _predefinedInterfacesInitOrder;
         String public_ = _keyWords.getKeyWordPublic();
         String interface_ = _keyWords.getKeyWordInterface();
         String class_ = _keyWords.getKeyWordClass();
@@ -855,9 +853,9 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasActionListener);
+        _predefinedClasses.add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasActionListener);
+        _predefinedInterfacesInitOrder.add(aliasActionListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/change_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -867,9 +865,9 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasChangeListener);
+        _predefinedClasses.add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasChangeListener);
+        _predefinedInterfacesInitOrder.add(aliasChangeListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/tree_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -881,9 +879,9 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasTreeListener);
+        _predefinedClasses.add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasTreeListener);
+        _predefinedInterfacesInitOrder.add(aliasTreeListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/table_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -896,9 +894,9 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasTableListener);
+        _predefinedClasses.add(aliasTableListener);
         stds_.put(aliasTableListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasTableListener);
+        _predefinedInterfacesInitOrder.add(aliasTableListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -922,9 +920,9 @@ public final class GuiAliases {
         map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasMouseListener);
+        _predefinedClasses.add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasMouseListener);
+        _predefinedInterfacesInitOrder.add(aliasMouseListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/wheel_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -936,9 +934,9 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasWheelListener);
+        _predefinedClasses.add(aliasWheelListener);
         stds_.put(aliasWheelListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasWheelListener);
+        _predefinedInterfacesInitOrder.add(aliasWheelListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/key_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -954,9 +952,9 @@ public final class GuiAliases {
         map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasKeyListener);
+        _predefinedClasses.add(aliasKeyListener);
         stds_.put(aliasKeyListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasKeyListener);
+        _predefinedInterfacesInitOrder.add(aliasKeyListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/window_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -980,9 +978,9 @@ public final class GuiAliases {
         map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasWindowListener);
+        _predefinedClasses.add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
-        predefinedInterfacesInitOrder_.add(aliasWindowListener);
+        _predefinedInterfacesInitOrder.add(aliasWindowListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/list_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -995,9 +993,9 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasListSelection);
+        _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
-        predefinedInterfacesInitOrder_.add(aliasListSelection);
+        _predefinedInterfacesInitOrder.add(aliasListSelection);
         String suffix_ = String.valueOf(':');
         String suffixLocal_ = "";
         String suffixParam_ = "";
@@ -1177,11 +1175,9 @@ public final class GuiAliases {
         map_.put("{Object}",co_.getAliasObject());
         map_.put("{dispose}",aliasImageDispose);
         content_ = StringList.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasPaint);
+        _predefinedClasses.add(aliasPaint);
         stds_.put(aliasPaint, content_);
-        predefinedInterfacesInitOrder_.add(aliasPaint);
-        //Paint
-        //paint
+        _predefinedInterfacesInitOrder.add(aliasPaint);
         return stds_;
     }
 

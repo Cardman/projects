@@ -1,23 +1,19 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.CustComponent;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.TextLabel;
-import code.threads.ThreadUtil;
 import code.util.StringList;
 
 import javax.swing.*;
