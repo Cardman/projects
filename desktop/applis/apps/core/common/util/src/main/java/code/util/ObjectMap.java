@@ -1,5 +1,4 @@
 package code.util;
-import code.util.core.IndexConstants;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
@@ -9,7 +8,8 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbsBasicMap<K,V
     }
 
     public ObjectMap(ListableEntries<K, V> _arg0) {
-        putAllMap(_arg0);
+        super(new CollCapacity(_arg0.size()));
+        addAllEntries(_arg0);
     }
 
     

@@ -1,7 +1,6 @@
 package code.util;
 
 
-import code.util.core.IndexConstants;
 
 public final class BooleanMap<V> extends AbsBasicMap<Boolean,V> {
 

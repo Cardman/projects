@@ -1,5 +1,4 @@
 package code.util;
-import code.util.core.IndexConstants;
 import code.util.ints.ListableEntries;
 
 
@@ -14,7 +13,8 @@ public final class EnumMap<K, V> extends AbsBasicMap<K,V> {
     }
 
     public EnumMap(ListableEntries<K, V> _arg0) {
-        putAllMap(_arg0);
+        super(new CollCapacity(_arg0.size()));
+        addAllEntries(_arg0);
     }
     
     public EnumMap(CollCapacity _capacity) {

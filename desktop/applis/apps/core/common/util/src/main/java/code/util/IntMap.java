@@ -7,7 +7,8 @@ public final class IntMap<V> extends NumberMap<Integer, V> {
     }
 
     public IntMap(ListableEntries<Integer, V> _arg0) {
-        putAllMap(_arg0);
+        super(new CollCapacity(_arg0.size()));
+        addAllEntries(_arg0);
     }
 
 

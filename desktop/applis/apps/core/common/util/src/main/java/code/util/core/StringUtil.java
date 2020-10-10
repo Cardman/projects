@@ -206,25 +206,13 @@ public final class StringUtil {
 
     public static boolean equalsSet(CustList<String> _list1, CustList<String> _list2) {
         for (String c: _list2) {
-            boolean contains_ = false;
-            for (String d: _list1) {
-                if (quickEq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsString(_list1, c);
             if (!contains_) {
                 return false;
             }
         }
         for (String c: _list1) {
-            boolean contains_ = false;
-            for (String d: _list2) {
-                if (quickEq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsString(_list2, c);
             if (!contains_) {
                 return false;
             }
@@ -232,32 +220,42 @@ public final class StringUtil {
         return true;
     }
 
+    private static boolean containsString(CustList<String> _list1, String c) {
+        boolean contains_ = false;
+        for (String d: _list1) {
+            if (quickEq(c, d)) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
+    }
+
     public static boolean equalsStringListSet(CustList<StringList> _list1, CustList<StringList> _list2) {
         for (StringList c: _list2) {
-            boolean contains_ = false;
-            for (StringList d: _list1) {
-                if (eqStrings(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsListString(_list1, c);
             if (!contains_) {
                 return false;
             }
         }
         for (StringList c: _list1) {
-            boolean contains_ = false;
-            for (StringList d: _list2) {
-                if (eqStrings(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsListString(_list2, c);
             if (!contains_) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static boolean containsListString(CustList<StringList> _list1, StringList c) {
+        boolean contains_ = false;
+        for (StringList d: _list1) {
+            if (eqStrings(c, d)) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
     }
 
     public static boolean eqStrings(StringList _list1, StringList _list2) {

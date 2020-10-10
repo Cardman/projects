@@ -1,6 +1,5 @@
 package code.util;
 
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class StringMapObject extends AbsBasicMap<String,Object> {

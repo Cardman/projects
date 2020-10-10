@@ -7,7 +7,8 @@ public final class ByteMap<V> extends NumberMap<Byte, V> {
     }
 
     public ByteMap(ListableEntries<Byte, V> _arg0) {
-        putAllMap(_arg0);
+        super(new CollCapacity(_arg0.size()));
+        addAllEntries(_arg0);
     }
 
 

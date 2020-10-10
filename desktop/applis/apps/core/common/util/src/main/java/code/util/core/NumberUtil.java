@@ -10,25 +10,13 @@ public final class NumberUtil {
 
     public static boolean equalsSetBytes(Listable<Byte> _list1, Listable<Byte> _list2) {
         for (Byte c: _list2) {
-            boolean contains_ = false;
-            for (Byte d: _list1) {
-                if (eq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsByte(_list1, c);
             if (!contains_) {
                 return false;
             }
         }
         for (Byte c: _list1) {
-            boolean contains_ = false;
-            for (Byte d: _list2) {
-                if (eq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsByte(_list2, c);
             if (!contains_) {
                 return false;
             }
@@ -36,32 +24,42 @@ public final class NumberUtil {
         return true;
     }
 
+    private static boolean containsByte(Listable<Byte> _list1, Byte c) {
+        boolean contains_ = false;
+        for (Byte d: _list1) {
+            if (eq(c, d)) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
+    }
+
     public static boolean equalsSetShorts(Listable<Short> _list1, Listable<Short> _list2) {
         for (Short c: _list2) {
-            boolean contains_ = false;
-            for (Short d: _list1) {
-                if (eq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsShort(_list1, c);
             if (!contains_) {
                 return false;
             }
         }
         for (Short c: _list1) {
-            boolean contains_ = false;
-            for (Short d: _list2) {
-                if (eq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsShort(_list2, c);
             if (!contains_) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static boolean containsShort(Listable<Short> _list1, Short c) {
+        boolean contains_ = false;
+        for (Short d: _list1) {
+            if (eq(c, d)) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
     }
 
     public static int mod(int _one, int _two) {

@@ -15,11 +15,11 @@ public abstract class AbsBasicTreeMap<K,V> extends AbsMap<K,V> {
             }
             EntryCust<K, V> c_ = getList().get(index_);
             int res_ = compare(_key, c_.getKey());
-            if (res_ < 0) {
+            if (res_ < SortConstants.EQ_CMP) {
                 getList().add(index_, new EntryCust<K, V>(_key, _value));
                 return;
             }
-            if (res_ == 0) {
+            if (res_ == SortConstants.EQ_CMP) {
                 setValue(index_, _value);
                 return;
             }

@@ -296,6 +296,19 @@ public class NumbersTest {
         assertEq(1, NumberUtil.quot(-1,-3));
     }
     @Test
+    public void quot131Test() {
+        assertEq(4, NumberUtil.quot(-23,-7));
+    }
+    @Test
+    public void quot132Test() {
+        assertEq(-4, NumberUtil.quot(-23,7));
+    }
+    @Test
+    public void quot133Test() {
+        assertEq(-3, NumberUtil.quot(23,-7));
+    }
+
+    @Test
     public void mod1Test() {
         assertEq(0, NumberUtil.mod(0,1));
     }
@@ -346,6 +359,18 @@ public class NumbersTest {
     @Test
     public void mod13Test() {
         assertEq(2, NumberUtil.mod(-1,-3));
+    }
+    @Test
+    public void mod131Test() {
+        assertEq(5, NumberUtil.mod(-23,-7));
+    }
+    @Test
+    public void mod132Test() {
+        assertEq(5, NumberUtil.mod(-23,7));
+    }
+    @Test
+    public void mod133Test() {
+        assertEq(2, NumberUtil.mod(23,-7));
     }
     @Test
     public void quot14Test() {

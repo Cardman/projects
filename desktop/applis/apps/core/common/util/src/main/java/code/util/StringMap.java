@@ -1,5 +1,4 @@
 package code.util;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.ListableEntries;
 
@@ -12,7 +11,8 @@ public final class StringMap<V> extends AbsBasicMap<String,V> {
     }
 
     public StringMap(ListableEntries<String, V> _arg0) {
-        putAllMap(_arg0);
+        super(new CollCapacity(_arg0.size()));
+        addAllEntries(_arg0);
     }
 
     
