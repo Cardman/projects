@@ -4,17 +4,15 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.MainWindow;
 import code.resources.ResourceFiles;
+import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
-import java.io.File;
-import java.io.IOException;
 
 public class ImageTask implements ActionListener {
 
@@ -59,11 +57,7 @@ public class ImageTask implements ActionListener {
         }
         tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
         b_.getGraphics().drawImage(tmpImg_, pt_.x, pt_.y, null);
-        try {
-            ImageIO.write(b_, PNG, new File(StringUtil.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
-        } catch (IOException e) {
-            //skip
-        }
+        StreamImageFile.write(PNG,StringUtil.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG),b_);
     }
 
 }

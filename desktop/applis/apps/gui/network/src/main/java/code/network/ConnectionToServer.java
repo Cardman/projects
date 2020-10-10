@@ -1,4 +1,5 @@
 package code.network;
+import code.stream.core.StreamCoreUtil;
 import code.threads.Locking;
 
 import java.io.IOException;
@@ -21,18 +22,12 @@ public final class ConnectionToServer implements Runnable, Locking {
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public boolean fermer(Socket _socket) {
+    public void fermer(Socket _socket) {
         if (serverSocket == null){
-            return false;
+            return;
         }
-        try {
-            serverSocket.close();
-            if (_socket != null) {
-                _socket.close();
-            }
-            return true;
-        } catch (IOException _0) {
-            return false;
+        if (StreamCoreUtil.close(serverSocket)) {
+            StreamCoreUtil.close(_socket);
         }
     }
 
@@ -60,10 +55,10 @@ public final class ConnectionToServer implements Runnable, Locking {
         if (accept) {
             try {
                 socket = serverSocket.accept();
-            } catch (SocketException _0) {
+            } catch (SocketException e) {
                 errorSocket = true;
                 return null;
-            } catch (IOException _0) {
+            } catch (IOException e) {
                 error = true;
                 return null;
             }

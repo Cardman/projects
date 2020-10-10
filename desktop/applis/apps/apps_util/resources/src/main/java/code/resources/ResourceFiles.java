@@ -1,5 +1,7 @@
 package code.resources;
 
+import code.stream.core.StreamCoreUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,22 +35,18 @@ public final class ResourceFiles {
     }
 
     private static String readingFile(BufferedReader _br) {
-        try {
-            StringBuilder strBuilder_ = new StringBuilder();
-            while (true) {
+        StringBuilder strBuilder_ = new StringBuilder();
+        while (true) {
 
-                int char_ = _br.read();
-                if (char_ < 0) {
-                    break;
-                }
-                if (char_ != '\r') {
-                    strBuilder_.append((char) char_);
-                }
+            int char_ = StreamCoreUtil.read(_br);
+            if (char_ < 0) {
+                break;
             }
-            return strBuilder_.toString();
-        } catch (IOException _0) {
-            return null;
+            if (char_ != '\r') {
+                strBuilder_.append((char) char_);
+            }
         }
+        return strBuilder_.toString();
     }
 
 }

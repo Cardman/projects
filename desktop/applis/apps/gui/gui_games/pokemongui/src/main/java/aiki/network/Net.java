@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.CheckCompatibility;
+import code.network.NetGroupFrame;
 import code.util.*;
 
 public final class Net {
@@ -45,13 +46,7 @@ public final class Net {
         @param _text the text to be sent
     */
     static void sendText(Socket _socket, String _text) {
-        try {
-            OutputStream str_ = _socket.getOutputStream();
-            PrintWriter out_ = new PrintWriter(str_, true);
-            out_.println(_text);
-        } catch (IOException _0) {
-            //
-        }
+        NetGroupFrame.trySendString(_text,_socket);
     }
 
     /**server

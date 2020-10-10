@@ -1,4 +1,5 @@
 package code.network;
+import code.stream.core.StreamCoreUtil;
 import code.threads.Locking;
 
 import java.io.BufferedReader;
@@ -18,11 +19,9 @@ public abstract class BasicServer extends SendReceive implements Locking {
 
     @Override
     public void run() {
-        InputStreamReader isr_;
-        BufferedReader in_;
         try {
-            isr_ = new InputStreamReader(getSocket().getInputStream());
-            in_ = new BufferedReader(isr_);
+            InputStreamReader isr_ = new InputStreamReader(getSocket().getInputStream());
+            BufferedReader in_ = new BufferedReader(isr_);
             String input_;
 
             while (true) {
@@ -37,20 +36,13 @@ public abstract class BasicServer extends SendReceive implements Locking {
                 loopServer(input_, readObject_);
             }
             close(getSocket());
-        } catch (IOException _0) {
+        } catch (IOException e) {
             close(getSocket());
         }
     }
 
     private static void close(Socket _close) {
-        if (_close == null) {
-            return;
-        }
-        try {
-            _close.close();
-        } catch (IOException _0) {
-            //
-        }
+        StreamCoreUtil.close(_close);
     }
 
     public abstract void loopServer(String _input, Object _object);

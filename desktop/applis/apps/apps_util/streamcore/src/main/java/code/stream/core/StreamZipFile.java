@@ -1,4 +1,4 @@
-package code.stream;
+package code.stream.core;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,11 +14,11 @@ public final class StreamZipFile {
     }
 
     public static StringMap<byte[]> zippedBinaryFiles(byte[] _bytes) {
-        StringMap<byte[]> files_ = new StringMap<byte[]>();
         if (_bytes == null) {
             return null;
         }
         try {
+            StringMap<byte[]> files_ = new StringMap<byte[]>();
             ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
             ZipInputStream zis_ = new ZipInputStream(bais_);
             while (true) {
@@ -27,7 +27,7 @@ public final class StreamZipFile {
                     break;
                 }
                 if (e_.isDirectory()) {
-                    byte[] bytes_ = new byte[(int) e_.getSize()];
+                    byte[] bytes_ = new byte[0];
                     files_.put(e_.getName(), bytes_);
                     zis_.closeEntry();
                     continue;
@@ -42,7 +42,7 @@ public final class StreamZipFile {
             }
             zis_.close();
             return files_;
-        } catch (IOException _0) {
+        } catch (IOException e) {
             return null;
         }
 
@@ -62,7 +62,7 @@ public final class StreamZipFile {
             // remember close it
             zos_.close();
             return baos_.toByteArray();
-        } catch (IOException _0) {
+        } catch (IOException e) {
             return null;
         }
     }

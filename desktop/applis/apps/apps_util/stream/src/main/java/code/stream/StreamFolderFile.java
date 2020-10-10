@@ -1,5 +1,6 @@
 package code.stream;
 
+import code.stream.core.StreamZipFile;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import code.stream.core.StreamCoreUtil;
 import code.util.core.IndexConstants;
 
 public final class StreamBinaryFile {
@@ -17,15 +18,21 @@ public final class StreamBinaryFile {
         if (_file == null) {
             return null;
         }
-        try {
-            File file_ = new File(_file);
-            BufferedInputStream buff_ = new BufferedInputStream(new FileInputStream(_file));
-            return loadFile(file_,buff_);
-        } catch (IOException _0) {
+        File file_ = new File(_file);
+        BufferedInputStream buff_ = tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_));
+        return loadFile(file_,buff_);
+    }
+
+    private static BufferedInputStream tryCreateBufferedReader(FileInputStream _file) {
+        if (_file == null) {
             return null;
         }
+        return new BufferedInputStream(_file);
     }
     private static byte[] loadFile(File _file,BufferedInputStream _buff) {
+        if (_buff == null) {
+            return null;
+        }
         try {
             long len_ = _file.length();
             int index_ = IndexConstants.FIRST_INDEX;
@@ -40,9 +47,10 @@ public final class StreamBinaryFile {
                 }
                 index_ += read_;
             }
-            _buff.close();
+            StreamCoreUtil.close(_buff);
             return bytes_;
         } catch (IOException e) {
+            StreamCoreUtil.close(_buff);
             return null;
         }
     }
@@ -51,28 +59,21 @@ public final class StreamBinaryFile {
         if (_file == null) {
             return false;
         }
-        try {
-            return write(_content, new FileOutputStream(_file));
-        } catch (IOException _0) {
-            return false;
-        }
+        return write(_content, StreamFileCore.tryCreateFileOutputStream(_file));
     }
 
     private static boolean write(byte[] _content, FileOutputStream _fos) {
-        try {
-            boolean w_ = write(_content, new BufferedOutputStream(_fos));
-            _fos.close();
-            return w_;
-        } catch (IOException e) {
+        if (_fos == null) {
             return false;
         }
+        boolean w_ = write(_content, new BufferedOutputStream(_fos));
+        return w_ && StreamCoreUtil.close(_fos);
     }
 
     private static boolean write(byte[] _content, BufferedOutputStream _buff) {
         try {
             _buff.write(_content);
-            _buff.close();
-            return true;
+            return StreamCoreUtil.close(_buff);
         } catch (IOException e) {
             return false;
         }

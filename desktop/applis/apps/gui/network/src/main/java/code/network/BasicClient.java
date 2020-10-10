@@ -20,18 +20,15 @@ public final class BasicClient extends SendReceive {
     @Override
     public void run() {
 
-        BufferedReader in_;
-        Exiting ex_ = null;
-        boolean noLine_ = false;
         try {
-            in_ = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
-            String input_;
+            BufferedReader in_ = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
 
 
-
+            Exiting ex_ = null;
+            boolean noLine_ = false;
             while (true) {
                 //tourne toujours
-                input_ = in_.readLine();
+                String input_ = in_.readLine();
                 if (input_ == null) {
                     noLine_ = true;
                     break;

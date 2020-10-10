@@ -106,7 +106,7 @@ public final class NetCreate {
                 l_.add(n);
             }
             return l_;
-        } catch (SocketException _0) {
+        } catch (SocketException e) {
             return l_;
         }
     }
@@ -114,7 +114,7 @@ public final class NetCreate {
     public static ServerSocket createServerSocket(String _ip, int _port) {
         try {
             return bind(_ip, _port, new ServerSocket());
-        } catch (IOException _0) {
+        } catch (IOException e) {
             return null;
         }
     }
@@ -139,7 +139,7 @@ public final class NetCreate {
                 for (InetAddress i: InetAddress.getAllByName(_host)) {
                     addresses_.add(i.getHostAddress());
                 }
-            } catch (UnknownHostException _0) {
+            } catch (UnknownHostException e) {
                 return null;
             }
             return addresses_;

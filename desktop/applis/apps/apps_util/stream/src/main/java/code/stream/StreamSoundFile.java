@@ -23,7 +23,7 @@ public final class StreamSoundFile {
             c_.setClip(clip_);
             c_.setStream(audioIn_);
             return c_;
-        } catch (Exception _0) {
+        } catch (Exception e) {
             return null;
         }
     }

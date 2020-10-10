@@ -48,11 +48,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     /**server and client*/
-    public boolean closeConnexion(Socket _socket) {
+    public void closeConnexion(Socket _socket) {
         if (connection == null) {
-            return true;
+            return;
         }
-        return connection.fermer(_socket);
+        connection.fermer(_socket);
     }
 
     public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
@@ -78,9 +78,9 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             initIndexInGame(_first);
             socket = socket_;
             return new SocketResults(socket_);
-        } catch (UnknownHostException _0) {
+        } catch (UnknownHostException e) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
-        } catch (IOException _0) {
+        } catch (IOException e) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_ERROR);
         }
     }
@@ -93,12 +93,17 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         if (socket == null) {
             return false;
         }
+        String str_ = setObject(_serializable);
+        return trySendString(str_, socket);
+    }
+
+    public static boolean trySendString(String _str, Socket _socket) {
         try {
-            OutputStream output_ = socket.getOutputStream();
+            OutputStream output_ = _socket.getOutputStream();
             PrintWriter out_ = new PrintWriter(output_, true);
-            out_.println(setObject(_serializable));
+            out_.println(_str);
             return true;
-        } catch (IOException _0) {
+        } catch (IOException e) {
             return false;
         }
     }

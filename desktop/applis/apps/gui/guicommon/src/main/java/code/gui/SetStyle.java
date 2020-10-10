@@ -12,7 +12,7 @@ final class SetStyle {
             /*Permet d avoir une application graphique comme si c etait Windows*/
             String className_ = UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(className_);
-        } catch (Exception _0) {
+        } catch (Exception e) {
             //skip exception
         }
     }

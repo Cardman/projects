@@ -21,6 +21,7 @@ import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
+import code.stream.core.StreamCoreUtil;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -504,11 +505,7 @@ public class MainWindow extends GroupFrame {
         if (clipStream == null) {
             return;
         }
-        try {
-            clipStream.getStream().close();
-        } catch (IOException _0) {
-            //
-        }
+        StreamCoreUtil.close(clipStream.getStream());
     }
 
     public void updateClip(LineEvent _event) {

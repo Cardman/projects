@@ -9,6 +9,7 @@ import cards.network.common.Bye;
 import cards.network.common.DelegateServer;
 import cards.network.common.Quit;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
+import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
@@ -69,13 +70,7 @@ public final class Net {
         if (_socket == null) {
             return;
         }
-        try {
-            OutputStream output_ = _socket.getOutputStream();
-            PrintWriter out_ = new PrintWriter(output_, true);
-            out_.println(_text);
-        } catch (IOException _0) {
-            //
-        }
+        NetGroupFrame.trySendString(_text,_socket);
     }
     /**server
     only clicks can call directly this method

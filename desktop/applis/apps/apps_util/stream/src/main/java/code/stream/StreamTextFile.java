@@ -4,6 +4,7 @@ import java.io.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
+import code.stream.core.StreamCoreUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -94,12 +95,14 @@ public final class StreamTextFile {
     }
 
     private static String readFile(String _filePath) {
-        try {
-            File file_ = new File(_filePath);
-            return readingFile(new BufferedReader(new InputStreamReader(new FileInputStream(file_))), file_.length());
-        } catch (IOException _0) {
+        File file_ = new File(_filePath);
+        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_)), file_.length());
+    }
+    private static BufferedReader tryCreateBufferedReader(FileInputStream _file) {
+        if (_file == null) {
             return null;
         }
+        return new BufferedReader(new InputStreamReader(_file));
     }
 
     public static Element contenuDocumentXmlExterne(String _nomFichier) {
@@ -111,49 +114,44 @@ public final class StreamTextFile {
     }
 
     private static String readingFile(BufferedReader _br, long _capacity) {
-        try {
-            StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
-            while (true) {
-
-                int char_ = _br.read();
-                if (char_ < 0) {
-                    break;
-                }
-                if (char_ != '\r') {
-                    strBuilder_.append((char) char_);
-                }
-            }
-            return strBuilder_.toString();
-        } catch (IOException _0) {
+        if (_br == null) {
             return null;
         }
+        StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
+        while (true) {
+
+            int char_ = StreamCoreUtil.read(_br);
+            if (char_ == -2) {
+                return null;
+            }
+            if (char_ < 0) {
+                break;
+            }
+            if (char_ != '\r') {
+                strBuilder_.append((char) char_);
+            }
+        }
+        return strBuilder_.toString();
     }
 
     public static boolean saveTextFile(String _nomFichier, String _text) {
         if (_nomFichier == null) {
             return false;
         }
-        try {
-            return write(new FileWriter(new File(_nomFichier)),_text);
-        } catch (IOException _0) {
-            return false;
-        }
+        return write(tryCreateWriter(_nomFichier,false),_text);
     }
     private static boolean write(FileWriter _bw,String _text) {
-        try {
-            boolean w_ = write(new BufferedWriter(_bw), _text);
-            _bw.close();
-            return w_;
-        } catch (IOException _0) {
+        if (_bw == null) {
             return false;
         }
+        boolean w_ = write(new BufferedWriter(_bw), _text);
+        return w_&&StreamCoreUtil.close(_bw);
     }
     private static boolean write(BufferedWriter _bw,String _text) {
         try {
             _bw.write(_text);
-            _bw.close();
-            return true;
-        } catch (IOException _0) {
+            return StreamCoreUtil.close(_bw);
+        } catch (IOException e) {
             return false;
         }
     }
@@ -161,21 +159,23 @@ public final class StreamTextFile {
         if (_nomFichier == null) {
             return false;
         }
+        return println(tryCreateWriter(_nomFichier, true),_text);
+    }
+
+    private static FileWriter tryCreateWriter(String _nomFichier, boolean _append) {
         try {
-            return println(new FileWriter(_nomFichier, true),_text);
-        } catch (IOException _0) {
-            return false;
+            return new FileWriter(_nomFichier,_append);
+        } catch (IOException e) {
+            return null;
         }
     }
     private static boolean println(FileWriter _bw,String _text) {
-        try {
-            PrintWriter _bw1 = new PrintWriter(_bw);
-            println(_bw1, _text);
-            _bw.close();
-            return true;
-        } catch (IOException _0) {
+        if (_bw == null) {
             return false;
         }
+        PrintWriter _bw1 = new PrintWriter(_bw);
+        println(_bw1, _text);
+        return StreamCoreUtil.close(_bw);
     }
 
     private static void println(PrintWriter _bw, String _text) {

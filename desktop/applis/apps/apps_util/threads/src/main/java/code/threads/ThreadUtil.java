@@ -9,7 +9,7 @@ public final class ThreadUtil {
         try {
             _thread.start();
             return true;
-        } catch (RuntimeException _e) {
+        } catch (RuntimeException e) {
             return false;
         }
     }
