@@ -115,14 +115,13 @@ public class CustList<T> implements Listable<T> {
     }
 
     public final void retainAllElements(AbEqList<T> _c) {
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < size()) {
+        int i_ = size() - 1;
+        while (i_ >= IndexConstants.FIRST_INDEX) {
             T e_ = get(i_);
             if (!_c.containsObj(e_)) {
                 remove(i_);
-            } else {
-                i_++;
             }
+            i_--;
         }
     }
 
@@ -210,7 +209,7 @@ public class CustList<T> implements Listable<T> {
 
     public final CustList<T> left(int _nbElements) {
         if (_nbElements < 1) {
-            return new CustList<T>();
+            return new CustList<T>(new CollCapacity(0));
         }
         if (_nbElements >= size()) {
             return new CustList<T>(this);
@@ -224,7 +223,7 @@ public class CustList<T> implements Listable<T> {
 
     public final CustList<T> leftMinusOne(int _nbElements) {
         if (_nbElements < 1) {
-            return new CustList<T>();
+            return new CustList<T>(new CollCapacity(0));
         }
         int indexMax_ = Math.max(Math.min(size()-1,_nbElements),0);
         CustList<T> list_ = new CustList<T>(new CollCapacity(indexMax_));
@@ -242,13 +241,13 @@ public class CustList<T> implements Listable<T> {
 
     public final CustList<T> mid(int _beginIndex) {
         if (_beginIndex > size()) {
-            return new CustList<T>();
+            return new CustList<T>(new CollCapacity(0));
         }
         int b_ = Math.max(_beginIndex, IndexConstants.FIRST_INDEX);
         int e_ = size();
-        CustList<T> l_ = new CustList<T>();
-        for (T e: list.subList(b_, e_)) {
-            l_.add(e);
+        CustList<T> l_ = new CustList<T>(new CollCapacity(Math.max(e_-b_,0)));
+        for (int i = b_; i < e_; i++) {
+            l_.add(get(i));
         }
         return l_;
     }
@@ -256,13 +255,13 @@ public class CustList<T> implements Listable<T> {
     @Override
     public final CustList<T> sub(int _from, int _to) {
         if (_from > _to) {
-            return new CustList<T>();
+            return new CustList<T>(new CollCapacity(0));
         }
         int b_ = Math.max(_from, IndexConstants.FIRST_INDEX);
         int e_ = Math.max(Math.min(_to, size()),b_);
-        CustList<T> l_ = new CustList<T>();
-        for (T e: list.subList(b_, e_)) {
-            l_.add(e);
+        CustList<T> l_ = new CustList<T>(new CollCapacity(e_-b_));
+        for (int i = b_; i < e_; i++) {
+            l_.add(get(i));
         }
         return l_;
     }

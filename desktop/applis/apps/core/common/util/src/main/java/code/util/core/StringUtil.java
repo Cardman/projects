@@ -1182,14 +1182,13 @@ public final class StringUtil {
     }
 
     public static void retainAllElements(CustList<String> _strings, CustList<String> _c) {
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _strings.size()) {
+        int i_ = _strings.size() - 1;
+        while (i_ >= IndexConstants.FIRST_INDEX) {
             String e_ = _strings.get(i_);
             if (!contains(_c, e_)) {
                 _strings.remove(i_);
-            } else {
-                i_++;
             }
+            i_--;
         }
     }
 

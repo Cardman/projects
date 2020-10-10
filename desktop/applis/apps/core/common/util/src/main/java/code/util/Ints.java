@@ -35,8 +35,8 @@ public final class Ints extends Numbers<Integer> {
         for (int i = 1; i < sdims_; i++) {
             CustList<Ints> newIndexes_;
             newIndexes_ = new CustList<Ints>();
+            int d_ = get(i);
             for (Ints p: e_) {
-                int d_ = get(i);
                 for (int j = 0; j < d_; j++) {
                     Ints n_;
                     n_ = new Ints(p);

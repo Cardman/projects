@@ -167,20 +167,25 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
             put(e.getKey(), e.getValue());
         }
     }
+    public void addAllEntries(ListableEntries<K, V> _m) {
+        for (EntryCust<K,V> e: _m.entryList()) {
+            addEntry(e.getKey(), e.getValue());
+        }
+    }
     @Override
     public void removeKey(K _key) {
-        geneRemove(_key);
-    }
-
-    public abstract int indexOfEntry(K _key);
-
-    void geneRemove(K _key) {
         int index_ = indexOfEntry(_key);
         if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
         getList().remove(index_);
     }
+
+    public boolean isValidIndex(int _index) {
+        return getList().isValidIndex(_index);
+    }
+
+    public abstract int indexOfEntry(K _key);
 
     public void addEntry(K _k, V _v) {
         list.add(new EntryCust<K, V>(_k, _v));

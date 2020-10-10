@@ -1,9 +1,7 @@
 package code.gui;
 import code.util.*;
-import code.util.*;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
-import code.util.ints.ListableEntries;
 
 public final class IntTreeComboBox extends GraphicCombo {
 //implements TranslatableComponent
@@ -35,7 +33,7 @@ public final class IntTreeComboBox extends GraphicCombo {
         return elements;
     }
 
-    public void refresh(ListableEntries<Integer,String> _tr) {
+    public void refresh(AbsMap<Integer,String> _tr) {
         super.removeAllItems();
         IntMap<String> m_ = createMap(_tr);
         elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
@@ -45,7 +43,7 @@ public final class IntTreeComboBox extends GraphicCombo {
         }
     }
 
-    private IntMap<String> createMap(ListableEntries<Integer,String> _tr) {
+    private IntMap<String> createMap(AbsMap<Integer,String> _tr) {
         IntMap<String> m_ = new IntMap<String>(_tr);
         if (withDefaultValue) {
             m_.put(null, EMPTY_STRING);

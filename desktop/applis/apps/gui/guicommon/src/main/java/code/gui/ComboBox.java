@@ -1,12 +1,8 @@
 package code.gui;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.comparators.ComparatorIndexes;
 import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
 
 public abstract class ComboBox<T> extends GraphicCombo {
 
@@ -22,7 +18,7 @@ public abstract class ComboBox<T> extends GraphicCombo {
         return elements;
     }
 
-    public void refresh(Listable<T> _order,ListableEntries<T,String> _tr) {
+    public void refresh(Listable<T> _order,AbsMap<T,String> _tr) {
         order.clear();
         order.addAllElts(_order);
         super.removeAllItems();
@@ -34,7 +30,7 @@ public abstract class ComboBox<T> extends GraphicCombo {
         }
     }
 
-    public void refresh(ListableEntries<T,String> _tr) {
+    public void refresh(AbsMap<T,String> _tr) {
         super.removeAllItems();
         EnumMap<T,String> m_ = createMap(_tr);
         elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
@@ -44,7 +40,7 @@ public abstract class ComboBox<T> extends GraphicCombo {
         }
     }
 
-    private EnumMap<T,String> createMap(ListableEntries<T,String> _tr) {
+    private EnumMap<T,String> createMap(AbsMap<T,String> _tr) {
         EnumMap<T,String> m_ = new EnumMap<T,String>(_tr);
         if (withDefaultValue) {
             m_.put(null, EMPTY_STRING);

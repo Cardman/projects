@@ -75,11 +75,12 @@ public final class GuiExecutingBlocks {
         _guiInit.getWindows().add(frame,false);
         confirm = new OtherConfirmDialog();
     }
-    public void initEventParts(GuiContextEl _context) {
+    private void initEventParts(GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);
         frame.getAbstractWindow().addWindowListener(eventClose);
     }
-    public void forwardAndClear(GuiAliases _guiAliases,LgNamesContent _content, Classes _classes) {
+    public void forwardAndClear(GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
+        initEventParts(_ctx);
         String aliasActListener_ = _guiAliases.getAliasActionListener();
         actionListener = _classes.getClassBody(aliasActListener_);
         String actionEvent_ = _guiAliases.getAliasActionEvent();

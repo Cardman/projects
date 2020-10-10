@@ -416,6 +416,35 @@ public class MapTest {
         assertEq(3, (Integer)map_.getVal("TWO"));
         assertEq(4, (Integer)map_.getVal("THREE"));
     }
+
+    @Test
+    public void putAllEntries1Test() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("ONE", 1);
+        map_.put("TWO", 2);
+        StringMap<Integer> mapToPut_ = new StringMap<Integer>();
+        mapToPut_.put("THREE", 3);
+        mapToPut_.put("FOUR", 4);
+        map_.addAllEntries(mapToPut_);
+        assertEq(4, map_.size());
+        assertTrue(map_.contains("ONE"));
+        assertTrue(map_.contains("TWO"));
+        assertTrue(map_.contains("THREE"));
+        assertTrue(map_.contains("FOUR"));
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(2, map_.getVal("TWO"));
+        assertEq(3, map_.getVal("THREE"));
+        assertEq(4, map_.getVal("FOUR"));
+    }
+
+    @Test
+    public void isValidIndexTest() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("ONE", 1);
+        assertTrue(map_.isValidIndex(0));
+        assertTrue(!map_.isValidIndex(-1));
+    }
+
     @Test
     public void valuesTest() {
         ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
