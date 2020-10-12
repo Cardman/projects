@@ -16,8 +16,16 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingDemo() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingDemo(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingDemo(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingDemo(), getTempFolder(), _args, null));
     }
 
     @Override

@@ -35,10 +35,11 @@ public abstract class SoftApplicationCore {
 
     private static final String EMPTY_STRING = "";
 
-    private CustList<GroupFrame> frames = new CustList<GroupFrame>();
+    private final CustList<GroupFrame> frames;
 
-    protected SoftApplicationCore() {
+    protected SoftApplicationCore(CustList<GroupFrame> _frames) {
         SetStyle.setupStyle();
+        frames = _frames;
     }
     protected void loadLaungage(String _dir, String[] _args, BufferedImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
@@ -189,14 +190,8 @@ public abstract class SoftApplicationCore {
 
     protected abstract BufferedImage getImageIcon();
 
-    public static void fwd(SoftApplicationCore _dest, CustList<GroupFrame> _frames) {
-        _dest.setFrames(_frames);
-    }
     public CustList<GroupFrame> getFrames() {
         return frames;
     }
 
-    public void setFrames(CustList<GroupFrame> _v) {
-        frames = _v;
-    }
 }

@@ -21,6 +21,14 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingPokemon() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingPokemon(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     public static void increment() {
         COUNT.incrementAndGet();
     }
@@ -36,7 +44,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     protected static void loadLaungage(String[] _args) {
         //loadLaungage(_args, _icon_);
 //        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingPokemon(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingPokemon(), getTempFolder(), _args, null));
     }
 
     @Override

@@ -23,7 +23,7 @@ public final class DemoEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingDemo l_;
-        l_ = new LaunchingDemo();
+        l_ = new LaunchingDemo(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

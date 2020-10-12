@@ -5,19 +5,19 @@ import java.awt.image.BufferedImage;
 Thread safe class*/
 public final class LoadLanguage implements Runnable {
 
-    private String dir;
-
     private SoftApplicationCore application;
+
+    private String dir;
 
     private String[] args;
 
     private BufferedImage icon;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LoadLanguage(String _dir, SoftApplicationCore _application, String[] _args,
-            BufferedImage _icon) {
-        dir = _dir;
+    public LoadLanguage(SoftApplicationCore _application, String _dir, String[] _args,
+                        BufferedImage _icon) {
         application = _application;
+        dir = _dir;
         args = _args;
         icon = _icon;
     }

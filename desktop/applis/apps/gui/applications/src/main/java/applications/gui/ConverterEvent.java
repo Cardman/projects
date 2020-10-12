@@ -23,7 +23,7 @@ public final class ConverterEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingConverter l_;
-        l_ = new LaunchingConverter();
+        l_ = new LaunchingConverter(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

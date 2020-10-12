@@ -15,8 +15,17 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
     private static final String TEMP_FOLDER = "renders_sites";
 
     private static final AtomicInteger COUNT = new AtomicInteger();
+
+    public LaunchingRenders() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingRenders(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingRenders(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingRenders(), getTempFolder(), _args, null));
     }
     @Override
     public Object getObject(String _fileName) {

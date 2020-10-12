@@ -23,7 +23,7 @@ public final class AppUnitEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingAppUnitTests l_;
-        l_ = new LaunchingAppUnitTests();
+        l_ = new LaunchingAppUnitTests(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

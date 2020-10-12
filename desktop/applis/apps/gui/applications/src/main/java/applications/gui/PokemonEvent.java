@@ -22,7 +22,7 @@ public final class PokemonEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingPokemon l_;
-        l_ = new LaunchingPokemon();
+        l_ = new LaunchingPokemon(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

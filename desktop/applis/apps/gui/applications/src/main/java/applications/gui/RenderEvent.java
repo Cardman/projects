@@ -23,7 +23,7 @@ public final class RenderEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingRenders l_;
-        l_ = new LaunchingRenders();
+        l_ = new LaunchingRenders(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

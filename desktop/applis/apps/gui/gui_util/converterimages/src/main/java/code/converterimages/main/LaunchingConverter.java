@@ -19,8 +19,15 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingConverter() {
+        this(new CustList<GroupFrame>());
+    }
+    public LaunchingConverter(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingConverter(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingConverter(), getTempFolder(), _args, null));
     }
 
     @Override

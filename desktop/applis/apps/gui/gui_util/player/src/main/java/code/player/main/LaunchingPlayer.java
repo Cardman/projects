@@ -20,8 +20,16 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingPlayer() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingPlayer(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingPlayer(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingPlayer(), getTempFolder(), _args, null));
     }
 
     @Override

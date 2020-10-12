@@ -23,7 +23,7 @@ public final class AppsEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingFull l_;
-        l_ = new LaunchingFull();
+        l_ = new LaunchingFull(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

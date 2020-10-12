@@ -23,7 +23,7 @@ public final class CardsEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingCards l_;
-        l_ = new LaunchingCards();
+        l_ = new LaunchingCards(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }

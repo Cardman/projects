@@ -16,8 +16,16 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingAppUnitTests() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingAppUnitTests(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingAppUnitTests(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingAppUnitTests(), getTempFolder(), _args, null));
     }
     @Override
     public Object getObject(String _fileName) {

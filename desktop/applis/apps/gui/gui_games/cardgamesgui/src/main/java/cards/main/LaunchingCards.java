@@ -32,6 +32,14 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     private static final AtomicInteger COUNT = new AtomicInteger();
 
+    public LaunchingCards() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingCards(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
         increment();
@@ -72,7 +80,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     protected static void loadLaungage(String[] _args) {
         //loadLaungage(_args, _icon_);
 //        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingCards(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingCards(), getTempFolder(), _args, null));
     }
 
     public static void increment() {

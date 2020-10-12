@@ -39,8 +39,16 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "applications";
 
+    public LaunchingApplications() {
+        this(new CustList<GroupFrame>());
+    }
+
+    public LaunchingApplications(CustList<GroupFrame> _frames) {
+        super(_frames);
+    }
+
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingApplications(), _args, null));
+        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingApplications(), getTempFolder(), _args, null));
     }
 
     private static MainWindow getWindow(String _lg, CustList<GroupFrame> _list) {
@@ -61,28 +69,23 @@ public class LaunchingApplications extends SoftApplicationCore {
             }
             if (isCardGameSave_) {
                 launchWindow(_language, getFrames());
-                LaunchingCards launch_ = new LaunchingCards();
-                fwd(launch_, getFrames());
+                LaunchingCards launch_ = new LaunchingCards(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
                 launchWindow(_language, getFrames());
-                LaunchingPokemon launch_ = new LaunchingPokemon();
-                fwd(launch_, getFrames());
+                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof SongList) {
                 launchWindow(_language, getFrames());
-                LaunchingPlayer launch_ = new LaunchingPlayer();
-                fwd(launch_, getFrames());
+                LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof Document) {
                 launchWindow(_language, getFrames());
-                LaunchingDemo launch_ = new LaunchingDemo();
-                fwd(launch_, getFrames());
+                LaunchingDemo launch_ = new LaunchingDemo(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof BufferedImage || readObject_ instanceof int[][]) {
                 launchWindow(_language, getFrames());
-                LaunchingConverter launch_ = new LaunchingConverter();
-                fwd(launch_, getFrames());
+                LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof String) {
                 String fileContent_ = (String) readObject_;
@@ -99,29 +102,25 @@ public class LaunchingApplications extends SoftApplicationCore {
                 }
                 if (linesFiles_.size() < 3) {
                     launchWindow(_language, getFrames());
-                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests();
-                    fwd(launch_, getFrames());
+                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
                     launchWindow(_language, getFrames());
-                    LaunchingRenders launch_ = new LaunchingRenders();
-                    fwd(launch_, getFrames());
+                    LaunchingRenders launch_ = new LaunchingRenders(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
                     launchWindow(_language, getFrames());
-                    LaunchingFull launch_ = new LaunchingFull();
-                    fwd(launch_, getFrames());
+                    LaunchingFull launch_ = new LaunchingFull(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 launchWindow(_language, getFrames());
-                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests();
-                fwd(launch_, getFrames());
+                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;

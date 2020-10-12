@@ -22,7 +22,7 @@ public final class PlayerEvent extends MouseAdapter {
         }
         String lg_ = window.getLanguageKey();
         LaunchingPlayer l_;
-        l_ = new LaunchingPlayer();
+        l_ = new LaunchingPlayer(window.getFrames());
         l_.launch(lg_, window.getFrames());
     }
 }
