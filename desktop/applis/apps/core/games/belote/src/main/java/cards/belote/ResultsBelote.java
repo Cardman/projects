@@ -22,7 +22,7 @@ public final class ResultsBelote {
     private int differenceScoreTaker;
 
     public void initialize(StringList _pseudos, CustList<Longs> _scores) {
-        res.setScores(_scores);
+        getRes().setScores(_scores);
         nicknames = _pseudos;
         Shorts scoresDeal_ = new Shorts();
         BidBeloteSuit bid_ = game.getContrat();
@@ -162,6 +162,10 @@ public final class ResultsBelote {
 
     public void setSums(Longs _sums) {
         res.setSums(_sums);
+    }
+
+    public ResultsGame getRes() {
+        return res;
     }
 
     public EndGameState getEndBeloteGame() {

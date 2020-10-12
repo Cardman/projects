@@ -140,6 +140,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
         editor.setLanguage(lg_);
+        rulesPresidentMulti.setGeneral(readCoreResource());
+        rulesPresidentMulti.setSpecific(readResource());
         editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresidentMulti, new PresidentStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));

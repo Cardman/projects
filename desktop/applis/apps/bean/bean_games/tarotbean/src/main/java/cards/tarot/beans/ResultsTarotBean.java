@@ -82,7 +82,7 @@ final class ResultsTarotBean extends TarotBean {
                     calledPlayers.add(getNicknames().get(p));
                 }
                 for (CardTarot c: getGame().getCarteAppelee()) {
-                    calledCardsList.add(toString(c,getLoc()));
+                    calledCardsList.add(toString(c, res_.getRes().getSpecific()));
                 }
             } else {
                 EndTarotGame end_ = getGame().getEndTarotGame();
@@ -153,7 +153,8 @@ final class ResultsTarotBean extends TarotBean {
     }
 
     String bidString() {
-        return toString(getBid(),getLoc());
+        ResultsTarot res_ = getResults();
+        return toString(getBid(), res_.getRes().getSpecific());
     }
 
     boolean successfulDeclaredSlamAttack() {

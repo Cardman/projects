@@ -23,6 +23,9 @@ public final class RulesTarot {
     private int nbDeals;
     private boolean discardAfterCall = true;
 
+    private String general="";
+    private String specific="";
+
     public RulesTarot() {
         this(DealingTarot.DEAL_2_VS_3_CALL_KING);
     }
@@ -72,6 +75,8 @@ public final class RulesTarot {
         endDealTarot = _reglesTarot.endDealTarot;
         nbDeals = _reglesTarot.nbDeals;
         discardAfterCall = _reglesTarot.discardAfterCall;
+        setSpecific(_reglesTarot.getSpecific());
+        setGeneral(_reglesTarot.getGeneral());
     }
     public boolean isValidRules() {
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
@@ -242,5 +247,21 @@ public final class RulesTarot {
 
     public void setNbDeals(int _nbDeals) {
         nbDeals = _nbDeals;
+    }
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+    public String getSpecific() {
+        return specific;
+    }
+
+    public void setSpecific(String specific) {
+        this.specific = specific;
     }
 }

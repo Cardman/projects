@@ -22,6 +22,8 @@ public final class RulesBelote {
     private DealingBelote dealing = DealingBelote.CLASSIC_2_VS_2;
     private boolean classicCountPoints=true;
     private int nbDeals;
+    private String general="";
+    private String specific="";
 
     public RulesBelote() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
@@ -45,6 +47,8 @@ public final class RulesBelote {
         dealing = _reglesBelote.dealing;
         classicCountPoints = _reglesBelote.classicCountPoints;
         nbDeals = _reglesBelote.nbDeals;
+        setSpecific(_reglesBelote.getSpecific());
+        setGeneral(_reglesBelote.getGeneral());
     }
     public boolean isValidRules() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
@@ -216,5 +220,21 @@ public final class RulesBelote {
 
     public void setNbDeals(int _nbDeals) {
         nbDeals = _nbDeals;
+    }
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+    public String getSpecific() {
+        return specific;
+    }
+
+    public void setSpecific(String specific) {
+        this.specific = specific;
     }
 }

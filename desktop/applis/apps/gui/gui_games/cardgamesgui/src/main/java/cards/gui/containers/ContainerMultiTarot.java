@@ -266,6 +266,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         editor = new RenderedPage(scroll_);
 
         editor.setLanguage(lg_);
+        rulesTarotMulti.setGeneral(readCoreResource());
+        rulesTarotMulti.setSpecific(readResource());
         editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
@@ -327,6 +329,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
+        rulesTarotMulti.setGeneral(readCoreResource());
+        rulesTarotMulti.setSpecific(readResource());
         editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
@@ -1085,6 +1089,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         TabbedPane onglets_=new TabbedPane();
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
+        _res.getRes().setGeneral(readCoreResource());
+        _res.getRes().setSpecific(readResource());
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);

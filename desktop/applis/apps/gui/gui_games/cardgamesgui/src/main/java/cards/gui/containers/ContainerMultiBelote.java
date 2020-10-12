@@ -277,6 +277,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
         editor.setLanguage(lg_);
+        rulesBeloteMulti.setGeneral(readCoreResource());
+        rulesBeloteMulti.setSpecific(readResource());
         editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
@@ -353,6 +355,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
+        rulesBeloteMulti.setGeneral(readCoreResource());
+        rulesBeloteMulti.setSpecific(readResource());
         editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
     }
 
@@ -831,6 +835,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         TabbedPane onglets_=new TabbedPane();
         setScores(_res.getScores());
+        _res.getRes().setGeneral(readCoreResource());
+        _res.getRes().setSpecific(readResource());
         String lg_ = getOwner().getLanguageKey();
 
         ScrollPane scroll_=new ScrollPane();

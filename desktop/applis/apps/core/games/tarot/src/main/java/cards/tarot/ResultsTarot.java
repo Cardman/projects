@@ -42,7 +42,7 @@ public final class ResultsTarot {
 
     public void initialize(StringList _pseudos,
             CustList<Longs> _scores) {
-        res.setScores(_scores);
+        getRes().setScores(_scores);
         nicknames = _pseudos;
         Shorts scoresDeal_ = new Shorts();
         short basePoints_;
@@ -296,5 +296,9 @@ public final class ResultsTarot {
 
     public String getScoreSmallBound() {
         return scoreSmallBound;
+    }
+
+    public ResultsGame getRes() {
+        return res;
     }
 }

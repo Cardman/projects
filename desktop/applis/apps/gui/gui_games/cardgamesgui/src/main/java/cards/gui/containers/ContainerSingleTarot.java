@@ -945,6 +945,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.initialize(new StringList(pseudos_), getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
+        res_.getRes().setGeneral(readCoreResource());
+        res_.getRes().setSpecific(readResource());
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);

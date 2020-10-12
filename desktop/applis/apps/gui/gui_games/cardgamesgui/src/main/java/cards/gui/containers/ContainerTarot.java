@@ -13,6 +13,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
 import code.stream.StreamTextFile;
@@ -277,5 +278,8 @@ public class ContainerTarot extends ContainerGame{
     }
     protected void setSlamButton(LabelButton _slamButton) {
         slamButton = _slamButton;
+    }
+    public String readResource() {
+        return readResource(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER);
     }
 }

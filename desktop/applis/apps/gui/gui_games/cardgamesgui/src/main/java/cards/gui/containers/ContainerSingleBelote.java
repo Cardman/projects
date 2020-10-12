@@ -685,6 +685,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.setGame(partie_);
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(pseudos_), getScores());
+        res_.getRes().setGeneral(readCoreResource());
+        res_.getRes().setSpecific(readResource());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
         BeloteStandards stds_;

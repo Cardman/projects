@@ -13,6 +13,8 @@ public final class ResultsGame {
     /**Sommes des scores des joueurs*/
     private Longs sums=new Longs();
     private CustList<Longs> scores;
+    private String general="";
+    private String specific="";
 
     public String getGlobalResultsPageTitle() {
         return globalResultsPageTitle;
@@ -60,5 +62,21 @@ public final class ResultsGame {
 
     public void setSums(Longs _sums) {
         sums = _sums;
+    }
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+    public String getSpecific() {
+        return specific;
+    }
+
+    public void setSpecific(String specific) {
+        this.specific = specific;
     }
 }

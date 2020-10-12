@@ -13,8 +13,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>core</module>
-		<module>apps_util</module>
 		<module>bean</module>
+		<module>apps_util</module>
 		<module>apps_sml</module>
 		<module>files</module>
 		<module>gui</module>

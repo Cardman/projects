@@ -22,6 +22,10 @@ public class CardsTest {
         r_.setGlobalResultsPageTitle(CoreResourcesAccess.MIX);
         assertNotNull(r_.getGlobalResultsPageTitle());
         r_.setRenderedPages(new StringMap<String>());
+        r_.setGeneral("");
+        assertNotNull(r_.getGeneral());
+        r_.setSpecific("");
+        assertNotNull(r_.getSpecific());
         assertNotNull(r_.getRenderedPages());
         assertNotNull(Status.values());
         assertNotNull(PossibleTrickWinner.values());

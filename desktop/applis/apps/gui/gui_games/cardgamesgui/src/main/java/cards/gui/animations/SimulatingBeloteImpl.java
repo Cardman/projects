@@ -210,6 +210,8 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
+        res_.getRes().setGeneral(container.readCoreResource());
+        res_.getRes().setSpecific(container.readResource());
         editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,res_, new BeloteStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);

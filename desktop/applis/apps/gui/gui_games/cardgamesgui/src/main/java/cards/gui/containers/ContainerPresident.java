@@ -11,6 +11,7 @@ import cards.gui.panels.CarpetPresident;
 import cards.main.LaunchingCards;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -280,5 +281,9 @@ public class ContainerPresident extends ContainerGame {
 
     protected void setNbStacks(int _nbStacks) {
         nbStacks = _nbStacks;
+    }
+
+    public String readResource() {
+        return readResource(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER);
     }
 }

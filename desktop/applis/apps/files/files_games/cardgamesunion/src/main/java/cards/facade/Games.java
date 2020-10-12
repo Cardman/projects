@@ -18,6 +18,7 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.format.Format;
+import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -35,8 +36,8 @@ public final class Games {
     private static final String SPACE = " ";
 
     private static final String RETURN_LINE = "\n";
-    private static final String GAME_BELOTE = "cards.belote.gamebelote";
-    private static final String BELOTE_FILE_NAME = Format.getClassProperties(GAME_BELOTE);
+    private static final String PROPERTIES = "properties";
+    private static final String BELOTE_FILE_NAME = "cards/belote/gamebelote."+PROPERTIES;
     private static final String BELOTE_OVER_TRUMP_FOE = "overTrumpFoe";
 
     private static final String BELOTE_OVER_TRUMP_PARTNER = "overTrumpPartner";
@@ -50,8 +51,7 @@ public final class Games {
     private static final String BELOTE_UNDER_TRUMP_FOE = "underTrumpFoe";
 
     private static final String BELOTE_UNDER_TRUMP_PARTNER = "underTrumpPartner";
-    private static final String GAME_PRESIDENT = "cards.president.gamepresident";
-    private static final String PRESIDENT_FILE_NAME = Format.getClassProperties(GAME_PRESIDENT);
+    private static final String PRESIDENT_FILE_NAME = "cards/president/gamepresident."+PROPERTIES;
     private static final String PRESIDENT_SKIPPED = "skipped";
 
     private static final String PRESIDENT_HAVE_PASSED = "havePassed";
@@ -91,8 +91,7 @@ public final class Games {
     private static final String TAROT_TRUMP = "trump";
 
     private static final String TAROT_UNDERTRUMP = "undertrump";
-    private static final String GAME_TAROT = "cards.tarot.gametarot";
-    private static final String TAROT_FILE_NAME = Format.getClassProperties(GAME_TAROT);
+    private static final String TAROT_FILE_NAME = "cards/tarot/gametarot."+PROPERTIES;
     private CustList<GameBelote> partiesBelote = new CustList<GameBelote>();
 
     private CustList<GameTarot> partiesTarot = new CustList<GameTarot>();
@@ -104,6 +103,23 @@ public final class Games {
     private RulesTarot rulesTarot;
 
     private RulesPresident rulesPresident;
+
+    public static String getConstanteLangue(String _dossier, String _fichier, String _loc, String _group , String _nomConstante) {
+        String fichier_ = ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR, _loc,ResourceFiles.SEPARATEUR, _fichier));
+        return Format.getConstanteLangue(Format.concatParts(_group,_nomConstante), fichier_);
+    }
+
+    /**@see getConstante
+    @param _dossier chemin de la suite de dossiers du jar ou se trouve le fichier
+    @param _fichier nom du fichier dans lequel se trouve la constante a chercher
+    @param _nomConstante nom de la constante en rapport avec la chaine de caracteres
+    @param _variables liste de parametres remplacant les expressions comme {0} {1}...
+    @return la chaine de caracteres retournee par la methode getConstante qui est formatte avec _variables*/
+    private static String formatter(String _dossier, String _fichier, String _loc, String _nomConstante, String... _variables){
+        String fichier_ = ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR, _loc,ResourceFiles.SEPARATEUR, _fichier));
+        String constante_ = Format.getConstanteLangue(_nomConstante, fichier_);
+        return StringUtil.simpleStringsFormat(constante_, _variables);
+    }
 
     public boolean enCoursDePartie(){
         return enCoursDePartieBelote() || enCoursDePartieTarot() || enCoursDePartiePresident();
@@ -179,7 +195,7 @@ public final class Games {
     }
     public static StringBuilder autoriseMessEcartDe(GameTarot _g,ReasonDiscard _r,CardTarot _c, String _loc) {
         if(_r == ReasonDiscard.TOO_MUCH) {
-            return new StringBuilder(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_TOO_MANY_CARDS));
+            return new StringBuilder(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_TOO_MANY_CARDS));
         }
         HandTarot m = _g.getDistribution().hand(_g.getPreneur());
         EnumMap<Suit,HandTarot> rep_ = m.couleurs();
@@ -202,24 +218,24 @@ public final class Games {
         StringBuilder m_ = new StringBuilder();
         if (total_ - rois_ - atoutsExcuse_ < nbDog_) {
             if(_c.estUnBout()) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.couleur() == Suit.TRUMP && !_c.estUnBout()) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.getNomFigure() == CardChar.KING) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
             return m_;
         } else {
             if(_c.estUnBout()) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.couleur() == Suit.TRUMP) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.getNomFigure() == CardChar.KING) {
-                m_.append(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
+                m_.append(formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
         }
         return m_;
@@ -231,12 +247,12 @@ public final class Games {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Integer.toString(_hand.total()-nbTrumps_));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Integer.toString(_hand.total()-nbTrumps_));
         }
         if(_hand.total()<nbTrumps_) {
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Integer.toString(nbTrumps_-_hand.total()));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Integer.toString(nbTrumps_-_hand.total()));
         }
-        return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_EXCUSE);
+        return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_EXCUSE);
     }
     public static String autoriseBelote(GameBelote _g,String _loc) {
         HandBelote main_=_g.getDistribution().hand(_g.playerHavingToPlay());
@@ -255,88 +271,88 @@ public final class Games {
             if(couleurAtout_==couleurDemandee_) {
                 //Nombre d'atouts dans la main du joueur
                 if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                    return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                    return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
                 }
                 if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                    return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                    return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
                 }
-                return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
             }
             if(!leadingSuit_.estVide()) {
-                return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
             }
             if(team_.memeEquipe(ramasseurVirtuel_, numero_)) {
                 /*Le partenaire est maitre temporairement*/
                 if(team_.surCoupeObligatoirePartenaire()) {
                     if(team_.sousCoupeObligatoirePartenaire()) {
                         if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                            return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                            return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                         }
                     }
                     if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                        return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                        return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                     }
                     if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                        return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                        return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
                     }
                 }
                 if(team_.sousCoupeObligatoirePartenaire()) {
                     if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                        return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                        return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                     }
                 }
             }
             HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(_g.getBid()),couleurAtout_);
             if(trumpsTrick_.estVide()) {
                 /*PliBelote non coupe*/
-                return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_TRUMP_FOE, toString(carteForte_,_loc));
+                return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_TRUMP_FOE, toString(carteForte_,_loc));
             }
             /*PliBelote coupe par un adversaire*/
             if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_OVER_TRUMP_FOE, toString(couleurAtout_,_loc));
+                return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_OVER_TRUMP_FOE, toString(couleurAtout_,_loc));
             }
             if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
             }
-            return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_FOE, toString(couleurAtout_,_loc));
+            return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_FOE, toString(couleurAtout_,_loc));
         }
         if(_g.getBid().ordreCouleur()) {
-            return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         byte valeurForte_=carteForte_.strength(couleurDemandee_, _g.getBid());
         if(leadingSuit_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_
                 ||leadingSuit_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-            return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
-        return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+        return formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
     }
     public static StringBuilder autorisePresident(GamePresident _g,byte _player, CardPresident _card, byte _nb, String _loc) {
         Playing playing_ = _g.getStatus(_player);
         if (playing_ == Playing.PASS) {
-            return new StringBuilder(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAVE_PASSED));
+            return new StringBuilder(formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAVE_PASSED));
         }
         if (playing_ == Playing.SKIPPED) {
-            return new StringBuilder(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_SKIPPED));
+            return new StringBuilder(formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_SKIPPED));
         }
         HandPresident l_ = _g.getProgressingTrick().getBestCards();
         StringBuilder errorPlaying_ = new StringBuilder();
         byte str_ = l_.premiereCarte().strength(_g.isReversed());
         if (playing_ == Playing.HAS_TO_EQUAL) {
             if (_card.strength(_g.isReversed()) != str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else if (_g.getRules().getEqualty() == EqualtyPlaying.FORBIDDEN) {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME,
+                errorPlaying_.append(formatter(FOLDER, PRESIDENT_FILE_NAME,
                         _loc, PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         }
         if (_nb != _g.getProgressingTrick().getNombreDeCartesParJoueur()) {
-            errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME,
+            errorPlaying_.append(formatter(FOLDER, PRESIDENT_FILE_NAME,
                     _loc, PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS,
                     Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
         }
@@ -345,7 +361,7 @@ public final class Games {
 
     public static String canPassMess(GamePresident _g, String _loc) {
         HandPresident b_ = _g.getProgressingTrick().getBestCards();
-        return Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS,
+        return formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS,
                 toString(b_.premiereCarte(),_loc));
     }
     public static String autoriseTarot(GameTarot _g, String _loc) {
@@ -354,11 +370,11 @@ public final class Games {
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)
                 && !repartition_.getVal(couleurDemandee_).estVide()) {
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         HandTarot atoutsJoues_ = _g.getProgressingTrick().getCartes().couleurs().getVal(Suit.TRUMP);
         if (atoutsJoues_.estVide()) {
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_TRUMP, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_TRUMP, toString(couleurDemandee_,_loc));
         }
         byte nombreDeJoueurs_ = _g.getNombreDeJoueurs();
         byte ramasseurVirtuel_ = _g.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
@@ -367,17 +383,17 @@ public final class Games {
         byte valeurForte_ = carteForte_.strength(couleurDemandee_);
         if (repartition_.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
             if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
-                return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_UNDERTRUMP, toString(couleurDemandee_,_loc));
+                return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_UNDERTRUMP, toString(couleurDemandee_,_loc));
             }
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         if (valeurForte_ < repartition_.getVal(Suit.TRUMP).derniereCarte().strength(couleurDemandee_)) {
             if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
-                return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_OVERTRUMP, toString(couleurDemandee_,_loc));
+                return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_OVERTRUMP, toString(couleurDemandee_,_loc));
             }
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
-        return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_STRONGER_CARD, toString(couleurDemandee_,_loc));
+        return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_STRONGER_CARD, toString(couleurDemandee_,_loc));
     }
 
     public static String toString(HandBelote _b,String _lg) {
@@ -423,15 +439,15 @@ public final class Games {
     public static String getSymbol(CardChar _c,String _loc) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
         String fileName_ = CoreResourcesAccess.SYMBOL_CARDS_TXT;
-        return Format.getConstanteLangue(folderName_, fileName_, _loc, CoreResourcesAccess.CHARS, _c.name());
+        return getConstanteLangue(folderName_, fileName_, _loc, CoreResourcesAccess.CHARS, _c.name());
     }
     public static String toString(CardChar _c,String _loc) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
         String fileName_ = CoreResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _loc, CoreResourcesAccess.CHARS, _c.name());
+        return getConstanteLangue(folderName_,fileName_, _loc, CoreResourcesAccess.CHARS, _c.name());
     }
     public static String toString(BeloteTrumpPartner _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_TRUMP_PART,_b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_TRUMP_PART,_b.name());
     }
     public static String toString(BidBeloteSuit _b, String _loc) {
         StringBuilder pts_ = new StringBuilder();
@@ -447,71 +463,71 @@ public final class Games {
         return pts_.toString();
     }
     public static String toString(BidBelote _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_BID,_b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_BID,_b.name());
     }
     public static String toString(DeclaresBelote _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale,BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale,BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
     }
     public static String toString(CardBelote _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_CARD, _b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_CARD, _b.name());
     }
     public static String toString(DeclaresBeloteRebelote _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, _b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, _b.name());
     }
     public static String toString(BonusBelote _b, String _locale){
-        return Format.getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_BONUS,_b.name());
+        return getConstanteLangue(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER, _locale, BeloteResoucesAccess.BELOTE_BONUS,_b.name());
     }
     public static String toString(CardPresident _b, String _locale){
-        return Format.getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_CARD,_b.name());
+        return getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_CARD,_b.name());
     }
     public static String toString(Playing _b, String _locale){
-        return Format.getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
+        return getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
     }
     public static String toString(EqualtyPlaying _b, String _locale){
-        return Format.getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
+        return getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
     }
     public static String toString(ModeTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_MODE, _b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_MODE, _b.name());
     }
     public static String toString(ChoiceTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_CHOICE, _b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_CHOICE, _b.name());
     }
     public static String toString(BidTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_BID,_b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_BID,_b.name());
     }
     public static String toString(CardTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_CARD,_b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_CARD,_b.name());
     }
     public static String toString(Handfuls _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_HANDFULS,_b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_HANDFULS,_b.name());
     }
     public static String toString(Miseres _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_MISERES, _b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_MISERES, _b.name());
     }
     public static String toString(DealingTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_DEAL, _b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_DEAL, _b.name());
     }
     public static String toString(EndDealTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_END,_b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER, TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_END,_b.name());
     }
     public static String toString(BonusTarot _b, String _locale){
-        return Format.getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_BONUS,_b.name());
+        return getConstanteLangue(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER, _locale, TarotResoucesAccess.TAROT_BONUS,_b.name());
     }
     public static String toString(Suit _b, String _locale) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
         String fileName_ = CoreResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.SUIT, _b.name());
+        return getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.SUIT, _b.name());
     }
 
     public static String toString(Status _b, String _locale) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
         String fileName_ = CoreResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.STATUS,_b.name());
+        return getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.STATUS,_b.name());
     }
     public static String toString(MixCardsChoice _b, String _locale) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
         String fileName_ = CoreResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.MIX,_b.name());
+        return getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.MIX,_b.name());
     }
     public RulesBelote getRulesBelote() {
         return rulesBelote;

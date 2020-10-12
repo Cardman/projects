@@ -5,6 +5,7 @@ import javax.swing.SwingConstants;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
+import cards.belote.enumerations.BeloteResoucesAccess;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
@@ -235,6 +236,9 @@ public class ContainerBelote extends ContainerGame {
     }
     protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
         partieAleatoireJouee = _partieAleatoireJouee;
+    }
+    public String readResource() {
+        return readResource(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER);
     }
 }
 

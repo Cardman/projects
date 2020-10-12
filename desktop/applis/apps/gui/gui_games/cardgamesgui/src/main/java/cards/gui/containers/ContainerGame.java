@@ -3,6 +3,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
+import cards.consts.CoreResourcesAccess;
 import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
@@ -18,6 +19,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.*;
+import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.EnumMap;
 import code.util.*;
@@ -482,5 +484,12 @@ public class ContainerGame implements Containable {
         window.setOwner(_owner);
     }
 
+    public String readCoreResource() {
+        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+    }
+
+    public String readResource(String _dossier, String _fichier) {
+        return ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,_fichier));
+    }
 }
 

@@ -1,5 +1,4 @@
 package code.format;
-import code.resources.ResourceFiles;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -7,22 +6,25 @@ import code.util.core.StringUtil;
 /**Classe gerant l'affichage des constantes enumerees notamment pour l'encodage et le formattage de chaines de caracteres*/
 public final class Format {
 
-    public static final String RETURNE_LINE = "\n";
-    public static final String SEPARATOR = ":";
+    private static final String DOT = ".";
 
-    private static final String PROPERTIES = "properties";
+    private static final String RETURNE_LINE = "\n";
+    private static final String SEPARATOR = ":";
 
     private static final char DOT_CHAR = '.';
 
-    private static final String DOT = ".";
-
     private Format(){}
-    public static String getConstanteLangue(String _dossier,String _fichier, String _loc, String _group ,String _nomConstante) {
-        return getConstanteLangue(_dossier, _fichier, _loc, StringUtil.concat(_group,Format.DOT,_nomConstante));
+
+    public static String getConstanteLangue(String fichier_,String _group ,String _nomConstante) {
+        return getConstanteLangue(concatParts(_group, _nomConstante),fichier_);
     }
-    public static String getConstanteLangue(String _dossier,String _fichier, String _loc,String _nomConstante) {
+
+    public static String concatParts(String _group, String _nomConstante) {
+        return StringUtil.concat(_group,Format.DOT,_nomConstante);
+    }
+
+    public static String getConstanteLangue(String _nomConstante, String fichier_) {
         StringMap<String> constantes_ = new StringMap<String>();
-        String fichier_ = ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR,_loc,ResourceFiles.SEPARATEUR,_fichier));
         for(String line_: StringUtil.splitStrings(fichier_, RETURNE_LINE)){
             if(!line_.contains(SEPARATOR)){
                 continue;
@@ -36,21 +38,6 @@ public final class Format {
             constantes_.put(cle_, valeur_);
         }
         return constantes_.getVal(_nomConstante);
-    }
-
-    /**@see getConstante
-    @param _dossier chemin de la suite de dossiers du jar ou se trouve le fichier
-    @param _fichier nom du fichier dans lequel se trouve la constante a chercher
-    @param _nomConstante nom de la constante en rapport avec la chaine de caracteres
-    @param _variables liste de parametres remplacant les expressions comme {0} {1}...
-    @return la chaine de caracteres retournee par la methode getConstante qui est formatte avec _variables*/
-    public static String formatter(String _dossier,String _fichier, String _loc,String _nomConstante,String... _variables){
-        String constante_ = getConstanteLangue(_dossier,_fichier, _loc,_nomConstante);
-        return StringUtil.simpleStringsFormat(constante_, _variables);
-    }
-
-    public static String getClassProperties(String _class) {
-        return StringUtil.concat(StringUtil.replace(_class, DOT, ResourceFiles.SEPARATEUR),DOT,PROPERTIES);
     }
 
     public static String keepOnlyWordCharsDot(String _string) {

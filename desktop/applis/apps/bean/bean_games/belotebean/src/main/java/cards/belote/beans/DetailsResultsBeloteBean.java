@@ -26,26 +26,26 @@ final class DetailsResultsBeloteBean extends BeloteBean {
             for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
                 SumDeclaringPlayer sumDeclaring_ = new SumDeclaringPlayer();
                 sumDeclaring_.setNickname(getNicknames().get(p));
-                sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p),getLoc()));
+                sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));
                 int sum_ = 0;
                 CustList<DeclaringPlayerValue> listDeclaring_ = new CustList<DeclaringPlayerValue>();
                 if (getGame().getAnnonce(p).getDeclare() != DeclaresBelote.UNDEFINED) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(getGame().getAnnonce(p).getDeclare(),getLoc()));
+                    decl_.setDeclaring(toString(getGame().getAnnonce(p).getDeclare(), res_.getRes().getSpecific()));
                     decl_.setValue(getGame().getAnnonce(p).getDeclare().getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }
                 if (!getGame().getAnnoncesBeloteRebelote(p).estVide()) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,getLoc()));
+                    decl_.setDeclaring(toString(DeclaresBeloteRebelote.BELOTE_REBELOTE, res_.getRes().getSpecific()));
                     decl_.setValue(DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }
                 if (getGame().getDixDeDer(p)) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(BonusBelote.LAST_TRICK,getLoc()));
+                    decl_.setDeclaring(toString(BonusBelote.LAST_TRICK, res_.getRes().getSpecific()));
                     decl_.setValue(BonusBelote.LAST_TRICK.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);

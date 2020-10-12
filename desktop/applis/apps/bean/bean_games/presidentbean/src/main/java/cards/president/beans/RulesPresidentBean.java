@@ -35,10 +35,10 @@ final class RulesPresidentBean extends Bean {
     @Override
     public void beforeDisplaying() {
         RulesPresident rules_ = (RulesPresident) getDataBase();
-        cartesBattues=toString(rules_.getMixedCards(),getLanguage());
+        cartesBattues=toString(rules_.getMixedCards(), rules_.getGeneral());
         nbPlayers = rules_.getNbPlayers();
         nbStacks = rules_.getNbStacks();
-        equalty = toString(rules_.getEqualty(),getLanguage());
+        equalty = toString(rules_.getEqualty(), rules_.getSpecific());
         possibleReversing = rules_.isPossibleReversing();
         hasToPlay = rules_.isHasToPlay();
         loosingIfFinishByBestCards = rules_.isLoosingIfFinishByBestCards();
@@ -51,13 +51,11 @@ final class RulesPresidentBean extends Bean {
             nbCardsPerPlayerMax++;
         }
     }
-    static String toString(MixCardsChoice _b, String _locale) {
-        String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
-        String fileName_ = CoreResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.MIX,_b.name());
+    static String toString(MixCardsChoice _b, String _file) {
+        return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
     }
-    static String toString(EqualtyPlaying _b, String _locale){
-        return Format.getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
+    static String toString(EqualtyPlaying _b, String _file){
+        return Format.getConstanteLangue(_file, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
     }
     boolean sameAmount() {
         return nbCardsPerPlayerMin == nbCardsPerPlayerMax;

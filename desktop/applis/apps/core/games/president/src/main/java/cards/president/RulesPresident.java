@@ -21,6 +21,8 @@ public final class RulesPresident {
     private boolean loosingIfFinishByBestCards = true;
     private boolean switchCards = true;
     private boolean looserStartsFirst = true;
+    private String general="";
+    private String specific="";
 
     public RulesPresident() {
     }
@@ -41,6 +43,8 @@ public final class RulesPresident {
         loosingIfFinishByBestCards = _rules.loosingIfFinishByBestCards;
         switchCards = _rules.switchCards;
         looserStartsFirst = _rules.looserStartsFirst;
+        setSpecific(_rules.getSpecific());
+        setGeneral(_rules.getGeneral());
     }
 
     public boolean isValidRules() {
@@ -210,5 +214,21 @@ public final class RulesPresident {
     public static int getNbMaxStacksPlayers() {
         HandPresident base_ = HandPresident.pileBase();
         return NB_MAX_PLAYERS * NB_MAX_CARDS / base_.total();
+    }
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+    public String getSpecific() {
+        return specific;
+    }
+
+    public void setSpecific(String specific) {
+        this.specific = specific;
     }
 }
