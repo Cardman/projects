@@ -15,14 +15,14 @@ public final class StreamCoreUtil {
         try {
             _close.close();
             return true;
-        } catch (IOException exception) {
+        } catch (IOException e) {
             return false;
         }
     }
     public static int read(BufferedReader _br) {
         try {
             return _br.read();
-        } catch (IOException exception) {
+        } catch (IOException e) {
             return -2;
         }
     }

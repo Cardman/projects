@@ -303,7 +303,9 @@ public final class DefaultBeanAliases {
                 .append(addEntry_).append("(").append(string_).append(" ")
                 .append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(",").append(object_)
                 .append(" ").append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append("){");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
+        String keysLoc_ = tr("keys", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
+        String valuesLoc_ = tr("values", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
+        file_.append(string_).append("[] ").append(keysLoc_).append("=").append(new_)
                 .append(" ").append(string_).append("[").append(this_)
                 .append(".").append(keys_).append(".").append(length_)
                 .append("+1]").append(endLine_);
@@ -313,27 +315,27 @@ public final class DefaultBeanAliases {
                 .append(this_).append(".")
                 .append(keys_).append(".").append(length_).append(endLine_)
                 .append(iAddEntry_).append("++){");
-        file_.append(keys_).append("[").append(iAddEntry_)
+        file_.append(keysLoc_).append("[").append(iAddEntry_)
                 .append("]=").append(this_).append(".").append(keys_).append("[")
                 .append(iAddEntry_).append("]").append(endLine_);
         file_.append("}");
-        file_.append(keys_).append("[").append(this_).append(".").append(keys_)
+        file_.append(keysLoc_).append("[").append(this_).append(".").append(keys_)
                 .append(".").append(length_).append("]=").append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(endLine_);
-        file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
+        file_.append(this_).append(".").append(keys_).append("=").append(keysLoc_).append(endLine_);
+        file_.append(object_).append("[] ").append(valuesLoc_).append("=").append(new_).append(" ")
                 .append(object_).append("[").append(this_).append(".").append(values_).append(".")
                 .append(length_).append("+1]").append(endLine_);
         file_.append(for_).append("(").append(int_).append(" ").append(iAddEntry_)
                 .append("=0").append(endLine_).append(iAddEntry_).append("<")
                 .append(this_).append(".").append(values_).append(".").append(length_).append(endLine_)
                 .append(iAddEntry_).append("++){");
-        file_.append(values_).append("[").append(iAddEntry_)
+        file_.append(valuesLoc_).append("[").append(iAddEntry_)
                 .append("]=").append(this_).append(".").append(values_).append("[")
                 .append(iAddEntry_).append("]").append(endLine_);
         file_.append("}");
-        file_.append(values_).append("[").append(this_).append(".").append(values_)
+        file_.append(valuesLoc_).append("[").append(this_).append(".").append(values_)
                 .append(".").append(length_).append("]=").append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(values_)
+        file_.append(this_).append(".").append(values_).append("=").append(valuesLoc_)
                 .append(endLine_);
         file_.append("}");
 
@@ -369,6 +371,8 @@ public final class DefaultBeanAliases {
                 .append("])").append(endLine_);
         file_.append("}");
         file_.append("}");
+        keysLoc_ = tr("keys", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
+        valuesLoc_ = tr("values", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
         file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_)
                 .append("(").append(string_).append(" ").append(beanAliasParameters.getAliasStringMapObject0RemoveKey0()).append("){");
         String indexRemoveKey_ = tr("index", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
@@ -378,7 +382,7 @@ public final class DefaultBeanAliases {
         file_.append(if_).append("(").append(indexRemoveKey_).append("==-1){");
         file_.append(return_).append(endLine_);
         file_.append("}");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
+        file_.append(string_).append("[] ").append(keysLoc_).append("=").append(new_)
                 .append(" ").append(string_).append("[").append(this_).append(".").append(keys_)
                 .append(".").append(length_).append("-1]").append(endLine_);
         String iRemoveKey_ = tr("i", _keyWords, primitiveTypes_, coreNames_);
@@ -387,7 +391,7 @@ public final class DefaultBeanAliases {
                 .append("<").append(indexRemoveKey_)
                 .append(endLine_).append(iRemoveKey_)
                 .append("++){");
-        file_.append(keys_).append("[").append(iRemoveKey_).append("]=")
+        file_.append(keysLoc_).append("[").append(iRemoveKey_).append("]=")
                 .append(this_).append(".").append(keys_).append("[").append(iRemoveKey_)
                 .append("]").append(endLine_);
         file_.append("}");
@@ -396,13 +400,13 @@ public final class DefaultBeanAliases {
                 .append(iRemoveKey_).append("<").append(this_).append(".")
                 .append(keys_).append(".").append(length_).append(endLine_)
                 .append(iRemoveKey_).append("++){");
-        file_.append(keys_).append("[").append(iRemoveKey_).append("-1]=").append(this_)
+        file_.append(keysLoc_).append("[").append(iRemoveKey_).append("-1]=").append(this_)
                 .append(".").append(keys_).append("[").append(iRemoveKey_).append("]")
                 .append(endLine_);
         file_.append("}");
-        file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
+        file_.append(this_).append(".").append(keys_).append("=").append(keysLoc_).append(endLine_);
 
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
+        file_.append(object_).append("[] ").append(valuesLoc_).append("=").append(new_).append(" ")
                 .append(object_).append("[").append(this_).append(".")
                 .append(values_).append(".").append(length_).append("-1]")
                 .append(endLine_);
@@ -411,7 +415,7 @@ public final class DefaultBeanAliases {
                 .append("<").append(indexRemoveKey_)
                 .append(endLine_).append(iRemoveKey_)
                 .append("++){");
-        file_.append(values_).append("[").append(iRemoveKey_).append("]=")
+        file_.append(valuesLoc_).append("[").append(iRemoveKey_).append("]=")
                 .append(this_).append(".").append(values_).append("[").append(iRemoveKey_)
                 .append("]").append(endLine_);
         file_.append("}");
@@ -419,11 +423,11 @@ public final class DefaultBeanAliases {
                 .append("=").append(indexRemoveKey_).append("+1").append(endLine_)
                 .append(iRemoveKey_).append("<").append(this_).append(".").append(values_)
                 .append(".").append(length_).append(endLine_).append(iRemoveKey_).append("++){");
-        file_.append(values_).append("[").append(iRemoveKey_).append("-1]=")
+        file_.append(valuesLoc_).append("[").append(iRemoveKey_).append("-1]=")
                 .append(this_).append(".").append(values_).append("[").append(iRemoveKey_)
                 .append("]").append(endLine_);
         file_.append("}");
-        file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
+        file_.append(this_).append(".").append(values_).append("=").append(valuesLoc_).append(endLine_);
         file_.append("}");
         file_.append("}");
         files_.put(getAliasStringMapObject(), file_.toString());
