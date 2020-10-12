@@ -34,37 +34,6 @@ public class LaunchingCards extends SoftApplicationCore {
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
         increment();
-        installer();
-        TopLeftFrame coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
-        CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_));
-    }
-
-    protected static void loadLaungage(String[] _args) {
-        //loadLaungage(_args, _icon_);
-//        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingCards(), _args, null));
-    }
-
-    public static void increment() {
-        COUNT.incrementAndGet();
-    }
-
-    public static void decrement() {
-        COUNT.decrementAndGet();
-    }
-
-    public static boolean alreadyLaunched() {
-        return COUNT.get() > 0;
-    }
-
-    public static BufferedImage getIcon() {
-        return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
-    }
-
-    /**
-    jouees pendant le fonctionnement du logiciel*/
-    private static void installer() {
-
         File f;
         f=new File(StringUtil.concat(getTempFolderSl(),FileConst.DECK_FOLDER));
         f.mkdirs();
@@ -95,6 +64,30 @@ public class LaunchingCards extends SoftApplicationCore {
             }
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN));
         }
+        TopLeftFrame coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
+        CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_));
+    }
+
+    protected static void loadLaungage(String[] _args) {
+        //loadLaungage(_args, _icon_);
+//        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
+        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingCards(), _args, null));
+    }
+
+    public static void increment() {
+        COUNT.incrementAndGet();
+    }
+
+    public static void decrement() {
+        COUNT.decrementAndGet();
+    }
+
+    public static boolean alreadyLaunched() {
+        return COUNT.get() > 0;
+    }
+
+    public static BufferedImage getIcon() {
+        return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
     }
 
     @Override

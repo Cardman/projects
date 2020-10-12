@@ -2790,19 +2790,19 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
         setupAnalyzing(context_);
-        Delimiters d_1 = checkDel(s, 2, context_);
-        assertTrue(d_1.getBadOffset() < 0);
-        int beg_1 = d_1.getIndexBegin();
-        int end_1 = d_1.getIndexEnd();
-        analyzingDoc_.setNextIndex(end_1 +2);
-        String el_1 = s.substring(beg_1, end_1 +1);
-        OperationsSequence opTwo_1 = rendOpSeq(context_, d_1, el_1, 2);
-        OperationNode op_1 = rendOp(context_, analyzingDoc_, opTwo_1);
-        CustList<OperationNode> all_1 = getSortedDescNodes(context_, op_1);
-        CustList<RendDynOperationNode> out_1 = getExecutableNodes(context_, all_1);
+        Delimiters d1_ = checkDel(s, 2, context_);
+        assertTrue(d1_.getBadOffset() < 0);
+        int beg1_ = d1_.getIndexBegin();
+        int end1_ = d1_.getIndexEnd();
+        analyzingDoc_.setNextIndex(end1_ +2);
+        String el1_ = s.substring(beg1_, end1_ +1);
+        OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
+        OperationNode op1_ = rendOp(context_, analyzingDoc_, opTwo1_);
+        CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
+        CustList<RendDynOperationNode> out1_ = getExecutableNodes(context_, all1_);
         assertTrue(isEmptyErrors(context_));
-        out_1 = CommonRender.getReducedNodes(out_1.last());
-        caculateReuse(context_, out_1);
+        out1_ = CommonRender.getReducedNodes(out1_.last());
+        caculateReuse(context_, out1_);
         assertNull(getException(context_));
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(s, i, context_);
@@ -2817,9 +2817,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
-        Argument arg_1 = caculateReuse(context_, out_);
+        Argument arg_ = caculateReuse(context_, out_);
         assertNull(getException(context_));
-        Argument arg_ = arg_1;
         assertEq(i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -2850,9 +2849,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
-        Argument arg_1 = caculateReuse(context_, out_);
+        Argument arg_ = caculateReuse(context_, out_);
         assertNull(getException(context_));
-        Argument arg_ = arg_1;
         assertEq(i, analyzingDoc_.getNextIndex());
         return arg_;
     }

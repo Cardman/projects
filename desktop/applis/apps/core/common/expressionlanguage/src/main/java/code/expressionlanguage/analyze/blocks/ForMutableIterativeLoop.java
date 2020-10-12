@@ -183,16 +183,14 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
             checkBoolCondition(rootExp, _page);
         }
-        MemberCallingsBlock f_1 = _page.getCurrentFct();
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
         _page.setOffset(0);
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
-        MethodAccessKind static_1 = f_1.getStaticContext();
         if (!step.trim().isEmpty()) {
-            rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_1), _page);
+            rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
         }
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);

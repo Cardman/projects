@@ -37,7 +37,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             a_.setObject(o_);
         }
         setArgument(a_);
-        return;
     }
 
     @Override

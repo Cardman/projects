@@ -4,7 +4,7 @@ import code.util.Ints;
 import code.util.*;
 import code.util.StringList;
 
-public class Delimiters {
+public final class Delimiters {
 
     private Ints allowedOperatorsIndexes = new Ints();
     private Ints delStringsChars = new Ints();

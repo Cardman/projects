@@ -22,7 +22,7 @@
             <property name="format" value="^_[a-z][A-Za-z0-9]*$" />
         </module>
         <module name="MethodName">
-            <property name="format" value="^[a-z]\w+$" />
+            <property name="format" value="^[a-z][A-Za-z0-9]+$" />
         </module>
         <module name="MemberName">
             <property name="format" value="^[a-z][A-Za-z0-9]+$" />

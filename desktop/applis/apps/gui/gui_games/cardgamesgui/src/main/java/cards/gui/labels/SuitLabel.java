@@ -44,7 +44,9 @@ public class SuitLabel extends PaintableLabel {
     public void setSelected(BidBeloteSuit _bid) {
         if (bid.getCouleur() != _bid.getCouleur()) {
             selected = false;
-        } else selected = bid.getEnchere() == _bid.getEnchere();
+        } else {
+            selected = bid.getEnchere() == _bid.getEnchere();
+        }
     }
 
     @Override

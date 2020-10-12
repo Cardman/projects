@@ -30,9 +30,7 @@ public final class MainWindow extends GroupFrame {
 
     private static final String SELECT = "select";
 
-    private Cursor DEFAULT_CURSOR1 = Cursor.getDefaultCursor();
-
-    private Cursor currentCursor = DEFAULT_CURSOR1;
+    private Cursor currentCursor = Cursor.getDefaultCursor();
 
     private PlainButton animate = new PlainButton("Animate");
 

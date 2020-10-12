@@ -5133,9 +5133,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean hasNot(StringMap<String> files_) {
-        AnalyzedTestContext cont_1 = ctxAna();
-        validateWithoutInit(files_, cont_1);
-        AnalyzedTestContext cont_ = cont_1;
+        AnalyzedTestContext cont_ = ctxAna();
+        validateWithoutInit(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         forwardAndClear(cont_);
         return isEmptyErrors(cont_);

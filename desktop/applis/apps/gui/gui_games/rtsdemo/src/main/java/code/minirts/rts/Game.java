@@ -31,8 +31,8 @@ public final class Game {
             if (!d_.isMoving()) {
                 continue;
             }
-            int curX_ = u_.getX();
-            int curY_ = u_.getY();
+            int curX_ = u_.getLocx();
+            int curY_ = u_.getLocy();
             int nextX_ = curX_ + d_.getDx();
             int nextY_ = curY_ + d_.getDy();
             if (!isEmpty(u.getKey(), nextX_, nextY_, d_, _data)) {
@@ -43,8 +43,8 @@ public final class Game {
     }
 
     public Delta getDelta(Soldier _u) {
-        int curX_ = _u.getX();
-        int curY_ = _u.getY();
+        int curX_ = _u.getLocx();
+        int curY_ = _u.getLocy();
         int deltax_ = 0;
         int deltay_ = 0;
         int destX_ = _u.getDestx();
@@ -105,20 +105,20 @@ public final class Game {
         }
         added = true;
         Soldier soldierLabel_ = new Soldier();
-        soldierLabel_.setX(_x);
+        soldierLabel_.setLocx(_x);
         soldierLabel_.setDestx(_x);
-        soldierLabel_.setY(_y);
+        soldierLabel_.setLocy(_y);
         soldierLabel_.setDesty(_y);
         soldiers.put(new UnitMapKey(_x, _y,_next),soldierLabel_);
     }
 
     public boolean isEmpty(UnitMapKey _this, int _x, int _y, Delta _d, DataBase _data) {
         Soldier this_ = soldiers.getVal(_this);
-        int xThisLeftTop_ = this_.getX();
-        int yThisLeftTop_ = this_.getY();
+        int xThisLeftTop_ = this_.getLocx();
+        int yThisLeftTop_ = this_.getLocy();
         SoldierPattern s_ = _data.getSoldierPattern();
-//        int xThisRightBottom_ = this_.getX() + s_.getWidth();
-//        int yThisRightBottom_ = this_.getY() + s_.getHeight();
+//        int xThisRightBottom_ = this_.getLocx() + s_.getWidth();
+//        int yThisRightBottom_ = this_.getLocy() + s_.getHeight();
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //        int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //        Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
@@ -156,11 +156,11 @@ public final class Game {
 
     boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, DataBase _data) {
         //Polygon
-        int xULeftTop_ = _u.getX();
-        int yULeftTop_ = _u.getY();
+        int xULeftTop_ = _u.getLocx();
+        int yULeftTop_ = _u.getLocy();
         SoldierPattern s_ = _data.getSoldierPattern();
-        int xURightBottom_ = _u.getX() + s_.getWidth();
-        int yURightBottom_ = _u.getY() + s_.getHeight();
+        int xURightBottom_ = _u.getLocx() + s_.getWidth();
+        int yURightBottom_ = _u.getLocy() + s_.getHeight();
         if (_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yULeftTop_ - _d.getDy()))) {
             return false;
         }
@@ -170,10 +170,7 @@ public final class Game {
         if (_p.containsInside(new CustPoint(xURightBottom_ - _d.getDx(), yURightBottom_ - _d.getDy()))) {
             return false;
         }
-        if (_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yURightBottom_ - _d.getDy()))) {
-            return false;
-        }
-        return true;
+        return !_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yURightBottom_ - _d.getDy()));
     }
 
     public void selectOrDeselect(CustPoint _first, CustPoint _last, DataBase _data) {
@@ -189,8 +186,8 @@ public final class Game {
 //        for (Entry<UnitMapKey,Soldier> u: soldiers.entryList()) {
 //            Soldier u_ = u.getValue();
 //            boolean select_ = true;
-//            int x_ = u_.getX();
-//            int y_ = u_.getY();
+//            int x_ = u_.getLocx();
+//            int y_ = u_.getLocy();
 //            int endx_ = x_ + s_.getWidth();
 //            int endy_ = y_ + s_.getHeight();
 //            if (_x < x_) {
@@ -218,8 +215,8 @@ public final class Game {
     }
 
     public static void moveSoldier(Soldier _u, int _x, int _y) {
-        _u.setX(_x);
-        _u.setY(_y);
+        _u.setLocx(_x);
+        _u.setLocy(_y);
     }
 
     public void selectOrDeselectMany(DataBase _data) {
@@ -227,10 +224,10 @@ public final class Game {
         Rect rect_ = getSelection();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
-            int xThisLeftTop_ = u_.getX();
-            int yThisLeftTop_ = u_.getY();
-//            int xThisRightBottom_ = u_.getX() +s_.getWidth();
-//            int yThisRightBottom_ = u_.getY() + s_.getHeight();
+            int xThisLeftTop_ = u_.getLocx();
+            int yThisLeftTop_ = u_.getLocy();
+//            int xThisRightBottom_ = u_.getLocx() +s_.getWidth();
+//            int yThisRightBottom_ = u_.getLocy() + s_.getHeight();
 //            int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //            int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //            Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
@@ -362,10 +359,10 @@ public final class Game {
         EqList<UnitMapKey> l_ = new EqList<UnitMapKey>();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
-            int xThisLeftTop_ = u_.getX();
-            int yThisLeftTop_ = u_.getY();
-//            int xThisRightBottom_ = u_.getX() +s_.getWidth();
-//            int yThisRightBottom_ = u_.getY() + s_.getHeight();
+            int xThisLeftTop_ = u_.getLocx();
+            int yThisLeftTop_ = u_.getLocy();
+//            int xThisRightBottom_ = u_.getLocx() +s_.getWidth();
+//            int yThisRightBottom_ = u_.getLocy() + s_.getHeight();
 //            int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //            int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //            Polygon pThis_ = new Polygon(xThis_, yThis_, 4);

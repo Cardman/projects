@@ -1,7 +1,4 @@
 package cards.network.threads;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import cards.facade.Games;
@@ -23,32 +20,32 @@ public final class Net {
 
     private static final Net INSTANCE = new Net();
 
-    private int _nbPlayers_;
+    private int nbPlayers;
 
-    private boolean _progressingGame_;
+    private boolean progressingGame;
 
     /**A useful facade for games*/
 
-    private Games _games_ = new Games();
+    private Games games = new Games();
 
 
-    private IntMap<Socket> _sockets_=new IntMap<Socket>();
+    private IntMap<Socket> sockets =new IntMap<Socket>();
 
-    private IntTreeMap< Byte> _placesPlayers_ = new IntTreeMap< Byte>();
+    private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
 
-    private IntMap<Boolean> _readyPlayers_ = new IntMap<Boolean>();
+    private IntMap<Boolean> readyPlayers = new IntMap<Boolean>();
 
 
-    private IntMap<String> _nicknames_=new IntMap<String>();
+    private IntMap<String> nicknames =new IntMap<String>();
 
-    private IntMap<SendReceiveServer> _connectionsServer_=new IntMap<SendReceiveServer>();
+    private IntMap<SendReceiveServer> connectionsServer =new IntMap<SendReceiveServer>();
 
-    private IntMap<String> _playersLocales_ = new IntMap<String>();
+    private IntMap<String> playersLocales = new IntMap<String>();
 
-    private CustList<Longs> _scores_ = new CustList<Longs>();
+    private CustList<Longs> scores = new CustList<Longs>();
 
-    private ByteMap<Boolean> _activePlayers_;
-    private ByteMap<Boolean> _received_;
+    private ByteMap<Boolean> activePlayers;
+    private ByteMap<Boolean> received;
 
     private Net() {
     }
@@ -107,21 +104,21 @@ public final class Net {
     }
     /**server*/
     static void initAllPresent() {
-        INSTANCE._activePlayers_ = new ByteMap<Boolean>();
+        INSTANCE.activePlayers = new ByteMap<Boolean>();
         for (byte r: Net.getPlacesPlayers().values()) {
-            INSTANCE._activePlayers_.put(r, true);
+            INSTANCE.activePlayers.put(r, true);
         }
     }
     /**server*/
     static void initAllReceived() {
-        if (INSTANCE._received_ == null) {
-            INSTANCE._received_ = new ByteMap<Boolean>();
+        if (INSTANCE.received == null) {
+            INSTANCE.received = new ByteMap<Boolean>();
         }
         for (byte r: Net.getPlacesPlayers().values()) {
-            if (INSTANCE._activePlayers_.getVal(r)) {
-                INSTANCE._received_.put(r, false);
+            if (INSTANCE.activePlayers.getVal(r)) {
+                INSTANCE.received.put(r, false);
             } else {
-                INSTANCE._received_.put(r, true);
+                INSTANCE.received.put(r, true);
             }
         }
     }
@@ -129,27 +126,27 @@ public final class Net {
     //bk: synchronized
     /**server*/
     static void quit(byte _p) {
-        if (INSTANCE._activePlayers_ == null) {
+        if (INSTANCE.activePlayers == null) {
             return;
         }
-        INSTANCE._activePlayers_.put(_p, false);
-        INSTANCE._received_.put(_p,true);
+        INSTANCE.activePlayers.put(_p, false);
+        INSTANCE.received.put(_p,true);
     }
     //bk: synchronized
     /**server*/
     static void setReceivedForPlayer(byte _p) {
-        INSTANCE._received_.put(_p,true);
+        INSTANCE.received.put(_p,true);
     }
 
     //bk: synchronized
     /**server*/
     static boolean allReceivedAmong(Bytes _players) {
         boolean allReceived_ = true;
-        for (byte p: INSTANCE._received_.getKeys()) {
+        for (byte p: INSTANCE.received.getKeys()) {
             if (!_players.containsObj(p)) {
                 continue;
             }
-            if (INSTANCE._received_.getVal(p)) {
+            if (INSTANCE.received.getVal(p)) {
                 continue;
             }
             allReceived_ = false;
@@ -160,7 +157,7 @@ public final class Net {
 
     static boolean allReceived() {
         boolean allReceived_ = true;
-        for (boolean r: INSTANCE._received_.values()) {
+        for (boolean r: INSTANCE.received.values()) {
             if (r) {
                 continue;
             }
@@ -179,7 +176,7 @@ public final class Net {
     bk: synchronized, called from mouse events or server loop
     @return the connected players*/
     static Bytes activePlayers() {
-        if (INSTANCE._activePlayers_ == null) {
+        if (INSTANCE.activePlayers == null) {
             Bytes activePlayers_ = new Bytes();
             for (byte i: getPlacesPlayers().values()) {
                 activePlayers_.add(i);
@@ -188,7 +185,7 @@ public final class Net {
         }
         Bytes activePlayers_ = new Bytes();
         for (byte i: getPlacesPlayers().values()) {
-            if (!INSTANCE._activePlayers_.getVal(i)) {
+            if (!INSTANCE.activePlayers.getVal(i)) {
                 continue;
             }
             activePlayers_.add(i);
@@ -200,7 +197,7 @@ public final class Net {
     @param _place the place of a bot or a player
     @return true &hArr; if the <i>_place</i> match with a currently connected player*/
     static boolean isHumanPlayer(byte _place) {
-        return !getPlacesPlayersByValue(_place).isEmpty() && INSTANCE._activePlayers_.getVal(_place);
+        return !getPlacesPlayersByValue(_place).isEmpty() && INSTANCE.activePlayers.getVal(_place);
     }
     /**server
     @param _place the place of a player around the table
@@ -260,53 +257,53 @@ public final class Net {
 
     /**server*/
     public static IntMap<SendReceiveServer> getConnectionsServer() {
-        return INSTANCE._connectionsServer_;
+        return INSTANCE.connectionsServer;
     }
 
     /**server*/
     public static Games getGames() {
-        return INSTANCE._games_;
+        return INSTANCE.games;
     }
 
     /**server (delegating)*/
     public static void setGames(Games _games) {
-        INSTANCE._games_ = _games;
+        INSTANCE.games = _games;
     }
 
     /**server*/
     public static int getNbPlayers() {
-        return INSTANCE._nbPlayers_;
+        return INSTANCE.nbPlayers;
     }
 
     /**server*/
     public static void setNbPlayers(int _nbPlayers) {
-        INSTANCE._nbPlayers_ = _nbPlayers;
+        INSTANCE.nbPlayers = _nbPlayers;
     }
 
     /**server*/
     public static IntMap<String> getNicknames() {
-        return INSTANCE._nicknames_;
+        return INSTANCE.nicknames;
     }
 
     /**server*/
     public static IntMap<Socket> getSockets() {
-        return INSTANCE._sockets_;
+        return INSTANCE.sockets;
     }
 
     /**server*/
     public static IntMap<Boolean> getReadyPlayers() {
-        return INSTANCE._readyPlayers_;
+        return INSTANCE.readyPlayers;
     }
 
     /**server*/
     public static IntTreeMap< Byte> getPlacesPlayers() {
-        return INSTANCE._placesPlayers_;
+        return INSTANCE.placesPlayers;
     }
     /**server*/
     public static Ints getPlacesPlayersByValue(byte _value) {
         Ints l_;
         l_ = new Ints();
-        for (EntryCust<Integer, Byte> e: INSTANCE._placesPlayers_.entryList()) {
+        for (EntryCust<Integer, Byte> e: INSTANCE.placesPlayers.entryList()) {
             if (e.getValue() != _value) {
                 continue;
             }
@@ -317,21 +314,21 @@ public final class Net {
 
     /**server and client (delegating)*/
     public static boolean isProgressingGame() {
-        return INSTANCE._progressingGame_;
+        return INSTANCE.progressingGame;
     }
 
     /**server*/
     public static void setProgressingGame(boolean _progressingGame) {
-        INSTANCE._progressingGame_ = _progressingGame;
+        INSTANCE.progressingGame = _progressingGame;
     }
 
     /**server*/
     public static CustList<Longs> getScores() {
-        return INSTANCE._scores_;
+        return INSTANCE.scores;
     }
 
     /**server*/
     public static IntMap<String> getPlayersLocales() {
-        return INSTANCE._playersLocales_;
+        return INSTANCE.playersLocales;
     }
 }

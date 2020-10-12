@@ -572,11 +572,11 @@ public abstract class CommonRender {
         return res_;
     }
 
-    private static CustList<RendDynOperationNode> buildExecPart(AnalyzedTestConfiguration a_, String _bean_one) {
+    private static CustList<RendDynOperationNode> buildExecPart(AnalyzedTestConfiguration a_, String _bean) {
         CustList<RendDynOperationNode> ops2_ = new CustList<RendDynOperationNode>();
         int i_ = 0;
         for (EntryCust<String,BeanInfo> e: a_.getConfiguration().getBeansInfos().entryList()) {
-            if (StringUtil.quickEq(e.getKey(),_bean_one)) {
+            if (StringUtil.quickEq(e.getKey(),_bean)) {
                 BeanInfo b_ = e.getValue();
                 ops2_ = RendForwardInfos.getExecutableNodes(a_.getAnalyzingDoc().getBeansInfos().getKey(i_), a_.getForwards());
                 b_.setExps(ops2_);
@@ -1288,11 +1288,11 @@ public abstract class CommonRender {
         return d_;
     }
 
-    private static void newBeanInfo(AnalyzedTestConfiguration a_, String className, String bean_two) {
+    private static void newBeanInfo(AnalyzedTestConfiguration a_, String className, String _bean) {
         BeanInfo b2_ = new BeanInfo();
         b2_.setClassName(className);
         b2_.setResolvedClassName(className);
-        a_.getConfiguration().getBeansInfos().addEntry(bean_two, b2_);
+        a_.getConfiguration().getBeansInfos().addEntry(_bean, b2_);
         OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations("$new "+className+"()", 0, a_.getAnalyzingDoc(), a_.getAnalyzing());
         a_.getAnalyzingDoc().getBeansInfos().addEntry(root_,b2_);
     }

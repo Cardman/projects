@@ -90,7 +90,7 @@ public final class AnimationUnitSoldier implements Runnable {
         for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
             Soldier s_ = f_.getSoldier(u);
             UnitSoldier u_ = battleground.getSoldierLabel(u);
-            PanelBattle.setSoldierLocation(u_, s_.getX(), s_.getY());
+            PanelBattle.setSoldierLocation(u_, s_.getLocx(), s_.getLocy());
         }
         if (!window.isDragged()) {
             battleground.setPaintSelection(false);

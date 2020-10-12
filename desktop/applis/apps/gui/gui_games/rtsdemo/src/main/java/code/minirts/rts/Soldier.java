@@ -2,9 +2,9 @@ package code.minirts.rts;
 
 public final class Soldier {
 
-    private int x;
+    private int locx;
 
-    private int y;
+    private int locy;
 
     private int destx;
 
@@ -12,20 +12,20 @@ public final class Soldier {
 
     private boolean selected;
 
-    public int getX() {
-        return x;
+    public int getLocx() {
+        return locx;
     }
 
-    public void setX(int _x) {
-        x = _x;
+    public void setLocx(int _x) {
+        locx = _x;
     }
 
-    public int getY() {
-        return y;
+    public int getLocy() {
+        return locy;
     }
 
-    public void setY(int _y) {
-        y = _y;
+    public void setLocy(int _y) {
+        locy = _y;
     }
 
     public int getDestx() {

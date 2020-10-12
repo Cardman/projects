@@ -423,7 +423,7 @@ public final class InitializationLgNames {
     }
 
     private static AnalyzedTestContext buildDefKwAna(String _lang,
-                                                     Options _options, LgNames _undefinedLgNames, int _tabWidth, AbstractConstantsCalculator çcalculator) {
+                                                     Options _options, LgNames _undefinedLgNames, int _tabWidth, AbstractConstantsCalculator _calculator) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWordsMap km_ = new KeyWordsMap();
         KeyWords kwl_ = km_.getKeyWords(_lang);
@@ -434,7 +434,7 @@ public final class InitializationLgNames {
         }
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), çcalculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
+        ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
         _undefinedLgNames.build();
         ValidatorStandard.setupOverrides(page_);
         return new AnalyzedTestContext(contextEl_,page_, new Forwards());

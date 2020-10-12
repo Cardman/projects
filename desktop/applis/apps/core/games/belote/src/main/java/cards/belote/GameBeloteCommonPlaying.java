@@ -8,8 +8,6 @@ import cards.consts.Suit;
 import code.util.*;
 import code.util.core.IndexConstants;
 
-import static cards.belote.GameBeloteCommon.suite;
-
 public final class GameBeloteCommonPlaying {
     private GameBeloteTrickInfo doneTrickInfo;
     private GameBeloteTeamsRelation teamsRelation;
@@ -42,7 +40,7 @@ public final class GameBeloteCommonPlaying {
         byte ramasseurVirtuel_ = prog_.getRamasseurPliEnCours(nbPlayers_, bid);
         EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, bid);
 
-        boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,suite(suitesTouteCouleur_,bid.getCouleur()),repartitionCartesJouees_);
+        boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,GameBeloteCommon.suite(suitesTouteCouleur_,bid.getCouleur()),repartitionCartesJouees_);
         EnumList<Suit> couleursMaitresses_ = couleursMaitres(
                 bid, suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_,nextPlayer_);
         EnumMap<Suit,HandBelote> cartesMaitresses_ = GameBeloteCommon.cartesMaitresses(
@@ -305,7 +303,7 @@ public final class GameBeloteCommonPlaying {
                 for(Suit couleur_:GameBeloteCommon.couleurs()) {
                     if(completelyPlayedSuit(_cartesJouees, couleur_)) {
                         couleurs_.add(couleur_);
-                    } else if(!suite(_suites,couleur_).isEmpty()) {
+                    } else if(!GameBeloteCommon.suite(_suites,couleur_).isEmpty()) {
                         int maitres_ = getNbLeadingTrumpCards(_bid, _suites,
                                 _cartesJouees, couleur_);
                         addSuit(_suites, _cartesPossibles, _numero, couleurs_, couleur_, maitres_);
@@ -325,7 +323,7 @@ public final class GameBeloteCommonPlaying {
                                       byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
         if(completelyPlayedSuit(_cartesJouees, _couleur)) {
             _couleurs.add(_couleur);
-        } else if(!suite(_suites, _couleur).isEmpty()) {
+        } else if(!GameBeloteCommon.suite(_suites, _couleur).isEmpty()) {
             int maitres_ = getNbLeadingSuitCards(_bid, _suites, _cartesJouees,
                     _couleur);
             addSuit(_suites, _cartesPossibles, _numero, _couleurs, _couleur, maitres_);
@@ -337,7 +335,7 @@ public final class GameBeloteCommonPlaying {
                                 EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles,
                 _numero, _couleur);
-        if(_maitres >=max_|| _maitres > IndexConstants.SIZE_EMPTY&&suite(_suites, _couleur).size()== IndexConstants.ONE_ELEMENT) {
+        if(_maitres >=max_|| _maitres > IndexConstants.SIZE_EMPTY&&GameBeloteCommon.suite(_suites, _couleur).size()== IndexConstants.ONE_ELEMENT) {
             _couleurs.add(_couleur);
         }
     }

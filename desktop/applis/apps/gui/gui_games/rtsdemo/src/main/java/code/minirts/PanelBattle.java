@@ -10,7 +10,6 @@ import code.minirts.rts.*;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -76,7 +75,7 @@ public class PanelBattle {
             int w_ = u_.getWidth();
             int h_ = u_.getHeight();
             Soldier soldier_ = u_.getSoldier();
-            Rect loc_ = new Rect(soldier_.getX(),soldier_.getY(),w_,h_);
+            Rect loc_ = new Rect(soldier_.getLocx(),soldier_.getLocy(),w_,h_);
             if (!gl_.intersects(loc_)) {
                 continue;
             }

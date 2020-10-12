@@ -2791,8 +2791,7 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
-                StringMap<StringMap<Struct>> staticFields_1 = _page.getStaticFields();
-                Struct value_ = Classes.getStaticField(k_, staticFields_1);
+                Struct value_ = Classes.getStaticField(k_, _page.getStaticFields());
                 if (value_ != null) {
                     continue;
                 }
@@ -2800,8 +2799,7 @@ public final class ClassesUtil {
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ReachOperationUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
-                StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
-                value_ = Classes.getStaticField(k_, staticFields_);
+                value_ = Classes.getStaticField(k_, _page.getStaticFields());
                 if (value_ != null) {
                     calculatedValue_ = true;
                     break;
